@@ -1,6 +1,6 @@
-# lin.vim : Lin Rongbin's (Neo)vim Distribution
+# lin.nvim : Lin Rongbin's Neovim Distribution
 
-lin.vim is a highly configured [vim](https://www.vim.org/)/[neovim](https://neovim.io/) distribution integrated tons of utilities for development, inspired by [spf13-vim](https://github.com/spf13/spf13-vim).
+lin.nvim is a highly configured [neovim](https://neovim.io/) distribution integrated tons of utilities for development, inspired by [spf13-vim](https://github.com/spf13/spf13-vim).
 
 # Table of Contents
 
@@ -62,17 +62,11 @@ Solve below issues:
 
 ## Screenshots
 
-<!-- #### Simple but pretty UI -->
-<!-- ![edit-markdown.png](https://raw.githubusercontent.com/linrongbin16/lin.vim.github.io/main/screen-snapshots/edit-markdown.png) -->
-
 <p align="center">
   <img alt="edit-markdown.png" src="https://raw.githubusercontent.com/linrongbin16/lin.vim.github.io/main/screen-snapshots/edit-markdown.png" width="100%">
   </br>
   <em style="fontsize:50%">Simple but pretty UI</em>
 </p>
-
-<!-- #### Code complete for Python3 -->
-<!-- ![python3-complete.png](https://raw.githubusercontent.com/linrongbin16/lin.vim.github.io/main/screen-snapshots/python-complete.png) -->
 
 <p align="center">
   <img alt="python3-complete.png" src="https://raw.githubusercontent.com/linrongbin16/lin.vim.github.io/main/screen-snapshots/python-complete.png" width="100%">
@@ -86,17 +80,11 @@ Solve below issues:
   <em style="fontsize:50%">Outlines and Terminal</em>
 </p>
 
-<!-- #### Cursor movement -->
-<!-- ![fast-cursor-movement.png](https://raw.githubusercontent.com/linrongbin16/lin.vim.github.io/main/screen-snapshots/fast-cursor-movement1.png) -->
-
 <p align="center">
   <img alt="fast-cursor-movement.png" src="https://raw.githubusercontent.com/linrongbin16/lin.vim.github.io/main/screen-snapshots/fast-cursor-movement1.png" width="100%">
   </br>
   <em style="fontsize:50%">Fast cursor movement</em>
 </p>
-
-<!-- #### Search text -->
-<!-- ![search-text.png](https://raw.githubusercontent.com/linrongbin16/lin.vim.github.io/main/screen-snapshots/search-text.png) -->
 
 <p align="center">
   <img alt="search-text.png" src="https://raw.githubusercontent.com/linrongbin16/lin.vim.github.io/main/screen-snapshots/search-text.png" width="100%">
@@ -104,17 +92,11 @@ Solve below issues:
   <em style="fontsize:50%">Search text</em>
 </p>
 
-<!-- #### Search files -->
-<!-- ![search-files.png](https://raw.githubusercontent.com/linrongbin16/lin.vim.github.io/main/screen-snapshots/search-files.png) -->
-
 <p align="center">
   <img alt="search-files.png" src="https://raw.githubusercontent.com/linrongbin16/lin.vim.github.io/main/screen-snapshots/search-files.png" width="100%">
   </br>
   <em style="fontsize:50%">Search files</em>
 </p>
-
-<!-- #### Markdown preview -->
-<!-- ![markdown-preview.png](https://raw.githubusercontent.com/linrongbin16/lin.vim.github.io/main/screen-snapshots/markdown-preview1.png) -->
 
 <p align="center">
   <img alt="markdown-preview.png" src="https://raw.githubusercontent.com/linrongbin16/lin.vim.github.io/main/screen-snapshots/markdown-preview1.png" width="100%">
@@ -159,7 +141,7 @@ Solve below issues:
 ## UNIX/Linux/MacOS
 
 ```bash
-    git clone https://github.com/linrongbin16/lin.vim ~/.vim && cd ~/.vim && ./install.sh
+    git clone https://github.com/linrongbin16/lin.nvim ~/.vim && cd ~/.vim && ./install.sh
 ```
 
 Notice:
@@ -191,7 +173,6 @@ Notice:
    - .NET Desktop Development
    - Desktop development with C++
 
-<!-- ![install-windows-visual-studio2.png](https://raw.githubusercontent.com/linrongbin16/lin.vim.github.io/main/screen-snapshots/install-windows-visual-studio2.png) -->
 <p align="center">
   <img alt="install-windows-visual-studio2.png" src="https://raw.githubusercontent.com/linrongbin16/lin.vim.github.io/main/screen-snapshots/install-windows-visual-studio2.png" width="100%">
   <em style="fontsize:50%">Select .NET and C++ components</em>
@@ -203,9 +184,6 @@ Notice:
    - In the _**Adjusting your PATH environment**_ step, select _**Use Git and optional Unix tools from the Command Prompt**_.
    - In the _**Configuring the terminal emulator to use with Git Bash**_ step, select _**Use Windows's default console window**_. This will add `git.exe` and linux builtin commands (such as `bash.exe`, `cp.exe`, `mv.exe`, `cd.exe`, `ls.exe`, etc) to `$env:Path`.
 
-<!-- ![install-windows-git1.png](https://raw.githubusercontent.com/linrongbin16/lin.vim.github.io/main/screen-snapshots/install-windows-git1.png) -->
-<!-- ![install-windows-git2.png](https://raw.githubusercontent.com/linrongbin16/lin.vim.github.io/main/screen-snapshots/install-windows-git2.png) -->
-<!-- ![install-windows-git3.png](https://raw.githubusercontent.com/linrongbin16/lin.vim.github.io/main/screen-snapshots/install-windows-git3.png) -->
 <p align="center">
   <img alt="install-windows-git1.png" src="https://raw.githubusercontent.com/linrongbin16/lin.vim.github.io/main/screen-snapshots/install-windows-git1.png" width="65%">
   </br>
@@ -238,14 +216,13 @@ Notice:
 5. Run powershell commands as administrator:
 
 ```powershell
-    git clone https://github.com/linrongbin16/lin.vim $env:UserProfile\.vim && cd $env:UserProfile\.vim && .\install.ps1
+    git clone https://github.com/linrongbin16/lin.nvim $env:UserProfile\.vim && cd $env:UserProfile\.vim && .\install.ps1
 ```
 
 Notice:
 
 1. If you are using WSL, `C:\Windows\System32\bash.exe` could lead you to WSL instead of the `bash.exe` from [Git for Windows](https://git-scm.com/). Make sure git path is ahead of `C:\Windows\System32`, so git bash will be first detected (`wsl.exe` could connect to WSL as well so no need to worry about losing `C:\Windows\System32\bash.exe`).
 
-<!-- ![install-windows-git-path.png](https://raw.githubusercontent.com/linrongbin16/lin.vim.github.io/main/screen-snapshots/install-windows-git-path.png) -->
 <p align="center">
   <img alt="install-windows-git-path.png" src="https://raw.githubusercontent.com/linrongbin16/lin.vim.github.io/main/screen-snapshots/install-windows-git-path.png" width="65%">
   </br>
@@ -254,7 +231,6 @@ Notice:
 
 2. [Git for Windows](https://git-scm.com/) provide an old-version `vim.exe`, make sure `gvim.exe` (from [vim-win32-installer](https://github.com/vim/vim-win32-installer/releases)) path is ahead of git, so `vim.exe` from [vim-win32-installer](https://github.com/vim/vim-win32-installer/releases) will be first detected. You could also only use `gvim.exe` to avoid the old-version vim.
 
-<!-- ![install-windows-gvim-path.png](https://raw.githubusercontent.com/linrongbin16/lin.vim.github.io/main/screen-snapshots/install-windows-gvim-path.png) -->
 <p align="center">
   <img alt="install-windows-gvim-path.png" src="https://raw.githubusercontent.com/linrongbin16/lin.vim.github.io/main/screen-snapshots/install-windows-gvim-path.png" width="65%">
   </br>
@@ -263,7 +239,6 @@ Notice:
 
 3. Python3 version must be compatible with gvim's libpython3.lib, or python3 will not be loaded correctly. Please use `gvim --version` to find its libpython3.lib version.
 
-<!-- ![install-windows-gvim-libpython3.png](https://raw.githubusercontent.com/linrongbin16/lin.vim.github.io/main/screen-snapshots/install-windows-gvim-libpython3.png) -->
 <p align="center">
   <img alt="install-windows-gvim-libpython3.png" src="https://raw.githubusercontent.com/linrongbin16/lin.vim.github.io/main/screen-snapshots/install-windows-gvim-libpython3.png" width="65%">
   </br>
@@ -673,9 +648,9 @@ For basic install mode, there's only standalone vim settings, see [More Options]
 
 # Contribute
 
-Please open issue/PR for anything about lin.vim.
+Please open issue/PR for anything about lin.nvim.
 
-Like lin.vim? Consider
+Like lin.nvim? Consider
 
 <a href="https://www.buymeacoffee.com/linrongbin16" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
 
