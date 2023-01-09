@@ -1,0 +1,26 @@
+# runtime files
+.DS_Store
+.netrwhist
+sessions
+.copypaste
+
+# plugins
+plugged
+
+# user settings
+plugins.vim
+settings.vim
+color-settings.vim
+coc-settings.json
+vimrc.vim
+
+# neovim
+init.vim
+ginit.vim
+neovim
+
+# universal-ctags
+universal-ctags
+
+# ignored
+.ignore.*
