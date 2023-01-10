@@ -30,7 +30,7 @@ lin.nvim is a highly configured [neovim](https://neovim.io/) distribution integr
     - [Code Format](#code-format)
     - [Code Actions](#code-actions)
     - [Git](#git)
-  - [LSP Servers Manager](#lsp-servers-manager)
+    - [Manage LSP Servers](#manage-lsp-servers)
   - [Search](#search)
     - [Text Search](#text-search)
     - [File Search](#file-search)
@@ -446,7 +446,7 @@ By default [Hack Nerd Font Mono](https://github.com/ryanoasis/nerd-fonts/release
 - `[c` **🇳** - Go to previous(up) git chunk in current buffer.
 - `<Leader>gb` **🇳** - Toggle git blame info for current line.
 
-## LSP Servers Manager
+#### Manage LSP Servers
 
 By default, [a bunch of language servers](#embedded-language-servers) are already embedded. But sooner or later you need to manage these LSP servers yourself, the manager is supported by [mason.nvim](https://github.com/williamboman/mason.nvim).
 
