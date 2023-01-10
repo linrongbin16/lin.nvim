@@ -613,12 +613,22 @@ PLUGIN_CONTEXTS = [
     ),
     PluginContext("junegunn", "fzf.vim"),
     PluginContext(
-        "neovim",
-        "nvim-lspconfig",
+        "williamboman",
+        "mason.nvim",
         top_clause=[
             EmptyStmt(),
             TrippleQuotesCommentExpr(LiteralExpr("---- Language server ----")),
         ],
+        tag=PluginTag.LANGUAGE,
+    ),
+    PluginContext(
+        "williamboman",
+        "mason-lspconfig.nvim",
+        tag=PluginTag.LANGUAGE,
+    ),
+    PluginContext(
+        "neovim",
+        "nvim-lspconfig",
         tag=PluginTag.LANGUAGE,
     ),
     PluginContext(
