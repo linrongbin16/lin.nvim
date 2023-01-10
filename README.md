@@ -548,16 +548,16 @@ Auto pair and close html tags, supported by [nvim-autopairs](https://github.com/
 
 ## Customization
 
-Please check vim entry *~/.vimrc* (*~/\_vimrc* on windows), and neovim entry *~/.config/nvim/init.vim* (*~/AppData/Local/nvim/init.vim* on windows).
-They load below vim files:
+Please check neovim entry *~/.config/nvim/init.vim* (*~/AppData/Local/nvim/init.vim* on windows).
+It load below components:
 
 *   Plugins (*~/.vim/plugins.vim*) - Vim plugins managed by [vim-plug](https://github.com/junegunn/vim-plug).
 *   Standalones (*~/.vim/standalone/\*.vim*) - Standalone vim settings.
 *   Repositories (*~/.vim/repository/{org}/{repo}.vim*) - Vim settings for each plugin.
-*   Colors (*~/.vim/color-settings.vim*) - Colorscheme settings.
-*   Other settings (*~/.vim/settings.vim*) - Other settings include coc extensions, gui font, global key mappings, etc.
+*   Colors (*~/.vim/color-settings.vim*) - Color scheme settings.
+*   Other settings (*~/.vim/settings.vim*) - Other settings GUI font, global key mappings, etc.
 
-For basic install mode, there's only standalone vim settings, see [More Options](#more-options).
+For basic install mode, there're only standalone vim settings, see [More Options](#more-options).
 
 # Appendix
 
