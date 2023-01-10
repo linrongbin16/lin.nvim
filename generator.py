@@ -587,6 +587,11 @@ PLUGIN_CONTEXTS = [
         tag=PluginTag.LANGUAGE,
     ),
     PluginContext(
+        "jay-babu",
+        "mason-null-ls.nvim",
+        tag=PluginTag.LANGUAGE,
+    ),
+    PluginContext(
         "hrsh7th",
         "cmp-nvim-lsp",
         tag=PluginTag.LANGUAGE,
@@ -817,6 +822,7 @@ class Render(Indentable):
         vimrc_stmts.append(
             Stmt(TrippleQuotesCommentExpr(LiteralExpr("---- Custom settings ----")))
         )
+        vimrc_stmts.append(SourceVimDirStmt("lsp-settings.vim"))
         vimrc_stmts.append(SourceVimDirStmt("color-settings.vim"))
         vimrc_stmts.append(SourceVimDirStmt("settings.vim"))
         return vimrc_stmts
