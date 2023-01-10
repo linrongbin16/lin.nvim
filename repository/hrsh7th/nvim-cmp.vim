@@ -1,4 +1,66 @@
 lua<<EOF
+    -- Mason
+    require("mason").setup({
+        ui = {
+            icons = {
+                package_installed = "✓",
+                package_pending = "➜",
+                package_uninstalled = "✗"
+            }
+        }
+    })
+
+    -- embeded LSP servers
+    require("mason-lspconfig").setup {
+        ensure_installed = {
+            -- bash
+            "bashls",
+            -- c/c++
+            "clangd",
+            -- cmake
+            "cmake",
+            -- css
+            "cssls",
+            "cssmodules_ls",
+            -- eslint
+            "eslint",
+            -- go
+            "gopls",
+            -- grammarly
+            "grammarly",
+            -- graphql
+            "graphql",
+            -- html
+            "html",
+            -- json
+            "jsonls",
+            -- js/ts
+            "tsserver",
+            -- lua
+            "sumneko_lua",
+            -- markdown
+            "remark_ls",
+            -- powershell
+            "powershell_es",
+            -- python
+            "pyright",
+            -- reason
+            "reason_ls",
+            -- rust
+            "rust_analyzer",
+            -- sql,
+            "sqlls",
+            -- toml
+            "taplo",
+            -- vue
+            "volar",
+            -- yaml
+            "yamlls",
+            -- vim
+            "vimls",
+        },
+    }
+
   -- Key mappings
   vim.api.nvim_create_autocmd('LspAttach', {
     desc = 'LSP actions',
@@ -70,6 +132,30 @@ lua<<EOF
     lsp_defaults.capabilities,
     require('cmp_nvim_lsp').default_capabilities()
   )
+
+  lspconfig.bashls.setup({})
+  lspconfig.clangd.setup({})
+  lspconfig.cmake.setup({})
+  lspconfig.cssls.setup({})
+  lspconfig.cssmodules_ls.setup({})
+  lspconfig.eslint.setup({})
+  lspconfig.gopls.setup({})
+  lspconfig.grammarly.setup({})
+  lspconfig.graphql.setup({})
+  lspconfig.html.setup({})
+  lspconfig.jsonls.setup({})
+  lspconfig.tsserver.setup({})
+  lspconfig.sumneko_lua.setup({})
+  lspconfig.remark_ls.setup({})
+  lspconfig.powershell_es.setup({})
+  lspconfig.pyright.setup({})
+  lspconfig.reason_ls.setup({})
+  lspconfig.rust_analyzer.setup({})
+  lspconfig.sqlls.setup({})
+  lspconfig.taplo.setup({})
+  lspconfig.volar.setup({})
+  lspconfig.yamlls.setup({})
+  lspconfig.vimls.setup({})
 
   -- nvim-cmp
   require('luasnip.loaders.from_vscode').lazy_load()
@@ -183,6 +269,7 @@ lua<<EOF
       { name = 'cmdline', keyword_length=lin_keyword_len3 }
     })
   })
+
 EOF
 
 
