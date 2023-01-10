@@ -26,8 +26,3 @@ universal-ctags
 
 # ignored
 .ignore.*
-
-# remark
-node_modules
-package.json
-package-lock.json

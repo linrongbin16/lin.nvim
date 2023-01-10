@@ -40,7 +40,6 @@ lin.nvim is a highly configured [neovim](https://neovim.io/) distribution integr
         *   [Cursor Motion](#cursor-motion)
         *   [Word Movement](#word-movement)
         *   [Better Repeat](#better-repeat)
-        *   [Better Surrounding(Quotes) Editing](#better-surroundingquotes-editing)
         *   [Better Matching](#better-matching)
         *   [Auto Pair and Close HTML Tag](#auto-pair-and-close-html-tag)
     *   [Customization](#customization)
@@ -402,7 +401,7 @@ Support by [barbar.nvim](https://github.com/romgrk/barbar.nvim).
 
 By default [Hack Nerd Font Mono](https://github.com/ryanoasis/nerd-fonts/releases) is enabled. Please install other nerd fonts and edit *~/.vim/settings.vim* to customize fonts.
 
-## IDE-like Editing
+## IDE-like Editing Features
 
 #### Code Complete
 
@@ -528,10 +527,6 @@ Support by [vim-wordmotion](https://github.com/chaoren/vim-wordmotion).
 
 Better repeat(`.`) operation, supported by [vim-repeat](https://github.com/tpope/vim-repeat).
 
-#### Better Surrounding(Quotes) Editing
-
-Better surrounding(quotes) editing, supported by [vim-surround](https://github.com/tpope/vim-surround).
-
 #### Better Matching
 
 Better matching includes HTML tags, if-endif, and other things, supported by [vim-matchup](https://github.com/andymass/vim-matchup).
@@ -568,7 +563,7 @@ For basic install mode, there're only standalone vim settings, see [More Options
 *   jsonls: JSON.
 *   tsserver: Javascript/Typescript/JavascriptReact/TypescriptReact.
 *   sumneko\_lua: Lua.
-*   remark\_ls: Markdown.
+*   [marksman](https://github.com/artempyanykh/marksman): Markdown.
 *   pyright: Python3 (Python2 is not supported).
 *   rust\_analyzer: Rust.
 *   sqlls: SQL.

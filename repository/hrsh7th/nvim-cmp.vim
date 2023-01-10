@@ -36,7 +36,7 @@ lua<<EOF
         -- lua
         "sumneko_lua",
         -- markdown
-        "remark_ls",
+        "marksman",
         -- python
         "pyright",
         -- rust
@@ -147,7 +147,7 @@ lua<<EOF
   lspconfig.jsonls.setup({})
   lspconfig.tsserver.setup({})
   lspconfig.sumneko_lua.setup({})
-  lspconfig.remark_ls.setup({})
+  lspconfig.marksman.setup({})
   lspconfig.powershell_es.setup({})
   lspconfig.pyright.setup({})
   lspconfig.rust_analyzer.setup({})
