@@ -787,6 +787,7 @@ class Render(Indentable):
 
         plugin_stmts = self.render_plugin_stmts(core_plugins)
         color_setting_stmts = self.render_color_setting_stmts(core_color_settings)
+        lsp_setting_stmts = self.render_lsp_setting_stmts()
         setting_stmts = self.render_setting_stmts()
         vimrc_stmts = self.render_vimrc_stmts(core_vimrcs)
 
@@ -794,13 +795,15 @@ class Render(Indentable):
         plugin_stmts = self.merge_empty_comments(plugin_stmts)
         setting_stmts = self.merge_empty_comments(setting_stmts)
         color_setting_stmts = self.merge_empty_comments(color_setting_stmts)
+        lsp_setting_stmts = self.merge_empty_comments(lsp_setting_stmts)
         vimrc_stmts = self.merge_empty_comments(vimrc_stmts)
 
         plugins_content = "".join([s.render() for s in plugin_stmts])
         settings_content = "".join([s.render() for s in setting_stmts])
         color_settings_content = "".join([s.render() for s in color_setting_stmts])
+        lsp_settings_content = "".join([s.render() for s in lsp_setting_stmts])
         vimrc_content = "".join([s.render() for s in vimrc_stmts])
-        return plugins_content, settings_content, color_settings_content, vimrc_content
+        return plugins_content, settings_content, color_settings_content, lsp_settings_content, vimrc_content
 
     def merge_empty_comments(self, statements):
         assert isinstance(statements, list)
@@ -855,6 +858,7 @@ class Render(Indentable):
         vimrc_stmts.append(
             Stmt(TrippleQuotesCommentExpr(LiteralExpr("---- Custom settings ----")))
         )
+        vimrc_stmts.append(SourceVimDirStmt("lsp-settings.vim"))
         vimrc_stmts.append(SourceVimDirStmt("color-settings.vim"))
         vimrc_stmts.append(SourceVimDirStmt("settings.vim"))
         return vimrc_stmts
@@ -874,6 +878,15 @@ class Render(Indentable):
             )
         )
         return color_setting_stmts
+
+    def render_lsp_setting_stmts(self):
+        lsp_setting_stmts = []
+        lsp_setting_stmts.append(
+            TemplateContent(
+                pathlib.Path(f"{TEMPLATE_DIR}/settings-lsp-template.vim")
+            )
+        )
+        return lsp_setting_stmts
 
     # settings.vim
     def render_setting_stmts(self):
@@ -1047,11 +1060,13 @@ class FileDumper:
         plugin_content,
         setting_content,
         color_setting_content,
+        lsp_setting_content,
         vimrc_content,
     ) -> None:
         self.plugin_content = plugin_content
         self.setting_content = setting_content
         self.color_setting_content = color_setting_content
+        self.lsp_setting_content = lsp_setting_content
         self.vimrc_content = vimrc_content
 
     def dump(self):
@@ -1061,6 +1076,7 @@ class FileDumper:
     def config(self):
         plugins_file = f"{VIM_DIR}/plugins.vim"
         settings_file = f"{VIM_DIR}/settings.vim"
+        lsp_settings_file = f"{VIM_DIR}/lsp-settings.vim"
         color_settings_file = f"{VIM_DIR}/color-settings.vim"
         try_backup(pathlib.Path(plugins_file))
         with open(plugins_file, "w") as fp:
@@ -1068,6 +1084,9 @@ class FileDumper:
         try_backup(pathlib.Path(settings_file))
         with open(settings_file, "w") as fp:
             fp.write(self.setting_content)
+        try_backup(pathlib.Path(lsp_settings_file))
+        with open(lsp_settings_file, "w") as fp:
+            fp.write(self.lsp_settings_file)
         try_backup(pathlib.Path(color_settings_file))
         with open(color_settings_file, "w") as fp:
             fp.write(self.color_setting_content)
@@ -1176,12 +1195,14 @@ def generator(
         plugins_content,
         settings_content,
         color_settings_content,
+        lsp_settings_content,
         vimrc_content,
     ) = render.render()
     dumper = FileDumper(
         plugins_content,
         settings_content,
         color_settings_content,
+        lsp_settings_content,
         vimrc_content,
     )
     dumper.dump()
