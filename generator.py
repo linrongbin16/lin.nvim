@@ -705,24 +705,10 @@ PLUGIN_CONTEXTS = [
         tag=PluginTag.LANGUAGE,
     ),
     PluginContext(
-        "neovimhaskell",
-        "haskell-vim",
-        post="{ 'for': ['haskell'] }",
-        top_clause=SingleQuoteCommentExpr(LiteralExpr("Haskell")),
-        tag=PluginTag.LANGUAGE,
-    ),
-    PluginContext(
         "slim-template",
         "vim-slim",
         post="{ 'for': ['slim'] }",
         top_clause=SingleQuoteCommentExpr(LiteralExpr("Slim")),
-        tag=PluginTag.LANGUAGE,
-    ),
-    PluginContext(
-        "jparise",
-        "vim-graphql",
-        post="{ 'for': ['graphql', 'graphqls', 'gql'] }",
-        top_clause=SingleQuoteCommentExpr(LiteralExpr("GraphQL")),
         tag=PluginTag.LANGUAGE,
     ),
     PluginContext(
