@@ -15,6 +15,7 @@ install_or_skip "sudo dnf install -y autoconf" "autoconf"
 install_or_skip "sudo dnf install -y automake" "automake"
 install_or_skip "sudo dnf install -y pkg-config" "pkg-config"
 install_or_skip "sudo dnf install -y cmake" "cmake"
+install_or_skip "sudo dnf install -y xsel" "xsel"
 install_or_skip "sudo dnf install -y xclip" "xclip"
 install_or_skip "sudo dnf install -y wl-clipboard" "wl-copy"
 
