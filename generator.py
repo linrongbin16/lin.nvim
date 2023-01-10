@@ -887,13 +887,6 @@ class Render(Indentable):
     # settings.vim
     def render_setting_stmts(self):
         setting_stmts = []
-        setting_stmts.append(
-            CocExtensionContent(
-                self.disable_language,
-                disable_sh=IS_WINDOWS or self.disable_language,
-                disable_powershell=not IS_WINDOWS or self.disable_language,
-            )
-        )
         if self.static_color:
             setting_stmts.extend(
                 [
