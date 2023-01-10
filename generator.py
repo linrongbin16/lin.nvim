@@ -757,7 +757,6 @@ PLUGIN_CONTEXTS = [
         tag=PluginTag.EDITING,
         top_clause=SingleQuoteCommentExpr(LiteralExpr("Other")),
     ),
-    PluginContext("tpope", "vim-surround", tag=PluginTag.EDITING),
     PluginContext("chaoren", "vim-wordmotion", tag=PluginTag.EDITING),
     PluginContext("mattn", "emmet-vim", tag=PluginTag.EDITING),
     PluginContext("mbbill", "undotree", tag=PluginTag.EDITING),
