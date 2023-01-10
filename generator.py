@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 
-import click
-import enum
 import abc
-import platform
 import datetime
+import enum
 import pathlib
+import platform
 import shutil
+
+import click
 
 HOME_DIR = pathlib.Path.home()
 VIM_DIR = pathlib.Path(f"{HOME_DIR}/.vim")
@@ -303,52 +304,6 @@ class SourceVimDirStmt(Expr):
 
     def render(self):
         return self.stmt.render()
-
-
-class CocExtensionContent(Expr):
-    def __init__(
-        self,
-        disable_language=False,
-        disable_sh=IS_WINDOWS,
-        disable_powershell=not IS_WINDOWS,
-    ) -> None:
-        self.comment = TrippleQuotesCommentExpr(
-            LiteralExpr("---- Coc global extensions ----")
-        )
-        extensions = [
-            "coc-yank",
-            "coc-lists",
-        ]
-        if not disable_language:
-            extensions.extend(
-                [
-                    "coc-snippets",
-                    "coc-html",
-                    "coc-xml",
-                    "coc-clangd",
-                    "coc-cmake",
-                    "coc-pyright",
-                    "coc-rust-analyzer",
-                    "coc-go",
-                    "coc-json",
-                    "coc-tsserver",
-                    "coc-css",
-                    "@yaegassy/coc-volar",
-                    "coc-eslint",
-                    "coc-prettier",
-                ]
-            )
-        if not disable_sh:
-            extensions.append("coc-sh")
-        if not disable_powershell:
-            extensions.append("coc-powershell")
-        self.exprs = [SingleQuoteStringExpr(e) for e in extensions]
-
-    def render(self):
-        return f"""
-{self.comment.render()}
-let g:coc_global_extensions = [{', '.join([e.render() for e in self.exprs])}]
-"""
 
 
 class PluginTag(enum.Enum):
@@ -784,21 +739,30 @@ class Render(Indentable):
         core_plugins, core_vimrcs, core_color_settings = self.render_core()
 
         plugin_stmts = self.render_plugin_stmts(core_plugins)
+        lsp_setting_stmts = self.render_lsp_setting_stmts()
         color_setting_stmts = self.render_color_setting_stmts(core_color_settings)
         setting_stmts = self.render_setting_stmts()
         vimrc_stmts = self.render_vimrc_stmts(core_vimrcs)
 
         # merge empty comment statements
         plugin_stmts = self.merge_empty_comments(plugin_stmts)
-        setting_stmts = self.merge_empty_comments(setting_stmts)
+        lsp_setting_stmts = self.merge_empty_comments(lsp_setting_stmts)
         color_setting_stmts = self.merge_empty_comments(color_setting_stmts)
+        setting_stmts = self.merge_empty_comments(setting_stmts)
         vimrc_stmts = self.merge_empty_comments(vimrc_stmts)
 
         plugins_content = "".join([s.render() for s in plugin_stmts])
-        settings_content = "".join([s.render() for s in setting_stmts])
+        lsp_settings_content = "".join([s.render() for s in lsp_setting_stmts])
         color_settings_content = "".join([s.render() for s in color_setting_stmts])
+        settings_content = "".join([s.render() for s in setting_stmts])
         vimrc_content = "".join([s.render() for s in vimrc_stmts])
-        return plugins_content, settings_content, color_settings_content, vimrc_content
+        return (
+            plugins_content,
+            lsp_settings_content,
+            color_settings_content,
+            settings_content,
+            vimrc_content,
+        )
 
     def merge_empty_comments(self, statements):
         assert isinstance(statements, list)
@@ -857,18 +821,26 @@ class Render(Indentable):
         vimrc_stmts.append(SourceVimDirStmt("settings.vim"))
         return vimrc_stmts
 
+    # lsp-settings.vim
+    def render_lsp_setting_stmts(self):
+        lsp_setting_stmts = []
+        lsp_setting_stmts.append(
+            TemplateContent(pathlib.Path(f"{TEMPLATE_DIR}/lsp-settings-template.vim"))
+        )
+        return lsp_setting_stmts
+
     # color-settings.vim
     def render_color_setting_stmts(self, core_color_settings):
         color_setting_stmts = []
         color_setting_stmts.append(
             TemplateContent(
-                pathlib.Path(f"{TEMPLATE_DIR}/settings-color-array-template.vim")
+                pathlib.Path(f"{TEMPLATE_DIR}/color-settings-array-template.vim")
             )
         )
         color_setting_stmts.extend(core_color_settings)
         color_setting_stmts.append(
             TemplateContent(
-                pathlib.Path(f"{TEMPLATE_DIR}/settings-color-function-template.vim")
+                pathlib.Path(f"{TEMPLATE_DIR}/color-settings-function-template.vim")
             )
         )
         return color_setting_stmts
@@ -1035,14 +1007,16 @@ class Render(Indentable):
 class FileDumper:
     def __init__(
         self,
-        plugin_content,
-        setting_content,
-        color_setting_content,
+        plugins_content,
+        lsp_settings_content,
+        color_settings_content,
+        settings_content,
         vimrc_content,
     ) -> None:
-        self.plugin_content = plugin_content
-        self.setting_content = setting_content
-        self.color_setting_content = color_setting_content
+        self.plugins_content = plugins_content
+        self.lsp_settings_content = lsp_settings_content
+        self.color_settings_content = color_settings_content
+        self.settings_content = settings_content
         self.vimrc_content = vimrc_content
 
     def dump(self):
@@ -1051,27 +1025,24 @@ class FileDumper:
 
     def config(self):
         plugins_file = f"{VIM_DIR}/plugins.vim"
-        settings_file = f"{VIM_DIR}/settings.vim"
+        lsp_settings_file = f"{VIM_DIR}/lsp-settings.vim"
         color_settings_file = f"{VIM_DIR}/color-settings.vim"
+        settings_file = f"{VIM_DIR}/settings.vim"
         try_backup(pathlib.Path(plugins_file))
         with open(plugins_file, "w") as fp:
-            fp.write(self.plugin_content)
-        try_backup(pathlib.Path(settings_file))
-        with open(settings_file, "w") as fp:
-            fp.write(self.setting_content)
+            fp.write(self.plugins_content)
+        try_backup(pathlib.Path(lsp_settings_file))
+        with open(lsp_settings_file, "w") as fp:
+            fp.write(self.lsp_settings_content)
         try_backup(pathlib.Path(color_settings_file))
         with open(color_settings_file, "w") as fp:
-            fp.write(self.color_setting_content)
+            fp.write(self.color_settings_content)
+        try_backup(pathlib.Path(settings_file))
+        with open(settings_file, "w") as fp:
+            fp.write(self.settings_content)
         try_backup(pathlib.Path(VIMRC_FILE))
         with open(VIMRC_FILE, "w") as fp:
             fp.write(self.vimrc_content)
-        self.coc_settings()
-
-    def coc_settings(self):
-        coc_dirs = VIM_DIR
-        coc_settings_file = f"{coc_dirs}/coc-settings.json"
-        try_backup(pathlib.Path(coc_settings_file))
-        shutil.copy(f"{VIM_DIR}/template/coc-settings-template.json", coc_settings_file)
 
     def neovim_init_vim_entry(self):
         if IS_WINDOWS:
@@ -1165,14 +1136,16 @@ def generator(
     )
     (
         plugins_content,
-        settings_content,
+        lsp_settings_content,
         color_settings_content,
+        settings_content,
         vimrc_content,
     ) = render.render()
     dumper = FileDumper(
         plugins_content,
-        settings_content,
+        lsp_settings_content,
         color_settings_content,
+        settings_content,
         vimrc_content,
     )
     dumper.dump()
