@@ -4,16 +4,16 @@ function! s:randnum(n) abort
 endfunction
 
 function LinVimNextRandomColorScheme()
-    if len(s:lin_vim_colorschemes) > 0
-        let idx = s:randnum(len(s:lin_vim_colorschemes))
-        execute 'colorscheme ' . s:lin_vim_colorschemes[idx]
+    if len(s:lin_colorschemes) > 0
+        let idx = s:randnum(len(s:lin_colorschemes))
+        execute 'colorscheme ' . s:lin_colorschemes[idx]
     endif
 endfunction
 
 function LinVimNextRandomColorSchemeSync()
-    if len(s:lin_vim_colorschemes) > 0
-        let idx = s:randnum(len(s:lin_vim_colorschemes))
-        execute 'colorscheme ' . s:lin_vim_colorschemes[idx]
+    if len(s:lin_colorschemes) > 0
+        let idx = s:randnum(len(s:lin_colorschemes))
+        execute 'colorscheme ' . s:lin_colorschemes[idx]
         execute 'syntax sync fromstart'
     endif
 endfunction

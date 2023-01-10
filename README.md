@@ -51,7 +51,7 @@ lin.nvim is a highly configured [neovim](https://neovim.io/) distribution integr
 
 # Introduction
 
-Aim to be out of box, IDE-like editing experience, high performance, light weight and friendly to both vim and neovim users. Focus on and only on editing, no compile/package/debug.
+Aim to be out of box, IDE-like editing experience, high performance, light weight and friendly to neovim users. Focus on and only on editing, no compile/package/debug.
 
 Solve below issues:
 
@@ -112,7 +112,7 @@ Solve below issues:
   - Windows.
   - macOS.
   - Linux (Ubuntu/Debian/Fedora/Manjaro).
-- Support both [vim](https://www.vim.org/) and [neovim](https://neovim.io/), neovim 0.7+ is strongly recommended for best performance and experience.
+- Support only [neovim](https://neovim.io/), and [neovide](https://neovide.dev/) is highly recommended as a high performance GUI client.
 - Modern editor UI:
   - File explorer.
   - Icons.
@@ -141,7 +141,7 @@ Solve below issues:
 
 ## Requirement
 
-Since neovim and its community is under actively development, [latest stable neovim](https://github.com/neovim/neovim/wiki/Installing-Neovim) is always recommended.
+Since neovim and its community is under actively development, only latest stable [neovim](https://github.com/neovim/neovim/wiki/Installing-Neovim) is guaranteed supported.
 
 ## UNIX/Linux/MacOS
 
@@ -154,7 +154,7 @@ Notice:
 1. The `install.sh` will automatically install below dependencies with system package manager:
 
    - [git](https://git-scm.com/).
-   - [vim](https://github.com/vim/vim) and [neovim](https://github.com/neovim/neovim/wiki/Installing-Neovim).
+   - [neovim](https://github.com/neovim/neovim/wiki/Installing-Neovim).
    - [clang](https://clang.llvm.org/)(for macOS) or [gcc](https://gcc.gnu.org/)(for Linux), [make](https://www.gnu.org/software/make/), [pkg-config](https://www.freedesktop.org/wiki/Software/pkg-config/), [cmake](https://cmake.org/), [autoconf](https://www.gnu.org/software/autoconf/) and [automake](https://www.gnu.org/software/automake/).
    - [python3](https://www.python.org/) (python 2.x is not support) and some pip packages.
    - [node.js](https://nodejs.org/) and some npm packages.
@@ -165,7 +165,7 @@ Notice:
    - [hack nerd font](https://github.com/ryanoasis/nerd-fonts/releases/download/v2.2.2/Hack.zip).
 
 2. For now supported platforms are:
-   - Debian/ubuntu based linux: use `apt` as software installer.
+   - Debian/ubuntu based linux: use `apt` and `snap` as software installer.
    - Fedora/centos based linux: use `dnf` as software installer.
    - Archlinux based linux: use `pacman` as software installer.
    - MacOS: use `brew` as software installer, please install [Xcode](https://guide.macports.org/chunked/installing.html) and [homebrew](https://brew.sh/) as pre-requirements.
@@ -207,7 +207,6 @@ Notice:
 
 3. Install other 64-bit dependencies:
 
-   - [vim-win32-installer](https://github.com/vim/vim-win32-installer/releases/latest) (`gvim_{x.y.z}_x64.exe`): add `gvim.exe` to `$env:Path`
    - [neovim](https://github.com/neovim/neovim/releases/latest) (`nvim-win64.msi`): add `nvim.exe` to `$env:Path`
    - [cmake](https://github.com/Kitware/CMake/releases/latest) (`cmake-{x.y.z}-windows-x86_64.msi`): add `cmake.exe` to `$env:Path`
    - [make-for-win32](https://sourceforge.net/projects/gnuwin32/files/make/3.81/make-3.81-bin.zip/download) (`make-{x.y}-bin.zip`): add `make.exe`to`$env:Path`
@@ -234,23 +233,7 @@ Notice:
   <em style="fontsize:50%">Move git path ahead of C:\Windows\System32</em>
 </p>
 
-2. [Git for Windows](https://git-scm.com/) provide an old-version `vim.exe`, make sure `gvim.exe` (from [vim-win32-installer](https://github.com/vim/vim-win32-installer/releases)) path is ahead of git, so `vim.exe` from [vim-win32-installer](https://github.com/vim/vim-win32-installer/releases) will be first detected. You could also only use `gvim.exe` to avoid the old-version vim.
-
-<p align="center">
-  <img alt="install-windows-gvim-path.png" src="https://raw.githubusercontent.com/linrongbin16/lin.vim.github.io/main/screen-snapshots/install-windows-gvim-path.png" width="65%">
-  </br>
-  <em style="fontsize:50%">Move gvim path ahead of git</em>
-</p>
-
-3. Python3 version must be compatible with gvim's libpython3.lib, or python3 will not be loaded correctly. Please use `gvim --version` to find its libpython3.lib version.
-
-<p align="center">
-  <img alt="install-windows-gvim-libpython3.png" src="https://raw.githubusercontent.com/linrongbin16/lin.vim.github.io/main/screen-snapshots/install-windows-gvim-libpython3.png" width="65%">
-  </br>
-  <em style="fontsize:50%">Find libpython3.lib version at bottom</em>
-</p>
-
-4. Disable Windows App alias `python.exe` or `python3.exe`, this could lead you to the wrong python from windows store.
+2. Disable Windows App alias `python.exe` or `python3.exe`, this could lead you to the wrong python from windows store.
 
 <p align="center">
   <img alt="install-windows-app-alias.png" src="https://raw.githubusercontent.com/linrongbin16/lin.vim.github.io/main/screen-snapshots/install-windows-app-alias.png" width="65%">
@@ -274,8 +257,6 @@ And more options:
 - `--disable-language`: disable language support. Such as auto complete and language servers, etc.
 - `--disable-editing`: disable editing enhancements. Such as easy comment, cursor motion, etc.
 - `--disable-plugin=TEXT`: disable specific vim plugin in format 'organization/repository', this is a multiple option. For example: `--disable-plugin=RRethy/vim-hexokinase --disable-plugin=alvan/vim-closetag`.
-- `--disable-vim`: don't install .vimrc file for vim, could use neovim only.
-- `--disable-neovim`: don't install nvim/init.vim file for neovim, could use vim only.
 
 Notice:
 
@@ -364,7 +345,7 @@ You could configure all global key mappings in _~/.vim/settings.vim_.
 
 #### File Explorer
 
-File explorer is support by [fern.vim](https://github.com/lambdalisue/fern.vim) (switched to [nvim-tree.lua](https://github.com/kyazdani42/nvim-tree.lua) on neovim 0.7+).
+File explorer is support by [nvim-tree.lua](https://github.com/kyazdani42/nvim-tree.lua).
 
 Navigation:
 
@@ -438,14 +419,14 @@ Navigation:
 - `<M-9>`/`<C-9>` **🇳** - Go to buffer-9.
 - `<M-0>`/`<C-0>` **🇳** - Go to buffer-10 (or the last buffer on neovim 0.7+).
 
-_For neovim 0.7+ only_:
+Re-order:
 
 - `<M-S-Right>`/`<C-S-Right>` **🇳** - Re-order(move) current buffer to next(right) position.
 - `<M-S-Left>`/`<C-S-Left>` **🇳** - Re-order(move) current buffer to previous(left) position.
 - `<LeftMouse>` **🇳** - Go to target buffer.
 - `<MiddleMouse>` **🇳** - Close target buffer.
 
-Support by [vim-buffet](https://github.com/bagrat/vim-buffet) (switched to [barbar.nvim](https://github.com/romgrk/barbar.nvim) on neovim 0.5+).
+Support by [barbar.nvim](https://github.com/romgrk/barbar.nvim).
 
 #### Font
 
@@ -563,7 +544,7 @@ _Blockwise comment (for neovim only)_:
 - `gb[count]{motion}` **🇳** - Toggle region with _[count]_(optional) times motion.
 - `gb` **🇻** - Toggle selected region in virual mode.
 
-Support by [tcomment_vim](https://github.com/tomtom/tcomment_vim) (switched to [Comment.nvim](https://github.com/numToStr/Comment.nvim) on neovim).
+Support by [Comment.nvim](https://github.com/numToStr/Comment.nvim).
 
 #### Cursor Motion
 
@@ -574,7 +555,7 @@ See [Fast cursor movement](#screenshots).
 - `<Leader>w` **🇳** - Move by word.
 - `<Leader>l` **🇳** - Move by line.
 
-Support by [vim-easymotion](https://github.com/easymotion/vim-easymotion) (switched to [hop.nvim](https://github.com/phaazon/hop.nvim) on neovim 0.5+).
+Support by [hop.nvim](https://github.com/phaazon/hop.nvim).
 
 #### Word Movement
 
@@ -602,7 +583,7 @@ Better matching include HTML tags, if-endif, and other things, support by [vim-m
 
 #### Auto Pair and Close HTML Tag
 
-Auto pair and close html tags, support by [auto-pairs](https://github.com/jiangmiao/auto-pairs) (switched to [nvim-autopairs](https://github.com/windwp/nvim-autopairs) on neovim 0.5+) and [vim-closetag](https://github.com/alvan/vim-closetag).
+Auto pair and close html tags, support by [nvim-autopairs](https://github.com/windwp/nvim-autopairs) and [vim-closetag](https://github.com/alvan/vim-closetag).
 
 ## Customization
 
@@ -646,10 +627,10 @@ For basic install mode, there's only standalone vim settings, see [More Options]
 - [everforest](https://github.com/sainnhe/everforest)
 - [sonokai](https://github.com/sainnhe/sonokai)
 - [material](https://github.com/kaicataldo/material.vim)
-- [nightfox](https://github.com/EdenEast/nightfox.nvim) (for neovim 0.5+)
-- [github](https://github.com/projekt0n/github-nvim-theme) (for neovim 0.5+)
-- [tokyonight](https://github.com/folke/tokyonight.nvim) (for neovim 0.6+)
-- [kanagawa](https://github.com/rebelot/kanagawa.nvim) (for neovim 0.6+)
+- [nightfox](https://github.com/EdenEast/nightfox.nvim)
+- [github](https://github.com/projekt0n/github-nvim-theme)
+- [tokyonight](https://github.com/folke/tokyonight.nvim)
+- [kanagawa](https://github.com/rebelot/kanagawa.nvim)
 
 # Contribute
 

@@ -1,4 +1,4 @@
 """ ---- Color schemes ----
 
-let s:lin_vim_colorschemes=[]
+let s:lin_colorschemes=[]
 

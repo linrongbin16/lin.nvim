@@ -13,11 +13,7 @@ endif
 
 """ ---- Hot keys ----
 " Toggle file explorer
-if has('nvim-0.8')
-    nnoremap <F1> :<C-u>NvimTreeToggle<CR>
-else
-    nnoremap <F1> :<C-u>Fern -keep -toggle . -drawer<CR>
-endif
+nnoremap <F1> :<C-u>NvimTreeToggle<CR>
 " Toggle undotree
 nnoremap <F2> :<C-u>UndotreeToggle<CR>
 " Toggle outline
@@ -29,11 +25,7 @@ nmap <F6> <Plug>MarkToggle
 " Clear marks
 nmap <S-F6> <Plug>MarkAllClear
 " Toggle git blame
-if has('nvim-0.7')
-    nnoremap <F7> :<C-u>Gitsigns toggle_current_line_blame<CR>
-elseif has('nvim-0.5')
-    nnoremap <F7> :<C-u>GitBlameToggle<CR>
-endif
+nnoremap <F7> :<C-u>Gitsigns toggle_current_line_blame<CR>
 " Markdown preview
 nnoremap <F8> :<C-u>MarkdownPreview<CR>
 " Toggle terminal
