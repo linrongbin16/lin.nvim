@@ -46,6 +46,7 @@ lin.nvim is a highly configured [neovim](https://neovim.io/) distribution integr
   - [Customization](#customization)
 - [Appendix](#appendix)
   - [Embedded Language Servers](#embedded-language-servers)
+    - [Embedded Formatters/Linters](#embedded-formatters-linters)
   - [Color Schemes](#color-schemes)
 - [Contribute](#contribute)
 
@@ -451,6 +452,21 @@ By default, [a bunch of language servers](#embedded-language-servers) are alread
 
 To ensure LSP servers and formatters embedded, [mason-lspconfig.nvim](https://github.com/williamboman/mason-lspconfig.nvim), [null-ls.nvim](https://github.com/jose-elias-alvarez/null-ls.nvim) and [mason-null-ls.nvim](https://github.com/jay-babu/mason-null-ls.nvim) are introduced as well.
 
+To add new LSP server for a language, you need to define possibly 4 components in below configurations:
+
+1. LSP server, used by _mason-lspconfig.nvim_ for ensure installation. For example `clangd`, `pyright`.
+2. Configuration for lspconfig, used by [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig). Usually it's just an empty table `{}`.
+3. (Optional) Extra formatter/linter, used by _mason-null-ls.nvim_ for ensure installation. For example `eslint`, `prettierd`, `black`.
+4. (Optional) Extra null-ls sources, used by _null-ls.nvim_ to enable the sources. For example `null_ls.builtins.code_actions.eslint`, `null_ls.builtins.formatting.prettierd`, `null_ls.builtins.formatting.black`.
+
+Let's how to configure LSP server and formatter for python in real world:
+
+```lua
+local lsp_servers = {
+    python = {"pyright", {}, {"black", "isort"}, {null_ls.builtins.formatting.black, null_ls.builtins.formatting.isort}},
+}
+```
+
 You could add new or configure embedded LSP servers in _~/.vim/lsp-settings.vim_.
 
 ### Search
@@ -564,13 +580,12 @@ For basic install mode, there're only standalone vim settings, see [More Options
 - clangd: C/C++.
 - cmake: CMake.
 - cssls/cssmodules_ls: CSS.
-- eslint: Javascript/Typescript.
 - gopls: Go.
 - grammarly: Article writing.
 - graphql: GraphQL.
 - html: HTML/XML.
 - jsonls: JSON.
-- tsserver: Javascript/Typescript/JavascriptReact/TypescriptReact.
+- tsserver: Javascript/Typescript.
 - sumneko_lua: Lua.
 - [marksman](https://github.com/artempyanykh/marksman): Markdown.
 - pyright: Python3 (Python2 is not supported).
@@ -579,6 +594,12 @@ For basic install mode, there're only standalone vim settings, see [More Options
 - taplo: TOML.
 - yamlls: YAML.
 - vimls: Vim.
+
+#### Embedded Formatters/Linters
+
+- black/isort: Python.
+- eslint: Javascript/Typescript.
+- prettierd: Formatter for frontend world.
 
 ## Color Schemes
 
