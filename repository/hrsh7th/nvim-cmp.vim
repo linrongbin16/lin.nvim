@@ -75,6 +75,9 @@ lua<<EOF
   local lin_keyword_len2=2
 
   cmp.setup({
+    completion = {
+      completeopt = 'menu,menuone,noinsert'
+    },
     snippet = {
       -- REQUIRED - you must specify a snippet engine
       expand = function(args)
@@ -114,10 +117,9 @@ lua<<EOF
       ['<C-d>'] = cmp.mapping.scroll_docs(4),
       ['<C-Space>'] = cmp.mapping.complete(),
       ['<C-e>'] = cmp.mapping.abort(),
-      -- ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
       ['<CR>'] = cmp.mapping(function(fallback)
         if cmp.visible() then
-          cmp.confirm({select=false})
+          cmp.confirm({select=true})
         else
           fallback() -- If you use vim-endwise, this fallback will behave the same as vim-endwise.
         end
@@ -125,7 +127,7 @@ lua<<EOF
       ['<Tab>'] = cmp.mapping(function(fallback)
         local col = vim.fn.col('.') - 1
         if cmp.visible() then
-          cmp.confirm({select=false})
+          cmp.confirm({select=true})
         elseif col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
           fallback()
         else
