@@ -28,7 +28,6 @@ golang_dependency() {
 	if [ -d $HOME/.go/bin ]; then
 		export PATH=$HOME/.go/bin:$PATH
 	fi
-	install_or_skip "go install mvdan.cc/sh/v3/cmd/shfmt@latest" "shfmt"
 }
 
 pip3_dependency() {

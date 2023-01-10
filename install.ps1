@@ -268,7 +268,6 @@ function Pip3Dependency() {
 function NpmDependency() {
     Message "install node packages with npm"
     InstallOrSkip -command "npm install -g yarn" -target "yarn"
-    InstallOrSkip -command "npm install -g remark" -target "remark"
     npm install -g neovim
 }
 
