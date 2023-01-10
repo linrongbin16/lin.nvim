@@ -1,5 +1,5 @@
 lua<<EOF
-local lin_vim_keymap = {
+local lin_keymap = {
   -- navigation
   { key = {"l", "o", "<2-LeftMouse>"}, action = "edit" },   -- open folder or edit file
   { key = "h",              action = "close_node" },        -- close folder
@@ -62,7 +62,7 @@ require'nvim-tree'.setup {
     signcolumn = "yes",
     mappings = {
       custom_only = true,
-      list = lin_vim_keymap,
+      list = lin_keymap,
     },
   },
   renderer = {
@@ -90,24 +90,24 @@ require'nvim-tree'.setup {
 }
 EOF
 
-function! s:LinVimDefineNvimTreeKeys(k) abort
+function! s:LinDefineNvimTreeKeys(k) abort
     execute printf('nnoremap <silent> <buffer> <%s-,> :<C-u>NvimTreeResize -10<CR>', a:k)
     execute printf('nnoremap <silent> <buffer> <%s-Left> :<C-u>NvimTreeResize -10<CR>', a:k)
     execute printf('nnoremap <silent> <buffer> <%s-.> :<C-u>NvimTreeResize +10<CR>', a:k)
     execute printf('nnoremap <silent> <buffer> <%s-Right> :<C-u>NvimTreeResize +10<CR>', a:k)
 endfunction
 
-function! s:LinVimNvimTreeSettings() abort
+function! s:LinNvimTreeSettings() abort
     " key mapping
 
     " resize explorer width
-    call s:LinVimDefineNvimTreeKeys('D')
-    call s:LinVimDefineNvimTreeKeys('A')
-    call s:LinVimDefineNvimTreeKeys('M')
-    call s:LinVimDefineNvimTreeKeys('C')
+    call s:LinDefineNvimTreeKeys('D')
+    call s:LinDefineNvimTreeKeys('A')
+    call s:LinDefineNvimTreeKeys('M')
+    call s:LinDefineNvimTreeKeys('C')
 endfunction
 
-augroup my_nvim_tree_group
+augroup LinNvimTreeAuGroup
     autocmd!
-    autocmd FileType NvimTree call s:LinVimNvimTreeSettings()
+    autocmd FileType NvimTree call s:LinNvimTreeSettings()
 augroup END
