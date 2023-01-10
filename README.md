@@ -451,7 +451,7 @@ By default, [a bunch of language servers](#embedded-language-servers) are alread
 
 To ensure LSP servers and formatters embedded, [mason-lspconfig.nvim](https://github.com/williamboman/mason-lspconfig.nvim), [null-ls.nvim](https://github.com/jose-elias-alvarez/null-ls.nvim) and [mason-null-ls.nvim](https://github.com/jay-babu/mason-null-ls.nvim) are introduced as well.
 
-You could add more LSP servers, or configure all embedded LSP servers in _~/.vim/lsp-settings.vim_.
+You could add new or configure embedded LSP servers in _~/.vim/lsp-settings.vim_.
 
 ### Search
 

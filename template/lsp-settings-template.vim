@@ -42,7 +42,7 @@ lua<<EOF
         yaml = {"yamlls", {}, nil, nil},
         vim = {"vimls", {}, nil, nil},
     }
-    if vim.fn.has('win32') then
+    if vim.fn.has('win32') == 1 then
         -- powershell for windows
         lsp_servers.powershell = {"powershell_es", {}, nil, nil}
     else
@@ -57,8 +57,11 @@ lua<<EOF
 
     -- Setup mason-lspconfig
     local mason_lspconfig_ensure_installed = {}
+    -- print("mason_lspconfig_ensure_installed")
     for lang, conf in pairs(lsp_servers) do
+        -- print(lang, ": ", conf[1])
         if conf[1] ~= nil then
+            -- print(lang, ": ", conf[1], " -- inserted")
             table.insert(mason_lspconfig_ensure_installed, conf[1])
         end
     end
@@ -67,17 +70,23 @@ lua<<EOF
     }
 
     -- Setup lspconfig
+    -- print("lspconfig")
     for lang, conf in pairs(lsp_servers) do
+        -- print(lang, ": (1)", conf[1], " (2)", conf[2])
         if conf[1] ~= nil then
+            -- print(lang, ": (1)", conf[1], " (2)", conf[2], " setup")
             lspconfig[conf[1]].setup(conf[2])
         end
     end
 
     -- Setup null-ls
     local null_ls_sources = {}
+    -- print("null_ls_sources")
     for lang, conf in pairs(lsp_servers) do
+        -- print(lang, ": ", conf[4])
         if conf[4] ~= nil then
             for index, builtin in ipairs(conf[4]) do
+                -- print(lang, ": (", index, ") ", builtin, " inserted")
                 table.insert(null_ls_sources, builtin)
             end
         end
@@ -88,9 +97,12 @@ lua<<EOF
 
     -- Setup mason-null-ls
     local mason_null_ls_ensure_installed = {}
+    -- print("mason_null_ls_ensure_installed")
     for lang, conf in pairs(lsp_servers) do
+        -- print(lang, ": ", conf[3])
         if conf[3] ~= nil then
             for index, formatter in ipairs(conf[3]) do
+                -- print(lang, ": (", index, ") ", formatter, " inserted")
                 table.insert(mason_null_ls_ensure_installed, formatter)
             end
         end
