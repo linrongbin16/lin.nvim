@@ -2,7 +2,7 @@
 
 lin.nvim is a highly configured [neovim](https://neovim.io/) distribution integrated with tons of utilities for development, inspired by [spf13-vim](https://github.com/spf13/spf13-vim).
 
-*[neovide](https://neovide.dev/) is highly recommended as a high-performance neovim GUI client.*
+***[neovide](https://neovide.dev/) is highly recommended as a high-performance neovim GUI client.***
 
 # Table of Contents
 
