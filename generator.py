@@ -613,9 +613,8 @@ PLUGIN_CONTEXTS = [
     ),
     PluginContext("junegunn", "fzf.vim"),
     PluginContext(
-        "neoclide",
-        "coc.nvim",
-        post="{'branch': 'release'}",
+        "neovim",
+        "nvim-lspconfig",
         top_clause=[
             EmptyStmt(),
             TrippleQuotesCommentExpr(LiteralExpr("---- Language server ----")),
@@ -623,9 +622,38 @@ PLUGIN_CONTEXTS = [
         tag=PluginTag.LANGUAGE,
     ),
     PluginContext(
-        "antoinemadec",
-        "coc-fzf",
-        post="{'branch': 'release'}",
+        "hrsh7th",
+        "cmp-nvim-lsp",
+        tag=PluginTag.LANGUAGE,
+    ),
+    PluginContext(
+        "hrsh7th",
+        "cmp-buffer",
+        tag=PluginTag.LANGUAGE,
+    ),
+    PluginContext(
+        "hrsh7th",
+        "cmp-path",
+        tag=PluginTag.LANGUAGE,
+    ),
+    PluginContext(
+        "hrsh7th",
+        "cmp-cmdline",
+        tag=PluginTag.LANGUAGE,
+    ),
+    PluginContext(
+        "hrsh7th",
+        "nvim-cmp",
+        tag=PluginTag.LANGUAGE,
+    ),
+    PluginContext(
+        "hrsh7th",
+        "cmp-vsnip",
+        tag=PluginTag.LANGUAGE,
+    ),
+    PluginContext(
+        "hrsh7th",
+        "vim-vsnip",
         tag=PluginTag.LANGUAGE,
     ),
     PluginContext(
