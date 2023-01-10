@@ -454,10 +454,10 @@ To ensure LSP servers and formatters embedded, [mason-lspconfig.nvim](https://gi
 
 To simplify the setup for all above plugins, all you need is to define 4 components in below configurations:
 
-1. LSP server, used by _mason-lspconfig.nvim_ for ensure installation. For example `clangd`, `pyright`. Please refer to [mason-lspconfig.nvim - Available LSP servers](https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers) for more LSP servers .
-2. Configuration for lspconfig, used by [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig). Usually it's just an empty table `{}`.
-3. (Optional) Extra formatter/linter, used by _mason-null-ls.nvim_ for ensure installation. For example `eslint`, `prettierd`, `black`. Please refer to [mason-lspconfig.nvim - Available Null-ls sources](https://github.com/jay-babu/mason-null-ls.nvim#available-null-ls-sources) for more mason-null-ls sources.
-4. (Optional) Extra null-ls sources, used by _null-ls.nvim_ to enable the sources. For example `null_ls.builtins.code_actions.eslint`, `null_ls.builtins.formatting.prettierd`, `null_ls.builtins.formatting.black`. Please refer to [null-ls.nvim - BUILTINS.md](https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md) for more null-ls builtin sources.
+1. LSP server (used by _mason-lspconfig.nvim_ for ensure installation). For example `clangd`, `pyright`. Please refer to [mason-lspconfig.nvim - Available LSP servers](https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers) for more LSP servers .
+2. Configuration for lspconfig (used by [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig)). Usually it's just an empty table `{}`.
+3. (Optional) Extra formatter/linter (used by _mason-null-ls.nvim_ for ensure installation). For example `eslint`, `prettierd`, `black`. Please refer to [mason-lspconfig.nvim - Available Null-ls sources](https://github.com/jay-babu/mason-null-ls.nvim#available-null-ls-sources) for more mason-null-ls sources.
+4. (Optional) Extra null-ls sources (used by _null-ls.nvim_ to enable the sources). For example `null_ls.builtins.code_actions.eslint`, `null_ls.builtins.formatting.prettierd`, `null_ls.builtins.formatting.black`. Please refer to [null-ls.nvim - BUILTINS.md](https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md) for more null-ls builtin sources.
 
 Let's how to configure LSP server and formatter for python in real world:
 
