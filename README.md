@@ -463,7 +463,15 @@ Let's how to configure LSP server and formatter for python in real world:
 
 ```lua
 local lsp_servers = {
-    python = {"pyright", {}, {"black", "isort"}, {null_ls.builtins.formatting.black, null_ls.builtins.formatting.isort}},
+    python = {
+        "pyright",  -- 1. LSP server
+        {},         -- 2. lspconfig
+        {"black", "isort"},     -- formatters
+        {
+            null_ls.builtins.formatting.black, -- sources for null-ls
+            null_ls.builtins.formatting.isort
+        }
+    },
 }
 ```
 
