@@ -32,12 +32,6 @@ def try_backup(src):
         message(f"backup '{src}' to '{dest}'")
 
 
-# def try_delete(src):
-#     assert isinstance(src, pathlib.Path)
-#     if src.is_symlink() or src.exists():
-#         src.unlink(missing_ok=True)
-#         message(f"delete '{src}'")
-
 INDENT_SIZE = 4
 
 
@@ -442,16 +436,12 @@ PLUGIN_CONTEXTS = [
         top_clause=[
             EmptyStmt(),
             TrippleQuotesCommentExpr(LiteralExpr("---- Performance ----")),
-            IfExpr(HasExpr(SingleQuoteStringExpr("nvim"))),
         ],
-        bottom_clause=EndifExpr(),
         tag=PluginTag.OPTIMIZATION,
     ),
     PluginContext(
         "lewis6991",
         "impatient.nvim",
-        top_clause=IfExpr(HasExpr(SingleQuoteStringExpr("nvim-0.7"))),
-        bottom_clause=EndifExpr(),
         tag=PluginTag.OPTIMIZATION,
     ),
     PluginContext(
@@ -487,21 +477,6 @@ PLUGIN_CONTEXTS = [
         "joshdick", "onedark.vim", color="onedark", tag=PluginTag.COLORSCHEME
     ),
     PluginContext("Rigellute", "rigel", color="rigel", tag=PluginTag.COLORSCHEME),
-    PluginContext(
-        "chriskempson",
-        "base16-vim",
-        color="base16-default-dark",
-        top_clause=[
-            SingleQuoteCommentExpr(
-                LiteralExpr(
-                    "Colorscheme base16-default-dark is not working with lualine"
-                )
-            ),
-            IfExpr(LogicNotExpr(HasExpr(SingleQuoteStringExpr("nvim-0.5")))),
-        ],
-        bottom_clause=EndifExpr(),
-        tag=PluginTag.COLORSCHEME,
-    ),
     PluginContext("sainnhe", "edge", color="edge", tag=PluginTag.COLORSCHEME),
     PluginContext(
         "sainnhe",
@@ -524,8 +499,6 @@ PLUGIN_CONTEXTS = [
         "projekt0n",
         "github-nvim-theme",
         color="github_dark",
-        top_clause=IfExpr(HasExpr(SingleQuoteStringExpr("nvim-0.5"))),
-        bottom_clause=EndifExpr(),
         tag=PluginTag.COLORSCHEME,
     ),
     PluginContext(
@@ -533,22 +506,18 @@ PLUGIN_CONTEXTS = [
         "tokyonight.nvim",
         post="{'branch': 'main'}",
         color="tokyonight",
-        top_clause=IfExpr(HasExpr(SingleQuoteStringExpr("nvim-0.6"))),
         tag=PluginTag.COLORSCHEME,
     ),
     PluginContext(
         "rebelot",
         "kanagawa.nvim",
         color="kanagawa",
-        bottom_clause=EndifExpr(),
         tag=PluginTag.COLORSCHEME,
     ),
     PluginContext(
         "EdenEast",
         "nightfox.nvim",
         color="nightfox",
-        top_clause=IfExpr(HasExpr(SingleQuoteStringExpr("nvim-0.8"))),
-        bottom_clause=EndifExpr(),
         tag=PluginTag.COLORSCHEME,
     ),
     PluginContext(
@@ -588,98 +557,34 @@ PLUGIN_CONTEXTS = [
             EmptyStmt(),
             TrippleQuotesCommentExpr(LiteralExpr("---- UI ----")),
             SingleQuoteCommentExpr(LiteralExpr("Icon")),
-            IfExpr(HasExpr(SingleQuoteStringExpr("nvim"))),
         ],
-    ),
-    PluginContext(
-        "ryanoasis",
-        "vim-devicons",
-        top_clause=ElseExpr(),
-        bottom_clause=EndifExpr(),
     ),
     PluginContext(
         "romgrk",
         "barbar.nvim",
-        top_clause=[
-            SingleQuoteCommentExpr(LiteralExpr("Tabline")),
-            IfExpr(HasExpr(SingleQuoteStringExpr("nvim-0.7"))),
-        ],
-    ),
-    PluginContext(
-        "bagrat",
-        "vim-buffet",
-        top_clause=ElseExpr(),
-        bottom_clause=EndifExpr(),
+        top_clause=SingleQuoteCommentExpr(LiteralExpr("Tabline")),
     ),
     PluginContext(
         "kyazdani42",
         "nvim-tree.lua",
-        top_clause=[
-            SingleQuoteCommentExpr(LiteralExpr("Explorer")),
-            IfExpr(HasExpr(SingleQuoteStringExpr("nvim-0.8"))),
-        ],
-    ),
-    PluginContext("lambdalisue", "fern.vim", top_clause=ElseExpr()),
-    PluginContext("lambdalisue", "nerdfont.vim"),
-    PluginContext("lambdalisue", "fern-renderer-nerdfont.vim"),
-    PluginContext("lambdalisue", "glyph-palette.vim"),
-    PluginContext(
-        "lambdalisue",
-        "fern-git-status.vim",
-        bottom_clause=EndifExpr(),
+        top_clause=SingleQuoteCommentExpr(LiteralExpr("Explorer")),
     ),
     PluginContext("jlanzarotta", "bufexplorer"),
     PluginContext(
         "lukas-reineke",
         "indent-blankline.nvim",
-        top_clause=[
-            SingleQuoteCommentExpr(LiteralExpr("Indentline")),
-            IfExpr(HasExpr(SingleQuoteStringExpr("nvim-0.5"))),
-        ],
-        tag=PluginTag.HIGHLIGHT,
-    ),
-    PluginContext(
-        "Yggdroot",
-        "indentLine",
-        top_clause=ElseExpr(),
-        bottom_clause=EndifExpr(),
+        top_clause=SingleQuoteCommentExpr(LiteralExpr("Indentline")),
         tag=PluginTag.HIGHLIGHT,
     ),
     PluginContext(
         "nvim-lualine",
         "lualine.nvim",
-        top_clause=[
-            SingleQuoteCommentExpr(LiteralExpr("Statusline")),
-            IfExpr(HasExpr(SingleQuoteStringExpr("nvim-0.5"))),
-        ],
-    ),
-    PluginContext(
-        "itchyny",
-        "lightline.vim",
-        top_clause=ElseExpr(),
-        bottom_clause=EndifExpr(),
+        top_clause=SingleQuoteCommentExpr(LiteralExpr("Statusline")),
     ),
     PluginContext(
         "lewis6991",
         "gitsigns.nvim",
-        top_clause=[
-            SingleQuoteCommentExpr(LiteralExpr("Git")),
-            IfExpr(HasExpr(SingleQuoteStringExpr("nvim-0.7"))),
-        ],
-        tag=PluginTag.HIGHLIGHT,
-    ),
-    PluginContext(
-        "airblade",
-        "vim-gitgutter",
-        top_clause=ElseExpr(),
-        tag=PluginTag.EDITING,
-    ),
-    PluginContext("itchyny", "vim-gitbranch", tag=PluginTag.EDITING),
-    PluginContext(
-        "f-person",
-        "git-blame.nvim",
-        top_clause=IfExpr(HasExpr(SingleQuoteStringExpr("nvim-0.5"))),
-        bottom_clause=[EndifExpr(), EndifExpr()],
+        top_clause=SingleQuoteCommentExpr(LiteralExpr("Git")),
         tag=PluginTag.HIGHLIGHT,
     ),
     PluginContext(
@@ -795,66 +700,26 @@ PLUGIN_CONTEXTS = [
     PluginContext(
         "numToStr",
         "Comment.nvim",
-        top_clause=[
-            SingleQuoteCommentExpr(LiteralExpr("Comment")),
-            IfExpr(HasExpr(SingleQuoteStringExpr("nvim"))),
-        ],
-        tag=PluginTag.EDITING,
-    ),
-    PluginContext(
-        "tomtom",
-        "tcomment_vim",
-        top_clause=ElseExpr(),
-        bottom_clause=EndifExpr(),
+        top_clause=SingleQuoteCommentExpr(LiteralExpr("Comment")),
         tag=PluginTag.EDITING,
     ),
     PluginContext(
         "phaazon",
         "hop.nvim",
         post="{'branch': 'v2'}",
-        top_clause=[
-            SingleQuoteCommentExpr(LiteralExpr("Cursor motion")),
-            IfExpr(HasExpr(SingleQuoteStringExpr("nvim-0.5"))),
-        ],
-        tag=PluginTag.EDITING,
-    ),
-    PluginContext(
-        "easymotion",
-        "vim-easymotion",
-        top_clause=ElseExpr(),
-        bottom_clause=EndifExpr(),
+        top_clause=SingleQuoteCommentExpr(LiteralExpr("Cursor motion")),
         tag=PluginTag.EDITING,
     ),
     PluginContext(
         "windwp",
         "nvim-autopairs",
-        top_clause=[
-            SingleQuoteCommentExpr(LiteralExpr("Autopair")),
-            IfExpr(HasExpr(SingleQuoteStringExpr("nvim-0.7"))),
-        ],
-        tag=PluginTag.EDITING,
-    ),
-    PluginContext(
-        "jiangmiao",
-        "auto-pairs",
-        top_clause=ElseExpr(),
-        bottom_clause=EndifExpr(),
+        top_clause=SingleQuoteCommentExpr(LiteralExpr("Autopair")),
         tag=PluginTag.EDITING,
     ),
     PluginContext(
         "haya14busa",
         "is.vim",
-        top_clause=[
-            SingleQuoteCommentExpr(LiteralExpr("Incremental search")),
-            IfExpr(HasExpr(SingleQuoteStringExpr("patch-8.0.1238"))),
-        ],
-        tag=PluginTag.EDITING,
-    ),
-    PluginContext(
-        "haya14busa",
-        "incsearch.vim",
-        top_clause=ElseExpr(),
-        bottom_clause=EndifExpr(),
+        top_clause=SingleQuoteCommentExpr(LiteralExpr("Incremental search")),
         tag=PluginTag.EDITING,
     ),
     PluginContext(
@@ -1155,19 +1020,14 @@ class FileDumper:
         setting_content,
         color_setting_content,
         vimrc_content,
-        disable_vim=False,
-        disable_neovim=False,
     ) -> None:
         self.plugin_content = plugin_content
         self.setting_content = setting_content
         self.color_setting_content = color_setting_content
         self.vimrc_content = vimrc_content
-        self.disable_vim = disable_vim
-        self.disable_neovim = disable_neovim
 
     def dump(self):
         self.config()
-        self.vimrc_entry()
         self.neovim_init_vim_entry()
 
     def config(self):
@@ -1194,21 +1054,7 @@ class FileDumper:
         try_backup(pathlib.Path(coc_settings_file))
         shutil.copy(f"{VIM_DIR}/template/coc-settings-template.json", coc_settings_file)
 
-    def vimrc_entry(self):
-        if self.disable_vim:
-            return
-        if IS_WINDOWS:
-            message(f"install {HOME_DIR}\\_vimrc for vim on windows")
-            vimrc_path = pathlib.Path(f"{HOME_DIR}\\_vimrc")
-        else:
-            message(f"install ~/.vimrc for vim")
-            vimrc_path = pathlib.Path(f"{HOME_DIR}/.vimrc")
-        try_backup(vimrc_path)
-        vimrc_path.symlink_to(VIMRC_FILE)
-
     def neovim_init_vim_entry(self):
-        if self.disable_neovim:
-            return
         if IS_WINDOWS:
             message(
                 f"install {HOME_DIR}\\AppData\\Local\\nvim\\init.vim for neovim on windows"
@@ -1275,18 +1121,6 @@ class CommandHelp(click.Command):
     multiple=True,
     help="Disable specific vim plugin",
 )
-@click.option(
-    "--disable-vim",
-    "disable_vim_opt",
-    is_flag=True,
-    help="No .vimrc file for vim",
-)
-@click.option(
-    "--disable-neovim",
-    "disable_neovim_opt",
-    is_flag=True,
-    help="No init.vim file neovim",
-)
 def generator(
     basic_opt,
     limit_opt,
@@ -1296,8 +1130,6 @@ def generator(
     disable_language_opt,
     disable_editing_opt,
     disable_plugin_opt,
-    disable_vim_opt,
-    disable_neovim_opt,
 ):
     if limit_opt:
         disable_color_opt = True
@@ -1323,8 +1155,6 @@ def generator(
         settings_content,
         color_settings_content,
         vimrc_content,
-        disable_vim_opt,
-        disable_neovim_opt,
     )
     dumper.dump()
 
