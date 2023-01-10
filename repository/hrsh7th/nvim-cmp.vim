@@ -10,57 +10,6 @@ lua<<EOF
         }
     })
 
-    -- embeded LSP servers
-    local mason_lspconfig_servers = {
-        -- c/c++
-        "clangd",
-        -- cmake
-        "cmake",
-        -- css
-        "cssls",
-        "cssmodules_ls",
-        -- eslint
-        "eslint",
-        -- go
-        "gopls",
-        -- grammarly
-        "grammarly",
-        -- graphql
-        "graphql",
-        -- html
-        "html",
-        -- json
-        "jsonls",
-        -- js/ts
-        "tsserver",
-        -- lua
-        "sumneko_lua",
-        -- markdown
-        "marksman",
-        -- python
-        "pyright",
-        -- rust
-        "rust_analyzer",
-        -- sql,
-        "sqlls",
-        -- toml
-        "taplo",
-        -- yaml
-        "yamlls",
-        -- vim
-        "vimls",
-    }
-    if vim.fn.has('win32') then
-        -- powershell
-        table.insert(mason_lspconfig_servers, "powershell_es")
-    else
-        -- bashls
-        table.insert(mason_lspconfig_servers, "bashls")
-    end
-    require("mason-lspconfig").setup {
-        ensure_installed = mason_lspconfig_servers,
-    }
-
     -- Key mappings
     vim.api.nvim_create_autocmd('LspAttach', {
         desc = 'LSP actions',
@@ -132,58 +81,9 @@ lua<<EOF
         require('cmp_nvim_lsp').default_capabilities()
     )
 
-    -- setup embeded LSP servers
-    lspconfig.clangd.setup({})
-    lspconfig.cmake.setup({})
-    lspconfig.cssls.setup({})
-    lspconfig.cssmodules_ls.setup({})
-    lspconfig.eslint.setup({})
-    lspconfig.gopls.setup({})
-    lspconfig.grammarly.setup({})
-    lspconfig.graphql.setup({})
-    lspconfig.html.setup({})
-    lspconfig.jsonls.setup({})
-    lspconfig.tsserver.setup({})
-    lspconfig.sumneko_lua.setup({})
-    lspconfig.marksman.setup({})
-    if vim.fn.has('win32') then
-        lspconfig.powershell_es.setup({})
-    else
-        lspconfig.bashls.setup({})
-    end
-    lspconfig.pyright.setup({})
-    lspconfig.rust_analyzer.setup({})
-    lspconfig.sqlls.setup({})
-    lspconfig.taplo.setup({})
-    lspconfig.yamlls.setup({})
-    lspconfig.vimls.setup({})
-
-    -- setup null_ls
-    local null_ls_servers = {
-        -- bash
-        "shfmt",
-        -- js/ts/html/css/etc
-        "prettierd",
-        -- python
-        "black",
-        "isort",
-    }
-    local null_ls = require("null-ls")
-    null_ls.setup({
-        sources = {
-            null_ls.builtins.formatting.shfmt,
-            null_ls.builtins.formatting.prettierd,
-            null_ls.builtins.formatting.black,
-            null_ls.builtins.formatting.isort,
-        },
-    })
-    require("mason-null-ls").setup({
-        ensure_installed = null_ls_servers,
-    })
-
     -- nvim-cmp
     require('luasnip.loaders.from_vscode').lazy_load()
-    local cmp = require'cmp'
+    local cmp = require('cmp')
     local luasnip = require('luasnip')
 
     local select_opts = {behavior = cmp.SelectBehavior.Select}

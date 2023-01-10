@@ -363,7 +363,7 @@ Adjust explorer width:
 - `<M-.>`/`<M-Right>`/`<C-.>`/`<C-Right>` **🇳** - Make explorer bigger size.
 - `<M-,>`/`<M-Left>`/`<C-,>`/`<C-Left>` **🇳** - Make explorer smaller size.
 
-You could edit **_~/.vim/repository/kyazdani42/nvim-tree.lua.vim_** to customize these key mappings.
+You could configure these key mappings in _~/.vim/repository/kyazdani42/nvim-tree.lua.vim_.
 
 #### Tabline
 
@@ -449,7 +449,9 @@ By default [Hack Nerd Font Mono](https://github.com/ryanoasis/nerd-fonts/release
 
 By default, [a bunch of language servers](#embedded-language-servers) are already embedded. But sooner or later you need to manage these LSP servers yourself, the manager is supported by [mason.nvim](https://github.com/williamboman/mason.nvim).
 
-To ensure LSP servers and some formatters embedded, [mason-lspconfig.nvim](https://github.com/williamboman/mason-lspconfig.nvim), [null-ls.nvim](https://github.com/jose-elias-alvarez/null-ls.nvim) and [mason-null-ls.nvim](https://github.com/jay-babu/mason-null-ls.nvim) are introduced.
+To ensure LSP servers and formatters embedded, [mason-lspconfig.nvim](https://github.com/williamboman/mason-lspconfig.nvim), [null-ls.nvim](https://github.com/jose-elias-alvarez/null-ls.nvim) and [mason-null-ls.nvim](https://github.com/jay-babu/mason-null-ls.nvim) are introduced as well.
+
+You could add more LSP servers, or configure all embedded LSP servers in _~/.vim/lsp-settings.vim_.
 
 ### Search
 
