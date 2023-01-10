@@ -1,7 +1,8 @@
 # runtime files
 .DS_Store
 .netrwhist
-sessions
+
+# copy-paste
 .copypaste
 
 # plugins
