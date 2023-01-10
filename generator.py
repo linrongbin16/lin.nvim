@@ -998,7 +998,7 @@ class Render(Indentable):
                             IndentExpr(
                                 CallExpr(
                                     AddExpr(
-                                        LiteralExpr("s:lin_vim_colorschemes"),
+                                        LiteralExpr("s:lin_colorschemes"),
                                         SingleQuoteStringExpr(ctx.color),
                                     )
                                 ),

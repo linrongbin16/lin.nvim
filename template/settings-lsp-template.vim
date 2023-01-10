@@ -1,4 +1,5 @@
 lua<<EOF
+  local lspconfig = require('lspconfig')
   lspconfig.clangd.setup({})
   lspconfig.tsserver.setup({})
   lspconfig.html.setup({})

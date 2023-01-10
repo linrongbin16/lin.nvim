@@ -1,7 +1,5 @@
-lua <<EOF
-
+lua<<EOF
   -- Key mappings
-
   vim.api.nvim_create_autocmd('LspAttach', {
     desc = 'LSP actions',
     callback = function()
@@ -27,7 +25,6 @@ lua <<EOF
   })
 
   -- Diagnostic
-
   local LinSign = function(opts)
     vim.fn.sign_define(opts.name, {
       texthl = opts.name,
@@ -89,9 +86,9 @@ lua <<EOF
     }, {
       { name = 'buffer', keyword_length=2 },
       { name = 'path', keyword_length=2 },
-    })
+    }),
     window = {
-      -- completion = cmp.config.window.bordered(),
+      completion = cmp.config.window.bordered(),
       documentation = cmp.config.window.bordered(),
     },
     formatting = {
@@ -103,19 +100,20 @@ lua <<EOF
           buffer = 'Ω',
           path = '🖫',
         }
-
         item.menu = menu_icon[entry.source.name]
         return item
       end,
     },
     mapping = cmp.mapping.preset.insert({
-      ['<Up>', '<C-p>'] = cmp.mapping.select_prev_item(lin_select_opts),
-      ['<Down>', '<C-n>'] = cmp.mapping.select_next_item(lin_select_opts),
+      ['<Up>'] = cmp.mapping.select_prev_item(lin_select_opts),
+      ['<C-p>'] = cmp.mapping.select_prev_item(lin_select_opts),
+      ['<Down>'] = cmp.mapping.select_next_item(lin_select_opts),
+      ['<C-n>'] = cmp.mapping.select_next_item(lin_select_opts),
       ['<C-u>'] = cmp.mapping.scroll_docs(-4),
       ['<C-d>'] = cmp.mapping.scroll_docs(4),
       ['<C-Space>'] = cmp.mapping.complete(),
       ['<C-e>'] = cmp.mapping.abort(),
-      -- ['<CR>', '<TAB>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+      -- ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
       ['<CR>'] = cmp.mapping(function(fallback)
         if cmp.visible() then
           cmp.confirm({select=false})
@@ -163,7 +161,7 @@ lua <<EOF
   cmp.setup.cmdline({ '/', '?' }, {
     mapping = cmp.mapping.preset.cmdline(),
     sources = {
-      { name = 'buffer' }
+      { name = 'buffer', keyword_length=3 }
     }
   })
 
@@ -171,9 +169,9 @@ lua <<EOF
   cmp.setup.cmdline(':', {
     mapping = cmp.mapping.preset.cmdline(),
     sources = cmp.config.sources({
-      { name = 'path' }
+      { name = 'path', keyword_length=3 }
     }, {
-      { name = 'cmdline' }
+      { name = 'cmdline', keyword_length=3 }
     })
   })
 EOF
