@@ -11,54 +11,58 @@ lua<<EOF
     })
 
     -- embeded LSP servers
+    local lin_embeded_lsp_servers = {
+        -- c/c++
+        "clangd",
+        -- cmake
+        "cmake",
+        -- css
+        "cssls",
+        "cssmodules_ls",
+        -- eslint
+        "eslint",
+        -- go
+        "gopls",
+        -- grammarly
+        "grammarly",
+        -- graphql
+        "graphql",
+        -- html
+        "html",
+        -- json
+        "jsonls",
+        -- js/ts
+        "tsserver",
+        -- lua
+        "sumneko_lua",
+        -- markdown
+        "remark_ls",
+        -- python
+        "pyright",
+        -- reason
+        "reason_ls",
+        -- rust
+        "rust_analyzer",
+        -- sql,
+        "sqlls",
+        -- toml
+        "taplo",
+        -- vue
+        "volar",
+        -- yaml
+        "yamlls",
+        -- vim
+        "vimls",
+    }
+    if vim.fn.has('win32') then
+        -- powershell
+        table.insert(lin_embeded_lsp_servers, "powershell_es")
+    else
+        -- bashls
+        table.insert(lin_embeded_lsp_servers, "bashls")
+    end
     require("mason-lspconfig").setup {
-        ensure_installed = {
-            -- bash
-            "bashls",
-            -- c/c++
-            "clangd",
-            -- cmake
-            "cmake",
-            -- css
-            "cssls",
-            "cssmodules_ls",
-            -- eslint
-            "eslint",
-            -- go
-            "gopls",
-            -- grammarly
-            "grammarly",
-            -- graphql
-            "graphql",
-            -- html
-            "html",
-            -- json
-            "jsonls",
-            -- js/ts
-            "tsserver",
-            -- lua
-            "sumneko_lua",
-            -- markdown
-            "remark_ls",
-            -- powershell
-            "powershell_es",
-            -- python
-            "pyright",
-            -- reason
-            "reason_ls",
-            -- rust
-            "rust_analyzer",
-            -- sql,
-            "sqlls",
-            -- toml
-            "taplo",
-            -- vue
-            "volar",
-            -- yaml
-            "yamlls",
-            -- vim
-            "vimls",
-        },
+        ensure_installed = lin_embeded_lsp_servers,
     }
 
   -- Key mappings
@@ -133,6 +137,7 @@ lua<<EOF
     require('cmp_nvim_lsp').default_capabilities()
   )
 
+  -- setup embeded LSP servers
   lspconfig.bashls.setup({})
   lspconfig.clangd.setup({})
   lspconfig.cmake.setup({})
