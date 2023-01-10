@@ -613,8 +613,8 @@ PLUGIN_CONTEXTS = [
     ),
     PluginContext("junegunn", "fzf.vim"),
     PluginContext(
-        "williamboman",
-        "mason.nvim",
+        "neovim",
+        "nvim-lspconfig",
         top_clause=[
             EmptyStmt(),
             TrippleQuotesCommentExpr(LiteralExpr("---- Language server ----")),
@@ -623,12 +623,12 @@ PLUGIN_CONTEXTS = [
     ),
     PluginContext(
         "williamboman",
-        "mason-lspconfig.nvim",
+        "mason.nvim",
         tag=PluginTag.LANGUAGE,
     ),
     PluginContext(
-        "neovim",
-        "nvim-lspconfig",
+        "williamboman",
+        "mason-lspconfig.nvim",
         tag=PluginTag.LANGUAGE,
     ),
     PluginContext(
@@ -666,21 +666,9 @@ PLUGIN_CONTEXTS = [
         "cmp_luasnip",
         tag=PluginTag.LANGUAGE,
     ),
-    PluginContext(
-        "rafamadriz",
-        "friendly-snippets",
-        tag=PluginTag.LANGUAGE
-    ),
-    PluginContext(
-        "nvim-lua",
-        "plenary.nvim",
-        tag=PluginTag.LANGUAGE
-    ),
-    PluginContext(
-        "jose-elias-alvarez",
-        "null-ls.nvim",
-        tag=PluginTag.LANGUAGE
-    ),
+    PluginContext("rafamadriz", "friendly-snippets", tag=PluginTag.LANGUAGE),
+    PluginContext("nvim-lua", "plenary.nvim", tag=PluginTag.LANGUAGE),
+    PluginContext("jose-elias-alvarez", "null-ls.nvim", tag=PluginTag.LANGUAGE),
     PluginContext(
         "iamcco",
         "markdown-preview.nvim",
