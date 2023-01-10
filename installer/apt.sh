@@ -22,14 +22,19 @@ fi
 
 install_or_skip "sudo apt-get install -y build-essential" "gcc"
 install_or_skip "sudo apt-get install -y build-essential" "make"
+install_or_skip "sudo apt-get install -y git" "git"
 install_or_skip "sudo apt-get install -y curl" "curl"
 install_or_skip "sudo apt-get install -y wget" "wget"
+install_or_skip "sudo apt-get install -y unzip" "unzip"
+install_or_skip "sudo apt-get install -y gzip" "gzip"
 install_or_skip "sudo apt-get install -y autoconf" "autoconf"
 install_or_skip "sudo apt-get install -y automake" "automake"
 install_or_skip "sudo apt-get install -y pkg-config" "pkg-config"
 install_or_skip "sudo apt-get install -y cmake" "cmake"
+install_or_skip "sudo apt-get install -y xsel" "xsel"
 install_or_skip "sudo apt-get install -y xclip" "xclip"
 install_or_skip "sudo apt-get install -y wl-clipboard" "wl-copy"
+
 
 # locale
 sudo locale-gen en_US

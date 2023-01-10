@@ -32,10 +32,7 @@ golang_dependency() {
 
 pip3_dependency() {
     message "install python packages with pip3"
-    install_or_skip "sudo pip3 install flake8" "flake8"
-    install_or_skip "sudo pip3 install pylint" "pylint"
-    install_or_skip "sudo pip3 install black" "black"
-    sudo pip3 install neovim pynvim cmakelang click
+    sudo pip3 install neovim pynvim click
 }
 
 npm_dependency() {

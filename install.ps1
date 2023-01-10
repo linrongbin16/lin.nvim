@@ -172,7 +172,6 @@ function DownloadAndInstallDependency([string]$option) {
     $parts = $option.Split("=")
     $name = $parts[ $parts.Length - 1]
 
-    $runVim = $False
     $runNeovim = $False
     $runCmake = $False
     $runPython3 = $False
@@ -181,10 +180,7 @@ function DownloadAndInstallDependency([string]$option) {
     $runNodejs = $False
     $runCtags = $False
 
-    if ($name.ToLower().StartsWith("vim")) {
-        $runVim = $True
-    }
-    elseif ($name.ToLower().StartsWith("neovim") -or $name.ToLower().StartsWith("nvim")) {
+    if ($name.ToLower().StartsWith("neovim") -or $name.ToLower().StartsWith("nvim")) {
         $runNeovim = $True
     }
     elseif ($name.ToLower().StartsWith("cmake")) {
@@ -209,7 +205,6 @@ function DownloadAndInstallDependency([string]$option) {
         $runCtags = $True
     }
     elseif ($name.ToLower() -eq "all") {
-        $runVim = $True
         $runNeovim = $True
         $runCmake = $True
         $runPython3 = $True
@@ -220,10 +215,6 @@ function DownloadAndInstallDependency([string]$option) {
     }
     else {
         UnknownOptionError
-    }
-
-    if ($runVim) {
-        VimDependency
     }
     if ($runNeovim) {
         NeovimDependency 
@@ -271,10 +262,7 @@ function CargoDependency() {
 
 function Pip3Dependency() {
     Message "install python packages with pip3"
-    InstallOrSkip -command "pip3 install flake8" -target "flake8"
-    InstallOrSkip -command "pip3 install pylint" -target "pylint"
-    InstallOrSkip -command "pip3 install black" -target "black"
-    pip3 install neovim pynvim cmakelang click
+    pip3 install neovim pynvim click
 }
 
 function NpmDependency() {
