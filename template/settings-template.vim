@@ -57,9 +57,6 @@ nnoremap <Leader>p :r ~/.vim/.copypaste<CR>
 """ filesize=1000000
 " autocmd BufWinEnter * if line2byte(line("$") + 1) > 1000000 | syntax clear | endif
 
-""" ---- Python3 host ----
-" let g:python3_host_prog='python3'
-
 """ ---- Neovide ----
 " let g:neovide_refresh_rate=60
 " let g:neovide_transparency=1.0

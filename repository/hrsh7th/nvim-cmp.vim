@@ -39,16 +39,12 @@ lua<<EOF
         "remark_ls",
         -- python
         "pyright",
-        -- reason
-        "reason_ls",
         -- rust
         "rust_analyzer",
         -- sql,
         "sqlls",
         -- toml
         "taplo",
-        -- vue
-        "volar",
         -- yaml
         "yamlls",
         -- vim
@@ -154,11 +150,9 @@ lua<<EOF
   lspconfig.remark_ls.setup({})
   lspconfig.powershell_es.setup({})
   lspconfig.pyright.setup({})
-  lspconfig.reason_ls.setup({})
   lspconfig.rust_analyzer.setup({})
   lspconfig.sqlls.setup({})
   lspconfig.taplo.setup({})
-  lspconfig.volar.setup({})
   lspconfig.yamlls.setup({})
   lspconfig.vimls.setup({})
 
