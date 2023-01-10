@@ -29,7 +29,6 @@ lin.nvim is a highly configured [neovim](https://neovim.io/) distribution integr
         *   [Symbols](#symbols)
         *   [Code Format](#code-format)
         *   [Code Actions](#code-actions)
-        *   [CodeLens](#codelens)
         *   [Git](#git)
     *   [Search](#search)
         *   [Text Search](#text-search)
@@ -439,11 +438,6 @@ By default [Hack Nerd Font Mono](https://github.com/ryanoasis/nerd-fonts/release
 
 *   `<Leader>ca` **🇳** - Run code actions under cursor in normal mode.
 *   `<Leader>ca` **🇻** - Run code actions on selected code in visual mode.
-*   `<Leader>qf` **🇳** - Apply quick fix for diagnostics on current line.
-
-#### CodeLens
-
-*   `<Leader>cl` **🇳** - Run the CodeLens on current line.
 
 #### Git
 
