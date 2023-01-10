@@ -647,13 +647,13 @@ PLUGIN_CONTEXTS = [
         tag=PluginTag.LANGUAGE,
     ),
     PluginContext(
-        "hrsh7th",
-        "cmp-vsnip",
+        "L3MON4D3",
+        "LuaSnip",
         tag=PluginTag.LANGUAGE,
     ),
     PluginContext(
-        "hrsh7th",
-        "vim-vsnip",
+        "saadparwaiz1",
+        "cmp_luasnip",
         tag=PluginTag.LANGUAGE,
     ),
     PluginContext(

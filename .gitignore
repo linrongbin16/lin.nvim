@@ -12,6 +12,7 @@ plugins.vim
 settings.vim
 color-settings.vim
 coc-settings.json
+lsp-settings.vim
 vimrc.vim
 
 # neovim
