@@ -1086,7 +1086,7 @@ class FileDumper:
             fp.write(self.setting_content)
         try_backup(pathlib.Path(lsp_settings_file))
         with open(lsp_settings_file, "w") as fp:
-            fp.write(self.lsp_settings_file)
+            fp.write(self.lsp_setting_content)
         try_backup(pathlib.Path(color_settings_file))
         with open(color_settings_file, "w") as fp:
             fp.write(self.color_setting_content)
