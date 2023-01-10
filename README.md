@@ -307,7 +307,7 @@ Meta-key (`M`), alt-key (`A`) on Windows/Linux, and command-key (`D`) on macOS a
 *   `F2` **🇳** - Toggle undo-tree.
 *   `F3` **🇳** - Toggle outline/tags, see [Outlines and Terminal](#screenshots).
 *   `F4` **🇳** - Switch between C/C++ headers and sources.
-*   `F7` **🇳** - Toggle git blame info on the current line.
+*   `F7` **🇳** - Toggle git blame info on current line.
 *   `F8` **🇳** - Open markdown preview.
 *   `F9` **🇳** - Toggle terminal.
 *   `F10` **🇳** - Toggle buffers explorer.
@@ -337,7 +337,7 @@ Additionally for macOS, command+? keys are configured following the same behavio
 
 Copy/paste across different vim instances through remote ssh could be difficult, so introduce two shortcuts using local cache:
 
-*   `<Leader>y` **🇻** - Copy visual selected text to cache.
+*   `<Leader>y` **🇻** - Copy selected text to cache.
 *   `<Leader>p` **🇳** - Paste from cache to current cursor.
 
 You could configure all global key mappings in *~/.vim/settings.vim*.
@@ -346,7 +346,7 @@ You could configure all global key mappings in *~/.vim/settings.vim*.
 
 #### File Explorer
 
-File explorer is support by [nvim-tree.lua](https://github.com/kyazdani42/nvim-tree.lua). Please refer to [:help nvim-tree.view.mappings](https://github.com/nvim-tree/nvim-tree.lua/blob/master/doc/nvim-tree-lua.txt) for default key mappings. Only a few keys are added for more convenience:
+File explorer is supported by [nvim-tree.lua](https://github.com/kyazdani42/nvim-tree.lua). Please refer to [:help nvim-tree.view.mappings](https://github.com/nvim-tree/nvim-tree.lua/blob/master/doc/nvim-tree-lua.txt) for default key mappings. Only a few keys are added for more convenience:
 
 Navigation:
 
@@ -364,11 +364,11 @@ Adjust explorer width:
 *   `<M-.>`/`<M-Right>`/`<C-.>`/`<C-Right>` **🇳** - Make explorer bigger size.
 *   `<M-,>`/`<M-Left>`/`<C-,>`/`<C-Left>` **🇳** - Make explorer smaller size.
 
-You could editing ***~/.vim/repository/kyazdani42/nvim-tree.lua.vim*** to customize these key mappings.
+You could edit ***~/.vim/repository/kyazdani42/nvim-tree.lua.vim*** to customize these key mappings.
 
 #### Tabline
 
-Notice that on different platforms,terminals and GUI clients, some ctrl/meta+keys could been overwritten. So introduced several ways of mappings to make sure for the availibility.
+Notice that on different platforms, terminals and GUI clients, some ctrl/meta+keys could be overwritten. So introduced several ways of mappings to make sure of the availability.
 
 *   `<Leader>bn`/`<M-.>`/`<C-.>`/`<M-Right>`/`<C-Right>` **🇳** - Go to next(right) buffer.
 *   `<Leader>bp`/`<M-,>`/`<C-,>`/`<M-Left>`/`<C-Left>` **🇳** - Go to previous(left) buffer.
@@ -419,14 +419,15 @@ By default [Hack Nerd Font Mono](https://github.com/ryanoasis/nerd-fonts/release
 *   `[d` **🇳** - Go to previous(up) diagnostic location.
 *   `]d` **🇳** - Go to next(down) diagnostic location.
 *   `gd` **🇳** - Go to definition.
-*   `gD`/`gl` **🇳** - Go to declaration.
-*   `gy`/`gt` **🇳** - Go to type definition.
+*   `gD` **🇳** - Go to declaration.
+*   `gt` **🇳** - Go to type definition.
 *   `gi` **🇳** - Go to implemention.
 *   `gr` **🇳** - Go to references.
 
 #### Symbols
 
 *   `K` **🇳** - Show hover information.
+*   `<C-k>` **🇳** - Show signature help.
 *   `<Leader>rs` **🇳** - Rename symbol.
 
 #### Code Format
@@ -448,16 +449,16 @@ By default [Hack Nerd Font Mono](https://github.com/ryanoasis/nerd-fonts/release
 
 *   `]c` **🇳** - Go to next(down) git chunk in current buffer.
 *   `[c` **🇳** - Go to previous(up) git chunk in current buffer.
-*   `<Leader>gb` **🇳** - Toggle git blame info for current line (for neovim 0.5+).
+*   `<Leader>gb` **🇳** - Toggle git blame info for current line.
 
 ### Search
 
-Search engine use fzf.vim and integrated with coc.nvim with [coc-fzf](https://github.com/antoinemadec/coc-fzf). All fzf commands are configured with prefix **Fzf**, for example `:Files` are renamed to `:FzfFiles`, `:Rg` are renamed to `:FzfRg`.
+Search engine is supported by [fzf.vim](https://github.com/junegunn/fzf.vim). All fzf commands are configured with the prefix **Fzf**, for example `:Files` are renamed to `:FzfFiles`, `:Rg` are renamed to `:FzfRg`.
 
 #### Text Search
 
-*   `<Space>gr` **🇳** - Search text by self-defined command `:LinVimFzfRg`.
-*   `<Space>gw` **🇳** - Search word text under cursor by self-defined command `:LinVimFzfRgCWord`.
+*   `<Space>gr` **🇳** - Search text by self-defined command `:LinFzfRg`.
+*   `<Space>gw` **🇳** - Search word text under cursor by self-defined command `:LinFzfRgCWord`.
 *   `<Space>l` **🇳** - Search lines on opened buffers by `:FzfLines`.
 *   `<Space>t` **🇳** - Search tags by `:FzfTags`.
 *   `<Space>sh` **🇳** - Search searched history by `:FzfHistory/`.
@@ -488,7 +489,7 @@ Please visit [fzf.vim](https://github.com/junegunn/fzf.vim) for more information
 
 #### Easy Comment
 
-Linewise comment:
+Line-wise comment:
 
 *   `gcc` **🇳** - Toggle current line.
 *   `[count]gcc` **🇳** - Toggle *\[count]* number of lines.
@@ -496,7 +497,7 @@ Linewise comment:
 *   `gc[count]{motion}` **🇳** - Toggle region with *\[count]*(optional) times motion.
 *   `gc` **🇻** - Toggle selected region in virual mode.
 
-Blockwise comment:
+Block-wise comment:
 
 *   `gbc` **🇳** - Toggle current line.
 *   `[count]gbc` **🇳** - Toggle *\[count]* number of lines.
@@ -519,7 +520,7 @@ Support by [hop.nvim](https://github.com/phaazon/hop.nvim).
 
 #### Word Movement
 
-(Neo)vim word movement cannot recognize real literal word, such as camel case, mixed digits, characters, punctuations, etc.
+(Neo)vim word movement cannot recognize the real literal word, such as camel case, mixed digits, characters, punctuations, etc.
 So introduce better word motions:
 
 *   `<Leader>w`/`<Leader>W` **🇳** - word/WORD forward(right), exclusive.
@@ -531,19 +532,19 @@ Support by [vim-wordmotion](https://github.com/chaoren/vim-wordmotion).
 
 #### Better Repeat
 
-Better repeat(`.`) operation, support by [vim-repeat](https://github.com/tpope/vim-repeat).
+Better repeat(`.`) operation, supported by [vim-repeat](https://github.com/tpope/vim-repeat).
 
 #### Better Surrounding(Quotes) Editing
 
-Better surrounding(quotes) editing, support by [vim-surround](https://github.com/tpope/vim-surround).
+Better surrounding(quotes) editing, supported by [vim-surround](https://github.com/tpope/vim-surround).
 
 #### Better Matching
 
-Better matching include HTML tags, if-endif, and other things, support by [vim-matchup](https://github.com/andymass/vim-matchup).
+Better matching includes HTML tags, if-endif, and other things, supported by [vim-matchup](https://github.com/andymass/vim-matchup).
 
 #### Auto Pair and Close HTML Tag
 
-Auto pair and close html tags, support by [nvim-autopairs](https://github.com/windwp/nvim-autopairs) and [vim-closetag](https://github.com/alvan/vim-closetag).
+Auto pair and close html tags, supported by [nvim-autopairs](https://github.com/windwp/nvim-autopairs) and [vim-closetag](https://github.com/alvan/vim-closetag).
 
 ## Customization
 

@@ -6,61 +6,61 @@ let g:fzf_command_prefix = 'Fzf'
 
 """ Text search
 
-command! -bang -nargs=* LinVimFzfRg
+command! -bang -nargs=* LinFzfRg
             \ call fzf#vim#grep(
             \ "rg --column --line-number --no-heading --color=always --smart-case --no-ignore-global --no-ignore-parent --hidden --glob=!.git/ -- ".shellescape(<q-args>), 1,
             \ fzf#vim#with_preview(), <bang>0)
 
-command! -bang -nargs=0 LinVimFzfRgCWord
+command! -bang -nargs=0 LinFzfRgCWord
             \ call fzf#vim#grep(
             \ "rg --column --line-number --no-heading --color=always --smart-case --no-ignore-global --no-ignore-parent --hidden --glob=!.git/ ".shellescape(expand('<cword>')), 1,
             \ fzf#vim#with_preview(), <bang>0)
 
-function! s:LinVimDefineFzfKeys(k, v) abort
+function! s:LinDefineFzfKeys(k, v) abort
     execute printf('nnoremap <silent> <expr> %s (&filetype ==# "NvimTree" ? "\<C-w>\<C-w>" : "").":\<C-u>%s\<CR>"', a:k, a:v)
 endfunction
 
 " search text
 
 " search text
-call s:LinVimDefineFzfKeys('<space>gr', 'LinVimFzfRg')
+call s:LinDefineFzfKeys('<space>gr', 'LinFzfRg')
 " search word under cursor
-call s:LinVimDefineFzfKeys('<space>gw', 'LinVimFzfRgCWord')
+call s:LinDefineFzfKeys('<space>gw', 'LinFzfRgCWord')
 " search lines on opened buffers
-call s:LinVimDefineFzfKeys('<space>l', 'FzfLines')
+call s:LinDefineFzfKeys('<space>l', 'FzfLines')
 " search text on tags
-call s:LinVimDefineFzfKeys('<space>t', 'FzfTags')
+call s:LinDefineFzfKeys('<space>t', 'FzfTags')
 " search searched history
-call s:LinVimDefineFzfKeys('<space>sh', 'FzfHistory/')
+call s:LinDefineFzfKeys('<space>sh', 'FzfHistory/')
 " search command history
-call s:LinVimDefineFzfKeys('<space>ch', 'FzfHistory:')
+call s:LinDefineFzfKeys('<space>ch', 'FzfHistory:')
 
 " search files
 
 " search files
-call s:LinVimDefineFzfKeys('<space>f', 'FzfFiles')
-call s:LinVimDefineFzfKeys('<C-p>', 'FzfFiles')
+call s:LinDefineFzfKeys('<space>f', 'FzfFiles')
+call s:LinDefineFzfKeys('<C-p>', 'FzfFiles')
 " search opened buffers
-call s:LinVimDefineFzfKeys('<space>b', 'FzfBuffers')
+call s:LinDefineFzfKeys('<space>b', 'FzfBuffers')
 " search history files(v:oldfiles) and opened buffers
-call s:LinVimDefineFzfKeys('<space>hf', 'FzfHistory')
+call s:LinDefineFzfKeys('<space>hf', 'FzfHistory')
 
 " search git
 
 " search git commits
-call s:LinVimDefineFzfKeys('<space>gc', 'FzfCommits')
+call s:LinDefineFzfKeys('<space>gc', 'FzfCommits')
 " search git files
-call s:LinVimDefineFzfKeys('<space>gf', 'FzfGFile')
+call s:LinDefineFzfKeys('<space>gf', 'FzfGFile')
 " search git status
-call s:LinVimDefineFzfKeys('<space>gs', 'FzfGFiles?')
+call s:LinDefineFzfKeys('<space>gs', 'FzfGFiles?')
 
 " other search
 
 " search marks
-call s:LinVimDefineFzfKeys('<space>mk', 'FzfMarks')
+call s:LinDefineFzfKeys('<space>mk', 'FzfMarks')
 " search maps
-call s:LinVimDefineFzfKeys('<space>mp', 'FzfMaps')
+call s:LinDefineFzfKeys('<space>mp', 'FzfMaps')
 " search vim commands
-call s:LinVimDefineFzfKeys('<space>vc', 'FzfCommands')
+call s:LinDefineFzfKeys('<space>vc', 'FzfCommands')
 " search help tags
-call s:LinVimDefineFzfKeys('<space>ht', 'FzfHelptags')
+call s:LinDefineFzfKeys('<space>ht', 'FzfHelptags')
