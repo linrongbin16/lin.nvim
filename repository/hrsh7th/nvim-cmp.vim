@@ -16,8 +16,8 @@ lua<<EOF
       bufmap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>')
       bufmap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<cr>')
       bufmap('n', '<Leader>rs', '<cmd>lua vim.lsp.buf.rename()<cr>')
-      bufmap('n', '<Leader>cf', '<cmd>lua vim.lsp.buf.formatting_sync()<cr>')
-      bufmap('x', '<Leader>cf', '<cmd>lua vim.lsp.buf.formatting_sync()<cr>')
+      bufmap('n', '<Leader>cf', '<cmd>lua vim.lsp.buf.format()<cr>')
+      bufmap('x', '<Leader>cf', '<cmd>lua vim.lsp.buf.format()<cr>')
       bufmap('n', '<Leader>ca', '<cmd>lua vim.lsp.buf.code_action()<cr>')
       bufmap('x', '<Leader>ca', '<cmd>lua vim.lsp.buf.range_code_action()<cr>')
       bufmap('n', '<Leader>df', '<cmd>lua vim.diagnostic.open_float()<cr>')
@@ -72,7 +72,10 @@ lua<<EOF
   )
 
   -- nvim-cmp
+  require('luasnip.loaders.from_vscode').lazy_load()
   local cmp = require'cmp'
+  local luasnip = require('luasnip')
+
   local lin_select_opts = {behavior = cmp.SelectBehavior.Select}
   local lin_keyword_len2=2
 
@@ -186,5 +189,5 @@ EOF
 " format on save
 augroup LinNvimCmpAuGroup
     autocmd!
-    autocmd BufWritePre * lua vim.lsp.buf.formatting()
+    autocmd BufWritePre * lua vim.lsp.buf.format{async = true}
 augroup END

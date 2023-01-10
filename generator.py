@@ -667,6 +667,11 @@ PLUGIN_CONTEXTS = [
         tag=PluginTag.LANGUAGE,
     ),
     PluginContext(
+        "rafamadriz",
+        "friendly-snippets",
+        tag=PluginTag.LANGUAGE
+    ),
+    PluginContext(
         "iamcco",
         "markdown-preview.nvim",
         post="{ 'do': 'cd app && yarn install', 'for': ['markdown'] }",
