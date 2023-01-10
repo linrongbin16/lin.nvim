@@ -672,6 +672,16 @@ PLUGIN_CONTEXTS = [
         tag=PluginTag.LANGUAGE
     ),
     PluginContext(
+        "nvim-lua",
+        "plenary.nvim",
+        tag=PluginTag.LANGUAGE
+    ),
+    PluginContext(
+        "jose-elias-alvarez",
+        "null-ls.nvim",
+        tag=PluginTag.LANGUAGE
+    ),
+    PluginContext(
         "iamcco",
         "markdown-preview.nvim",
         post="{ 'do': 'cd app && yarn install', 'for': ['markdown'] }",
