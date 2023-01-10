@@ -72,6 +72,7 @@ lua<<EOF
   -- nvim-cmp
   local cmp = require'cmp'
   local lin_select_opts = {behavior = cmp.SelectBehavior.Select}
+  local lin_keyword_len2=2
 
   cmp.setup({
     snippet = {
@@ -81,11 +82,11 @@ lua<<EOF
       end,
     },
     sources = cmp.config.sources({
-      { name = 'nvim_lsp', keyword_length=3 },
-      { name = 'luasnip', keyword_length=3 },
+      { name = 'nvim_lsp', keyword_length=lin_keyword_len2 },
+      { name = 'luasnip', keyword_length=lin_keyword_len2 },
     }, {
-      { name = 'buffer', keyword_length=2 },
-      { name = 'path', keyword_length=2 },
+      { name = 'buffer', keyword_length=lin_keyword_len2 },
+      { name = 'path', keyword_length=lin_keyword_len2 },
     }),
     window = {
       completion = cmp.config.window.bordered(),
@@ -166,12 +167,13 @@ lua<<EOF
   })
 
   -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+  local lin_keyword_len3=3
   cmp.setup.cmdline(':', {
     mapping = cmp.mapping.preset.cmdline(),
     sources = cmp.config.sources({
-      { name = 'path', keyword_length=3 }
+      { name = 'path', keyword_length=lin_keyword_len3 }
     }, {
-      { name = 'cmdline', keyword_length=3 }
+      { name = 'cmdline', keyword_length=lin_keyword_len3 }
     })
   })
 EOF

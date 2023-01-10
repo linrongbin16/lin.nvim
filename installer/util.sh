@@ -25,14 +25,6 @@ try_backup() {
     fi
 }
 
-# try_delete() {
-#     local src=$1
-#     if [[ -f "$src" || -d "$src" ]]; then
-#         message "delete '$src'"
-#         rm -rf $src
-#     fi
-# }
-
 install_or_skip() {
     local command="$1"
     local target="$2"
