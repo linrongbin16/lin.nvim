@@ -2,6 +2,8 @@
 
 lin.nvim is a highly configured [neovim](https://neovim.io/) distribution integrated tons of utilities for development, inspired by [spf13-vim](https://github.com/spf13/spf13-vim).
 
+_**[neovide](https://neovide.dev/) is highly recommended as a high performance neovim GUI client.**_
+
 # Table of Contents
 
 - [Introduction](#introduction)
@@ -34,7 +36,6 @@ lin.nvim is a highly configured [neovim](https://neovim.io/) distribution integr
     - [File Search](#file-search)
     - [Git Search](#git-search)
     - [Other Search](#other-search)
-    - [Coc.nvim Search](#cocnvim-search)
   - [Editing Enhancement](#editing-enhancement)
     - [Easy Comment](#easy-comment)
     - [Cursor Motion](#cursor-motion)
@@ -56,7 +57,7 @@ Aim to be out of box, IDE-like editing experience, high performance, light weigh
 Solve below issues:
 
 - Time-costing vim configurations - All behaviors follow community's best practice and most popular editors (just like [vscode](https://code.visualstudio.com/)).
-- Lack of IDE-like editing features - [Coc.nvim](https://github.com/neoclide/coc.nvim) and a bunch of language servers and extensions are embeded.
+- Lack of IDE-like editing features - Language server protocol(LSP) support by [nvim-cmp](https://github.com/hrsh7th/nvim-cmp) and a bunch of language servers are embeded.
 - Don't know how to choose/configure/manage vim plugins - All plugins are carefully selected and well cooperated for best performance and user experience, cover most modern editor features (again, just like vscode).
 - Duplicate installation on different OS and machines - All done by one-line command (not on Windows for now), all installations behave the same (the only difference is use command-key on macOS instead of alt-key on Windows/Linux).
 - Naive UI - Pretty colorschemes, icons, opened tabs, file explorer, file status integrated.
@@ -112,7 +113,6 @@ Solve below issues:
   - Windows.
   - macOS.
   - Linux (Ubuntu/Debian/Fedora/Manjaro).
-- Support only [neovim](https://neovim.io/), and [neovide](https://neovide.dev/) is highly recommended as a high performance GUI client.
 - Modern editor UI:
   - File explorer.
   - Icons.
@@ -132,7 +132,6 @@ Solve below issues:
   - Text search.
   - File search.
   - Git search.
-  - Coc.nvim integrated search.
   - Other search.
 - Other [editing enhancements](#editing-enhancement).
 - Custom configuration.
@@ -141,7 +140,7 @@ Solve below issues:
 
 ## Requirement
 
-Since neovim and its community is under actively development, only latest stable [neovim](https://github.com/neovim/neovim/wiki/Installing-Neovim) is guaranteed supported.
+Since neovim community is under actively development, only latest stable [neovim](https://github.com/neovim/neovim/wiki/Installing-Neovim) is guaranteed supported.
 
 ## UNIX/Linux/MacOS
 
@@ -160,7 +159,7 @@ Notice:
    - [node.js](https://nodejs.org/) and some npm packages.
    - [golang](https://go.dev/).
    - [rust](https://www.rust-lang.org/) and some modern commands: [fd](https://github.com/sharkdp/fd), [rg](https://github.com/BurntSushi/ripgrep), [bat](https://github.com/sharkdp/bat), etc.
-   - [curl](https://curl.se/) and [wget](https://www.gnu.org/software/wget/).
+   - [curl](https://curl.se/), [wget](https://www.gnu.org/software/wget/), [unzip](https://linux.die.net/man/1/unzip) and [gzip](https://www.gnu.org/software/gzip/).
    - [universal-ctags](https://github.com/universal-ctags/ctags).
    - [hack nerd font](https://github.com/ryanoasis/nerd-fonts/releases/download/v2.2.2/Hack.zip).
 
@@ -214,6 +213,7 @@ Notice:
    - [rust](https://www.rust-lang.org/tools/install) (`rustup-init.exe (64-bit)`): add `rustc.exe`, `cargo.exe` to `$env:Path`
    - [golang](https://go.dev/dl/) (`go{x.y.z}.windows-amd64.msi`): add `go.exe` to `$env:Path`
    - [nodejs](https://nodejs.org/en/download/) (`node-v{x.y.z}-x64.msi`): add `node.exe`, `npm.exe` to `$env:Path`
+   - [7-zip](https://www.7-zip.org/): add `7z.exe` to `$env:Path`.
    - [universal-ctags](https://github.com/universal-ctags/ctags-win32/releases) (`ctags-p{x.y.d.z}-x64.zip`): add `ctags.exe`, `readtags.exe` to `$env:Path`
 
 4. Install [Hack NFM](https://github.com/ryanoasis/nerd-fonts/releases/download/v2.2.2/Hack.zip).
@@ -459,7 +459,6 @@ Search engine use fzf.vim and integrated with coc.nvim with [coc-fzf](https://gi
 - `<Space>gw` **🇳** - Search word text under cursor by self-defined command `:LinVimFzfRgCWord`.
 - `<Space>l` **🇳** - Search lines on opened buffers by `:FzfLines`.
 - `<Space>t` **🇳** - Search tags by `:FzfTags`.
-- `<Space>y` **🇳** - Search yank history by `:CocFzfList yank`.
 - `<Space>sh` **🇳** - Search searched history by `:FzfHistory/`.
 - `<Space>ch` **🇳** - Search vim command history by `:FzfHistory:`.
 
@@ -482,17 +481,7 @@ Search engine use fzf.vim and integrated with coc.nvim with [coc-fzf](https://gi
 - `<Space>vc` **🇳** - Search vim commands by `:FzfCommands`.
 - `<Space>ht` **🇳** - Search help tags by `:FzfHelptags`.
 
-#### Coc.nvim Search
-
-Key mappings are configured with prefix char `c` after `<Space>`.
-
-- `<Space>cs` **🇳** - Search coc symbols by `:CocFzfList symbols`.
-- `<Space>cd` **🇳** - Search coc diagnostics by `:CocFzfList diagnostics`.
-- `<Space>co` **🇳** - Search coc outlines(tags) by `:CocFzfList outline`.
-- `<Space>cc` **🇳** - Search coc commands by `:CocFzfList commands`.
-- `<Space>cl` **🇳** - Search coc location by `:CocFzfList location`.
-
-Please visit [fzf.vim](https://github.com/junegunn/fzf.vim) and [coc-fzf](https://github.com/antoinemadec/coc-fzf) for more information.
+Please visit [fzf.vim](https://github.com/junegunn/fzf.vim) for more information.
 
 ## Editing Enhancement
 
@@ -506,7 +495,7 @@ Linewise comment:
 - `gc[count]{motion}` **🇳** - Toggle region with _[count]_(optional) times motion.
 - `gc` **🇻** - Toggle selected region in virual mode.
 
-_Blockwise comment (for neovim only)_:
+Blockwise comment:
 
 - `gbc` **🇳** - Toggle current line.
 - `[count]gbc` **🇳** - Toggle _[count]_ number of lines.
@@ -572,7 +561,7 @@ For basic install mode, there's only standalone vim settings, see [More Options]
 
 ## Embeded Language Servers
 
-- C/C++
+- C/C++/CMake
 - Python3 (Python2 is not supported)
 - Rust
 - Go

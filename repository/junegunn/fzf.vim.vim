@@ -17,7 +17,7 @@ command! -bang -nargs=0 LinVimFzfRgCWord
             \ fzf#vim#with_preview(), <bang>0)
 
 function! s:LinVimDefineFzfKeys(k, v) abort
-    execute printf('nnoremap <silent> <expr> %s (&filetype ==# "NvimTree" <Bar><Bar> &filetype ==# "fern" ? "\<C-w>\<C-w>" : "").":\<C-u>%s\<CR>"', a:k, a:v)
+    execute printf('nnoremap <silent> <expr> %s (&filetype ==# "NvimTree" ? "\<C-w>\<C-w>" : "").":\<C-u>%s\<CR>"', a:k, a:v)
 endfunction
 
 " search text
@@ -34,8 +34,6 @@ call s:LinVimDefineFzfKeys('<space>t', 'FzfTags')
 call s:LinVimDefineFzfKeys('<space>sh', 'FzfHistory/')
 " search command history
 call s:LinVimDefineFzfKeys('<space>ch', 'FzfHistory:')
-" search yank history
-call s:LinVimDefineFzfKeys('<space>y', 'CocFzfList yank')
 
 " search files
 
