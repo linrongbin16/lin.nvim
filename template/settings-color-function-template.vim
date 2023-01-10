@@ -3,14 +3,14 @@ function! s:randnum(n) abort
   return str2nr(matchstr(reltimestr(reltime()), '\v\.@<=\d+')[1:]) % a:n
 endfunction
 
-function LinVimNextRandomColorScheme()
+function LinNextRandomColorScheme()
     if len(s:lin_colorschemes) > 0
         let idx = s:randnum(len(s:lin_colorschemes))
         execute 'colorscheme ' . s:lin_colorschemes[idx]
     endif
 endfunction
 
-function LinVimNextRandomColorSchemeSync()
+function LinNextRandomColorSchemeSync()
     if len(s:lin_colorschemes) > 0
         let idx = s:randnum(len(s:lin_colorschemes))
         execute 'colorscheme ' . s:lin_colorschemes[idx]

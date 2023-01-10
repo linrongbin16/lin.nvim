@@ -882,7 +882,7 @@ class Render(Indentable):
                         IndentExpr(
                             CallExpr(
                                 FunctionInvokeExpr(
-                                    LiteralExpr("LinVimNextRandomColorScheme")
+                                    LiteralExpr("LinNextRandomColorScheme")
                                 )
                             )
                         )
