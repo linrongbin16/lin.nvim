@@ -345,25 +345,12 @@ You could configure all global key mappings in _~/.vim/settings.vim_.
 
 #### File Explorer
 
-File explorer is support by [nvim-tree.lua](https://github.com/kyazdani42/nvim-tree.lua).
+File explorer is support by [nvim-tree.lua](https://github.com/kyazdani42/nvim-tree.lua). Please refer to [:help nvim-tree.view.mappings](https://github.com/nvim-tree/nvim-tree.lua/blob/master/doc/nvim-tree-lua.txt) for default key mappings. Only a few keys are added for more convenience:
 
 Navigation:
 
 - `h` **🇳** - Collapse directory.
 - `l` **🇳** - Expand directory or open file.
-- `<CR>` **🇳** - Cd into directory.
-- `<BS>` **🇳** - Go to upper directory and leave directory.
-- `e` **🇳** - Open file in `split`.
-- `E` **🇳** - Open file in `vsplit`.
-- `t` **🇳** - Open file in new tab.
-
-Create/rename/delete:
-
-- `N`/`a` **🇳** - Create new file. Notice `a` is not working on fern.vim, since it's forcely mapped to `<Plug>(fern-action-choice)` instead of `<Plug>(fern-action-new-file)`.
-- `A` **🇳** - Create new directory. Notice nvim-tree.lua need an additional slash `/` (or `\`) after directory name (see: [nvim-tree.lua - Tips & tricks](https://github.com/nvim-tree/nvim-tree.lua#tips--tricks)), while fern.vim just need directory name itself.
-- `m`/`r` **🇳** - Move or rename file/directory.
-- `d` **🇳** - Trash file/directory to system trash-bin, only for windows/macOS.
-- `D` **🇳** - Delete file/directory, usually `rm`.
 
 Copy/paste/cut:
 
@@ -376,27 +363,7 @@ Adjust explorer width:
 - `<M-.>`/`<M-Right>`/`<C-.>`/`<C-Right>` **🇳** - Make explorer bigger size.
 - `<M-,>`/`<M-Left>`/`<C-,>`/`<C-Left>` **🇳** - Make explorer smaller size.
 
-Other:
-
-- `R` **🇳** - Refresh file explorer.
-- `s` **🇳** - Open file in system file manager(such as Finder in macOS).
-- `?` **🇳** - Toggle help.
-
-_For neovim 0.7+ only_:
-
-- `I` **🇳** - Toggle file info.
-- `H` **🇳** - Toggle hidden dot files.
-- `<` **🇳** - Goto previous(up) sibling.
-- `>` **🇳** - Goto next(down) sibling.
-- `K` **🇳** - Goto first(top) sibling.
-- `J` **🇳** - Goto last(bottom) sibling.
-- `P` **🇳** - Goto parent(upper) directory.
-- `y` **🇳** - Copy file name as literal.
-- `Y` **🇳** - Copy absolute file path as literal.
-- `]c` **🇳** - Goto next(down) git chunk.
-- `[c` **🇳** - Goto previous(up) git chunk.
-
-You could editing **_~/.vim/repository/lambdalisue/fern.vim.vim_** (or **_~/.vim/repository/kyazdani42/nvim-tree.lua.vim_**) to customize key mappings. Please refer to [fern.vim - wiki - Mappings](https://github.com/lambdalisue/fern.vim/wiki/Mappings) (or [:help nvim-tree-mappings](https://github.com/nvim-tree/nvim-tree.lua/blob/master/doc/nvim-tree-lua.txt)) for more information.
+You could editing **_~/.vim/repository/kyazdani42/nvim-tree.lua.vim_** to customize these key mappings.
 
 #### Tabline
 
@@ -417,12 +384,15 @@ Navigation:
 - `<M-7>`/`<C-7>` **🇳** - Go to buffer-7.
 - `<M-8>`/`<C-8>` **🇳** - Go to buffer-8.
 - `<M-9>`/`<C-9>` **🇳** - Go to buffer-9.
-- `<M-0>`/`<C-0>` **🇳** - Go to buffer-10 (or the last buffer on neovim 0.7+).
+- `<M-0>`/`<C-0>` **🇳** - Go to the last buffer.
 
 Re-order:
 
 - `<M-S-Right>`/`<C-S-Right>` **🇳** - Re-order(move) current buffer to next(right) position.
 - `<M-S-Left>`/`<C-S-Left>` **🇳** - Re-order(move) current buffer to previous(left) position.
+
+Mouse:
+
 - `<LeftMouse>` **🇳** - Go to target buffer.
 - `<MiddleMouse>` **🇳** - Close target buffer.
 
