@@ -448,16 +448,16 @@ By default [Hack Nerd Font Mono](https://github.com/ryanoasis/nerd-fonts/release
 
 #### Manage LSP Servers
 
-By default, [a bunch of language servers](#embedded-language-servers) are already embedded. But sooner or later you need to manage these LSP servers yourself, the manager is supported by [mason.nvim](https://github.com/williamboman/mason.nvim).
+By default, [a bunch of language servers](#embedded-language-servers) are already embedded. But sooner or later you need to manage these LSP servers yourself, the manager is supported by [mason.nvim](https://github.com/williamboman/mason.nvim). Please try `:Mason` command in neovim for more information.
 
-To ensure LSP servers and formatters embedded, [mason-lspconfig.nvim](https://github.com/williamboman/mason-lspconfig.nvim), [null-ls.nvim](https://github.com/jose-elias-alvarez/null-ls.nvim) and [mason-null-ls.nvim](https://github.com/jay-babu/mason-null-ls.nvim) are introduced as well.
+To ensure LSP servers and formatters embedded, [mason-lspconfig.nvim](https://github.com/williamboman/mason-lspconfig.nvim) (for LSP servers), [null-ls.nvim](https://github.com/jose-elias-alvarez/null-ls.nvim) and [mason-null-ls.nvim](https://github.com/jay-babu/mason-null-ls.nvim) (for formatters/linters) are introduced as well.
 
-To add new LSP server for a language, you need to define possibly 4 components in below configurations:
+To simplify the setup for all above plugins, all you need is to define 4 components in below configurations:
 
-1. LSP server, used by _mason-lspconfig.nvim_ for ensure installation. For example `clangd`, `pyright`.
+1. LSP server, used by _mason-lspconfig.nvim_ for ensure installation. For example `clangd`, `pyright`. Please refer to [mason-lspconfig.nvim - Available LSP servers](https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers) for more LSP servers .
 2. Configuration for lspconfig, used by [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig). Usually it's just an empty table `{}`.
-3. (Optional) Extra formatter/linter, used by _mason-null-ls.nvim_ for ensure installation. For example `eslint`, `prettierd`, `black`.
-4. (Optional) Extra null-ls sources, used by _null-ls.nvim_ to enable the sources. For example `null_ls.builtins.code_actions.eslint`, `null_ls.builtins.formatting.prettierd`, `null_ls.builtins.formatting.black`.
+3. (Optional) Extra formatter/linter, used by _mason-null-ls.nvim_ for ensure installation. For example `eslint`, `prettierd`, `black`. Please refer to [mason-lspconfig.nvim - Available Null-ls sources](https://github.com/jay-babu/mason-null-ls.nvim#available-null-ls-sources) for more mason-null-ls sources.
+4. (Optional) Extra null-ls sources, used by _null-ls.nvim_ to enable the sources. For example `null_ls.builtins.code_actions.eslint`, `null_ls.builtins.formatting.prettierd`, `null_ls.builtins.formatting.black`. Please refer to [null-ls.nvim - BUILTINS.md](https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md) for more null-ls builtin sources.
 
 Let's how to configure LSP server and formatter for python in real world:
 
