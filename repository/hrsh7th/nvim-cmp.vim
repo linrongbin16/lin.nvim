@@ -11,7 +11,7 @@ lua<<EOF
     })
 
     -- embeded LSP servers
-    local lin_embeded_lsp_servers = {
+    local mason_lspconfig_servers = {
         -- c/c++
         "clangd",
         -- cmake
@@ -52,13 +52,13 @@ lua<<EOF
     }
     if vim.fn.has('win32') then
         -- powershell
-        table.insert(lin_embeded_lsp_servers, "powershell_es")
+        table.insert(mason_lspconfig_servers, "powershell_es")
     else
         -- bashls
-        table.insert(lin_embeded_lsp_servers, "bashls")
+        table.insert(mason_lspconfig_servers, "bashls")
     end
     require("mason-lspconfig").setup {
-        ensure_installed = lin_embeded_lsp_servers,
+        ensure_installed = mason_lspconfig_servers,
     }
 
     -- Key mappings
@@ -133,7 +133,6 @@ lua<<EOF
     )
 
     -- setup embeded LSP servers
-    lspconfig.bashls.setup({})
     lspconfig.clangd.setup({})
     lspconfig.cmake.setup({})
     lspconfig.cssls.setup({})
@@ -147,7 +146,11 @@ lua<<EOF
     lspconfig.tsserver.setup({})
     lspconfig.sumneko_lua.setup({})
     lspconfig.marksman.setup({})
-    lspconfig.powershell_es.setup({})
+    if vim.fn.has('win32') then
+        lspconfig.powershell_es.setup({})
+    else
+        lspconfig.bashls.setup({})
+    end
     lspconfig.pyright.setup({})
     lspconfig.rust_analyzer.setup({})
     lspconfig.sqlls.setup({})
@@ -156,14 +159,23 @@ lua<<EOF
     lspconfig.vimls.setup({})
 
     -- setup null_ls
+    local null_ls_servers = {
+        -- js/ts/html/css/etc
+        "prettierd",
+    }
     local null_ls = require("null-ls")
     null_ls.setup({
         sources = {
             null_ls.builtins.formatting.shfmt,
+            null_ls.builtins.formatting.prettierd,
+            null_ls.builtins.formatting.gofmt,
             null_ls.builtins.formatting.stylua,
             null_ls.builtins.diagnostics.eslint,
             null_ls.builtins.completion.spell,
         },
+    })
+    require("mason-null-ls").setup({
+        ensure_installed = null_ls_servers,
     })
 
     -- nvim-cmp
