@@ -2,7 +2,7 @@
 
 message() {
     local content="$*"
-    printf "[lin.vim] - %s\n" "$content"
+    printf "[lin.nvim] - %s\n" "$content"
 }
 
 

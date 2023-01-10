@@ -8,6 +8,7 @@ lin.nvim is a highly configured [neovim](https://neovim.io/) distribution integr
   - [Screenshots](#screenshots)
   - [Feature](#feature)
 - [Installation](#installation)
+  - [Requirement](#requirement)
   - [UNIX/Linux/MacOS](#unixlinuxmacos)
   - [Windows](#windows)
   - [More Options](#more-options)
@@ -137,6 +138,10 @@ Solve below issues:
 - Custom configuration.
 
 # Installation
+
+## Requirement
+
+Since neovim and its community is under actively development, [latest stable neovim](https://github.com/neovim/neovim/wiki/Installing-Neovim) is always recommended.
 
 ## UNIX/Linux/MacOS
 

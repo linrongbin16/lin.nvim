@@ -10,13 +10,11 @@ $INSTALL_HOME = "$VIM_HOME\installer"
 
 $MODE_NAME = "full" # default mode
 $OPT_BASIC = $False
-$OPT_DISABLE_VIM = $False
-$OPT_DISABLE_NEOVIM = $False
 
 # utils
 
 function Message([string]$content) {
-    Write-Host "[lin.vim] - $content"
+    Write-Host "[lin.nvim] - $content"
 }
 
 function ErrorMessage([string] $content) {
@@ -288,32 +286,14 @@ function NpmDependency() {
 
 # basic
 
-function InstallBasicVimrc() {
-    if (-not $OPT_DISABLE_VIM) {
-        $BasicPath = "$env:USERPROFILE\.vim\standalone\basic.vim"
-        $VimrcPath = "$env:USERPROFILE\_vimrc"
-
-        TryBackup $VimrcPath
-        Message "install $VimrcPath for vim on windows"
-        cmd /c mklink $VimrcPath $BasicPath
-    }
-}
-
-function InstallBasicNeovimInit() {
-    if (-not $OPT_DISABLE_NEOVIM) {
-        $BasicPath = "$env:USERPROFILE\.vim\standalone\basic.vim"
-        $NvimInitVimPath = "$NVIM_HOME\init.vim"
-        Message "install $APPDATA_LOCAL_HOME\nvim\init.vim for neovim on windows"
-        TryBackup $NvimInitVimPath
-        TryBackup $NVIM_HOME
-        cmd /c mklink $NVIM_HOME $VIM_HOME
-        cmd /c mklink $NvimInitVimPath $BasicPath
-    }
-}
-
 function InstallBasic() {
-    InstallBasicVimrc
-    InstallBasicNeovimInit
+    $BasicPath = "$env:USERPROFILE\.vim\standalone\basic.vim"
+    $NvimInitVimPath = "$NVIM_HOME\init.vim"
+    Message "install $APPDATA_LOCAL_HOME\nvim\init.vim for neovim on windows"
+    TryBackup $NvimInitVimPath
+    TryBackup $NVIM_HOME
+    cmd /c mklink $NVIM_HOME $VIM_HOME
+    cmd /c mklink $NvimInitVimPath $BasicPath
 }
 
 function ShowHelp() {
@@ -365,12 +345,6 @@ for ($i = 0; $i -lt $argsLength; $i++) {
     elseif ($a.StartsWith("--static-color") -or $a.StartsWith("--disable-color") -or $a.StartsWith("--disable-highlight") -or $a.StartsWith("--disable-language") -or $a.StartsWith("--disable-editing") -or $a.StartsWith("--disable-ctrl-keys") -or $a.StartsWith("--disable-plugin")) {
         # Nothing here
     }
-    elseif ($a.StartsWith("--disable-vim")) {
-        $OPT_DISABLE_VIM = $True
-    }
-    elseif ($a.StartsWith("--disable-neovim")) {
-        $OPT_DISABLE_NEOVIM = $True
-    }
     else {
         UnknownOptionError
     }
@@ -394,12 +368,7 @@ else {
     if ($LastExitCode -ne 0) {
         exit 1
     }
-    if (-not $OPT_DISABLE_VIM) {
-        cmd /c gvim -E -c "PlugInstall" -c "qall" /wait
-    }
-    if (-not $OPT_DISABLE_NEOVIM) {
-        cmd /c nvim -E -c "PlugInstall" -c "qall" /wait
-    }
+    cmd /c nvim -E -c "PlugInstall" -c "qall" /wait
 }
 
 Message "install with $MODE_NAME mode - done"

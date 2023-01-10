@@ -10,8 +10,6 @@ OS="$(uname -s)"
 
 MODE_NAME='full' # default mode
 OPT_BASIC=0
-OPT_DISABLE_VIM=0
-OPT_DISABLE_NEOVIM=0
 
 source $INSTALL_HOME/util.sh
 
@@ -81,28 +79,13 @@ guifont_dependency() {
 }
 
 # basic
-install_basic_vimrc() {
-    if [ $OPT_DISABLE_VIM -ne 1 ]; then
-        message "install ~/.vimrc for vim"
-        try_backup $HOME/.vimrc
-        ln -s $VIM_HOME/standalone/basic.vim $HOME/.vimrc
-    fi
-}
-
-install_basic_neovim_init() {
-    if [ $OPT_DISABLE_NEOVIM -ne 1 ]; then
-        message "install ~/.config/nvim/init.vim for neovim"
-        try_backup $NVIM_HOME/init.vim
-        try_backup $NVIM_HOME
-        mkdir -p $HOME/.config
-        ln -s $VIM_HOME $NVIM_HOME
-        ln -s $VIM_HOME/standalone/basic.vim $NVIM_HOME/init.vim
-    fi
-}
-
 install_basic() {
-    install_basic_vimrc
-    install_basic_neovim_init
+    message "install ~/.config/nvim/init.vim for neovim"
+    try_backup $NVIM_HOME/init.vim
+    try_backup $NVIM_HOME
+    mkdir -p $HOME/.config
+    ln -s $VIM_HOME $NVIM_HOME
+    ln -s $VIM_HOME/standalone/basic.vim $NVIM_HOME/init.vim
 }
 
 show_help() {
@@ -140,12 +123,6 @@ for ((i=0; i < args_length; i++)); do
     --static-color*|--disable-plugin*|--disable-highlight|--disable-language|--disable-editing|--disable-ctrl-keys|--disable-color)
         # nothing here
         ;;
-    --disable-vim)
-        OPT_DISABLE_VIM=1
-        ;;
-    --disable-neovim)
-        OPT_DISABLE_NEOVIM=1
-        ;;
     *)
         unknown_option_error
     esac
@@ -159,27 +136,27 @@ else
     case "$OS" in
         Linux)
             if [ -f "/etc/arch-release" ] || [ -f "/etc/artix-release" ]; then
-                $INSTALL_HOME/pacman.sh $OPT_DISABLE_VIM $OPT_DISABLE_NEOVIM
+                $INSTALL_HOME/pacman.sh
             elif [ -f "/etc/fedora-release" ] || [ -f "/etc/redhat-release" ]; then
-                $INSTALL_HOME/dnf.sh $OPT_DISABLE_VIM $OPT_DISABLE_NEOVIM
+                $INSTALL_HOME/dnf.sh
             elif [ -f "/etc/gentoo-release" ]; then
-                $INSTALL_HOME/emerge.sh $OPT_DISABLE_VIM $OPT_DISABLE_NEOVIM
+                $INSTALL_HOME/emerge.sh
             else
                 # assume apt
-                $INSTALL_HOME/apt.sh $OPT_DISABLE_VIM $OPT_DISABLE_NEOVIM
+                $INSTALL_HOME/apt.sh
             fi
             ;;
         FreeBSD)
-            $INSTALL_HOME/pkg.sh $OPT_DISABLE_VIM $OPT_DISABLE_NEOVIM
+            $INSTALL_HOME/pkg.sh
             ;;
         NetBSD)
-            $INSTALL_HOME/pkgin.sh $OPT_DISABLE_VIM $OPT_DISABLE_NEOVIM
+            $INSTALL_HOME/pkgin.sh
             ;;
         OpenBSD)
-            $INSTALL_HOME/pkg_add.sh $OPT_DISABLE_VIM $OPT_DISABLE_NEOVIM
+            $INSTALL_HOME/pkg_add.sh
             ;;
         Darwin)
-            $INSTALL_HOME/brew.sh $OPT_DISABLE_VIM $OPT_DISABLE_NEOVIM
+            $INSTALL_HOME/brew.sh
             ;;
         *)
             message "$OS is not supported, exit..."
@@ -198,11 +175,6 @@ else
     if [ $? -ne 0 ]; then
         exit 1
     fi
-    if [ $OPT_DISABLE_VIM -ne 1 ]; then
-        vim -E -c "PlugInstall" -c "qall"
-    fi
-    if [ $OPT_DISABLE_NEOVIM -ne 1 ]; then
-        nvim -E -c "PlugInstall" -c "qall"
-    fi
+    nvim -E -c "PlugInstall" -c "qall"
 fi
 message "install with $MODE_NAME mode - done"

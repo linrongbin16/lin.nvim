@@ -1,35 +1,23 @@
 #!/bin/bash
 
 INSTALL_HOME=~/.vim/installer
-OPT_DISABLE_VIM=$1
-OPT_DISABLE_NEOVIM=$2
 source $INSTALL_HOME/util.sh
 
 message "install dependencies with apt"
 sudo apt-get update
 
-# vim
-if [ $OPT_DISABLE_VIM -ne 1 ]; then
-    if ! type vim >/dev/null 2>&1; then
-        message "install 'vim' from ppa:jonathonf/vim"
-        sudo apt-get install -y software-properties-common
-        sudo add-apt-repository -y ppa:jonathonf/vim
-        sudo apt-get update
-        sudo apt-get install -y vim vim-gtk3
+if ! type nvim >/dev/null 2>&1; then
+    if ! type snap >/dev/null 2>&1; then
+        message "install 'nvim' from snap"
+        sudo snap install nvim --classic
     else
-        skip_message 'vim'
-    fi
-fi
-# neovim
-if [ $OPT_DISABLE_NEOVIM -ne 1 ]; then
-    if ! type nvim >/dev/null 2>&1; then
-        message "install 'nvim' from ppa:neovim-ppa/stable"
-        sudo add-apt-repository -y ppa:neovim-ppa/stable
+        message "install 'nvim' from ppa:neovim-ppa/unstable"
+        sudo add-apt-repository -y ppa:neovim-ppa/unstable
         sudo apt-get update
         sudo apt-get install -y neovim
-    else
-        skip_message 'nvim'
     fi
+else
+    skip_message 'nvim'
 fi
 
 install_or_skip "sudo apt-get install -y build-essential" "gcc"
