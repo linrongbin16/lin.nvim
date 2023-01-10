@@ -588,8 +588,8 @@ PLUGIN_CONTEXTS = [
         tag=PluginTag.HIGHLIGHT,
     ),
     PluginContext(
-        "voldikss",
-        "vim-floaterm",
+        "akinsho",
+        "toggleterm.nvim",
         top_clause=SingleQuoteCommentExpr(LiteralExpr("Terminal")),
         tag=PluginTag.EDITING,
     ),

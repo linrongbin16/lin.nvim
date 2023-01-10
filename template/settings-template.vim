@@ -29,7 +29,7 @@ nnoremap <F7> :<C-u>Gitsigns toggle_current_line_blame<CR>
 " Markdown preview
 nnoremap <F8> :<C-u>MarkdownPreview<CR>
 " Toggle terminal
-nnoremap <F9> :<C-u>FloatermToggle<CR>
+nnoremap <F9> :<C-u>ToggleTerm<CR>
 " Toggle bufexplorer
 nnoremap <F10> :<C-u>ToggleBufExplorer<CR>
 
