@@ -629,6 +629,7 @@ PLUGIN_CONTEXTS = [
     PluginContext("rafamadriz", "friendly-snippets", tag=PluginTag.LANGUAGE),
     PluginContext("nvim-lua", "plenary.nvim", tag=PluginTag.LANGUAGE),
     PluginContext("jose-elias-alvarez", "null-ls.nvim", tag=PluginTag.LANGUAGE),
+    PluginContext("nvim-lua", "lsp-status.nvim", tag=PluginTag.LANGUAGE),
     PluginContext(
         "iamcco",
         "markdown-preview.nvim",

@@ -37,7 +37,7 @@ lua<<EOF
     })
 
     -- Diagnostic
-    local LinSign = function(opts)
+    local DiagnosticSign = function(opts)
         vim.fn.sign_define(opts.name, {
             texthl = opts.name,
             text = opts.text,
@@ -45,10 +45,10 @@ lua<<EOF
         })
     end
 
-    LinSign({name = 'DiagnosticSignError', text = '✘'})
-    LinSign({name = 'DiagnosticSignWarn', text = '▲'})
-    LinSign({name = 'DiagnosticSignHint', text = '⚑'})
-    LinSign({name = 'DiagnosticSignInfo', text = ''})
+    DiagnosticSign({name = 'DiagnosticSignError', text = '✘'})
+    DiagnosticSign({name = 'DiagnosticSignWarn', text = '▲'})
+    DiagnosticSign({name = 'DiagnosticSignHint', text = '⚑'})
+    DiagnosticSign({name = 'DiagnosticSignInfo', text = ''})
 
     vim.diagnostic.config({
         virtual_text = false,

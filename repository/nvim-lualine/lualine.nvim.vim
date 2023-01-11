@@ -1,5 +1,5 @@
 lua << END
-local function LinLuaLineGitStatus()
+local function LinGitStatus()
     local branch=vim.b.gitsigns_head
     if branch == nil or branch == '' then
         return ''
@@ -11,24 +11,19 @@ local function LinLuaLineGitStatus()
         return string.format(' %s %s', branch, changes)
     end
 end
-local function LinLuaLineLspStatus()
-    if not vim.fn.exists('*coc#status') then
-        return ''
+local function LinLspStatus()
+    if #vim.lsp.buf_get_clients() > 0 then
+        return require('lsp-status').status()
     end
-    local coc_status = vim.fn['coc#status']()
-    if coc_status == nil or coc_status == '' then
-        return ''
-    else
-        return coc_status
-    end
+    return ''
 end
-local function LinLuaLineCursorPosition()
+local function LinCursorPosition()
     return ' %3l:%-2v'
 end
-local function LinLuaLineCursorHexValue()
+local function LinCursorHex()
     return '0x%B'
 end
-local function LinLuaLineGutentagsStatus()
+local function LinTagsStatus()
     if not vim.fn.exists('*gutentags#statusline') then
         return ''
     end
@@ -38,27 +33,34 @@ local function LinLuaLineGutentagsStatus()
     end
     return tags_status
 end
-require('lualine').setup{
+
+local config = {
     options = {
-        icons_enabled = false,
+        icons_enabled = true,
         -- theme = 'auto',
-        -- component_separators = { left = '', right = '' },
-        -- section_separators = { left = '', right = '' },
-        -- disabled_filetypes = {'NvimTree'},
-        -- always_divide_middle = true,
+        -- component_separators = {'', ''},
+        -- section_separators = {'', ''},
+        disabled_filetypes = {},
     },
     sections = {
-        lualine_a = { 'mode' },
-        lualine_b = { 'filename' },
-        lualine_c = { LinLuaLineGitStatus, LinLuaLineLspStatus, LinLuaLineGutentagsStatus },
-        lualine_x = { 'fileformat', 'encoding', 'filetype', LinLuaLineCursorHexValue },
-        lualine_y = { 'progress' },
-        lualine_z = { LinLuaLineCursorPosition },
+        lualine_a = {'mode'},
+        lualine_b = {'filename'},
+        lualine_c = {LinGitStatus, LinLspStatus, LinTagsStatus},
+        lualine_x = {LinCursorHex, 'filetype', 'fileformat', 'encoding'},
+        lualine_y = {'progress'},
+        lualine_z = {LinCursorPosition},
     },
-    inactive_secions = {}
-    -- tabline = {},
-    -- winbar = {},
-    -- inactive_winbar = {},
-    -- extensions = {}
+    inactive_sections = {
+        lualine_a = {},
+        lualine_b = {},
+        lualine_c = {'filename'},
+        lualine_x = {'location'},
+        lualine_y = {},
+        lualine_z = {}
+    },
+    tabline = {},
+    extensions = {}
 }
+
+require('lualine').setup(config)
 END
