@@ -11,18 +11,59 @@ local function LinGitStatus()
         return string.format(' %s %s', branch, changes)
     end
 end
+
+local function LinRtrim(s)
+  local n = #s
+  while n > 0 and s:find("^%s", n) do n = n - 1 end
+  return s:sub(1, n)
+end
+
 local function LinLspStatus()
     if #vim.lsp.buf_get_clients() > 0 then
-        return require('lsp-status').status()
+        return LinRtrim(require('lsp-status').status())
     end
     return ''
 end
+
+local function LinLspDiagnostics()
+    if #vim.lsp.buf_get_clients() > 0 then
+        local diags = require('lsp-status').diagnostics()
+        if diags ~= nil then
+            local messages = {}
+            -- local msg = {}
+            for k, c in pairs(diags) do
+                -- table.insert(msg, string.format('%s:%d', k, c))
+                if c > 0 then
+                    if string.lower(k):find("^err") ~= nil then
+                        table.insert(messages, string.format(' %d', c))
+                    elseif string.lower(k):find("^warn") ~= nil then
+                        table.insert(messages, string.format(' %d', c))
+                    elseif string.lower(k):find("^info") ~= nil then
+                        table.insert(messages, string.format('🛈 %d', c))
+                    elseif string.lower(k):find("^hint") ~= nil then
+                        table.insert(messages, string.format('❗ %d', c))
+                    end
+                end
+            end
+            -- print(table.concat(msg, ","))
+            if #messages > 0 then
+                return table.concat(messages, " ")
+            else
+                return ''
+            end
+        end
+    end
+    return ''
+end
+
 local function LinCursorPosition()
     return ' %3l:%-2v'
 end
+
 local function LinCursorHex()
     return '0x%B'
 end
+
 local function LinTagsStatus()
     if not vim.fn.exists('*gutentags#statusline') then
         return ''
@@ -45,7 +86,7 @@ local config = {
     sections = {
         lualine_a = {'mode'},
         lualine_b = {'filename'},
-        lualine_c = {LinGitStatus, LinLspStatus, LinTagsStatus},
+        lualine_c = {LinGitStatus, LinLspStatus, LinLspDiagnostics, LinTagsStatus},
         lualine_x = {LinCursorHex, 'filetype', 'fileformat', 'encoding'},
         lualine_y = {'progress'},
         lualine_z = {LinCursorPosition},
