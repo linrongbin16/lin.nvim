@@ -21,7 +21,7 @@ end
 local LinSpinnerFrames = { '⣾', '⣽', '⣻', '⢿', '⡿', '⣟', '⣯', '⣷' }
 local LinSpinnerFramesLength = #LinSpinnerFrames
 local LinServerAliases = {pyls_ms = 'MPLS'}
-local function LinLspStatus()
+local function LinLspProgress()
   if #vim.lsp.buf_get_clients() <= 0 then
     return ''
   end
@@ -59,14 +59,26 @@ local function LinLspStatus()
 
     table.insert(progress_msgs, client_name .. ' ' .. contents)
   end
-  return table.concat(progress_msgs, " ")
+  local progresses = table.concat(progress_msgs, " ")
+  if progresses == nil or progresses == '' then
+    return 'ﬦ'
+  else
+    return 'ﬦ ' .. progresses
+  end
+end
+
+local function LinLspStatus()
+    if #vim.lsp.buf_get_clients() > 0 then
+        return LinRtrim(require('lsp-status').status())
+    end
+    return ''
 end
 
 local LspDiagnosticIndicators = {
-    errors = '',
+    errors = '✘',
     warnings = '',
-    hints = '❗',
-    info = '🛈',
+    hints = '⚑',
+    info = '',
 }
 local function LinLspDiagnostics()
     if #vim.lsp.buf_get_clients() > 0 then
@@ -129,7 +141,7 @@ local config = {
     sections = {
         lualine_a = {'mode'},
         lualine_b = {'filename'},
-        lualine_c = {LinGitStatus, LinLspDiagnostics, LinLspCurrentFunction, LinLspStatus, LinTagsStatus},
+        lualine_c = {LinGitStatus, LinLspDiagnostics, LinLspCurrentFunction, LinLspProgress, LinTagsStatus},
         lualine_x = {LinCursorHex, 'filetype', 'fileformat', 'encoding'},
         lualine_y = {'progress'},
         lualine_z = {LinCursorPosition},

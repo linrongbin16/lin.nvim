@@ -46,7 +46,7 @@ lua<<EOF
     end
 
     DiagnosticSign({name = 'DiagnosticSignError', text = '✘'})
-    DiagnosticSign({name = 'DiagnosticSignWarn', text = '▲'})
+    DiagnosticSign({name = 'DiagnosticSignWarn', text = ''})
     DiagnosticSign({name = 'DiagnosticSignHint', text = '⚑'})
     DiagnosticSign({name = 'DiagnosticSignInfo', text = ''})
 
