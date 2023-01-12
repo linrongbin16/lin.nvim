@@ -23,7 +23,6 @@ lua<<EOF
         css = {"cssls", {}, nil, nil},
         cssmodules = {"cssmodules_ls", {}, nil, nil},
         eslint = {"eslint", {}, {"eslint"}, {null_ls.builtins.code_actions.eslint}},
-        go = {"gopls", {}, nil, nil},
         grammar = {"grammarly", {}, nil, nil},
         graphql = {"graphql", {}, nil, nil},
         html = {"html", {}, nil, nil},
