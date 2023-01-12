@@ -18,13 +18,56 @@ local function LinRtrim(s)
   return s:sub(1, n)
 end
 
+local LinSpinnerFrames = { '⣾', '⣽', '⣻', '⢿', '⡿', '⣟', '⣯', '⣷' }
+local LinSpinnerFramesLength = #LinSpinnerFrames
+local LinServerAliases = {pyls_ms = 'MPLS'}
 local function LinLspStatus()
-    if #vim.lsp.buf_get_clients() > 0 then
-        return LinRtrim(require('lsp-status').status())
-    end
+  if #vim.lsp.buf_get_clients() <= 0 then
     return ''
+  end
+
+  local buf_messages = require('lsp-status').messages()
+
+  -- lsp-status API references:
+  -- status(): https://github.com/nvim-lua/lsp-status.nvim/blob/master/lua/lsp-status/statusline.lua#L38
+  -- messages(): https://github.com/nvim-lua/lsp-status.nvim/blob/master/lua/lsp-status/messaging.lua#L60
+  --
+  -- LSP progress message
+  local progress_msgs = {}
+  local debug_msgs = {}
+  for i, msg in ipairs(buf_messages) do
+    table.insert(debug_msgs, string.format(
+        '{%d, name:%s, title:%s, message:%s, content:%s, uri:%s, status:%s}', 
+        i, tostring(msg.name), tostring(msg.title), tostring(msg.message), tostring(msg.content), tostring(msg.uri), tostring(msg.status)))
+    local name = LinServerAliases[msg.name] or msg.name
+    local client_name = '[' .. name .. ']'
+    local contents = ''
+    if msg.progress then
+      contents = msg.title
+      if msg.message then contents = contents .. ' ' .. msg.message end
+
+      -- this percentage format string escapes a percent sign once to show a percentage and one more
+      -- time to prevent errors in vim statusline's because of it's treatment of % chars
+      if msg.percentage then contents = contents .. string.format(" (%.0f%%%%)", msg.percentage) end
+
+      if msg.spinner then
+        contents = LinSpinnerFrames[(msg.spinner % LinSpinnerFramesLength) + 1] .. ' ' .. contents
+      end
+    else
+      contents = msg.content
+    end
+
+    table.insert(progress_msgs, client_name .. ' ' .. contents)
+  end
+  return table.concat(progress_msgs, " ")
 end
 
+local LspDiagnosticIndicators = {
+    errors = '',
+    warnings = '',
+    hints = '❗',
+    info = '🛈',
+}
 local function LinLspDiagnostics()
     if #vim.lsp.buf_get_clients() > 0 then
         local diags = require('lsp-status').diagnostics()
@@ -34,15 +77,7 @@ local function LinLspDiagnostics()
             for k, c in pairs(diags) do
                 -- table.insert(msg, string.format('%s:%d', k, c))
                 if c > 0 then
-                    if string.lower(k):find("^err") ~= nil then
-                        table.insert(messages, string.format(' %d', c))
-                    elseif string.lower(k):find("^warn") ~= nil then
-                        table.insert(messages, string.format(' %d', c))
-                    elseif string.lower(k):find("^info") ~= nil then
-                        table.insert(messages, string.format('🛈 %d', c))
-                    elseif string.lower(k):find("^hint") ~= nil then
-                        table.insert(messages, string.format('❗ %d', c))
-                    end
+                    table.insert(messages, string.format('%s %d', LspDiagnosticIndicators[k], c))
                 end
             end
             -- print(table.concat(msg, ","))
@@ -52,6 +87,14 @@ local function LinLspDiagnostics()
                 return ''
             end
         end
+    end
+    return ''
+end
+
+local function LinLspCurrentFunction()
+    local current_function = vim.b.lsp_current_function
+    if current_function and current_function ~= '' then
+        return string.format(' %s', current_function)
     end
     return ''
 end
@@ -86,7 +129,7 @@ local config = {
     sections = {
         lualine_a = {'mode'},
         lualine_b = {'filename'},
-        lualine_c = {LinGitStatus, LinLspStatus, LinLspDiagnostics, LinTagsStatus},
+        lualine_c = {LinGitStatus, LinLspDiagnostics, LinLspCurrentFunction, LinLspStatus, LinTagsStatus},
         lualine_x = {LinCursorHex, 'filetype', 'fileformat', 'encoding'},
         lualine_y = {'progress'},
         lualine_z = {LinCursorPosition},
