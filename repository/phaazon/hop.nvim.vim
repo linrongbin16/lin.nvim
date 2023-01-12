@@ -1,19 +1,21 @@
 lua<<EOF
+
 require'hop'.setup()
+
 EOF
 
-" <Leader>f{char} - move to {char}
-map <silent> <Leader>f :HopChar1<CR>
-nmap <silent> <Leader>f :HopChar1<CR>
+" <Leader><Leader>f{char} - move to {char}
+map <silent> <Leader><Leader>f :HopChar1MW<CR>
+nmap <silent> <Leader><Leader>f :HopChar1MW<CR>
 
-" <Leader>s{char}{char} - move to {char}{char}
-map <silent> <leader>s :HopChar2<CR>
-nmap <silent> <leader>s :HopChar2<CR>
+" <Leader><Leader>s{char}{char} - move to {char}{char}
+map <silent> <Leader><leader>s :HopChar2MW<CR>
+nmap <silent> <Leader><leader>s :HopChar2MW<CR>
 
-" Move to word
-map <silent> <Leader>w :HopWord<CR>
-nmap <silent> <Leader>w :HopWord<CR>
+" <Leader><Leader>w - move to word
+map <silent> <Leader><Leader>w :HopWordMW<CR>
+nmap <silent> <Leader><Leader>w :HopWordMW<CR>
 
-" Move to line
-map <silent> <Leader>l :HopLine<CR>
-nmap <silent> <Leader>l :HopLine<CR>
+" <Leader><Leader>l - move to line
+map <silent> <Leader><Leader>l :HopLineMW<CR>
+nmap <silent> <Leader><Leader>l :HopLineMW<CR>

@@ -389,7 +389,7 @@ PLUGIN_CONTEXTS = [
         "filetype.nvim",
         top_clause=[
             EmptyStmt(),
-            TrippleQuotesCommentExpr(LiteralExpr("---- Performance ----")),
+            TrippleQuotesCommentExpr(LiteralExpr("---- Basic ----")),
         ],
         tag=PluginTag.OPTIMIZATION,
     ),
@@ -398,6 +398,11 @@ PLUGIN_CONTEXTS = [
         "impatient.nvim",
         tag=PluginTag.OPTIMIZATION,
     ),
+    PluginContext(
+        "neovim",
+        "nvim-lspconfig",
+    ),
+    PluginContext("nvim-lua", "plenary.nvim"),
     PluginContext(
         "lifepillar",
         "vim-solarized8",
@@ -546,7 +551,11 @@ PLUGIN_CONTEXTS = [
         "akinsho",
         "toggleterm.nvim",
         top_clause=SingleQuoteCommentExpr(LiteralExpr("Terminal")),
-        tag=PluginTag.EDITING,
+    ),
+    PluginContext(
+        "glepnir",
+        "lspsaga.nvim",
+        top_clause=SingleQuoteCommentExpr(LiteralExpr("UI Improvement")),
     ),
     PluginContext(
         "liuchengxu",
@@ -567,18 +576,14 @@ PLUGIN_CONTEXTS = [
         ],
     ),
     PluginContext("junegunn", "fzf.vim"),
+    PluginContext("ojroques", "nvim-lspfuzzy"),
     PluginContext(
-        "neovim",
-        "nvim-lspconfig",
+        "williamboman",
+        "mason.nvim",
         top_clause=[
             EmptyStmt(),
             TrippleQuotesCommentExpr(LiteralExpr("---- Language server ----")),
         ],
-        tag=PluginTag.LANGUAGE,
-    ),
-    PluginContext(
-        "williamboman",
-        "mason.nvim",
         tag=PluginTag.LANGUAGE,
     ),
     PluginContext(
@@ -628,7 +633,6 @@ PLUGIN_CONTEXTS = [
         tag=PluginTag.LANGUAGE,
     ),
     PluginContext("rafamadriz", "friendly-snippets", tag=PluginTag.LANGUAGE),
-    PluginContext("nvim-lua", "plenary.nvim", tag=PluginTag.LANGUAGE),
     PluginContext("jose-elias-alvarez", "null-ls.nvim", tag=PluginTag.LANGUAGE),
     PluginContext(
         "iamcco",
