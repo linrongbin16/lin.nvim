@@ -32,7 +32,7 @@ golang_dependency() {
 
 pip3_dependency() {
 	message "install python packages with pip3"
-	sudo pip3 install neovim pynvim click
+	sudo pip3 install pynvim click
 }
 
 npm_dependency() {

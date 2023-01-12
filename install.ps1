@@ -262,7 +262,7 @@ function CargoDependency() {
 
 function Pip3Dependency() {
     Message "install python packages with pip3"
-    pip3 install neovim pynvim click
+    pip3 install pynvim click
 }
 
 function NpmDependency() {

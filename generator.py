@@ -5,7 +5,6 @@ import datetime
 import enum
 import pathlib
 import platform
-import shutil
 
 import click
 
@@ -536,6 +535,7 @@ PLUGIN_CONTEXTS = [
         "lualine.nvim",
         top_clause=SingleQuoteCommentExpr(LiteralExpr("Statusline")),
     ),
+    PluginContext("nvim-lua", "lsp-status.nvim"),
     PluginContext(
         "lewis6991",
         "gitsigns.nvim",
@@ -630,7 +630,6 @@ PLUGIN_CONTEXTS = [
     PluginContext("rafamadriz", "friendly-snippets", tag=PluginTag.LANGUAGE),
     PluginContext("nvim-lua", "plenary.nvim", tag=PluginTag.LANGUAGE),
     PluginContext("jose-elias-alvarez", "null-ls.nvim", tag=PluginTag.LANGUAGE),
-    PluginContext("nvim-lua", "lsp-status.nvim", tag=PluginTag.LANGUAGE),
     PluginContext(
         "iamcco",
         "markdown-preview.nvim",
