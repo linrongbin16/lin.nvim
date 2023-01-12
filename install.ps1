@@ -132,19 +132,19 @@ function RustDependency() {
     Message "install rustc from rust-lang.org - done"
 }
 
-function GoDependency() {
-    $goUrl1 = "https://go.dev/dl/"
-    $goResponse1 = Invoke-WebRequest -Uri $goUrl1 -Method 'GET'
-    $goUrl2 = $goResponse1.Links | where { $_.outerHTML -like "*windows-amd64.msi*" } | Select-Object -first 1
-    $goDownloadUrl = $goUrl2.href
-    $parts = $goDownloadUrl.Split("/")
-    $target = $parts[ $parts.Length - 1 ]
-    $tempFile = "$env:TEMP\$target"
-    Message "install go from go.dev"
-    Invoke-WebRequest -Uri "https://go.dev$goDownloadUrl" -OutFile $tempFile
-    Start-Process -wait $tempFile
-    Message "install go from go.dev - done"
-}
+# function GoDependency() {
+#     $goUrl1 = "https://go.dev/dl/"
+#     $goResponse1 = Invoke-WebRequest -Uri $goUrl1 -Method 'GET'
+#     $goUrl2 = $goResponse1.Links | where { $_.outerHTML -like "*windows-amd64.msi*" } | Select-Object -first 1
+#     $goDownloadUrl = $goUrl2.href
+#     $parts = $goDownloadUrl.Split("/")
+#     $target = $parts[ $parts.Length - 1 ]
+#     $tempFile = "$env:TEMP\$target"
+#     Message "install go from go.dev"
+#     Invoke-WebRequest -Uri "https://go.dev$goDownloadUrl" -OutFile $tempFile
+#     Start-Process -wait $tempFile
+#     Message "install go from go.dev - done"
+# }
 
 function NodejsDependency() {
     $nodeUrl1 = "https://nodejs.org/en/download/"
@@ -228,9 +228,9 @@ function DownloadAndInstallDependency([string]$option) {
     if ($runRust) {
         RustDependency
     }
-    if ($runGo) {
-        GoDependency
-    }
+    # if ($runGo) {
+    #     GoDependency
+    # }
     if ($runNodejs) {
         NodejsDependency
     }

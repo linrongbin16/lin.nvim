@@ -22,13 +22,13 @@ rust_dependency() {
 	install_or_skip "cargo install --locked bat" "bat"
 }
 
-golang_dependency() {
-	# https://github.com/kerolloz/go-installer
-	install_or_skip "bash <(curl -sL https://git.io/go-installer)" "go"
-	if [ -d $HOME/.go/bin ]; then
-		export PATH=$HOME/.go/bin:$PATH
-	fi
-}
+# golang_dependency() {
+# 	# https://github.com/kerolloz/go-installer
+# 	install_or_skip "bash <(curl -sL https://git.io/go-installer)" "go"
+# 	if [ -d $HOME/.go/bin ]; then
+# 		export PATH=$HOME/.go/bin:$PATH
+# 	fi
+# }
 
 pip3_dependency() {
 	message "install python packages with pip3"
@@ -161,7 +161,8 @@ else
 		;;
 	esac
 	rust_dependency
-	golang_dependency
+	# vim-hexokinase has been replaced with nvim-colorizer.lua, so golang is no longer needed as a dependency.
+	# golang_dependency
 	pip3_dependency
 	npm_dependency
 	guifont_dependency

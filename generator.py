@@ -489,9 +489,8 @@ PLUGIN_CONTEXTS = [
         tag=PluginTag.HIGHLIGHT,
     ),
     PluginContext(
-        "RRethy",
-        "vim-hexokinase",
-        post="{'do': 'make hexokinase'}",
+        "NvChad",
+        "nvim-colorizer.lua",
         tag=PluginTag.HIGHLIGHT,
     ),
     PluginContext(
