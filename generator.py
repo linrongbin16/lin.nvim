@@ -553,11 +553,6 @@ PLUGIN_CONTEXTS = [
         top_clause=SingleQuoteCommentExpr(LiteralExpr("Terminal")),
     ),
     PluginContext(
-        "glepnir",
-        "lspsaga.nvim",
-        top_clause=SingleQuoteCommentExpr(LiteralExpr("UI Improvement")),
-    ),
-    PluginContext(
         "liuchengxu",
         "vista.vim",
         top_clause=[
