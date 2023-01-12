@@ -140,7 +140,7 @@ Solve below issues:
 
 ## Requirement
 
-Since neovim community is under active development, only the latest stable [neovim](https://github.com/neovim/neovim/wiki/Installing-Neovim)]\(https://github.com/neovim/neovim/wiki/Installing-Neovim) is guaranteed supported.
+Since neovim's community is under active development, only the latest stable version is guaranteed support.
 
 ## UNIX/Linux/macOS
 
