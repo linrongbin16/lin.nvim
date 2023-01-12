@@ -61,11 +61,11 @@ lua<<EOF
         },
     })
 
+    -- hover/signatureHelp
     vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
         vim.lsp.handlers.hover,
         {border = 'rounded'}
     )
-
     vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
         vim.lsp.handlers.signature_help,
         {border = 'rounded'}
@@ -92,7 +92,7 @@ lua<<EOF
     local luasnip = require('luasnip')
 
     local select_opts = {behavior = cmp.SelectBehavior.Select}
-    local keyword_len2=2
+    local keyword2 = 2
 
     cmp.setup({
         completion = {
@@ -105,11 +105,11 @@ lua<<EOF
             end,
         },
         sources = cmp.config.sources({
-            { name = 'nvim_lsp', keyword_length=keyword_len2 },
-            { name = 'luasnip', keyword_length=keyword_len2 },
+            { name = 'nvim_lsp', keyword_length=keyword2},
+            { name = 'luasnip', keyword_length=keyword2},
         }, {
-            { name = 'buffer', keyword_length=keyword_len2 },
-            { name = 'path', keyword_length=keyword_len2 },
+            { name = 'buffer', keyword_length=keyword2},
+            { name = 'path', keyword_length=keyword2},
         }),
         window = {
             completion = cmp.config.window.bordered(),
@@ -122,7 +122,7 @@ lua<<EOF
                     nvim_lsp = 'λ',
                     luasnip = '⋗',
                     buffer = 'Ω',
-                    path = '🖫',
+                    path = '',
                 }
                 item.menu = menu_icon[entry.source.name]
                 return item
@@ -180,22 +180,22 @@ lua<<EOF
         })
     })
 
+    local keyword3 = 3
     -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
     cmp.setup.cmdline({ '/', '?' }, {
         mapping = cmp.mapping.preset.cmdline(),
         sources = {
-            { name = 'buffer', keyword_length=3 }
+            { name = 'buffer', keyword_length=keyword3 }
         }
     })
 
     -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-    local keyword_len3=3
     cmp.setup.cmdline(':', {
         mapping = cmp.mapping.preset.cmdline(),
         sources = cmp.config.sources({
-            { name = 'path', keyword_length=keyword_len3 }
+            { name = 'path', keyword_length=keyword3 }
         }, {
-            { name = 'cmdline', keyword_length=keyword_len3 }
+            { name = 'cmdline', keyword_length=keyword3 }
         })
     })
 

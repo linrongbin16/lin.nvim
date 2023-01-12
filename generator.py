@@ -619,6 +619,7 @@ PLUGIN_CONTEXTS = [
     PluginContext(
         "L3MON4D3",
         "LuaSnip",
+        post="{'tag': 'v1.*'}",
         tag=PluginTag.LANGUAGE,
     ),
     PluginContext(
