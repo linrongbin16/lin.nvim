@@ -1,4 +1,5 @@
 
+end)
+
 -- ---- Plugin Footer ----
 
-end)

@@ -32,7 +32,7 @@ def try_backup(src):
         message(f"backup '{src}' to '{dest}'")
 
 
-# INDENT_SIZE = 4
+INDENT_SIZE = 4
 
 
 # class Indentable:
@@ -297,6 +297,15 @@ class LuaUseExpr(LuaExpr):
             return f"use '{self.org.render()}/{self.repo.render()}'"
 
 
+class LuaIndentExpr(LuaExpr):
+    def __init__(self, expr):
+        assert isinstance(expr, Expr)
+        self.expr = expr
+
+    def render(self):
+        return f"{' ' * INDENT_SIZE}{self.expr.render()}"
+
+
 class LuaCommentExpr(LuaExpr):
     def __init__(self, expr):
         assert isinstance(expr, Expr)
@@ -316,7 +325,7 @@ class PluginTag(enum.Enum):
     HIGHLIGHT = 2
     LANGUAGE = 3
     EDITING = 4
-    OPTIMIZATION = 5
+    INFRASTRUCTURE = 5
 
 
 class PluginClauseKind(enum.Enum):
@@ -391,18 +400,23 @@ class PluginContext:
 
 PLUGIN_CONTEXTS = [
     PluginContext(
+        "wbthomason",
+        "packer.nvim",
+        tag=PluginTag.INFRASTRUCTURE,
+    ),
+    PluginContext(
         "nathom",
         "filetype.nvim",
         top_clause=[
             EmptyStmt(),
             CommentExpr(LiteralExpr("---- Infrastructure ----")),
         ],
-        tag=PluginTag.OPTIMIZATION,
+        tag=PluginTag.INFRASTRUCTURE,
     ),
     PluginContext(
         "lewis6991",
         "impatient.nvim",
-        tag=PluginTag.OPTIMIZATION,
+        tag=PluginTag.INFRASTRUCTURE,
     ),
     PluginContext(
         "neovim",
@@ -504,16 +518,16 @@ PLUGIN_CONTEXTS = [
         "vim-matchup",
         tag=PluginTag.HIGHLIGHT,
     ),
-    PluginContext(
-        "inkarkat",
-        "vim-ingo-library",
-        tag=PluginTag.HIGHLIGHT,
-    ),
-    PluginContext(
-        "inkarkat",
-        "vim-mark",
-        tag=PluginTag.HIGHLIGHT,
-    ),
+    # PluginContext(
+    #     "inkarkat",
+    #     "vim-ingo-library",
+    #     tag=PluginTag.HIGHLIGHT,
+    # ),
+    # PluginContext(
+    #     "inkarkat",
+    #     "vim-mark",
+    #     tag=PluginTag.HIGHLIGHT,
+    # ),
     PluginContext(
         "kyazdani42",
         "nvim-web-devicons",
@@ -905,7 +919,9 @@ class Render:
                             color_setting_stmts.append(top)
                     elif isinstance(top, CommentExpr):
                         cs = Stmt(top)
-                        plugin_stmts.append(Stmt(LuaCommentExpr(top.expr)))
+                        plugin_stmts.append(
+                            Stmt(LuaIndentExpr(LuaCommentExpr(top.expr)))
+                        )
                         vimrc_stmts.append(cs)
                         if ctx.tag == PluginTag.COLORSCHEME:
                             color_setting_stmts.append(cs)
@@ -915,7 +931,7 @@ class Render:
             # body
             if self.is_disabled_plugin(ctx):
                 # skip disabled plugins
-                plugin_stmts.append(Stmt(LuaEmptyCommentExpr()))
+                plugin_stmts.append(Stmt(LuaIndentExpr(LuaEmptyCommentExpr())))
                 vimrc_stmts.append(ecs)
                 if ctx.tag == PluginTag.COLORSCHEME:
                     color_setting_stmts.append(ecs)
@@ -923,10 +939,12 @@ class Render:
                 # plugins
                 plugin_stmts.append(
                     Stmt(
-                        LuaUseExpr(
-                            LiteralExpr(ctx.org),
-                            LiteralExpr(ctx.repo),
-                            LiteralExpr(ctx.post) if ctx.post else None,
+                        LuaIndentExpr(
+                            LuaUseExpr(
+                                LiteralExpr(ctx.org),
+                                LiteralExpr(ctx.repo),
+                                LiteralExpr(ctx.post) if ctx.post else None,
+                            )
                         )
                     )
                 )
