@@ -362,7 +362,7 @@ else {
     if ($LastExitCode -ne 0) {
         exit 1
     }
-    cmd /c nvim -E -c "PlugInstall" -c "qall" /wait
+    cmd /c nvim -E -c "PackerInstall" -c "qall" /wait
 }
 
 Message "install with $MODE_NAME mode - done"

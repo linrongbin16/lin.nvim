@@ -178,6 +178,6 @@ else
 	if [ $? -ne 0 ]; then
 		exit 1
 	fi
-	nvim -E -c "PlugInstall" -c "qall"
+	nvim -E -c "PackerInstall" -c "qall"
 fi
 message "install with $MODE_NAME mode - done"
