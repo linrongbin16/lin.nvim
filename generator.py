@@ -395,7 +395,7 @@ PLUGIN_CONTEXTS = [
         "filetype.nvim",
         top_clause=[
             EmptyStmt(),
-            CommentExpr(LiteralExpr("---- Basic ----")),
+            CommentExpr(LiteralExpr("---- Infrastructure ----")),
         ],
         tag=PluginTag.OPTIMIZATION,
     ),
@@ -797,7 +797,7 @@ class Render:
             and s.render().strip() == EmptyCommentExpr().render().strip()
         )
 
-    # plugins.vim
+    # lua/plugins.lua
     def render_plugin_stmts(self, core_plugins):
         plugin_stmts = []
         plugin_stmts.append(
@@ -813,7 +813,7 @@ class Render:
     def render_vimrc_stmts(self, core_vimrcs):
         vimrc_stmts = []
         vimrc_stmts.append(Stmt(CommentExpr(LiteralExpr("---- Vimrc ----"))))
-        vimrc_stmts.append(SourceVimDirStmt("plugins.vim"))
+        vimrc_stmts.append(Stmt(LiteralExpr("lua require('plugins')")))
         vimrc_stmts.append(SourceVimDirStmt("standalone/basic.vim"))
         vimrc_stmts.append(SourceVimDirStmt("standalone/filetype.vim"))
 
@@ -995,11 +995,13 @@ class FileDumper:
         self.neovim_init_vim_entry()
 
     def config(self):
-        plugins_file = f"{VIM_DIR}/plugins.vim"
+        plugins_dir = f"{VIM_DIR}/lua"
+        plugins_file = f"{VIM_DIR}/lua/plugins.lua"
         lsp_settings_file = f"{VIM_DIR}/lsp-settings.vim"
         color_settings_file = f"{VIM_DIR}/color-settings.vim"
         settings_file = f"{VIM_DIR}/settings.vim"
         try_backup(pathlib.Path(plugins_file))
+        pathlib.Path(plugins_dir).mkdir(parents=True, exist_ok=True)
         with open(plugins_file, "w") as fp:
             fp.write(self.plugins_content)
         try_backup(pathlib.Path(lsp_settings_file))

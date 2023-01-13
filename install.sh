@@ -45,7 +45,6 @@ pip3_dependency() {
 
 npm_dependency() {
 	message "install node packages with npm"
-	install_or_skip "sudo npm install -g yarn" "yarn"
 	sudo npm install -g neovim
 }
 
