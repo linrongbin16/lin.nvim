@@ -8,8 +8,9 @@
 # plugins
 plugged
 
-# user settings
+# generate
 plugins.vim
+lua/plugins.lua
 settings.vim
 color-settings.vim
 coc-settings.json

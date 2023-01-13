@@ -252,6 +252,13 @@ function DownloadGuifontDependency([string]$option) {
     message "download $name($tag) nerd font from github: $VIM_HOME\$target - done"
 }
 
+function PackerDependency() {
+    $packerHome = "$env:LOCALAPPDATA\nvim-data\site\pack\packer\start\packer.nvim"
+    if (-not (Test-Path $packerHome)) {
+        git clone https://github.com/wbthomason/packer.nvim $packerHome
+    }
+}
+
 function CargoDependency() {
     Message "install modern rust commands with cargo"
     InstallOrSkip -command "cargo install ripgrep" -target "rg"
@@ -345,6 +352,7 @@ if ($OPT_BASIC) {
 else {
     # dependency
     Message "install dependencies for windows"
+    PackerDependency
     CargoDependency
     Pip3Dependency
     NpmDependency
