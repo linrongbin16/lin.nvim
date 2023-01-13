@@ -49,7 +49,7 @@ end
 DiagnosticSign({name = 'DiagnosticSignError', text = '✘'})
 DiagnosticSign({name = 'DiagnosticSignWarn', text = ''})
 DiagnosticSign({name = 'DiagnosticSignHint', text = '⚑'})
-DiagnosticSign({name = 'DiagnosticSignInfo', text = ''})
+DiagnosticSign({name = 'DiagnosticSignInfo', text = ''})
 
 local single_border = 'single'
 

@@ -78,7 +78,7 @@ local LspDiagnosticIndicators = {
     errors = '✘',
     warnings = '',
     hints = '⚑',
-    info = '',
+    info = '',
 }
 local function LinLspDiagnostics()
     if #vim.lsp.buf_get_clients() > 0 then
