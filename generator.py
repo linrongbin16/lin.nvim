@@ -425,7 +425,7 @@ PLUGIN_CONTEXTS = [
     PluginContext(
         "dracula",
         "vim",
-        post="{'as': 'dracula'}",
+        post="as = 'dracula'",
         color="dracula",
         tag=PluginTag.COLORSCHEME,
     ),
@@ -456,7 +456,7 @@ PLUGIN_CONTEXTS = [
     PluginContext(
         "kaicataldo",
         "material.vim",
-        post="{'branch': 'main'}",
+        post="branch = 'main'",
         color="material",
         tag=PluginTag.COLORSCHEME,
     ),
@@ -469,7 +469,7 @@ PLUGIN_CONTEXTS = [
     PluginContext(
         "folke",
         "tokyonight.nvim",
-        post="{'branch': 'main'}",
+        post="branch = 'main'",
         color="tokyonight",
         tag=PluginTag.COLORSCHEME,
     ),
@@ -569,7 +569,7 @@ PLUGIN_CONTEXTS = [
     PluginContext(
         "junegunn",
         "fzf",
-        post="{'do': { -> fzf#install() }}",
+        post="run = ':call fzf#install()'",
         top_clause=[
             EmptyStmt(),
             CommentExpr(LiteralExpr("---- Search ----")),
@@ -624,7 +624,7 @@ PLUGIN_CONTEXTS = [
     PluginContext(
         "L3MON4D3",
         "LuaSnip",
-        post="{'tag': 'v1.*'}",
+        post="tag = 'v1.*'",
         tag=PluginTag.LANGUAGE,
     ),
     PluginContext(
@@ -637,7 +637,7 @@ PLUGIN_CONTEXTS = [
     PluginContext(
         "iamcco",
         "markdown-preview.nvim",
-        post="{ 'do': 'cd app && yarn install', 'for': ['markdown'] }",
+        post='run = function() vim.fn["mkdp#util#install"]() end',
         top_clause=[
             EmptyStmt(),
             CommentExpr(LiteralExpr("---- Language support ----")),
@@ -647,35 +647,35 @@ PLUGIN_CONTEXTS = [
     PluginContext(
         "justinmk",
         "vim-syntax-extra",
-        post="{'for': ['lex', 'flex', 'yacc', 'bison']}",
+        post="ft = {'lex', 'flex', 'yacc', 'bison'}",
         top_clause=CommentExpr(LiteralExpr("Lex/yacc, flex/bison")),
         tag=PluginTag.LANGUAGE,
     ),
     PluginContext(
         "rhysd",
         "vim-llvm",
-        post="{ 'for': ['llvm', 'mir', 'mlir', 'tablegen'] }",
+        post="ft = {'llvm', 'mir', 'mlir', 'tablegen'}",
         top_clause=CommentExpr(LiteralExpr("LLVM")),
         tag=PluginTag.LANGUAGE,
     ),
     PluginContext(
         "uarun",
         "vim-protobuf",
-        post="{ 'for': ['proto'] }",
+        post="ft = {'proto'}",
         top_clause=CommentExpr(LiteralExpr("Protobuf")),
         tag=PluginTag.LANGUAGE,
     ),
     PluginContext(
         "zebradil",
         "hive.vim",
-        post="{ 'for': ['hive']  }",
+        post="ft = {'hive'}",
         top_clause=CommentExpr(LiteralExpr("Hive")),
         tag=PluginTag.LANGUAGE,
     ),
     PluginContext(
         "slim-template",
         "vim-slim",
-        post="{ 'for': ['slim'] }",
+        post="ft = {'slim'}",
         top_clause=CommentExpr(LiteralExpr("Slim")),
         tag=PluginTag.LANGUAGE,
     ),
@@ -698,7 +698,7 @@ PLUGIN_CONTEXTS = [
     PluginContext(
         "phaazon",
         "hop.nvim",
-        post="{'branch': 'v2'}",
+        post="branch = 'v2'",
         top_clause=CommentExpr(LiteralExpr("Cursor motion")),
         tag=PluginTag.EDITING,
     ),
