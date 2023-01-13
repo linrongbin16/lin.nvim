@@ -51,11 +51,13 @@ DiagnosticSign({name = 'DiagnosticSignWarn', text = ''})
 DiagnosticSign({name = 'DiagnosticSignHint', text = '⚑'})
 DiagnosticSign({name = 'DiagnosticSignInfo', text = ''})
 
+local single_border = 'single'
+
 vim.diagnostic.config({
     virtual_text = false,
     severity_sort = true,
     float = {
-        border = 'rounded',
+        border = single_border,
         source = 'always',
         header = '',
         prefix = '',
@@ -65,11 +67,11 @@ vim.diagnostic.config({
 -- hover/signatureHelp
 vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
     vim.lsp.handlers.hover,
-    {border = 'rounded'}
+    {border = single_border}
 )
 vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
     vim.lsp.handlers.signature_help,
-    {border = 'rounded'}
+    {border = single_border}
 )
 
 -- lspconfig
@@ -181,12 +183,11 @@ cmp.setup.filetype('gitcommit', {
     })
 })
 
-local keyword3 = 3
 -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline({ '/', '?' }, {
     mapping = cmp.mapping.preset.cmdline(),
     sources = {
-        { name = 'buffer', keyword_length=keyword3 }
+        { name = 'buffer', keyword_length=keyword2 }
     }
 })
 
@@ -194,9 +195,9 @@ cmp.setup.cmdline({ '/', '?' }, {
 cmp.setup.cmdline(':', {
     mapping = cmp.mapping.preset.cmdline(),
     sources = cmp.config.sources({
-        { name = 'path', keyword_length=keyword3 }
+        { name = 'path', keyword_length=keyword2 }
     }, {
-        { name = 'cmdline', keyword_length=keyword3 }
+        { name = 'cmdline', keyword_length=keyword2 }
     })
 })
 
