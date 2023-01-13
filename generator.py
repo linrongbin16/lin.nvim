@@ -32,25 +32,25 @@ def try_backup(src):
         message(f"backup '{src}' to '{dest}'")
 
 
-INDENT_SIZE = 4
+# INDENT_SIZE = 4
 
 
-class Indentable:
-    def __init__(self):
-        self._value = 0
-
-    @property
-    def indentlevel(self):
-        return self._value
-
-    def inc_indentlevel(self):
-        self._value += 1
-
-    def dec_indentlevel(self):
-        self._value = max(self._value - 1, 0)
-
-    def get_dec_indentlevel(self):
-        return max(self._value - 1, 0)
+# class Indentable:
+#     def __init__(self):
+#         self._value = 0
+#
+#     @property
+#     def indentlevel(self):
+#         return self._value
+#
+#     def inc_indentlevel(self):
+#         self._value += 1
+#
+#     def dec_indentlevel(self):
+#         self._value = max(self._value - 1, 0)
+#
+#     def get_dec_indentlevel(self):
+#         return max(self._value - 1, 0)
 
 
 class Expr(abc.ABC):
@@ -167,12 +167,6 @@ class SourceExpr(Expr):
 
 
 class CommentExpr(Expr):
-    @abc.abstractmethod
-    def render(self):
-        pass
-
-
-class SingleQuoteCommentExpr(CommentExpr):
     def __init__(self, expr):
         assert isinstance(expr, Expr)
         self.expr = expr
@@ -181,18 +175,9 @@ class SingleQuoteCommentExpr(CommentExpr):
         return f'" {self.expr.render()}'
 
 
-class TrippleQuotesCommentExpr(CommentExpr):
-    def __init__(self, expr):
-        assert isinstance(expr, Expr)
-        self.expr = expr
-
-    def render(self):
-        return f'""" {self.expr.render()}'
-
-
-class EmptyCommentExpr(SingleQuoteCommentExpr):
+class EmptyCommentExpr(CommentExpr):
     def __init__(self):
-        SingleQuoteCommentExpr.__init__(self, LiteralExpr("Empty"))
+        CommentExpr.__init__(self, LiteralExpr("Empty"))
 
 
 class FunctionInvokeExpr(Expr):
@@ -237,15 +222,15 @@ class ColorschemeExpr(Expr):
         return f"colorscheme {self.expr.render()}"
 
 
-class IndentExpr(Expr):
-    def __init__(self, expr, count=0):
-        assert isinstance(expr, Expr)
-        assert isinstance(count, int) and count >= 0
-        self.expr = expr
-        self.count = count
-
-    def render(self):
-        return f"{' ' * self.count * INDENT_SIZE}{self.expr.render()}"
+# class IndentExpr(VimExpr):
+#     def __init__(self, expr, count=0):
+#         assert isinstance(expr, VimExpr)
+#         assert isinstance(count, int) and count >= 0
+#         self.expr = expr
+#         self.count = count
+#
+#     def render(self):
+#         return f"{' ' * self.count * INDENT_SIZE}{self.expr.render()}"
 
 
 class LineContinuationExpr(Expr):
@@ -271,19 +256,6 @@ class EmptyStmt(Stmt):
         Stmt.__init__(self, None)
 
 
-class PlugExpr(Expr):
-    def __init__(self, org, repo, post=None):
-        assert isinstance(org, LiteralExpr)
-        assert isinstance(repo, LiteralExpr)
-        assert isinstance(post, LiteralExpr) or post is None
-        self.org = org
-        self.repo = repo
-        self.post = post
-
-    def render(self):
-        return f"Plug '{self.org.render()}/{self.repo.render()}'{(', ' + self.post.render()) if self.post else ''}"
-
-
 class TemplateContent(Expr):
     def __init__(self, path):
         assert isinstance(path, pathlib.Path)
@@ -296,13 +268,47 @@ class TemplateContent(Expr):
 
 
 class SourceVimDirStmt(Expr):
-    def __init__(self, value, indent_count=0):
-        self.stmt = Stmt(
-            IndentExpr(SourceExpr(LiteralExpr(f"$HOME/.vim/{value}")), indent_count)
-        )
+    def __init__(self, value):
+        self.stmt = Stmt(SourceExpr(LiteralExpr(f"$HOME/.vim/{value}")))
 
     def render(self):
         return self.stmt.render()
+
+
+class LuaExpr(Expr):
+    @abc.abstractmethod
+    def render(self):
+        pass
+
+
+class LuaUseExpr(LuaExpr):
+    def __init__(self, org, repo, post=None):
+        assert isinstance(org, LiteralExpr)
+        assert isinstance(repo, LiteralExpr)
+        assert isinstance(post, LiteralExpr) or post is None
+        self.org = org
+        self.repo = repo
+        self.post = post
+
+    def render(self):
+        if self.post:
+            return f"use {{'{self.org.render()}/{self.repo.render()}'{(', ' + self.post.render())}}}"
+        else:
+            return f"use '{self.org.render()}/{self.repo.render()}'"
+
+
+class LuaCommentExpr(LuaExpr):
+    def __init__(self, expr):
+        assert isinstance(expr, Expr)
+        self.expr = expr
+
+    def render(self):
+        return f"-- {self.expr.render()}"
+
+
+class LuaEmptyCommentExpr(LuaCommentExpr):
+    def __init__(self):
+        LuaCommentExpr.__init__(self, LiteralExpr("Empty"))
 
 
 class PluginTag(enum.Enum):
@@ -389,7 +395,7 @@ PLUGIN_CONTEXTS = [
         "filetype.nvim",
         top_clause=[
             EmptyStmt(),
-            TrippleQuotesCommentExpr(LiteralExpr("---- Basic ----")),
+            CommentExpr(LiteralExpr("---- Basic ----")),
         ],
         tag=PluginTag.OPTIMIZATION,
     ),
@@ -409,7 +415,7 @@ PLUGIN_CONTEXTS = [
         color="solarized8",
         top_clause=[
             EmptyStmt(),
-            TrippleQuotesCommentExpr(LiteralExpr("---- Colorscheme ----")),
+            CommentExpr(LiteralExpr("---- Colorscheme ----")),
         ],
         tag=PluginTag.COLORSCHEME,
     ),
@@ -484,7 +490,7 @@ PLUGIN_CONTEXTS = [
         "vim-illuminate",
         top_clause=[
             EmptyStmt(),
-            TrippleQuotesCommentExpr(LiteralExpr("---- Highlight ----")),
+            CommentExpr(LiteralExpr("---- Highlight ----")),
         ],
         tag=PluginTag.HIGHLIGHT,
     ),
@@ -513,50 +519,50 @@ PLUGIN_CONTEXTS = [
         "nvim-web-devicons",
         top_clause=[
             EmptyStmt(),
-            TrippleQuotesCommentExpr(LiteralExpr("---- UI ----")),
-            SingleQuoteCommentExpr(LiteralExpr("Icon")),
+            CommentExpr(LiteralExpr("---- UI ----")),
+            CommentExpr(LiteralExpr("Icon")),
         ],
     ),
     PluginContext(
         "romgrk",
         "barbar.nvim",
-        top_clause=SingleQuoteCommentExpr(LiteralExpr("Tabline")),
+        top_clause=CommentExpr(LiteralExpr("Tabline")),
     ),
     PluginContext(
         "kyazdani42",
         "nvim-tree.lua",
-        top_clause=SingleQuoteCommentExpr(LiteralExpr("Explorer")),
+        top_clause=CommentExpr(LiteralExpr("Explorer")),
     ),
     PluginContext("jlanzarotta", "bufexplorer"),
     PluginContext(
         "lukas-reineke",
         "indent-blankline.nvim",
-        top_clause=SingleQuoteCommentExpr(LiteralExpr("Indentline")),
+        top_clause=CommentExpr(LiteralExpr("Indentline")),
         tag=PluginTag.HIGHLIGHT,
     ),
     PluginContext(
         "nvim-lualine",
         "lualine.nvim",
-        top_clause=SingleQuoteCommentExpr(LiteralExpr("Statusline")),
+        top_clause=CommentExpr(LiteralExpr("Statusline")),
     ),
     PluginContext("nvim-lua", "lsp-status.nvim"),
     PluginContext(
         "lewis6991",
         "gitsigns.nvim",
-        top_clause=SingleQuoteCommentExpr(LiteralExpr("Git")),
+        top_clause=CommentExpr(LiteralExpr("Git")),
         tag=PluginTag.HIGHLIGHT,
     ),
     PluginContext(
         "akinsho",
         "toggleterm.nvim",
-        top_clause=SingleQuoteCommentExpr(LiteralExpr("Terminal")),
+        top_clause=CommentExpr(LiteralExpr("Terminal")),
     ),
     PluginContext(
         "liuchengxu",
         "vista.vim",
         top_clause=[
             EmptyStmt(),
-            TrippleQuotesCommentExpr(LiteralExpr("---- Tags ----")),
+            CommentExpr(LiteralExpr("---- Tags ----")),
         ],
     ),
     PluginContext("ludovicchabant", "vim-gutentags"),
@@ -566,7 +572,7 @@ PLUGIN_CONTEXTS = [
         post="{'do': { -> fzf#install() }}",
         top_clause=[
             EmptyStmt(),
-            TrippleQuotesCommentExpr(LiteralExpr("---- Search ----")),
+            CommentExpr(LiteralExpr("---- Search ----")),
         ],
     ),
     PluginContext("junegunn", "fzf.vim"),
@@ -576,7 +582,7 @@ PLUGIN_CONTEXTS = [
         "mason.nvim",
         top_clause=[
             EmptyStmt(),
-            TrippleQuotesCommentExpr(LiteralExpr("---- Language server ----")),
+            CommentExpr(LiteralExpr("---- Language server ----")),
         ],
         tag=PluginTag.LANGUAGE,
     ),
@@ -634,7 +640,7 @@ PLUGIN_CONTEXTS = [
         post="{ 'do': 'cd app && yarn install', 'for': ['markdown'] }",
         top_clause=[
             EmptyStmt(),
-            TrippleQuotesCommentExpr(LiteralExpr("---- Language support ----")),
+            CommentExpr(LiteralExpr("---- Language support ----")),
         ],
         tag=PluginTag.LANGUAGE,
     ),
@@ -642,35 +648,35 @@ PLUGIN_CONTEXTS = [
         "justinmk",
         "vim-syntax-extra",
         post="{'for': ['lex', 'flex', 'yacc', 'bison']}",
-        top_clause=SingleQuoteCommentExpr(LiteralExpr("Lex/yacc, flex/bison")),
+        top_clause=CommentExpr(LiteralExpr("Lex/yacc, flex/bison")),
         tag=PluginTag.LANGUAGE,
     ),
     PluginContext(
         "rhysd",
         "vim-llvm",
         post="{ 'for': ['llvm', 'mir', 'mlir', 'tablegen'] }",
-        top_clause=SingleQuoteCommentExpr(LiteralExpr("LLVM")),
+        top_clause=CommentExpr(LiteralExpr("LLVM")),
         tag=PluginTag.LANGUAGE,
     ),
     PluginContext(
         "uarun",
         "vim-protobuf",
         post="{ 'for': ['proto'] }",
-        top_clause=SingleQuoteCommentExpr(LiteralExpr("Protobuf")),
+        top_clause=CommentExpr(LiteralExpr("Protobuf")),
         tag=PluginTag.LANGUAGE,
     ),
     PluginContext(
         "zebradil",
         "hive.vim",
         post="{ 'for': ['hive']  }",
-        top_clause=SingleQuoteCommentExpr(LiteralExpr("Hive")),
+        top_clause=CommentExpr(LiteralExpr("Hive")),
         tag=PluginTag.LANGUAGE,
     ),
     PluginContext(
         "slim-template",
         "vim-slim",
         post="{ 'for': ['slim'] }",
-        top_clause=SingleQuoteCommentExpr(LiteralExpr("Slim")),
+        top_clause=CommentExpr(LiteralExpr("Slim")),
         tag=PluginTag.LANGUAGE,
     ),
     PluginContext(
@@ -678,41 +684,41 @@ PLUGIN_CONTEXTS = [
         "vim-closetag",
         top_clause=[
             EmptyStmt(),
-            TrippleQuotesCommentExpr(LiteralExpr("---- Editing enhancement ----")),
-            SingleQuoteCommentExpr(LiteralExpr("HTML tag")),
+            CommentExpr(LiteralExpr("---- Editing enhancement ----")),
+            CommentExpr(LiteralExpr("HTML tag")),
         ],
         tag=PluginTag.EDITING,
     ),
     PluginContext(
         "numToStr",
         "Comment.nvim",
-        top_clause=SingleQuoteCommentExpr(LiteralExpr("Comment")),
+        top_clause=CommentExpr(LiteralExpr("Comment")),
         tag=PluginTag.EDITING,
     ),
     PluginContext(
         "phaazon",
         "hop.nvim",
         post="{'branch': 'v2'}",
-        top_clause=SingleQuoteCommentExpr(LiteralExpr("Cursor motion")),
+        top_clause=CommentExpr(LiteralExpr("Cursor motion")),
         tag=PluginTag.EDITING,
     ),
     PluginContext(
         "windwp",
         "nvim-autopairs",
-        top_clause=SingleQuoteCommentExpr(LiteralExpr("Autopair")),
+        top_clause=CommentExpr(LiteralExpr("Autopair")),
         tag=PluginTag.EDITING,
     ),
     PluginContext(
         "haya14busa",
         "is.vim",
-        top_clause=SingleQuoteCommentExpr(LiteralExpr("Incremental search")),
+        top_clause=CommentExpr(LiteralExpr("Incremental search")),
         tag=PluginTag.EDITING,
     ),
     PluginContext(
         "tpope",
         "vim-repeat",
         tag=PluginTag.EDITING,
-        top_clause=SingleQuoteCommentExpr(LiteralExpr("Other")),
+        top_clause=CommentExpr(LiteralExpr("Other")),
     ),
     PluginContext("chaoren", "vim-wordmotion", tag=PluginTag.EDITING),
     PluginContext("mattn", "emmet-vim", tag=PluginTag.EDITING),
@@ -721,7 +727,7 @@ PLUGIN_CONTEXTS = [
 ]
 
 
-class Render(Indentable):
+class Render:
     def __init__(
         self,
         static_color=None,
@@ -731,7 +737,6 @@ class Render(Indentable):
         disable_editing=False,
         disable_plugins=None,
     ):
-        Indentable.__init__(self)
         self.static_color = static_color
         self.disable_color = disable_color
         self.disable_highlight = disable_highlight
@@ -796,20 +801,18 @@ class Render(Indentable):
     def render_plugin_stmts(self, core_plugins):
         plugin_stmts = []
         plugin_stmts.append(
-            TemplateContent(pathlib.Path(f"{TEMPLATE_DIR}/plugins-header-template.vim"))
+            TemplateContent(pathlib.Path(f"{TEMPLATE_DIR}/plugins-header-template.lua"))
         )
         plugin_stmts.extend(core_plugins)
         plugin_stmts.append(
-            TemplateContent(pathlib.Path(f"{TEMPLATE_DIR}/plugins-footer-template.vim"))
+            TemplateContent(pathlib.Path(f"{TEMPLATE_DIR}/plugins-footer-template.lua"))
         )
         return plugin_stmts
 
     # vimrc.vim
     def render_vimrc_stmts(self, core_vimrcs):
         vimrc_stmts = []
-        vimrc_stmts.append(
-            Stmt(TrippleQuotesCommentExpr(LiteralExpr("---- Vimrc ----")))
-        )
+        vimrc_stmts.append(Stmt(CommentExpr(LiteralExpr("---- Vimrc ----"))))
         vimrc_stmts.append(SourceVimDirStmt("plugins.vim"))
         vimrc_stmts.append(SourceVimDirStmt("standalone/basic.vim"))
         vimrc_stmts.append(SourceVimDirStmt("standalone/filetype.vim"))
@@ -818,9 +821,7 @@ class Render(Indentable):
         vimrc_stmts.extend(core_vimrcs)
 
         vimrc_stmts.append(EmptyStmt())
-        vimrc_stmts.append(
-            Stmt(TrippleQuotesCommentExpr(LiteralExpr("---- Custom settings ----")))
-        )
+        vimrc_stmts.append(Stmt(CommentExpr(LiteralExpr("---- Custom settings ----"))))
         vimrc_stmts.append(SourceVimDirStmt("lsp-settings.vim"))
         vimrc_stmts.append(SourceVimDirStmt("color-settings.vim"))
         vimrc_stmts.append(SourceVimDirStmt("settings.vim"))
@@ -857,12 +858,8 @@ class Render(Indentable):
             setting_stmts.extend(
                 [
                     EmptyStmt(),
-                    Stmt(
-                        TrippleQuotesCommentExpr(
-                            LiteralExpr("---- Static colorscheme ----")
-                        )
-                    ),
-                    Stmt(IndentExpr(ColorschemeExpr(LiteralExpr(self.static_color)))),
+                    Stmt(CommentExpr(LiteralExpr("---- Static colorscheme ----"))),
+                    Stmt(ColorschemeExpr(LiteralExpr(self.static_color))),
                 ]
             )
         elif not self.disable_color:
@@ -870,17 +867,13 @@ class Render(Indentable):
                 [
                     EmptyStmt(),
                     Stmt(
-                        TrippleQuotesCommentExpr(
+                        CommentExpr(
                             LiteralExpr("---- Random colorscheme on startup ----")
                         )
                     ),
                     Stmt(
-                        IndentExpr(
-                            CallExpr(
-                                FunctionInvokeExpr(
-                                    LiteralExpr("LinNextRandomColorScheme")
-                                )
-                            )
+                        CallExpr(
+                            FunctionInvokeExpr(LiteralExpr("LinNextRandomColorScheme"))
                         )
                     ),
                 ]
@@ -911,31 +904,18 @@ class Render(Indentable):
                         if ctx.tag == PluginTag.COLORSCHEME:
                             color_setting_stmts.append(top)
                     elif isinstance(top, CommentExpr):
-                        cs = Stmt(IndentExpr(top, self.indentlevel))
-                        plugin_stmts.append(cs)
+                        cs = Stmt(top)
+                        plugin_stmts.append(Stmt(LuaCommentExpr(top.expr)))
                         vimrc_stmts.append(cs)
                         if ctx.tag == PluginTag.COLORSCHEME:
                             color_setting_stmts.append(cs)
-                    elif isinstance(top, IfExpr):
-                        ifs = Stmt(IndentExpr(top, self.indentlevel))
-                        plugin_stmts.append(ifs)
-                        vimrc_stmts.append(ifs)
-                        if ctx.tag == PluginTag.COLORSCHEME:
-                            color_setting_stmts.append(ifs)
-                        self.inc_indentlevel()
-                    elif isinstance(top, ElseifExpr) or isinstance(top, ElseExpr):
-                        elifs = Stmt(IndentExpr(top, self.get_dec_indentlevel()))
-                        plugin_stmts.append(elifs)
-                        vimrc_stmts.append(elifs)
-                        if ctx.tag == PluginTag.COLORSCHEME:
-                            color_setting_stmts.append(elifs)
                     else:
                         assert False
-            ecs = Stmt(IndentExpr(EmptyCommentExpr(), self.indentlevel))
+            ecs = Stmt(EmptyCommentExpr())
             # body
             if self.is_disabled_plugin(ctx):
                 # skip disabled plugins
-                plugin_stmts.append(ecs)
+                plugin_stmts.append(Stmt(LuaEmptyCommentExpr()))
                 vimrc_stmts.append(ecs)
                 if ctx.tag == PluginTag.COLORSCHEME:
                     color_setting_stmts.append(ecs)
@@ -943,34 +923,28 @@ class Render(Indentable):
                 # plugins
                 plugin_stmts.append(
                     Stmt(
-                        IndentExpr(
-                            PlugExpr(
-                                LiteralExpr(ctx.org),
-                                LiteralExpr(ctx.repo),
-                                LiteralExpr(ctx.post) if ctx.post else None,
-                            ),
-                            self.indentlevel,
+                        LuaUseExpr(
+                            LiteralExpr(ctx.org),
+                            LiteralExpr(ctx.repo),
+                            LiteralExpr(ctx.post) if ctx.post else None,
                         )
                     )
                 )
                 # vimrc
                 setting_file = f"repository/{ctx}.vim"
                 if pathlib.Path(f"{HOME_DIR}/.vim/{setting_file}").exists():
-                    vimrc_stmts.append(SourceVimDirStmt(setting_file, self.indentlevel))
+                    vimrc_stmts.append(SourceVimDirStmt(setting_file))
                 else:
                     vimrc_stmts.append(ecs)
                 # color settings
                 if ctx.tag == PluginTag.COLORSCHEME:
                     color_setting_stmts.append(
                         Stmt(
-                            IndentExpr(
-                                CallExpr(
-                                    AddExpr(
-                                        LiteralExpr("s:lin_colorschemes"),
-                                        SingleQuoteStringExpr(ctx.color),
-                                    )
-                                ),
-                                self.indentlevel,
+                            CallExpr(
+                                AddExpr(
+                                    LiteralExpr("s:lin_colorschemes"),
+                                    SingleQuoteStringExpr(ctx.color),
+                                )
                             )
                         )
                     )
@@ -983,15 +957,7 @@ class Render(Indentable):
                 )
                 for bottom in bottoms:
                     assert isinstance(bottom, Expr)
-                    if isinstance(bottom, EndifExpr):
-                        self.dec_indentlevel()
-                        eis = Stmt(IndentExpr(bottom, self.indentlevel))
-                        plugin_stmts.append(eis)
-                        vimrc_stmts.append(eis)
-                        if ctx.tag == PluginTag.COLORSCHEME:
-                            color_setting_stmts.append(eis)
-                    else:
-                        assert False
+                    assert False
 
         return plugin_stmts, vimrc_stmts, color_setting_stmts
 
