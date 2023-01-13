@@ -6,10 +6,9 @@
 .copypaste
 
 # plugins
-plugged
+plugin
 
 # generate
-plugins.vim
 lua/plugins.lua
 settings.vim
 color-settings.vim
