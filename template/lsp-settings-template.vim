@@ -13,9 +13,9 @@ lua<<EOF
     -- Key:
     --  Language, ensure this field is unique. Notice this field is just a hint, not actually been used.
     -- Value:
-    --  1. Ensure installed LSP server(for mason-lspconfig), set 'nil' if not used.
-    --  2. Extra formatters/linters(for null-ls), set 'nil' if not used.
-    --  3. Extra sources(for null-ls), set 'nil' if not used.
+    --  1. LSP server for nvim-cmp, ensure installed via mason-lspconfig. Set 'nil' if not used.
+    --  2. Sources(formatters/linters/etc) for null-ls, ensure installed via mason-null-ls. Set 'nil' if not used.
+    --  3. Source configs for null-ls. Set 'nil' if not used.
     local lsp_servers = {
         protobuf = {"bufls", nil, nil},
         c = {"clangd", nil, nil},
