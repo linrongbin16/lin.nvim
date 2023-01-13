@@ -1,6 +1,5 @@
 lua<<EOF
     local lsp_status = require('lsp-status')
-    local lspconfig = require('lspconfig')
 
     lsp_status.config {
         status_symbol = 'ﬦ',

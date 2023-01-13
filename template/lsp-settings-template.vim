@@ -1,8 +1,9 @@
 lua<<EOF
-    local nvim_lspconfig = require('lspconfig')
+    local lspconfig = require('lspconfig')
     local mason_lspconfig=require("mason-lspconfig")
     local null_ls = require("null-ls")
     local mason_null_ls = require("mason-null-ls")
+    local lsp_status = require('lsp-status')
 
     -- {{
     -- To add new LSP server for language, you need to define possibly 4 components in below configurations:
@@ -72,7 +73,10 @@ lua<<EOF
     mason_lspconfig.setup_handlers {
         -- Default server setup for nvim-lspconfig.
         function (server)
-            nvim_lspconfig[server].setup {}
+            lspconfig[server].setup {
+                on_attach = lsp_status.on_attach,
+                capabilities = lsp_status.capabilities
+            }
         end,
         -- Specific server setup.
         -- ["rust_analyzer"] = function ()
