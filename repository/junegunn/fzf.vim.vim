@@ -21,47 +21,52 @@ function! s:LinDefineFzfKeys(k, v) abort
     execute printf('nnoremap <silent> <expr> %s (&filetype ==# "NvimTree" ? "\<C-w>\<C-w>" : "").":\<C-u>%s\<CR>"', a:k, a:v)
 endfunction
 
-" search text
+""" Text
 
-" search text
-call s:LinDefineFzfKeys('<space>gr', 'LinFzfRg')
-" search word under cursor
-call s:LinDefineFzfKeys('<space>gw', 'LinFzfRgCWord')
-" search lines on opened buffers
-call s:LinDefineFzfKeys('<space>l', 'FzfLines')
-" search text on tags
-call s:LinDefineFzfKeys('<space>t', 'FzfTags')
-" search searched history
+" live grep
+call s:LinDefineFzfKeys('<space>r', 'LinFzfRg')
+" cursor word/string
+call s:LinDefineFzfKeys('<space>w', 'LinFzfRgCWord')
+" lines on current buffer
+call s:LinDefineFzfKeys('<space>ln', 'FzfLines')
+
+""" Tags
+" tags
+call s:LinDefineFzfKeys('<space>tg', 'FzfTags')
+
+
+""" History
+" search history
 call s:LinDefineFzfKeys('<space>sh', 'FzfHistory/')
-" search command history
+" vim command history
 call s:LinDefineFzfKeys('<space>ch', 'FzfHistory:')
 
-" search files
+""" Files
 
-" search files
+" files
 call s:LinDefineFzfKeys('<space>f', 'FzfFiles')
 call s:LinDefineFzfKeys('<C-p>', 'FzfFiles')
-" search opened buffers
+" opened buffers
 call s:LinDefineFzfKeys('<space>b', 'FzfBuffers')
-" search history files(v:oldfiles) and opened buffers
+" history files/oldfiles
 call s:LinDefineFzfKeys('<space>hf', 'FzfHistory')
 
-" search git
+""" Git
 
-" search git commits
+" git commits
 call s:LinDefineFzfKeys('<space>gc', 'FzfCommits')
-" search git files
+" git files
 call s:LinDefineFzfKeys('<space>gf', 'FzfGFile')
-" search git status
+" git status files
 call s:LinDefineFzfKeys('<space>gs', 'FzfGFiles?')
 
-" other search
+""" Vim
 
-" search marks
+" vim marks
 call s:LinDefineFzfKeys('<space>mk', 'FzfMarks')
-" search maps
+" vim key mappings
 call s:LinDefineFzfKeys('<space>mp', 'FzfMaps')
-" search vim commands
-call s:LinDefineFzfKeys('<space>vc', 'FzfCommands')
-" search help tags
+" vim commands
+call s:LinDefineFzfKeys('<space>cm', 'FzfCommands')
+" vim help tags
 call s:LinDefineFzfKeys('<space>ht', 'FzfHelptags')
