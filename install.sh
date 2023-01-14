@@ -179,5 +179,6 @@ else
 		exit 1
 	fi
 	nvim -E -c "PackerInstall" -c "qall"
+	nvim -E -c "PackerSync" -c "qall"
 fi
 message "install with $MODE_NAME mode - done"
