@@ -6,6 +6,7 @@
 VIM_HOME=$HOME/.vim
 NVIM_HOME=$HOME/.config/nvim
 INSTALL_HOME=$VIM_HOME/installer
+PACKER_HOME=$HOME/.local/share/nvim/site/pack/packer/start/packer.nvim
 OS="$(uname -s)"
 
 MODE_NAME='full' # default mode
@@ -14,6 +15,15 @@ OPT_BASIC=0
 source $INSTALL_HOME/util.sh
 
 # dependency
+packer_dependency() {
+    if [ ! -d $PACKER_HOME ]; then
+	    message "install 'packer.nvim' from github"
+        git clone --depth 1 https://github.com/wbthomason/packer.nvim $PACKER_HOME
+    else
+	    message "'packer.nvim' already exist, skip..."
+    fi
+}
+
 rust_dependency() {
 	install_or_skip "curl https://sh.rustup.rs -sSf | sh -s -- -y" "rustc"
 	source $HOME/.cargo/env
@@ -160,6 +170,7 @@ else
 		exit 1
 		;;
 	esac
+    packer_dependency
 	rust_dependency
 	# vim-hexokinase has been replaced with nvim-colorizer.lua, so golang is no longer needed as a dependency.
 	# golang_dependency
@@ -173,6 +184,6 @@ else
 	if [ $? -ne 0 ]; then
 		exit 1
 	fi
-	nvim -E -c "PlugInstall" -c "qall"
+	nvim -E -u $VIM_HOME/template/init-template.vim -c "PackerInstall" -c "PackerSync" -c "qall"
 fi
 message "install with $MODE_NAME mode - done"
