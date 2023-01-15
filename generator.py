@@ -1052,20 +1052,3 @@ def generator(
 
 if __name__ == "__main__":
     generator()
-        lsp_settings_content,
-        color_settings_content,
-        settings_content,
-        vimrc_content,
-    )=render.render()
-    dumper=FileDumper(
-        plugins_content,
-        lsp_settings_content,
-        color_settings_content,
-        settings_content,
-        vimrc_content,
-    )
-    dumper.dump()
-
-
-if __name__ == "__main__":
-    generator()
