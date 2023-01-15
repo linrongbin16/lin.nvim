@@ -7,6 +7,7 @@
 
 # plugins
 plugged
+plugin/packer_compiled.lua
 
 # user settings
 lua/plugins.lua

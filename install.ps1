@@ -366,7 +366,7 @@ else {
     if ($LastExitCode -ne 0) {
         exit 1
     }
-    cmd /c nvim -E -u "$VIM_HOME\template\init-template.vim" -c "PackerInstall" -c "PackerSync" -c "qall" /wait
+    cmd /c nvim -E --headless -u "$VIM_HOME\template\init-template.vim" -c 'autocmd User PackerComplete quitall' -c 'PackerSync' /wait
 }
 
 Message "install with $MODE_NAME mode - done"

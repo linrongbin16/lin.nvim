@@ -184,6 +184,6 @@ else
 	if [ $? -ne 0 ]; then
 		exit 1
 	fi
-	nvim -E -u $VIM_HOME/template/init-template.vim -c "PackerInstall" -c "PackerSync" -c "qall"
+	nvim -E --headless -u $VIM_HOME/template/init-template.vim -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 fi
 message "install with $MODE_NAME mode - done"
