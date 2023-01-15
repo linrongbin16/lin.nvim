@@ -309,12 +309,17 @@ class PluginContext:
 
 PLUGIN_CONTEXTS = [
     PluginContext(
-        "nathom",
-        "filetype.nvim",
+        "wbthomason",
+        "packer.nvim",
         top_clause=[
             EmptyStmt(),
             CommentExpr(LiteralExpr("---- Infrastructure ----")),
         ],
+        tag=PluginTag.INFRASTRUCTURE,
+    ),
+    PluginContext(
+        "nathom",
+        "filetype.nvim",
         tag=PluginTag.INFRASTRUCTURE,
     ),
     PluginContext(
