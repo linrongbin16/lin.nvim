@@ -231,6 +231,7 @@ class LuaExpr(Expr):
     def render(self):
         return f"lua {self.expr.render()}"
 
+
 # }
 
 # Lua AST {
@@ -326,8 +327,7 @@ PLUGIN_CONTEXTS = [
         "nvim-lspconfig",
         tag=PluginTag.INFRASTRUCTURE,
     ),
-    PluginContext("nvim-lua", "plenary.nvim",
-                  tag=PluginTag.INFRASTRUCTURE),
+    PluginContext("nvim-lua", "plenary.nvim", tag=PluginTag.INFRASTRUCTURE),
     PluginContext(
         "lifepillar",
         "vim-solarized8",
@@ -344,7 +344,7 @@ PLUGIN_CONTEXTS = [
     PluginContext(
         "dracula",
         "vim",
-        post="{'as': 'dracula'}",
+        post="as = 'dracula'",
         color="dracula",
         tag=PluginTag.COLORSCHEME,
     ),
@@ -360,8 +360,7 @@ PLUGIN_CONTEXTS = [
     PluginContext(
         "joshdick", "onedark.vim", color="onedark", tag=PluginTag.COLORSCHEME
     ),
-    PluginContext("Rigellute", "rigel", color="rigel",
-                  tag=PluginTag.COLORSCHEME),
+    PluginContext("Rigellute", "rigel", color="rigel", tag=PluginTag.COLORSCHEME),
     PluginContext("sainnhe", "edge", color="edge", tag=PluginTag.COLORSCHEME),
     PluginContext(
         "sainnhe",
@@ -372,12 +371,11 @@ PLUGIN_CONTEXTS = [
     PluginContext(
         "sainnhe", "everforest", color="everforest", tag=PluginTag.COLORSCHEME
     ),
-    PluginContext("sainnhe", "sonokai", color="sonokai",
-                  tag=PluginTag.COLORSCHEME),
+    PluginContext("sainnhe", "sonokai", color="sonokai", tag=PluginTag.COLORSCHEME),
     PluginContext(
         "kaicataldo",
         "material.vim",
-        post="{'branch': 'main'}",
+        post="branch = 'main'",
         color="material",
         tag=PluginTag.COLORSCHEME,
     ),
@@ -390,7 +388,7 @@ PLUGIN_CONTEXTS = [
     PluginContext(
         "folke",
         "tokyonight.nvim",
-        post="{'branch': 'main'}",
+        post="branch = 'main'",
         color="tokyonight",
         tag=PluginTag.COLORSCHEME,
     ),
@@ -490,7 +488,7 @@ PLUGIN_CONTEXTS = [
     PluginContext(
         "junegunn",
         "fzf",
-        post="{'do': { -> fzf#install() }}",
+        post='run = ":call fzf#install()"',
         top_clause=[
             EmptyStmt(),
             CommentExpr(LiteralExpr("---- Search ----")),
@@ -545,7 +543,7 @@ PLUGIN_CONTEXTS = [
     PluginContext(
         "L3MON4D3",
         "LuaSnip",
-        post="{'tag': 'v1.*'}",
+        post="tag = 'v1.*'",
         tag=PluginTag.LANGUAGE,
     ),
     PluginContext(
@@ -554,12 +552,11 @@ PLUGIN_CONTEXTS = [
         tag=PluginTag.LANGUAGE,
     ),
     PluginContext("rafamadriz", "friendly-snippets", tag=PluginTag.LANGUAGE),
-    PluginContext("jose-elias-alvarez", "null-ls.nvim",
-                  tag=PluginTag.LANGUAGE),
+    PluginContext("jose-elias-alvarez", "null-ls.nvim", tag=PluginTag.LANGUAGE),
     PluginContext(
         "iamcco",
         "markdown-preview.nvim",
-        post="{ 'do': 'cd app && yarn install', 'for': ['markdown'] }",
+        post='run = function() vim.fn["mkdp#util#install"]() end,',
         top_clause=[
             EmptyStmt(),
             CommentExpr(LiteralExpr("---- Language support ----")),
@@ -569,35 +566,35 @@ PLUGIN_CONTEXTS = [
     PluginContext(
         "justinmk",
         "vim-syntax-extra",
-        post="{'for': ['lex', 'flex', 'yacc', 'bison']}",
+        post="ft = {'lex', 'flex', 'yacc', 'bison'}",
         top_clause=CommentExpr(LiteralExpr("Lex/yacc, flex/bison")),
         tag=PluginTag.LANGUAGE,
     ),
     PluginContext(
         "rhysd",
         "vim-llvm",
-        post="{ 'for': ['llvm', 'mir', 'mlir', 'tablegen'] }",
+        post="ft = {'llvm', 'mir', 'mlir', 'tablegen'}",
         top_clause=CommentExpr(LiteralExpr("LLVM")),
         tag=PluginTag.LANGUAGE,
     ),
     PluginContext(
         "uarun",
         "vim-protobuf",
-        post="{ 'for': ['proto'] }",
+        post="ft = {'proto'}",
         top_clause=CommentExpr(LiteralExpr("Protobuf")),
         tag=PluginTag.LANGUAGE,
     ),
     PluginContext(
         "zebradil",
         "hive.vim",
-        post="{ 'for': ['hive']  }",
+        post="ft = {'hive'}",
         top_clause=CommentExpr(LiteralExpr("Hive")),
         tag=PluginTag.LANGUAGE,
     ),
     PluginContext(
         "slim-template",
         "vim-slim",
-        post="{ 'for': ['slim'] }",
+        post="ft = {'slim'}",
         top_clause=CommentExpr(LiteralExpr("Slim")),
         tag=PluginTag.LANGUAGE,
     ),
@@ -620,7 +617,7 @@ PLUGIN_CONTEXTS = [
     PluginContext(
         "phaazon",
         "hop.nvim",
-        post="{'branch': 'v2'}",
+        post="branch = 'v2'",
         top_clause=CommentExpr(LiteralExpr("Cursor motion")),
         tag=PluginTag.EDITING,
     ),
@@ -671,8 +668,7 @@ class Render:
 
         plugin_stmts = self.render_plugin_stmts(core_plugins)
         lsp_setting_stmts = self.render_lsp_setting_stmts()
-        color_setting_stmts = self.render_color_setting_stmts(
-            core_color_settings)
+        color_setting_stmts = self.render_color_setting_stmts(core_color_settings)
         setting_stmts = self.render_setting_stmts()
         vimrc_stmts = self.render_vimrc_stmts(core_vimrcs)
 
@@ -685,8 +681,7 @@ class Render:
 
         plugins_content = "".join([s.render() for s in plugin_stmts])
         lsp_settings_content = "".join([s.render() for s in lsp_setting_stmts])
-        color_settings_content = "".join(
-            [s.render() for s in color_setting_stmts])
+        color_settings_content = "".join([s.render() for s in color_setting_stmts])
         settings_content = "".join([s.render() for s in setting_stmts])
         vimrc_content = "".join([s.render() for s in vimrc_stmts])
         return (
@@ -716,22 +711,20 @@ class Render:
         return new_statements
 
     def is_empty_comment(self, s):
-        return (
-            isinstance(s, Stmt)
-            and (s.render().strip() == EmptyCommentExpr().render().strip() or s.render().strip() == EmptyCommentExpr4Lua().render().strip())
+        return isinstance(s, Stmt) and (
+            s.render().strip() == EmptyCommentExpr().render().strip()
+            or s.render().strip() == EmptyCommentExpr4Lua().render().strip()
         )
 
     # plugins.vim
     def render_plugin_stmts(self, core_plugins):
         plugin_stmts = []
         plugin_stmts.append(
-            TemplateContent(pathlib.Path(
-                f"{TEMPLATE_DIR}/plugins-template-header.lua"))
+            TemplateContent(pathlib.Path(f"{TEMPLATE_DIR}/plugins-template-header.lua"))
         )
         plugin_stmts.extend(core_plugins)
         plugin_stmts.append(
-            TemplateContent(pathlib.Path(
-                f"{TEMPLATE_DIR}/plugins-template-footer.lua"))
+            TemplateContent(pathlib.Path(f"{TEMPLATE_DIR}/plugins-template-footer.lua"))
         )
         return plugin_stmts
 
@@ -747,8 +740,7 @@ class Render:
         vimrc_stmts.extend(core_vimrcs)
 
         vimrc_stmts.append(EmptyStmt())
-        vimrc_stmts.append(
-            Stmt(CommentExpr(LiteralExpr("---- Custom settings ----"))))
+        vimrc_stmts.append(Stmt(CommentExpr(LiteralExpr("---- Custom settings ----"))))
         vimrc_stmts.append(SourceVimDirStmt("lsp-settings.vim"))
         vimrc_stmts.append(SourceVimDirStmt("color-settings.vim"))
         vimrc_stmts.append(SourceVimDirStmt("settings.vim"))
@@ -758,8 +750,7 @@ class Render:
     def render_lsp_setting_stmts(self):
         lsp_setting_stmts = []
         lsp_setting_stmts.append(
-            TemplateContent(pathlib.Path(
-                f"{TEMPLATE_DIR}/lsp-settings-template.vim"))
+            TemplateContent(pathlib.Path(f"{TEMPLATE_DIR}/lsp-settings-template.vim"))
         )
         return lsp_setting_stmts
 
@@ -768,15 +759,13 @@ class Render:
         color_setting_stmts = []
         color_setting_stmts.append(
             TemplateContent(
-                pathlib.Path(
-                    f"{TEMPLATE_DIR}/color-settings-template-array.vim")
+                pathlib.Path(f"{TEMPLATE_DIR}/color-settings-template-array.vim")
             )
         )
         color_setting_stmts.extend(core_color_settings)
         color_setting_stmts.append(
             TemplateContent(
-                pathlib.Path(
-                    f"{TEMPLATE_DIR}/color-settings-template-function.vim")
+                pathlib.Path(f"{TEMPLATE_DIR}/color-settings-template-function.vim")
             )
         )
         return color_setting_stmts
@@ -798,22 +787,18 @@ class Render:
                     EmptyStmt(),
                     Stmt(
                         CommentExpr(
-                            LiteralExpr(
-                                "---- Random colorscheme on startup ----")
+                            LiteralExpr("---- Random colorscheme on startup ----")
                         )
                     ),
                     Stmt(
                         CallExpr(
-                            FunctionInvokeExpr(
-                                LiteralExpr("LinNextRandomColorScheme")
-                            )
+                            FunctionInvokeExpr(LiteralExpr("LinNextRandomColorScheme"))
                         )
                     ),
                 ]
             )
         setting_stmts.append(
-            TemplateContent(pathlib.Path(
-                f"{TEMPLATE_DIR}/settings-template.vim"))
+            TemplateContent(pathlib.Path(f"{TEMPLATE_DIR}/settings-template.vim"))
         )
         return setting_stmts
 
@@ -858,7 +843,7 @@ class Render:
                 plugin_stmts.append(
                     Stmt(
                         IndentExpr(
-                        PackerUseExpr4Lua(
+                            PackerUseExpr4Lua(
                                 LiteralExpr(ctx.org),
                                 LiteralExpr(ctx.repo),
                                 LiteralExpr(ctx.post) if ctx.post else None,
@@ -876,12 +861,12 @@ class Render:
                 if ctx.tag == PluginTag.COLORSCHEME:
                     color_setting_stmts.append(
                         Stmt(
-                                CallExpr(
-                                    AddExpr(
-                                        LiteralExpr("s:lin_colorschemes"),
-                                        SingleQuoteStringExpr(ctx.color),
-                                    )
-                                ),
+                            CallExpr(
+                                AddExpr(
+                                    LiteralExpr("s:lin_colorschemes"),
+                                    SingleQuoteStringExpr(ctx.color),
+                                )
+                            ),
                         )
                     )
 
@@ -949,8 +934,7 @@ class FileDumper:
             )
             appdata_local_path = pathlib.Path(f"{HOME_DIR}/AppData/Local")
             nvim_path = pathlib.Path(f"{appdata_local_path}/nvim")
-            nvim_init_vim_path = pathlib.Path(
-                f"{appdata_local_path}/nvim/init.vim")
+            nvim_init_vim_path = pathlib.Path(f"{appdata_local_path}/nvim/init.vim")
         else:
             message("install ~/.config/nvim/init.vim for neovim")
             config_path = pathlib.Path(f"{HOME_DIR}/.config")
