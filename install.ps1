@@ -7,6 +7,7 @@ $VIM_HOME = "$env:USERPROFILE\.vim"
 $APPDATA_LOCAL_HOME = "$env:USERPROFILE\AppData\Local"
 $NVIM_HOME = "$APPDATA_LOCAL_HOME\nvim"
 $INSTALL_HOME = "$VIM_HOME\installer"
+$PACKER_HOME = "$env:LOCALAPPDATA\nvim-data\site\pack\packer\start\packer.nvim"
 
 $MODE_NAME = "full" # default mode
 $OPT_BASIC = $False
@@ -247,9 +248,18 @@ function DownloadGuifontDependency([string]$option) {
     $repo = "nerd-fonts"
     $target = "$name.zip"
     $tag = GithubLatestReleaseTag -org $org -repo $repo
-    message "download $name($tag) nerd font from github"
+    Message "download $name($tag) nerd font from github"
     Invoke-WebRequest -Uri "https://github.com/$org/$repo/releases/download/$tag/$target" -OutFile $target
-    message "download $name($tag) nerd font from github: $VIM_HOME\$target - done"
+    Message "download $name($tag) nerd font from github: $VIM_HOME\$target - done"
+}
+
+function PackerDependency() {
+    if (-not (Test-Path $PACKER_HOME)) {
+	    Message "install 'packer.nvim' from github"
+        git clone https://github.com/wbthomason/packer.nvim $PACKER_HOME
+    } else {
+	    Message "'packer.nvim' already exist, skip..."
+    }
 }
 
 function CargoDependency() {
@@ -345,6 +355,7 @@ if ($OPT_BASIC) {
 else {
     # dependency
     Message "install dependencies for windows"
+    PackerDependency
     CargoDependency
     Pip3Dependency
     NpmDependency
@@ -355,7 +366,7 @@ else {
     if ($LastExitCode -ne 0) {
         exit 1
     }
-    cmd /c nvim -E -c "PlugInstall" -c "qall" /wait
+    cmd /c nvim -E --headless -u "$VIM_HOME\template\init-template.vim" -c 'autocmd User PackerComplete quitall' -c 'PackerSync' /wait
 }
 
 Message "install with $MODE_NAME mode - done"
