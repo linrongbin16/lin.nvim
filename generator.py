@@ -562,7 +562,7 @@ PLUGIN_CONTEXTS = [
     PluginContext(
         "iamcco",
         "markdown-preview.nvim",
-        post='run = function() vim.fn["mkdp#util#install"]() end,',
+        post=' run = "cd app && npm install", setup = function() vim.g.mkdp_filetypes = { "markdown" } end, ft = { "markdown" },',
         top_clause=[
             EmptyStmt(),
             CommentExpr(LiteralExpr("---- Language support ----")),
