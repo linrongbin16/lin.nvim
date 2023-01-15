@@ -430,11 +430,6 @@ PLUGIN_CONTEXTS = [
     ),
     PluginContext(
         "inkarkat",
-        "vim-ingo-library",
-        tag=PluginTag.HIGHLIGHT,
-    ),
-    PluginContext(
-        "inkarkat",
         "vim-mark",
         post="requires = 'inkarkat/vim-ingo-library'",
         tag=PluginTag.HIGHLIGHT,
@@ -859,11 +854,14 @@ class Render:
                     )
                 )
                 # vimrc
-                setting_file = f"repository/{ctx}.vim"
-                if pathlib.Path(f"{HOME_DIR}/.vim/{setting_file}").exists():
-                    vimrc_stmts.append(SourceVimDirStmt(setting_file))
-                else:
-                    vimrc_stmts.append(ecs)
+                vim_file = f"repository/{ctx}.vim"
+                lua_file = f"repository/{str(ctx).replace('.', '-')}"
+                if pathlib.Path(f"{HOME_DIR}/.vim/{vim_file}").exists():
+                    vimrc_stmts.append(SourceVimDirStmt(vim_file))
+                if pathlib.Path(f"{HOME_DIR}/.vim/lua/{lua_file}.lua").exists():
+                    vimrc_stmts.append(
+                        Stmt(LuaExpr(LiteralExpr(f"require('{lua_file}')")))
+                    )
                 # color settings
                 if ctx.tag == PluginTag.COLORSCHEME:
                     color_setting_stmts.append(

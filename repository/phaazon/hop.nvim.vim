@@ -1,9 +1,3 @@
-lua<<EOF
-
-require'hop'.setup()
-
-EOF
-
 " <Leader><Leader>f{char} - move to {char}
 map <silent> <Leader><Leader>f :HopChar1MW<CR>
 nmap <silent> <Leader><Leader>f :HopChar1MW<CR>
