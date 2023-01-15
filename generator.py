@@ -566,6 +566,7 @@ PLUGIN_CONTEXTS = [
         top_clause=[
             EmptyStmt(),
             CommentExpr(LiteralExpr("---- Language support ----")),
+            CommentExpr(LiteralExpr("Markdown")),
         ],
         tag=PluginTag.LANGUAGE,
     ),
