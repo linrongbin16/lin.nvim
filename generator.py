@@ -261,7 +261,7 @@ class PackerUseExpr4Lua(Expr):
 
     def render(self):
         if self.post:
-            return f"use {{ '{self.org.render()}/{self.repo.render()}', {self.post.render())} }}"
+            return f"use {{ '{self.org.render()}/{self.repo.render()}', {self.post.render()} }}"
         else:
             return f"use {{ '{self.org.render()}/{self.repo.render()}' }}"
 
