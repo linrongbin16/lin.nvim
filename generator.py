@@ -737,7 +737,7 @@ class Render:
     def render_vimrc_stmts(self, core_vimrcs):
         vimrc_stmts = []
         vimrc_stmts.append(Stmt(CommentExpr(LiteralExpr("---- Vimrc ----"))))
-        vimrc_stmts.append(SourceVimDirStmt("plugins.vim"))
+        vimrc_stmts.append(Stmt(LuaExpr(LiteralExpr("plugins.vim"))))
         vimrc_stmts.append(SourceVimDirStmt("standalone/basic.vim"))
         vimrc_stmts.append(SourceVimDirStmt("standalone/filetype.vim"))
 
