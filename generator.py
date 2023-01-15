@@ -436,25 +436,23 @@ PLUGIN_CONTEXTS = [
     PluginContext(
         "inkarkat",
         "vim-mark",
+        post="requires = 'inkarkat/vim-ingo-library'",
         tag=PluginTag.HIGHLIGHT,
-    ),
-    PluginContext(
-        "kyazdani42",
-        "nvim-web-devicons",
-        top_clause=[
-            EmptyStmt(),
-            CommentExpr(LiteralExpr("---- UI ----")),
-            CommentExpr(LiteralExpr("Icon")),
-        ],
     ),
     PluginContext(
         "romgrk",
         "barbar.nvim",
-        top_clause=CommentExpr(LiteralExpr("Tabline")),
+        post="requires = 'nvim-tree/nvim-web-devicons'",
+        top_clause=[
+            EmptyStmt(),
+            CommentExpr(LiteralExpr("---- UI ----")),
+            CommentExpr(LiteralExpr("Tabline")),
+        ],
     ),
     PluginContext(
         "kyazdani42",
         "nvim-tree.lua",
+        post="requires = 'nvim-tree/nvim-web-devicons'",
         top_clause=CommentExpr(LiteralExpr("Explorer")),
     ),
     PluginContext("jlanzarotta", "bufexplorer"),
@@ -467,6 +465,7 @@ PLUGIN_CONTEXTS = [
     PluginContext(
         "nvim-lualine",
         "lualine.nvim",
+        post="requires = 'nvim-tree/nvim-web-devicons'",
         top_clause=CommentExpr(LiteralExpr("Statusline")),
     ),
     PluginContext("nvim-lua", "lsp-status.nvim"),
@@ -479,7 +478,9 @@ PLUGIN_CONTEXTS = [
     PluginContext(
         "akinsho",
         "toggleterm.nvim",
+        post="tag = '*'",
         top_clause=CommentExpr(LiteralExpr("Terminal")),
+        tag=PluginTag.HIGHLIGHT,
     ),
     PluginContext(
         "liuchengxu",
@@ -515,6 +516,7 @@ PLUGIN_CONTEXTS = [
         "mason-lspconfig.nvim",
         tag=PluginTag.LANGUAGE,
     ),
+    PluginContext("jose-elias-alvarez", "null-ls.nvim", tag=PluginTag.LANGUAGE),
     PluginContext(
         "jay-babu",
         "mason-null-ls.nvim",
@@ -557,7 +559,6 @@ PLUGIN_CONTEXTS = [
         tag=PluginTag.LANGUAGE,
     ),
     PluginContext("rafamadriz", "friendly-snippets", tag=PluginTag.LANGUAGE),
-    PluginContext("jose-elias-alvarez", "null-ls.nvim", tag=PluginTag.LANGUAGE),
     PluginContext(
         "iamcco",
         "markdown-preview.nvim",
