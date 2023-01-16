@@ -434,6 +434,43 @@ PLUGIN_CONTEXTS = [
         color="nightfox",
         tag=PluginTag.COLORSCHEME,
     ),
+    PluginContext(
+        "bluz71",
+        "vim-nightfly-colors",
+        color="nightfly",
+        tag=PluginTag.COLORSCHEME,
+    ),
+    PluginContext(
+        "bluz71",
+        "vim-moonfly-colors",
+        color="moonfly",
+        tag=PluginTag.COLORSCHEME,
+    ),
+    PluginContext(
+        "mhartington",
+        "oceanic-next",
+        color="OceanicNext",
+        tag=PluginTag.COLORSCHEME,
+    ),
+    PluginContext(
+        "fenetikm",
+        "falcon",
+        color="falcon",
+        tag=PluginTag.COLORSCHEME,
+    ),
+    PluginContext(
+        "shaunsingh",
+        "nord.nvim",
+        color="nord",
+        tag=PluginTag.COLORSCHEME,
+    ),
+    PluginContext(
+        "catppuccin",
+        "nvim",
+        color="catppuccin",
+        post="as = 'catppuccin'",
+        tag=PluginTag.COLORSCHEME,
+    ),
     # Highlight
     PluginContext(
         "RRethy",
