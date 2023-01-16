@@ -70,10 +70,10 @@ lua<<EOF
                 null_ls.builtins.code_actions.eslint_d,
             }
         },
-        { "prettierd", null_ls.builtins.formatting.prettierd },
+        { "prettierd", { null_ls.builtins.formatting.prettierd } },
         -- python
-        { "black", null_ls.builtins.formatting.black }, -- Since pyright doesn't include code format.
-        { "isort", null_ls.builtins.formatting.isort }, -- So registered black/isort as null-ls sources to let them work.
+        { "black", { null_ls.builtins.formatting.black } }, -- Since pyright doesn't include code format.
+        { "isort", { null_ls.builtins.formatting.isort } }, -- So registered black/isort as null-ls sources to let them work.
     }
     if vim.fn.has('win32') == 1 then
         -- powershell for windows
@@ -81,7 +81,7 @@ lua<<EOF
     else
         -- bash for UNIX/Linux/macOS
         table.insert(embeded_servers, "bashls")
-        table.insert(embeded_extras, { "shfmt", null_ls.builtins.formatting.shfmt })
+        table.insert(embeded_extras, { "shfmt", { null_ls.builtins.formatting.shfmt } })
     end
 
     -- }}
@@ -115,30 +115,23 @@ lua<<EOF
         ensure_installed = ensure_installed_servers,
     }
 
-    -- Setup mason-null-ls
+    -- Setup mason-null-ls and null-ls configs
     local ensure_installed_extras = {}
+    local null_ls_sources = {}
+    -- print('null-ls')
     for i, extra in ipairs(embeded_extras) do
-        local source = extra[1]
-        table.insert(ensure_installed_extras, source)
+        local name = extra[1]
+        table.insert(ensure_installed_extras, name)
+        local configs = extra[2]
+        -- print('i:', i, ", name:", name, ", configs:", configs)
+        for j, conf in ipairs(configs) do
+            -- print('j:', j, ", conf:", conf)
+            table.insert(null_ls_sources, conf)
+        end
     end
     require("mason-null-ls").setup({
         ensure_installed = ensure_installed_extras,
     })
-
-    -- Setup null-ls source configurations
-    local null_ls_sources = {}
-    for i, extra in ipairs(embeded_extras) do
-        if type(server) == 'table' then
-            local sources = server[2]
-            if type(sources) == 'table' then
-                for j, source in ipairs(sources) do
-                    table.insert(null_ls_sources, source)
-                end
-            else
-                table.insert(null_ls_sources, sources)
-            end
-        end
-    end
     null_ls.setup({
         sources = null_ls_sources,
     })

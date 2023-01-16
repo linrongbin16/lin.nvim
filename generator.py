@@ -226,7 +226,7 @@ class TemplateContent(Expr):
         return self.content
 
 
-class SourceVimDirStmt(Expr):
+class SourceStmtFromVimDir(Expr):
     def __init__(self, value):
         self.stmt = Stmt(SourceExpr(LiteralExpr(f"$HOME/.vim/{value}")))
 
@@ -725,18 +725,18 @@ class Render:
         vimrc_stmts = []
         vimrc_stmts.append(Stmt(CommentExpr(LiteralExpr("---- Vimrc ----"))))
         vimrc_stmts.append(Stmt(LuaExpr(LiteralExpr("require('plugins')"))))
-        vimrc_stmts.append(SourceVimDirStmt("standalone/basic.vim"))
-        vimrc_stmts.append(SourceVimDirStmt("standalone/filetype.vim"))
-        vimrc_stmts.append(SourceVimDirStmt("standalone/constants.vim"))
+        vimrc_stmts.append(SourceStmtFromVimDir("standalone/basic.vim"))
+        vimrc_stmts.append(SourceStmtFromVimDir("standalone/filetype.vim"))
+        vimrc_stmts.append(SourceStmtFromVimDir("standalone/constants.vim"))
 
         # insert core vimrc statements
         vimrc_stmts.extend(core_vimrcs)
 
         vimrc_stmts.append(EmptyStmt())
         vimrc_stmts.append(Stmt(CommentExpr(LiteralExpr("---- Custom settings ----"))))
-        vimrc_stmts.append(SourceVimDirStmt("lsp-settings.vim"))
-        vimrc_stmts.append(SourceVimDirStmt("color-settings.vim"))
-        vimrc_stmts.append(SourceVimDirStmt("settings.vim"))
+        vimrc_stmts.append(SourceStmtFromVimDir("lsp-settings.vim"))
+        vimrc_stmts.append(SourceStmtFromVimDir("color-settings.vim"))
+        vimrc_stmts.append(SourceStmtFromVimDir("settings.vim"))
         return vimrc_stmts
 
     # lsp-settings.vim
@@ -848,7 +848,7 @@ class Render:
                         Stmt(LuaExpr(LiteralExpr(f"require('{lua_file}')")))
                     )
                 if pathlib.Path(f"{HOME_DIR}/.vim/{vim_file}").exists():
-                    vimrc_stmts.append(SourceVimDirStmt(vim_file))
+                    vimrc_stmts.append(SourceStmtFromVimDir(vim_file))
                 # color settings
                 if ctx.tag == PluginTag.COLORSCHEME:
                     color_setting_stmts.append(
