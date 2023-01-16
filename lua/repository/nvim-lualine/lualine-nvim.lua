@@ -74,12 +74,6 @@ local function LinLspStatus()
     return ''
 end
 
-local LspDiagnosticIndicators = {
-    errors = '✘',
-    warnings = '',
-    hints = '⚑',
-    info = '',
-}
 local function LinLspDiagnostics()
     if #vim.lsp.buf_get_clients() > 0 then
         local diags = require('lsp-status').diagnostics()
@@ -89,7 +83,7 @@ local function LinLspDiagnostics()
             for k, c in pairs(diags) do
                 -- table.insert(msg, string.format('%s:%d', k, c))
                 if c > 0 then
-                    table.insert(messages, string.format('%s %d', LspDiagnosticIndicators[k], c))
+                    table.insert(messages, string.format('%s %d', vim.g.lin_globals_diagnostic_signs[k], c))
                 end
             end
             -- print(table.concat(msg, ","))

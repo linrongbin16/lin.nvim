@@ -1,10 +1,9 @@
-
 -- Key mappings
 vim.api.nvim_create_autocmd('LspAttach', {
     desc = 'LSP actions',
     callback = function()
         local bufmap = function(mode, lhs, rhs)
-            local opts = {buffer = true}
+            local opts = { buffer = true }
             vim.keymap.set(mode, lhs, rhs, opts)
         end
         bufmap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>')
@@ -34,13 +33,12 @@ local DiagnosticSign = function(opts)
     })
 end
 
-DiagnosticSign({name = 'DiagnosticSignError', text = '✘'})
-DiagnosticSign({name = 'DiagnosticSignWarn', text = ''})
-DiagnosticSign({name = 'DiagnosticSignHint', text = '⚑'})
-DiagnosticSign({name = 'DiagnosticSignInfo', text = ''})
+DiagnosticSign({ name = 'DiagnosticSignError', text = vim.g.lin_globals_diagnostic_signs['errors'] })
+DiagnosticSign({ name = 'DiagnosticSignWarn', text = vim.g.lin_globals_diagnostic_signs['warnings'] })
+DiagnosticSign({ name = 'DiagnosticSignInfo', text = vim.g.lin_globals_diagnostic_signs['info'] })
+DiagnosticSign({ name = 'DiagnosticSignHint', text = vim.g.lin_globals_diagnostic_signs['hints'] })
 
 local single_border = 'single'
-
 vim.diagnostic.config({
     virtual_text = false,
     severity_sort = true,
@@ -55,11 +53,11 @@ vim.diagnostic.config({
 -- hover/signatureHelp
 vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
     vim.lsp.handlers.hover,
-    {border = single_border}
+    { border = single_border }
 )
 vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
     vim.lsp.handlers.signature_help,
-    {border = single_border}
+    { border = single_border }
 )
 
 -- lspconfig
@@ -82,7 +80,7 @@ require('luasnip.loaders.from_vscode').lazy_load()
 local cmp = require('cmp')
 local luasnip = require('luasnip')
 
-local select_opts = {behavior = cmp.SelectBehavior.Select}
+local select_opts = { behavior = cmp.SelectBehavior.Select }
 local keyword2 = 2
 
 cmp.setup({
@@ -96,18 +94,18 @@ cmp.setup({
         end,
     },
     sources = cmp.config.sources({
-        { name = 'nvim_lsp', keyword_length=keyword2},
-        { name = 'luasnip', keyword_length=keyword2},
+        { name = 'nvim_lsp', keyword_length = keyword2 },
+        { name = 'luasnip', keyword_length = keyword2 },
     }, {
-        { name = 'buffer', keyword_length=keyword2},
-        { name = 'path', keyword_length=keyword2},
+        { name = 'buffer', keyword_length = keyword2 },
+        { name = 'path', keyword_length = keyword2 },
     }),
     window = {
         completion = cmp.config.window.bordered(),
         documentation = cmp.config.window.bordered(),
     },
     formatting = {
-        fields = {'menu', 'abbr', 'kind'},
+        fields = { 'menu', 'abbr', 'kind' },
         format = function(entry, item)
             local menu_icon = {
                 nvim_lsp = 'λ',
@@ -130,35 +128,35 @@ cmp.setup({
         ['<C-e>'] = cmp.mapping.abort(),
         ['<CR>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
-                cmp.confirm({select=true})
+                cmp.confirm({ select = true })
             else
                 fallback() -- If you use vim-endwise, this fallback will behave the same as vim-endwise.
             end
-        end, {'i', 's'}),
+        end, { 'i', 's' }),
         ['<Tab>'] = cmp.mapping(function(fallback)
             local col = vim.fn.col('.') - 1
             if cmp.visible() then
-                cmp.confirm({select=true})
+                cmp.confirm({ select = true })
             elseif col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
                 fallback()
             else
                 cmp.complete()
             end
-        end, {'i', 's'}),
+        end, { 'i', 's' }),
         ['<C-f>'] = cmp.mapping(function(fallback)
             if luasnip.jumpable(1) then
                 luasnip.jump(1)
             else
                 fallback()
             end
-        end, {'i', 's'}),
+        end, { 'i', 's' }),
         ['<C-b>'] = cmp.mapping(function(fallback)
             if luasnip.jumpable(-1) then
                 luasnip.jump(-1)
             else
                 fallback()
             end
-        end, {'i', 's'}),
+        end, { 'i', 's' }),
     }),
 })
 
@@ -175,7 +173,7 @@ cmp.setup.filetype('gitcommit', {
 cmp.setup.cmdline({ '/', '?' }, {
     mapping = cmp.mapping.preset.cmdline(),
     sources = {
-        { name = 'buffer', keyword_length=keyword2 }
+        { name = 'buffer', keyword_length = keyword2 }
     }
 })
 
@@ -183,10 +181,8 @@ cmp.setup.cmdline({ '/', '?' }, {
 cmp.setup.cmdline(':', {
     mapping = cmp.mapping.preset.cmdline(),
     sources = cmp.config.sources({
-        { name = 'path', keyword_length=keyword2 }
+        { name = 'path', keyword_length = keyword2 }
     }, {
-        { name = 'cmdline', keyword_length=keyword2 }
+        { name = 'cmdline', keyword_length = keyword2 }
     })
 })
-
-

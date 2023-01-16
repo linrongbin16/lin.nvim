@@ -138,6 +138,7 @@ class CallExpr(Expr):
         return f"call {self.expr.render()}"
 
 
+
 class AddExpr(Expr):
     def __init__(self, *args) -> None:
         assert args
@@ -730,6 +731,7 @@ class Render:
         vimrc_stmts.append(Stmt(LuaExpr(LiteralExpr("require('plugins')"))))
         vimrc_stmts.append(SourceVimDirStmt("standalone/basic.vim"))
         vimrc_stmts.append(SourceVimDirStmt("standalone/filetype.vim"))
+        vimrc_stmts.append(SourceVimDirStmt("standalone/constants.vim"))
 
         # insert core vimrc statements
         vimrc_stmts.extend(core_vimrcs)
