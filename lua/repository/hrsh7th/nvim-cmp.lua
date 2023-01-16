@@ -25,7 +25,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 
 -- Diagnostic
-local DiagnosticSign = function(opts)
+local diagnostics_sign = function(opts)
     vim.fn.sign_define(opts.name, {
         texthl = opts.name,
         text = opts.text,
@@ -33,17 +33,16 @@ local DiagnosticSign = function(opts)
     })
 end
 
-DiagnosticSign({ name = 'DiagnosticSignError', text = vim.g.lin_globals_diagnostic_signs['errors'] })
-DiagnosticSign({ name = 'DiagnosticSignWarn', text = vim.g.lin_globals_diagnostic_signs['warnings'] })
-DiagnosticSign({ name = 'DiagnosticSignInfo', text = vim.g.lin_globals_diagnostic_signs['info'] })
-DiagnosticSign({ name = 'DiagnosticSignHint', text = vim.g.lin_globals_diagnostic_signs['hints'] })
+diagnostics_sign({ name = 'DiagnosticSignError', text = vim.g.lin_globals_diagnostic_signs['errors'] })
+diagnostics_sign({ name = 'DiagnosticSignWarn', text = vim.g.lin_globals_diagnostic_signs['warnings'] })
+diagnostics_sign({ name = 'DiagnosticSignInfo', text = vim.g.lin_globals_diagnostic_signs['info'] })
+diagnostics_sign({ name = 'DiagnosticSignHint', text = vim.g.lin_globals_diagnostic_signs['hints'] })
 
-local single_border = 'single'
 vim.diagnostic.config({
     virtual_text = false,
     severity_sort = true,
     float = {
-        border = single_border,
+        border = vim.g.lin_globals_border,
         source = 'always',
         header = '',
         prefix = '',
@@ -53,11 +52,11 @@ vim.diagnostic.config({
 -- hover/signatureHelp
 vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
     vim.lsp.handlers.hover,
-    { border = single_border }
+    { border = vim.g.lin_globals_border }
 )
 vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
     vim.lsp.handlers.signature_help,
-    { border = single_border }
+    { border = vim.g.lin_globals_border }
 )
 
 -- lspconfig
