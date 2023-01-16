@@ -138,7 +138,6 @@ class CallExpr(Expr):
         return f"call {self.expr.render()}"
 
 
-
 class AddExpr(Expr):
     def __init__(self, *args) -> None:
         assert args
@@ -357,7 +356,6 @@ PLUGIN_CONTEXTS = [
         "nvim-lspconfig",
         tag=PluginTag.INFRASTRUCTURE,
     ),
-    PluginContext("nvim-lua", "plenary.nvim", tag=PluginTag.INFRASTRUCTURE),
     PluginContext(
         "lifepillar",
         "vim-solarized8",
@@ -480,7 +478,6 @@ PLUGIN_CONTEXTS = [
         "lukas-reineke",
         "indent-blankline.nvim",
         top_clause=CommentExpr(LiteralExpr("Indentline")),
-        tag=PluginTag.HIGHLIGHT,
     ),
     PluginContext(
         "nvim-lualine",
@@ -493,22 +490,17 @@ PLUGIN_CONTEXTS = [
         "lewis6991",
         "gitsigns.nvim",
         top_clause=CommentExpr(LiteralExpr("Git")),
-        tag=PluginTag.HIGHLIGHT,
     ),
     PluginContext(
         "akinsho",
         "toggleterm.nvim",
         post="tag = '*'",
         top_clause=CommentExpr(LiteralExpr("Terminal")),
-        tag=PluginTag.HIGHLIGHT,
     ),
     PluginContext(
         "liuchengxu",
         "vista.vim",
-        top_clause=[
-            EmptyStmt(),
-            CommentExpr(LiteralExpr("---- Tags ----")),
-        ],
+        top_clause=CommentExpr(LiteralExpr("Structures/Outlines")),
     ),
     PluginContext("ludovicchabant", "vim-gutentags"),
     PluginContext(
@@ -536,7 +528,12 @@ PLUGIN_CONTEXTS = [
         "mason-lspconfig.nvim",
         tag=PluginTag.LANGUAGE,
     ),
-    PluginContext("jose-elias-alvarez", "null-ls.nvim", tag=PluginTag.LANGUAGE),
+    PluginContext(
+        "jose-elias-alvarez",
+        "null-ls.nvim",
+        post="requires = 'nvim-lua/plenary.nvim'",
+        tag=PluginTag.LANGUAGE,
+    ),
     PluginContext("jay-babu", "mason-null-ls.nvim", tag=PluginTag.LANGUAGE),
     PluginContext(
         "hrsh7th",
@@ -601,13 +598,6 @@ PLUGIN_CONTEXTS = [
         tag=PluginTag.LANGUAGE,
     ),
     PluginContext(
-        "uarun",
-        "vim-protobuf",
-        post="ft = {'proto'}",
-        top_clause=CommentExpr(LiteralExpr("Protobuf")),
-        tag=PluginTag.LANGUAGE,
-    ),
-    PluginContext(
         "zebradil",
         "hive.vim",
         post="ft = {'hive'}",
@@ -663,7 +653,6 @@ PLUGIN_CONTEXTS = [
         top_clause=CommentExpr(LiteralExpr("Other")),
     ),
     PluginContext("chaoren", "vim-wordmotion", tag=PluginTag.EDITING),
-    PluginContext("mattn", "emmet-vim", tag=PluginTag.EDITING),
     PluginContext("mbbill", "undotree", tag=PluginTag.EDITING),
     PluginContext("editorconfig", "editorconfig-vim", tag=PluginTag.EDITING),
 ]
