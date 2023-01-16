@@ -34,7 +34,7 @@ lua<<EOF
         "black",
         "isort",
         -- rust
-        "rust_analyzer",
+        "rust-analyzer",
         -- sql
         "sqlfluff",
         -- toml
