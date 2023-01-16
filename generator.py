@@ -332,6 +332,7 @@ class PluginContext:
 
 
 PLUGIN_CONTEXTS = [
+    # Infrastructure
     PluginContext(
         "wbthomason",
         "packer.nvim",
@@ -356,6 +357,7 @@ PLUGIN_CONTEXTS = [
         "nvim-lspconfig",
         tag=PluginTag.INFRASTRUCTURE,
     ),
+    # Colorscheme
     PluginContext(
         "lifepillar",
         "vim-solarized8",
@@ -432,6 +434,7 @@ PLUGIN_CONTEXTS = [
         color="nightfox",
         tag=PluginTag.COLORSCHEME,
     ),
+    # Highlight
     PluginContext(
         "RRethy",
         "vim-illuminate",
@@ -457,6 +460,7 @@ PLUGIN_CONTEXTS = [
         post="requires = 'inkarkat/vim-ingo-library'",
         tag=PluginTag.HIGHLIGHT,
     ),
+    # UI
     PluginContext(
         "romgrk",
         "barbar.nvim",
@@ -508,6 +512,7 @@ PLUGIN_CONTEXTS = [
         top_clause=CommentExpr(LiteralExpr("Structures/Outlines")),
     ),
     PluginContext("ludovicchabant", "vim-gutentags"),
+    # Search
     PluginContext(
         "junegunn",
         "fzf",
@@ -519,12 +524,13 @@ PLUGIN_CONTEXTS = [
     ),
     PluginContext("junegunn", "fzf.vim"),
     PluginContext("ojroques", "nvim-lspfuzzy"),
+    # LSP server
     PluginContext(
         "williamboman",
         "mason.nvim",
         top_clause=[
             EmptyStmt(),
-            CommentExpr(LiteralExpr("---- Language server ----")),
+            CommentExpr(LiteralExpr("---- LSP server ----")),
         ],
         tag=PluginTag.LANGUAGE,
     ),
@@ -577,6 +583,7 @@ PLUGIN_CONTEXTS = [
         tag=PluginTag.LANGUAGE,
     ),
     PluginContext("rafamadriz", "friendly-snippets", tag=PluginTag.LANGUAGE),
+    # Language support
     PluginContext(
         "iamcco",
         "markdown-preview.nvim",
@@ -616,6 +623,7 @@ PLUGIN_CONTEXTS = [
         top_clause=CommentExpr(LiteralExpr("Slim")),
         tag=PluginTag.LANGUAGE,
     ),
+    # Editing enhancement
     PluginContext(
         "alvan",
         "vim-closetag",
