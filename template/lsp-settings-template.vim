@@ -4,9 +4,6 @@ lua<<EOF
     -- {{
     -- ---- Add new LSP server ----
     --
-    --  [null-ls BUILTINS](https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md) for more extra formatter/linter/diagnostic/codeAction.
-    --
-    --
     -- Case-1: Add LSP server name in 'embeded_servers'.
     --  LSP server is working as nvim-cmp sources, installed through mason.
     --  Please refer to:
