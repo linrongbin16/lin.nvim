@@ -1,16 +1,4 @@
 
-""" ---- GUI font ----
-if has("win32") || has("win64")
-    " for Windows
-    set guifont=Hack\ NFM:h10
-elseif has("mac")
-    " for macOS
-    set guifont=Hack\ Nerd\ Font\ Mono:h13
-else
-    " for other *NIX
-    set guifont=Hack\ Nerd\ Font\ Mono:h10
-endif
-
 """ ---- Hot keys ----
 " Toggle file explorer
 nnoremap <F1> :<C-u>NvimTreeToggle<CR>
@@ -18,14 +6,12 @@ nnoremap <F1> :<C-u>NvimTreeToggle<CR>
 nnoremap <F2> :<C-u>UndotreeToggle<CR>
 " Toggle outline
 nnoremap <F3> :<C-u>Vista!!<CR>
-" Switch between C/C++ headers and sources
-nnoremap <F4> :<C-u>CocCommand clangd.switchSourceHeader<CR>
+" Switch between C/C++ header and source
+nnoremap <F4> :<C-u>ClangdSwitchSourceHeader<CR>
 " Toggle marks
-nmap <F6> <Plug>MarkToggle
-" Clear marks
-nmap <S-F6> <Plug>MarkAllClear
-" Toggle git blame
-nnoremap <F7> :<C-u>Gitsigns toggle_current_line_blame<CR>
+nmap <F7> <Plug>MarkToggle
+" Clear marks, use '<Plug>MarkAllClear' without confirmation
+nmap <S-F7> <Plug>MarkConfirmAllClear
 " Markdown preview
 nnoremap <F8> :<C-u>MarkdownPreview<CR>
 " Toggle terminal

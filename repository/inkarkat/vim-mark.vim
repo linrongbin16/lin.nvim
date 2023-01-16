@@ -9,10 +9,6 @@ nmap <Leader>m <Plug>MarkSet
 " set/clear mark on selected code in visual mode
 xmap <Leader>m <Plug>MarkIWhiteSet
 
-" clear all marks
-nmap <Leader>M <Plug>MarkConfirmAllClear
-" nmap <Leader>M <Plug>MarkAllClear
-
 " search next/previous mark
 nmap <Leader>* <Plug>MarkSearchNext
 nmap <Leader># <Plug>MarkSearchPrev

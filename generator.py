@@ -14,6 +14,7 @@ TEMPLATE_DIR = pathlib.Path(f"{HOME_DIR}/.vim/template")
 VIMRC_FILE = pathlib.Path(f"{VIM_DIR}/vimrc.vim")
 
 IS_WINDOWS = platform.system().lower().startswith("win")
+IS_MACOS = platform.system().lower().startswith("darwin")
 
 
 def message(*args):
@@ -239,6 +240,20 @@ class LuaExpr(Expr):
 
     def render(self):
         return f"lua {self.expr.render()}"
+
+
+class HackNerdFontExpr(Expr):
+    def __init__(self):
+        pass
+
+    def render(self):
+        if IS_WINDOWS:
+            return f"set guifont=Hack\\ NFM:h10"
+        elif IS_MACOS:
+            return f"set guifont=Hack\\ Nerd\\ Font\\ Mono:h13"
+        else:
+            # Linux
+            return f"set guifont=Hack\\ Nerd\\ Font\\ Mono:h10"
 
 
 # }
@@ -753,6 +768,13 @@ class Render:
     # settings.vim
     def render_setting_stmts(self):
         setting_stmts = []
+        setting_stmts.extend(
+            [
+                EmptyStmt(),
+                Stmt(CommentExpr(LiteralExpr("---- GUI Font ----"))),
+                Stmt(HackNerdFontExpr()),
+            ]
+        )
         if self.static_color:
             setting_stmts.extend(
                 [
