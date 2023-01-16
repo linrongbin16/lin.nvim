@@ -9,6 +9,4 @@ Options:
   --disable-language        Disable language support
   --disable-editing         Disable editing enhancement
   --disable-plugin=TEXT     Disable specific vim plugin
-  --depends=TEXT            Download and install dependency(windows only)
-  --nerdfont=TEXT           Download nerd font(windows only)
   --help                    Help message
