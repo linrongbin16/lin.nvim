@@ -1,3 +1,4 @@
+    \]
 
 function! s:LinRandnum(n) abort
   return str2nr(matchstr(reltimestr(reltime()), '\v\.@<=\d+')[1:]) % a:n

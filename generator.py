@@ -177,6 +177,15 @@ class LineContinuationExpr(Expr):
         return f"    \\ {self.expr.render()}"
 
 
+class CommaExpr(Expr):
+    def __init__(self, expr):
+        assert isinstance(expr, Expr)
+        self.expr = expr
+
+    def render(self):
+        return f"{self.expr.render()},"
+
+
 class Stmt(Expr):
     def __init__(self, expr=None):
         assert isinstance(expr, Expr) or expr is None
@@ -674,13 +683,6 @@ class Render:
         setting_stmts = self.render_setting_stmts()
         vimrc_stmts = self.render_vimrc_stmts(core_vimrcs)
 
-        # merge empty comment statements
-        plugin_stmts = self.merge_empty_comments(plugin_stmts)
-        lsp_setting_stmts = self.merge_empty_comments(lsp_setting_stmts)
-        color_setting_stmts = self.merge_empty_comments(color_setting_stmts)
-        setting_stmts = self.merge_empty_comments(setting_stmts)
-        vimrc_stmts = self.merge_empty_comments(vimrc_stmts)
-
         plugins_content = "".join([s.render() for s in plugin_stmts])
         lsp_settings_content = "".join([s.render() for s in lsp_setting_stmts])
         color_settings_content = "".join([s.render() for s in color_setting_stmts])
@@ -692,30 +694,6 @@ class Render:
             color_settings_content,
             settings_content,
             vimrc_content,
-        )
-
-    def merge_empty_comments(self, statements):
-        assert isinstance(statements, list)
-        new_statements = []
-        i = 0
-        while i < len(statements):
-            s = statements[i]
-            new_statements.append(s)
-            i += 1
-            if self.is_empty_comment(s):
-                j = i
-                while j < len(statements):
-                    s2 = statements[j]
-                    if not self.is_empty_comment(s2):
-                        break
-                    j += 1
-                i = j
-        return new_statements
-
-    def is_empty_comment(self, s):
-        return isinstance(s, Stmt) and (
-            s.render().strip() == EmptyCommentExpr().render().strip()
-            or s.render().strip() == EmptyCommentExpr4Lua().render().strip()
         )
 
     # plugins.vim
@@ -761,13 +739,13 @@ class Render:
         color_setting_stmts = []
         color_setting_stmts.append(
             TemplateContent(
-                pathlib.Path(f"{TEMPLATE_DIR}/color-settings-template-array.vim")
+                pathlib.Path(f"{TEMPLATE_DIR}/color-settings-template-header.vim")
             )
         )
         color_setting_stmts.extend(core_color_settings)
         color_setting_stmts.append(
             TemplateContent(
-                pathlib.Path(f"{TEMPLATE_DIR}/color-settings-template-function.vim")
+                pathlib.Path(f"{TEMPLATE_DIR}/color-settings-template-footer.vim")
             )
         )
         return color_setting_stmts
@@ -832,15 +810,8 @@ class Render:
                             color_setting_stmts.append(cs)
                     else:
                         assert False
-            ecs = Stmt(EmptyCommentExpr())
             # body
-            if self.is_disabled_plugin(ctx):
-                # skip disabled plugins
-                plugin_stmts.append(Stmt(IndentExpr(to_lua(EmptyCommentExpr()))))
-                vimrc_stmts.append(ecs)
-                if ctx.tag == PluginTag.COLORSCHEME:
-                    color_setting_stmts.append(ecs)
-            else:
+            if not self.is_disabled(ctx):
                 # plugins
                 plugin_stmts.append(
                     Stmt(
@@ -854,30 +825,28 @@ class Render:
                     )
                 )
                 # vimrc
-                vim_file = f"repository/{ctx}.vim"
                 lua_file = f"repository/{str(ctx).replace('.', '-')}"
-                if pathlib.Path(f"{HOME_DIR}/.vim/{vim_file}").exists():
-                    vimrc_stmts.append(SourceVimDirStmt(vim_file))
+                vim_file = f"repository/{ctx}.vim"
                 if pathlib.Path(f"{HOME_DIR}/.vim/lua/{lua_file}.lua").exists():
                     vimrc_stmts.append(
                         Stmt(LuaExpr(LiteralExpr(f"require('{lua_file}')")))
                     )
+                if pathlib.Path(f"{HOME_DIR}/.vim/{vim_file}").exists():
+                    vimrc_stmts.append(SourceVimDirStmt(vim_file))
                 # color settings
                 if ctx.tag == PluginTag.COLORSCHEME:
                     color_setting_stmts.append(
                         Stmt(
-                            CallExpr(
-                                AddExpr(
-                                    LiteralExpr("s:lin_colorschemes"),
-                                    SingleQuoteStringExpr(ctx.color),
+                            IndentExpr(
+                                LineContinuationExpr(
+                                    CommaExpr(SingleQuoteStringExpr(ctx.color))
                                 )
-                            ),
+                            )
                         )
                     )
-
         return plugin_stmts, vimrc_stmts, color_setting_stmts
 
-    def is_disabled_plugin(self, ctx):
+    def is_disabled(self, ctx):
         if self.disable_plugins and str(ctx) in self.disable_plugins:
             return True
         if self.disable_color and ctx.tag == PluginTag.COLORSCHEME:

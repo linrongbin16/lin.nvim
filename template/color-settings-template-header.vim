@@ -1,4 +1,4 @@
 """ ---- Color schemes ----
 
-let s:lin_colorschemes=[]
+let s:lin_colorschemes=[
 
