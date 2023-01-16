@@ -123,7 +123,7 @@ lua<<EOF
         local name = extra[1]
         table.insert(ensure_installed_extras, name)
         local configs = extra[2]
-        -- print('i:', i, ", name:", name, ", configs:", configs)
+        -- print('i:', i, ", name:", name, ", configs:", configs, ", configs.length:", #configs)
         for j, conf in ipairs(configs) do
             -- print('j:', j, ", conf:", conf)
             table.insert(null_ls_sources, conf)
@@ -135,6 +135,7 @@ lua<<EOF
     null_ls.setup({
         sources = null_ls_sources,
     })
+
 
     -- }}
 EOF
