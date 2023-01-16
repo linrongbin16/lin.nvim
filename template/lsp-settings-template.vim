@@ -7,14 +7,14 @@ lua<<EOF
     --  [null-ls BUILTINS](https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md) for more extra formatter/linter/diagnostic/codeAction.
     --
     --
-    -- Case-1: LSP server.
-    --  Add LSP server name in 'embeded_servers'.
-    --  LSP server is working as nvim-cmp sources, installed through mason. Please refer to:
+    -- Case-1: Add LSP server name in 'embeded_servers'.
+    --  LSP server is working as nvim-cmp sources, installed through mason.
+    --  Please refer to:
     --      * [mason-lspconfig Available LSP servers](https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers) for more LSP servers.
     --
-    -- Case-2: Extra null-ls source (formatter/linter/diagnostic/codeAction/etc).
-    --  Add extra source in 'embeded_extras'.
-    --  Extra source is working as null-ls sources, installed through mason-null-ls. Please refer to:
+    -- Case-2: Add extra null-ls source in 'embeded_extras'.
+    --  Extra null-ls source is working as null-ls source(formatter/linter/diagnostic/codeAction/etc), installed through mason-null-ls.
+    --  Please refer to:
     --      * [mason-null-ls Available Null-ls sources](https://github.com/jay-babu/mason-null-ls.nvim#available-null-ls-sources) for more null-ls sources.
     --      * [null-ls BUILTINS](https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md) for null-ls source configurations.
 
@@ -74,7 +74,6 @@ lua<<EOF
         -- python
         { "black", null_ls.builtins.formatting.black }, -- Since pyright doesn't include code format.
         { "isort", null_ls.builtins.formatting.isort }, -- So registered black/isort as null-ls sources to let them work.
-
     }
     if vim.fn.has('win32') == 1 then
         -- powershell for windows
