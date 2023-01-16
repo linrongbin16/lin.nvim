@@ -536,7 +536,8 @@ PLUGIN_CONTEXTS = [
         "mason-lspconfig.nvim",
         tag=PluginTag.LANGUAGE,
     ),
-    PluginContext("WhoIsSethDaniel", "mason-tool-installer.nvim", tag=PluginTag.LANGUAGE),
+    PluginContext("jose-elias-alvarez", "null-ls.nvim", tag=PluginTag.LANGUAGE),
+    PluginContext("jay-babu", "mason-null-ls.nvim", tag=PluginTag.LANGUAGE),
     PluginContext(
         "hrsh7th",
         "cmp-nvim-lsp",

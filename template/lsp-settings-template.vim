@@ -1,61 +1,91 @@
 lua<<EOF
+    local null_ls = require("null-ls")
 
-    -- {{ Add new LSP server
-    -- Please refer to [Mason Package Index](https://github.com/williamboman/mason.nvim/blob/main/PACKAGES.md#mason-package-index) for more LSP servers.
+    -- {{
+    -- ---- Add new LSP server ----
+    --
+    --  [null-ls BUILTINS](https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md) for more extra formatter/linter/diagnostic/codeAction.
+    --
+    --
+    -- Case-1: LSP server.
+    --  Add LSP server name in 'embeded_servers'.
+    --  LSP server is working as nvim-cmp sources, installed through mason. Please refer to:
+    --      * [mason-lspconfig Available LSP servers](https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers) for more LSP servers.
+    --
+    -- Case-2: Extra null-ls source (formatter/linter/diagnostic/codeAction/etc).
+    --  Add extra source in 'embeded_extras'.
+    --  Extra source is working as null-ls sources, installed through mason-null-ls. Please refer to:
+    --      * [mason-null-ls Available Null-ls sources](https://github.com/jay-babu/mason-null-ls.nvim#available-null-ls-sources) for more null-ls sources.
+    --      * [null-ls BUILTINS](https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md) for null-ls source configurations.
 
-    local embeded_lsp_servers = {
+    local embeded_servers = {
         -- clang
         "clangd",
         -- cmake
-        "cmake-language-server",
+        "cmake",
         -- css
-        "css-lsp",
-        "cssmodules-language-server",
+        "cssls",
+        "cssmodules_ls",
         -- grammar
-        "grammarly-languageserver",
+        "grammarly",
         -- graphql
-        "graphql-language-service-cli",
+        "graphql",
         -- html
-        "html-lsp",
+        "html",
         -- json
-        "json-lsp",
+        "jsonls",
         -- js/ts
-        "typescript-language-server",
-        "eslint_d",
-        "prettierd",
+        "tsserver",
         -- lua
-        "lua-language-server",
+        "sumneko_lua",
         -- markdown
         "marksman",
         -- protobuf
-        "buf-language-server",
+        "bufls",
         -- python
         "pyright",
-        "black",
-        "isort",
         -- rust
-        "rust-analyzer",
+        "rust_analyzer",
         -- sql
-        "sqlfluff",
+        "sqlls",
         -- toml
         "taplo",
         -- yaml
-        "yaml-language-server",
+        "yamlls",
         -- vim
-        "vim-language-server",
+        "vimls",
         -- xml
         "lemminx",
     }
+    local embeded_extras = {
+        -- js/ts
+        {
+            -- Some eslint_d and prettierd are not valid LSP servers,
+            -- They're not working through nvim-cmp when editing js/ts files.
+            -- So we registered them as null-ls sources to let them work.
+            "eslint_d",
+            {
+                null_ls.builtins.diagnostics.eslint_d,
+                null_ls.builtins.formatting.eslint_d,
+                null_ls.builtins.code_actions.eslint_d,
+            }
+        },
+        { "prettierd", null_ls.builtins.formatting.prettierd },
+        -- python
+        { "black", null_ls.builtins.formatting.black }, -- Since pyright doesn't include code format.
+        { "isort", null_ls.builtins.formatting.isort }, -- So registered black/isort as null-ls sources to let them work.
+
+    }
     if vim.fn.has('win32') == 1 then
         -- powershell for windows
-        table.insert(embeded_lsp_servers, "powershell-editor-services")
+        table.insert(embeded_servers, "powershell_es")
     else
         -- bash for UNIX/Linux/macOS
-        table.insert(embeded_lsp_servers, "bash-language-server")
-        table.insert(embeded_lsp_servers, "shfmt")
+        table.insert(embeded_servers, "bashls")
+        table.insert(embeded_extras, { "shfmt", null_ls.builtins.formatting.shfmt })
     end
 
-    -- Add new LSP server }}
+    -- }}
 
 
     -- {{
@@ -77,10 +107,42 @@ lua<<EOF
         -- end
     }
 
-    -- Setup mason-tool-installer
-    require('mason-tool-installer').setup {
-        ensure_installed = embeded_lsp_servers,
+    -- Setup mason-lspconfig
+    local ensure_installed_servers = {}
+    for i, server in ipairs(embeded_servers) do
+        table.insert(ensure_installed_servers, server)
+    end
+    require('mason-lspconfig').setup {
+        ensure_installed = ensure_installed_servers,
     }
+
+    -- Setup mason-null-ls
+    local ensure_installed_extras = {}
+    for i, extra in ipairs(embeded_extras) do
+        local source = extra[1]
+        table.insert(ensure_installed_extras, source)
+    end
+    require("mason-null-ls").setup({
+        ensure_installed = ensure_installed_extras,
+    })
+
+    -- Setup null-ls source configurations
+    local null_ls_sources = {}
+    for i, extra in ipairs(embeded_extras) do
+        if type(server) == 'table' then
+            local sources = server[2]
+            if type(sources) == 'table' then
+                for j, source in ipairs(sources) do
+                    table.insert(null_ls_sources, source)
+                end
+            else
+                table.insert(null_ls_sources, sources)
+            end
+        end
+    end
+    null_ls.setup({
+        sources = null_ls_sources,
+    })
 
     -- }}
 EOF
