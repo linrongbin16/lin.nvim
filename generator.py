@@ -174,7 +174,7 @@ class LineContinuationExpr(Expr):
         self.expr = expr
 
     def render(self):
-        return f"    \\ {self.expr.render()}"
+        return f"\\ {self.expr.render()}"
 
 
 class CommaExpr(Expr):
