@@ -1,7 +1,7 @@
 lua<<EOF
 
     -- {{ Add new LSP server
-    -- Please check [Mason Package Index](https://github.com/williamboman/mason.nvim/blob/main/PACKAGES.md#mason-package-index) for more LSP servers.
+    -- Please refer to [Mason Package Index](https://github.com/williamboman/mason.nvim/blob/main/PACKAGES.md#mason-package-index) for more LSP servers.
 
     local embeded_lsp_servers = {
         -- clang
