@@ -67,12 +67,12 @@ local function LinLspProgress()
     end
 end
 
-local function LinLspStatus()
-    if #vim.lsp.buf_get_clients() > 0 then
-        return LinRtrim(require('lsp-status').status())
-    end
-    return ''
-end
+-- local function LinLspStatus()
+--     if #vim.lsp.buf_get_clients() > 0 then
+--         return LinRtrim(require('lsp-status').status())
+--     end
+--     return ''
+-- end
 
 local function LinLspDiagnostics()
     if #vim.lsp.buf_get_clients() > 0 then
@@ -110,7 +110,7 @@ local function LinCursorPosition()
 end
 
 local function LinCursorHex()
-    return '0x%B'
+    return '0x%02B'
 end
 
 local function LinTagsStatus()

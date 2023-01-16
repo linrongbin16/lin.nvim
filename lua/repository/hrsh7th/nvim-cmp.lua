@@ -81,7 +81,7 @@ local cmp = require('cmp')
 local luasnip = require('luasnip')
 
 local select_opts = { behavior = cmp.SelectBehavior.Select }
-local keyword2 = 2
+local keyword = 2
 
 cmp.setup({
     completion = {
@@ -94,11 +94,11 @@ cmp.setup({
         end,
     },
     sources = cmp.config.sources({
-        { name = 'nvim_lsp', keyword_length = keyword2 },
-        { name = 'luasnip', keyword_length = keyword2 },
+        { name = 'nvim_lsp', keyword_length = keyword },
+        { name = 'luasnip', keyword_length = keyword },
     }, {
-        { name = 'buffer', keyword_length = keyword2 },
-        { name = 'path', keyword_length = keyword2 },
+        { name = 'buffer', keyword_length = keyword },
+        { name = 'path', keyword_length = keyword },
     }),
     window = {
         completion = cmp.config.window.bordered(),
@@ -173,7 +173,7 @@ cmp.setup.filetype('gitcommit', {
 cmp.setup.cmdline({ '/', '?' }, {
     mapping = cmp.mapping.preset.cmdline(),
     sources = {
-        { name = 'buffer', keyword_length = keyword2 }
+        { name = 'buffer', keyword_length = keyword }
     }
 })
 
@@ -181,8 +181,8 @@ cmp.setup.cmdline({ '/', '?' }, {
 cmp.setup.cmdline(':', {
     mapping = cmp.mapping.preset.cmdline(),
     sources = cmp.config.sources({
-        { name = 'path', keyword_length = keyword2 }
+        { name = 'path', keyword_length = keyword }
     }, {
-        { name = 'cmdline', keyword_length = keyword2 }
+        { name = 'cmdline', keyword_length = keyword }
     })
 })
