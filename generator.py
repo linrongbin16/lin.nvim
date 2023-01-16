@@ -800,14 +800,10 @@ class Render:
                     if isinstance(top, EmptyStmt):
                         plugin_stmts.append(to_lua(top))
                         vimrc_stmts.append(top)
-                        if ctx.tag == PluginTag.COLORSCHEME:
-                            color_setting_stmts.append(top)
                     elif isinstance(top, CommentExpr):
                         cs = Stmt(top)
                         plugin_stmts.append(Stmt(IndentExpr(to_lua(top))))
                         vimrc_stmts.append(cs)
-                        if ctx.tag == PluginTag.COLORSCHEME:
-                            color_setting_stmts.append(cs)
                     else:
                         assert False
             # body
