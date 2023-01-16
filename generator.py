@@ -498,6 +498,11 @@ PLUGIN_CONTEXTS = [
         top_clause=CommentExpr(LiteralExpr("Terminal")),
     ),
     PluginContext(
+        "stevearc",
+        "dressing.nvim",
+        top_clause=CommentExpr(LiteralExpr("UI hooks")),
+    ),
+    PluginContext(
         "liuchengxu",
         "vista.vim",
         top_clause=CommentExpr(LiteralExpr("Structures/Outlines")),
