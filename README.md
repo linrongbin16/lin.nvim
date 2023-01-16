@@ -2,29 +2,13 @@
 
 lin.nvim is a highly configured [neovim](https://neovim.io/) distribution integrated with tons of utilities for development, inspired by [spf13-vim](https://github.com/spf13/spf13-vim).
 
-<div class="youtube-embed-container" align="center">
-    <iframe src="https://www.youtube.com/embed/zCfSekdZiIg" frameborder="0" allowfullscreen></iframe>
-</div>
-<style>
-    .youtube-embed-container {
-        position: relative;
-        padding-bottom: 56.25%;
-        height: 0;
-        overflow: hidden;
-        max-width: 100%;
-    }
-
-    .youtube-embed-container iframe,
-    .youtube-embed-container object,
-    .youtube-embed-container embed {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-    }
-
-</style>
+<p align="center">
+  <img
+    alt="start-ui.png"
+    src="https://raw.githubusercontent.com/linrongbin16/lin.nvim.dev/main/assets/demos/ui/start-ui.png"
+    width="100%"
+  />
+</p>
 
 ## Introduction
 
