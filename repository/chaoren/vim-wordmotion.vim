@@ -1,44 +1,42 @@
 " Disable default key mappings
 let g:wordmotion_nomap=1
 
-" <Leader>w
-nmap <Leader>w <Plug>WordMotion_w
-xmap <Leader>w <Plug>WordMotion_w
-omap <Leader>w <Plug>WordMotion_w
+" ,w
+nmap ,w <Plug>WordMotion_w
+xmap ,w <Plug>WordMotion_w
+omap ,w <Plug>WordMotion_w
 
-" <Leader>W
-nmap <Leader>W <Plug>WordMotion_W
-xmap <Leader>W <Plug>WordMotion_W
-omap <Leader>W <Plug>WordMotion_W
+" ,W
+nmap ,W <Plug>WordMotion_W
+xmap ,W <Plug>WordMotion_W
+omap ,W <Plug>WordMotion_W
 
-" Since <leader>bn <leader>bp <leader>bd are used by tabline plugins.
-" <leader>b will be delayed (try to wait for bn/bp/bd), so here we map <leader>b to <leader>bb to avoid this.
-" <Leader>bb
-nmap <Leader>bb <Plug>WordMotion_b
-xmap <Leader>bb <Plug>WordMotion_b
-omap <Leader>bb <Plug>WordMotion_b
+" ,b
+nmap ,b <Plug>WordMotion_b
+xmap ,b <Plug>WordMotion_b
+omap ,b <Plug>WordMotion_b
 
-" <Leader>B
-nmap <Leader>B <Plug>WordMotion_B
-xmap <Leader>B <Plug>WordMotion_B
-omap <Leader>B <Plug>WordMotion_B
+" ,B
+nmap ,B <Plug>WordMotion_B
+xmap ,B <Plug>WordMotion_B
+omap ,B <Plug>WordMotion_B
 
-" <Leader>e
-nmap <Leader>e <Plug>WordMotion_e
-xmap <Leader>e <Plug>WordMotion_e
-omap <Leader>e <Plug>WordMotion_e
+" ,e
+nmap ,e <Plug>WordMotion_e
+xmap ,e <Plug>WordMotion_e
+omap ,e <Plug>WordMotion_e
 
-" <Leader>E
-nmap <Leader>E <Plug>WordMotion_E
-xmap <Leader>E <Plug>WordMotion_E
-omap <Leader>E <Plug>WordMotion_E
+" ,E
+nmap ,E <Plug>WordMotion_E
+xmap ,E <Plug>WordMotion_E
+omap ,E <Plug>WordMotion_E
 
-" <Leader>ge
-nmap <Leader>ge <Plug>WordMotion_ge
-xmap <Leader>ge <Plug>WordMotion_ge
-omap <Leader>ge <Plug>WordMotion_ge
+" ,ge
+nmap ,ge <Plug>WordMotion_ge
+xmap ,ge <Plug>WordMotion_ge
+omap ,ge <Plug>WordMotion_ge
 
-" <Leader>gE
-nmap <Leader>gE <Plug>WordMotion_gE
-xmap <Leader>gE <Plug>WordMotion_gE
-omap <Leader>gE <Plug>WordMotion_gE
+" ,gE
+nmap ,gE <Plug>WordMotion_gE
+xmap ,gE <Plug>WordMotion_gE
+omap ,gE <Plug>WordMotion_gE
