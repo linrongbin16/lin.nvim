@@ -915,7 +915,7 @@ class Render:
                 ]
             )
         other_setting_stmts.append(
-            TemplateContent(pathlib.Path(f"{TEMPLATE_DIR}/settings-template.vim"))
+            TemplateContent(pathlib.Path(f"{TEMPLATE_DIR}/other-settings-template.vim"))
         )
         return other_setting_stmts
 
