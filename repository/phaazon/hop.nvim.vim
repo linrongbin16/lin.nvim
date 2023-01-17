@@ -3,8 +3,8 @@ map <silent> <Leader>f :HopChar1MW<CR>
 nmap <silent> <Leader>f :HopChar1MW<CR>
 
 " <Leader>s{char}{char} - move to {char}{char}
-map <silent> <Leader><leader>s :HopChar2MW<CR>
-nmap <silent> <Leader><leader>s :HopChar2MW<CR>
+map <silent> <leader>s :HopChar2MW<CR>
+nmap <silent> <leader>s :HopChar2MW<CR>
 
 " <Leader>w - move to word
 map <silent> <Leader>w :HopWordMW<CR>
