@@ -16,12 +16,12 @@ source $INSTALL_HOME/util.sh
 
 # dependency
 packer_dependency() {
-    if [ ! -d $PACKER_HOME ]; then
-	    message "install 'packer.nvim' from github"
-        git clone --depth 1 https://github.com/wbthomason/packer.nvim $PACKER_HOME
-    else
-	    message "'packer.nvim' already exist, skip..."
-    fi
+	if [ ! -d $PACKER_HOME ]; then
+		message "install 'packer.nvim' from github"
+		git clone --depth 1 https://github.com/wbthomason/packer.nvim $PACKER_HOME
+	else
+		message "'packer.nvim' already exist, skip..."
+	fi
 }
 
 rust_dependency() {
@@ -170,7 +170,7 @@ else
 		exit 1
 		;;
 	esac
-    packer_dependency
+	packer_dependency
 	rust_dependency
 	pip3_dependency
 	npm_dependency
