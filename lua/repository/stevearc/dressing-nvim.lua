@@ -1,15 +1,15 @@
 require('dressing').setup({
     input = {
-        border = vim.g.lin_globals_ui_border,
+        border = vim.g.lin_constants.ui.border,
     },
     select = {
         nui = {
             border = {
-                style = vim.g.lin_globals_ui_border,
+                style = vim.g.lin_constants.ui.border,
             },
         },
         builtin = {
-            border = vim.g.lin_globals_ui_border,
+            border = vim.g.lin_constants.ui.border,
         }
     }
 })

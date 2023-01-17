@@ -74,16 +74,25 @@ end
 --     return ''
 -- end
 
+
+local DiagnosticSigns = {
+    { 'errors', vim.g.lin_constants.lsp.diagnostic_signs['error'] },
+    { 'warnings', vim.g.lin_constants.lsp.diagnostic_signs['warning'] },
+    { 'info', vim.g.lin_constants.lsp.diagnostic_signs['info'] },
+    { 'hints', vim.g.lin_constants.lsp.diagnostic_signs['hint'] },
+}
 local function LinLspDiagnostics()
     if #vim.lsp.buf_get_clients() > 0 then
         local diags = require('lsp-status').diagnostics()
         if diags ~= nil then
             local messages = {}
             -- local msg = {}
-            for k, c in pairs(diags) do
-                -- table.insert(msg, string.format('%s:%d', k, c))
-                if c > 0 then
-                    table.insert(messages, string.format('%s %d', vim.g.lin_globals_diagnostic_signs[k], c))
+            for i, sign in ipairs(DiagnosticSigns) do
+                local name = sign[1]
+                local icon = sign[2]
+                -- print('i:', i, ', name:', name, ', icon:', icon, ', diags[name]:', diags[name])
+                if diags[name] and diags[name] > 0 then
+                    table.insert(messages, string.format('%s %d', icon, diags[name]))
                 end
             end
             -- print(table.concat(msg, ","))
