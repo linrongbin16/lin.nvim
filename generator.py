@@ -256,6 +256,23 @@ class HackNerdFontExpr(Expr):
             return f"set guifont=Hack\\ Nerd\\ Font\\ Mono:h10"
 
 
+class RequireExpr(Expr):
+    def __init__(self, expr) -> None:
+        assert isinstance(expr, StringExpr)
+        self.expr = expr
+
+    def render(self):
+        return f"require({self.expr.render()})"
+
+
+class LuaRequireStmt(Expr):
+    def __init__(self, expr) -> None:
+        self.expr = Stmt(LuaExpr(RequireExpr(SingleQuoteStringExpr(expr))))
+
+    def render(self):
+        return self.expr.render()
+
+
 # }
 
 # Lua AST {
@@ -836,7 +853,7 @@ class Render:
     def render_vimrc_stmts(self, core_vimrcs):
         vimrc_stmts = []
         vimrc_stmts.append(Stmt(CommentExpr(LiteralExpr("---- Vimrc ----"))))
-        vimrc_stmts.append(Stmt(LuaExpr(LiteralExpr("require('plugins')"))))
+        vimrc_stmts.append(LuaRequireStmt("plugins"))
         vimrc_stmts.append(SourceStmtFromVimDir("config/basic.vim"))
         vimrc_stmts.append(SourceStmtFromVimDir("config/filetype.vim"))
         vimrc_stmts.append(SourceStmtFromVimDir("config/constants.vim"))
@@ -845,10 +862,8 @@ class Render:
         vimrc_stmts.extend(core_vimrcs)
 
         vimrc_stmts.append(EmptyStmt())
-        vimrc_stmts.append(
-            Stmt(CommentExpr(LiteralExpr("---- Generated ----")))
-        )
-        vimrc_stmts.append(Stmt(LuaExpr(LiteralExpr("require('lspservers')"))))
+        vimrc_stmts.append(Stmt(CommentExpr(LiteralExpr("---- Generated ----"))))
+        vimrc_stmts.append(LuaRequireStmt("lspservers"))
         vimrc_stmts.append(SourceStmtFromVimDir("colorschemes.vim"))
         vimrc_stmts.append(SourceStmtFromVimDir("settings.vim"))
         return vimrc_stmts
@@ -958,9 +973,7 @@ class Render:
                 lua_file = f"repository/{str(ctx).replace('.', '-')}"
                 vim_file = f"repository/{ctx}.vim"
                 if pathlib.Path(f"{HOME_DIR}/.vim/lua/{lua_file}.lua").exists():
-                    vimrc_stmts.append(
-                        Stmt(LuaExpr(LiteralExpr(f"require('{lua_file}')")))
-                    )
+                    vimrc_stmts.append(LuaRequireStmt(lua_file))
                 if pathlib.Path(f"{HOME_DIR}/.vim/{vim_file}").exists():
                     vimrc_stmts.append(SourceStmtFromVimDir(vim_file))
                 # color settings
