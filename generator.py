@@ -856,7 +856,7 @@ class Render:
         init_stmts.append(LuaRequireStmt("plugins"))
         init_stmts.append(SourceStmtFromVimHome("config/basic.vim"))
         init_stmts.append(SourceStmtFromVimHome("config/filetype.vim"))
-        init_stmts.append(SourceStmtFromVimHome("config/constants.vim"))
+        init_stmts.append(LuaRequireStmt("constants"))
 
         # insert core init statements
         init_stmts.extend(core_inits)
