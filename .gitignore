@@ -14,7 +14,7 @@ lua/plugins.lua
 lua/lspservers.lua
 settings.vim
 colorschemes.vim
-vimrc.vim
+init.vim
 
 # neovim
 init.vim

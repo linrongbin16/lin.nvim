@@ -1020,7 +1020,7 @@ class FileDumper:
 
     def dump(self):
         self.config()
-        self.neovim_init_vim_entry()
+        self.init_vim()
 
     def config(self):
 
@@ -1046,11 +1046,7 @@ class FileDumper:
         with open(settings_file, "w") as fp:
             fp.write(self.settings_content)
 
-        try_backup(pathlib.Path(INIT_FILE))
-        with open(INIT_FILE, "w") as fp:
-            fp.write(self.init_content)
-
-    def neovim_init_vim_entry(self):
+    def init_vim(self):
         if IS_WINDOWS:
             message(
                 f"install {HOME_DIR}\\AppData\\Local\\nvim\\init.vim for neovim on windows"
@@ -1066,7 +1062,9 @@ class FileDumper:
         try_backup(init_path)
         try_backup(nvim_path)
         nvim_path.symlink_to(str(VIM_DIR), target_is_directory=True)
-        init_path.symlink_to(str(INIT_FILE))
+        try_backup(pathlib.Path(INIT_FILE))
+        with open(INIT_FILE, "w") as fp:
+            fp.write(self.init_content)
 
 
 class CommandHelp(click.Command):
