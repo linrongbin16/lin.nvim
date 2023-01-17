@@ -3,7 +3,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     desc = 'LSP actions',
     callback = function()
         local bufmap = function(mode, lhs, rhs)
-            local opts = { buffer = true }
+            local opts = { buffer = true, noremap = true, silent = true, }
             vim.keymap.set(mode, lhs, rhs, opts)
         end
         bufmap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>')
@@ -13,12 +13,15 @@ vim.api.nvim_create_autocmd('LspAttach', {
         bufmap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>')
         bufmap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>')
         bufmap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<cr>')
-        bufmap('n', '<Leader>rs', '<cmd>lua vim.lsp.buf.rename()<cr>')
+        bufmap('n', '<Leader>rn', '<cmd>lua vim.lsp.buf.rename()<cr>')
         bufmap('n', '<Leader>cf', '<cmd>lua vim.lsp.buf.format()<cr>')
         bufmap('x', '<Leader>cf', '<cmd>lua vim.lsp.buf.format()<cr>')
         bufmap('n', '<Leader>ca', '<cmd>lua vim.lsp.buf.code_action()<cr>')
         bufmap('x', '<Leader>ca', '<cmd>lua vim.lsp.buf.range_code_action()<cr>')
         bufmap('n', '<Leader>df', '<cmd>lua vim.diagnostic.open_float()<cr>')
+        bufmap('n', '<Leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<cr>')
+        bufmap('n', '<Leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<cr>')
+        bufmap('n', '<Leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<cr>')
         bufmap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>')
         bufmap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>')
     end
