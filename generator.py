@@ -755,6 +755,9 @@ PLUGINS = [
         tag=Tag.EDITING,
     ),
     Plugin(
+        "ggandor", "leap.nvim", post="requires = 'tpope/vim-repeat'", tag=Tag.EDITING
+    ),
+    Plugin(
         "windwp",
         "nvim-autopairs",
         top_clause=CommentExpr(LiteralExpr("Autopair")),
