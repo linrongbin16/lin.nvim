@@ -359,13 +359,39 @@ PLUGIN_CONTEXTS = [
     ),
     # Colorscheme
     PluginContext(
-        "lifepillar",
-        "vim-solarized8",
-        color="solarized8",
+        "bluz71",
+        "vim-nightfly-colors",
+        color="nightfly",
         top_clause=[
             EmptyStmt(),
             CommentExpr(LiteralExpr("---- Colorscheme ----")),
         ],
+        tag=PluginTag.COLORSCHEME,
+    ),
+    PluginContext(
+        "bluz71",
+        "vim-moonfly-colors",
+        color="moonfly",
+        tag=PluginTag.COLORSCHEME,
+    ),
+    PluginContext(
+        "catppuccin",
+        "nvim",
+        color="catppuccin",
+        post="as = 'catppuccin'",
+        tag=PluginTag.COLORSCHEME,
+    ),
+    PluginContext(
+        "challenger-deep-theme",
+        "vim",
+        color="challenger_deep",
+        post="as = 'challenger-deep'",
+        tag=PluginTag.COLORSCHEME,
+    ),
+    PluginContext(
+        "cocopon",
+        "iceberg.vim",
+        color="iceberg",
         tag=PluginTag.COLORSCHEME,
     ),
     PluginContext(
@@ -379,18 +405,116 @@ PLUGIN_CONTEXTS = [
         tag=PluginTag.COLORSCHEME,
     ),
     PluginContext(
-        "KeitaNakamura", "neodark.vim", color="neodark", tag=PluginTag.COLORSCHEME
-    ),
-    PluginContext(
-        "srcery-colors", "srcery-vim", color="srcery", tag=PluginTag.COLORSCHEME
-    ),
-    PluginContext(
         "drewtempelmeyer", "palenight.vim", color="palenight", tag=PluginTag.COLORSCHEME
+    ),
+    PluginContext(
+        "EdenEast",
+        "nightfox.nvim",
+        color="nightfox",
+        tag=PluginTag.COLORSCHEME,
+    ),
+    PluginContext(
+        "embark-theme",
+        "vim",
+        color="embark",
+        post="as = 'embark'",
+        tag=PluginTag.COLORSCHEME,
+    ),
+    PluginContext(
+        "fenetikm",
+        "falcon",
+        color="falcon",
+        tag=PluginTag.COLORSCHEME,
+    ),
+    PluginContext(
+        "folke",
+        "tokyonight.nvim",
+        post="branch = 'main'",
+        color="tokyonight",
+        tag=PluginTag.COLORSCHEME,
     ),
     PluginContext(
         "joshdick", "onedark.vim", color="onedark", tag=PluginTag.COLORSCHEME
     ),
+    PluginContext(
+        "junegunn",
+        "seoul256.vim",
+        color="seoul256",
+        tag=PluginTag.COLORSCHEME,
+    ),
+    PluginContext(
+        "kaicataldo",
+        "material.vim",
+        post="branch = 'main'",
+        color="material",
+        tag=PluginTag.COLORSCHEME,
+    ),
+    PluginContext(
+        "KeitaNakamura", "neodark.vim", color="neodark", tag=PluginTag.COLORSCHEME
+    ),
+    PluginContext(
+        "lifepillar",
+        "vim-solarized8",
+        color="solarized8",
+        tag=PluginTag.COLORSCHEME,
+    ),
+    PluginContext(
+        "mhartington",
+        "oceanic-next",
+        color="OceanicNext",
+        tag=PluginTag.COLORSCHEME,
+    ),
+    PluginContext(
+        "NLKNguyen",
+        "papercolor-theme",
+        color="PaperColor",
+        tag=PluginTag.COLORSCHEME,
+    ),
+    PluginContext(
+        "pineapplegiant",
+        "spaceduck",
+        color="spaceduck",
+        post="branch = 'main'",
+        tag=PluginTag.COLORSCHEME,
+    ),
+    PluginContext(
+        "preservim",
+        "vim-colors-pencil",
+        color="pencil",
+        tag=PluginTag.COLORSCHEME,
+    ),
+    PluginContext(
+        "projekt0n",
+        "github-nvim-theme",
+        color="github_dark",
+        tag=PluginTag.COLORSCHEME,
+    ),
+    PluginContext(
+        "raphamorim",
+        "lucario",
+        color="lucario",
+        tag=PluginTag.COLORSCHEME,
+    ),
+    PluginContext(
+        "rebelot",
+        "kanagawa.nvim",
+        color="kanagawa",
+        tag=PluginTag.COLORSCHEME,
+    ),
     PluginContext("Rigellute", "rigel", color="rigel", tag=PluginTag.COLORSCHEME),
+    PluginContext(
+        "romainl",
+        "Apprentice",
+        color="apprentice",
+        tag=PluginTag.COLORSCHEME,
+    ),
+    PluginContext(
+        "rose-pine",
+        "neovim",
+        color="rose-pine",
+        post="as = 'rose-pine'",
+        tag=PluginTag.COLORSCHEME,
+    ),
     PluginContext("sainnhe", "edge", color="edge", tag=PluginTag.COLORSCHEME),
     PluginContext(
         "sainnhe",
@@ -402,74 +526,10 @@ PLUGIN_CONTEXTS = [
         "sainnhe", "everforest", color="everforest", tag=PluginTag.COLORSCHEME
     ),
     PluginContext("sainnhe", "sonokai", color="sonokai", tag=PluginTag.COLORSCHEME),
+    PluginContext("shaunsingh", "nord.nvim", color="nord", tag=PluginTag.COLORSCHEME),
+    PluginContext("sonph", "onehalf", color="onehalfdark", tag=PluginTag.COLORSCHEME),
     PluginContext(
-        "kaicataldo",
-        "material.vim",
-        post="branch = 'main'",
-        color="material",
-        tag=PluginTag.COLORSCHEME,
-    ),
-    PluginContext(
-        "projekt0n",
-        "github-nvim-theme",
-        color="github_dark",
-        tag=PluginTag.COLORSCHEME,
-    ),
-    PluginContext(
-        "folke",
-        "tokyonight.nvim",
-        post="branch = 'main'",
-        color="tokyonight",
-        tag=PluginTag.COLORSCHEME,
-    ),
-    PluginContext(
-        "rebelot",
-        "kanagawa.nvim",
-        color="kanagawa",
-        tag=PluginTag.COLORSCHEME,
-    ),
-    PluginContext(
-        "EdenEast",
-        "nightfox.nvim",
-        color="nightfox",
-        tag=PluginTag.COLORSCHEME,
-    ),
-    PluginContext(
-        "bluz71",
-        "vim-nightfly-colors",
-        color="nightfly",
-        tag=PluginTag.COLORSCHEME,
-    ),
-    PluginContext(
-        "bluz71",
-        "vim-moonfly-colors",
-        color="moonfly",
-        tag=PluginTag.COLORSCHEME,
-    ),
-    PluginContext(
-        "mhartington",
-        "oceanic-next",
-        color="OceanicNext",
-        tag=PluginTag.COLORSCHEME,
-    ),
-    PluginContext(
-        "fenetikm",
-        "falcon",
-        color="falcon",
-        tag=PluginTag.COLORSCHEME,
-    ),
-    PluginContext(
-        "shaunsingh",
-        "nord.nvim",
-        color="nord",
-        tag=PluginTag.COLORSCHEME,
-    ),
-    PluginContext(
-        "catppuccin",
-        "nvim",
-        color="catppuccin",
-        post="as = 'catppuccin'",
-        tag=PluginTag.COLORSCHEME,
+        "srcery-colors", "srcery-vim", color="srcery", tag=PluginTag.COLORSCHEME
     ),
     # Highlight
     PluginContext(
