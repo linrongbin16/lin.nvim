@@ -1,5 +1,7 @@
 # lin.nvim : Lin Rongbin's Neovim Distribution
 
+> Leave vim behind, this is the next generation of [lin.vim](https://github.com/linrongbin16/lin.vim).
+
 lin.nvim is a highly configured [neovim](https://neovim.io/) distribution integrated with tons of utilities for development, inspired by [spf13-vim](https://github.com/spf13/spf13-vim).
 
 <p align="center">
@@ -12,7 +14,7 @@ lin.nvim is a highly configured [neovim](https://neovim.io/) distribution integr
 
 ## Introduction
 
-Aim to be out-of-box, IDE-like editing features, performant, lightweight and friendly to most neovim users. Focus on and only on editing, no compiling/packaging/debugging.
+Aim to be out-of-box, with IDE features, performant, lightweight and friendly to most neovim users. Focus on and only on editing, no compiling/packaging/debugging.
 
 [Get started](https://linrongbin16.github.io/lin.nvim.dev/installation/) now!
 
