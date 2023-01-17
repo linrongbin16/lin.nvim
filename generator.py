@@ -225,7 +225,7 @@ class TemplateContent(Expr):
         return self.content
 
 
-class SourceStmtFromVimDir(Expr):
+class SourceStmtFromVimHome(Expr):
     def __init__(self, value):
         self.stmt = Stmt(SourceExpr(LiteralExpr(f"$HOME/.vim/{value}")))
 
@@ -852,11 +852,11 @@ class Render:
     # init.vim
     def render_init_stmts(self, core_inits):
         init_stmts = []
-        init_stmts.append(Stmt(CommentExpr(LiteralExpr("---- Vimrc ----"))))
+        init_stmts.append(Stmt(CommentExpr(LiteralExpr("---- Init ----"))))
         init_stmts.append(LuaRequireStmt("plugins"))
-        init_stmts.append(SourceStmtFromVimDir("config/basic.vim"))
-        init_stmts.append(SourceStmtFromVimDir("config/filetype.vim"))
-        init_stmts.append(SourceStmtFromVimDir("config/constants.vim"))
+        init_stmts.append(SourceStmtFromVimHome("config/basic.vim"))
+        init_stmts.append(SourceStmtFromVimHome("config/filetype.vim"))
+        init_stmts.append(SourceStmtFromVimHome("config/constants.vim"))
 
         # insert core init statements
         init_stmts.extend(core_inits)
@@ -864,8 +864,8 @@ class Render:
         init_stmts.append(EmptyStmt())
         init_stmts.append(Stmt(CommentExpr(LiteralExpr("---- Generated ----"))))
         init_stmts.append(LuaRequireStmt("lspservers"))
-        init_stmts.append(SourceStmtFromVimDir("colorschemes.vim"))
-        init_stmts.append(SourceStmtFromVimDir("settings.vim"))
+        init_stmts.append(SourceStmtFromVimHome("colorschemes.vim"))
+        init_stmts.append(SourceStmtFromVimHome("settings.vim"))
         return init_stmts
 
     # lspservers.lua
@@ -975,7 +975,7 @@ class Render:
                 if pathlib.Path(f"{HOME_DIR}/.vim/lua/{lua_file}.lua").exists():
                     init_stmts.append(LuaRequireStmt(lua_file))
                 if pathlib.Path(f"{HOME_DIR}/.vim/{vim_file}").exists():
-                    init_stmts.append(SourceStmtFromVimDir(vim_file))
+                    init_stmts.append(SourceStmtFromVimHome(vim_file))
                 # color settings
                 if ctx.tag == Tag.COLORSCHEME:
                     colorscheme_stmts.append(
