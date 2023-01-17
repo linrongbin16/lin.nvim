@@ -43,7 +43,7 @@ rust_dependency() {
 
 pip3_dependency() {
 	message "install python packages with pip3"
-	sudo pip3 install pynvim click
+	sudo python3 -m pip install pynvim click
 }
 
 npm_dependency() {
