@@ -12,10 +12,10 @@ plugin/packer_compiled.lua
 # user settings
 lua/plugins.lua
 plugins.vim
-settings.vim
+other-settings.vim
 color-settings.vim
-coc-settings.json
 lsp-settings.vim
+constant-settings.vim
 vimrc.vim
 
 # neovim
