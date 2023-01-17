@@ -11,7 +11,7 @@ import click
 HOME_DIR = pathlib.Path.home()
 VIM_DIR = pathlib.Path(f"{HOME_DIR}/.vim")
 TEMPLATE_DIR = pathlib.Path(f"{HOME_DIR}/.vim/template")
-VIMRC_FILE = pathlib.Path(f"{VIM_DIR}/vimrc.vim")
+INIT_FILE = pathlib.Path(f"{VIM_DIR}/init.vim")
 
 IS_WINDOWS = platform.system().lower().startswith("win")
 IS_MACOS = platform.system().lower().startswith("darwin")
@@ -816,25 +816,25 @@ class Render:
         self.disable_plugins = disable_plugins
 
     def render(self):
-        generated_plugins, generated_vimrcs, generated_colorschemes = self.generate()
+        generated_plugins, generated_inits, generated_colorschemes = self.generate()
 
         plugin_stmts = self.render_plugin_stmts(generated_plugins)
         lspserver_stmts = self.render_lspserver_stmts()
         colorscheme_stmts = self.render_colorscheme_stmts(generated_colorschemes)
         setting_stmts = self.render_setting_stmts()
-        vimrc_stmts = self.render_vimrc_stmts(generated_vimrcs)
+        init_stmts = self.render_init_stmts(generated_inits)
 
         plugins_content = "".join([s.render() for s in plugin_stmts])
         lspservers_content = "".join([s.render() for s in lspserver_stmts])
         colorschemes_content = "".join([s.render() for s in colorscheme_stmts])
         settings_content = "".join([s.render() for s in setting_stmts])
-        vimrc_content = "".join([s.render() for s in vimrc_stmts])
+        init_content = "".join([s.render() for s in init_stmts])
         return (
             plugins_content,
             lspservers_content,
             colorschemes_content,
             settings_content,
-            vimrc_content,
+            init_content,
         )
 
     # plugins.lua
@@ -849,24 +849,24 @@ class Render:
         )
         return plugin_stmts
 
-    # vimrc.vim
-    def render_vimrc_stmts(self, core_vimrcs):
-        vimrc_stmts = []
-        vimrc_stmts.append(Stmt(CommentExpr(LiteralExpr("---- Vimrc ----"))))
-        vimrc_stmts.append(LuaRequireStmt("plugins"))
-        vimrc_stmts.append(SourceStmtFromVimDir("config/basic.vim"))
-        vimrc_stmts.append(SourceStmtFromVimDir("config/filetype.vim"))
-        vimrc_stmts.append(SourceStmtFromVimDir("config/constants.vim"))
+    # init.vim
+    def render_init_stmts(self, core_inits):
+        init_stmts = []
+        init_stmts.append(Stmt(CommentExpr(LiteralExpr("---- Vimrc ----"))))
+        init_stmts.append(LuaRequireStmt("plugins"))
+        init_stmts.append(SourceStmtFromVimDir("config/basic.vim"))
+        init_stmts.append(SourceStmtFromVimDir("config/filetype.vim"))
+        init_stmts.append(SourceStmtFromVimDir("config/constants.vim"))
 
-        # insert core vimrc statements
-        vimrc_stmts.extend(core_vimrcs)
+        # insert core init statements
+        init_stmts.extend(core_inits)
 
-        vimrc_stmts.append(EmptyStmt())
-        vimrc_stmts.append(Stmt(CommentExpr(LiteralExpr("---- Generated ----"))))
-        vimrc_stmts.append(LuaRequireStmt("lspservers"))
-        vimrc_stmts.append(SourceStmtFromVimDir("colorschemes.vim"))
-        vimrc_stmts.append(SourceStmtFromVimDir("settings.vim"))
-        return vimrc_stmts
+        init_stmts.append(EmptyStmt())
+        init_stmts.append(Stmt(CommentExpr(LiteralExpr("---- Generated ----"))))
+        init_stmts.append(LuaRequireStmt("lspservers"))
+        init_stmts.append(SourceStmtFromVimDir("colorschemes.vim"))
+        init_stmts.append(SourceStmtFromVimDir("settings.vim"))
+        return init_stmts
 
     # lspservers.lua
     def render_lspserver_stmts(self):
@@ -933,8 +933,8 @@ class Render:
 
     def generate(self):
         plugin_stmts = []
-        vimrc_stmts = []
-        color_setting_stmts = []
+        init_stmts = []
+        colorscheme_stmts = []
         for ctx in PLUGINS:
             assert isinstance(ctx, Plugin)
             # top
@@ -948,11 +948,11 @@ class Render:
                     assert isinstance(top, Expr)
                     if isinstance(top, EmptyStmt):
                         plugin_stmts.append(to_lua(top))
-                        vimrc_stmts.append(top)
+                        init_stmts.append(top)
                     elif isinstance(top, CommentExpr):
                         cs = Stmt(top)
                         plugin_stmts.append(Stmt(IndentExpr(to_lua(top))))
-                        vimrc_stmts.append(cs)
+                        init_stmts.append(cs)
                     else:
                         assert False
             # body
@@ -969,16 +969,16 @@ class Render:
                         )
                     )
                 )
-                # vimrc
+                # init
                 lua_file = f"repository/{str(ctx).replace('.', '-')}"
                 vim_file = f"repository/{ctx}.vim"
                 if pathlib.Path(f"{HOME_DIR}/.vim/lua/{lua_file}.lua").exists():
-                    vimrc_stmts.append(LuaRequireStmt(lua_file))
+                    init_stmts.append(LuaRequireStmt(lua_file))
                 if pathlib.Path(f"{HOME_DIR}/.vim/{vim_file}").exists():
-                    vimrc_stmts.append(SourceStmtFromVimDir(vim_file))
+                    init_stmts.append(SourceStmtFromVimDir(vim_file))
                 # color settings
                 if ctx.tag == Tag.COLORSCHEME:
-                    color_setting_stmts.append(
+                    colorscheme_stmts.append(
                         Stmt(
                             IndentExpr(
                                 LineContinuationExpr(
@@ -987,7 +987,7 @@ class Render:
                             )
                         )
                     )
-        return plugin_stmts, vimrc_stmts, color_setting_stmts
+        return plugin_stmts, init_stmts, colorscheme_stmts
 
     def is_disabled(self, ctx):
         if self.disable_plugins and str(ctx) in self.disable_plugins:
@@ -1010,13 +1010,13 @@ class FileDumper:
         lspservers_content,
         colorschemes_content,
         settings_content,
-        vimrc_content,
+        init_content,
     ) -> None:
         self.plugins_content = plugins_content
         self.lspservers_content = lspservers_content
         self.colorschemes_content = colorschemes_content
         self.settings_content = settings_content
-        self.vimrc_content = vimrc_content
+        self.init_content = init_content
 
     def dump(self):
         self.config()
@@ -1046,9 +1046,9 @@ class FileDumper:
         with open(settings_file, "w") as fp:
             fp.write(self.settings_content)
 
-        try_backup(pathlib.Path(VIMRC_FILE))
-        with open(VIMRC_FILE, "w") as fp:
-            fp.write(self.vimrc_content)
+        try_backup(pathlib.Path(INIT_FILE))
+        with open(INIT_FILE, "w") as fp:
+            fp.write(self.init_content)
 
     def neovim_init_vim_entry(self):
         if IS_WINDOWS:
@@ -1057,16 +1057,16 @@ class FileDumper:
             )
             appdata_local_path = pathlib.Path(f"{HOME_DIR}/AppData/Local")
             nvim_path = pathlib.Path(f"{appdata_local_path}/nvim")
-            nvim_init_vim_path = pathlib.Path(f"{appdata_local_path}/nvim/init.vim")
+            init_path = pathlib.Path(f"{appdata_local_path}/nvim/init.vim")
         else:
             message("install ~/.config/nvim/init.vim for neovim")
             config_path = pathlib.Path(f"{HOME_DIR}/.config")
             nvim_path = pathlib.Path(f"{config_path}/nvim")
-            nvim_init_vim_path = pathlib.Path(f"{config_path}/nvim/init.vim")
-        try_backup(nvim_init_vim_path)
+            init_path = pathlib.Path(f"{config_path}/nvim/init.vim")
+        try_backup(init_path)
         try_backup(nvim_path)
         nvim_path.symlink_to(str(VIM_DIR), target_is_directory=True)
-        nvim_init_vim_path.symlink_to(str(VIMRC_FILE))
+        init_path.symlink_to(str(INIT_FILE))
 
 
 class CommandHelp(click.Command):
@@ -1145,14 +1145,14 @@ def generator(
         lspservers_content,
         colorschemes_content,
         settings_content,
-        vimrc_content,
+        init_content,
     ) = render.render()
     dumper = FileDumper(
         plugins_content,
         lspservers_content,
         colorschemes_content,
         settings_content,
-        vimrc_content,
+        init_content,
     )
     dumper.dump()
 
