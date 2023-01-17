@@ -80,7 +80,7 @@ local cmp = require('cmp')
 local luasnip = require('luasnip')
 
 local select_opts = { behavior = cmp.SelectBehavior.Select }
-local keyword = 2
+local keyword = 1
 
 cmp.setup({
     completion = {

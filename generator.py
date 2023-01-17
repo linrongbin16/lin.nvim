@@ -36,22 +36,22 @@ def try_backup(src):
 INDENT_SIZE = 4
 
 
-class Indentable:
-    def __init__(self):
-        self._value = 0
-
-    @property
-    def indentlevel(self):
-        return self._value
-
-    def inc_indentlevel(self):
-        self._value += 1
-
-    def dec_indentlevel(self):
-        self._value = max(self._value - 1, 0)
-
-    def get_dec_indentlevel(self):
-        return max(self._value - 1, 0)
+# class Indentable:
+#     def __init__(self):
+#         self._value = 0
+#
+#     @property
+#     def indentlevel(self):
+#         return self._value
+#
+#     def inc_indentlevel(self):
+#         self._value += 1
+#
+#     def dec_indentlevel(self):
+#         self._value = max(self._value - 1, 0)
+#
+#     def get_dec_indentlevel(self):
+#         return max(self._value - 1, 0)
 
 
 # Vim AST {
@@ -302,7 +302,7 @@ def to_lua(expr):
 # }
 
 
-class PluginTag(enum.Enum):
+class Tag(enum.Enum):
     COLORSCHEME = 1
     HIGHLIGHT = 2
     LANGUAGE = 3
@@ -310,7 +310,7 @@ class PluginTag(enum.Enum):
     INFRASTRUCTURE = 5
 
 
-class PluginContext:
+class Plugin:
     def __init__(
         self,
         org,
@@ -331,34 +331,34 @@ class PluginContext:
         return f"{self.org}/{self.repo}"
 
 
-PLUGIN_CONTEXTS = [
+PLUGINS = [
     # Infrastructure
-    PluginContext(
+    Plugin(
         "wbthomason",
         "packer.nvim",
         top_clause=[
             EmptyStmt(),
             CommentExpr(LiteralExpr("---- Infrastructure ----")),
         ],
-        tag=PluginTag.INFRASTRUCTURE,
+        tag=Tag.INFRASTRUCTURE,
     ),
-    PluginContext(
+    Plugin(
         "nathom",
         "filetype.nvim",
-        tag=PluginTag.INFRASTRUCTURE,
+        tag=Tag.INFRASTRUCTURE,
     ),
-    PluginContext(
+    Plugin(
         "lewis6991",
         "impatient.nvim",
-        tag=PluginTag.INFRASTRUCTURE,
+        tag=Tag.INFRASTRUCTURE,
     ),
-    PluginContext(
+    Plugin(
         "neovim",
         "nvim-lspconfig",
-        tag=PluginTag.INFRASTRUCTURE,
+        tag=Tag.INFRASTRUCTURE,
     ),
     # Colorscheme
-    PluginContext(
+    Plugin(
         "bluz71",
         "vim-nightfly-colors",
         color="nightfly",
@@ -366,202 +366,192 @@ PLUGIN_CONTEXTS = [
             EmptyStmt(),
             CommentExpr(LiteralExpr("---- Colorscheme ----")),
         ],
-        tag=PluginTag.COLORSCHEME,
+        tag=Tag.COLORSCHEME,
     ),
-    PluginContext(
+    Plugin(
         "bluz71",
         "vim-moonfly-colors",
         color="moonfly",
-        tag=PluginTag.COLORSCHEME,
+        tag=Tag.COLORSCHEME,
     ),
-    PluginContext(
+    Plugin(
         "catppuccin",
         "nvim",
         color="catppuccin",
         post="as = 'catppuccin'",
-        tag=PluginTag.COLORSCHEME,
+        tag=Tag.COLORSCHEME,
     ),
-    PluginContext(
+    Plugin(
         "challenger-deep-theme",
         "vim",
         color="challenger_deep",
         post="as = 'challenger-deep'",
-        tag=PluginTag.COLORSCHEME,
+        tag=Tag.COLORSCHEME,
     ),
-    PluginContext(
+    Plugin(
         "cocopon",
         "iceberg.vim",
         color="iceberg",
-        tag=PluginTag.COLORSCHEME,
+        tag=Tag.COLORSCHEME,
     ),
-    PluginContext(
-        "crusoexia", "vim-monokai", color="monokai", tag=PluginTag.COLORSCHEME
-    ),
-    PluginContext(
+    Plugin("crusoexia", "vim-monokai", color="monokai", tag=Tag.COLORSCHEME),
+    Plugin(
         "dracula",
         "vim",
         post="as = 'dracula'",
         color="dracula",
-        tag=PluginTag.COLORSCHEME,
+        tag=Tag.COLORSCHEME,
     ),
-    PluginContext(
+    Plugin(
         "EdenEast",
         "nightfox.nvim",
         color="nightfox",
-        tag=PluginTag.COLORSCHEME,
+        tag=Tag.COLORSCHEME,
     ),
-    PluginContext(
+    Plugin(
         "embark-theme",
         "vim",
         color="embark",
         post="as = 'embark'",
-        tag=PluginTag.COLORSCHEME,
+        tag=Tag.COLORSCHEME,
     ),
-    PluginContext(
+    Plugin(
         "fenetikm",
         "falcon",
         color="falcon",
-        tag=PluginTag.COLORSCHEME,
+        tag=Tag.COLORSCHEME,
     ),
-    PluginContext(
+    Plugin(
         "folke",
         "tokyonight.nvim",
         post="branch = 'main'",
         color="tokyonight",
-        tag=PluginTag.COLORSCHEME,
+        tag=Tag.COLORSCHEME,
     ),
-    PluginContext(
-        "joshdick", "onedark.vim", color="onedark", tag=PluginTag.COLORSCHEME
-    ),
-    PluginContext(
+    Plugin("joshdick", "onedark.vim", color="onedark", tag=Tag.COLORSCHEME),
+    Plugin(
         "junegunn",
         "seoul256.vim",
         color="seoul256",
-        tag=PluginTag.COLORSCHEME,
+        tag=Tag.COLORSCHEME,
     ),
-    PluginContext(
+    Plugin(
         "kaicataldo",
         "material.vim",
         post="branch = 'main'",
         color="material",
-        tag=PluginTag.COLORSCHEME,
+        tag=Tag.COLORSCHEME,
     ),
-    PluginContext(
-        "KeitaNakamura", "neodark.vim", color="neodark", tag=PluginTag.COLORSCHEME
-    ),
-    PluginContext(
+    Plugin("KeitaNakamura", "neodark.vim", color="neodark", tag=Tag.COLORSCHEME),
+    Plugin(
         "lifepillar",
         "vim-solarized8",
         color="solarized8",
-        tag=PluginTag.COLORSCHEME,
+        tag=Tag.COLORSCHEME,
     ),
-    PluginContext(
+    Plugin(
         "mhartington",
         "oceanic-next",
         color="OceanicNext",
-        tag=PluginTag.COLORSCHEME,
+        tag=Tag.COLORSCHEME,
     ),
-    PluginContext(
+    Plugin(
         "NLKNguyen",
         "papercolor-theme",
         color="PaperColor",
-        tag=PluginTag.COLORSCHEME,
+        tag=Tag.COLORSCHEME,
     ),
-    PluginContext(
+    Plugin(
         "pineapplegiant",
         "spaceduck",
         color="spaceduck",
         post="branch = 'main'",
-        tag=PluginTag.COLORSCHEME,
+        tag=Tag.COLORSCHEME,
     ),
-    PluginContext(
+    Plugin(
         "preservim",
         "vim-colors-pencil",
         color="pencil",
-        tag=PluginTag.COLORSCHEME,
+        tag=Tag.COLORSCHEME,
     ),
-    PluginContext(
+    Plugin(
         "projekt0n",
         "github-nvim-theme",
         color="github_dark",
-        tag=PluginTag.COLORSCHEME,
+        tag=Tag.COLORSCHEME,
     ),
-    PluginContext(
+    Plugin(
         "raphamorim",
         "lucario",
         color="lucario",
-        tag=PluginTag.COLORSCHEME,
+        tag=Tag.COLORSCHEME,
     ),
-    PluginContext(
+    Plugin(
         "rebelot",
         "kanagawa.nvim",
         color="kanagawa",
-        tag=PluginTag.COLORSCHEME,
+        tag=Tag.COLORSCHEME,
     ),
-    PluginContext("Rigellute", "rigel", color="rigel", tag=PluginTag.COLORSCHEME),
-    PluginContext(
+    Plugin("Rigellute", "rigel", color="rigel", tag=Tag.COLORSCHEME),
+    Plugin(
         "romainl",
         "Apprentice",
         color="apprentice",
-        tag=PluginTag.COLORSCHEME,
+        tag=Tag.COLORSCHEME,
     ),
-    PluginContext(
+    Plugin(
         "rose-pine",
         "neovim",
         color="rose-pine",
         post="as = 'rose-pine'",
-        tag=PluginTag.COLORSCHEME,
+        tag=Tag.COLORSCHEME,
     ),
-    PluginContext("sainnhe", "edge", color="edge", tag=PluginTag.COLORSCHEME),
-    PluginContext(
-        "sainnhe", "everforest", color="everforest", tag=PluginTag.COLORSCHEME
-    ),
-    PluginContext(
+    Plugin("sainnhe", "edge", color="edge", tag=Tag.COLORSCHEME),
+    Plugin("sainnhe", "everforest", color="everforest", tag=Tag.COLORSCHEME),
+    Plugin(
         "sainnhe",
         "gruvbox-material",
         color="gruvbox-material",
-        tag=PluginTag.COLORSCHEME,
+        tag=Tag.COLORSCHEME,
     ),
-    PluginContext("sainnhe", "sonokai", color="sonokai", tag=PluginTag.COLORSCHEME),
-    PluginContext("shaunsingh", "nord.nvim", color="nord", tag=PluginTag.COLORSCHEME),
-    PluginContext("sonph", "onehalf", color="onehalfdark", tag=PluginTag.COLORSCHEME),
-    PluginContext(
-        "srcery-colors", "srcery-vim", color="srcery", tag=PluginTag.COLORSCHEME
-    ),
-    PluginContext(
+    Plugin("sainnhe", "sonokai", color="sonokai", tag=Tag.COLORSCHEME),
+    Plugin("shaunsingh", "nord.nvim", color="nord", tag=Tag.COLORSCHEME),
+    Plugin("sonph", "onehalf", color="onehalfdark", tag=Tag.COLORSCHEME),
+    Plugin("srcery-colors", "srcery-vim", color="srcery", tag=Tag.COLORSCHEME),
+    Plugin(
         "tomasiser",
         "vim-code-dark",
         color="codedark",
-        tag=PluginTag.COLORSCHEME,
+        tag=Tag.COLORSCHEME,
     ),
     # Highlight
-    PluginContext(
+    Plugin(
         "RRethy",
         "vim-illuminate",
         top_clause=[
             EmptyStmt(),
             CommentExpr(LiteralExpr("---- Highlight ----")),
         ],
-        tag=PluginTag.HIGHLIGHT,
+        tag=Tag.HIGHLIGHT,
     ),
-    PluginContext(
+    Plugin(
         "NvChad",
         "nvim-colorizer.lua",
-        tag=PluginTag.HIGHLIGHT,
+        tag=Tag.HIGHLIGHT,
     ),
-    PluginContext(
+    Plugin(
         "andymass",
         "vim-matchup",
-        tag=PluginTag.HIGHLIGHT,
+        tag=Tag.HIGHLIGHT,
     ),
-    PluginContext(
+    Plugin(
         "inkarkat",
         "vim-mark",
         post="requires = 'inkarkat/vim-ingo-library'",
-        tag=PluginTag.HIGHLIGHT,
+        tag=Tag.HIGHLIGHT,
     ),
     # UI
-    PluginContext(
+    Plugin(
         "romgrk",
         "barbar.nvim",
         post="requires = 'nvim-tree/nvim-web-devicons'",
@@ -571,49 +561,49 @@ PLUGIN_CONTEXTS = [
             CommentExpr(LiteralExpr("Tabline")),
         ],
     ),
-    PluginContext(
+    Plugin(
         "kyazdani42",
         "nvim-tree.lua",
         post="requires = 'nvim-tree/nvim-web-devicons'",
         top_clause=CommentExpr(LiteralExpr("Explorer")),
     ),
-    PluginContext("jlanzarotta", "bufexplorer"),
-    PluginContext(
+    Plugin("jlanzarotta", "bufexplorer"),
+    Plugin(
         "lukas-reineke",
         "indent-blankline.nvim",
         top_clause=CommentExpr(LiteralExpr("Indentline")),
     ),
-    PluginContext(
+    Plugin(
         "nvim-lualine",
         "lualine.nvim",
         post="requires = 'nvim-tree/nvim-web-devicons'",
         top_clause=CommentExpr(LiteralExpr("Statusline")),
     ),
-    PluginContext("nvim-lua", "lsp-status.nvim"),
-    PluginContext(
+    Plugin("nvim-lua", "lsp-status.nvim"),
+    Plugin(
         "lewis6991",
         "gitsigns.nvim",
         top_clause=CommentExpr(LiteralExpr("Git")),
     ),
-    PluginContext(
+    Plugin(
         "akinsho",
         "toggleterm.nvim",
         post="tag = '*'",
         top_clause=CommentExpr(LiteralExpr("Terminal")),
     ),
-    PluginContext(
+    Plugin(
         "stevearc",
         "dressing.nvim",
         top_clause=CommentExpr(LiteralExpr("UI hooks")),
     ),
-    PluginContext(
+    Plugin(
         "liuchengxu",
         "vista.vim",
         top_clause=CommentExpr(LiteralExpr("Structures/Outlines")),
     ),
-    PluginContext("ludovicchabant", "vim-gutentags"),
+    Plugin("ludovicchabant", "vim-gutentags"),
     # Search
-    PluginContext(
+    Plugin(
         "junegunn",
         "fzf",
         post='run = ":call fzf#install()"',
@@ -622,69 +612,69 @@ PLUGIN_CONTEXTS = [
             CommentExpr(LiteralExpr("---- Search ----")),
         ],
     ),
-    PluginContext("junegunn", "fzf.vim"),
-    PluginContext("ojroques", "nvim-lspfuzzy"),
+    Plugin("junegunn", "fzf.vim"),
+    Plugin("ojroques", "nvim-lspfuzzy"),
     # LSP server
-    PluginContext(
+    Plugin(
         "williamboman",
         "mason.nvim",
         top_clause=[
             EmptyStmt(),
             CommentExpr(LiteralExpr("---- LSP server ----")),
         ],
-        tag=PluginTag.LANGUAGE,
+        tag=Tag.LANGUAGE,
     ),
-    PluginContext(
+    Plugin(
         "williamboman",
         "mason-lspconfig.nvim",
-        tag=PluginTag.LANGUAGE,
+        tag=Tag.LANGUAGE,
     ),
-    PluginContext(
+    Plugin(
         "jose-elias-alvarez",
         "null-ls.nvim",
         post="requires = 'nvim-lua/plenary.nvim'",
-        tag=PluginTag.LANGUAGE,
+        tag=Tag.LANGUAGE,
     ),
-    PluginContext("jay-babu", "mason-null-ls.nvim", tag=PluginTag.LANGUAGE),
-    PluginContext(
+    Plugin("jay-babu", "mason-null-ls.nvim", tag=Tag.LANGUAGE),
+    Plugin(
         "hrsh7th",
         "cmp-nvim-lsp",
-        tag=PluginTag.LANGUAGE,
+        tag=Tag.LANGUAGE,
     ),
-    PluginContext(
+    Plugin(
         "hrsh7th",
         "cmp-buffer",
-        tag=PluginTag.LANGUAGE,
+        tag=Tag.LANGUAGE,
     ),
-    PluginContext(
+    Plugin(
         "hrsh7th",
         "cmp-path",
-        tag=PluginTag.LANGUAGE,
+        tag=Tag.LANGUAGE,
     ),
-    PluginContext(
+    Plugin(
         "hrsh7th",
         "cmp-cmdline",
-        tag=PluginTag.LANGUAGE,
+        tag=Tag.LANGUAGE,
     ),
-    PluginContext(
+    Plugin(
         "hrsh7th",
         "nvim-cmp",
-        tag=PluginTag.LANGUAGE,
+        tag=Tag.LANGUAGE,
     ),
-    PluginContext(
+    Plugin(
         "L3MON4D3",
         "LuaSnip",
         post="tag = 'v1.*'",
-        tag=PluginTag.LANGUAGE,
+        tag=Tag.LANGUAGE,
     ),
-    PluginContext(
+    Plugin(
         "saadparwaiz1",
         "cmp_luasnip",
-        tag=PluginTag.LANGUAGE,
+        tag=Tag.LANGUAGE,
     ),
-    PluginContext("rafamadriz", "friendly-snippets", tag=PluginTag.LANGUAGE),
+    Plugin("rafamadriz", "friendly-snippets", tag=Tag.LANGUAGE),
     # Language support
-    PluginContext(
+    Plugin(
         "iamcco",
         "markdown-preview.nvim",
         post=' run = "cd app && npm install", setup = function() vim.g.mkdp_filetypes = { "markdown" } end, ft = { "markdown" },',
@@ -693,38 +683,39 @@ PLUGIN_CONTEXTS = [
             CommentExpr(LiteralExpr("---- Language support ----")),
             CommentExpr(LiteralExpr("Markdown")),
         ],
-        tag=PluginTag.LANGUAGE,
+        tag=Tag.LANGUAGE,
     ),
-    PluginContext(
+    Plugin("simrat39", "rust-tools.nvim", tag=Tag.LANGUAGE),
+    Plugin(
         "justinmk",
         "vim-syntax-extra",
         post="ft = {'lex', 'flex', 'yacc', 'bison'}",
         top_clause=CommentExpr(LiteralExpr("Lex/yacc, flex/bison")),
-        tag=PluginTag.LANGUAGE,
+        tag=Tag.LANGUAGE,
     ),
-    PluginContext(
+    Plugin(
         "rhysd",
         "vim-llvm",
         post="ft = {'llvm', 'mir', 'mlir', 'tablegen'}",
         top_clause=CommentExpr(LiteralExpr("LLVM")),
-        tag=PluginTag.LANGUAGE,
+        tag=Tag.LANGUAGE,
     ),
-    PluginContext(
+    Plugin(
         "zebradil",
         "hive.vim",
         post="ft = {'hive'}",
         top_clause=CommentExpr(LiteralExpr("Hive")),
-        tag=PluginTag.LANGUAGE,
+        tag=Tag.LANGUAGE,
     ),
-    PluginContext(
+    Plugin(
         "slim-template",
         "vim-slim",
         post="ft = {'slim'}",
         top_clause=CommentExpr(LiteralExpr("Slim")),
-        tag=PluginTag.LANGUAGE,
+        tag=Tag.LANGUAGE,
     ),
     # Editing enhancement
-    PluginContext(
+    Plugin(
         "alvan",
         "vim-closetag",
         top_clause=[
@@ -732,42 +723,42 @@ PLUGIN_CONTEXTS = [
             CommentExpr(LiteralExpr("---- Editing enhancement ----")),
             CommentExpr(LiteralExpr("HTML tag")),
         ],
-        tag=PluginTag.EDITING,
+        tag=Tag.EDITING,
     ),
-    PluginContext(
+    Plugin(
         "numToStr",
         "Comment.nvim",
         top_clause=CommentExpr(LiteralExpr("Comment")),
-        tag=PluginTag.EDITING,
+        tag=Tag.EDITING,
     ),
-    PluginContext(
+    Plugin(
         "phaazon",
         "hop.nvim",
         post="branch = 'v2'",
         top_clause=CommentExpr(LiteralExpr("Cursor motion")),
-        tag=PluginTag.EDITING,
+        tag=Tag.EDITING,
     ),
-    PluginContext(
+    Plugin(
         "windwp",
         "nvim-autopairs",
         top_clause=CommentExpr(LiteralExpr("Autopair")),
-        tag=PluginTag.EDITING,
+        tag=Tag.EDITING,
     ),
-    PluginContext(
+    Plugin(
         "haya14busa",
         "is.vim",
         top_clause=CommentExpr(LiteralExpr("Incremental search")),
-        tag=PluginTag.EDITING,
+        tag=Tag.EDITING,
     ),
-    PluginContext(
+    Plugin(
         "tpope",
         "vim-repeat",
-        tag=PluginTag.EDITING,
+        tag=Tag.EDITING,
         top_clause=CommentExpr(LiteralExpr("Other")),
     ),
-    PluginContext("chaoren", "vim-wordmotion", tag=PluginTag.EDITING),
-    PluginContext("mbbill", "undotree", tag=PluginTag.EDITING),
-    PluginContext("editorconfig", "editorconfig-vim", tag=PluginTag.EDITING),
+    Plugin("chaoren", "vim-wordmotion", tag=Tag.EDITING),
+    Plugin("mbbill", "undotree", tag=Tag.EDITING),
+    Plugin("editorconfig", "editorconfig-vim", tag=Tag.EDITING),
 ]
 
 
@@ -923,8 +914,8 @@ class Render:
         plugin_stmts = []
         vimrc_stmts = []
         color_setting_stmts = []
-        for ctx in PLUGIN_CONTEXTS:
-            assert isinstance(ctx, PluginContext)
+        for ctx in PLUGINS:
+            assert isinstance(ctx, Plugin)
             # top
             if ctx.top_clause:
                 tops = (
@@ -967,7 +958,7 @@ class Render:
                 if pathlib.Path(f"{HOME_DIR}/.vim/{vim_file}").exists():
                     vimrc_stmts.append(SourceStmtFromVimDir(vim_file))
                 # color settings
-                if ctx.tag == PluginTag.COLORSCHEME:
+                if ctx.tag == Tag.COLORSCHEME:
                     color_setting_stmts.append(
                         Stmt(
                             IndentExpr(
@@ -982,13 +973,13 @@ class Render:
     def is_disabled(self, ctx):
         if self.disable_plugins and str(ctx) in self.disable_plugins:
             return True
-        if self.disable_color and ctx.tag == PluginTag.COLORSCHEME:
+        if self.disable_color and ctx.tag == Tag.COLORSCHEME:
             return True
-        if self.disable_highlight and ctx.tag == PluginTag.HIGHLIGHT:
+        if self.disable_highlight and ctx.tag == Tag.HIGHLIGHT:
             return True
-        if self.disable_language and ctx.tag == PluginTag.LANGUAGE:
+        if self.disable_language and ctx.tag == Tag.LANGUAGE:
             return True
-        if self.disable_editing and ctx.tag == PluginTag.EDITING:
+        if self.disable_editing and ctx.tag == Tag.EDITING:
             return True
         return False
 
