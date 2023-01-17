@@ -845,7 +845,9 @@ class Render:
         vimrc_stmts.extend(core_vimrcs)
 
         vimrc_stmts.append(EmptyStmt())
-        vimrc_stmts.append(Stmt(CommentExpr(LiteralExpr("---- Custom settings ----"))))
+        vimrc_stmts.append(
+            Stmt(CommentExpr(LiteralExpr("---- Generated ----")))
+        )
         vimrc_stmts.append(Stmt(LuaExpr(LiteralExpr("require('lspservers')"))))
         vimrc_stmts.append(SourceStmtFromVimDir("colorschemes.vim"))
         vimrc_stmts.append(SourceStmtFromVimDir("settings.vim"))
