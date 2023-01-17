@@ -27,10 +27,8 @@ endfunction
 call s:LinDefineFzfKeys('<space>r', 'LinFzfRg')
 " cursor word/string
 call s:LinDefineFzfKeys('<space>w', 'LinFzfRgCWord')
-" lines on current buffer
+" lines on opened buffers
 call s:LinDefineFzfKeys('<space>ln', 'FzfLines')
-
-""" Tags
 " tags
 call s:LinDefineFzfKeys('<space>tg', 'FzfTags')
 
@@ -42,7 +40,6 @@ call s:LinDefineFzfKeys('<space>sh', 'FzfHistory/')
 call s:LinDefineFzfKeys('<space>ch', 'FzfHistory:')
 
 """ Files
-
 " files
 call s:LinDefineFzfKeys('<space>f', 'FzfFiles')
 call s:LinDefineFzfKeys('<C-p>', 'FzfFiles')
@@ -52,7 +49,6 @@ call s:LinDefineFzfKeys('<space>b', 'FzfBuffers')
 call s:LinDefineFzfKeys('<space>hf', 'FzfHistory')
 
 """ Git
-
 " git commits
 call s:LinDefineFzfKeys('<space>gc', 'FzfCommits')
 " git files
@@ -61,7 +57,6 @@ call s:LinDefineFzfKeys('<space>gf', 'FzfGFile')
 call s:LinDefineFzfKeys('<space>gs', 'FzfGFiles?')
 
 """ Vim
-
 " vim marks
 call s:LinDefineFzfKeys('<space>mk', 'FzfMarks')
 " vim key mappings
@@ -70,3 +65,7 @@ call s:LinDefineFzfKeys('<space>mp', 'FzfMaps')
 call s:LinDefineFzfKeys('<space>cm', 'FzfCommands')
 " vim help tags
 call s:LinDefineFzfKeys('<space>ht', 'FzfHelptags')
+" vim colorschemes
+call s:LinDefineFzfKeys('<space>cs', 'FzfColors')
+" vim filetypes
+call s:LinDefineFzfKeys('<space>ft', 'FzfFiletypes')
