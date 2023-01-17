@@ -16,7 +16,7 @@ Aim to be out-of-box, IDE-like editing features, performant, lightweight and fri
 
 [Get started](https://linrongbin16.github.io/lin.nvim.dev/installation/) now!
 
-Or checkout more demos, installation, user guide and much more on [lin.nvim.dev](https://linrongbin16.github.io/lin.nvim.dev/).
+Or checkout more demos, installation instructions, user guide and much more on [lin.nvim.dev](https://linrongbin16.github.io/lin.nvim.dev/).
 
 ## Contribute
 
