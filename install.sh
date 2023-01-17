@@ -91,7 +91,7 @@ install_basic() {
 	try_backup $NVIM_HOME
 	mkdir -p $HOME/.config
 	ln -s $VIM_HOME $NVIM_HOME
-	ln -s $VIM_HOME/standalone/basic.vim $NVIM_HOME/init.vim
+	ln -s $VIM_HOME/config/basic.vim $NVIM_HOME/init.vim
 }
 
 show_help() {

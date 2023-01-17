@@ -96,7 +96,7 @@ function NpmDependency() {
 # basic
 
 function InstallBasic() {
-    $BasicPath = "$env:USERPROFILE\.vim\standalone\basic.vim"
+    $BasicPath = "$env:USERPROFILE\.vim\config\basic.vim"
     $NvimInitVimPath = "$NVIM_HOME\init.vim"
     Message "install $APPDATA_LOCAL_HOME\nvim\init.vim for neovim on windows"
     TryBackup $NvimInitVimPath

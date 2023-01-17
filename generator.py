@@ -799,33 +799,28 @@ class Render:
         self.disable_plugins = disable_plugins
 
     def render(self):
-        core_plugins, core_vimrcs, core_color_settings = self.render_core()
+        generated_plugins, generated_vimrcs, generated_colorschemes = self.generate()
 
-        plugin_stmts = self.render_plugin_stmts(core_plugins)
-        constant_setting_stmts = self.render_constant_setting_stmts()
-        lsp_setting_stmts = self.render_lsp_setting_stmts()
-        color_setting_stmts = self.render_color_setting_stmts(core_color_settings)
-        other_setting_stmts = self.render_other_setting_stmts()
-        vimrc_stmts = self.render_vimrc_stmts(core_vimrcs)
+        plugin_stmts = self.render_plugin_stmts(generated_plugins)
+        lspserver_stmts = self.render_lspserver_stmts()
+        colorscheme_stmts = self.render_colorscheme_stmts(generated_colorschemes)
+        setting_stmts = self.render_setting_stmts()
+        vimrc_stmts = self.render_vimrc_stmts(generated_vimrcs)
 
         plugins_content = "".join([s.render() for s in plugin_stmts])
-        constant_settings_content = "".join(
-            [s.render() for s in constant_setting_stmts]
-        )
-        lsp_settings_content = "".join([s.render() for s in lsp_setting_stmts])
-        color_settings_content = "".join([s.render() for s in color_setting_stmts])
-        other_settings_content = "".join([s.render() for s in other_setting_stmts])
+        lspservers_content = "".join([s.render() for s in lspserver_stmts])
+        colorschemes_content = "".join([s.render() for s in colorscheme_stmts])
+        settings_content = "".join([s.render() for s in setting_stmts])
         vimrc_content = "".join([s.render() for s in vimrc_stmts])
         return (
             plugins_content,
-            constant_settings_content,
-            lsp_settings_content,
-            color_settings_content,
-            other_settings_content,
+            lspservers_content,
+            colorschemes_content,
+            settings_content,
             vimrc_content,
         )
 
-    # plugins.vim
+    # plugins.lua
     def render_plugin_stmts(self, core_plugins):
         plugin_stmts = []
         plugin_stmts.append(
@@ -842,56 +837,46 @@ class Render:
         vimrc_stmts = []
         vimrc_stmts.append(Stmt(CommentExpr(LiteralExpr("---- Vimrc ----"))))
         vimrc_stmts.append(Stmt(LuaExpr(LiteralExpr("require('plugins')"))))
-        vimrc_stmts.append(SourceStmtFromVimDir("standalone/basic.vim"))
-        vimrc_stmts.append(SourceStmtFromVimDir("standalone/filetype.vim"))
-        vimrc_stmts.append(SourceStmtFromVimDir("constant-settings.vim"))
+        vimrc_stmts.append(SourceStmtFromVimDir("config/basic.vim"))
+        vimrc_stmts.append(SourceStmtFromVimDir("config/filetype.vim"))
+        vimrc_stmts.append(SourceStmtFromVimDir("config/constants.vim"))
 
         # insert core vimrc statements
         vimrc_stmts.extend(core_vimrcs)
 
         vimrc_stmts.append(EmptyStmt())
         vimrc_stmts.append(Stmt(CommentExpr(LiteralExpr("---- Custom settings ----"))))
-        vimrc_stmts.append(SourceStmtFromVimDir("lsp-settings.vim"))
-        vimrc_stmts.append(SourceStmtFromVimDir("color-settings.vim"))
-        vimrc_stmts.append(SourceStmtFromVimDir("other-settings.vim"))
+        vimrc_stmts.append(Stmt(LuaExpr(LiteralExpr("require('lspservers')"))))
+        vimrc_stmts.append(SourceStmtFromVimDir("colorschemes.vim"))
+        vimrc_stmts.append(SourceStmtFromVimDir("settings.vim"))
         return vimrc_stmts
 
-    # constant-settings.vim
-    def render_constant_setting_stmts(self):
-        constant_setting_stmts = []
-        constant_setting_stmts.append(
-            TemplateContent(
-                pathlib.Path(f"{TEMPLATE_DIR}/constant-settings-template.vim")
-            )
-        )
-        return constant_setting_stmts
-
-    # lsp-settings.vim
-    def render_lsp_setting_stmts(self):
+    # lspservers.lua
+    def render_lspserver_stmts(self):
         lsp_setting_stmts = []
         lsp_setting_stmts.append(
-            TemplateContent(pathlib.Path(f"{TEMPLATE_DIR}/lsp-settings-template.vim"))
+            TemplateContent(pathlib.Path(f"{TEMPLATE_DIR}/lspservers-template.lua"))
         )
         return lsp_setting_stmts
 
-    # color-settings.vim
-    def render_color_setting_stmts(self, core_color_settings):
+    # colorschemes.vim
+    def render_colorscheme_stmts(self, core_color_settings):
         color_setting_stmts = []
         color_setting_stmts.append(
             TemplateContent(
-                pathlib.Path(f"{TEMPLATE_DIR}/color-settings-template-header.vim")
+                pathlib.Path(f"{TEMPLATE_DIR}/colorschemes-template-header.vim")
             )
         )
         color_setting_stmts.extend(core_color_settings)
         color_setting_stmts.append(
             TemplateContent(
-                pathlib.Path(f"{TEMPLATE_DIR}/color-settings-template-footer.vim")
+                pathlib.Path(f"{TEMPLATE_DIR}/colorschemes-template-footer.vim")
             )
         )
         return color_setting_stmts
 
-    # other-settings.vim
-    def render_other_setting_stmts(self):
+    # settings.vim
+    def render_setting_stmts(self):
         other_setting_stmts = []
         other_setting_stmts.extend(
             [
@@ -925,11 +910,11 @@ class Render:
                 ]
             )
         other_setting_stmts.append(
-            TemplateContent(pathlib.Path(f"{TEMPLATE_DIR}/other-settings-template.vim"))
+            TemplateContent(pathlib.Path(f"{TEMPLATE_DIR}/settings-template.vim"))
         )
         return other_setting_stmts
 
-    def render_core(self):
+    def generate(self):
         plugin_stmts = []
         vimrc_stmts = []
         color_setting_stmts = []
@@ -1007,17 +992,15 @@ class FileDumper:
     def __init__(
         self,
         plugins_content,
-        constant_settings_content,
-        lsp_settings_content,
-        color_settings_content,
-        other_settings_content,
+        lspservers_content,
+        colorschemes_content,
+        settings_content,
         vimrc_content,
     ) -> None:
         self.plugins_content = plugins_content
-        self.constant_settings_content = constant_settings_content
-        self.lsp_settings_content = lsp_settings_content
-        self.color_settings_content = color_settings_content
-        self.other_settings_content = other_settings_content
+        self.lspservers_content = lspservers_content
+        self.colorschemes_content = colorschemes_content
+        self.settings_content = settings_content
         self.vimrc_content = vimrc_content
 
     def dump(self):
@@ -1025,27 +1008,29 @@ class FileDumper:
         self.neovim_init_vim_entry()
 
     def config(self):
-        plugins_file = f"{VIM_DIR}/lua/plugins.lua"
-        constant_settings_file = f"{VIM_DIR}/constant-settings.vim"
-        lsp_settings_file = f"{VIM_DIR}/lsp-settings.vim"
-        color_settings_file = f"{VIM_DIR}/color-settings.vim"
-        other_settings_file = f"{VIM_DIR}/other-settings.vim"
-        try_backup(pathlib.Path(plugins_file))
+
         pathlib.Path(f"{VIM_DIR}/lua").mkdir(parents=True, exist_ok=True)
+
+        plugins_file = f"{VIM_DIR}/lua/plugins.lua"
+        try_backup(pathlib.Path(plugins_file))
         with open(plugins_file, "w") as fp:
             fp.write(self.plugins_content)
-        try_backup(pathlib.Path(constant_settings_file))
-        with open(constant_settings_file, "w") as fp:
-            fp.write(self.constant_settings_content)
-        try_backup(pathlib.Path(lsp_settings_file))
-        with open(lsp_settings_file, "w") as fp:
-            fp.write(self.lsp_settings_content)
-        try_backup(pathlib.Path(color_settings_file))
-        with open(color_settings_file, "w") as fp:
-            fp.write(self.color_settings_content)
-        try_backup(pathlib.Path(other_settings_file))
-        with open(other_settings_file, "w") as fp:
-            fp.write(self.other_settings_content)
+
+        lspservers_file = f"{VIM_DIR}/lua/lspservers.lua"
+        try_backup(pathlib.Path(lspservers_file))
+        with open(lspservers_file, "w") as fp:
+            fp.write(self.lspservers_content)
+
+        colorschemes_file = f"{VIM_DIR}/colorschemes.vim"
+        try_backup(pathlib.Path(colorschemes_file))
+        with open(colorschemes_file, "w") as fp:
+            fp.write(self.colorschemes_content)
+
+        settings_file = f"{VIM_DIR}/settings.vim"
+        try_backup(pathlib.Path(settings_file))
+        with open(settings_file, "w") as fp:
+            fp.write(self.settings_content)
+
         try_backup(pathlib.Path(VIMRC_FILE))
         with open(VIMRC_FILE, "w") as fp:
             fp.write(self.vimrc_content)
@@ -1142,18 +1127,16 @@ def generator(
     )
     (
         plugins_content,
-        constant_settings_content,
-        lsp_settings_content,
-        color_settings_content,
-        other_settings_content,
+        lspservers_content,
+        colorschemes_content,
+        settings_content,
         vimrc_content,
     ) = render.render()
     dumper = FileDumper(
         plugins_content,
-        constant_settings_content,
-        lsp_settings_content,
-        color_settings_content,
-        other_settings_content,
+        lspservers_content,
+        colorschemes_content,
+        settings_content,
         vimrc_content,
     )
     dumper.dump()

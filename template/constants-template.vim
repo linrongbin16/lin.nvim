@@ -1,3 +1,5 @@
+""" ---- Global Constants ----
+" Diagnostic Sign Icon
 let g:lin_globals_diagnostic_signs = {
             \ 'errors': '✘',
             \ 'warnings': '',
@@ -5,5 +7,5 @@ let g:lin_globals_diagnostic_signs = {
             \ 'hints': '⚑',
             \ }
 
-" Border options: single,double,rounded,solid,shadow
+" UI Border options: single,double,rounded,solid,shadow
 let g:lin_globals_ui_border = 'rounded'
