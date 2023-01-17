@@ -792,18 +792,23 @@ class Render:
         core_plugins, core_vimrcs, core_color_settings = self.render_core()
 
         plugin_stmts = self.render_plugin_stmts(core_plugins)
+        constant_setting_stmts = self.render_constant_setting_stmts()
         lsp_setting_stmts = self.render_lsp_setting_stmts()
         color_setting_stmts = self.render_color_setting_stmts(core_color_settings)
         setting_stmts = self.render_setting_stmts()
         vimrc_stmts = self.render_vimrc_stmts(core_vimrcs)
 
         plugins_content = "".join([s.render() for s in plugin_stmts])
+        constant_settings_content = "".join(
+            [s.render() for s in constant_setting_stmts]
+        )
         lsp_settings_content = "".join([s.render() for s in lsp_setting_stmts])
         color_settings_content = "".join([s.render() for s in color_setting_stmts])
         settings_content = "".join([s.render() for s in setting_stmts])
         vimrc_content = "".join([s.render() for s in vimrc_stmts])
         return (
             plugins_content,
+            constant_settings_content,
             lsp_settings_content,
             color_settings_content,
             settings_content,
@@ -829,7 +834,7 @@ class Render:
         vimrc_stmts.append(Stmt(LuaExpr(LiteralExpr("require('plugins')"))))
         vimrc_stmts.append(SourceStmtFromVimDir("standalone/basic.vim"))
         vimrc_stmts.append(SourceStmtFromVimDir("standalone/filetype.vim"))
-        vimrc_stmts.append(SourceStmtFromVimDir("standalone/constants.vim"))
+        vimrc_stmts.append(SourceStmtFromVimDir("constant-settings.vim"))
 
         # insert core vimrc statements
         vimrc_stmts.extend(core_vimrcs)
@@ -838,8 +843,18 @@ class Render:
         vimrc_stmts.append(Stmt(CommentExpr(LiteralExpr("---- Custom settings ----"))))
         vimrc_stmts.append(SourceStmtFromVimDir("lsp-settings.vim"))
         vimrc_stmts.append(SourceStmtFromVimDir("color-settings.vim"))
-        vimrc_stmts.append(SourceStmtFromVimDir("settings.vim"))
+        vimrc_stmts.append(SourceStmtFromVimDir("other-settings.vim"))
         return vimrc_stmts
+
+    # constant-settings.vim
+    def render_constant_setting_stmts(self):
+        constant_setting_stmts = []
+        constant_setting_stmts.append(
+            TemplateContent(
+                pathlib.Path(f"{TEMPLATE_DIR}/constant-settings-template.vim")
+            )
+        )
+        return constant_setting_stmts
 
     # lsp-settings.vim
     def render_lsp_setting_stmts(self):
@@ -982,12 +997,14 @@ class FileDumper:
     def __init__(
         self,
         plugins_content,
+        constant_settings_content,
         lsp_settings_content,
         color_settings_content,
         settings_content,
         vimrc_content,
     ) -> None:
         self.plugins_content = plugins_content
+        self.constant_settings_content = constant_settings_content
         self.lsp_settings_content = lsp_settings_content
         self.color_settings_content = color_settings_content
         self.settings_content = settings_content
@@ -999,6 +1016,7 @@ class FileDumper:
 
     def config(self):
         plugins_file = f"{VIM_DIR}/lua/plugins.lua"
+        constant_settings_file = f"{VIM_DIR}/constant-settings.vim"
         lsp_settings_file = f"{VIM_DIR}/lsp-settings.vim"
         color_settings_file = f"{VIM_DIR}/color-settings.vim"
         settings_file = f"{VIM_DIR}/settings.vim"
@@ -1006,6 +1024,9 @@ class FileDumper:
         pathlib.Path(f"{VIM_DIR}/lua").mkdir(parents=True, exist_ok=True)
         with open(plugins_file, "w") as fp:
             fp.write(self.plugins_content)
+        try_backup(pathlib.Path(constant_settings_file))
+        with open(constant_settings_file, "w") as fp:
+            fp.write(self.constant_settings_content)
         try_backup(pathlib.Path(lsp_settings_file))
         with open(lsp_settings_file, "w") as fp:
             fp.write(self.lsp_settings_content)
@@ -1111,6 +1132,7 @@ def generator(
     )
     (
         plugins_content,
+        constant_settings_content,
         lsp_settings_content,
         color_settings_content,
         settings_content,
