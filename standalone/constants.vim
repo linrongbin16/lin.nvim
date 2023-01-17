@@ -5,4 +5,5 @@ let g:lin_globals_diagnostic_signs = {
             \ 'hints': '⚑',
             \ }
 
+" Border options: single,double,rounded,solid,shadow
 let g:lin_globals_border = 'rounded'
