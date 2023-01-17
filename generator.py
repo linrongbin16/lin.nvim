@@ -405,9 +405,6 @@ PLUGIN_CONTEXTS = [
         tag=PluginTag.COLORSCHEME,
     ),
     PluginContext(
-        "drewtempelmeyer", "palenight.vim", color="palenight", tag=PluginTag.COLORSCHEME
-    ),
-    PluginContext(
         "EdenEast",
         "nightfox.nvim",
         color="nightfox",
@@ -517,19 +514,25 @@ PLUGIN_CONTEXTS = [
     ),
     PluginContext("sainnhe", "edge", color="edge", tag=PluginTag.COLORSCHEME),
     PluginContext(
+        "sainnhe", "everforest", color="everforest", tag=PluginTag.COLORSCHEME
+    ),
+    PluginContext(
         "sainnhe",
         "gruvbox-material",
         color="gruvbox-material",
         tag=PluginTag.COLORSCHEME,
-    ),
-    PluginContext(
-        "sainnhe", "everforest", color="everforest", tag=PluginTag.COLORSCHEME
     ),
     PluginContext("sainnhe", "sonokai", color="sonokai", tag=PluginTag.COLORSCHEME),
     PluginContext("shaunsingh", "nord.nvim", color="nord", tag=PluginTag.COLORSCHEME),
     PluginContext("sonph", "onehalf", color="onehalfdark", tag=PluginTag.COLORSCHEME),
     PluginContext(
         "srcery-colors", "srcery-vim", color="srcery", tag=PluginTag.COLORSCHEME
+    ),
+    PluginContext(
+        "tomasiser",
+        "vim-code-dark",
+        color="codedark",
+        tag=PluginTag.COLORSCHEME,
     ),
     # Highlight
     PluginContext(
