@@ -42,7 +42,7 @@ vim.diagnostic.config({
     virtual_text = false,
     severity_sort = true,
     float = {
-        border = vim.g.lin_globals_border,
+        border = vim.g.lin_globals_ui_border,
         source = 'always',
         header = '',
         prefix = '',
@@ -52,11 +52,11 @@ vim.diagnostic.config({
 -- hover/signatureHelp
 vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
     vim.lsp.handlers.hover,
-    { border = vim.g.lin_globals_border }
+    { border = vim.g.lin_globals_ui_border }
 )
 vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
     vim.lsp.handlers.signature_help,
-    { border = vim.g.lin_globals_border }
+    { border = vim.g.lin_globals_ui_border }
 )
 
 -- lspconfig

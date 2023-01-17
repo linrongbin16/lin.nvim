@@ -685,7 +685,18 @@ PLUGINS = [
         ],
         tag=Tag.LANGUAGE,
     ),
-    Plugin("simrat39", "rust-tools.nvim", tag=Tag.LANGUAGE),
+    Plugin(
+        "p00f",
+        "clangd_extensions.nvim",
+        top_clause=CommentExpr(LiteralExpr("Clangd extension")),
+        tag=Tag.LANGUAGE,
+    ),
+    Plugin(
+        "simrat39",
+        "rust-tools.nvim",
+        top_clause=CommentExpr(LiteralExpr("Rust-analyzer extension")),
+        tag=Tag.LANGUAGE,
+    ),
     Plugin(
         "justinmk",
         "vim-syntax-extra",

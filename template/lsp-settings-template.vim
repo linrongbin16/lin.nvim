@@ -98,9 +98,38 @@ lua<<EOF
         end,
 
         -- Specific server setup.
-        -- ["rust_analyzer"] = function ()
-        --     require("rust-tools").setup {}
-        -- end
+        clangd = function()
+            require("clangd_extensions").setup{
+                ast = {
+                    role_icons = {
+                        type = "",
+                        declaration = "",
+                        expression = "",
+                        specifier = "",
+                        statement = "",
+                        ["template argument"] = "",
+                    },
+                    kind_icons = {
+                        Compound = "",
+                        Recovery = "",
+                        TranslationUnit = "",
+                        PackExpansion = "",
+                        TemplateTypeParm = "",
+                        TemplateTemplateParm = "",
+                        TemplateParamObject = "",
+                    },
+                },
+                memory_usage = {
+                    border = vim.g.lin_globals_ui_border,
+                },
+                symbol_info = {
+                    border = vim.g.lin_globals_ui_border,
+                },
+            }
+        end
+        ["rust_analyzer"] = function ()
+            require("rust-tools").setup {}
+        end
     }
 
     -- Setup mason-lspconfig

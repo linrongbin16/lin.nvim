@@ -6,4 +6,4 @@ let g:lin_globals_diagnostic_signs = {
             \ }
 
 " Border options: single,double,rounded,solid,shadow
-let g:lin_globals_border = 'rounded'
+let g:lin_globals_ui_border = 'rounded'
