@@ -597,6 +597,11 @@ PLUGINS = [
         top_clause=CommentExpr(LiteralExpr("UI hooks")),
     ),
     Plugin(
+        "karb94",
+        "neoscroll.nvim",
+        top_clause=CommentExpr(LiteralExpr("Smooth scrolling")),
+    ),
+    Plugin(
         "liuchengxu",
         "vista.vim",
         top_clause=CommentExpr(LiteralExpr("Structures/Outlines")),
