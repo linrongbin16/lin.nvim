@@ -163,5 +163,4 @@ null_ls.setup({
     sources = null_ls_sources,
 })
 
-
 -- }}
