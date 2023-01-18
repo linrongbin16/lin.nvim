@@ -4,6 +4,8 @@ let $FZF_DEFAULT_COMMAND = 'fd --type f --type symlink --color=never --ignore-ca
 """ Fzf command prefix
 let g:fzf_command_prefix = 'Fzf'
 
+# for advanced rg integration, please see:
+" https://github.com/junegunn/fzf.vim#example-advanced-ripgrep-integration
 command! -bang -nargs=* LinFzfRg
             \ call fzf#vim#grep(
             \ "rg --column --line-number --no-heading --color=always --smart-case --no-ignore --hidden --glob=!.git/ -- ".shellescape(<q-args>), 1,
