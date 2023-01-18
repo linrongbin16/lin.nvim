@@ -1,23 +1,23 @@
 
 """ ---- Hot keys ----
 " Toggle file explorer
-nnoremap <F1> :<C-u>NvimTreeToggle<CR>
+nnoremap <F1> :NvimTreeToggle<CR>
 " Toggle undotree
-nnoremap <F2> :<C-u>UndotreeToggle<CR>
+nnoremap <F2> :UndotreeToggle<CR>
 " Toggle outline
-nnoremap <F3> :<C-u>Vista!!<CR>
+nnoremap <F3> :Vista!!<CR>
 " Switch between C/C++ header and source
-nnoremap <F4> :<C-u>ClangdSwitchSourceHeader<CR>
+nnoremap <F4> :ClangdSwitchSourceHeader<CR>
 " Toggle marks
 nmap <F7> <Plug>MarkToggle
 " Clear marks, use '<Plug>MarkAllClear' without confirmation
 nmap <S-F7> <Plug>MarkConfirmAllClear
 " Markdown preview
-nnoremap <F8> :<C-u>MarkdownPreview<CR>
+nnoremap <F8> :MarkdownPreview<CR>
 " Toggle terminal
-nnoremap <F9> :<C-u>ToggleTerm<CR>
+nnoremap <F9> :ToggleTerm<CR>
 " Toggle bufexplorer
-nnoremap <F10> :<C-u>ToggleBufExplorer<CR>
+nnoremap <F10> :ToggleBufExplorer<CR>
 
 """ ---- Ctrl/cmd keys ----
 if exists('$VIMRUNTIME/mswin.vim')
@@ -34,7 +34,7 @@ xnoremap <Leader>y :w! ~/.vim/.copypaste<CR>
 nnoremap <Leader>p :r ~/.vim/.copypaste<CR>
 
 """ ---- nohlsearch ----
-nnoremap <C-l> :<C-u>nohlsearch<CR>
+nnoremap <C-l> :nohlsearch<CR>
 
 """ ---- Disable syntax highlight for super big file ----
 """ filesize=1000000

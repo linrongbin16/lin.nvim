@@ -18,7 +18,7 @@ command! -bang -nargs=0 LinFzfRgCWord
             \ fzf#vim#with_preview(), <bang>0)
 
 function! s:LinDefineFzfKeys(k, v) abort
-    execute printf('nnoremap <silent> <expr> %s (&filetype ==# "NvimTree" ? "\<C-w>\<C-w>" : "").":\<C-u>%s\<CR>"', a:k, a:v)
+    execute printf('nnoremap <silent> <expr> %s (&filetype ==# "NvimTree" ? "\<C-w>\<C-w>" : "").":%s\<CR>"', a:k, a:v)
 endfunction
 
 """ Text
