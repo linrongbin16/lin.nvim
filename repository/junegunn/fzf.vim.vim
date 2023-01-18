@@ -23,11 +23,10 @@ endfunction
 call s:LinDefineFzfKeys('<space>r', 'LinFzfRg')
 " cursor word/string
 call s:LinDefineFzfKeys('<space>w', 'LinFzfRgCWord')
-" lines on opened buffers
+" lines in opened buffers
 call s:LinDefineFzfKeys('<space>ln', 'FzfLines')
 " tags
 call s:LinDefineFzfKeys('<space>tg', 'FzfTags')
-
 
 """ History
 " search history
@@ -43,6 +42,12 @@ call s:LinDefineFzfKeys('<C-p>', 'FzfFiles')
 call s:LinDefineFzfKeys('<space>b', 'FzfBuffers')
 " history files/oldfiles
 call s:LinDefineFzfKeys('<space>hf', 'FzfHistory')
+
+""" Lsp
+" diagnostics in current buffer
+call s:LinDefineFzfKeys('<space>db', 'LspDiagnostics')
+" all diagnostics
+call s:LinDefineFzfKeys('<space>da', 'LspDiagnosticsAll')
 
 """ Git
 " git commits
