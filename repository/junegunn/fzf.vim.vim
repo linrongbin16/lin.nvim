@@ -44,10 +44,8 @@ call s:LinDefineFzfKeys('<space>b', 'FzfBuffers')
 call s:LinDefineFzfKeys('<space>hf', 'FzfHistory')
 
 """ Lsp
-" diagnostics in current buffer
-call s:LinDefineFzfKeys('<space>db', 'LspDiagnostics')
 " all diagnostics
-call s:LinDefineFzfKeys('<space>da', 'LspDiagnosticsAll')
+call s:LinDefineFzfKeys('<space>dg', 'LspDiagnosticsAll')
 
 """ Git
 " git commits
