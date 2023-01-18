@@ -333,15 +333,15 @@ class Plugin:
         org,
         repo,
         post=None,
+        above_clause=None,
         color=None,
-        top_clause=None,
         tag=None,
     ) -> None:
         self.org = org
         self.repo = repo
         self.post = post
+        self.above_clause = above_clause  # more clauses above this line
         self.color = color
-        self.top_clause = top_clause  # more clauses above this line
         self.tag = tag
 
     def __str__(self):
@@ -353,7 +353,7 @@ PLUGINS = [
     Plugin(
         "wbthomason",
         "packer.nvim",
-        top_clause=[
+        above_clause=[
             EmptyStmt(),
             CommentExpr(LiteralExpr("---- Infrastructure ----")),
         ],
@@ -378,11 +378,11 @@ PLUGINS = [
     Plugin(
         "bluz71",
         "vim-nightfly-colors",
-        color="nightfly",
-        top_clause=[
+        above_clause=[
             EmptyStmt(),
             CommentExpr(LiteralExpr("---- Colorscheme ----")),
         ],
+        color="nightfly",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
@@ -394,15 +394,15 @@ PLUGINS = [
     Plugin(
         "catppuccin",
         "nvim",
-        color="catppuccin",
         post="as = 'catppuccin'",
+        color="catppuccin",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
         "challenger-deep-theme",
         "vim",
-        color="challenger_deep",
         post="as = 'challenger-deep'",
+        color="challenger_deep",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
@@ -428,8 +428,8 @@ PLUGINS = [
     Plugin(
         "embark-theme",
         "vim",
-        color="embark",
         post="as = 'embark'",
+        color="embark",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
@@ -545,7 +545,7 @@ PLUGINS = [
     Plugin(
         "RRethy",
         "vim-illuminate",
-        top_clause=[
+        above_clause=[
             EmptyStmt(),
             CommentExpr(LiteralExpr("---- Highlight ----")),
         ],
@@ -572,7 +572,7 @@ PLUGINS = [
         "romgrk",
         "barbar.nvim",
         post="requires = 'nvim-tree/nvim-web-devicons'",
-        top_clause=[
+        above_clause=[
             EmptyStmt(),
             CommentExpr(LiteralExpr("---- UI ----")),
             CommentExpr(LiteralExpr("Tabline")),
@@ -582,46 +582,46 @@ PLUGINS = [
         "kyazdani42",
         "nvim-tree.lua",
         post="requires = 'nvim-tree/nvim-web-devicons'",
-        top_clause=CommentExpr(LiteralExpr("Explorer")),
+        above_clause=CommentExpr(LiteralExpr("Explorer")),
     ),
     Plugin("jlanzarotta", "bufexplorer"),
     Plugin(
         "lukas-reineke",
         "indent-blankline.nvim",
-        top_clause=CommentExpr(LiteralExpr("Indentline")),
+        above_clause=CommentExpr(LiteralExpr("Indentline")),
     ),
     Plugin(
         "nvim-lualine",
         "lualine.nvim",
         post="requires = 'nvim-tree/nvim-web-devicons'",
-        top_clause=CommentExpr(LiteralExpr("Statusline")),
+        above_clause=CommentExpr(LiteralExpr("Statusline")),
     ),
     Plugin("nvim-lua", "lsp-status.nvim"),
     Plugin(
         "lewis6991",
         "gitsigns.nvim",
-        top_clause=CommentExpr(LiteralExpr("Git")),
+        above_clause=CommentExpr(LiteralExpr("Git")),
     ),
     Plugin(
         "akinsho",
         "toggleterm.nvim",
         post="tag = '*'",
-        top_clause=CommentExpr(LiteralExpr("Terminal")),
+        above_clause=CommentExpr(LiteralExpr("Terminal")),
     ),
     Plugin(
         "stevearc",
         "dressing.nvim",
-        top_clause=CommentExpr(LiteralExpr("UI hooks")),
+        above_clause=CommentExpr(LiteralExpr("UI hooks")),
     ),
     Plugin(
         "karb94",
         "neoscroll.nvim",
-        top_clause=CommentExpr(LiteralExpr("Smooth scrolling")),
+        above_clause=CommentExpr(LiteralExpr("Smooth scrolling")),
     ),
     Plugin(
         "liuchengxu",
         "vista.vim",
-        top_clause=CommentExpr(LiteralExpr("Structures/Outlines")),
+        above_clause=CommentExpr(LiteralExpr("Structures/Outlines")),
     ),
     Plugin("ludovicchabant", "vim-gutentags"),
     # Search
@@ -629,7 +629,7 @@ PLUGINS = [
         "junegunn",
         "fzf",
         post='run = ":call fzf#install()"',
-        top_clause=[
+        above_clause=[
             EmptyStmt(),
             CommentExpr(LiteralExpr("---- Search ----")),
         ],
@@ -640,7 +640,7 @@ PLUGINS = [
     Plugin(
         "williamboman",
         "mason.nvim",
-        top_clause=[
+        above_clause=[
             EmptyStmt(),
             CommentExpr(LiteralExpr("---- LSP server ----")),
         ],
@@ -700,7 +700,7 @@ PLUGINS = [
         "iamcco",
         "markdown-preview.nvim",
         post=' run = "cd app && npm install", setup = function() vim.g.mkdp_filetypes = { "markdown" } end, ft = { "markdown" },',
-        top_clause=[
+        above_clause=[
             EmptyStmt(),
             CommentExpr(LiteralExpr("---- Language support ----")),
             CommentExpr(LiteralExpr("Markdown")),
@@ -710,41 +710,41 @@ PLUGINS = [
     Plugin(
         "p00f",
         "clangd_extensions.nvim",
-        top_clause=CommentExpr(LiteralExpr("Clangd extension")),
+        above_clause=CommentExpr(LiteralExpr("Clangd extension")),
         tag=Tag.LANGUAGE,
     ),
     Plugin(
         "simrat39",
         "rust-tools.nvim",
-        top_clause=CommentExpr(LiteralExpr("Rust-analyzer extension")),
+        above_clause=CommentExpr(LiteralExpr("Rust-analyzer extension")),
         tag=Tag.LANGUAGE,
     ),
     Plugin(
         "justinmk",
         "vim-syntax-extra",
         post="ft = {'lex', 'flex', 'yacc', 'bison'}",
-        top_clause=CommentExpr(LiteralExpr("Lex/yacc, flex/bison")),
+        above_clause=CommentExpr(LiteralExpr("Lex/yacc, flex/bison")),
         tag=Tag.LANGUAGE,
     ),
     Plugin(
         "rhysd",
         "vim-llvm",
         post="ft = {'llvm', 'mir', 'mlir', 'tablegen'}",
-        top_clause=CommentExpr(LiteralExpr("LLVM")),
+        above_clause=CommentExpr(LiteralExpr("LLVM")),
         tag=Tag.LANGUAGE,
     ),
     Plugin(
         "zebradil",
         "hive.vim",
         post="ft = {'hive'}",
-        top_clause=CommentExpr(LiteralExpr("Hive")),
+        above_clause=CommentExpr(LiteralExpr("Hive")),
         tag=Tag.LANGUAGE,
     ),
     Plugin(
         "slim-template",
         "vim-slim",
         post="ft = {'slim'}",
-        top_clause=CommentExpr(LiteralExpr("Slim")),
+        above_clause=CommentExpr(LiteralExpr("Slim")),
         tag=Tag.LANGUAGE,
     ),
     # Movement
@@ -752,7 +752,7 @@ PLUGINS = [
         "phaazon",
         "hop.nvim",
         post="branch = 'v2'",
-        top_clause=[
+        above_clause=[
             EmptyStmt(),
             CommentExpr(LiteralExpr("---- Movement ----")),
             CommentExpr(LiteralExpr("Cursor Movement")),
@@ -767,7 +767,7 @@ PLUGINS = [
     Plugin(
         "alvan",
         "vim-closetag",
-        top_clause=[
+        above_clause=[
             EmptyStmt(),
             CommentExpr(LiteralExpr("---- Editing enhancement ----")),
             CommentExpr(LiteralExpr("HTML tag")),
@@ -777,26 +777,26 @@ PLUGINS = [
     Plugin(
         "numToStr",
         "Comment.nvim",
-        top_clause=CommentExpr(LiteralExpr("Comment")),
+        above_clause=CommentExpr(LiteralExpr("Comment")),
         tag=Tag.EDITING,
     ),
     Plugin(
         "windwp",
         "nvim-autopairs",
-        top_clause=CommentExpr(LiteralExpr("Autopair")),
+        above_clause=CommentExpr(LiteralExpr("Autopair")),
         tag=Tag.EDITING,
     ),
     Plugin(
         "haya14busa",
         "is.vim",
-        top_clause=CommentExpr(LiteralExpr("Incremental search")),
+        above_clause=CommentExpr(LiteralExpr("Incremental search")),
         tag=Tag.EDITING,
     ),
     Plugin(
         "tpope",
         "vim-repeat",
+        above_clause=CommentExpr(LiteralExpr("Other")),
         tag=Tag.EDITING,
-        top_clause=CommentExpr(LiteralExpr("Other")),
     ),
     Plugin("mbbill", "undotree", tag=Tag.EDITING),
     Plugin("editorconfig", "editorconfig-vim", tag=Tag.EDITING),
@@ -943,21 +943,21 @@ class Render:
         colorscheme_stmts = []
         for ctx in PLUGINS:
             assert isinstance(ctx, Plugin)
-            # top
-            if ctx.top_clause:
-                tops = (
-                    ctx.top_clause
-                    if isinstance(ctx.top_clause, list)
-                    else [ctx.top_clause]
+            # above
+            if ctx.above_clause:
+                aboves = (
+                    ctx.above_clause
+                    if isinstance(ctx.above_clause, list)
+                    else [ctx.above_clause]
                 )
-                for top in tops:
-                    assert isinstance(top, Expr)
-                    if isinstance(top, EmptyStmt):
-                        plugin_stmts.append(to_lua(top))
-                        init_stmts.append(top)
-                    elif isinstance(top, CommentExpr):
-                        cs = Stmt(top)
-                        plugin_stmts.append(Stmt(IndentExpr(to_lua(top))))
+                for above in aboves:
+                    assert isinstance(above, Expr)
+                    if isinstance(above, EmptyStmt):
+                        plugin_stmts.append(to_lua(above))
+                        init_stmts.append(above)
+                    elif isinstance(above, CommentExpr):
+                        cs = Stmt(above)
+                        plugin_stmts.append(Stmt(IndentExpr(to_lua(above))))
                         init_stmts.append(cs)
                     else:
                         assert False
