@@ -1,11 +1,8 @@
 """ Use fd for fzf file finding, instead of default find
 let $FZF_DEFAULT_COMMAND = 'fd --type f --type symlink --color=never --ignore-case --no-ignore --hidden --exclude ".git"'
 
-
 """ Fzf command prefix
 let g:fzf_command_prefix = 'Fzf'
-
-""" Text search
 
 command! -bang -nargs=* LinFzfRg
             \ call fzf#vim#grep(
@@ -22,7 +19,6 @@ function! s:LinDefineFzfKeys(k, v) abort
 endfunction
 
 """ Text
-
 " live grep
 call s:LinDefineFzfKeys('<space>r', 'LinFzfRg')
 " cursor word/string
