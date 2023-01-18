@@ -38,7 +38,7 @@ set selectmode=mouse,key
 set cindent smartindent autoindent
 set expandtab smarttab tabstop=4 softtabstop=4 shiftwidth=4
 
-" plugin
+" filetype
 filetype on
 filetype plugin indent on
 
@@ -77,7 +77,10 @@ set number norelativenumber ruler showcmd showmatch showmode wrap
 set signcolumn=yes cmdheight=2 laststatus=2 scrolloff=1 shortmess+=c updatetime=300
 
 """ render
-set lazyredraw ttyfast redrawtime=1000 maxmempattern=102400
+set redrawtime=1000 maxmempattern=100000
+
+""" shorter timeout, better response
+set ttimeout ttimeoutlen=100
 
 """ tags
 set tags+=./tags,tags
@@ -94,9 +97,6 @@ endif
 if has('win32') || has('win64')
     autocmd GUIEnter * simalt ~x
 endif
-
-""" shorter timeout for better response
-set timeout timeoutlen=3000 ttimeoutlen=100
 
 """ disable macvim GUI key mappings
 if has("gui_macvim")

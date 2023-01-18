@@ -1023,7 +1023,6 @@ class FileDumper:
         self.init_vim()
 
     def config(self):
-
         pathlib.Path(f"{VIM_DIR}/lua").mkdir(parents=True, exist_ok=True)
 
         plugins_file = f"{VIM_DIR}/lua/plugins.lua"
