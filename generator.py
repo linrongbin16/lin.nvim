@@ -747,6 +747,22 @@ PLUGINS = [
         top_clause=CommentExpr(LiteralExpr("Slim")),
         tag=Tag.LANGUAGE,
     ),
+    # Movement
+    Plugin(
+        "phaazon",
+        "hop.nvim",
+        post="branch = 'v2'",
+        top_clause=[
+            EmptyStmt(),
+            CommentExpr(LiteralExpr("---- Movement ----")),
+            CommentExpr(LiteralExpr("Cursor Movement")),
+        ],
+        tag=Tag.EDITING,
+    ),
+    Plugin(
+        "ggandor", "leap.nvim", post="requires = 'tpope/vim-repeat'", tag=Tag.EDITING
+    ),
+    Plugin("chaoren", "vim-wordmotion", tag=Tag.EDITING),
     # Editing enhancement
     Plugin(
         "alvan",
@@ -763,16 +779,6 @@ PLUGINS = [
         "Comment.nvim",
         top_clause=CommentExpr(LiteralExpr("Comment")),
         tag=Tag.EDITING,
-    ),
-    Plugin(
-        "phaazon",
-        "hop.nvim",
-        post="branch = 'v2'",
-        top_clause=CommentExpr(LiteralExpr("Cursor motion")),
-        tag=Tag.EDITING,
-    ),
-    Plugin(
-        "ggandor", "leap.nvim", post="requires = 'tpope/vim-repeat'", tag=Tag.EDITING
     ),
     Plugin(
         "windwp",
@@ -792,7 +798,6 @@ PLUGINS = [
         tag=Tag.EDITING,
         top_clause=CommentExpr(LiteralExpr("Other")),
     ),
-    Plugin("chaoren", "vim-wordmotion", tag=Tag.EDITING),
     Plugin("mbbill", "undotree", tag=Tag.EDITING),
     Plugin("editorconfig", "editorconfig-vim", tag=Tag.EDITING),
 ]
