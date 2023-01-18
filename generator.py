@@ -248,12 +248,12 @@ class HackNerdFontExpr(Expr):
 
     def render(self):
         if IS_WINDOWS:
-            return f"set guifont=Hack\\ NFM:h10"
+            return "set guifont=Hack\\ NFM:h10"
         elif IS_MACOS:
-            return f"set guifont=Hack\\ Nerd\\ Font\\ Mono:h13"
+            return "set guifont=Hack\\ Nerd\\ Font\\ Mono:h13"
         else:
             # Linux
-            return f"set guifont=Hack\\ Nerd\\ Font\\ Mono:h10"
+            return "set guifont=Hack\\ Nerd\\ Font\\ Mono:h10"
 
 
 class RequireExpr(Expr):
