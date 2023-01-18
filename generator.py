@@ -876,9 +876,10 @@ class Render:
     # lspservers.lua
     def render_lspserver_stmts(self):
         lsp_setting_stmts = []
-        lsp_setting_stmts.append(
-            TemplateContent(pathlib.Path(f"{TEMPLATE_DIR}/lspservers-template.lua"))
-        )
+        if not self.disable_language:
+            lsp_setting_stmts.append(
+                TemplateContent(pathlib.Path(f"{TEMPLATE_DIR}/lspservers-template.lua"))
+            )
         return lsp_setting_stmts
 
     # colorschemes.vim
