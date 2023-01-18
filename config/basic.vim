@@ -1,5 +1,6 @@
 """ ---- Basic settings ----
 
+""" runtime
 set runtimepath^=$HOME/.vim
 
 """ VI compatible
@@ -17,8 +18,10 @@ autocmd FocusGained,BufEnter * checktime
 set backspace=indent,eol,start
 set whichwrap+=b,s,<,>,[,]
 set clipboard^=unnamed,unnamedplus
+set history=1000
 
 """ language
+set nolangremap
 language messages en_US.UTF-8
 
 """ encoding
@@ -60,8 +63,8 @@ if has('patch-8.0.1238')
 endif
 
 """ whitespace
-set listchars=tab:>·,trail:~,extends:>,precedes:<
-" set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
+set listchars=tab:>·,trail:~,extends:>,precedes:<,nbsp:+
+" set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣,nbsp:+
 set list
 
 """ color
@@ -74,7 +77,10 @@ set nocursorcolumn cursorline
 
 """ ui
 set number norelativenumber ruler showcmd showmatch showmode wrap
-set signcolumn=yes cmdheight=2 laststatus=2 scrolloff=1 shortmess+=c updatetime=300
+set signcolumn=yes cmdheight=2 laststatus=2 scrolloff=1 shortmess+=c updatetime=300 display+=lastline
+if has('patch-7.4.2109')
+    set display+=truncate
+endif
 
 """ render
 set redrawtime=1000 maxmempattern=100000
@@ -84,6 +90,10 @@ set ttimeout ttimeoutlen=100
 
 """ tags
 set tags+=./tags,tags
+
+""" disable save options in session and view
+set sessionoptions-=options
+set viewoptions-=options
 
 """ disable GUI menu
 set guioptions-=T
