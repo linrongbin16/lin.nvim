@@ -34,7 +34,9 @@ install_or_skip "sudo apt-get install -y cmake" "cmake"
 install_or_skip "sudo apt-get install -y xsel" "xsel"
 install_or_skip "sudo apt-get install -y xclip" "xclip"
 install_or_skip "sudo apt-get install -y wl-clipboard" "wl-copy"
-
+install_or_skip "sudo apt-get install -y bat" "batcat"
+install_or_skip "sudo apt-get install -y ripgrep" "rg"
+install_or_skip "sudo apt-get install -y fd-find" "fdfind"
 
 # locale
 sudo locale-gen en_US

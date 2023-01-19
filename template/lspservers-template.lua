@@ -32,8 +32,6 @@ local embeded_servers = {
     "sumneko_lua",
     -- python
     "pyright",
-    -- rust
-    "rust_analyzer",
     -- yaml
     "yamlls",
     -- vim
@@ -116,9 +114,9 @@ require("mason-lspconfig").setup_handlers {
             }
         }
     end,
-    ["rust_analyzer"] = function()
-        require("rust-tools").setup {}
-    end
+    -- ["rust_analyzer"] = function()
+    --     require("rust-tools").setup {}
+    -- end
 }
 
 -- Setup mason-lspconfig

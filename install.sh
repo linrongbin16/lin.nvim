@@ -24,14 +24,6 @@ packer_dependency() {
 	fi
 }
 
-rust_dependency() {
-	install_or_skip "curl https://sh.rustup.rs -sSf | sh -s -- -y" "rustc"
-	source $HOME/.cargo/env
-	install_or_skip "cargo install ripgrep" "rg"
-	install_or_skip "cargo install fd-find" "fd"
-	install_or_skip "cargo install --locked bat" "bat"
-}
-
 # vim-hexokinase has been replaced with nvim-colorizer.lua, so golang is no longer needed as a dependency.
 # golang_dependency() {
 # 	# https://github.com/kerolloz/go-installer
@@ -171,7 +163,6 @@ else
 		;;
 	esac
 	packer_dependency
-	rust_dependency
 	pip3_dependency
 	npm_dependency
 	guifont_dependency

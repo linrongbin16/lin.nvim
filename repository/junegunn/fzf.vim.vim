@@ -1,5 +1,9 @@
 """ Use fd for fzf file finding, instead of default find
-let $FZF_DEFAULT_COMMAND = 'fd -tf -tl -i -u --exclude ".git"'
+if executable('fd')
+    let $FZF_DEFAULT_COMMAND = 'fd -tf -tl -i -u --exclude ".git"'
+elseif executable('fdfind')
+    let $FZF_DEFAULT_COMMAND = 'fdfind -tf -tl -i -u --exclude ".git"'
+endif
 let $BAT_THEME = 'base16'
 
 """ Fzf command prefix

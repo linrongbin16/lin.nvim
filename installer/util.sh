@@ -7,8 +7,11 @@ message() {
 
 
 skip_message() {
-    local target="$1"
+    local old="$IFS"
+    IFS='/'
+    local target="'$*'"
     message "'$target' already exist, skip..."
+    IFS=$old
 }
 
 error_message() {
