@@ -554,7 +554,9 @@ PLUGINS = [
         tag=Tag.COLORSCHEME,
     ),
     Plugin("shaunsingh", "nord.nvim", color="nord", tag=Tag.COLORSCHEME),
-    Plugin("sonph", "onehalf", color="onehalfdark", tag=Tag.COLORSCHEME),
+    Plugin("sonph", "onehalf", 
+           post="rtp = 'vim/'",
+           color="onehalfdark", tag=Tag.COLORSCHEME),
     Plugin("srcery-colors", "srcery-vim", color="srcery", tag=Tag.COLORSCHEME),
     # Highlight
     Plugin(
