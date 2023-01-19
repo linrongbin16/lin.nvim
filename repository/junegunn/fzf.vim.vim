@@ -1,5 +1,6 @@
 """ Use fd for fzf file finding, instead of default find
-let $FZF_DEFAULT_COMMAND = 'fd --type f --type symlink --color=never --ignore-case --no-ignore --hidden --exclude ".git"'
+let $FZF_DEFAULT_COMMAND = 'fd -tf -tl -i -u --exclude ".git"'
+let $BAT_THEME = 'base16'
 
 """ Fzf command prefix
 let g:fzf_command_prefix = 'Fzf'
@@ -8,12 +9,12 @@ let g:fzf_command_prefix = 'Fzf'
 " https://github.com/junegunn/fzf.vim#example-advanced-ripgrep-integration
 command! -bang -nargs=* LinFzfRg
             \ call fzf#vim#grep(
-            \ "rg --column --line-number --no-heading --color=always --smart-case --no-ignore --hidden --glob=!.git/ -- ".shellescape(<q-args>), 1,
+            \ "rg --column --no-heading --color=always -S -u -u --glob=!.git/ -- ".shellescape(<q-args>), 1,
             \ fzf#vim#with_preview(), <bang>0)
 
 command! -bang -nargs=0 LinFzfRgCWord
             \ call fzf#vim#grep(
-            \ "rg --column --line-number --no-heading --color=always --smart-case --no-ignore --hidden --glob=!.git/ ".shellescape(expand('<cword>')), 1,
+            \ "rg --column --no-heading --color=always -S -u -u --glob=!.git/ ".shellescape(expand('<cword>')), 1,
             \ fzf#vim#with_preview(), <bang>0)
 
 function! s:LinDefineFzfKeys(k, v) abort
