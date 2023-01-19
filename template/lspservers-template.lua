@@ -34,18 +34,12 @@ local embeded_servers = {
     "tsserver",
     -- lua
     "sumneko_lua",
-    -- markdown
-    "marksman",
-    -- protobuf
-    "bufls",
     -- python
     "pyright",
     -- rust
     "rust_analyzer",
     -- sql
     "sqlls",
-    -- toml
-    "taplo",
     -- yaml
     "yamlls",
     -- vim
@@ -89,7 +83,7 @@ end
 -- Setup nvim-lspconfig
 require("mason-lspconfig").setup_handlers {
     -- Default server setup for nvim-lspconfig.
-    function (server)
+    function(server)
         require('lspconfig')[server].setup {
             on_attach = require('lsp-status').on_attach,
             capabilities = require('lsp-status').capabilities
@@ -98,7 +92,7 @@ require("mason-lspconfig").setup_handlers {
 
     -- Specific server setup.
     clangd = function()
-        require("clangd_extensions").setup{
+        require("clangd_extensions").setup {
             extensions = {
                 ast = {
                     role_icons = {
@@ -128,7 +122,7 @@ require("mason-lspconfig").setup_handlers {
             }
         }
     end,
-    ["rust_analyzer"] = function ()
+    ["rust_analyzer"] = function()
         require("rust-tools").setup {}
     end
 }
