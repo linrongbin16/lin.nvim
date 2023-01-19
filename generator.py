@@ -594,7 +594,7 @@ PLUGINS = [
         ],
     ),
     Plugin(
-        "kyazdani42",
+        "nvim-tree",
         "nvim-tree.lua",
         post="requires = 'nvim-tree/nvim-web-devicons'",
         above_clause=CommentExpr(LiteralExpr("Explorer")),

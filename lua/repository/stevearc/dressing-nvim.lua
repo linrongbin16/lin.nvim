@@ -1,4 +1,4 @@
-local window_transparency = 90
+local window_transparency = 0
 
 local function LinGetConfig()
     -- put UI box in global editor if window is too small
