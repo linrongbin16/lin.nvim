@@ -266,7 +266,7 @@ class RequireExpr(Expr):
 
 
 class LuaRequireStmt(Expr):
-    def __init__(self, expr) -> None:
+    def __init__(self, expr):
         self.expr = Stmt(LuaExpr(RequireExpr(SingleQuoteStringExpr(expr))))
 
     def render(self):
@@ -411,14 +411,6 @@ PLUGINS = [
         color="iceberg",
         tag=Tag.COLORSCHEME,
     ),
-    Plugin("crusoexia", "vim-monokai", color="monokai", tag=Tag.COLORSCHEME),
-    Plugin(
-        "dracula",
-        "vim",
-        post="as = 'dracula'",
-        color="dracula",
-        tag=Tag.COLORSCHEME,
-    ),
     Plugin(
         "EdenEast",
         "nightfox.nvim",
@@ -445,7 +437,13 @@ PLUGINS = [
         color="tokyonight",
         tag=Tag.COLORSCHEME,
     ),
-    Plugin("joshdick", "onedark.vim", color="onedark", tag=Tag.COLORSCHEME),
+    Plugin(
+        "ishan9299",
+        "nvim-solarized-lua",
+        above_clause=CommentExpr(LiteralExpr("inherit 'lifepillar/vim-solarized8'")),
+        color="solarized",
+        tag=Tag.COLORSCHEME,
+    ),
     Plugin(
         "junegunn",
         "seoul256.vim",
@@ -453,23 +451,48 @@ PLUGINS = [
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
-        "kaicataldo",
-        "material.vim",
+        "luisiacc",
+        "gruvbox-baby",
+        above_clause=CommentExpr(LiteralExpr("inherit sainnhe/gruvbox-material")),
         post="branch = 'main'",
+        color="gruvbox-baby",
+        tag=Tag.COLORSCHEME,
+    ),
+    Plugin(
+        "marko-cerovac",
+        "material.nvim",
+        above_clause=CommentExpr(LiteralExpr("inherit kaicataldo/material.vim")),
         color="material",
         tag=Tag.COLORSCHEME,
     ),
     Plugin("KeitaNakamura", "neodark.vim", color="neodark", tag=Tag.COLORSCHEME),
     Plugin(
-        "lifepillar",
-        "vim-solarized8",
-        color="solarized8",
-        tag=Tag.COLORSCHEME,
-    ),
-    Plugin(
         "mhartington",
         "oceanic-next",
         color="OceanicNext",
+        tag=Tag.COLORSCHEME,
+    ),
+    Plugin(
+        "Mofiqul",
+        "dracula.nvim",
+        above_clause=CommentExpr(LiteralExpr("inherit dracula/vim")),
+        color="dracula",
+        tag=Tag.COLORSCHEME,
+    ),
+    Plugin(
+        "navarasu",
+        "onedark.nvim",
+        above_clause=CommentExpr(LiteralExpr("inherit joshdick/onedark.vim")),
+        color="onedark",
+        tag=Tag.COLORSCHEME,
+    ),
+    Plugin(
+        "olimorris",
+        "onedarkpro.nvim",
+        above_clause=CommentExpr(
+            LiteralExpr("competitors: tomasiser/vim-code-dark, ")
+        ),
+        color="onedark",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
@@ -527,20 +550,14 @@ PLUGINS = [
     Plugin("sainnhe", "everforest", color="everforest", tag=Tag.COLORSCHEME),
     Plugin(
         "sainnhe",
-        "gruvbox-material",
-        color="gruvbox-material",
+        "sonokai",
+        above_clause=CommentExpr(LiteralExpr("inherit sickill/vim-monokai")),
+        color="sonokai",
         tag=Tag.COLORSCHEME,
     ),
-    Plugin("sainnhe", "sonokai", color="sonokai", tag=Tag.COLORSCHEME),
     Plugin("shaunsingh", "nord.nvim", color="nord", tag=Tag.COLORSCHEME),
     Plugin("sonph", "onehalf", color="onehalfdark", tag=Tag.COLORSCHEME),
     Plugin("srcery-colors", "srcery-vim", color="srcery", tag=Tag.COLORSCHEME),
-    Plugin(
-        "tomasiser",
-        "vim-code-dark",
-        color="codedark",
-        tag=Tag.COLORSCHEME,
-    ),
     # Highlight
     Plugin(
         "RRethy",
