@@ -6,10 +6,9 @@
 .copypaste
 
 # plugins
-plugged
 plugin/packer_compiled.lua
 
-# user settings
+# generated
 lua/plugins.lua*
 lua/lspservers.lua*
 settings.vim*
