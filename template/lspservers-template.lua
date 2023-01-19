@@ -22,10 +22,6 @@ local embeded_servers = {
     -- css
     "cssls",
     "cssmodules_ls",
-    -- grammar
-    "grammarly",
-    -- graphql
-    "graphql",
     -- html
     "html",
     -- json
