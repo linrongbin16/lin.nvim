@@ -450,6 +450,7 @@ PLUGINS = [
         color="seoul256",
         tag=Tag.COLORSCHEME,
     ),
+    Plugin("KeitaNakamura", "neodark.vim", color="neodark", tag=Tag.COLORSCHEME),
     Plugin(
         "luisiacc",
         "gruvbox-baby",
@@ -465,7 +466,6 @@ PLUGINS = [
         color="material",
         tag=Tag.COLORSCHEME,
     ),
-    Plugin("KeitaNakamura", "neodark.vim", color="neodark", tag=Tag.COLORSCHEME),
     Plugin(
         "mhartington",
         "oceanic-next",
