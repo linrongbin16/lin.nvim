@@ -42,8 +42,17 @@ require 'nvim-tree'.setup {
         enable      = true,
         update_root = true,
     },
+    diagnostics = {
+        enable = false,
+        show_on_dirs = false,
+    },
     git = {
         enable = true,
         ignore = false,
+    },
+    modified = {
+        enable = true,
+        show_on_dirs = true,
+        show_on_open_dirs = true,
     },
 }
