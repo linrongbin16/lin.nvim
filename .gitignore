@@ -10,19 +10,11 @@ plugged
 plugin/packer_compiled.lua
 
 # user settings
-lua/plugins.lua
-lua/lspservers.lua
-settings.vim
-colorschemes.vim
-init.vim
-
-# neovim
-init.vim
-ginit.vim
-neovim
+lua/plugins.lua*
+lua/lspservers.lua*
+settings.vim*
+colorschemes.vim*
+init.vim*
 
 # universal-ctags
 universal-ctags
-
-# ignored
-.ignore.*
