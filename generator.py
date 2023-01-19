@@ -489,9 +489,7 @@ PLUGINS = [
     Plugin(
         "olimorris",
         "onedarkpro.nvim",
-        above_clause=CommentExpr(
-            LiteralExpr("competitors: tomasiser/vim-code-dark, ")
-        ),
+        above_clause=CommentExpr(LiteralExpr("inherit tomasiser/vim-code-dark")),
         color="onedark",
         tag=Tag.COLORSCHEME,
     ),
