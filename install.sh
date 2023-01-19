@@ -126,7 +126,7 @@ for ((i = 0; i < args_length; i++)); do
 	-l | --limit)
 		MODE_NAME='limit'
 		;;
-	--static-color* | --disable-plugin* | --disable-highlight | --disable-language | --disable-editing | --disable-ctrl-keys | --disable-color)
+	--use-color* | --no-plug* | --no-hilight | --no-lang | --no-edit | --no-winctrl | --no-color)
 		# nothing here
 		;;
 	*)

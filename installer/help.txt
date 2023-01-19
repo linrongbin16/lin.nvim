@@ -3,10 +3,11 @@ Usage: ./install.sh [OPTIONS]
 Options:
   -b, --basic               Basic mode
   -l, --limit               Limit mode
-  --static-color=TEXT       Use static colorscheme
-  --disable-color           Disable extra colors
-  --disable-highlight       Disable extra highlights
-  --disable-language        Disable language support
-  --disable-editing         Disable editing enhancement
-  --disable-plugin=TEXT     Disable specific vim plugin
-  --help                    Help message
+  --use-color=TEXT          Use a static colorscheme
+  --no-color                No extra colors
+  --no-hilight              No extra highlights
+  --no-lang                 No language supports
+  --no-edit                 No editing enhancements
+  --no-plug=TEXT            No specific plugin
+  --no-winctrl              No Windows ctrl+?(and cmd+? on macOS) keys
+  -h, --help                Help message

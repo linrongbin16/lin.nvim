@@ -19,14 +19,6 @@ nnoremap <F9> :ToggleTerm<CR>
 " Toggle bufexplorer
 nnoremap <F10> :ToggleBufExplorer<CR>
 
-""" ---- Ctrl/cmd keys ----
-if exists('$VIMRUNTIME/mswin.vim')
-    source $VIMRUNTIME/mswin.vim
-endif
-if has('mac') && exists('$VIMRUNTIME/macmap.vim')
-    source $VIMRUNTIME/macmap.vim
-endif
-
 """ ---- Enhanced copy-paste ----
 " Copy visual selected text to cache
 xnoremap <Leader>y :w! ~/.vim/.copypaste<CR>
