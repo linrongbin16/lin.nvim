@@ -3,11 +3,11 @@ Usage: ./install.sh [OPTIONS]
 Options:
   -b, --basic               Basic mode
   -l, --limit               Limit mode
-  --use-color=TEXT          Use a static colorscheme
+  --use-color=name          Use a static colorscheme
   --no-color                No extra colors
   --no-hilight              No extra highlights
   --no-lang                 No language supports
   --no-edit                 No editing enhancements
-  --no-plug=TEXT            No specific plugin
+  --no-plug=org/repo        No specific plugin
   --no-winctrl              No Windows ctrl+?(and cmd+? on macOS) keys
   -h, --help                Help message
