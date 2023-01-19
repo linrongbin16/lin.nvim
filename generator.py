@@ -487,16 +487,16 @@ PLUGINS = [
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
+        "NLKNguyen",
+        "papercolor-theme",
+        color="PaperColor",
+        tag=Tag.COLORSCHEME,
+    ),
+    Plugin(
         "olimorris",
         "onedarkpro.nvim",
         above_clause=CommentExpr(LiteralExpr("inherit tomasiser/vim-code-dark")),
         color="onedark",
-        tag=Tag.COLORSCHEME,
-    ),
-    Plugin(
-        "NLKNguyen",
-        "papercolor-theme",
-        color="PaperColor",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
