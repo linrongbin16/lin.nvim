@@ -34,8 +34,6 @@ local embeded_servers = {
     "pyright",
     -- rust
     "rust_analyzer",
-    -- sql
-    "sqlls",
     -- yaml
     "yamlls",
     -- vim
