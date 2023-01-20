@@ -24,6 +24,7 @@ install_or_skip "sudo dnf install -y wl-clipboard" "wl-copy"
 install_or_skip "sudo dnf install -y bat" "bat"
 install_or_skip "sudo dnf install -y ripgrep" "rg"
 install_or_skip "sudo dnf install -y fd-find" "fd"
+install_or_skip "sudo dnf install -y git-delta" "delta"
 
 # python3
 install_or_skip "sudo dnf install -y python3 python3-devel python3-pip python3-docutils" "python3"

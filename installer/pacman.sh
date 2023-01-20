@@ -24,6 +24,7 @@ install_or_skip "yes | sudo pacman -S wl-clipboard" "wl-copy"
 install_or_skip "yes | sudo pacman -S bat" "bat"
 install_or_skip "yes | sudo pacman -S ripgrep" "rg"
 install_or_skip "yes | sudo pacman -S fd" "fd"
+install_or_skip "yes | sudo pacman -S git-delta" "delta"
 
 # Python3
 install_or_skip "yes | sudo pacman -S python python-pip" "python3"
