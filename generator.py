@@ -450,7 +450,6 @@ PLUGINS = [
         color="seoul256",
         tag=Tag.COLORSCHEME,
     ),
-    Plugin("KeitaNakamura", "neodark.vim", color="neodark", tag=Tag.COLORSCHEME),
     Plugin(
         "luisiacc",
         "gruvbox-baby",
@@ -482,7 +481,7 @@ PLUGINS = [
     Plugin(
         "navarasu",
         "onedark.nvim",
-        above_clause=CommentExpr(LiteralExpr("inherit joshdick/onedark.vim")),
+        above_clause=CommentExpr(LiteralExpr("inherit joshdick/onedark.vim, tomasiser/vim-code-dark, olimorris/onedarkpro.nvim")),
         color="onedark",
         tag=Tag.COLORSCHEME,
     ),
@@ -490,13 +489,6 @@ PLUGINS = [
         "NLKNguyen",
         "papercolor-theme",
         color="PaperColor",
-        tag=Tag.COLORSCHEME,
-    ),
-    Plugin(
-        "olimorris",
-        "onedarkpro.nvim",
-        above_clause=CommentExpr(LiteralExpr("inherit tomasiser/vim-code-dark")),
-        color="onedark",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
