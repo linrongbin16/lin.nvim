@@ -52,8 +52,10 @@ call s:LinDefineFzfKeys('<space>hs', 'FzfHistory/')
 call s:LinDefineFzfKeys('<space>hc', 'FzfHistory:')
 
 """ Lsp
+" diagnostics in current buffer
+call s:LinDefineFzfKeys('<space>db', 'LspDiagnostics 0')
 " all diagnostics
-call s:LinDefineFzfKeys('<space>dg', 'LspDiagnosticsAll')
+call s:LinDefineFzfKeys('<space>da', 'LspDiagnosticsAll')
 
 """ Git
 " git commits
@@ -65,14 +67,14 @@ call s:LinDefineFzfKeys('<space>gs', 'FzfGFiles?')
 
 """ Vim
 " vim marks
-call s:LinDefineFzfKeys('<space>vmk', 'FzfMarks')
+call s:LinDefineFzfKeys('<space>mk', 'FzfMarks')
 " vim key mappings
-call s:LinDefineFzfKeys('<space>vmp', 'FzfMaps')
+call s:LinDefineFzfKeys('<space>mp', 'FzfMaps')
 " vim commands
-call s:LinDefineFzfKeys('<space>vcm', 'FzfCommands')
+call s:LinDefineFzfKeys('<space>cm', 'FzfCommands')
 " vim help tags
-call s:LinDefineFzfKeys('<space>vht', 'FzfHelptags')
+call s:LinDefineFzfKeys('<space>ht', 'FzfHelptags')
 " vim colorschemes
-call s:LinDefineFzfKeys('<space>vcs', 'FzfColors')
+call s:LinDefineFzfKeys('<space>cs', 'FzfColors')
 " vim filetypes
-call s:LinDefineFzfKeys('<space>vft', 'FzfFiletypes')
+call s:LinDefineFzfKeys('<space>tp', 'FzfFiletypes')
