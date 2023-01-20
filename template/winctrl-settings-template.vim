@@ -1,6 +1,5 @@
 
 """ ---- CTRL+?/CMD+? ----
-
 if exists('$VIMRUNTIME/mswin.vim')
     source $VIMRUNTIME/mswin.vim
 endif
