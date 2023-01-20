@@ -736,12 +736,6 @@ PLUGINS = [
         tag=Tag.LANGUAGE,
     ),
     Plugin(
-        "simrat39",
-        "rust-tools.nvim",
-        above_clause=CommentExpr(LiteralExpr("Rust-analyzer extension")),
-        tag=Tag.LANGUAGE,
-    ),
-    Plugin(
         "justinmk",
         "vim-syntax-extra",
         post="ft = {'lex', 'flex', 'yacc', 'bison'}",
