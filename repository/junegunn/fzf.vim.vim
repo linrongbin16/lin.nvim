@@ -27,51 +27,50 @@ endfunction
 
 """ Text
 " live grep
-call s:LinDefineFzfKeys('<space>r', 'LinFzfRg')
+nnoremap <space>r    :LinFzfRg<CR>
 " cursor word/string
-call s:LinDefineFzfKeys('<space>w', 'LinFzfRgCWord')
+nnoremap <space>w    :LinFzfRgCWord<CR>
 " lines in opened buffers
-call s:LinDefineFzfKeys('<space>ln', 'FzfLines')
+nnoremap <space>ln   :FzfLines<CR>
 " tags
-call s:LinDefineFzfKeys('<space>tg', 'FzfTags')
+nnoremap <space>tg   :FzfTags<CR>
 
 """ History
 " search history
-call s:LinDefineFzfKeys('<space>sh', 'FzfHistory/')
+nnoremap <space>sh   :FzfHistory/<CR>
 " vim command history
-call s:LinDefineFzfKeys('<space>ch', 'FzfHistory:')
+nnoremap <space>ch   :FzfHistory:<CR>
 
 """ Files
 " files
-call s:LinDefineFzfKeys('<space>f', 'FzfFiles')
-call s:LinDefineFzfKeys('<C-p>', 'FzfFiles')
+nnoremap <space>f    :FzfFiles<CR>
 " opened buffers
-call s:LinDefineFzfKeys('<space>b', 'FzfBuffers')
+nnoremap <space>b    :FzfBuffers<CR>
 " history files/oldfiles
-call s:LinDefineFzfKeys('<space>hf', 'FzfHistory')
+nnoremap <space>hf   :FzfHistory<CR>
 
 """ Lsp
 " all diagnostics
-call s:LinDefineFzfKeys('<space>dg', 'LspDiagnosticsAll')
+nnoremap <space>dg   :LspDiagnosticsAll<CR>
 
 """ Git
 " git commits
-call s:LinDefineFzfKeys('<space>gc', 'FzfCommits')
+nnoremap <space>gc   :FzfCommits<CR>
 " git files
-call s:LinDefineFzfKeys('<space>gf', 'FzfGFile')
+nnoremap <space>gf   :FzfGFiles<CR>
 " git status files
-call s:LinDefineFzfKeys('<space>gs', 'FzfGFiles?')
+nnoremap <space>gs   :FzfGFiles?<CR>
 
 """ Vim
 " vim marks
-call s:LinDefineFzfKeys('<space>mk', 'FzfMarks')
+nnoremap <space>mk   :FzfMarks<CR>
 " vim key mappings
-call s:LinDefineFzfKeys('<space>mp', 'FzfMaps')
+nnoremap <space>mp   :FzfMaps<CR>
 " vim commands
-call s:LinDefineFzfKeys('<space>cm', 'FzfCommands')
+nnoremap <space>cm   :FzfCommands<CR>
 " vim help tags
-call s:LinDefineFzfKeys('<space>ht', 'FzfHelptags')
+nnoremap <space>ht   :FzfHelptags<CR>
 " vim colorschemes
-call s:LinDefineFzfKeys('<space>cs', 'FzfColors')
+nnoremap <space>cl   :FzfColors<CR>
 " vim filetypes
-call s:LinDefineFzfKeys('<space>ft', 'FzfFiletypes')
+nnoremap <space>ft   :FzfFiletypes<CR>
