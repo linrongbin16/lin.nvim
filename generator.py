@@ -586,10 +586,20 @@ PLUGINS = [
         tag=Tag.HIGHLIGHT,
     ),
     # UI
+    # Plugin(
+    #     "romgrk",
+    #     "barbar.nvim",
+    #     post="requires = 'nvim-tree/nvim-web-devicons'",
+    #     above_clause=[
+    #         EmptyStmt(),
+    #         CommentExpr(LiteralExpr("---- UI ----")),
+    #         CommentExpr(LiteralExpr("Tabline")),
+    #     ],
+    # ),
     Plugin(
-        "romgrk",
-        "barbar.nvim",
-        post="requires = 'nvim-tree/nvim-web-devicons'",
+        "akinsho",
+        "bufferline.nvim",
+        post="tag = 'v3.*', requires = 'nvim-tree/nvim-web-devicons'",
         above_clause=[
             EmptyStmt(),
             CommentExpr(LiteralExpr("---- UI ----")),
