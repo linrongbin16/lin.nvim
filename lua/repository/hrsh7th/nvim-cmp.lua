@@ -73,11 +73,6 @@ lsp_defaults.capabilities = vim.tbl_deep_extend(
     lsp_defaults.capabilities,
     require('cmp_nvim_lsp').default_capabilities()
 )
-lsp_defaults.capabilities = vim.tbl_extend(
-    'keep',
-    lsp_defaults.capabilities or {},
-    require('lsp-status').capabilities
-)
 
 -- nvim-cmp
 require('luasnip.loaders.from_vscode').lazy_load()
