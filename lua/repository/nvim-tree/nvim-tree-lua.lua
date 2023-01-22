@@ -1,4 +1,4 @@
-local lin_keymap = {
+local key_mappings = {
     -- navigation
     { key = "l", action = "edit" }, -- open folder or edit file
     { key = "h", action = "close_node" }, -- close folder
@@ -12,6 +12,8 @@ local lin_keymap = {
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
+local constants = require('conf/constants')
+
 require 'nvim-tree'.setup {
     open_on_setup = true,
     open_on_setup_file = true,
@@ -21,7 +23,7 @@ require 'nvim-tree'.setup {
         signcolumn = "yes",
         mappings = {
             custom_only = false,
-            list = lin_keymap,
+            list = key_mappings,
         },
     },
     renderer = {
@@ -31,20 +33,25 @@ require 'nvim-tree'.setup {
         },
         icons = {
             webdev_colors = true,
-            git_placement = "signcolumn",
+            git_placement = "after",
+            modified_placement = "before",
             glyphs = {
                 default = "",
-                symlink = "",
             },
         },
     },
     update_focused_file = {
-        enable      = true,
+        enable = true,
         update_root = true,
     },
     diagnostics = {
-        enable = false,
-        show_on_dirs = false,
+        enable = true,
+        icons = {
+          hint = constants.lsp.diagnostics.signs["hint"],
+          info = constants.lsp.diagnostics.signs["info"],
+          warning = constants.lsp.diagnostics.signs["warning"],
+          error = constants.lsp.diagnostics.signs["error"],
+        },
     },
     git = {
         enable = true,
@@ -52,7 +59,5 @@ require 'nvim-tree'.setup {
     },
     modified = {
         enable = true,
-        show_on_dirs = true,
-        show_on_open_dirs = true,
     },
 }

@@ -1,7 +1,7 @@
 local lsp_status = require('lsp-status')
 
 lsp_status.config {
-    status_symbol = ' [LSP]',
+    status_symbol = ' [LSP]', -- nf-fa-gear \uf013
     current_function = false,
     diagnostics = false,
 }
