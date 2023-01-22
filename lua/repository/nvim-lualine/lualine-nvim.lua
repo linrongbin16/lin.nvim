@@ -1,4 +1,4 @@
-local function LinGitStatus()
+local function GitStatus()
     local branch = vim.b.gitsigns_head
     if branch == nil or branch == '' then
         return ''
@@ -11,67 +11,28 @@ local function LinGitStatus()
     end
 end
 
-local function LinRtrim(s)
+local function Rtrim(s)
     local n = #s
     while n > 0 and s:find("^%s", n) do n = n - 1 end
     return s:sub(1, n)
 end
 
-local function LinLspStatus()
+local function LspProgress()
     if #vim.lsp.buf_get_clients() > 0 then
-        return LinRtrim(require('lsp-status').status())
+        return Rtrim(require('lsp-status').status())
     end
     return ''
 end
 
-local DiagnosticSigns = {
-    { 'errors', vim.g.lin_constants.lsp.diagnostic_signs['error'] },
-    { 'warnings', vim.g.lin_constants.lsp.diagnostic_signs['warning'] },
-    { 'info', vim.g.lin_constants.lsp.diagnostic_signs['info'] },
-    { 'hints', vim.g.lin_constants.lsp.diagnostic_signs['hint'] },
-}
-local function LinLspDiagnostics()
-    if #vim.lsp.buf_get_clients() > 0 then
-        local diags = require('lsp-status').diagnostics()
-        if diags ~= nil then
-            local messages = {}
-            -- local msg = {}
-            for i, sign in ipairs(DiagnosticSigns) do
-                local name = sign[1]
-                local icon = sign[2]
-                -- print('i:', i, ', name:', name, ', icon:', icon, ', diags[name]:', diags[name])
-                if diags[name] and diags[name] > 0 then
-                    table.insert(messages, string.format('%s %d', icon, diags[name]))
-                end
-            end
-            -- print(table.concat(msg, ","))
-            if #messages > 0 then
-                return table.concat(messages, " ")
-            else
-                return ''
-            end
-        end
-    end
-    return ''
-end
-
-local function LinLspCurrentFunction()
-    local current_function = vim.b.lsp_current_function
-    if current_function and current_function ~= '' then
-        return string.format(' %s', current_function)
-    end
-    return ''
-end
-
-local function LinCursorPosition()
+local function CursorLocation()
     return ' %3l:%-2v'
 end
 
-local function LinCursorHex()
+local function CursorHex()
     return '0x%02B'
 end
 
-local function LinTagsStatus()
+local function TagsStatus()
     if not vim.fn.exists('*gutentags#statusline') then
         return ''
     end
@@ -81,6 +42,8 @@ local function LinTagsStatus()
     end
     return tags_status
 end
+
+local constants = require('conf/constants')
 
 local config = {
     options = {
@@ -93,10 +56,33 @@ local config = {
     sections = {
         lualine_a = { 'mode' },
         lualine_b = { 'filename' },
-        lualine_c = { LinGitStatus, LinLspDiagnostics, LinLspCurrentFunction, LinLspStatus, LinTagsStatus },
-        lualine_x = { LinCursorHex, 'filetype', 'fileformat', 'encoding' },
+        lualine_c = {
+            GitStatus, {
+                'diagnostics',
+                symbols = {
+                    error = constants.lsp.diagnostics.signs['error'] .. ' ',
+                    warn = constants.lsp.diagnostics.signs['warning'] .. ' ',
+                    info = constants.lsp.diagnostics.signs['info'] .. ' ',
+                    hint = constants.lsp.diagnostics.signs['hint'] .. ' ',
+                },
+            },
+            LspProgress,
+            TagsStatus
+        },
+        lualine_x = {
+            CursorHex,
+            'filetype', {
+                'fileformat',
+                symbols = {
+                    unix = ' LF', -- e712
+                    dos = ' CRLF',  -- e70f
+                    mac = ' CR',  -- e711
+                },
+            }, 
+            'encoding'
+        },
         lualine_y = { 'progress' },
-        lualine_z = { LinCursorPosition },
+        lualine_z = { CursorLocation },
     },
     inactive_sections = {
         lualine_a = {},
@@ -107,6 +93,8 @@ local config = {
         lualine_z = {}
     },
     tabline = {},
+    winbar = {},
+    inactive_winbar = {},
     extensions = {}
 }
 
