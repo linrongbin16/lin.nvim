@@ -70,6 +70,7 @@ local config = {
             TagsStatus
         },
         lualine_x = {
+            'searchcount',
             CursorHex,
             'filetype', {
                 'fileformat',
@@ -78,7 +79,7 @@ local config = {
                     dos = ' CRLF',  -- e70f
                     mac = ' CR',  -- e711
                 },
-            }, 
+            },
             'encoding'
         },
         lualine_y = { 'progress' },
