@@ -1,6 +1,6 @@
 require('gitsigns').setup {
     signs = {
-        add          = { text = '+' },
+        add          = { text = '+' }, -- vim-gitgutter style signs
         change       = { text = '~' },
         delete       = { text = '_' },
         topdelete    = { text = '‾' },
