@@ -481,7 +481,11 @@ PLUGINS = [
     Plugin(
         "navarasu",
         "onedark.nvim",
-        above_clause=CommentExpr(LiteralExpr("inherit joshdick/onedark.vim, tomasiser/vim-code-dark, olimorris/onedarkpro.nvim")),
+        above_clause=CommentExpr(
+            LiteralExpr(
+                "inherit joshdick/onedark.vim, tomasiser/vim-code-dark, olimorris/onedarkpro.nvim"
+            )
+        ),
         color="onedark",
         tag=Tag.COLORSCHEME,
     ),
@@ -865,7 +869,7 @@ class Render:
         states.append(LuaRequireStmt("plugins"))
         states.append(SourceStmtFromVimHome("config/basic.vim"))
         states.append(SourceStmtFromVimHome("config/filetype.vim"))
-        states.append(LuaRequireStmt("constants"))
+        states.append(LuaRequireStmt("conf/constants"))
 
         # insert core init statements
         states.extend(core_inits)

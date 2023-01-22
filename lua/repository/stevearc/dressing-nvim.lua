@@ -10,9 +10,11 @@ local function LinGetConfig()
     end
 end
 
+local constants = require('conf/constants')
+
 require('dressing').setup({
     input = {
-        border = vim.g.lin_constants.ui.border,
+        border = constants.ui.border,
         win_options = {
             winblend = window_transparency,
         },
@@ -21,11 +23,11 @@ require('dressing').setup({
     select = {
         nui = {
             border = {
-                style = vim.g.lin_constants.ui.border,
+                style = constants.ui.border,
             },
         },
         builtin = {
-            border = vim.g.lin_constants.ui.border,
+            border = constants.ui.border,
             win_options = {
                 winblend = window_transparency,
             },

@@ -36,16 +36,18 @@ local diagnostics_sign = function(opts)
     })
 end
 
-diagnostics_sign({ name = 'DiagnosticSignError', text = vim.g.lin_constants.lsp.diagnostic_signs['error'] })
-diagnostics_sign({ name = 'DiagnosticSignWarn', text = vim.g.lin_constants.lsp.diagnostic_signs['warning'] })
-diagnostics_sign({ name = 'DiagnosticSignInfo', text = vim.g.lin_constants.lsp.diagnostic_signs['info'] })
-diagnostics_sign({ name = 'DiagnosticSignHint', text = vim.g.lin_constants.lsp.diagnostic_signs['hint'] })
+local constants = require('conf/constants')
+
+diagnostics_sign({ name = 'DiagnosticSignError', text = constants.lsp.diagnostics.signs['error'] })
+diagnostics_sign({ name = 'DiagnosticSignWarn', text = constants.lsp.diagnostics.signs['warning'] })
+diagnostics_sign({ name = 'DiagnosticSignInfo', text = constants.lsp.diagnostics.signs['info'] })
+diagnostics_sign({ name = 'DiagnosticSignHint', text = constants.lsp.diagnostics.signs['hint'] })
 
 vim.diagnostic.config({
     virtual_text = false,
     severity_sort = true,
     float = {
-        border = vim.g.lin_constants.ui.border,
+        border = constants.ui.border,
         source = 'always',
         header = '',
         prefix = '',
@@ -55,11 +57,11 @@ vim.diagnostic.config({
 -- hover/signatureHelp
 vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
     vim.lsp.handlers.hover,
-    { border = vim.g.lin_constants.ui.border }
+    { border = constants.ui.border }
 )
 vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
     vim.lsp.handlers.signature_help,
-    { border = vim.g.lin_constants.ui.border }
+    { border = constants.ui.border }
 )
 
 -- lspconfig
