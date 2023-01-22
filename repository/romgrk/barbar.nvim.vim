@@ -2,7 +2,7 @@ let bufferline = get(g:, 'bufferline', {})
 let bufferline.animation = v:false
 let bufferline.icons = 'both'
 let bufferline.no_name_title = '[No Name]'
-let bufferline.maximum_length = 80
+let bufferline.maximum_length = 40
 
 function! s:LinVimDefineBarbarKeys(k) abort
     " go to buffer-1~9, or the last buffer
@@ -43,6 +43,6 @@ call s:LinVimDefineBarbarKeys('M')
 call s:LinVimDefineBarbarKeys('C')
 
 " go to next/previous buffer, close buffer
-nnoremap <silent> <expr> <Leader>bn (&filetype ==# "NvimTree" ? "\<c-w>\<c-w>" : '').":BufferNext<CR>"
-nnoremap <silent> <expr> <Leader>bp (&filetype ==# "NvimTree" ? "\<c-w>\<c-w>" : '').":BufferPrevious<CR>"
-nnoremap <silent> <expr> <Leader>bd (&filetype ==# "NvimTree" ? "\<c-w>\<c-w>" : '').":BufferClose!<CR>"
+nnoremap <silent> <expr> ]b (&filetype ==# "NvimTree" ? "\<c-w>\<c-w>" : '').":BufferNext\<CR>"
+nnoremap <silent> <expr> [b (&filetype ==# "NvimTree" ? "\<c-w>\<c-w>" : '').":BufferPrevious\<CR>"
+nnoremap <silent> <expr> <Leader>bd (&filetype ==# "NvimTree" ? "\<c-w>\<c-w>" : '').":BufferClose\<CR>"
