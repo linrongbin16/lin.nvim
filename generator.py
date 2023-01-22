@@ -869,7 +869,6 @@ class Render:
         states.append(LuaRequireStmt("plugins"))
         states.append(SourceStmtFromVimHome("config/basic.vim"))
         states.append(SourceStmtFromVimHome("config/filetype.vim"))
-        states.append(LuaRequireStmt("conf/constants"))
 
         # insert core init statements
         states.extend(core_inits)
