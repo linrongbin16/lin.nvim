@@ -667,7 +667,6 @@ PLUGINS = [
     Plugin(
         "williamboman",
         "mason.nvim",
-        post="event = 'VimEnter',",
         above_clause=[
             EmptyStmt(),
             CommentExpr(LiteralExpr("---- LSP server ----")),
@@ -677,18 +676,15 @@ PLUGINS = [
     Plugin(
         "williamboman",
         "mason-lspconfig.nvim",
-        post="event = 'VimEnter',",
         tag=Tag.LANGUAGE,
     ),
     Plugin(
         "jose-elias-alvarez",
         "null-ls.nvim",
-        post="requires = 'nvim-lua/plenary.nvim', event = 'VimEnter',",
+        post="requires = 'nvim-lua/plenary.nvim',",
         tag=Tag.LANGUAGE,
     ),
-    Plugin(
-        "jay-babu", "mason-null-ls.nvim", post="event = 'VimEnter',", tag=Tag.LANGUAGE
-    ),
+    Plugin("jay-babu", "mason-null-ls.nvim", tag=Tag.LANGUAGE),
     Plugin(
         "hrsh7th",
         "cmp-nvim-lsp",
