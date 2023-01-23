@@ -3,6 +3,11 @@ let bufferline.animation = v:false
 let bufferline.icons = 'both'
 let bufferline.no_name_title = '[No Name]'
 let bufferline.maximum_length = 50
+let bufferline.icon_separator_active = '▎'
+let bufferline.icon_separator_inactive = '▎'
+" let bufferline.icon_separator_active = ''
+" let bufferline.icon_separator_inactive = ''
+
 
 function! s:BarbarKeys(k) abort
     " go to buffer-1~9, or the last buffer

@@ -10,7 +10,7 @@ import click
 
 HOME_DIR = pathlib.Path.home()
 VIM_DIR = pathlib.Path(f"{HOME_DIR}/.vim")
-TEMPLATE_DIR = pathlib.Path(f"{HOME_DIR}/.vim/template")
+TEMPLATE_DIR = pathlib.Path(f"{HOME_DIR}/.vim/temp")
 INIT_FILE = pathlib.Path(f"{VIM_DIR}/init.vim")
 
 IS_WINDOWS = platform.system().lower().startswith("win")
@@ -867,8 +867,8 @@ class Render:
         states = []
         states.append(Stmt(CommentExpr(LiteralExpr("---- Init ----"))))
         states.append(LuaRequireStmt("plugins"))
-        states.append(SourceStmtFromVimHome("config/basic.vim"))
-        states.append(SourceStmtFromVimHome("config/filetype.vim"))
+        states.append(SourceStmtFromVimHome("conf/basic.vim"))
+        states.append(SourceStmtFromVimHome("conf/filetype.vim"))
 
         # insert core init statements
         states.extend(core_inits)
@@ -989,8 +989,8 @@ class Render:
                     )
                 )
                 # init
-                lua_file = f"repository/{str(ctx).replace('.', '-')}"
-                vim_file = f"repository/{ctx}.vim"
+                lua_file = f"repo/{str(ctx).replace('.', '-')}"
+                vim_file = f"repo/{ctx}.vim"
                 if pathlib.Path(f"{HOME_DIR}/.vim/lua/{lua_file}.lua").exists():
                     inits.append(LuaRequireStmt(lua_file))
                 if pathlib.Path(f"{HOME_DIR}/.vim/{vim_file}").exists():

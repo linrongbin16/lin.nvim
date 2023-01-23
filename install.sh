@@ -83,7 +83,7 @@ install_basic() {
 	try_backup $NVIM_HOME
 	mkdir -p $HOME/.config
 	ln -s $VIM_HOME $NVIM_HOME
-	ln -s $VIM_HOME/config/basic.vim $NVIM_HOME/init.vim
+	ln -s $VIM_HOME/conf/basic.vim $NVIM_HOME/init.vim
 }
 
 show_help() {
@@ -173,6 +173,6 @@ else
 	if [ $? -ne 0 ]; then
 		exit 1
 	fi
-	nvim -E --headless -u $VIM_HOME/template/init-tool.vim -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+	nvim -E --headless -u $VIM_HOME/temp/init-tool.vim -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 fi
 message "install with $MODE_NAME mode - done"

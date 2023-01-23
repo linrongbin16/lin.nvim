@@ -1,8 +1,8 @@
 """ Use fd for fzf file finding, instead of default find
 if executable('fd')
-    let $FZF_DEFAULT_COMMAND = 'fd -tf -tl -i -u --exclude ".git"'
+    let $FZF_DEFAULT_COMMAND = 'fd -tf -tl -i'
 elseif executable('fdfind')
-    let $FZF_DEFAULT_COMMAND = 'fdfind -tf -tl -i -u --exclude ".git"'
+    let $FZF_DEFAULT_COMMAND = 'fdfind -tf -tl -i'
 endif
 let $BAT_THEME = 'base16'
 
@@ -11,15 +11,28 @@ let g:fzf_command_prefix = 'Fzf'
 
 " for advanced rg integration, please see:
 " https://github.com/junegunn/fzf.vim#example-advanced-ripgrep-integration
-command! -bang -nargs=* LinFzfRg
+command! -bang -nargs=* LinFzfRgNoIgnore
             \ call fzf#vim#grep(
-            \ "rg --column --no-heading --color=always -S -u -u --glob=!.git/ -- ".shellescape(<q-args>), 1,
+            \ "rg --column --no-heading --color=always -S -uu --glob=!.git/ -- ".shellescape(<q-args>), 1,
             \ fzf#vim#with_preview(), <bang>0)
 
 command! -bang -nargs=0 LinFzfRgCWord
             \ call fzf#vim#grep(
-            \ "rg --column --no-heading --color=always -S -u -u --glob=!.git/ ".shellescape(expand('<cword>')), 1,
+            \ "rg --column --no-heading --color=always -S ".shellescape(expand('<cword>')), 1,
             \ fzf#vim#with_preview(), <bang>0)
+
+command! -bang -nargs=0 LinFzfRgCWordNoIgnore
+            \ call fzf#vim#grep(
+            \ "rg --column --no-heading --color=always -S -uu --glob=!.git/ ".shellescape(expand('<cword>')), 1,
+            \ fzf#vim#with_preview(), <bang>0)
+
+if executable('fd')
+    command! -bang -nargs=* LinFzfFilesNoIgnore
+        \ call fzf#vim#grep('fd -tf -tl -i -u --exclude ".git" -- '.shellescape(<q-args>), 1, fzf#vim#with_preview(), <bang>0)
+elseif executable('fdfind')
+    command! -bang -nargs=* LinFzfFilesNoIgnore
+        \ call fzf#vim#grep('fdfind -tf -tl -i -u --exclude ".git" -- '.shellescape(<q-args>), 1, fzf#vim#with_preview(), <bang>0)
+endif
 
 
 function! s:LinDefineFzfKeys(k, v) abort
@@ -28,9 +41,11 @@ endfunction
 
 """ Text
 " live grep
-nnoremap <silent> <space>r      :LinFzfRg<CR>
+nnoremap <silent> <space>r      :FzfRg<CR>
+nnoremap <silent> <space>nr     :LinFzfRgNoIgnore<CR>
 " cursor word/string
 nnoremap <silent> <space>w      :LinFzfRgCWord<CR>
+nnoremap <silent> <space>nw     :LinFzfRgCWordNoIgnore<CR>
 " lines in opened buffers
 nnoremap <silent> <space>ln     :FzfLines<CR>
 " tags
@@ -40,6 +55,7 @@ nnoremap <silent> <space>tg     :FzfTags<CR>
 " files
 nnoremap <silent> <space>f      :FzfFiles<CR>
 nnoremap <silent> <C-p>         :FzfFiles<CR>
+nnoremap <silent> <space>nf     :LinFzfFilesNoIgnore<CR>
 " opened buffers
 nnoremap <silent> <space>b      :FzfBuffers<CR>
 " history files/oldfiles
