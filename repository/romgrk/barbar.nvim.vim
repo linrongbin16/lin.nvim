@@ -2,9 +2,9 @@ let bufferline = get(g:, 'bufferline', {})
 let bufferline.animation = v:false
 let bufferline.icons = 'both'
 let bufferline.no_name_title = '[No Name]'
-let bufferline.maximum_length = 40
+let bufferline.maximum_length = 50
 
-function! s:LinVimDefineBarbarKeys(k) abort
+function! s:BarbarKeys(k) abort
     " go to buffer-1~9, or the last buffer
     " <D-?>/<A-?>/<M-?>/<C-?>
     " ?: 0-9
@@ -30,17 +30,17 @@ function! s:LinVimDefineBarbarKeys(k) abort
     " re-order current buffer to next/previous position
     " <D-S-?>/<A-S-?>/<M-S-?>/<C-S-?>
     " ?: ,/Left/./Right
-    execute printf('nnoremap <silent> <expr> <%s-S-,> (&filetype ==# "NvimTree" ? "\<C-w>\<C-w>" : "").":BufferMovePrevious\<CR>"', a:k)
+    execute printf('nnoremap <silent> <expr> <%s-<> (&filetype ==# "NvimTree" ? "\<C-w>\<C-w>" : "").":BufferMovePrevious\<CR>"', a:k)
     execute printf('nnoremap <silent> <expr> <%s-S-Left> (&filetype ==# "NvimTree" ? "\<C-w>\<C-w>" : "").":BufferMovePrevious\<CR>"', a:k)
-    execute printf('nnoremap <silent> <expr> <%s-S-.> (&filetype ==# "NvimTree" ? "\<C-w>\<C-w>" : "").":BufferMoveNext\<CR>"', a:k)
+    execute printf('nnoremap <silent> <expr> <%s->> (&filetype ==# "NvimTree" ? "\<C-w>\<C-w>" : "").":BufferMoveNext\<CR>"', a:k)
     execute printf('nnoremap <silent> <expr> <%s-S-Right> (&filetype ==# "NvimTree" ? "\<C-w>\<C-w>" : "").":BufferMoveNext\<CR>"', a:k)
 endfunction
 
 
-call s:LinVimDefineBarbarKeys('D')
-call s:LinVimDefineBarbarKeys('A')
-call s:LinVimDefineBarbarKeys('M')
-call s:LinVimDefineBarbarKeys('C')
+call s:BarbarKeys('D')
+call s:BarbarKeys('A')
+call s:BarbarKeys('M')
+call s:BarbarKeys('C')
 
 " go to next/previous buffer, close buffer
 nnoremap <silent> <expr> ]b (&filetype ==# "NvimTree" ? "\<c-w>\<c-w>" : '').":BufferNext\<CR>"
