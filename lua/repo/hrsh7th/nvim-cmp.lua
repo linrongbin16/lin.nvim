@@ -185,3 +185,6 @@ cmp.setup.cmdline(':', {
         { name = 'cmdline', keyword_length = keyword }
     })
 })
+
+-- Custom LSP servers
+require('lspservers')

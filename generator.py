@@ -704,11 +704,13 @@ PLUGINS = [
     Plugin(
         "hrsh7th",
         "cmp-path",
+        post="event = 'VimEnter',",
         tag=Tag.LANGUAGE,
     ),
     Plugin(
         "hrsh7th",
         "cmp-cmdline",
+        post="event = 'VimEnter',",
         tag=Tag.LANGUAGE,
     ),
     Plugin(
@@ -904,7 +906,7 @@ class Render:
 
         states.append(EmptyStmt())
         states.append(Stmt(CommentExpr(LiteralExpr("---- Generated ----"))))
-        states.append(LuaRequireStmt("lspservers"))
+        # states.append(LuaRequireStmt("lspservers"))
         states.append(SourceStmtFromVimHome("colorschemes.vim"))
         states.append(SourceStmtFromVimHome("settings.vim"))
         return states
@@ -1006,12 +1008,14 @@ class Render:
             # body
             if not self.is_disabled(ctx):
                 # plugins
-                post = ctx.post
+                post = LiteralExpr(ctx.post) if ctx.post else None
                 lua_file = f"repo/{str(ctx).replace('.', '-')}"
                 if pathlib.Path(f"{HOME_DIR}/.vim/lua/{lua_file}.lua").exists():
                     lua_post = f"config = function() {RequireExpr(SingleQuoteStringExpr(lua_file)).render()} end"
                     post = (
-                        LiteralExpr(post + lua_post) if post else LiteralExpr(lua_post)
+                        LiteralExpr(post.render() + lua_post)
+                        if post
+                        else LiteralExpr(lua_post)
                     )
                 plugins.append(
                     Stmt(
