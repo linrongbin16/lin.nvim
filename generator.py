@@ -374,6 +374,11 @@ PLUGINS = [
         "nvim-lspconfig",
         tag=Tag.INFRASTRUCTURE,
     ),
+    Plugin(
+        "dstein64",
+        "vim-startuptime",
+        tag=Tag.INFRASTRUCTURE,
+    ),
     # Colorscheme
     Plugin(
         "bluz71",
@@ -563,6 +568,7 @@ PLUGINS = [
     Plugin(
         "RRethy",
         "vim-illuminate",
+        post="event = 'VimEnter'",
         above_clause=[
             EmptyStmt(),
             CommentExpr(LiteralExpr("---- Highlight ----")),
@@ -572,17 +578,19 @@ PLUGINS = [
     Plugin(
         "NvChad",
         "nvim-colorizer.lua",
+        post="event = 'VimEnter'",
         tag=Tag.HIGHLIGHT,
     ),
     Plugin(
         "andymass",
         "vim-matchup",
+        post="event = 'VimEnter'",
         tag=Tag.HIGHLIGHT,
     ),
     Plugin(
         "inkarkat",
         "vim-mark",
-        post="requires = 'inkarkat/vim-ingo-library'",
+        post="requires = 'inkarkat/vim-ingo-library', event = 'VimEnter'",
         tag=Tag.HIGHLIGHT,
     ),
     # UI
@@ -618,6 +626,7 @@ PLUGINS = [
     Plugin(
         "lewis6991",
         "gitsigns.nvim",
+        post="event = 'VimEnter'",
         above_clause=CommentExpr(LiteralExpr("Git")),
     ),
     Plugin(
@@ -658,6 +667,7 @@ PLUGINS = [
     Plugin(
         "williamboman",
         "mason.nvim",
+        post="event = 'VimEnter'",
         above_clause=[
             EmptyStmt(),
             CommentExpr(LiteralExpr("---- LSP server ----")),
@@ -667,23 +677,28 @@ PLUGINS = [
     Plugin(
         "williamboman",
         "mason-lspconfig.nvim",
+        post="event = 'VimEnter'",
         tag=Tag.LANGUAGE,
     ),
     Plugin(
         "jose-elias-alvarez",
         "null-ls.nvim",
-        post="requires = 'nvim-lua/plenary.nvim'",
+        post="requires = 'nvim-lua/plenary.nvim', event = 'VimEnter'",
         tag=Tag.LANGUAGE,
     ),
-    Plugin("jay-babu", "mason-null-ls.nvim", tag=Tag.LANGUAGE),
+    Plugin(
+        "jay-babu", "mason-null-ls.nvim", post="event = 'VimEnter'", tag=Tag.LANGUAGE
+    ),
     Plugin(
         "hrsh7th",
         "cmp-nvim-lsp",
+        post="event = 'VimEnter'",
         tag=Tag.LANGUAGE,
     ),
     Plugin(
         "hrsh7th",
         "cmp-buffer",
+        post="event = 'VimEnter'",
         tag=Tag.LANGUAGE,
     ),
     Plugin(
@@ -699,20 +714,24 @@ PLUGINS = [
     Plugin(
         "hrsh7th",
         "nvim-cmp",
+        post="event = 'VimEnter'",
         tag=Tag.LANGUAGE,
     ),
     Plugin(
         "L3MON4D3",
         "LuaSnip",
-        post="tag = 'v1.*'",
+        post="tag = 'v1.*', event = 'VimEnter'",
         tag=Tag.LANGUAGE,
     ),
     Plugin(
         "saadparwaiz1",
         "cmp_luasnip",
+        post="event = 'VimEnter'",
         tag=Tag.LANGUAGE,
     ),
-    Plugin("rafamadriz", "friendly-snippets", tag=Tag.LANGUAGE),
+    # Plugin(
+    #     "rafamadriz", "friendly-snippets", post="event = 'VimEnter'", tag=Tag.LANGUAGE
+    # ),
     # Language support
     Plugin(
         "iamcco",
@@ -763,7 +782,7 @@ PLUGINS = [
     Plugin(
         "phaazon",
         "hop.nvim",
-        post="branch = 'v2'",
+        post="branch = 'v2', event = 'VimEnter'",
         above_clause=[
             EmptyStmt(),
             CommentExpr(LiteralExpr("---- Movement ----")),
@@ -772,13 +791,17 @@ PLUGINS = [
         tag=Tag.EDITING,
     ),
     Plugin(
-        "ggandor", "leap.nvim", post="requires = 'tpope/vim-repeat'", tag=Tag.EDITING
+        "ggandor",
+        "leap.nvim",
+        post="requires = 'tpope/vim-repeat', event = 'VimEnter'",
+        tag=Tag.EDITING,
     ),
-    Plugin("chaoren", "vim-wordmotion", tag=Tag.EDITING),
+    Plugin("chaoren", "vim-wordmotion", post="event = 'VimEnter'", tag=Tag.EDITING),
     # Editing enhancement
     Plugin(
         "alvan",
         "vim-closetag",
+        post="event = 'VimEnter'",
         above_clause=[
             EmptyStmt(),
             CommentExpr(LiteralExpr("---- Editing enhancement ----")),
@@ -789,29 +812,35 @@ PLUGINS = [
     Plugin(
         "numToStr",
         "Comment.nvim",
+        post="event = 'VimEnter'",
         above_clause=CommentExpr(LiteralExpr("Comment")),
         tag=Tag.EDITING,
     ),
     Plugin(
         "windwp",
         "nvim-autopairs",
+        post="event = 'VimEnter'",
         above_clause=CommentExpr(LiteralExpr("Autopair")),
         tag=Tag.EDITING,
     ),
     Plugin(
         "haya14busa",
         "is.vim",
+        post="event = 'VimEnter'",
         above_clause=CommentExpr(LiteralExpr("Incremental search")),
         tag=Tag.EDITING,
     ),
     Plugin(
         "tpope",
         "vim-repeat",
+        post="event = 'VimEnter'",
         above_clause=CommentExpr(LiteralExpr("Other")),
         tag=Tag.EDITING,
     ),
-    Plugin("mbbill", "undotree", tag=Tag.EDITING),
-    Plugin("editorconfig", "editorconfig-vim", tag=Tag.EDITING),
+    Plugin("mbbill", "undotree", post="event = 'VimEnter'", tag=Tag.EDITING),
+    Plugin(
+        "editorconfig", "editorconfig-vim", post="event = 'VimEnter'", tag=Tag.EDITING
+    ),
 ]
 
 
