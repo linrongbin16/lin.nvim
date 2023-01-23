@@ -692,47 +692,40 @@ PLUGINS = [
     Plugin(
         "hrsh7th",
         "cmp-nvim-lsp",
-        post="event = 'VimEnter',",
         tag=Tag.LANGUAGE,
     ),
     Plugin(
         "hrsh7th",
         "cmp-buffer",
-        post="event = 'VimEnter',",
         tag=Tag.LANGUAGE,
     ),
     Plugin(
         "hrsh7th",
         "cmp-path",
-        post="event = 'VimEnter',",
         tag=Tag.LANGUAGE,
     ),
     Plugin(
         "hrsh7th",
         "cmp-cmdline",
-        post="event = 'VimEnter',",
         tag=Tag.LANGUAGE,
     ),
     Plugin(
         "hrsh7th",
         "nvim-cmp",
-        post="event = 'VimEnter',",
         tag=Tag.LANGUAGE,
     ),
     Plugin(
         "L3MON4D3",
         "LuaSnip",
-        post="tag = 'v1.*', event = 'VimEnter',",
         tag=Tag.LANGUAGE,
     ),
     Plugin(
         "saadparwaiz1",
         "cmp_luasnip",
-        post="event = 'VimEnter',",
         tag=Tag.LANGUAGE,
     ),
     # Plugin(
-    #     "rafamadriz", "friendly-snippets", post="event = 'VimEnter',", tag=Tag.LANGUAGE
+    #     "rafamadriz", "friendly-snippets", tag=Tag.LANGUAGE
     # ),
     # Language support
     Plugin(
