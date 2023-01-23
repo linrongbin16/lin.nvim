@@ -294,9 +294,9 @@ class EmptyCommentExpr4Lua(CommentExpr4Lua):
 
 class PackerUseExpr4Lua(Expr):
     def __init__(self, org, repo, post=None):
-        assert isinstance(org, LiteralExpr)
-        assert isinstance(repo, LiteralExpr)
-        assert isinstance(post, LiteralExpr) or post is None
+        assert isinstance(org, Expr)
+        assert isinstance(repo, Expr)
+        assert isinstance(post, Expr) or post is None
         self.org = org
         self.repo = repo
         self.post = post
@@ -399,14 +399,14 @@ PLUGINS = [
     Plugin(
         "catppuccin",
         "nvim",
-        post="as = 'catppuccin'",
+        post="as = 'catppuccin',",
         color="catppuccin",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
         "challenger-deep-theme",
         "vim",
-        post="as = 'challenger-deep'",
+        post="as = 'challenger-deep',",
         color="challenger_deep",
         tag=Tag.COLORSCHEME,
     ),
@@ -425,7 +425,7 @@ PLUGINS = [
     Plugin(
         "embark-theme",
         "vim",
-        post="as = 'embark'",
+        post="as = 'embark',",
         color="embark",
         tag=Tag.COLORSCHEME,
     ),
@@ -438,7 +438,7 @@ PLUGINS = [
     Plugin(
         "folke",
         "tokyonight.nvim",
-        post="branch = 'main'",
+        post="branch = 'main',",
         color="tokyonight",
         tag=Tag.COLORSCHEME,
     ),
@@ -459,7 +459,7 @@ PLUGINS = [
         "luisiacc",
         "gruvbox-baby",
         above_clause=CommentExpr(LiteralExpr("inherit sainnhe/gruvbox-material")),
-        post="branch = 'main'",
+        post="branch = 'main',",
         color="gruvbox-baby",
         tag=Tag.COLORSCHEME,
     ),
@@ -504,7 +504,7 @@ PLUGINS = [
         "pineapplegiant",
         "spaceduck",
         color="spaceduck",
-        post="branch = 'main'",
+        post="branch = 'main',",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
@@ -542,7 +542,7 @@ PLUGINS = [
         "rose-pine",
         "neovim",
         color="rose-pine",
-        post="as = 'rose-pine'",
+        post="as = 'rose-pine',",
         tag=Tag.COLORSCHEME,
     ),
     Plugin("sainnhe", "edge", color="edge", tag=Tag.COLORSCHEME),
@@ -559,7 +559,7 @@ PLUGINS = [
     # Plugin(
     #     "sonph",
     #     "onehalf",
-    #     post="rtp = 'vim/'",
+    #     post="rtp = 'vim/',",
     #     color="onehalfdark",
     #     tag=Tag.COLORSCHEME,
     # ),
@@ -568,7 +568,7 @@ PLUGINS = [
     Plugin(
         "RRethy",
         "vim-illuminate",
-        post="event = 'VimEnter'",
+        post="event = 'VimEnter',",
         above_clause=[
             EmptyStmt(),
             CommentExpr(LiteralExpr("---- Highlight ----")),
@@ -578,26 +578,26 @@ PLUGINS = [
     Plugin(
         "NvChad",
         "nvim-colorizer.lua",
-        post="event = 'VimEnter'",
+        post="event = 'VimEnter',",
         tag=Tag.HIGHLIGHT,
     ),
     Plugin(
         "andymass",
         "vim-matchup",
-        post="event = 'VimEnter'",
+        post="event = 'VimEnter',",
         tag=Tag.HIGHLIGHT,
     ),
     Plugin(
         "inkarkat",
         "vim-mark",
-        post="requires = 'inkarkat/vim-ingo-library', event = 'VimEnter'",
+        post="requires = 'inkarkat/vim-ingo-library', event = 'VimEnter',",
         tag=Tag.HIGHLIGHT,
     ),
     # UI
     Plugin(
         "romgrk",
         "barbar.nvim",
-        post="requires = 'nvim-tree/nvim-web-devicons'",
+        post="requires = 'nvim-tree/nvim-web-devicons',",
         above_clause=[
             EmptyStmt(),
             CommentExpr(LiteralExpr("---- UI ----")),
@@ -607,7 +607,7 @@ PLUGINS = [
     Plugin(
         "nvim-tree",
         "nvim-tree.lua",
-        post="requires = 'nvim-tree/nvim-web-devicons'",
+        post="requires = 'nvim-tree/nvim-web-devicons',",
         above_clause=CommentExpr(LiteralExpr("Explorer")),
     ),
     Plugin("jlanzarotta", "bufexplorer"),
@@ -619,20 +619,20 @@ PLUGINS = [
     Plugin(
         "nvim-lualine",
         "lualine.nvim",
-        post="requires = 'nvim-tree/nvim-web-devicons'",
+        post="requires = 'nvim-tree/nvim-web-devicons',",
         above_clause=CommentExpr(LiteralExpr("Statusline")),
     ),
     Plugin("nvim-lua", "lsp-status.nvim"),
     Plugin(
         "lewis6991",
         "gitsigns.nvim",
-        post="event = 'VimEnter'",
+        post="event = 'VimEnter',",
         above_clause=CommentExpr(LiteralExpr("Git")),
     ),
     Plugin(
         "akinsho",
         "toggleterm.nvim",
-        post="tag = '*'",
+        post="tag = '*',",
         above_clause=CommentExpr(LiteralExpr("Terminal")),
     ),
     Plugin(
@@ -655,7 +655,7 @@ PLUGINS = [
     Plugin(
         "junegunn",
         "fzf",
-        post='run = ":call fzf#install()"',
+        post='run = ":call fzf#install()",',
         above_clause=[
             EmptyStmt(),
             CommentExpr(LiteralExpr("---- Search ----")),
@@ -667,7 +667,7 @@ PLUGINS = [
     Plugin(
         "williamboman",
         "mason.nvim",
-        post="event = 'VimEnter'",
+        post="event = 'VimEnter',",
         above_clause=[
             EmptyStmt(),
             CommentExpr(LiteralExpr("---- LSP server ----")),
@@ -677,28 +677,28 @@ PLUGINS = [
     Plugin(
         "williamboman",
         "mason-lspconfig.nvim",
-        post="event = 'VimEnter'",
+        post="event = 'VimEnter',",
         tag=Tag.LANGUAGE,
     ),
     Plugin(
         "jose-elias-alvarez",
         "null-ls.nvim",
-        post="requires = 'nvim-lua/plenary.nvim', event = 'VimEnter'",
+        post="requires = 'nvim-lua/plenary.nvim', event = 'VimEnter',",
         tag=Tag.LANGUAGE,
     ),
     Plugin(
-        "jay-babu", "mason-null-ls.nvim", post="event = 'VimEnter'", tag=Tag.LANGUAGE
+        "jay-babu", "mason-null-ls.nvim", post="event = 'VimEnter',", tag=Tag.LANGUAGE
     ),
     Plugin(
         "hrsh7th",
         "cmp-nvim-lsp",
-        post="event = 'VimEnter'",
+        post="event = 'VimEnter',",
         tag=Tag.LANGUAGE,
     ),
     Plugin(
         "hrsh7th",
         "cmp-buffer",
-        post="event = 'VimEnter'",
+        post="event = 'VimEnter',",
         tag=Tag.LANGUAGE,
     ),
     Plugin(
@@ -714,23 +714,23 @@ PLUGINS = [
     Plugin(
         "hrsh7th",
         "nvim-cmp",
-        post="event = 'VimEnter'",
+        post="event = 'VimEnter',",
         tag=Tag.LANGUAGE,
     ),
     Plugin(
         "L3MON4D3",
         "LuaSnip",
-        post="tag = 'v1.*', event = 'VimEnter'",
+        post="tag = 'v1.*', event = 'VimEnter',",
         tag=Tag.LANGUAGE,
     ),
     Plugin(
         "saadparwaiz1",
         "cmp_luasnip",
-        post="event = 'VimEnter'",
+        post="event = 'VimEnter',",
         tag=Tag.LANGUAGE,
     ),
     # Plugin(
-    #     "rafamadriz", "friendly-snippets", post="event = 'VimEnter'", tag=Tag.LANGUAGE
+    #     "rafamadriz", "friendly-snippets", post="event = 'VimEnter',", tag=Tag.LANGUAGE
     # ),
     # Language support
     Plugin(
@@ -753,28 +753,28 @@ PLUGINS = [
     Plugin(
         "justinmk",
         "vim-syntax-extra",
-        post="ft = {'lex', 'flex', 'yacc', 'bison'}",
+        post="ft = {'lex', 'flex', 'yacc', 'bison'},",
         above_clause=CommentExpr(LiteralExpr("Lex/yacc, flex/bison")),
         tag=Tag.LANGUAGE,
     ),
     Plugin(
         "rhysd",
         "vim-llvm",
-        post="ft = {'llvm', 'mir', 'mlir', 'tablegen'}",
+        post="ft = {'llvm', 'mir', 'mlir', 'tablegen'},",
         above_clause=CommentExpr(LiteralExpr("LLVM")),
         tag=Tag.LANGUAGE,
     ),
     Plugin(
         "zebradil",
         "hive.vim",
-        post="ft = {'hive'}",
+        post="ft = {'hive'},",
         above_clause=CommentExpr(LiteralExpr("Hive")),
         tag=Tag.LANGUAGE,
     ),
     Plugin(
         "slim-template",
         "vim-slim",
-        post="ft = {'slim'}",
+        post="ft = {'slim'},",
         above_clause=CommentExpr(LiteralExpr("Slim")),
         tag=Tag.LANGUAGE,
     ),
@@ -782,7 +782,7 @@ PLUGINS = [
     Plugin(
         "phaazon",
         "hop.nvim",
-        post="branch = 'v2', event = 'VimEnter'",
+        post="branch = 'v2', event = 'VimEnter',",
         above_clause=[
             EmptyStmt(),
             CommentExpr(LiteralExpr("---- Movement ----")),
@@ -793,15 +793,15 @@ PLUGINS = [
     Plugin(
         "ggandor",
         "leap.nvim",
-        post="requires = 'tpope/vim-repeat', event = 'VimEnter'",
+        post="requires = 'tpope/vim-repeat', event = 'VimEnter',",
         tag=Tag.EDITING,
     ),
-    Plugin("chaoren", "vim-wordmotion", post="event = 'VimEnter'", tag=Tag.EDITING),
+    Plugin("chaoren", "vim-wordmotion", post="event = 'VimEnter',", tag=Tag.EDITING),
     # Editing enhancement
     Plugin(
         "alvan",
         "vim-closetag",
-        post="event = 'VimEnter'",
+        post="event = 'VimEnter',",
         above_clause=[
             EmptyStmt(),
             CommentExpr(LiteralExpr("---- Editing enhancement ----")),
@@ -812,34 +812,34 @@ PLUGINS = [
     Plugin(
         "numToStr",
         "Comment.nvim",
-        post="event = 'VimEnter'",
+        post="event = 'VimEnter',",
         above_clause=CommentExpr(LiteralExpr("Comment")),
         tag=Tag.EDITING,
     ),
     Plugin(
         "windwp",
         "nvim-autopairs",
-        post="event = 'VimEnter'",
+        post="event = 'VimEnter',",
         above_clause=CommentExpr(LiteralExpr("Autopair")),
         tag=Tag.EDITING,
     ),
     Plugin(
         "haya14busa",
         "is.vim",
-        post="event = 'VimEnter'",
+        post="event = 'VimEnter',",
         above_clause=CommentExpr(LiteralExpr("Incremental search")),
         tag=Tag.EDITING,
     ),
     Plugin(
         "tpope",
         "vim-repeat",
-        post="event = 'VimEnter'",
+        post="event = 'VimEnter',",
         above_clause=CommentExpr(LiteralExpr("Other")),
         tag=Tag.EDITING,
     ),
-    Plugin("mbbill", "undotree", post="event = 'VimEnter'", tag=Tag.EDITING),
+    Plugin("mbbill", "undotree", post="event = 'VimEnter',", tag=Tag.EDITING),
     Plugin(
-        "editorconfig", "editorconfig-vim", post="event = 'VimEnter'", tag=Tag.EDITING
+        "editorconfig", "editorconfig-vim", post="event = 'VimEnter',", tag=Tag.EDITING
     ),
 ]
 
@@ -1006,22 +1006,26 @@ class Render:
             # body
             if not self.is_disabled(ctx):
                 # plugins
+                post = ctx.post
+                lua_file = f"repo/{str(ctx).replace('.', '-')}"
+                if pathlib.Path(f"{HOME_DIR}/.vim/lua/{lua_file}.lua").exists():
+                    lua_post = f"config = function() {RequireExpr(SingleQuoteStringExpr(lua_file)).render()} end"
+                    post = (
+                        LiteralExpr(post + lua_post) if post else LiteralExpr(lua_post)
+                    )
                 plugins.append(
                     Stmt(
                         IndentExpr(
                             PackerUseExpr4Lua(
                                 LiteralExpr(ctx.org),
                                 LiteralExpr(ctx.repo),
-                                LiteralExpr(ctx.post) if ctx.post else None,
+                                post,
                             )
                         )
                     )
                 )
                 # init
-                lua_file = f"repo/{str(ctx).replace('.', '-')}"
                 vim_file = f"repo/{ctx}.vim"
-                if pathlib.Path(f"{HOME_DIR}/.vim/lua/{lua_file}.lua").exists():
-                    inits.append(LuaRequireStmt(lua_file))
                 if pathlib.Path(f"{HOME_DIR}/.vim/{vim_file}").exists():
                     inits.append(SourceStmtFromVimHome(vim_file))
                 # color settings
