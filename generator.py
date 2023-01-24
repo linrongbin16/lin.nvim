@@ -604,7 +604,7 @@ PLUGINS = [
     Plugin(
         "nvim-neo-tree",
         "neo-tree.nvim",
-        follow="branch = 'v2.x', requires = { 'nvim-lua/plenary.nvim', 'nvim-tree/nvim-web-devicons', 'MunifTanjim/nui.nvim', }",
+        follow="branch = 'v2.x', requires = { 'nvim-lua/plenary.nvim', 'nvim-tree/nvim-web-devicons', 'MunifTanjim/nui.nvim', },",
         above=[
             EmptyStmt(),
             CommentExpr(LiteralExpr("---- UI ----")),
@@ -614,7 +614,7 @@ PLUGINS = [
     Plugin(
         "akinsho",
         "bufferline.nvim",
-        follow="tag = 'v3.*', requires ={ 'nvim-tree/nvim-web-devicons', 'famiu/bufdelete.nvim', }",
+        follow="tag = 'v3.*', requires = { 'nvim-tree/nvim-web-devicons', 'famiu/bufdelete.nvim', },",
         above=CommentExpr(LiteralExpr("Tabline")),
     ),
     # Plugin(
