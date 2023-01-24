@@ -1,7 +1,7 @@
 require("bufferline").setup{
     options = {
         numbers = function(opts)
-            return string.format('%s·%s', opts.raise(opts.ordinal), opts.lower(opts.id))
+            return string.format('%s.%s', opts.ordinal, opts.lower(opts.id))
         end,
         close_command = "Bdelete! %d",       -- Bdelete: https://github.com/famiu/bufdelete.nvim
         right_mouse_command = "Bdelete! %d",
