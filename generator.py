@@ -202,16 +202,16 @@ class EmptyStmt(Stmt):
 
 
 class PlugExpr(Expr):
-    def __init__(self, org, repo, post=None):
+    def __init__(self, org, repo, follow=None):
         assert isinstance(org, LiteralExpr)
         assert isinstance(repo, LiteralExpr)
-        assert isinstance(post, LiteralExpr) or post is None
+        assert isinstance(follow, LiteralExpr) or follow is None
         self.org = org
         self.repo = repo
-        self.post = post
+        self.follow = follow
 
     def render(self):
-        return f"Plug '{self.org.render()}/{self.repo.render()}'{(', ' + self.post.render()) if self.post else ''}"
+        return f"Plug '{self.org.render()}/{self.repo.render()}'{(', ' + self.follow.render()) if self.follow else ''}"
 
 
 class TemplateContent(Expr):
@@ -293,17 +293,17 @@ class EmptyCommentExpr4Lua(CommentExpr4Lua):
 
 
 class PackerUseExpr4Lua(Expr):
-    def __init__(self, org, repo, post=None):
+    def __init__(self, org, repo, follow=None):
         assert isinstance(org, Expr)
         assert isinstance(repo, Expr)
-        assert isinstance(post, Expr) or post is None
+        assert isinstance(follow, Expr) or follow is None
         self.org = org
         self.repo = repo
-        self.post = post
+        self.follow = follow
 
     def render(self):
-        if self.post:
-            return f"use {{ '{self.org.render()}/{self.repo.render()}', {self.post.render()} }}"
+        if self.follow:
+            return f"use {{ '{self.org.render()}/{self.repo.render()}', {self.follow.render()} }}"
         else:
             return f"use {{ '{self.org.render()}/{self.repo.render()}' }}"
 
@@ -332,15 +332,15 @@ class Plugin:
         self,
         org,
         repo,
-        post=None,
-        above_clause=None,
+        follow=None,
+        above=None,
         color=None,
         tag=None,
     ) -> None:
         self.org = org
         self.repo = repo
-        self.post = post
-        self.above_clause = above_clause  # more clauses above this line
+        self.follow = follow  # more plugin configs following this line
+        self.above = above  # more clauses above this line
         self.color = color
         self.tag = tag
 
@@ -353,7 +353,7 @@ PLUGINS = [
     Plugin(
         "wbthomason",
         "packer.nvim",
-        above_clause=[
+        above=[
             EmptyStmt(),
             CommentExpr(LiteralExpr("---- Infrastructure ----")),
         ],
@@ -383,7 +383,7 @@ PLUGINS = [
     Plugin(
         "bluz71",
         "vim-nightfly-colors",
-        above_clause=[
+        above=[
             EmptyStmt(),
             CommentExpr(LiteralExpr("---- Colorscheme ----")),
         ],
@@ -399,14 +399,14 @@ PLUGINS = [
     Plugin(
         "catppuccin",
         "nvim",
-        post="as = 'catppuccin',",
+        follow="as = 'catppuccin',",
         color="catppuccin",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
         "challenger-deep-theme",
         "vim",
-        post="as = 'challenger-deep',",
+        follow="as = 'challenger-deep',",
         color="challenger_deep",
         tag=Tag.COLORSCHEME,
     ),
@@ -425,7 +425,7 @@ PLUGINS = [
     Plugin(
         "embark-theme",
         "vim",
-        post="as = 'embark',",
+        follow="as = 'embark',",
         color="embark",
         tag=Tag.COLORSCHEME,
     ),
@@ -438,14 +438,14 @@ PLUGINS = [
     Plugin(
         "folke",
         "tokyonight.nvim",
-        post="branch = 'main',",
+        follow="branch = 'main',",
         color="tokyonight",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
         "ishan9299",
         "nvim-solarized-lua",
-        above_clause=CommentExpr(LiteralExpr("inherit 'lifepillar/vim-solarized8'")),
+        above=CommentExpr(LiteralExpr("inherit 'lifepillar/vim-solarized8'")),
         color="solarized",
         tag=Tag.COLORSCHEME,
     ),
@@ -458,15 +458,15 @@ PLUGINS = [
     Plugin(
         "luisiacc",
         "gruvbox-baby",
-        above_clause=CommentExpr(LiteralExpr("inherit sainnhe/gruvbox-material")),
-        post="branch = 'main',",
+        above=CommentExpr(LiteralExpr("inherit sainnhe/gruvbox-material")),
+        follow="branch = 'main',",
         color="gruvbox-baby",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
         "marko-cerovac",
         "material.nvim",
-        above_clause=CommentExpr(LiteralExpr("inherit kaicataldo/material.vim")),
+        above=CommentExpr(LiteralExpr("inherit kaicataldo/material.vim")),
         color="material",
         tag=Tag.COLORSCHEME,
     ),
@@ -479,14 +479,14 @@ PLUGINS = [
     Plugin(
         "Mofiqul",
         "dracula.nvim",
-        above_clause=CommentExpr(LiteralExpr("inherit dracula/vim")),
+        above=CommentExpr(LiteralExpr("inherit dracula/vim")),
         color="dracula",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
         "navarasu",
         "onedark.nvim",
-        above_clause=CommentExpr(
+        above=CommentExpr(
             LiteralExpr(
                 "inherit joshdick/onedark.vim, tomasiser/vim-code-dark, olimorris/onedarkpro.nvim"
             )
@@ -504,7 +504,7 @@ PLUGINS = [
         "pineapplegiant",
         "spaceduck",
         color="spaceduck",
-        post="branch = 'main',",
+        follow="branch = 'main',",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
@@ -542,7 +542,7 @@ PLUGINS = [
         "rose-pine",
         "neovim",
         color="rose-pine",
-        post="as = 'rose-pine',",
+        follow="as = 'rose-pine',",
         tag=Tag.COLORSCHEME,
     ),
     Plugin("sainnhe", "edge", color="edge", tag=Tag.COLORSCHEME),
@@ -550,7 +550,7 @@ PLUGINS = [
     Plugin(
         "sainnhe",
         "sonokai",
-        above_clause=CommentExpr(LiteralExpr("inherit sickill/vim-monokai")),
+        above=CommentExpr(LiteralExpr("inherit sickill/vim-monokai")),
         color="sonokai",
         tag=Tag.COLORSCHEME,
     ),
@@ -559,7 +559,7 @@ PLUGINS = [
     # Plugin(
     #     "sonph",
     #     "onehalf",
-    #     post="rtp = 'vim/',",
+    #     follow="rtp = 'vim/',",
     #     color="onehalfdark",
     #     tag=Tag.COLORSCHEME,
     # ),
@@ -568,7 +568,7 @@ PLUGINS = [
     Plugin(
         "RRethy",
         "vim-illuminate",
-        above_clause=[
+        above=[
             EmptyStmt(),
             CommentExpr(LiteralExpr("---- Highlight ----")),
         ],
@@ -587,15 +587,15 @@ PLUGINS = [
     Plugin(
         "inkarkat",
         "vim-mark",
-        post="requires = 'inkarkat/vim-ingo-library',",
+        follow="requires = 'inkarkat/vim-ingo-library',",
         tag=Tag.HIGHLIGHT,
     ),
     # UI
     Plugin(
         "romgrk",
         "barbar.nvim",
-        post="requires = 'nvim-tree/nvim-web-devicons',",
-        above_clause=[
+        follow="requires = 'nvim-tree/nvim-web-devicons',",
+        above=[
             EmptyStmt(),
             CommentExpr(LiteralExpr("---- UI ----")),
             CommentExpr(LiteralExpr("Tabline")),
@@ -604,55 +604,55 @@ PLUGINS = [
     Plugin(
         "nvim-tree",
         "nvim-tree.lua",
-        post="requires = 'nvim-tree/nvim-web-devicons',",
-        above_clause=CommentExpr(LiteralExpr("Explorer")),
+        follow="requires = 'nvim-tree/nvim-web-devicons',",
+        above=CommentExpr(LiteralExpr("Explorer")),
     ),
     Plugin("jlanzarotta", "bufexplorer"),
     Plugin(
         "lukas-reineke",
         "indent-blankline.nvim",
-        above_clause=CommentExpr(LiteralExpr("Indentline")),
+        above=CommentExpr(LiteralExpr("Indentline")),
     ),
     Plugin(
         "nvim-lualine",
         "lualine.nvim",
-        post="requires = 'nvim-tree/nvim-web-devicons',",
-        above_clause=CommentExpr(LiteralExpr("Statusline")),
+        follow="requires = 'nvim-tree/nvim-web-devicons',",
+        above=CommentExpr(LiteralExpr("Statusline")),
     ),
     Plugin("nvim-lua", "lsp-status.nvim"),
     Plugin(
         "lewis6991",
         "gitsigns.nvim",
-        above_clause=CommentExpr(LiteralExpr("Git")),
+        above=CommentExpr(LiteralExpr("Git")),
     ),
     Plugin(
         "akinsho",
         "toggleterm.nvim",
-        post="tag = '*',",
-        above_clause=CommentExpr(LiteralExpr("Terminal")),
+        follow="tag = '*',",
+        above=CommentExpr(LiteralExpr("Terminal")),
     ),
     Plugin(
         "stevearc",
         "dressing.nvim",
-        above_clause=CommentExpr(LiteralExpr("UI hooks")),
+        above=CommentExpr(LiteralExpr("UI hooks")),
     ),
     Plugin(
         "karb94",
         "neoscroll.nvim",
-        above_clause=CommentExpr(LiteralExpr("Smooth scrolling")),
+        above=CommentExpr(LiteralExpr("Smooth scrolling")),
     ),
     Plugin(
         "liuchengxu",
         "vista.vim",
-        above_clause=CommentExpr(LiteralExpr("Structures/Outlines")),
+        above=CommentExpr(LiteralExpr("Structures/Outlines")),
     ),
     Plugin("ludovicchabant", "vim-gutentags"),
     # Search
     Plugin(
         "junegunn",
         "fzf",
-        post='run = ":call fzf#install()",',
-        above_clause=[
+        follow='run = ":call fzf#install()",',
+        above=[
             EmptyStmt(),
             CommentExpr(LiteralExpr("---- Search ----")),
         ],
@@ -663,7 +663,7 @@ PLUGINS = [
     Plugin(
         "williamboman",
         "mason.nvim",
-        above_clause=[
+        above=[
             EmptyStmt(),
             CommentExpr(LiteralExpr("---- LSP server ----")),
         ],
@@ -677,7 +677,7 @@ PLUGINS = [
     Plugin(
         "jose-elias-alvarez",
         "null-ls.nvim",
-        post="requires = 'nvim-lua/plenary.nvim',",
+        follow="requires = 'nvim-lua/plenary.nvim',",
         tag=Tag.LANGUAGE,
     ),
     Plugin("jay-babu", "mason-null-ls.nvim", tag=Tag.LANGUAGE),
@@ -723,8 +723,8 @@ PLUGINS = [
     Plugin(
         "iamcco",
         "markdown-preview.nvim",
-        post=' run = "cd app && npm install", setup = function() vim.g.mkdp_filetypes = { "markdown" } end, ft = { "markdown" },',
-        above_clause=[
+        follow=' run = "cd app && npm install", setup = function() vim.g.mkdp_filetypes = { "markdown" } end, ft = { "markdown" },',
+        above=[
             EmptyStmt(),
             CommentExpr(LiteralExpr("---- Language support ----")),
             CommentExpr(LiteralExpr("Markdown")),
@@ -734,43 +734,43 @@ PLUGINS = [
     Plugin(
         "p00f",
         "clangd_extensions.nvim",
-        above_clause=CommentExpr(LiteralExpr("Clangd extension")),
+        above=CommentExpr(LiteralExpr("Clangd extension")),
         tag=Tag.LANGUAGE,
     ),
     Plugin(
         "justinmk",
         "vim-syntax-extra",
-        post="ft = {'lex', 'flex', 'yacc', 'bison'},",
-        above_clause=CommentExpr(LiteralExpr("Lex/yacc, flex/bison")),
+        follow="ft = {'lex', 'flex', 'yacc', 'bison'},",
+        above=CommentExpr(LiteralExpr("Lex/yacc, flex/bison")),
         tag=Tag.LANGUAGE,
     ),
     Plugin(
         "rhysd",
         "vim-llvm",
-        post="ft = {'llvm', 'mir', 'mlir', 'tablegen'},",
-        above_clause=CommentExpr(LiteralExpr("LLVM")),
+        follow="ft = {'llvm', 'mir', 'mlir', 'tablegen'},",
+        above=CommentExpr(LiteralExpr("LLVM")),
         tag=Tag.LANGUAGE,
     ),
     Plugin(
         "zebradil",
         "hive.vim",
-        post="ft = {'hive'},",
-        above_clause=CommentExpr(LiteralExpr("Hive")),
+        follow="ft = {'hive'},",
+        above=CommentExpr(LiteralExpr("Hive")),
         tag=Tag.LANGUAGE,
     ),
     Plugin(
         "slim-template",
         "vim-slim",
-        post="ft = {'slim'},",
-        above_clause=CommentExpr(LiteralExpr("Slim")),
+        follow="ft = {'slim'},",
+        above=CommentExpr(LiteralExpr("Slim")),
         tag=Tag.LANGUAGE,
     ),
     # Movement
     Plugin(
         "phaazon",
         "hop.nvim",
-        post="branch = 'v2',",
-        above_clause=[
+        follow="branch = 'v2',",
+        above=[
             EmptyStmt(),
             CommentExpr(LiteralExpr("---- Movement ----")),
             CommentExpr(LiteralExpr("Cursor Movement")),
@@ -780,7 +780,7 @@ PLUGINS = [
     Plugin(
         "ggandor",
         "leap.nvim",
-        post="requires = 'tpope/vim-repeat',",
+        follow="requires = 'tpope/vim-repeat',",
         tag=Tag.EDITING,
     ),
     Plugin("chaoren", "vim-wordmotion", tag=Tag.EDITING),
@@ -788,7 +788,7 @@ PLUGINS = [
     Plugin(
         "alvan",
         "vim-closetag",
-        above_clause=[
+        above=[
             EmptyStmt(),
             CommentExpr(LiteralExpr("---- Editing enhancement ----")),
             CommentExpr(LiteralExpr("HTML tag")),
@@ -798,25 +798,25 @@ PLUGINS = [
     Plugin(
         "numToStr",
         "Comment.nvim",
-        above_clause=CommentExpr(LiteralExpr("Comment")),
+        above=CommentExpr(LiteralExpr("Comment")),
         tag=Tag.EDITING,
     ),
     Plugin(
         "windwp",
         "nvim-autopairs",
-        above_clause=CommentExpr(LiteralExpr("Autopair")),
+        above=CommentExpr(LiteralExpr("Autopair")),
         tag=Tag.EDITING,
     ),
     Plugin(
         "haya14busa",
         "is.vim",
-        above_clause=CommentExpr(LiteralExpr("Incremental search")),
+        above=CommentExpr(LiteralExpr("Incremental search")),
         tag=Tag.EDITING,
     ),
     Plugin(
         "tpope",
         "vim-repeat",
-        above_clause=CommentExpr(LiteralExpr("Other")),
+        above=CommentExpr(LiteralExpr("Other")),
         tag=Tag.EDITING,
     ),
     Plugin("mbbill", "undotree", tag=Tag.EDITING),
@@ -966,34 +966,30 @@ class Render:
         for ctx in PLUGINS:
             assert isinstance(ctx, Plugin)
             # above
-            if ctx.above_clause:
-                aboves = (
-                    ctx.above_clause
-                    if isinstance(ctx.above_clause, list)
-                    else [ctx.above_clause]
-                )
-                for above in aboves:
-                    assert isinstance(above, Expr)
-                    if isinstance(above, EmptyStmt):
-                        plugins.append(to_lua(above))
-                        inits.append(above)
-                    elif isinstance(above, CommentExpr):
-                        cs = Stmt(above)
-                        plugins.append(Stmt(IndentExpr(to_lua(above))))
+            if ctx.above:
+                aboves = ctx.above if isinstance(ctx.above, list) else [ctx.above]
+                for a in aboves:
+                    assert isinstance(a, Expr)
+                    if isinstance(a, EmptyStmt):
+                        plugins.append(to_lua(a))
+                        inits.append(a)
+                    elif isinstance(a, CommentExpr):
+                        cs = Stmt(a)
+                        plugins.append(Stmt(IndentExpr(to_lua(a))))
                         inits.append(cs)
                     else:
                         assert False
             # body
             if not self.is_disabled(ctx):
                 # plugins
-                post = LiteralExpr(ctx.post) if ctx.post else None
+                follow = LiteralExpr(ctx.follow) if ctx.follow else None
                 lua_file = f"repo/{str(ctx).replace('.', '-')}"
                 if pathlib.Path(f"{HOME_DIR}/.vim/lua/{lua_file}.lua").exists():
-                    lua_post = f"config = function() {RequireExpr(SingleQuoteStringExpr(lua_file)).render()} end"
-                    post = (
-                        LiteralExpr(post.render() + lua_post)
-                        if post
-                        else LiteralExpr(lua_post)
+                    lua_follow = f"config = function() {RequireExpr(SingleQuoteStringExpr(lua_file)).render()} end"
+                    follow = (
+                        LiteralExpr(follow.render() + lua_follow)
+                        if follow
+                        else LiteralExpr(lua_follow)
                     )
                 plugins.append(
                     Stmt(
@@ -1001,7 +997,7 @@ class Render:
                             PackerUseExpr4Lua(
                                 LiteralExpr(ctx.org),
                                 LiteralExpr(ctx.repo),
-                                post,
+                                follow,
                             )
                         )
                     )
