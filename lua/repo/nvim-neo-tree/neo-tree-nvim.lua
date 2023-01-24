@@ -138,5 +138,3 @@ require("neo-tree").setup({
       }
     },
 })
-
--- vim.cmd('Neotree toggle')
