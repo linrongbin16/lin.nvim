@@ -1,17 +1,20 @@
 require("bufferline").setup{
     options = {
-        numbers = "both",
+        numbers = function(opts)
+            return string.format('%s·%s', opts.raise(opts.ordinal), opts.lower(opts.id))
+        end,
         close_command = "Bdelete! %d",       -- Bdelete: https://github.com/famiu/bufdelete.nvim
         right_mouse_command = "Bdelete! %d",
         max_name_length = 60,
         max_prefix_length = 55,
-        diagnostics = "nvim_lsp",
+        diagnostics = false,
         offsets = {
             {
-                filetype = "NvimTree",
-                text = "File Explorer",
+                filetype = "neo-tree",
+                text = "NeoTree",
             }
         },
+        separator_style = "slant",
         hover = {
             enabled = false,
         },
