@@ -16,5 +16,5 @@ nnoremap <silent> [b :BufferLineCyclePrev<CR>
 nnoremap <silent> <Leader>bd :Bdelete<CR>
 
 " re-order current buffer to next/previous position
-nnoremap <silent> <Leader>< :BufferLineMoveNext<CR>
-nnoremap <silent> <Leader>> :BufferLineMovePrev<CR>
+nnoremap <silent> <Leader>> :BufferLineMoveNext<CR>
+nnoremap <silent> <Leader>< :BufferLineMovePrev<CR>
