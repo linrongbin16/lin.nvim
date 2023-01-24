@@ -1,7 +1,7 @@
 
 """ ---- Hot keys ----
 " Toggle file explorer
-nnoremap <F1> :NvimTreeToggle<CR>
+nnoremap <F1> :Neotree toggle<CR>
 " Toggle undotree
 nnoremap <F2> :UndotreeToggle<CR>
 " Toggle outline
@@ -9,15 +9,13 @@ nnoremap <F3> :Vista!!<CR>
 " Switch between C/C++ header and source
 nnoremap <F4> :ClangdSwitchSourceHeader<CR>
 " Toggle marks
-nmap <F7> <Plug>MarkToggle
+nmap <F8> <Plug>MarkToggle
 " Clear marks, use '<Plug>MarkAllClear' without confirmation
-nmap <S-F7> <Plug>MarkConfirmAllClear
+nmap <S-F8> <Plug>MarkConfirmAllClear
 " Markdown preview
-nnoremap <F8> :MarkdownPreview<CR>
+nnoremap <F9> :MarkdownPreview<CR>
 " Toggle terminal
-nnoremap <F9> :ToggleTerm<CR>
-" Toggle bufexplorer
-nnoremap <F10> :ToggleBufExplorer<CR>
+nnoremap <F10> :ToggleTerm<CR>
 
 """ ---- Enhanced copy-paste ----
 " Copy visual selected text to cache

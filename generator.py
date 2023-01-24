@@ -590,17 +590,6 @@ PLUGINS = [
         follow="requires = 'inkarkat/vim-ingo-library',",
         tag=Tag.HIGHLIGHT,
     ),
-    # UI
-    # Plugin(
-    #     "romgrk",
-    #     "barbar.nvim",
-    #     follow="requires = 'nvim-tree/nvim-web-devicons',",
-    #     above=[
-    #         EmptyStmt(),
-    #         CommentExpr(LiteralExpr("---- UI ----")),
-    #         CommentExpr(LiteralExpr("Tabline")),
-    #     ],
-    # ),
     Plugin(
         "nvim-neo-tree",
         "neo-tree.nvim",
@@ -617,13 +606,6 @@ PLUGINS = [
         follow="tag = 'v3.*', requires = { 'nvim-tree/nvim-web-devicons', 'famiu/bufdelete.nvim', },",
         above=CommentExpr(LiteralExpr("Tabline")),
     ),
-    # Plugin(
-    #     "nvim-tree",
-    #     "nvim-tree.lua",
-    #     follow="requires = 'nvim-tree/nvim-web-devicons',",
-    #     above=CommentExpr(LiteralExpr("Explorer")),
-    # ),
-    Plugin("jlanzarotta", "bufexplorer"),
     Plugin(
         "lukas-reineke",
         "indent-blankline.nvim",
