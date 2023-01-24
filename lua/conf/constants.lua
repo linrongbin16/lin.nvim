@@ -8,7 +8,7 @@ M.lsp = {
             ['error'] = '', -- nf-fa-times_circle \uf057
             ['warning'] = '', -- nf-fa-warning \uf071
             ['info'] = '', -- nf-fa-info_circle \uf05a
-            ['hint'] = '', -- nf-fa-bell \uf0f3
+            ['hint'] = '', -- nf-mdi-lightbulb \uf834
             ['ok'] = '', -- nf-fa-check \uf00c
         }
     },

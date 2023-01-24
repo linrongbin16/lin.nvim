@@ -591,22 +591,38 @@ PLUGINS = [
         tag=Tag.HIGHLIGHT,
     ),
     # UI
+    # Plugin(
+    #     "romgrk",
+    #     "barbar.nvim",
+    #     follow="requires = 'nvim-tree/nvim-web-devicons',",
+    #     above=[
+    #         EmptyStmt(),
+    #         CommentExpr(LiteralExpr("---- UI ----")),
+    #         CommentExpr(LiteralExpr("Tabline")),
+    #     ],
+    # ),
     Plugin(
-        "romgrk",
-        "barbar.nvim",
-        follow="requires = 'nvim-tree/nvim-web-devicons',",
+        "nvim-neo-tree",
+        "neo-tree.nvim",
+        follow="branch = 'v2.x', requires = { 'nvim-lua/plenary.nvim', 'nvim-tree/nvim-web-devicons', 'MunifTanjim/nui.nvim', }",
         above=[
             EmptyStmt(),
             CommentExpr(LiteralExpr("---- UI ----")),
-            CommentExpr(LiteralExpr("Tabline")),
+            CommentExpr(LiteralExpr("File explorer")),
         ],
     ),
     Plugin(
-        "nvim-tree",
-        "nvim-tree.lua",
-        follow="requires = 'nvim-tree/nvim-web-devicons',",
-        above=CommentExpr(LiteralExpr("Explorer")),
+        "akinsho",
+        "bufferline.nvim",
+        follow="tag = 'v3.*', requires ={ 'nvim-tree/nvim-web-devicons', 'famiu/bufdelete.nvim', }",
+        above=CommentExpr(LiteralExpr("Tabline")),
     ),
+    # Plugin(
+    #     "nvim-tree",
+    #     "nvim-tree.lua",
+    #     follow="requires = 'nvim-tree/nvim-web-devicons',",
+    #     above=CommentExpr(LiteralExpr("Explorer")),
+    # ),
     Plugin("jlanzarotta", "bufexplorer"),
     Plugin(
         "lukas-reineke",
