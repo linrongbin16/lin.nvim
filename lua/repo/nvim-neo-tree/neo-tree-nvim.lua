@@ -20,7 +20,7 @@ require("neo-tree").setup({
                 -- Status type
                 untracked = "", -- nf-fa-question \uf128
                 ignored   = "", -- nf-fa-circle_thin \uf1db
-                unstaged  = "", -- disable unstaged
+                unstaged  = "", -- disable unstaged, it's quite useless.
                 staged    = "", -- nf-fa-edit \uf044
                 conflict  = "", -- nf-dev-git_merge \ue727
             }
