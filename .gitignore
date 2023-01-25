@@ -6,7 +6,7 @@
 .copypaste
 
 # plugins
-plugin/packer_compiled.lua
+lazy-lock.json
 
 # generated
 lua/plugins.lua*

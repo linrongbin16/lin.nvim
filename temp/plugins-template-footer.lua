@@ -1,3 +1,3 @@
-end)
+}
 
 -- ---- Plugins Footer ----
