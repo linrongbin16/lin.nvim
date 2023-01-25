@@ -41,7 +41,7 @@ require("neo-tree").setup({
                         highlight = "NeoTreeSymbolicLinkTarget",
                     },
                     { "clipboard", zindex = 10 },
-                    { "diagnostics", errors_only = false, zindex = 20, align = "left", hide_when_expanded = true },
+                    { "diagnostics", errors_only = false, zindex = 20, align = "left", hide_when_expanded = true }, -- move this indicator to left side
                     { "git_status", zindex = 20, align = "right", hide_when_expanded = true },
                 },
             },
@@ -63,8 +63,8 @@ require("neo-tree").setup({
                     },
                     { "clipboard", zindex = 10 },
                     { "bufnr", zindex = 10 },
-                    { "modified", zindex = 20, align = "left" },
-                    { "diagnostics",  zindex = 20, align = "left" },
+                    { "modified", zindex = 20, align = "left" }, -- move this indicator to left side
+                    { "diagnostics",  zindex = 20, align = "left" }, -- move this indicator to left side
                     { "git_status", zindex = 20, align = "right" },
                 },
             },
@@ -74,6 +74,9 @@ require("neo-tree").setup({
         mappings = {
             -- disabled mappings
             ["<space>"] = "",
+            ["S"] = "",
+            ["s"] = "",
+            ["t"] = "",
             ["w"] = "",
             ["C"] = "",
 
@@ -87,36 +90,10 @@ require("neo-tree").setup({
                 end
             end,
             ["l"] = "open",
-            ["<2-LeftMouse>"] = "open",
-            ["<CR>"] = "open",
-            ["<ESC>"] = "revert_preview",
-            ["P"] = { "toggle_preview", config = { use_float = true } },
-            ["S"] = "open_split",
-            ["s"] = "open_vsplit",
-            ["t"] = "open_tabnew",
-            ["z"] = "close_all_nodes",
+            ["<C-x>"] = "open_split",
+            ["<C-v>"] = "open_vsplit",
+            ["<C-t>"] = "open_tabnew",
             ["Z"] = "expand_all_nodes",
-            ["R"] = "refresh",
-            ["a"] = {
-              "add",
-              -- some commands may take optional config options, see `:h neo-tree-mappings` for details
-              config = {
-                show_path = "none", -- "none", "relative", "absolute"
-              }
-            },
-            ["A"] = "add_directory", -- also accepts the config.show_path and config.insert_as options.
-            ["d"] = "delete",
-            ["r"] = "rename",
-            ["y"] = "copy_to_clipboard",
-            ["x"] = "cut_to_clipboard",
-            ["p"] = "paste_from_clipboard",
-            ["c"] = "copy", -- takes text input for destination, also accepts the config.show_path and config.insert_as options
-            ["m"] = "move", -- takes text input for destination, also accepts the config.show_path and config.insert_as options
-            ["e"] = "toggle_auto_expand_width",
-            ["q"] = "close_window",
-            ["?"] = "show_help",
-            ["<"] = "prev_source",
-            [">"] = "next_source",
         },
     },
     filesystem = {
@@ -124,14 +101,13 @@ require("neo-tree").setup({
         visible = true,
       },
       follow_current_file = true,
-      use_libuv_file_watcher = true,
       window = {
         mappings = {
             -- diabled mappings
             ["[g"] = "",
             ["]g"] = "",
 
-            -- enabled mappings
+            -- added mappings
             ["[c"] = "prev_git_modified",
             ["]c"] = "next_git_modified",
         }

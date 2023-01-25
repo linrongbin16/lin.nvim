@@ -11,9 +11,9 @@ let g:fzf_command_prefix = 'Fzf'
 
 " for advanced rg integration, please see:
 " https://github.com/junegunn/fzf.vim#example-advanced-ripgrep-integration
-command! -bang -nargs=* LinFzfRgNoIgnore
+command! -bang -nargs=* LinFzfUnrestrictedRg
             \ call fzf#vim#grep(
-            \ "rg --column --no-heading --color=always -S -uu --glob=!.git/ -- ".shellescape(<q-args>), 1,
+            \ "rg --column --no-heading --color=always -S -uu --glob=!.git/ ".shellescape(<q-args>), 1,
             \ fzf#vim#with_preview(), <bang>0)
 
 command! -bang -nargs=0 LinFzfRgCWord
@@ -21,17 +21,25 @@ command! -bang -nargs=0 LinFzfRgCWord
             \ "rg --column --no-heading --color=always -S ".shellescape(expand('<cword>')), 1,
             \ fzf#vim#with_preview(), <bang>0)
 
-command! -bang -nargs=0 LinFzfRgCWordNoIgnore
+command! -bang -nargs=0 LinFzfUnrestrictedRgCWord
             \ call fzf#vim#grep(
             \ "rg --column --no-heading --color=always -S -uu --glob=!.git/ ".shellescape(expand('<cword>')), 1,
             \ fzf#vim#with_preview(), <bang>0)
 
 if executable('fd')
-    command! -bang -nargs=* LinFzfFilesNoIgnore
-        \ call fzf#vim#grep('fd -tf -tl -i -u --exclude ".git" -- '.shellescape(<q-args>), 1, fzf#vim#with_preview(), <bang>0)
+    command! -bang -nargs=? -complete=dir LinFzfUnrestrictedFiles
+        \ call fzf#run(
+        \   fzf#vim#with_preview(
+        \     fzf#wrap({ 'source': 'fd -tf -tl -i -u --exclude ".git" '.shellescape(<q-args>) }, <bang>0)
+        \   )
+        \ )
 elseif executable('fdfind')
-    command! -bang -nargs=* LinFzfFilesNoIgnore
-        \ call fzf#vim#grep('fdfind -tf -tl -i -u --exclude ".git" -- '.shellescape(<q-args>), 1, fzf#vim#with_preview(), <bang>0)
+    command! -bang -nargs=? -complete=dir LinFzfUnrestrictedFiles
+        \ call fzf#run(
+        \   fzf#vim#with_preview(
+        \     fzf#wrap({ 'source': 'fdfind -tf -tl -i -u --exclude ".git" '.shellescape(<q-args>) }, <bang>0)
+        \   )
+        \ )
 endif
 
 
@@ -42,10 +50,10 @@ endfunction
 """ Text
 " live grep
 nnoremap <silent> <space>r      :FzfRg<CR>
-nnoremap <silent> <space>nr     :LinFzfRgNoIgnore<CR>
+nnoremap <silent> <space>ur     :LinFzfUnrestrictedRg<CR>
 " cursor word/string
 nnoremap <silent> <space>w      :LinFzfRgCWord<CR>
-nnoremap <silent> <space>nw     :LinFzfRgCWordNoIgnore<CR>
+nnoremap <silent> <space>uw     :LinFzfUnrestrictedRgCWord<CR>
 " lines in opened buffers
 nnoremap <silent> <space>ln     :FzfLines<CR>
 " tags
@@ -55,7 +63,7 @@ nnoremap <silent> <space>tg     :FzfTags<CR>
 " files
 nnoremap <silent> <space>f      :FzfFiles<CR>
 nnoremap <silent> <C-p>         :FzfFiles<CR>
-nnoremap <silent> <space>nf     :LinFzfFilesNoIgnore<CR>
+nnoremap <silent> <space>uf     :LinFzfUnrestrictedFiles<CR>
 " opened buffers
 nnoremap <silent> <space>b      :FzfBuffers<CR>
 " history files/oldfiles

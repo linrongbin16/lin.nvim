@@ -1,4 +1,4 @@
 augroup LinNeotreeNvimAuGroup
     autocmd!
-    autocmd VimEnter * Neotree toggle
+    autocmd VimEnter * Neotree reveal
 augroup END
