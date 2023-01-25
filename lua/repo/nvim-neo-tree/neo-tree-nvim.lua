@@ -20,7 +20,7 @@ require("neo-tree").setup({
                 -- Status type
                 untracked = "", -- nf-fa-question \uf128
                 ignored   = "", -- nf-fa-circle_thin \uf1db
-                unstaged  = "", -- nf-fa-square_o \uf096
+                unstaged  = "", -- disable unstaged
                 staged    = "", -- nf-fa-edit \uf044
                 conflict  = "", -- nf-dev-git_merge \ue727
             }
@@ -41,7 +41,7 @@ require("neo-tree").setup({
                         highlight = "NeoTreeSymbolicLinkTarget",
                     },
                     { "clipboard", zindex = 10 },
-                    { "diagnostics", errors_only = false, zindex = 20, align = "left", hide_when_expanded = true }, -- move this indicator to left side
+                    { "diagnostics", errors_only = true, zindex = 20, align = "left", hide_when_expanded = true }, -- move this indicator to left side
                     { "git_status", zindex = 20, align = "right", hide_when_expanded = true },
                 },
             },
