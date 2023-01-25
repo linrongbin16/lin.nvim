@@ -64,7 +64,7 @@ require("neo-tree").setup({
                     { "clipboard", zindex = 10 },
                     { "bufnr", zindex = 10 },
                     { "modified", zindex = 20, align = "left" }, -- move this indicator to left side
-                    { "diagnostics",  zindex = 20, align = "left" }, -- move this indicator to left side
+                    { "diagnostics", zindex = 20, align = "left" }, -- move this indicator to left side
                     { "git_status", zindex = 20, align = "right" },
                 },
             },
