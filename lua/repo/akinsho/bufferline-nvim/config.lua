@@ -10,8 +10,8 @@ require("bufferline").setup {
         diagnostics = false,
         offsets = {
             {
-                filetype = "neo-tree",
-                text = "NeoTree",
+                filetype = "NvimTree",
+                text = "NvimTree",
             }
         },
         separator_style = "slant",
