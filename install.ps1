@@ -7,7 +7,6 @@ $VIM_HOME = "$env:USERPROFILE\.vim"
 $APPDATA_LOCAL_HOME = "$env:USERPROFILE\AppData\Local"
 $NVIM_HOME = "$APPDATA_LOCAL_HOME\nvim"
 $INSTALL_HOME = "$VIM_HOME\installer"
-$PACKER_HOME = "$env:LOCALAPPDATA\nvim-data\site\pack\packer\start\packer.nvim"
 
 $MODE_NAME = "full" # default mode
 $OPT_BASIC = $False
@@ -65,15 +64,6 @@ function UnknownOptionError() {
 # }
 
 # dependency
-
-function PackerDependency() {
-    if (-not (Test-Path $PACKER_HOME)) {
-	    Message "install 'packer.nvim' from github"
-        git clone https://github.com/wbthomason/packer.nvim $PACKER_HOME
-    } else {
-	    Message "'packer.nvim' already exist, skip..."
-    }
-}
 
 function CargoDependency() {
     Message "install modern rust commands with cargo"
@@ -159,7 +149,6 @@ if ($OPT_BASIC) {
 else {
     # dependency
     Message "install dependencies for windows"
-    PackerDependency
     CargoDependency
     Pip3Dependency
     NpmDependency
@@ -170,7 +159,7 @@ else {
     if ($LastExitCode -ne 0) {
         exit 1
     }
-    cmd /c nvim -E --headless -u "$VIM_HOME\temp\init-tool.vim" -c 'autocmd User PackerComplete quitall' -c 'PackerSync' /wait
+    cmd /c nvim -E --headless -u "$VIM_HOME\temp\init-tool.vim" -c '+Lazy! sync' +qa
 }
 
 Message "install with $MODE_NAME mode - done"
