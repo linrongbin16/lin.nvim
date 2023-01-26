@@ -13,7 +13,7 @@ lua/plugins.lua*
 lua/lspservers.lua*
 settings.vim*
 colorschemes.vim*
-init.vim*
+/init.vim*
 
 # universal-ctags
 universal-ctags
