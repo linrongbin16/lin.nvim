@@ -6,7 +6,6 @@
 VIM_HOME=$HOME/.vim
 NVIM_HOME=$HOME/.config/nvim
 INSTALL_HOME=$VIM_HOME/installer
-PACKER_HOME=$HOME/.local/share/nvim/site/pack/packer/start/packer.nvim
 OS="$(uname -s)"
 
 MODE_NAME='full' # default mode
@@ -15,14 +14,6 @@ OPT_BASIC=0
 source $INSTALL_HOME/util.sh
 
 # dependency
-packer_dependency() {
-	if [ ! -d $PACKER_HOME ]; then
-		message "install 'packer.nvim' from github"
-		git clone --depth 1 https://github.com/wbthomason/packer.nvim $PACKER_HOME
-	else
-		message "'packer.nvim' already exist, skip..."
-	fi
-}
 
 # vim-hexokinase has been replaced with nvim-colorizer.lua, so golang is no longer needed as a dependency.
 # golang_dependency() {
@@ -162,7 +153,6 @@ else
 		exit 1
 		;;
 	esac
-	packer_dependency
 	pip3_dependency
 	npm_dependency
 	guifont_dependency
