@@ -998,7 +998,7 @@ class Render:
             # body
             if not self.is_disabled(ctx):
                 # plugins
-                prop = self.assemble_props(ctx.prop)
+                prop = self.assemble_props(ctx)
                 lua_base = f"repo/{str(ctx).replace('.', '-')}"
                 lua_init = f"{lua_base}/init"
                 lua_init_file = f"{VIM_DIR}/lua/{lua_init}.lua"
