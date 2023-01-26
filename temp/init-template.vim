@@ -4,7 +4,7 @@ source $HOME/.vim/conf/filetype.vim
 lua require('conf/lsp')
 
 " ---- Plugin ----
-lua require('repo/folke/lazy-nvim')
+lua require('repo/folke/lazy-nvim/config')
 
 " ---- Generated ----
 lua require('lspservers')
