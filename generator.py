@@ -351,15 +351,6 @@ class Plugin:
 PLUGINS = [
     # Infrastructure
     Plugin(
-        "wbthomason",
-        "packer.nvim",
-        above=[
-            EmptyStmt(),
-            CommentExpr(LiteralExpr("---- Infrastructure ----")),
-        ],
-        tag=Tag.INFRASTRUCTURE,
-    ),
-    Plugin(
         "nathom",
         "filetype.nvim",
         tag=Tag.INFRASTRUCTURE,
