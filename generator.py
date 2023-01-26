@@ -292,22 +292,6 @@ class EmptyCommentExpr4Lua(CommentExpr4Lua):
         CommentExpr4Lua.__init__(self, LiteralExpr("Empty"))
 
 
-class PackerUseExpr4Lua(Expr):
-    def __init__(self, org, repo, follows=None):
-        assert isinstance(org, Expr)
-        assert isinstance(repo, Expr)
-        assert isinstance(follows, list) or follows is None
-        self.org = org
-        self.repo = repo
-        self.follows = follows
-
-    def render(self):
-        if self.follows:
-            return f"use {{ '{self.org.render()}/{self.repo.render()}', {','.join([f.render() for f in self.follows])} }}"
-        else:
-            return f"use {{ '{self.org.render()}/{self.repo.render()}' }}"
-
-
 class LazySpecExpr4Lua(Expr):
     def __init__(self, org, repo, prop=None):
         assert isinstance(org, Expr)
