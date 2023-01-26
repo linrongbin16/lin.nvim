@@ -991,7 +991,6 @@ class Render:
                     if isinstance(a, EmptyStmt):
                         plugins.append(to_lua(a))
                     elif isinstance(a, CommentExpr):
-                        cs = Stmt(a)
                         plugins.append(Stmt(IndentExpr(to_lua(a))))
                     else:
                         assert False
