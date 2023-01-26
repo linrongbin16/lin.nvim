@@ -1010,51 +1010,46 @@ class Render:
                 vim_config = f"{vim_base}/config.vim"
                 vim_config_file = f"{VIM_DIR}/{vim_config}"
 
-                # lua_init/vim_init are exclusive
+                # init
+                inits = []
                 if pathlib.Path(lua_init_file).exists():
-                    assert not pathlib.Path(vim_init_file).exists()
-                    prop.append(
-                        (
-                            LiteralExpr("init"),
-                            LiteralExpr(
-                                "function() {RequireExpr(SingleQuoteStringExpr(lua_init))} end"
-                            ),
-                        )
-                    )
+                    inits.append(RequireExpr(SingleQuoteStringExpr(lua_init)).render())
                 if pathlib.Path(vim_init_file).exists():
-                    assert not pathlib.Path(lua_init_file).exists()
                     init_source = SourceExpr(LiteralExpr(f"$HOME/.vim/{vim_init}"))
+                    inits.append(f"vim.cmd('{init_source.render()}')")
+                if len(inits) > 0:
                     prop.append(
                         (
                             LiteralExpr("init"),
                             LiteralExpr(
-                                "function() vim.cmd('{init_source.render()}') end"
+                                f"""function()
+        {'\n'.join([i for i in inits])}
+    end"""
                             ),
                         )
                     )
 
-                # lua_config/vim_config are exclusive
+                # config
+                configs = []
                 if pathlib.Path(lua_config_file).exists():
-                    assert not pathlib.Path(vim_config_file).exists()
-                    prop.append(
-                        (
-                            LiteralExpr("config"),
-                            LiteralExpr(
-                                "function() {RequireExpr(SingleQuoteStringExpr(lua_init))} end"
-                            ),
-                        )
+                    configs.append(
+                        RequireExpr(SingleQuoteStringExpr(lua_init)).render()
                     )
                 if pathlib.Path(vim_config_file).exists():
-                    assert not pathlib.Path(lua_config_file).exists()
                     config_source = SourceExpr(LiteralExpr(f"$HOME/.vim/{vim_config}"))
+                    configs.append(f"vim.cmd('{config_source.render()}')")
+                if len(configs) > 0:
                     prop.append(
                         (
                             LiteralExpr("config"),
                             LiteralExpr(
-                                "function() vim.cmd('{config_source.render()}') end"
+                                f"""function()
+        {'\n'.join([c for c in configs])}
+    end"""
                             ),
                         )
                     )
+
                 plugins.append(
                     Stmt(
                         IndentExpr(
