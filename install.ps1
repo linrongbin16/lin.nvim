@@ -170,7 +170,7 @@ else {
     if ($LastExitCode -ne 0) {
         exit 1
     }
-    cmd /c nvim -E --headless -u "$VIM_HOME\temp\init-tool.vim" -c 'autocmd User PackerComplete quitall' -c 'PackerSync' /wait
+    cmd /c nvim -E --headless -u "$VIM_HOME\temp\init-tool.vim" -c '+Lazy! sync' +qa
 }
 
 Message "install with $MODE_NAME mode - done"
