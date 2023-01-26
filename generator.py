@@ -607,16 +607,26 @@ PLUGINS = [
         prop=("dependencies", "{ 'inkarkat/vim-ingo-library' }"),
         tag=Tag.HIGHLIGHT,
     ),
+    # Plugin(
+    #     "nvim-neo-tree",
+    #     "neo-tree.nvim",
+    #     prop=[
+    #         ("branch", "'v2.x'"),
+    #         (
+    #             "dependencies",
+    #             "{ 'nvim-lua/plenary.nvim', 'nvim-tree/nvim-web-devicons', 'MunifTanjim/nui.nvim' }",
+    #         ),
+    #     ],
+    #     above=[
+    #         EmptyStmt(),
+    #         CommentExpr(LiteralExpr("---- UI ----")),
+    #         CommentExpr(LiteralExpr("File explorer")),
+    #     ],
+    # ),
     Plugin(
-        "nvim-neo-tree",
-        "neo-tree.nvim",
-        prop=[
-            ("branch", "'v2.x'"),
-            (
-                "dependencies",
-                "{ 'nvim-lua/plenary.nvim', 'nvim-tree/nvim-web-devicons', 'MunifTanjim/nui.nvim' }",
-            ),
-        ],
+        "nvim-tree",
+        "nvim-tree.lua",
+        prop=("dependencies", "{ 'nvim-tree/nvim-web-devicons' }"),
         above=[
             EmptyStmt(),
             CommentExpr(LiteralExpr("---- UI ----")),
