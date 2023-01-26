@@ -381,18 +381,8 @@ PLUGINS = [
         tag=Tag.INFRASTRUCTURE,
     ),
     Plugin(
-        "lewis6991",
-        "impatient.nvim",
-        tag=Tag.INFRASTRUCTURE,
-    ),
-    Plugin(
         "neovim",
         "nvim-lspconfig",
-        tag=Tag.INFRASTRUCTURE,
-    ),
-    Plugin(
-        "dstein64",
-        "vim-startuptime",
         tag=Tag.INFRASTRUCTURE,
     ),
     # Colorscheme
@@ -971,9 +961,7 @@ class Render:
                         )
                     ),
                     Stmt(
-                        CallExpr(
-                            FunctionInvokeExpr(LiteralExpr("LinNextRandomColorScheme"))
-                        )
+                        CallExpr(FunctionInvokeExpr(LiteralExpr("LinNextRandomColor")))
                     ),
                 ]
             )

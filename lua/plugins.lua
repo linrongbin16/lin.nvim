@@ -69,9 +69,9 @@ return {
 
     -- ---- UI ----
     -- File explorer
-    { 'nvim-neo-tree/neo-tree.nvim', branch = 'v2.x', dependencies = { 'nvim-lua/plenary.nvim', 'nvim-tree/nvim-web-devicons', 'MunifTanjim/nui.nvim' }, config = function()
-        require('repo/nvim-neo-tree/neo-tree-nvim/config')
-vim.cmd('source $HOME/.vim/repo/nvim-neo-tree/neo-tree.nvim/config.vim')
+    { 'nvim-tree/nvim-tree.lua', dependencies = { 'nvim-tree/nvim-web-devicons' }, config = function()
+        require('repo/nvim-tree/nvim-tree-lua/config')
+vim.cmd('source $HOME/.vim/repo/nvim-tree/nvim-tree.lua/config.vim')
     end },
     -- Tabline
     { 'akinsho/bufferline.nvim', version = 'v3.*', dependencies = { "nvim-tree/nvim-web-devicons", "famiu/bufdelete.nvim"} , config = function()
