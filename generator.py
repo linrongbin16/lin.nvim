@@ -1030,13 +1030,10 @@ class Render:
                 if len(inits) > 0:
                     rendered_inits = "\n".join(inits)
                     prop.append(
-                        (
-                            LiteralExpr("init"),
-                            LiteralExpr(
-                                f"""function()
+                        LiteralExpr(
+                            f"""init = function()
         {rendered_inits}
     end"""
-                            ),
                         )
                     )
 
@@ -1052,13 +1049,10 @@ class Render:
                 if len(configs) > 0:
                     rendered_configs = "\n".join(configs)
                     prop.append(
-                        (
-                            LiteralExpr("config"),
-                            LiteralExpr(
-                                f"""function()
+                        LiteralExpr(
+                            f"""config = function()
         {rendered_configs}
     end"""
-                            ),
                         )
                     )
 
@@ -1069,17 +1063,7 @@ class Render:
                                 LazySpecExpr4Lua(
                                     LiteralExpr(ctx.org),
                                     LiteralExpr(ctx.repo),
-                                    Exprs(
-                                        [
-                                            LiteralExpr(
-                                                f"{p[0].render()} = {p[1].render()}"
-                                            )
-                                            for p in prop
-                                        ],
-                                        ", ",
-                                    )
-                                    if len(prop) > 0
-                                    else None,
+                                    Exprs(prop, ", ") if len(prop) > 0 else None,
                                 )
                             )
                         )
@@ -1102,7 +1086,7 @@ class Render:
         if not ctx.prop:
             return []
         props = ctx.prop if isinstance(ctx.prop, list) else [ctx.prop]
-        return [(LiteralExpr(p[0]), LiteralExpr(p[1])) for p in props]
+        return [LiteralExpr(f"{p[0]} = {p[1]}") for p in props]
 
     def is_disabled(self, ctx):
         if self.no_plugs and str(ctx) in self.no_plugs:
