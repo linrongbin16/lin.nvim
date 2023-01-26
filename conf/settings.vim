@@ -15,7 +15,7 @@ endif
 
 """ ---- Hot keys ----
 " Toggle file explorer
-nnoremap <F1> :Neotree toggle<CR>
+nnoremap <F1> :NvimTreeToggle<CR>
 " Toggle undotree
 nnoremap <F2> :UndotreeToggle<CR>
 " Toggle outline
