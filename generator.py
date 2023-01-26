@@ -305,7 +305,7 @@ class LazySpecExpr4Lua(Expr):
         if not self.prop:
             return f"'{self.org.render()}/{self.repo.render()}'"
         else:
-            return f"{{ '{self.org.render()}/{self.repo.render()}', {self.prop.render()} }}"
+            return f"""{{ '{self.org.render()}/{self.repo.render()}', {self.prop.render()} }}"""
 
 
 def to_lua(expr):
@@ -1028,14 +1028,7 @@ class Render:
                     init_source = SourceExpr(LiteralExpr(f"$HOME/.vim/{vim_init}"))
                     inits.append(f"vim.cmd('{init_source.render()}')")
                 if len(inits) > 0:
-                    rendered_inits = "\n".join(inits)
-                    prop.append(
-                        LiteralExpr(
-                            f"""init = function()
-        {rendered_inits}
-    end"""
-                        )
-                    )
+                    prop.append(LiteralExpr(f"init = function() {' '.join(inits)} end"))
 
                 # config
                 configs = []
@@ -1047,13 +1040,8 @@ class Render:
                     config_source = SourceExpr(LiteralExpr(f"$HOME/.vim/{vim_config}"))
                     configs.append(f"vim.cmd('{config_source.render()}')")
                 if len(configs) > 0:
-                    rendered_configs = "\n".join(configs)
                     prop.append(
-                        LiteralExpr(
-                            f"""config = function()
-        {rendered_configs}
-    end"""
-                        )
+                        LiteralExpr(f"config = function() {' '.join(configs)} end")
                     )
 
                 plugins.append(
