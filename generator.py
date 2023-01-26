@@ -585,13 +585,18 @@ PLUGINS = [
     #     color="onehalfdark",
     #     tag=Tag.COLORSCHEME,
     # ),
-    Plugin("srcery-colors", "srcery-vim", 
+    Plugin(
+        "srcery-colors",
+        "srcery-vim",
         prop=("lazy", "true"),
-           color="srcery", tag=Tag.COLORSCHEME),
+        color="srcery",
+        tag=Tag.COLORSCHEME,
+    ),
     # Highlight
     Plugin(
         "RRethy",
         "vim-illuminate",
+        prop=("event", "'VeryLazy'"),
         above=[
             EmptyStmt(),
             CommentExpr(LiteralExpr("---- Highlight ----")),
@@ -607,12 +612,16 @@ PLUGINS = [
     Plugin(
         "andymass",
         "vim-matchup",
+        prop=("event", "'VeryLazy'"),
         tag=Tag.HIGHLIGHT,
     ),
     Plugin(
         "inkarkat",
         "vim-mark",
-        prop=("dependencies", "{ 'inkarkat/vim-ingo-library' }"),
+        prop=[
+            ("dependencies", "{ 'inkarkat/vim-ingo-library' }"),
+            ("event", "'VeryLazy'"),
+        ],
         tag=Tag.HIGHLIGHT,
     ),
     # Plugin(
@@ -673,7 +682,7 @@ PLUGINS = [
     Plugin(
         "akinsho",
         "toggleterm.nvim",
-        prop=("version", "'*'"),
+        prop=[("version", "'*'"), ("event", "'VeryLazy'")],
         above=CommentExpr(LiteralExpr("Terminal")),
     ),
     Plugin(
@@ -689,6 +698,7 @@ PLUGINS = [
     Plugin(
         "liuchengxu",
         "vista.vim",
+        prop=("event", "'VeryLazy'"),
         above=CommentExpr(LiteralExpr("Structures/Outlines")),
     ),
     Plugin("ludovicchabant", "vim-gutentags"),
@@ -728,37 +738,14 @@ PLUGINS = [
     Plugin("jay-babu", "mason-null-ls.nvim", tag=Tag.LANGUAGE),
     Plugin(
         "hrsh7th",
-        "cmp-nvim-lsp",
-        tag=Tag.LANGUAGE,
-    ),
-    Plugin(
-        "hrsh7th",
-        "cmp-buffer",
-        tag=Tag.LANGUAGE,
-    ),
-    Plugin(
-        "hrsh7th",
-        "cmp-path",
-        tag=Tag.LANGUAGE,
-    ),
-    Plugin(
-        "hrsh7th",
-        "cmp-cmdline",
-        tag=Tag.LANGUAGE,
-    ),
-    Plugin(
-        "hrsh7th",
         "nvim-cmp",
-        tag=Tag.LANGUAGE,
-    ),
-    Plugin(
-        "L3MON4D3",
-        "LuaSnip",
-        tag=Tag.LANGUAGE,
-    ),
-    Plugin(
-        "saadparwaiz1",
-        "cmp_luasnip",
+        prop=[
+            ("event", "{ 'InsertEnter', 'CmdlineEnter ' }"),
+            (
+                "dependencies",
+                "{ 'hrsh7th/cmp-nvim-lsp', 'hrsh7th/cmp-buffer', 'hrsh7th/cmp-path', 'hrsh7th/cmp-cmdline', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' }",
+            ),
+        ],
         tag=Tag.LANGUAGE,
     ),
     # Plugin(
@@ -818,7 +805,7 @@ PLUGINS = [
     Plugin(
         "phaazon",
         "hop.nvim",
-        prop=("branch", "'v2'"),
+        prop=[("branch", "'v2'"), ("event", "'VeryLazy'")],
         above=[
             EmptyStmt(),
             CommentExpr(LiteralExpr("---- Movement ----")),
@@ -829,14 +816,15 @@ PLUGINS = [
     Plugin(
         "ggandor",
         "leap.nvim",
-        prop=("dependencies", '{ "tpope/vim-repeat" }'),
+        prop=[("dependencies", '{ "tpope/vim-repeat" }'), ("event", "'VeryLazy'")],
         tag=Tag.EDITING,
     ),
-    Plugin("chaoren", "vim-wordmotion", tag=Tag.EDITING),
+    Plugin("chaoren", "vim-wordmotion", prop=("event", "'VeryLazy'"), tag=Tag.EDITING),
     # Editing enhancement
     Plugin(
         "alvan",
         "vim-closetag",
+        prop=("event", "'InsertEnter'"),
         above=[
             EmptyStmt(),
             CommentExpr(LiteralExpr("---- Editing enhancement ----")),
@@ -847,12 +835,14 @@ PLUGINS = [
     Plugin(
         "numToStr",
         "Comment.nvim",
+        prop=("event", "'VeryLazy'"),
         above=CommentExpr(LiteralExpr("Comment")),
         tag=Tag.EDITING,
     ),
     Plugin(
         "windwp",
         "nvim-autopairs",
+        prop=("event", "'InsertEnter'"),
         above=CommentExpr(LiteralExpr("Autopair")),
         tag=Tag.EDITING,
     ),
@@ -868,8 +858,13 @@ PLUGINS = [
         above=CommentExpr(LiteralExpr("Other")),
         tag=Tag.EDITING,
     ),
-    Plugin("mbbill", "undotree", tag=Tag.EDITING),
-    Plugin("editorconfig", "editorconfig-vim", tag=Tag.EDITING),
+    Plugin("mbbill", "undotree", prop=("event", "'VeryLazy'"), tag=Tag.EDITING),
+    Plugin(
+        "editorconfig",
+        "editorconfig-vim",
+        prop=("event", "'VeryLazy'"),
+        tag=Tag.EDITING,
+    ),
 ]
 
 
