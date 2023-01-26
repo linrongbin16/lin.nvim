@@ -173,6 +173,6 @@ else
 	if [ $? -ne 0 ]; then
 		exit 1
 	fi
-	nvim -E --headless -u $VIM_HOME/temp/init-tool.vim -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+	nvim -E --headless -u $VIM_HOME/temp/init-tool.vim -c '+Lazy! sync' +qa
 fi
 message "install with $MODE_NAME mode - done"

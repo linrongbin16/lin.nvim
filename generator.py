@@ -1034,7 +1034,7 @@ class Render:
                 configs = []
                 if pathlib.Path(lua_config_file).exists():
                     configs.append(
-                        RequireExpr(SingleQuoteStringExpr(lua_init)).render()
+                        RequireExpr(SingleQuoteStringExpr(lua_config)).render()
                     )
                 if pathlib.Path(vim_config_file).exists():
                     config_source = SourceExpr(LiteralExpr(f"$HOME/.vim/{vim_config}"))
@@ -1060,7 +1060,12 @@ class Render:
                                     LiteralExpr(ctx.org),
                                     LiteralExpr(ctx.repo),
                                     Exprs(
-                                        [LiteralExpr(f"{p[0].render()} = {p[1].render()}") for p in prop],
+                                        [
+                                            LiteralExpr(
+                                                f"{p[0].render()} = {p[1].render()}"
+                                            )
+                                            for p in prop
+                                        ],
                                         ", ",
                                     )
                                     if len(prop) > 0
