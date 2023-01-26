@@ -1,6 +1,6 @@
 """ ---- Color schemes ----
 
-let s:lin_colorschemes=[
+let s:colors=[
     \ 'nightfly',
     \ 'moonfly',
     \ 'catppuccin',
@@ -33,21 +33,21 @@ let s:lin_colorschemes=[
     \ 'srcery',
     \]
 
-function! s:LinRandnum(n) abort
+function! s:RandNum(n) abort
   return str2nr(matchstr(reltimestr(reltime()), '\v\.@<=\d+')[1:]) % a:n
 endfunction
 
-function LinNextRandomColorScheme()
-    if len(s:lin_colorschemes) > 0
-        let idx = s:LinRandnum(len(s:lin_colorschemes))
-        execute 'colorscheme ' . s:lin_colorschemes[idx]
+function LinNextRandomColor()
+    if len(s:colors) > 0
+        let idx = s:RandNum(len(s:colors))
+        execute 'colorscheme ' . s:colors[idx]
     endif
 endfunction
 
-function LinNextRandomColorSchemeSync()
-    if len(s:lin_colorschemes) > 0
-        let idx = s:LinRandnum(len(s:lin_colorschemes))
-        execute 'colorscheme ' . s:lin_colorschemes[idx]
+function LinNextRandomColorSync()
+    if len(s:colors) > 0
+        let idx = s:RandNum(len(s:colors))
+        execute 'colorscheme ' . s:colors[idx]
         execute 'syntax sync fromstart'
     endif
 endfunction

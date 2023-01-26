@@ -3,7 +3,7 @@
 set guifont=Hack\ NFM:h10
 
 " ---- Random colorscheme on startup ----
-call LinNextRandomColorScheme()
+call LinNextRandomColor()
 
 """ ---- CTRL+?/CMD+? ----
 if exists('$VIMRUNTIME/mswin.vim')

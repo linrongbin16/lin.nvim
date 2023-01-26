@@ -12,6 +12,10 @@ require("bufferline").setup {
             {
                 filetype = "NvimTree",
                 text = "NvimTree",
+            },
+            {
+                filetype = "neo-tree",
+                text = "neo-tree",
             }
         },
         separator_style = "slant",
