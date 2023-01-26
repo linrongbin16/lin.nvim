@@ -260,6 +260,19 @@ class LuaRequireStmt(Expr):
         return self.expr.render()
 
 
+class Exprs(Expr):
+    def __init__(self, exprs, delimiter=""):
+        assert isinstance(delimiter, str)
+        assert isinstance(exprs, list)
+        for e in exprs:
+            assert isinstance(e, Expr)
+        self.exprs = exprs
+        self.delimiter = delimiter
+
+    def render(self):
+        return self.delimiter.join([e.render() for e in self.exprs])
+
+
 # }
 
 # Lua AST {
@@ -295,6 +308,22 @@ class PackerUseExpr4Lua(Expr):
             return f"use {{ '{self.org.render()}/{self.repo.render()}' }}"
 
 
+class LazySpecExpr4Lua(Expr):
+    def __init__(self, org, repo, prop=None):
+        assert isinstance(org, Expr)
+        assert isinstance(repo, Expr)
+        assert isinstance(prop, Expr) or prop is None
+        self.org = org
+        self.repo = repo
+        self.prop = prop
+
+    def render(self):
+        if not self.prop:
+            return f"'{self.org.render()}/{self.repo.render()}'"
+        else:
+            return f"{{ '{self.org.render()}/{self.repo.render()}', {self.prop.render()} }}"
+
+
 def to_lua(expr):
     assert isinstance(expr, Expr)
     if isinstance(expr, Stmt):
@@ -319,14 +348,14 @@ class Plugin:
         self,
         org,
         repo,
-        follow=None,
+        prop=None,
         above=None,
         color=None,
         tag=None,
     ) -> None:
         self.org = org
         self.repo = repo
-        self.follow = follow  # more plugin configs following this line
+        self.prop = prop  # more plugin properties following this line
         self.above = above  # more clauses above this line
         self.color = color
         self.tag = tag
@@ -386,14 +415,14 @@ PLUGINS = [
     Plugin(
         "catppuccin",
         "nvim",
-        follow="as = 'catppuccin'",
+        prop=("name", "'catppuccin'"),
         color="catppuccin",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
         "challenger-deep-theme",
         "vim",
-        follow="as = 'challenger-deep'",
+        prop=("name", "'challenger-deep'"),
         color="challenger_deep",
         tag=Tag.COLORSCHEME,
     ),
@@ -412,7 +441,7 @@ PLUGINS = [
     Plugin(
         "embark-theme",
         "vim",
-        follow="as = 'embark'",
+        prop=("name", "'embark'"),
         color="embark",
         tag=Tag.COLORSCHEME,
     ),
@@ -425,7 +454,7 @@ PLUGINS = [
     Plugin(
         "folke",
         "tokyonight.nvim",
-        follow="branch = 'main'",
+        prop=("branch", "'main'"),
         color="tokyonight",
         tag=Tag.COLORSCHEME,
     ),
@@ -446,7 +475,7 @@ PLUGINS = [
         "luisiacc",
         "gruvbox-baby",
         above=CommentExpr(LiteralExpr("inherit sainnhe/gruvbox-material")),
-        follow="branch = 'main'",
+        prop=("branch", "'main'"),
         color="gruvbox-baby",
         tag=Tag.COLORSCHEME,
     ),
@@ -491,7 +520,7 @@ PLUGINS = [
         "pineapplegiant",
         "spaceduck",
         color="spaceduck",
-        follow="branch = 'main'",
+        prop=("branch", "'main'"),
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
@@ -529,7 +558,7 @@ PLUGINS = [
         "rose-pine",
         "neovim",
         color="rose-pine",
-        follow="as = 'rose-pine'",
+        prop=("name", "'rose-pine'"),
         tag=Tag.COLORSCHEME,
     ),
     Plugin("sainnhe", "edge", color="edge", tag=Tag.COLORSCHEME),
@@ -564,7 +593,7 @@ PLUGINS = [
     Plugin(
         "NvChad",
         "nvim-colorizer.lua",
-        follow="event = 'VimEnter'",
+        prop=("event", "'VeryLazy'"),
         tag=Tag.HIGHLIGHT,
     ),
     Plugin(
@@ -575,15 +604,18 @@ PLUGINS = [
     Plugin(
         "inkarkat",
         "vim-mark",
-        follow="requires = 'inkarkat/vim-ingo-library'",
+        prop=("dependencies", "{ 'inkarkat/vim-ingo-library' }"),
         tag=Tag.HIGHLIGHT,
     ),
     Plugin(
         "nvim-neo-tree",
         "neo-tree.nvim",
-        follow=[
-            "branch = 'v2.x'",
-            "requires = { 'nvim-lua/plenary.nvim', 'nvim-tree/nvim-web-devicons', 'MunifTanjim/nui.nvim', }",
+        prop=[
+            ("branch", "'v2.x'"),
+            (
+                "dependencies",
+                "{ 'nvim-lua/plenary.nvim', 'nvim-tree/nvim-web-devicons', 'MunifTanjim/nui.nvim' }",
+            ),
         ],
         above=[
             EmptyStmt(),
@@ -594,9 +626,12 @@ PLUGINS = [
     Plugin(
         "akinsho",
         "bufferline.nvim",
-        follow=[
-            "tag = 'v3.*'",
-            "requires = { 'nvim-tree/nvim-web-devicons', 'famiu/bufdelete.nvim', }",
+        prop=[
+            ("version", "'v3.*'"),
+            (
+                "dependencies",
+                '{ "nvim-tree/nvim-web-devicons", "famiu/bufdelete.nvim"} ',
+            ),
         ],
         above=CommentExpr(LiteralExpr("Tabline")),
     ),
@@ -608,7 +643,7 @@ PLUGINS = [
     Plugin(
         "nvim-lualine",
         "lualine.nvim",
-        follow="requires = 'nvim-tree/nvim-web-devicons'",
+        prop=("dependencies", '{ "nvim-tree/nvim-web-devicons" }'),
         above=CommentExpr(LiteralExpr("Statusline")),
     ),
     Plugin("nvim-lua", "lsp-status.nvim"),
@@ -620,7 +655,7 @@ PLUGINS = [
     Plugin(
         "akinsho",
         "toggleterm.nvim",
-        follow="tag = '*'",
+        prop=("version", "'*'"),
         above=CommentExpr(LiteralExpr("Terminal")),
     ),
     Plugin(
@@ -643,7 +678,7 @@ PLUGINS = [
     Plugin(
         "junegunn",
         "fzf",
-        follow='run = ":call fzf#install()"',
+        prop=("build", "':call fzf#install()'"),
         above=[
             EmptyStmt(),
             CommentExpr(LiteralExpr("---- Search ----")),
@@ -669,7 +704,7 @@ PLUGINS = [
     Plugin(
         "jose-elias-alvarez",
         "null-ls.nvim",
-        follow="requires = 'nvim-lua/plenary.nvim'",
+        prop=("dependencies", '{ "nvim-lua/plenary.nvim" }'),
         tag=Tag.LANGUAGE,
     ),
     Plugin("jay-babu", "mason-null-ls.nvim", tag=Tag.LANGUAGE),
@@ -715,10 +750,10 @@ PLUGINS = [
     Plugin(
         "iamcco",
         "markdown-preview.nvim",
-        follow=[
-            'run = "cd app && npm install"',
-            'setup = function() vim.g.mkdp_filetypes = { "markdown" } end',
-            'ft = { "markdown" }',
+        prop=[
+            ("build", "'cd app && npm install'"),
+            ("init", 'function() vim.g.mkdp_filetypes = { "markdown" } end'),
+            ("ft", "{ 'markdown' }"),
         ],
         above=[
             EmptyStmt(),
@@ -736,28 +771,28 @@ PLUGINS = [
     Plugin(
         "justinmk",
         "vim-syntax-extra",
-        follow="ft = {'lex', 'flex', 'yacc', 'bison'}",
+        prop=("ft", '{ "lex", "flex", "yacc", "bison" }'),
         above=CommentExpr(LiteralExpr("Lex/yacc, flex/bison")),
         tag=Tag.LANGUAGE,
     ),
     Plugin(
         "rhysd",
         "vim-llvm",
-        follow="ft = {'llvm', 'mir', 'mlir', 'tablegen'}",
+        prop=("ft", '{ "llvm", "mir", "mlir", "tablegen" }'),
         above=CommentExpr(LiteralExpr("LLVM")),
         tag=Tag.LANGUAGE,
     ),
     Plugin(
         "zebradil",
         "hive.vim",
-        follow="ft = {'hive'}",
+        prop=("ft", '{ "hive" }'),
         above=CommentExpr(LiteralExpr("Hive")),
         tag=Tag.LANGUAGE,
     ),
     Plugin(
         "slim-template",
         "vim-slim",
-        follow="ft = {'slim'}",
+        prop=("ft", '{ "slim" }'),
         above=CommentExpr(LiteralExpr("Slim")),
         tag=Tag.LANGUAGE,
     ),
@@ -765,7 +800,7 @@ PLUGINS = [
     Plugin(
         "phaazon",
         "hop.nvim",
-        follow="branch = 'v2'",
+        prop=("branch", "'v2'"),
         above=[
             EmptyStmt(),
             CommentExpr(LiteralExpr("---- Movement ----")),
@@ -776,7 +811,7 @@ PLUGINS = [
     Plugin(
         "ggandor",
         "leap.nvim",
-        follow="requires = 'tpope/vim-repeat'",
+        prop=("dependencies", '{ "tpope/vim-repeat" }'),
         tag=Tag.EDITING,
     ),
     Plugin("chaoren", "vim-wordmotion", tag=Tag.EDITING),
@@ -840,13 +875,13 @@ class Render:
         self.no_winctrl = no_winctrl_opt
 
     def render(self):
-        gen_plugin_stmts, gen_init_stmts, gen_colorscheme_stmts = self.generate()
+        gen_plugin_stmts, gen_colorscheme_stmts = self.generate()
 
         plugin_stmts = self.render_plugins(gen_plugin_stmts)
         lspserver_stmts = self.render_lspservers()
         colorscheme_stmts = self.render_colorschemes(gen_colorscheme_stmts)
         setting_stmts = self.render_settings()
-        init_stmts = self.render_init(gen_init_stmts)
+        init_stmts = self.render_init()
 
         plugins = "".join([s.render() for s in plugin_stmts])
         lspservers = "".join([s.render() for s in lspserver_stmts])
@@ -857,64 +892,51 @@ class Render:
 
     # plugins.lua
     def render_plugins(self, core_plugins):
-        states = []
-        states.append(
+        stmts = []
+        stmts.append(
             TemplateContent(pathlib.Path(f"{TEMPLATE_DIR}/plugins-template-header.lua"))
         )
-        states.extend(core_plugins)
-        states.append(
+        stmts.extend(core_plugins)
+        stmts.append(
             TemplateContent(pathlib.Path(f"{TEMPLATE_DIR}/plugins-template-footer.lua"))
         )
-        return states
+        return stmts
 
     # init.vim
-    def render_init(self, core_inits):
-        states = []
-        states.append(Stmt(CommentExpr(LiteralExpr("---- Init ----"))))
-        states.append(LuaRequireStmt("plugins"))
-        states.append(SourceStmtFromVimHome("conf/basic.vim"))
-        states.append(SourceStmtFromVimHome("conf/filetype.vim"))
-        states.append(LuaRequireStmt("conf/lsp"))
-
-        # insert core init statements
-        states.extend(core_inits)
-
-        states.append(EmptyStmt())
-        states.append(Stmt(CommentExpr(LiteralExpr("---- Generated ----"))))
-        states.append(LuaRequireStmt("lspservers"))
-        states.append(SourceStmtFromVimHome("colorschemes.vim"))
-        states.append(SourceStmtFromVimHome("settings.vim"))
-        return states
+    def render_init(self):
+        stmts = []
+        stmts.append(TemplateContent(pathlib.Path(f"{TEMPLATE_DIR}/init-template.vim")))
+        return stmts
 
     # lspservers.lua
     def render_lspservers(self):
-        states = []
+        stmts = []
         if not self.no_lang:
-            states.append(
+            stmts.append(
                 TemplateContent(pathlib.Path(f"{TEMPLATE_DIR}/lspservers-template.lua"))
             )
-        return states
+        return stmts
 
     # colorschemes.vim
     def render_colorschemes(self, core_color_settings):
-        states = []
-        states.append(
+        stmts = []
+        stmts.append(
             TemplateContent(
                 pathlib.Path(f"{TEMPLATE_DIR}/colorschemes-template-header.vim")
             )
         )
-        states.extend(core_color_settings)
-        states.append(
+        stmts.extend(core_color_settings)
+        stmts.append(
             TemplateContent(
                 pathlib.Path(f"{TEMPLATE_DIR}/colorschemes-template-footer.vim")
             )
         )
-        return states
+        return stmts
 
     # settings.vim
     def render_settings(self):
-        states = []
-        states.extend(
+        stmts = []
+        stmts.extend(
             [
                 EmptyStmt(),
                 Stmt(CommentExpr(LiteralExpr("---- GUI Font ----"))),
@@ -922,7 +944,7 @@ class Render:
             ]
         )
         if self.use_color:
-            states.extend(
+            stmts.extend(
                 [
                     EmptyStmt(),
                     Stmt(CommentExpr(LiteralExpr("---- Static colorscheme ----"))),
@@ -930,7 +952,7 @@ class Render:
                 ]
             )
         elif not self.no_color:
-            states.extend(
+            stmts.extend(
                 [
                     EmptyStmt(),
                     Stmt(
@@ -946,19 +968,18 @@ class Render:
                 ]
             )
         if not self.no_winctrl:
-            states.append(
+            stmts.append(
                 TemplateContent(
                     pathlib.Path(f"{TEMPLATE_DIR}/winctrl-settings-template.vim")
                 )
             )
-        states.append(
+        stmts.append(
             TemplateContent(pathlib.Path(f"{TEMPLATE_DIR}/settings-template.vim"))
         )
-        return states
+        return stmts
 
     def generate(self):
         plugins = []
-        inits = []
         colorschemes = []
         for ctx in PLUGINS:
             assert isinstance(ctx, Plugin)
@@ -969,41 +990,89 @@ class Render:
                     assert isinstance(a, Expr)
                     if isinstance(a, EmptyStmt):
                         plugins.append(to_lua(a))
-                        inits.append(a)
                     elif isinstance(a, CommentExpr):
                         cs = Stmt(a)
                         plugins.append(Stmt(IndentExpr(to_lua(a))))
-                        inits.append(cs)
                     else:
                         assert False
             # body
             if not self.is_disabled(ctx):
                 # plugins
-                follows = []
-                if isinstance(ctx.follow, str):
-                    follows.append(LiteralExpr(ctx.follow))
-                elif isinstance(ctx.follow, list):
-                    for f in ctx.follow:
-                        follows.append(LiteralExpr(f))
-                lua_file = f"repo/{str(ctx).replace('.', '-')}"
-                if pathlib.Path(f"{HOME_DIR}/.vim/lua/{lua_file}.lua").exists():
-                    lua_follow = f"config = function() {RequireExpr(SingleQuoteStringExpr(lua_file)).render()} end"
-                    follows.append(LiteralExpr(lua_follow))
+                prop = self.assemble_props(ctx.prop)
+                lua_base = f"repo/{str(ctx).replace('.', '-')}"
+                lua_init = f"{lua_base}/init"
+                lua_init_file = f"{VIM_DIR}/lua/{lua_init}.lua"
+                lua_config = f"{lua_base}/config"
+                lua_config_file = f"{VIM_DIR}/lua/{lua_config}.lua"
+                vim_base = f"repo/{ctx}"
+                vim_init = f"{vim_base}/init.vim"
+                vim_init_file = f"{VIM_DIR}/{vim_init}"
+                vim_config = f"{vim_base}/config.vim"
+                vim_config_file = f"{VIM_DIR}/{vim_config}"
+
+                # lua_init/vim_init are exclusive
+                if pathlib.Path(lua_init_file).exists():
+                    assert not pathlib.Path(vim_init_file).exists()
+                    prop.append(
+                        (
+                            LiteralExpr("init"),
+                            LiteralExpr(
+                                "function() {RequireExpr(SingleQuoteStringExpr(lua_init))} end"
+                            ),
+                        )
+                    )
+                if pathlib.Path(vim_init_file).exists():
+                    assert not pathlib.Path(lua_init_file).exists()
+                    init_source = SourceExpr(LiteralExpr(f"$HOME/.vim/{vim_init}"))
+                    prop.append(
+                        (
+                            LiteralExpr("init"),
+                            LiteralExpr(
+                                "function() vim.cmd('{init_source.render()}') end"
+                            ),
+                        )
+                    )
+
+                # lua_config/vim_config are exclusive
+                if pathlib.Path(lua_config_file).exists():
+                    assert not pathlib.Path(vim_config_file).exists()
+                    prop.append(
+                        (
+                            LiteralExpr("config"),
+                            LiteralExpr(
+                                "function() {RequireExpr(SingleQuoteStringExpr(lua_init))} end"
+                            ),
+                        )
+                    )
+                if pathlib.Path(vim_config_file).exists():
+                    assert not pathlib.Path(lua_config_file).exists()
+                    config_source = SourceExpr(LiteralExpr(f"$HOME/.vim/{vim_config}"))
+                    prop.append(
+                        (
+                            LiteralExpr("config"),
+                            LiteralExpr(
+                                "function() vim.cmd('{config_source.render()}') end"
+                            ),
+                        )
+                    )
                 plugins.append(
                     Stmt(
                         IndentExpr(
-                            PackerUseExpr4Lua(
-                                LiteralExpr(ctx.org),
-                                LiteralExpr(ctx.repo),
-                                follows,
+                            CommaExpr(
+                                LazySpecExpr4Lua(
+                                    LiteralExpr(ctx.org),
+                                    LiteralExpr(ctx.repo),
+                                    Exprs(
+                                        [LiteralExpr(f"{p[0]} = {p[1]}") for p in prop],
+                                        ", ",
+                                    )
+                                    if len(prop) > 0
+                                    else None,
+                                )
                             )
                         )
                     )
                 )
-                # init
-                vim_file = f"repo/{ctx}.vim"
-                if pathlib.Path(f"{HOME_DIR}/.vim/{vim_file}").exists():
-                    inits.append(SourceStmtFromVimHome(vim_file))
                 # color settings
                 if ctx.tag == Tag.COLORSCHEME:
                     colorschemes.append(
@@ -1015,7 +1084,13 @@ class Render:
                             )
                         )
                     )
-        return plugins, inits, colorschemes
+        return plugins, colorschemes
+
+    def assemble_props(self, ctx):
+        if not ctx.prop:
+            return []
+        props = ctx.prop if isinstance(ctx.prop, list) else [ctx.prop]
+        return [(LiteralExpr(p[0]), LiteralExpr(p[1])) for p in props]
 
     def is_disabled(self, ctx):
         if self.no_plugs and str(ctx) in self.no_plugs:

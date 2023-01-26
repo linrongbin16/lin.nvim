@@ -18,3 +18,4 @@ nnoremap <silent> <Leader>bd :Bdelete!<CR>
 " re-order current buffer to next/previous position
 nnoremap <silent> <Leader>> :BufferLineMoveNext<CR>
 nnoremap <silent> <Leader>< :BufferLineMovePrev<CR>
+
