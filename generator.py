@@ -1018,12 +1018,13 @@ class Render:
                     init_source = SourceExpr(LiteralExpr(f"$HOME/.vim/{vim_init}"))
                     inits.append(f"vim.cmd('{init_source.render()}')")
                 if len(inits) > 0:
+                    rendered_inits = "\n".join(inits)
                     prop.append(
                         (
                             LiteralExpr("init"),
                             LiteralExpr(
                                 f"""function()
-        {'\n'.join([i for i in inits])}
+        {rendered_inits}
     end"""
                             ),
                         )
@@ -1039,12 +1040,13 @@ class Render:
                     config_source = SourceExpr(LiteralExpr(f"$HOME/.vim/{vim_config}"))
                     configs.append(f"vim.cmd('{config_source.render()}')")
                 if len(configs) > 0:
+                    rendered_configs = "\n".join(configs)
                     prop.append(
                         (
                             LiteralExpr("config"),
                             LiteralExpr(
                                 f"""function()
-        {'\n'.join([c for c in configs])}
+        {rendered_configs}
     end"""
                             ),
                         )
@@ -1058,7 +1060,7 @@ class Render:
                                     LiteralExpr(ctx.org),
                                     LiteralExpr(ctx.repo),
                                     Exprs(
-                                        [LiteralExpr(f"{p[0]} = {p[1]}") for p in prop],
+                                        [LiteralExpr(f"{p[0].render()} = {p[1].render()}") for p in prop],
                                         ", ",
                                     )
                                     if len(prop) > 0
