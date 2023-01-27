@@ -5,9 +5,9 @@ local M = {}
 M.lsp = {
     diagnostics = {
         signs = {
-            ['error'] = '', -- nf-fa-times_circle \uf057
+            ['error'] = '', -- nf-fa-times \uf00d
             ['warning'] = '', -- nf-fa-warning \uf071
-            ['info'] = '', -- nf-fa-info_circle \uf05a
+            ['info'] = '', -- nf-fa-info (nf-fa-info_circle) \uf129
             ['hint'] = '', -- nf-mdi-lightbulb \uf834
             ['ok'] = '', -- nf-fa-check \uf00c
         }

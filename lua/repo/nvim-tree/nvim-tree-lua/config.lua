@@ -18,8 +18,6 @@ require 'nvim-tree'.setup {
     open_on_setup_file = true,
     view = {
         width = 40,
-        side = "left",
-        signcolumn = "yes",
         mappings = {
             custom_only = false,
             list = key_mappings,
@@ -38,10 +36,6 @@ require 'nvim-tree'.setup {
                 default = "",
             },
         },
-    },
-    update_focused_file = {
-        enable = true,
-        update_root = true,
     },
     diagnostics = {
         enable = true,
