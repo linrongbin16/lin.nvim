@@ -365,7 +365,7 @@ class BigComment(Expr):
         stmts.extend(
             [IndentExpr(CommentExpr4Lua(LiteralExpr(f"---- {v} ----"))) for v in value]
         )
-        stmts.append(LiteralExpr(""))
+        stmts.append(EmptyStmt())
         self.expr = Exprs(stmts, delimiter="\n")
 
     def render(self):
@@ -474,6 +474,7 @@ PLUGINS = [
     # Infrastructure
     Plugin(
         LiteralExpr("nathom/filetype.nvim"),
+        above=BigComment("Infrastructure"),
         tag=Tag.INFRASTRUCTURE,
     ),
     Plugin(
@@ -741,7 +742,7 @@ PLUGINS = [
     Plugin(
         LiteralExpr("nvim-tree/nvim-tree.lua"),
         prop=DependenciesProp("nvim-tree/nvim-web-devicons"),
-        above=Exprs([BigComment("UI"), SmallComment("File explorer")], delimiter="\n"),
+        above=Exprs([BigComment("UI"), SmallComment("File explorer")]),
     ),
     Plugin(
         LiteralExpr("akinsho/bufferline.nvim"),
@@ -848,9 +849,7 @@ PLUGINS = [
             ],
             delimiter=", ",
         ),
-        above=Exprs(
-            [BigComment("Language support"), SmallComment("Markdown")], delimiter="\n"
-        ),
+        above=Exprs([BigComment("Language support"), SmallComment("Markdown")]),
         tag=Tag.LANGUAGE,
     ),
     Plugin(
@@ -892,9 +891,7 @@ PLUGINS = [
             ],
             delimiter=", ",
         ),
-        above=Exprs(
-            [BigComment("Movement"), SmallComment("Cursor Movement")], delimiter="\n"
-        ),
+        above=Exprs([BigComment("Movement"), SmallComment("Cursor Movement")]),
         tag=Tag.EDITING,
     ),
     Plugin(
@@ -917,10 +914,7 @@ PLUGINS = [
     Plugin(
         LiteralExpr("alvan/vim-closetag"),
         prop=EventProp("InsertEnter"),
-        above=Exprs(
-            [BigComment("Editing enhancement"), SmallComment("HTML tag")],
-            delimiter="\n",
-        ),
+        above=Exprs([BigComment("Editing enhancement"), SmallComment("HTML tag")]),
         tag=Tag.EDITING,
     ),
     Plugin(
