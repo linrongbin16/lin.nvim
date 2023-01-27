@@ -350,7 +350,7 @@ class Plugin:
         self.tag = tag
 
     def __str__(self):
-        return self.repo
+        return self.repo.render() if isinstance(self.repo, Expr) else str(self.repo)
 
 
 PLUGINS = [
@@ -585,7 +585,7 @@ PLUGINS = [
     ),
     Plugin(
         LiteralExpr("sainnhe/sonokai"),
-        prop=("lazy", "true"),
+        prop=AssignExpr(LiteralExpr("lazy"), LiteralExpr("true")),
         above=CommentExpr(LiteralExpr("inherit sickill/vim-monokai")),
         color="sonokai",
         tag=Tag.COLORSCHEME,
@@ -613,7 +613,7 @@ PLUGINS = [
     ),
     Plugin(
         LiteralExpr("NvChad/nvim-colorizer.lua"),
-        prop=("event", "'VeryLazy'"),
+        prop=AssignExpr(LiteralExpr("event"), SingleQuoteStringExpr("VeryLazy")),
         tag=Tag.HIGHLIGHT,
     ),
     Plugin(
@@ -695,10 +695,6 @@ PLUGINS = [
     Plugin(
         LiteralExpr("stevearc/dressing.nvim"),
         above=CommentExpr(LiteralExpr("UI hooks")),
-    ),
-    Plugin(
-        LiteralExpr("karb94/neoscroll.nvim"),
-        above=CommentExpr(LiteralExpr("Smooth scrolling")),
     ),
     Plugin(
         LiteralExpr("liuchengxu/vista.vim"),
