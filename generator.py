@@ -365,7 +365,7 @@ class BigComment(Expr):
         stmts.extend(
             [IndentExpr(CommentExpr4Lua(LiteralExpr(f"---- {v} ----"))) for v in value]
         )
-        stmts.append(EmptyStmt())
+        stmts.append(LiteralExpr(""))
         self.expr = Exprs(stmts, delimiter="\n")
 
     def render(self):
@@ -377,7 +377,7 @@ class SmallComment(Expr):
         assert value is not None
         stmts = []
         stmts.extend([IndentExpr(CommentExpr4Lua(LiteralExpr(v))) for v in value])
-        stmts.append(EmptyStmt())
+        stmts.append(LiteralExpr(""))
         self.expr = Exprs(stmts, delimiter="\n")
 
     def render(self):
