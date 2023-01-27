@@ -163,6 +163,6 @@ else
 	if [ $? -ne 0 ]; then
 		exit 1
 	fi
-	nvim -E --headless -u $VIM_HOME/temp/init-tool.vim -c '+Lazy! sync' -c 'qa!'
+	nvim -E --headless -u $VIM_HOME/temp/init-tool.vim -c "Lazy! sync" -c "qall"
 fi
 message "install with $MODE_NAME mode - done"
