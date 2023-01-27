@@ -716,6 +716,7 @@ PLUGINS = [
     # Highlight
     Plugin(
         LiteralExpr("RRethy/vim-illuminate"),
+        prop=EventProp("VeryLazy"),
         above=BigComment("Highlight"),
         tag=Tag.HIGHLIGHT,
     ),
@@ -726,6 +727,7 @@ PLUGINS = [
     ),
     Plugin(
         LiteralExpr("andymass/vim-matchup"),
+        prop=EventProp("VeryLazy"),
         tag=Tag.HIGHLIGHT,
     ),
     Plugin(
