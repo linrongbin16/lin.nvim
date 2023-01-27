@@ -296,11 +296,6 @@ class CommentExpr4Lua(Expr):
         return f"-- {self.expr.render()}"
 
 
-class EmptyCommentExpr4Lua(CommentExpr4Lua):
-    def __init__(self):
-        CommentExpr4Lua.__init__(self, LiteralExpr("Empty"))
-
-
 class LazySpecExpr4Lua(Expr):
     def __init__(self, repo, prop=None):
         assert isinstance(repo, Expr)
@@ -315,12 +310,18 @@ class LazySpecExpr4Lua(Expr):
             return f"""{{ '{self.repo.render()}', {self.prop.render()} }}"""
 
 
-def to_lua(expr):
-    assert isinstance(expr, Expr)
-    if isinstance(expr, Stmt):
-        return expr
-    if isinstance(expr, CommentExpr):
-        return CommentExpr4Lua(expr.expr)
+class BracedExpr4Lua(Expr):
+    def __init__(self, expr, count=1):
+        assert isinstance(expr, Expr)
+        assert isinstance(count, int)
+        assert count >= 1
+        self.expr = expr
+        self.count = count
+
+    def render(self):
+        left_braces = "{" * self.count
+        right_braces = "}" * self.count
+        return f"{left_braces} {self.expr.render()} {right_braces}"
 
 
 # }
@@ -353,6 +354,119 @@ class Plugin:
         return self.repo.render() if isinstance(self.repo, Expr) else str(self.repo)
 
 
+# Helper Expr {
+
+
+class BigComment(Expr):
+    def __init__(self, *value):
+        assert value is not None
+        stmts = []
+        stmts.append(EmptyStmt())
+        stmts.extend(
+            [IndentExpr(CommentExpr4Lua(LiteralExpr(f"---- {v} ----"))) for v in value]
+        )
+        self.expr = Exprs(stmts, delimiter="\n")
+
+    def render(self):
+        return self.expr.render()
+
+
+class SmallComment(Expr):
+    def __init__(self, *value):
+        assert value is not None
+        stmts = [IndentExpr(CommentExpr4Lua(LiteralExpr(v))) for v in value]
+        self.expr = Exprs(stmts, delimiter="\n")
+
+    def render(self):
+        return self.expr.render()
+
+
+class LazyProp(Expr):
+    def __init__(self, value="true"):
+        assert value == "true" or value == "false"
+        self.expr = AssignExpr(LiteralExpr("lazy"), LiteralExpr(value))
+
+    def render(self):
+        return self.expr.render()
+
+
+class NameProp(Expr):
+    def __init__(self, value):
+        assert isinstance(value, str)
+        self.expr = AssignExpr(LiteralExpr("name"), SingleQuoteStringExpr(value))
+
+    def render(self):
+        return self.expr.render()
+
+
+class BranchProp(Expr):
+    def __init__(self, value):
+        assert isinstance(value, str)
+        self.expr = AssignExpr(LiteralExpr("branch"), SingleQuoteStringExpr(value))
+
+    def render(self):
+        return self.expr.render()
+
+
+class EventProp(Expr):
+    def __init__(self, *value) -> None:
+        self.expr = AssignExpr(
+            LiteralExpr("event"),
+            BracedExpr4Lua(
+                Exprs([SingleQuoteStringExpr(v) for v in value], delimiter=", ")
+            ),
+        )
+
+    def render(self):
+        return self.expr.render()
+
+
+class DependenciesProp(Expr):
+    def __init__(self, *value):
+        self.expr = AssignExpr(
+            LiteralExpr("dependencies"),
+            BracedExpr4Lua(
+                Exprs([SingleQuoteStringExpr(v) for v in value], delimiter=", ")
+            ),
+        )
+
+    def render(self):
+        return self.expr.render()
+
+
+class VersionProp(Expr):
+    def __init__(self, value) -> None:
+        assert isinstance(value, str)
+        self.expr = AssignExpr(LiteralExpr("version"), SingleQuoteStringExpr(value))
+
+    def render(self):
+        return self.expr.render()
+
+
+class BuildProp(Expr):
+    def __init__(self, value) -> None:
+        assert isinstance(value, str)
+        self.expr = AssignExpr(LiteralExpr("build"), SingleQuoteStringExpr(value))
+
+    def render(self):
+        return self.expr.render()
+
+
+class FtProp(Expr):
+    def __init__(self, *value) -> None:
+        self.expr = AssignExpr(
+            LiteralExpr("ft"),
+            BracedExpr4Lua(
+                Exprs([SingleQuoteStringExpr(v) for v in value], delimiter=", ")
+            ),
+        )
+
+    def render(self):
+        return self.expr.render()
+
+
+# }
+
 PLUGINS = [
     # Infrastructure
     Plugin(
@@ -366,17 +480,14 @@ PLUGINS = [
     # Colorscheme
     Plugin(
         LiteralExpr("bluz71/vim-nightfly-colors"),
-        prop=AssignExpr(LiteralExpr("lazy"), LiteralExpr("true")),
-        above=[
-            EmptyStmt(),
-            CommentExpr(LiteralExpr("---- Colorscheme ----")),
-        ],
+        prop=LazyProp(),
+        above=BigComment("Colorscheme"),
         color="nightfly",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
         LiteralExpr("bluz71/vim-moonfly-colors"),
-        prop=AssignExpr(LiteralExpr("lazy"), LiteralExpr("true")),
+        prop=LazyProp(),
         color="moonfly",
         tag=Tag.COLORSCHEME,
     ),
@@ -384,8 +495,8 @@ PLUGINS = [
         LiteralExpr("catppuccin/nvim"),
         prop=Exprs(
             [
-                AssignExpr(LiteralExpr("name"), SingleQuoteStringExpr("catppuccin")),
-                AssignExpr(LiteralExpr("lazy"), LiteralExpr("true")),
+                NameProp("catppuccin"),
+                LazyProp(),
             ],
             delimiter=", ",
         ),
@@ -396,10 +507,8 @@ PLUGINS = [
         LiteralExpr("challenger-deep-theme/vim"),
         prop=Exprs(
             [
-                AssignExpr(
-                    LiteralExpr("name"), SingleQuoteStringExpr("challenger-deep")
-                ),
-                AssignExpr(LiteralExpr("lazy"), LiteralExpr("true")),
+                NameProp("challenger-deep"),
+                LazyProp(),
             ],
             delimiter=", ",
         ),
@@ -408,13 +517,13 @@ PLUGINS = [
     ),
     Plugin(
         LiteralExpr("cocopon/iceberg.vim"),
-        prop=AssignExpr(LiteralExpr("lazy"), LiteralExpr("true")),
+        prop=LazyProp(),
         color="iceberg",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
         LiteralExpr("EdenEast/nightfox.nvim"),
-        prop=AssignExpr(LiteralExpr("lazy"), LiteralExpr("true")),
+        prop=LazyProp(),
         color="nightfox",
         tag=Tag.COLORSCHEME,
     ),
@@ -422,8 +531,8 @@ PLUGINS = [
         LiteralExpr("embark-theme/vim"),
         prop=Exprs(
             [
-                AssignExpr(LiteralExpr("name"), SingleQuoteStringExpr("embark")),
-                AssignExpr(LiteralExpr("lazy"), LiteralExpr("true")),
+                NameProp("embark"),
+                LazyProp(),
             ],
             delimiter=", ",
         ),
@@ -432,7 +541,7 @@ PLUGINS = [
     ),
     Plugin(
         LiteralExpr("fenetikm/falcon"),
-        prop=AssignExpr(LiteralExpr("lazy"), LiteralExpr("true")),
+        prop=LazyProp(),
         color="falcon",
         tag=Tag.COLORSCHEME,
     ),
@@ -440,8 +549,8 @@ PLUGINS = [
         LiteralExpr("folke/tokyonight.nvim"),
         prop=Exprs(
             [
-                AssignExpr(LiteralExpr("branch"), SingleQuoteStringExpr("main")),
-                AssignExpr(LiteralExpr("lazy"), LiteralExpr("true")),
+                BranchProp("main"),
+                LazyProp(),
             ],
             delimiter=", ",
         ),
@@ -450,14 +559,14 @@ PLUGINS = [
     ),
     Plugin(
         LiteralExpr("ishan9299/nvim-solarized-lua"),
-        prop=AssignExpr(LiteralExpr("lazy"), LiteralExpr("true")),
-        above=CommentExpr(LiteralExpr("inherit 'lifepillar/vim-solarized8'")),
+        prop=LazyProp(),
+        above=SmallComment("inherit 'lifepillar/vim-solarized8'"),
         color="solarized",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
         LiteralExpr("junegunn/seoul256.vim"),
-        prop=AssignExpr(LiteralExpr("lazy"), LiteralExpr("true")),
+        prop=LazyProp(),
         color="seoul256",
         tag=Tag.COLORSCHEME,
     ),
@@ -465,49 +574,47 @@ PLUGINS = [
         LiteralExpr("luisiacc/gruvbox-baby"),
         prop=Exprs(
             [
-                AssignExpr(LiteralExpr("branch"), SingleQuoteStringExpr("main")),
-                AssignExpr(LiteralExpr("lazy"), LiteralExpr("true")),
+                BranchProp("main"),
+                LazyProp(),
             ],
             delimiter=", ",
         ),
-        above=CommentExpr(LiteralExpr("inherit sainnhe/gruvbox-material")),
+        above=SmallComment("inherit sainnhe/gruvbox-material"),
         color="gruvbox-baby",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
         LiteralExpr("marko-cerovac/material.nvim"),
-        prop=AssignExpr(LiteralExpr("lazy"), LiteralExpr("true")),
-        above=CommentExpr(LiteralExpr("inherit kaicataldo/material.vim")),
+        prop=LazyProp(),
+        above=SmallComment("inherit kaicataldo/material.vim"),
         color="material",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
         LiteralExpr("mhartington/oceanic-next"),
-        prop=AssignExpr(LiteralExpr("lazy"), LiteralExpr("true")),
+        prop=LazyProp(),
         color="OceanicNext",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
         LiteralExpr("Mofiqul/dracula.nvim"),
-        prop=AssignExpr(LiteralExpr("lazy"), LiteralExpr("true")),
-        above=CommentExpr(LiteralExpr("inherit dracula/vim")),
+        prop=LazyProp(),
+        above=SmallComment("inherit dracula/vim"),
         color="dracula",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
         LiteralExpr("navarasu/onedark.nvim"),
-        prop=AssignExpr(LiteralExpr("lazy"), LiteralExpr("true")),
-        above=CommentExpr(
-            LiteralExpr(
-                "inherit joshdick/onedark.vim, tomasiser/vim-code-dark, olimorris/onedarkpro.nvim"
-            )
+        prop=LazyProp(),
+        above=SmallComment(
+            "inherit joshdick/onedark.vim, tomasiser/vim-code-dark, olimorris/onedarkpro.nvim"
         ),
         color="onedark",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
         LiteralExpr("NLKNguyen/papercolor-theme"),
-        prop=AssignExpr(LiteralExpr("lazy"), LiteralExpr("true")),
+        prop=LazyProp(),
         color="PaperColor",
         tag=Tag.COLORSCHEME,
     ),
@@ -516,8 +623,8 @@ PLUGINS = [
         color="spaceduck",
         prop=Exprs(
             [
-                AssignExpr(LiteralExpr("branch"), SingleQuoteStringExpr("main")),
-                AssignExpr(LiteralExpr("lazy"), LiteralExpr("true")),
+                BranchProp("main"),
+                LazyProp(),
             ],
             delimiter=", ",
         ),
@@ -525,37 +632,37 @@ PLUGINS = [
     ),
     Plugin(
         LiteralExpr("preservim/vim-colors-pencil"),
-        prop=AssignExpr(LiteralExpr("lazy"), LiteralExpr("true")),
+        prop=LazyProp(),
         color="pencil",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
         LiteralExpr("projekt0n/github-nvim-theme"),
-        prop=AssignExpr(LiteralExpr("lazy"), LiteralExpr("true")),
+        prop=LazyProp(),
         color="github_dark",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
         LiteralExpr("raphamorim/lucario"),
-        prop=AssignExpr(LiteralExpr("lazy"), LiteralExpr("true")),
+        prop=LazyProp(),
         color="lucario",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
         LiteralExpr("rebelot/kanagawa.nvim"),
-        prop=AssignExpr(LiteralExpr("lazy"), LiteralExpr("true")),
+        prop=LazyProp(),
         color="kanagawa",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
         LiteralExpr("Rigellute/rigel"),
+        prop=LazyProp(),
         color="rigel",
-        prop=AssignExpr(LiteralExpr("lazy"), LiteralExpr("true")),
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
         LiteralExpr("romainl/Apprentice"),
-        prop=AssignExpr(LiteralExpr("lazy"), LiteralExpr("true")),
+        prop=LazyProp(),
         color="apprentice",
         tag=Tag.COLORSCHEME,
     ),
@@ -564,8 +671,8 @@ PLUGINS = [
         color="rose-pine",
         prop=Exprs(
             [
-                AssignExpr(LiteralExpr("name"), SingleQuoteStringExpr("rose-pine")),
-                AssignExpr(LiteralExpr("lazy"), LiteralExpr("true")),
+                NameProp("rose-pine"),
+                LazyProp(),
             ],
             delimiter=", ",
         ),
@@ -573,47 +680,44 @@ PLUGINS = [
     ),
     Plugin(
         LiteralExpr("sainnhe/edge"),
-        prop=AssignExpr(LiteralExpr("lazy"), LiteralExpr("true")),
+        prop=LazyProp(),
         color="edge",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
         LiteralExpr("sainnhe/everforest"),
-        prop=AssignExpr(LiteralExpr("lazy"), LiteralExpr("true")),
+        prop=LazyProp(),
         color="everforest",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
         LiteralExpr("sainnhe/sonokai"),
-        prop=AssignExpr(LiteralExpr("lazy"), LiteralExpr("true")),
-        above=CommentExpr(LiteralExpr("inherit sickill/vim-monokai")),
+        prop=LazyProp(),
+        above=SmallComment("inherit sickill/vim-monokai"),
         color="sonokai",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
         LiteralExpr("shaunsingh/nord.nvim"),
-        prop=AssignExpr(LiteralExpr("lazy"), LiteralExpr("true")),
+        prop=LazyProp(),
         color="nord",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
         LiteralExpr("srcery-colors/srcery-vim"),
-        prop=AssignExpr(LiteralExpr("lazy"), LiteralExpr("true")),
+        prop=LazyProp(),
         color="srcery",
         tag=Tag.COLORSCHEME,
     ),
     # Highlight
     Plugin(
         LiteralExpr("RRethy/vim-illuminate"),
-        above=[
-            EmptyStmt(),
-            CommentExpr(LiteralExpr("---- Highlight ----")),
-        ],
+        above=BigComment("Highlight"),
         tag=Tag.HIGHLIGHT,
     ),
     Plugin(
         LiteralExpr("NvChad/nvim-colorizer.lua"),
-        prop=AssignExpr(LiteralExpr("event"), SingleQuoteStringExpr("VeryLazy")),
+        prop=EventProp("VeryLazy"),
         tag=Tag.HIGHLIGHT,
     ),
     Plugin(
@@ -624,11 +728,8 @@ PLUGINS = [
         LiteralExpr("inkarkat/vim-mark"),
         prop=Exprs(
             [
-                AssignExpr(
-                    LiteralExpr("dependencies"),
-                    LiteralExpr("{ 'inkarkat/vim-ingo-library' }"),
-                ),
-                AssignExpr(LiteralExpr("event"), SingleQuoteStringExpr("VeryLazy")),
+                DependenciesProp("inkarkat/vim-ingo-library"),
+                EventProp("VeryLazy"),
             ],
             delimiter=", ",
         ),
@@ -636,92 +737,70 @@ PLUGINS = [
     ),
     Plugin(
         LiteralExpr("nvim-tree/nvim-tree.lua"),
-        prop=AssignExpr(
-            LiteralExpr("dependencies"),
-            LiteralExpr("{ 'nvim-tree/nvim-web-devicons' }"),
-        ),
-        above=[
-            EmptyStmt(),
-            CommentExpr(LiteralExpr("---- UI ----")),
-            CommentExpr(LiteralExpr("File explorer")),
-        ],
+        prop=DependenciesProp("nvim-tree/nvim-web-devicons"),
+        above=Exprs([BigComment("UI"), SmallComment("File explorer")], delimiter="\n"),
     ),
     Plugin(
         LiteralExpr("akinsho/bufferline.nvim"),
         prop=Exprs(
             [
-                AssignExpr(LiteralExpr("version"), SingleQuoteStringExpr("v3.*")),
-                AssignExpr(
-                    LiteralExpr(
-                        "dependencies",
-                    ),
-                    LiteralExpr(
-                        '{ "nvim-tree/nvim-web-devicons", "famiu/bufdelete.nvim"} '
-                    ),
+                VersionProp("v3.*"),
+                DependenciesProp(
+                    "nvim-tree/nvim-web-devicons",
+                    "famiu/bufdelete.nvim",
                 ),
             ],
             delimiter=", ",
         ),
-        above=CommentExpr(LiteralExpr("Tabline")),
+        above=SmallComment("Tabline"),
     ),
     Plugin(
         LiteralExpr("lukas-reineke/indent-blankline.nvim"),
-        above=CommentExpr(LiteralExpr("Indentline")),
+        above=SmallComment("Indentline"),
     ),
     Plugin(
         LiteralExpr("nvim-lualine/lualine.nvim"),
-        prop=AssignExpr(
-            LiteralExpr("dependencies"),
-            LiteralExpr('{ "nvim-tree/nvim-web-devicons" }'),
-        ),
-        above=CommentExpr(LiteralExpr("Statusline")),
+        prop=DependenciesProp("nvim-tree/nvim-web-devicons"),
+        above=SmallComment("Statusline"),
     ),
     Plugin(LiteralExpr("nvim-lua/lsp-status.nvim")),
     Plugin(
         LiteralExpr("lewis6991/gitsigns.nvim"),
-        above=CommentExpr(LiteralExpr("Git")),
+        above=SmallComment("Git"),
     ),
     Plugin(
         LiteralExpr("akinsho/toggleterm.nvim"),
         prop=Exprs(
             [
-                AssignExpr(LiteralExpr("version"), SingleQuoteStringExpr("*")),
-                AssignExpr(LiteralExpr("event"), SingleQuoteStringExpr("VeryLazy")),
+                VersionProp("*"),
+                EventProp("VeryLazy"),
             ],
             delimiter=", ",
         ),
-        above=CommentExpr(LiteralExpr("Terminal")),
+        above=SmallComment("Terminal"),
     ),
     Plugin(
         LiteralExpr("stevearc/dressing.nvim"),
-        above=CommentExpr(LiteralExpr("UI hooks")),
+        above=SmallComment("UI hooks"),
     ),
     Plugin(
         LiteralExpr("liuchengxu/vista.vim"),
-        prop=AssignExpr(LiteralExpr("event"), SingleQuoteStringExpr("VeryLazy")),
-        above=CommentExpr(LiteralExpr("Structures/Outlines")),
+        prop=EventProp("VeryLazy"),
+        above=SmallComment("Structures/Outlines"),
     ),
     Plugin(LiteralExpr("ludovicchabant/vim-gutentags")),
     # Search
     Plugin(
         LiteralExpr("junegunn/fzf"),
-        prop=AssignExpr(
-            LiteralExpr("build"), SingleQuoteStringExpr(":call fzf#install()")
-        ),
-        above=[
-            EmptyStmt(),
-            CommentExpr(LiteralExpr("---- Search ----")),
-        ],
+        prop=BuildProp(":call fzf#install()"),
+        above=BigComment("Search"),
     ),
     Plugin(LiteralExpr("junegunn/fzf.vim")),
     Plugin(LiteralExpr("ojroques/nvim-lspfuzzy")),
     # LSP server
     Plugin(
         LiteralExpr("williamboman/mason.nvim"),
-        above=[
-            EmptyStmt(),
-            CommentExpr(LiteralExpr("---- LSP server ----")),
-        ],
+        above=BigComment("LSP server"),
         tag=Tag.LANGUAGE,
     ),
     Plugin(
@@ -730,9 +809,7 @@ PLUGINS = [
     ),
     Plugin(
         LiteralExpr("jose-elias-alvarez/null-ls.nvim"),
-        prop=AssignExpr(
-            LiteralExpr("dependencies"), LiteralExpr('{ "nvim-lua/plenary.nvim" }')
-        ),
+        prop=DependenciesProp("nvim-lua/plenary.nvim"),
         tag=Tag.LANGUAGE,
     ),
     Plugin(LiteralExpr("jay-babu/mason-null-ls.nvim"), tag=Tag.LANGUAGE),
@@ -740,15 +817,14 @@ PLUGINS = [
         LiteralExpr("hrsh7th/nvim-cmp"),
         prop=Exprs(
             [
-                AssignExpr(
-                    LiteralExpr("event"),
-                    LiteralExpr("{ 'InsertEnter', 'CmdlineEnter ' }"),
-                ),
-                AssignExpr(
-                    LiteralExpr("dependencies"),
-                    LiteralExpr(
-                        "{ 'hrsh7th/cmp-nvim-lsp', 'hrsh7th/cmp-buffer', 'hrsh7th/cmp-path', 'hrsh7th/cmp-cmdline', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' }"
-                    ),
+                EventProp("InsertEnter", "CmdlineEnter"),
+                DependenciesProp(
+                    "hrsh7th/cmp-nvim-lsp",
+                    "hrsh7th/cmp-buffer",
+                    "hrsh7th/cmp-path",
+                    "hrsh7th/cmp-cmdline",
+                    "L3MON4D3/LuaSnip",
+                    "saadparwaiz1/cmp_luasnip",
                 ),
             ],
             delimiter=", ",
@@ -760,55 +836,47 @@ PLUGINS = [
         LiteralExpr("iamcco/markdown-preview.nvim"),
         prop=Exprs(
             [
-                AssignExpr(
-                    LiteralExpr("build"), SingleQuoteStringExpr("cd app && npm install")
-                ),
+                BuildProp("cd app && npm install"),
                 AssignExpr(
                     LiteralExpr("init"),
                     LiteralExpr('function() vim.g.mkdp_filetypes = { "markdown" } end'),
                 ),
-                AssignExpr(LiteralExpr("ft"), LiteralExpr("{ 'markdown' }")),
+                FtProp("markdown"),
             ],
             delimiter=", ",
         ),
-        above=[
-            EmptyStmt(),
-            CommentExpr(LiteralExpr("---- Language support ----")),
-            CommentExpr(LiteralExpr("Markdown")),
-        ],
+        above=Exprs(
+            [BigComment("Language support"), SmallComment("Markdown")], delimiter="\n"
+        ),
         tag=Tag.LANGUAGE,
     ),
     Plugin(
         LiteralExpr("p00f/clangd_extensions.nvim"),
-        above=CommentExpr(LiteralExpr("Clangd extension")),
+        above=SmallComment("Clangd extension"),
         tag=Tag.LANGUAGE,
     ),
     Plugin(
         LiteralExpr("justinmk/vim-syntax-extra"),
-        prop=AssignExpr(
-            LiteralExpr("ft"), LiteralExpr('{ "lex", "flex", "yacc", "bison" }')
-        ),
-        above=CommentExpr(LiteralExpr("Lex/yacc, flex/bison")),
+        prop=FtProp("lex", "flex", "yacc", "bison"),
+        above=SmallComment("Lex/yacc, flex/bison"),
         tag=Tag.LANGUAGE,
     ),
     Plugin(
         LiteralExpr("rhysd/vim-llvm"),
-        prop=AssignExpr(
-            LiteralExpr("ft"), LiteralExpr('{ "llvm", "mir", "mlir", "tablegen" }')
-        ),
-        above=CommentExpr(LiteralExpr("LLVM")),
+        prop=FtProp("llvm", "mir", "mlir", "tablegen"),
+        above=SmallComment("LLVM"),
         tag=Tag.LANGUAGE,
     ),
     Plugin(
         LiteralExpr("zebradil/hive.vim"),
-        prop=AssignExpr(LiteralExpr("ft"), LiteralExpr('{ "hive" }')),
-        above=CommentExpr(LiteralExpr("Hive")),
+        prop=FtProp("hive"),
+        above=SmallComment("Hive"),
         tag=Tag.LANGUAGE,
     ),
     Plugin(
         LiteralExpr("slim-template/vim-slim"),
-        prop=AssignExpr(LiteralExpr("ft"), LiteralExpr('{ "slim" }')),
-        above=CommentExpr(LiteralExpr("Slim")),
+        prop=FtProp("slim"),
+        above=SmallComment("Slim"),
         tag=Tag.LANGUAGE,
     ),
     # Movement
@@ -816,26 +884,22 @@ PLUGINS = [
         LiteralExpr("phaazon/hop.nvim"),
         prop=Exprs(
             [
-                AssignExpr(LiteralExpr("branch"), SingleQuoteStringExpr("v2")),
-                AssignExpr(LiteralExpr("event"), SingleQuoteStringExpr("VeryLazy")),
+                BranchProp("v2"),
+                EventProp("VeryLazy"),
             ],
             delimiter=", ",
         ),
-        above=[
-            EmptyStmt(),
-            CommentExpr(LiteralExpr("---- Movement ----")),
-            CommentExpr(LiteralExpr("Cursor Movement")),
-        ],
+        above=Exprs(
+            [BigComment("Movement"), SmallComment("Cursor Movement")], delimiter="\n"
+        ),
         tag=Tag.EDITING,
     ),
     Plugin(
         LiteralExpr("ggandor/leap.nvim"),
         prop=Exprs(
             [
-                AssignExpr(
-                    LiteralExpr("dependencies"), LiteralExpr('{ "tpope/vim-repeat" }')
-                ),
-                AssignExpr(LiteralExpr("event"), SingleQuoteStringExpr("VeryLazy")),
+                DependenciesProp("tpope/vim-repeat"),
+                EventProp("VeryLazy"),
             ],
             delimiter=", ",
         ),
@@ -843,50 +907,49 @@ PLUGINS = [
     ),
     Plugin(
         LiteralExpr("chaoren/vim-wordmotion"),
-        prop=AssignExpr(LiteralExpr("event"), SingleQuoteStringExpr("VeryLazy")),
+        prop=EventProp("VeryLazy"),
         tag=Tag.EDITING,
     ),
     # Editing enhancement
     Plugin(
         LiteralExpr("alvan/vim-closetag"),
-        prop=AssignExpr(LiteralExpr("event"), SingleQuoteStringExpr("InsertEnter")),
-        above=[
-            EmptyStmt(),
-            CommentExpr(LiteralExpr("---- Editing enhancement ----")),
-            CommentExpr(LiteralExpr("HTML tag")),
-        ],
+        prop=EventProp("InsertEnter"),
+        above=Exprs(
+            [BigComment("Editing enhancement"), SmallComment("HTML tag")],
+            delimiter="\n",
+        ),
         tag=Tag.EDITING,
     ),
     Plugin(
         LiteralExpr("numToStr/Comment.nvim"),
-        prop=AssignExpr(LiteralExpr("event"), SingleQuoteStringExpr("VeryLazy")),
-        above=CommentExpr(LiteralExpr("Comment")),
+        prop=EventProp("VeryLazy"),
+        above=SmallComment("Comment"),
         tag=Tag.EDITING,
     ),
     Plugin(
         LiteralExpr("windwp/nvim-autopairs"),
-        prop=AssignExpr(LiteralExpr("event"), SingleQuoteStringExpr("InsertEnter")),
-        above=CommentExpr(LiteralExpr("Autopair")),
+        prop=EventProp("InsertEnter"),
+        above=SmallComment("Autopair"),
         tag=Tag.EDITING,
     ),
     Plugin(
         LiteralExpr("haya14busa/is.vim"),
-        above=CommentExpr(LiteralExpr("Incremental search")),
+        above=SmallComment("Incremental search"),
         tag=Tag.EDITING,
     ),
     Plugin(
         LiteralExpr("tpope/vim-repeat"),
-        above=CommentExpr(LiteralExpr("Other")),
+        above=SmallComment("Other"),
         tag=Tag.EDITING,
     ),
     Plugin(
         LiteralExpr("mbbill/undotree"),
-        prop=AssignExpr(LiteralExpr("event"), SingleQuoteStringExpr("VeryLazy")),
+        prop=EventProp("VeryLazy"),
         tag=Tag.EDITING,
     ),
     Plugin(
         LiteralExpr("editorconfig/editorconfig-vim"),
-        prop=AssignExpr(LiteralExpr("event"), SingleQuoteStringExpr("VeryLazy")),
+        prop=EventProp("VeryLazy"),
         tag=Tag.EDITING,
     ),
 ]
@@ -1020,15 +1083,7 @@ class Render:
             assert isinstance(ctx, Plugin)
             # above
             if ctx.above:
-                aboves = ctx.above if isinstance(ctx.above, list) else [ctx.above]
-                for a in aboves:
-                    assert isinstance(a, Expr)
-                    if isinstance(a, EmptyStmt):
-                        plugins.append(to_lua(a))
-                    elif isinstance(a, CommentExpr):
-                        plugins.append(Stmt(IndentExpr(to_lua(a))))
-                    else:
-                        assert False
+                plugins.append(ctx.above)
             # body
             if not self.is_disabled(ctx):
                 # plugins
