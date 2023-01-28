@@ -1,9 +1,29 @@
-" for advanced rg integration, please see:
-" https://github.com/junegunn/fzf.vim#example-advanced-ripgrep-integration
 command! -bang -nargs=* LinFzfUnrestrictedRg
             \ call fzf#vim#grep(
             \ "rg --column --no-heading --color=always -S -uu --glob=!.git/ ".shellescape(<q-args>), 1,
             \ fzf#vim#with_preview(), <bang>0)
+
+function! LinFzfAdvancedRg(query, fullscreen)
+    let command_fmt = 'rg --column --no-heading --color=always -- %s || true'
+    let initial_command = printf(command_fmt, shellescape(a:query))
+    let reload_command = printf(command_fmt, '{q}')
+    let spec = {'options': ['--disabled', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+    let spec = fzf#vim#with_preview(spec, 'right', 'ctrl-/')
+    call fzf#vim#grep(initial_command, 1, spec, a:fullscreen)
+endfunction
+
+function! LinFzfUnrestrictedAdvancedRg(query, fullscreen)
+    let command_fmt = 'rg --column --no-heading --color=always -S -uu --glob=!.git/ -- %s || true'
+    let initial_command = printf(command_fmt, shellescape(a:query))
+    let reload_command = printf(command_fmt, '{q}')
+    let spec = {'options': ['--disabled', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+    let spec = fzf#vim#with_preview(spec, 'right', 'ctrl-/')
+    call fzf#vim#grep(initial_command, 1, spec, a:fullscreen)
+endfunction
+
+command! -nargs=* -bang LinFzfPreciseRg call LinFzfAdvancedRg(<q-args>, <bang>0)
+
+command! -nargs=* -bang LinFzfUnrestrictedPreciseRg call LinFzfUnrestrictedAdvancedRg(<q-args>, <bang>0)
 
 command! -bang -nargs=0 LinFzfRgCWord
             \ call fzf#vim#grep(
@@ -36,6 +56,8 @@ endif
 " live grep
 nnoremap <silent> <space>r      :FzfRg<CR>
 nnoremap <silent> <space>ur     :LinFzfUnrestrictedRg<CR>
+nnoremap <silent> <space>pr     :LinFzfPreciseRg<CR>
+nnoremap <silent> <space>upr    :LinFzfUnrestrictedPreciseRg<CR>
 " cursor word/string
 nnoremap <silent> <space>w      :LinFzfRgCWord<CR>
 nnoremap <silent> <space>uw     :LinFzfUnrestrictedRgCWord<CR>
