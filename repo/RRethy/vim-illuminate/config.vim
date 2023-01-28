@@ -1,5 +1,5 @@
 " Highlight color
 augroup LinVimIlluminateAuGroup
     autocmd!
-    autocmd VimEnter * hi link illuminatedWord Visual
+    autocmd VimEnter * hi illuminatedWord cterm=underline gui=underline
 augroup END
