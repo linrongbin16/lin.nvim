@@ -9,10 +9,10 @@
 lazy-lock.json
 
 # generated
-lua/plugins.lua*
-lua/lspservers.lua*
-settings.vim*
-colorschemes.vim*
+/lua/plugins.lua*
+/lua/lspservers.lua*
+/settings.vim*
+/colorschemes.vim*
 /init.vim*
 
 # universal-ctags

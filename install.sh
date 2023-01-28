@@ -3,15 +3,15 @@
 # debug
 # set -x
 
-VIM_HOME=$HOME/.vim
-NVIM_HOME=$HOME/.config/nvim
-INSTALL_HOME=$VIM_HOME/installer
+NVIM_HOME=$HOME/.nvim
+CONFIG_NVIM_HOME=$HOME/.config/nvim
+DEPS_HOME=$NVIM_HOME/deps
 OS="$(uname -s)"
 
 MODE_NAME='full' # default mode
 OPT_BASIC=0
 
-source $INSTALL_HOME/util.sh
+source $DEPS_HOME/util.sh
 
 # dependency
 
@@ -70,15 +70,15 @@ guifont_dependency() {
 # basic
 install_basic() {
 	message "install ~/.config/nvim/init.vim for neovim"
-	try_backup $NVIM_HOME/init.vim
-	try_backup $NVIM_HOME
+	try_backup $CONFIG_NVIM_HOME/init.vim
+	try_backup $CONFIG_NVIM_HOME
 	mkdir -p $HOME/.config
-	ln -s $VIM_HOME $NVIM_HOME
-	ln -s $VIM_HOME/conf/basic.vim $NVIM_HOME/init.vim
+	ln -s $NVIM_HOME $CONFIG_NVIM_HOME
+	ln -s $NVIM_HOME/conf/basic.vim $CONFIG_NVIM_HOME/init.vim
 }
 
 show_help() {
-	cat $INSTALL_HOME/help.txt
+	cat $DEPS_HOME/help.txt
 }
 
 # parse options
@@ -93,6 +93,7 @@ unknown_option_error() {
 	exit 1
 }
 
+# check arguments
 args_length=$#
 args=("$@")
 for ((i = 0; i < args_length; i++)); do
@@ -126,27 +127,27 @@ else
 	case "$OS" in
 	Linux)
 		if [ -f "/etc/arch-release" ] || [ -f "/etc/artix-release" ]; then
-			$INSTALL_HOME/pacman.sh
+			$DEPS_HOME/pacman.sh
 		elif [ -f "/etc/fedora-release" ] || [ -f "/etc/redhat-release" ]; then
-			$INSTALL_HOME/dnf.sh
+			$DEPS_HOME/dnf.sh
 		elif [ -f "/etc/gentoo-release" ]; then
-			$INSTALL_HOME/emerge.sh
+			$DEPS_HOME/emerge.sh
 		else
 			# assume apt
-			$INSTALL_HOME/apt.sh
+			$DEPS_HOME/apt.sh
 		fi
 		;;
 	FreeBSD)
-		$INSTALL_HOME/pkg.sh
+		$DEPS_HOME/pkg.sh
 		;;
 	NetBSD)
-		$INSTALL_HOME/pkgin.sh
+		$DEPS_HOME/pkgin.sh
 		;;
 	OpenBSD)
-		$INSTALL_HOME/pkg_add.sh
+		$DEPS_HOME/pkg_add.sh
 		;;
 	Darwin)
-		$INSTALL_HOME/brew.sh
+		$DEPS_HOME/brew.sh
 		;;
 	*)
 		message "$OS is not supported, exit..."
@@ -159,10 +160,10 @@ else
 
 	# vim settings
 	message "install settings for vim"
-	python3 $VIM_HOME/generator.py "$@"
+	python3 $NVIM_HOME/generator.py "$@"
 	if [ $? -ne 0 ]; then
 		exit 1
 	fi
-	nvim -E --headless -u $VIM_HOME/temp/init-tool.vim -c "Lazy! sync" -c "qall"
+	nvim -E --headless -u $NVIM_HOME/temp/init-tool.vim -c "Lazy! sync" -c "qall"
 fi
 message "install with $MODE_NAME mode - done"

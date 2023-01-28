@@ -3,10 +3,10 @@
 # Debug
 # Set-PSDebug -Trace 1
 
-$VIM_HOME = "$env:USERPROFILE\.vim"
+$NVIM_HOME = "$env:USERPROFILE\.nvim"
 $APPDATA_LOCAL_HOME = "$env:USERPROFILE\AppData\Local"
-$NVIM_HOME = "$APPDATA_LOCAL_HOME\nvim"
-$INSTALL_HOME = "$VIM_HOME\installer"
+$APPDATA_LOCAL_NVIM_HOME = "$APPDATA_LOCAL_HOME\nvim"
+$DEPS_HOME = "$NVIM_HOME\deps"
 
 $MODE_NAME = "full" # default mode
 $OPT_BASIC = $False
@@ -86,17 +86,17 @@ function NpmDependency() {
 # basic
 
 function InstallBasic() {
-    $BasicPath = "$env:USERPROFILE\.vim\config\basic.vim"
-    $NvimInitVimPath = "$NVIM_HOME\init.vim"
-    Message "install $APPDATA_LOCAL_HOME\nvim\init.vim for neovim on windows"
-    TryBackup $NvimInitVimPath
-    TryBackup $NVIM_HOME
-    cmd /c mklink $NVIM_HOME $VIM_HOME
-    cmd /c mklink $NvimInitVimPath $BasicPath
+    $basicVim = "$NVIM_HOME\conf\basic.vim"
+    $initVim = "$APPDATA_LOCAL_NVIM_HOME\init.vim"
+    Message "install $APPDATA_LOCAL_NVIM_HOME\init.vim for neovim on windows"
+    TryBackup $initVim
+    TryBackup $APPDATA_LOCAL_NVIM_HOME
+    cmd /c mklink $APPDATA_LOCAL_NVIM_HOME $NVIM_HOME
+    cmd /c mklink $initVim $basicVim
 }
 
 function ShowHelp() {
-    Get-Content -Path "$INSTALL_HOME\help.txt" | Write-Host
+    Get-Content -Path "$DEPS_HOME\help.txt" | Write-Host
 }
 
 # # Get the ID and security principal of the current user account
@@ -116,10 +116,8 @@ function ShowHelp() {
 #     Exit;
 # }
 
-# parse options
-
+# check arguments
 $argsLength = $args.Length
-
 for ($i = 0; $i -lt $argsLength; $i++) {
     $a = $args[ $i ];
     if ($a.StartsWith("-h") -or $a.StartsWith("--help")) {
@@ -155,11 +153,11 @@ else {
 
     # vim settings
     Message "install settings for vim"
-    python3 $VIM_HOME\generator.py $args
+    python3 $NVIM_HOME\generator.py $args
     if ($LastExitCode -ne 0) {
         exit 1
     }
-    cmd /c nvim -E --headless -u "$VIM_HOME\temp\init-tool.vim" -c "Lazy! sync" -c "qall"
+    cmd /c nvim -E --headless -u "$NVIM_HOME\temp\init-tool.vim" -c "Lazy! sync" -c "qall"
 }
 
 Message "install with $MODE_NAME mode - done"

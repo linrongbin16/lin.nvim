@@ -1,23 +1,23 @@
 #!/bin/bash
 
-INSTALL_HOME=~/.vim/installer
-source $INSTALL_HOME/util.sh
+DEPS_HOME=~/.nvim/deps
+source $DEPS_HOME/util.sh
 
 message "install dependencies with apt"
 sudo apt-get update
 
 if ! type nvim >/dev/null 2>&1; then
-    if ! type snap >/dev/null 2>&1; then
-        message "install 'nvim' from snap"
-        sudo snap install nvim --classic
-    else
-        message "install 'nvim' from ppa:neovim-ppa/unstable"
-        sudo add-apt-repository -y ppa:neovim-ppa/unstable
-        sudo apt-get update
-        sudo apt-get install -y neovim
-    fi
+	if ! type snap >/dev/null 2>&1; then
+		message "install 'nvim' from snap"
+		sudo snap install nvim --classic
+	else
+		message "install 'nvim' from ppa:neovim-ppa/unstable"
+		sudo add-apt-repository -y ppa:neovim-ppa/unstable
+		sudo apt-get update
+		sudo apt-get install -y neovim
+	fi
 else
-    skip_message 'nvim'
+	skip_message 'nvim'
 fi
 
 install_or_skip "sudo apt-get install -y build-essential" "gcc"
@@ -48,21 +48,21 @@ install_or_skip "sudo apt-get install -y python3 python3-dev python3-venv python
 install_or_skip "sudo apt-get install -y python3 python3-dev python3-venv python3-pip python3-docutils" "pip3"
 
 # nodejs
-if ! type "node" > /dev/null; then
-    message "install nodejs from deb.nodesource.com"
-    curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
-    sudo apt-get install -y nodejs
+if ! type "node" >/dev/null; then
+	message "install nodejs from deb.nodesource.com"
+	curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+	sudo apt-get install -y nodejs
 else
-    skip_message 'node'
+	skip_message 'node'
 fi
 
 # ctags
 if ! type "ctags" >/dev/null 2>&1; then
-    sudo apt-get install -y libseccomp-dev
-    sudo apt-get install -y libjansson-dev
-    sudo apt-get install -y libyaml-dev
-    sudo apt-get install -y libxml2-dev
-    install_universal_ctags
+	sudo apt-get install -y libseccomp-dev
+	sudo apt-get install -y libjansson-dev
+	sudo apt-get install -y libyaml-dev
+	sudo apt-get install -y libxml2-dev
+	install_universal_ctags
 else
-    skip_message 'ctags'
+	skip_message 'ctags'
 fi
