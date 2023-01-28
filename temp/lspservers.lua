@@ -4,12 +4,12 @@ local null_ls = require("null-ls")
 -- ---- Add new LSP server ----
 --
 -- Case-1: Add LSP server name in 'embeded_servers'.
---  LSP server is working as nvim-cmp sources, installed through mason.
+--  LSP server is working as nvim-cmp sources, installed by mason-lspconfig.
 --  Please refer to:
 --      * [mason-lspconfig Available LSP servers](https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers) for more LSP servers.
 --
 -- Case-2: Add extra null-ls source in 'embeded_extras'.
---  Extra null-ls source is working as null-ls source(formatter/linter/diagnostic/codeAction/etc), installed through mason-null-ls.
+--  Extra null-ls source is working as null-ls sources, installed by mason-null-ls.
 --  Please refer to:
 --      * [mason-null-ls Available Null-ls sources](https://github.com/jay-babu/mason-null-ls.nvim#available-null-ls-sources) for more null-ls sources.
 --      * [null-ls BUILTINS](https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md) for null-ls source configurations.
