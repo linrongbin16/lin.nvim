@@ -6,8 +6,8 @@ lin.nvim is a highly configured [neovim](https://neovim.io/) distribution integr
 
 <p align="center">
   <img
-    alt="start-ui.png"
-    src="https://raw.githubusercontent.com/linrongbin16/lin.nvim.dev/main/assets/demos/ui/start-ui.png"
+    alt="start-ui.jpg"
+    src="https://raw.githubusercontent.com/linrongbin16/lin.nvim.dev/main/assets/demos/ui/start-ui.jpg"
     width="100%"
   />
 </p>
