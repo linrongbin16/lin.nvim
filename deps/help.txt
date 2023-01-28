@@ -9,5 +9,5 @@ Options:
   --no-lang                 No language supports
   --no-edit                 No editing enhancements
   --no-plug=org/repo        No specific plugin
-  --no-winctrl              No Windows ctrl+?(and cmd+? on macOS) keys
+  --no-ctrl                 No Windows ctrl+?(macOS cmd+?) keys
   -h, --help                Help message

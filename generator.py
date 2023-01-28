@@ -890,19 +890,25 @@ PLUGINS = [
     Plugin(
         LiteralExpr("alvan/vim-closetag"),
         prop=EventProp("InsertEnter"),
-        above=Exprs([BigComment("Editing enhancement"), SmallComment("HTML tag")]),
+        above=Exprs(
+            [BigComment("Editing enhancement"), SmallComment("Auto close/pair/end")]
+        ),
+        tag=Tag.EDITING,
+    ),
+    Plugin(
+        LiteralExpr("tpope/vim-endwise"),
+        prop=EventProp("InsertEnter"),
+        tag=Tag.EDITING,
+    ),
+    Plugin(
+        LiteralExpr("windwp/nvim-autopairs"),
+        prop=EventProp("InsertEnter"),
         tag=Tag.EDITING,
     ),
     Plugin(
         LiteralExpr("numToStr/Comment.nvim"),
         prop=EventProp("VeryLazy"),
         above=SmallComment("Comment"),
-        tag=Tag.EDITING,
-    ),
-    Plugin(
-        LiteralExpr("windwp/nvim-autopairs"),
-        prop=EventProp("InsertEnter"),
-        above=SmallComment("Autopair"),
         tag=Tag.EDITING,
     ),
     Plugin(
@@ -939,7 +945,7 @@ class Render:
         no_lang=False,
         no_edit=False,
         no_plugs=None,
-        no_winctrl_opt=False,
+        no_ctrl_opt=False,
     ):
         self.use_color = use_color
         self.no_color = no_color
@@ -947,7 +953,7 @@ class Render:
         self.no_lang = no_lang
         self.no_edit = no_edit
         self.no_plugs = no_plugs
-        self.no_winctrl = no_winctrl_opt
+        self.no_ctrl = no_ctrl_opt
 
     def render(self):
         gen_plugin_stmts, gen_colorscheme_stmts = self.generate()
@@ -1036,9 +1042,9 @@ class Render:
                     ),
                 ]
             )
-        if not self.no_winctrl:
+        if not self.no_ctrl:
             stmts.append(
-                TemplateContent(pathlib.Path(f"{TEMPLATE_DIR}/winctrl-settings.vim"))
+                TemplateContent(pathlib.Path(f"{TEMPLATE_DIR}/ctrl-settings.vim"))
             )
         stmts.append(TemplateContent(pathlib.Path(f"{TEMPLATE_DIR}/settings.vim")))
         return stmts
@@ -1244,8 +1250,8 @@ class CommandHelp(click.Command):
     help="No specific plugin",
 )
 @click.option(
-    "--no-winctrl",
-    "no_winctrl_opt",
+    "--no-ctrl",
+    "no_ctrl_opt",
     is_flag=True,
     help="No Windows ctrl+?(and cmd+? on macOS) keys",
 )
@@ -1258,7 +1264,7 @@ def generator(
     no_lang_opt,
     no_edit_opt,
     no_plug_opt,
-    no_winctrl_opt,
+    no_ctrl_opt,
 ):
     if limit_opt:
         no_color_opt = True
@@ -1272,7 +1278,7 @@ def generator(
         no_lang_opt,
         no_edit_opt,
         no_plug_opt,
-        no_winctrl_opt,
+        no_ctrl_opt,
     )
     plugins, lspservers, colorschemes, settings, init = render.render()
     dumper = Dumper(plugins, lspservers, colorschemes, settings, init)

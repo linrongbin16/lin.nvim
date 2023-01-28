@@ -131,7 +131,7 @@ for ($i = 0; $i -lt $argsLength; $i++) {
     elseif ($a.StartsWith("-l") -or $a.StartsWith("--limit")) {
         $MODE_NAME = "limit"
     }
-    elseif ($a.StartsWith("--use-color") -or $a.StartsWith("--no-color") -or $a.StartsWith("--no-hilight") -or $a.StartsWith("--no-lang") -or $a.StartsWith("--no-edit") -or $a.StartsWith("--no-winctrl") -or $a.StartsWith("--no-plug")) {
+    elseif ($a.StartsWith("--use-color") -or $a.StartsWith("--no-color") -or $a.StartsWith("--no-hilight") -or $a.StartsWith("--no-lang") -or $a.StartsWith("--no-edit") -or $a.StartsWith("--no-ctrl") -or $a.StartsWith("--no-plug")) {
         # Nothing here
     }
     else {
