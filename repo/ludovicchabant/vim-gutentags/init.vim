@@ -1,5 +1,9 @@
 let g:gutentags_project_root = ['.svn', '.git', '.hg', 'package.json', 'CMakeLists.txt', 'pom.xml', '.idea', '.vscode']
-if executable('rg')
+if executable('fd')
+    let g:gutentags_file_list_command = 'fd -tf -tl'
+elseif executable('fdfind')
+    let g:gutentags_file_list_command = 'fdfind -tf -tl'
+elseif executable('rg')
     let g:gutentags_file_list_command = 'rg --files'
 endif
 
@@ -53,7 +57,7 @@ let g:gutentags_ctags_exclude = [
       \ '*.pdf', '*.doc', '*.docx', '*.ppt', '*.pptx',
       \ ]
 
-let s:tags_dir = expand('~/.cache/vim-tags')
+let s:tags_dir = expand('~/.cache/nvim-tags')
 let g:gutentags_cache_dir = s:tags_dir
 
 let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extras=+q']

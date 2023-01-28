@@ -43,4 +43,3 @@ nnoremap <C-l> :nohlsearch<CR>
 " let g:neovide_cursor_antialiasing=v:true
 
 """ ---- Add more settings here ----
-

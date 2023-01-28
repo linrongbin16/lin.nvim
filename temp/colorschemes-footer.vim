@@ -18,4 +18,3 @@ function LinNextRandomColorSync()
         execute 'syntax sync fromstart'
     endif
 endfunction
-

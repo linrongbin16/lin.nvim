@@ -1,6 +1,6 @@
 local window_transparency = 0
 
-local function LinGetConfig()
+local function GetConfig()
     -- put UI box in global editor if window is too small
     if vim.api.nvim_win_get_width(0) < 60 then
         return {
@@ -18,7 +18,7 @@ require('dressing').setup({
         win_options = {
             winblend = window_transparency,
         },
-        get_config = LinGetConfig,
+        get_config = GetConfig,
     },
     select = {
         nui = {
@@ -32,7 +32,7 @@ require('dressing').setup({
                 winblend = window_transparency,
             },
         },
-        get_config = LinGetConfig,
+        get_config = GetConfig,
     },
 })
 

@@ -7,4 +7,3 @@ require("mason").setup({
         }
     }
 })
-
