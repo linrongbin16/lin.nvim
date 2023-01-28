@@ -1,7 +1,7 @@
 #!/bin/bash
 
-INSTALL_HOME=$HOME/.vim/installer
-source $INSTALL_HOME/util.sh
+DEPS_HOME=$HOME/.nvim/deps
+source $DEPS_HOME/util.sh
 
 message "install dependencies with pacman"
 sudo pacman -Syy

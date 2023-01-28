@@ -21,9 +21,9 @@ nnoremap <F10> :ToggleTerm<CR>
 
 """ ---- Enhanced copy-paste ----
 " Copy visual selected text to cache
-xnoremap <Leader>y :w! ~/.vim/.copypaste<CR>
+xnoremap <Leader>y :w! $HOME/.nvim/.copypaste<CR>
 " Paste from cache to current cursor
-nnoremap <Leader>p :r ~/.vim/.copypaste<CR>
+nnoremap <Leader>p :r $HOME/.nvim/.copypaste<CR>
 
 """ ---- nohlsearch ----
 nnoremap <C-l> :nohlsearch<CR>

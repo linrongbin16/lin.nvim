@@ -9,20 +9,19 @@ import platform
 import click
 
 HOME_DIR = pathlib.Path.home()
-VIM_DIR = pathlib.Path(f"{HOME_DIR}/.vim")
-TEMPLATE_DIR = pathlib.Path(f"{HOME_DIR}/.vim/temp")
-INIT_FILE = pathlib.Path(f"{VIM_DIR}/init.vim")
+NVIM_DIR = pathlib.Path(f"{HOME_DIR}/.nvim")
+TEMPLATE_DIR = pathlib.Path(f"{NVIM_DIR}/temp")
 
 IS_WINDOWS = platform.system().lower().startswith("win")
 IS_MACOS = platform.system().lower().startswith("darwin")
 
 
 def message(*args):
-    print(f"[lin.vim] - {' '.join(args)}")
+    print(f"[lin.nvim] - {' '.join(args)}")
 
 
 def error_message(*args):
-    print(f"[lin.vim] - error! {' '.join(args)}")
+    print(f"[lin.nvim] - error! {' '.join(args)}")
 
 
 def try_backup(src):
@@ -908,11 +907,13 @@ PLUGINS = [
     ),
     Plugin(
         LiteralExpr("haya14busa/is.vim"),
+        prop=EventProp("VeryLazy"),
         above=SmallComment("Incremental search"),
         tag=Tag.EDITING,
     ),
     Plugin(
         LiteralExpr("tpope/vim-repeat"),
+        prop=EventProp("VeryLazy"),
         above=SmallComment("Other"),
         tag=Tag.EDITING,
     ),
@@ -1064,21 +1065,21 @@ class Render:
                 prop = ctx.prop
                 lua_base = f"repo/{str(ctx).replace('.', '-')}"
                 lua_init = f"{lua_base}/init"
-                lua_init_file = f"{VIM_DIR}/lua/{lua_init}.lua"
+                lua_init_file = f"{NVIM_DIR}/lua/{lua_init}.lua"
                 lua_config = f"{lua_base}/config"
-                lua_config_file = f"{VIM_DIR}/lua/{lua_config}.lua"
+                lua_config_file = f"{NVIM_DIR}/lua/{lua_config}.lua"
                 vim_base = f"repo/{ctx}"
                 vim_init = f"{vim_base}/init.vim"
-                vim_init_file = f"{VIM_DIR}/{vim_init}"
+                vim_init_file = f"{NVIM_DIR}/{vim_init}"
                 vim_config = f"{vim_base}/config.vim"
-                vim_config_file = f"{VIM_DIR}/{vim_config}"
+                vim_config_file = f"{NVIM_DIR}/{vim_config}"
 
                 # init
                 inits = []
                 if pathlib.Path(lua_init_file).exists():
                     inits.append(RequireExpr(SingleQuoteStringExpr(lua_init)).render())
                 if pathlib.Path(vim_init_file).exists():
-                    init_source = SourceExpr(LiteralExpr(f"$HOME/.vim/{vim_init}"))
+                    init_source = SourceExpr(LiteralExpr(f"$HOME/.nvim/{vim_init}"))
                     inits.append(f"vim.cmd('{init_source.render()}')")
                 if len(inits) > 0:
                     prop = Exprs(
@@ -1096,7 +1097,7 @@ class Render:
                         RequireExpr(SingleQuoteStringExpr(lua_config)).render()
                     )
                 if pathlib.Path(vim_config_file).exists():
-                    config_source = SourceExpr(LiteralExpr(f"$HOME/.vim/{vim_config}"))
+                    config_source = SourceExpr(LiteralExpr(f"$HOME/.nvim/{vim_config}"))
                     configs.append(f"vim.cmd('{config_source.render()}')")
                 if len(configs) > 0:
                     prop = Exprs(
@@ -1157,24 +1158,24 @@ class Dumper:
         self.init_vim()
 
     def config(self):
-        pathlib.Path(f"{VIM_DIR}/lua").mkdir(parents=True, exist_ok=True)
+        pathlib.Path(f"{NVIM_DIR}/lua").mkdir(parents=True, exist_ok=True)
 
-        plugins_lua = f"{VIM_DIR}/lua/plugins.lua"
+        plugins_lua = f"{NVIM_DIR}/lua/plugins.lua"
         try_backup(pathlib.Path(plugins_lua))
         with open(plugins_lua, "w") as fp:
             fp.write(self.plugins)
 
-        lspservers_lua = f"{VIM_DIR}/lua/lspservers.lua"
+        lspservers_lua = f"{NVIM_DIR}/lua/lspservers.lua"
         try_backup(pathlib.Path(lspservers_lua))
         with open(lspservers_lua, "w") as fp:
             fp.write(self.lspservers)
 
-        colorschemes_vim = f"{VIM_DIR}/colorschemes.vim"
+        colorschemes_vim = f"{NVIM_DIR}/colorschemes.vim"
         try_backup(pathlib.Path(colorschemes_vim))
         with open(colorschemes_vim, "w") as fp:
             fp.write(self.colorschemes)
 
-        settings_vim = f"{VIM_DIR}/settings.vim"
+        settings_vim = f"{NVIM_DIR}/settings.vim"
         try_backup(pathlib.Path(settings_vim))
         with open(settings_vim, "w") as fp:
             fp.write(self.settings)
@@ -1194,14 +1195,16 @@ class Dumper:
             init_vim = pathlib.Path(f"{config_dir}/nvim/init.vim")
         try_backup(init_vim)
         try_backup(nvim_dir)
-        nvim_dir.symlink_to(str(VIM_DIR), target_is_directory=True)
-        try_backup(pathlib.Path(INIT_FILE))
-        with open(INIT_FILE, "w") as fp:
+        nvim_dir.symlink_to(str(NVIM_DIR), target_is_directory=True)
+
+        init_vim = pathlib.Path(f"{NVIM_DIR}/init.vim")
+        try_backup(pathlib.Path(init_vim))
+        with open(init_vim, "w") as fp:
             fp.write(self.inits)
 
 
 class CommandHelp(click.Command):
-    HELP_FILE = pathlib.Path(f"{VIM_DIR}/install/help.txt")
+    HELP_FILE = pathlib.Path(f"{NVIM_DIR}/install/help.txt")
 
     def format_help(self, ctx, formatter):
         with open(CommandHelp.HELP_FILE, "r") as hf:
