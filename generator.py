@@ -730,6 +730,7 @@ PLUGINS = [
     ),
     Plugin(
         LiteralExpr("lukas-reineke/indent-blankline.nvim"),
+        prop=EventProp("VeryLazy"),
         above=SmallComment("Indentline"),
     ),
     Plugin(
@@ -740,6 +741,7 @@ PLUGINS = [
     Plugin(LiteralExpr("nvim-lua/lsp-status.nvim")),
     Plugin(
         LiteralExpr("lewis6991/gitsigns.nvim"),
+        prop=EventProp("VeryLazy"),
         above=SmallComment("Git"),
     ),
     Plugin(
@@ -762,7 +764,10 @@ PLUGINS = [
         prop=EventProp("VeryLazy"),
         above=SmallComment("Structures/Outlines"),
     ),
-    Plugin(LiteralExpr("ludovicchabant/vim-gutentags")),
+    Plugin(
+        LiteralExpr("ludovicchabant/vim-gutentags"),
+        prop=EventProp("VeryLazy"),
+    ),
     # Search
     Plugin(
         LiteralExpr("junegunn/fzf"),
