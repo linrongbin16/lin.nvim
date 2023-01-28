@@ -1,4 +1,4 @@
-""" Use fd for fzf file finding, instead of default find
+" use fd for fzf file finding, instead of default find
 if executable('fd')
     let $FZF_DEFAULT_COMMAND = 'fd -tf -tl -i'
 elseif executable('fdfind')
@@ -8,6 +8,8 @@ else
     echo "Warning: fd or fdfind not found!"
     echohl None
 endif
+" use base16 theme for better color capatibility
+let $BAT_THEME='base16'
 
-""" Fzf command prefix
+" Fzf command prefix
 let g:fzf_command_prefix = 'Fzf'

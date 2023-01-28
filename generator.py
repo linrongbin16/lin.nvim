@@ -728,6 +728,10 @@ PLUGINS = [
         above=SmallComment("Tabline"),
     ),
     Plugin(
+        LiteralExpr("famiu/bufdelete.nvim"),
+        prop=EventProp("VeryLazy"),
+    ),
+    Plugin(
         LiteralExpr("lukas-reineke/indent-blankline.nvim"),
         prop=EventProp("VeryLazy"),
         above=SmallComment("Indentline"),
@@ -811,6 +815,12 @@ PLUGINS = [
         ),
         tag=Tag.LANGUAGE,
     ),
+    Plugin(LiteralExpr("hrsh7th/cmp-nvim-lsp"), prop=EventProp("InsertEnter", "CmdlineEnter")),
+    Plugin(LiteralExpr("hrsh7th/cmp-buffer"), prop=EventProp("InsertEnter", "CmdlineEnter")),
+    Plugin(LiteralExpr("hrsh7th/cmp-path"), prop=EventProp("InsertEnter", "CmdlineEnter")),
+    Plugin(LiteralExpr("hrsh7th/cmp-cmdline"), prop=EventProp("InsertEnter", "CmdlineEnter")),
+    Plugin(LiteralExpr("L3MON4D3/LuaSnip"), prop=EventProp("InsertEnter", "CmdlineEnter")),
+    Plugin(LiteralExpr("saadparwaiz1/cmp_luasnip"), prop=EventProp("InsertEnter", "CmdlineEnter")),
     # Language support
     Plugin(
         LiteralExpr("iamcco/markdown-preview.nvim"),
