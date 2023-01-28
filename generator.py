@@ -969,18 +969,18 @@ class Render:
     def render_plugins(self, core_plugins):
         stmts = []
         stmts.append(
-            TemplateContent(pathlib.Path(f"{TEMPLATE_DIR}/plugins-template-header.lua"))
+            TemplateContent(pathlib.Path(f"{TEMPLATE_DIR}/plugins-header.lua"))
         )
         stmts.extend(core_plugins)
         stmts.append(
-            TemplateContent(pathlib.Path(f"{TEMPLATE_DIR}/plugins-template-footer.lua"))
+            TemplateContent(pathlib.Path(f"{TEMPLATE_DIR}/plugins-footer.lua"))
         )
         return stmts
 
     # init.vim
     def render_init(self):
         stmts = []
-        stmts.append(TemplateContent(pathlib.Path(f"{TEMPLATE_DIR}/init-template.vim")))
+        stmts.append(TemplateContent(pathlib.Path(f"{TEMPLATE_DIR}/init.vim")))
         return stmts
 
     # lspservers.lua
@@ -988,7 +988,7 @@ class Render:
         stmts = []
         if not self.no_lang:
             stmts.append(
-                TemplateContent(pathlib.Path(f"{TEMPLATE_DIR}/lspservers-template.lua"))
+                TemplateContent(pathlib.Path(f"{TEMPLATE_DIR}/lspservers.lua"))
             )
         return stmts
 
@@ -996,15 +996,11 @@ class Render:
     def render_colorschemes(self, core_color_settings):
         stmts = []
         stmts.append(
-            TemplateContent(
-                pathlib.Path(f"{TEMPLATE_DIR}/colorschemes-template-header.vim")
-            )
+            TemplateContent(pathlib.Path(f"{TEMPLATE_DIR}/colorschemes-header.vim"))
         )
         stmts.extend(core_color_settings)
         stmts.append(
-            TemplateContent(
-                pathlib.Path(f"{TEMPLATE_DIR}/colorschemes-template-footer.vim")
-            )
+            TemplateContent(pathlib.Path(f"{TEMPLATE_DIR}/colorschemes-footer.vim"))
         )
         return stmts
 
@@ -1042,13 +1038,9 @@ class Render:
             )
         if not self.no_winctrl:
             stmts.append(
-                TemplateContent(
-                    pathlib.Path(f"{TEMPLATE_DIR}/winctrl-settings-template.vim")
-                )
+                TemplateContent(pathlib.Path(f"{TEMPLATE_DIR}/winctrl-settings.vim"))
             )
-        stmts.append(
-            TemplateContent(pathlib.Path(f"{TEMPLATE_DIR}/settings-template.vim"))
-        )
+        stmts.append(TemplateContent(pathlib.Path(f"{TEMPLATE_DIR}/settings.vim")))
         return stmts
 
     def generate(self):
