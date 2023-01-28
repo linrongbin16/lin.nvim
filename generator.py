@@ -111,11 +111,6 @@ class CommentExpr(Expr):
         return f'" {self.expr.render()}'
 
 
-class EmptyCommentExpr(CommentExpr):
-    def __init__(self):
-        CommentExpr.__init__(self, LiteralExpr("Empty"))
-
-
 class FunctionInvokeExpr(Expr):
     def __init__(self, func, *args) -> None:
         assert isinstance(func, LiteralExpr)
@@ -136,17 +131,6 @@ class CallExpr(Expr):
 
     def render(self):
         return f"call {self.expr.render()}"
-
-
-class AddExpr(Expr):
-    def __init__(self, *args) -> None:
-        assert args
-        for a in args:
-            assert isinstance(a, Expr)
-        self.args = args
-
-    def render(self):
-        return f"add({', '.join([a.render() for a in self.args])})"
 
 
 class ColorschemeExpr(Expr):
@@ -212,14 +196,6 @@ class TemplateContent(Expr):
         return self.content
 
 
-class SourceStmtFromVimHome(Expr):
-    def __init__(self, value):
-        self.stmt = Stmt(SourceExpr(LiteralExpr(f"$HOME/.vim/{value}")))
-
-    def render(self):
-        return self.stmt.render()
-
-
 class LuaExpr(Expr):
     def __init__(self, expr):
         assert isinstance(expr, Expr)
@@ -250,14 +226,6 @@ class RequireExpr(Expr):
 
     def render(self):
         return f"require({self.expr.render()})"
-
-
-class LuaRequireStmt(Expr):
-    def __init__(self, expr):
-        self.expr = Stmt(LuaExpr(RequireExpr(SingleQuoteStringExpr(expr))))
-
-    def render(self):
-        return self.expr.render()
 
 
 class Exprs(Expr):
@@ -798,11 +766,13 @@ PLUGINS = [
     # Search
     Plugin(
         LiteralExpr("junegunn/fzf"),
-        prop=BuildProp(":call fzf#install()"),
+        prop=Exprs(
+            [EventProp("VeryLazy"), BuildProp(":call fzf#install()")], delimiter=", "
+        ),
         above=BigComment("Search"),
     ),
-    Plugin(LiteralExpr("junegunn/fzf.vim")),
-    Plugin(LiteralExpr("ojroques/nvim-lspfuzzy")),
+    Plugin(LiteralExpr("junegunn/fzf.vim"), prop=EventProp("VeryLazy")),
+    Plugin(LiteralExpr("ojroques/nvim-lspfuzzy"), prop=EventProp("VeryLazy")),
     # LSP server
     Plugin(
         LiteralExpr("williamboman/mason.nvim"),
