@@ -435,6 +435,14 @@ class FtProp(Expr):
         return self.expr.render()
 
 
+class PriorityProp(Expr):
+    def __init__(self, value=1000) -> None:
+        self.expr = AssignExpr(LiteralExpr("priority"), LiteralExpr(value))
+
+    def render(self):
+        return self.expr.render()
+
+
 # }
 
 PLUGINS = [
@@ -451,14 +459,24 @@ PLUGINS = [
     # Colorscheme
     Plugin(
         LiteralExpr("bluz71/vim-nightfly-colors"),
-        prop=LazyProp(),
+        prop=Exprs(
+            [
+                LazyProp(),
+                PriorityProp(),
+            ]
+        ),
         above=BigComment("Colorscheme"),
         color="nightfly",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
         LiteralExpr("bluz71/vim-moonfly-colors"),
-        prop=LazyProp(),
+        prop=Exprs(
+            [
+                LazyProp(),
+                PriorityProp(),
+            ]
+        ),
         color="moonfly",
         tag=Tag.COLORSCHEME,
     ),
@@ -468,6 +486,7 @@ PLUGINS = [
             [
                 NameProp("catppuccin"),
                 LazyProp(),
+                PriorityProp(),
             ],
             delimiter=", ",
         ),
@@ -480,6 +499,7 @@ PLUGINS = [
             [
                 NameProp("challenger-deep"),
                 LazyProp(),
+                PriorityProp(),
             ],
             delimiter=", ",
         ),
@@ -488,13 +508,24 @@ PLUGINS = [
     ),
     Plugin(
         LiteralExpr("cocopon/iceberg.vim"),
-        prop=LazyProp(),
+        prop=Exprs(
+            [
+                LazyProp(),
+                PriorityProp(),
+            ]
+        ),
         color="iceberg",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
         LiteralExpr("EdenEast/nightfox.nvim"),
-        prop=LazyProp(),
+        prop=Exprs(
+            [
+                LazyProp(),
+                PriorityProp(),
+                delimiter=", ",
+            ]
+        ),
         color="nightfox",
         tag=Tag.COLORSCHEME,
     ),
@@ -504,6 +535,7 @@ PLUGINS = [
             [
                 NameProp("embark"),
                 LazyProp(),
+                PriorityProp(),
             ],
             delimiter=", ",
         ),
@@ -512,7 +544,12 @@ PLUGINS = [
     ),
     Plugin(
         LiteralExpr("fenetikm/falcon"),
-        prop=LazyProp(),
+        prop=Exprs(
+            [
+                LazyProp(),
+                PriorityProp(),
+            ]
+        ),
         color="falcon",
         tag=Tag.COLORSCHEME,
     ),
@@ -522,6 +559,7 @@ PLUGINS = [
             [
                 BranchProp("main"),
                 LazyProp(),
+                PriorityProp(),
             ],
             delimiter=", ",
         ),
@@ -815,12 +853,27 @@ PLUGINS = [
         ),
         tag=Tag.LANGUAGE,
     ),
-    Plugin(LiteralExpr("hrsh7th/cmp-nvim-lsp"), prop=EventProp("InsertEnter", "CmdlineEnter")),
-    Plugin(LiteralExpr("hrsh7th/cmp-buffer"), prop=EventProp("InsertEnter", "CmdlineEnter")),
-    Plugin(LiteralExpr("hrsh7th/cmp-path"), prop=EventProp("InsertEnter", "CmdlineEnter")),
-    Plugin(LiteralExpr("hrsh7th/cmp-cmdline"), prop=EventProp("InsertEnter", "CmdlineEnter")),
-    Plugin(LiteralExpr("L3MON4D3/LuaSnip"), prop=EventProp("InsertEnter", "CmdlineEnter")),
-    Plugin(LiteralExpr("saadparwaiz1/cmp_luasnip"), prop=EventProp("InsertEnter", "CmdlineEnter")),
+    Plugin(
+        LiteralExpr("hrsh7th/cmp-nvim-lsp"),
+        prop=EventProp("InsertEnter", "CmdlineEnter"),
+    ),
+    Plugin(
+        LiteralExpr("hrsh7th/cmp-buffer"), prop=EventProp("InsertEnter", "CmdlineEnter")
+    ),
+    Plugin(
+        LiteralExpr("hrsh7th/cmp-path"), prop=EventProp("InsertEnter", "CmdlineEnter")
+    ),
+    Plugin(
+        LiteralExpr("hrsh7th/cmp-cmdline"),
+        prop=EventProp("InsertEnter", "CmdlineEnter"),
+    ),
+    Plugin(
+        LiteralExpr("L3MON4D3/LuaSnip"), prop=EventProp("InsertEnter", "CmdlineEnter")
+    ),
+    Plugin(
+        LiteralExpr("saadparwaiz1/cmp_luasnip"),
+        prop=EventProp("InsertEnter", "CmdlineEnter"),
+    ),
     # Language support
     Plugin(
         LiteralExpr("iamcco/markdown-preview.nvim"),
