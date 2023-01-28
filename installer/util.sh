@@ -10,7 +10,7 @@ skip_message() {
     local old="$IFS"
     IFS='/'
     local target="'$*'"
-    message "'$target' already exist, skip..."
+    message "$target already exist, skip..."
     IFS=$old
 }
 
