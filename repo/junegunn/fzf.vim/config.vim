@@ -3,7 +3,7 @@ command! -bang -nargs=* LinFzfUnrestrictedRg
             \ "rg --column --no-heading --color=always -S -uu --glob=!.git/ ".shellescape(<q-args>), 1,
             \ fzf#vim#with_preview(), <bang>0)
 
-function! LinFzfAdvancedRg(query, fullscreen)
+function! s:LinFzfAdvancedRg(query, fullscreen)
     let command_fmt = 'rg --column --no-heading --color=always -- %s || true'
     let initial_command = printf(command_fmt, shellescape(a:query))
     let reload_command = printf(command_fmt, '{q}')
@@ -12,7 +12,7 @@ function! LinFzfAdvancedRg(query, fullscreen)
     call fzf#vim#grep(initial_command, 1, spec, a:fullscreen)
 endfunction
 
-function! LinFzfUnrestrictedAdvancedRg(query, fullscreen)
+function! s:LinFzfUnrestrictedAdvancedRg(query, fullscreen)
     let command_fmt = 'rg --column --no-heading --color=always -S -uu --glob=!.git/ -- %s || true'
     let initial_command = printf(command_fmt, shellescape(a:query))
     let reload_command = printf(command_fmt, '{q}')
@@ -21,9 +21,9 @@ function! LinFzfUnrestrictedAdvancedRg(query, fullscreen)
     call fzf#vim#grep(initial_command, 1, spec, a:fullscreen)
 endfunction
 
-command! -nargs=* -bang LinFzfPreciseRg call LinFzfAdvancedRg(<q-args>, <bang>0)
+command! -bang -nargs=* LinFzfPreciseRg call s:LinFzfAdvancedRg(<q-args>, <bang>0)
 
-command! -nargs=* -bang LinFzfUnrestrictedPreciseRg call LinFzfUnrestrictedAdvancedRg(<q-args>, <bang>0)
+command! -bang -nargs=* LinFzfUnrestrictedPreciseRg call s:LinFzfUnrestrictedAdvancedRg(<q-args>, <bang>0)
 
 command! -bang -nargs=0 LinFzfRgCWord
             \ call fzf#vim#grep(
@@ -36,20 +36,17 @@ command! -bang -nargs=0 LinFzfUnrestrictedRgCWord
             \ fzf#vim#with_preview(), <bang>0)
 
 if executable('fd')
-    command! -bang -nargs=? -complete=dir LinFzfUnrestrictedFiles
-        \ call fzf#run(
-        \   fzf#vim#with_preview(
-        \     fzf#wrap({ 'source': 'fd -tf -tl -i -u --exclude ".git" '.shellescape(<q-args>) }, <bang>0)
-        \   )
-        \ )
+    let s:lin_find_command = 'fd'
 elseif executable('fdfind')
-    command! -bang -nargs=? -complete=dir LinFzfUnrestrictedFiles
-        \ call fzf#run(
-        \   fzf#vim#with_preview(
-        \     fzf#wrap({ 'source': 'fdfind -tf -tl -i -u --exclude ".git" '.shellescape(<q-args>) }, <bang>0)
-        \   )
-        \ )
+    let s:lin_find_command = 'fdfind'
 endif
+ 
+command! -bang -nargs=? -complete=dir LinFzfUnrestrictedFiles
+    \ call fzf#run(
+    \   fzf#vim#with_preview(
+    \     fzf#wrap({ 'source': s:lin_find_command.' -tf -tl -i -u --exclude ".git" '.shellescape(<q-args>) }, <bang>0)
+    \   )
+    \ )
 
 
 """ Text
