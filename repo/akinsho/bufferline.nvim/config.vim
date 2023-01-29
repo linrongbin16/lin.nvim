@@ -1,5 +1,5 @@
 function! LinGotoBuffer(n) abort
-    call LinExecuteOnBuffer(printf("lua require('bufferline').go_to_buffer(%d, true)", a:n))
+    call LinExecuteOnEditableBuffer(printf("lua require('bufferline').go_to_buffer(%d, true)", a:n))
 endfunction
 
 " go to absolute buffer
@@ -15,10 +15,10 @@ nnoremap <silent> <Leader>9 :call LinGotoBuffer(9)<CR>
 nnoremap <silent> <Leader>0 :call LinGotoBuffer(-1)<CR>
 
 " go to next/previous buffer, close buffer
-nnoremap <silent> ]b :call LinExecuteOnBuffer("BufferLineCycleNext")<CR>
-nnoremap <silent> [b :call LinExecuteOnBuffer("BufferLineCyclePrev")<CR>
-nnoremap <silent> <Leader>bd :call LinExecuteOnBuffer("Bdelete!")<CR>
+nnoremap <silent> ]b :call LinExecuteOnEditableBuffer("BufferLineCycleNext")<CR>
+nnoremap <silent> [b :call LinExecuteOnEditableBuffer("BufferLineCyclePrev")<CR>
+nnoremap <silent> <Leader>bd :call LinExecuteOnEditableBuffer("Bdelete!")<CR>
 
 " re-order current buffer to next/previous position
-nnoremap <silent> <Leader>> :call LinExecuteOnBuffer("BufferLineMoveNext")<CR>
-nnoremap <silent> <Leader>< :call LinExecuteOnBuffer("BufferLineMovePrev")<CR>
+nnoremap <silent> <Leader>> :call LinExecuteOnEditableBuffer("BufferLineMoveNext")<CR>
+nnoremap <silent> <Leader>< :call LinExecuteOnEditableBuffer("BufferLineMovePrev")<CR>

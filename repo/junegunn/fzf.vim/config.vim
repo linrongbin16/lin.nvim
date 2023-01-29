@@ -51,58 +51,58 @@ command! -bang -nargs=? -complete=dir LinFzfUnrestrictedFiles
 
 """ Text
 " live grep
-nnoremap <silent> <space>r      :call LinExecuteOnBuffer("FzfRg")<CR>
-nnoremap <silent> <space>ur     :call LinExecuteOnBuffer("LinFzfUnrestrictedRg")<CR>
-nnoremap <silent> <space>pr     :call LinExecuteOnBuffer("LinFzfPreciseRg")<CR>
-nnoremap <silent> <space>upr    :call LinExecuteOnBuffer("LinFzfUnrestrictedPreciseRg")<CR>
+nnoremap <silent> <space>r      :call LinExecuteOnEditableBuffer("FzfRg")<CR>
+nnoremap <silent> <space>ur     :call LinExecuteOnEditableBuffer("LinFzfUnrestrictedRg")<CR>
+nnoremap <silent> <space>pr     :call LinExecuteOnEditableBuffer("LinFzfPreciseRg")<CR>
+nnoremap <silent> <space>upr    :call LinExecuteOnEditableBuffer("LinFzfUnrestrictedPreciseRg")<CR>
 " cursor word/string
-nnoremap <silent> <space>w      :call LinExecuteOnBuffer("LinFzfRgCWord")<CR>
-nnoremap <silent> <space>uw     :call LinExecuteOnBuffer("LinFzfUnrestrictedRgCWord")<CR>
+nnoremap <silent> <space>w      :call LinExecuteOnEditableBuffer("LinFzfRgCWord")<CR>
+nnoremap <silent> <space>uw     :call LinExecuteOnEditableBuffer("LinFzfUnrestrictedRgCWord")<CR>
 " lines in opened buffers
-nnoremap <silent> <space>ln     :call LinExecuteOnBuffer("FzfLines")<CR>
+nnoremap <silent> <space>ln     :call LinExecuteOnEditableBuffer("FzfLines")<CR>
 " tags
-nnoremap <silent> <space>tg     :call LinExecuteOnBuffer("FzfTags")<CR>
+nnoremap <silent> <space>tg     :call LinExecuteOnEditableBuffer("FzfTags")<CR>
 
 """ Files
 " files
-nnoremap <silent> <space>f      :call LinExecuteOnBuffer("FzfFiles")<CR>
-nnoremap <silent> <C-p>         :call LinExecuteOnBuffer("FzfFiles")<CR>
-nnoremap <silent> <space>uf     :call LinExecuteOnBuffer("LinFzfUnrestrictedFiles")<CR>
+nnoremap <silent> <space>f      :call LinExecuteOnEditableBuffer("FzfFiles")<CR>
+nnoremap <silent> <C-p>         :call LinExecuteOnEditableBuffer("FzfFiles")<CR>
+nnoremap <silent> <space>uf     :call LinExecuteOnEditableBuffer("LinFzfUnrestrictedFiles")<CR>
 " opened buffers
-nnoremap <silent> <space>b      :call LinExecuteOnBuffer("FzfBuffers")<CR>
+nnoremap <silent> <space>b      :call LinExecuteOnEditableBuffer("FzfBuffers")<CR>
 " history files/oldfiles
-nnoremap <silent> <space>hf     :call LinExecuteOnBuffer("FzfHistory")<CR>
+nnoremap <silent> <space>hf     :call LinExecuteOnEditableBuffer("FzfHistory")<CR>
 
 """ History
 " search history
-nnoremap <silent> <space>hs     :call LinExecuteOnBuffer("FzfHistory/")<CR>
+nnoremap <silent> <space>hs     :call LinExecuteOnEditableBuffer("FzfHistory/")<CR>
 " vim command history
-nnoremap <silent> <space>hc     :call LinExecuteOnBuffer("FzfHistory:")<CR>
+nnoremap <silent> <space>hc     :call LinExecuteOnEditableBuffer("FzfHistory:")<CR>
 
 """ Lsp
 " diagnostics in current buffer
-nnoremap <silent> <space>db     :call LinExecuteOnBuffer("LspDiagnostics 0")<CR>
+nnoremap <silent> <space>db     :call LinExecuteOnEditableBuffer("LspDiagnostics 0")<CR>
 " all diagnostics
-nnoremap <silent> <space>da     :call LinExecuteOnBuffer("LspDiagnosticsAll")<CR>
+nnoremap <silent> <space>da     :call LinExecuteOnEditableBuffer("LspDiagnosticsAll")<CR>
 
 """ Git
 " git commits
-nnoremap <silent> <space>gc     :call LinExecuteOnBuffer("FzfCommits")<CR>
+nnoremap <silent> <space>gc     :call LinExecuteOnEditableBuffer("FzfCommits")<CR>
 " git files
-nnoremap <silent> <space>gf     :call LinExecuteOnBuffer("FzfGFiles")<CR>
+nnoremap <silent> <space>gf     :call LinExecuteOnEditableBuffer("FzfGFiles")<CR>
 " git status files
-nnoremap <silent> <space>gs     :call LinExecuteOnBuffer("FzfGFiles?")<CR>
+nnoremap <silent> <space>gs     :call LinExecuteOnEditableBuffer("FzfGFiles?")<CR>
 
 """ Vim
 " vim marks
-nnoremap <silent> <space>mk     :call LinExecuteOnBuffer("FzfMarks")<CR>
+nnoremap <silent> <space>mk     :call LinExecuteOnEditableBuffer("FzfMarks")<CR>
 " vim key mappings
-nnoremap <silent> <space>mp     :call LinExecuteOnBuffer("FzfMaps")<CR>
+nnoremap <silent> <space>mp     :call LinExecuteOnEditableBuffer("FzfMaps")<CR>
 " vim commands
-nnoremap <silent> <space>cm     :call LinExecuteOnBuffer("FzfCommands")<CR>
+nnoremap <silent> <space>cm     :call LinExecuteOnEditableBuffer("FzfCommands")<CR>
 " vim help tags
-nnoremap <silent> <space>ht     :call LinExecuteOnBuffer("FzfHelptags")<CR>
+nnoremap <silent> <space>ht     :call LinExecuteOnEditableBuffer("FzfHelptags")<CR>
 " vim colorschemes
-nnoremap <silent> <space>cs     :call LinExecuteOnBuffer("FzfColors")<CR>
+nnoremap <silent> <space>cs     :call LinExecuteOnEditableBuffer("FzfColors")<CR>
 " vim filetypes
-nnoremap <silent> <space>tp     :call LinExecuteOnBuffer("FzfFiletypes")<CR>
+nnoremap <silent> <space>tp     :call LinExecuteOnEditableBuffer("FzfFiletypes")<CR>

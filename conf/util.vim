@@ -1,4 +1,4 @@
-function! LinExecuteOnBuffer(c) abort
+function! LinExecuteOnEditableBuffer(c) abort
     let n = winnr('$')
     let i = 0
     while i < n
