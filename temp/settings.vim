@@ -33,13 +33,15 @@ nnoremap <C-l> :nohlsearch<CR>
 " autocmd BufWinEnter * if line2byte(line("$") + 1) > 1000000 | syntax clear | endif
 
 """ ---- Neovide ----
-" let g:neovide_refresh_rate=60
-" let g:neovide_transparency=1.0
-" let g:neovide_scroll_animation_length=0.0
-" let g:neovide_remember_window_size=v:true
-" let g:neovide_input_use_logo=has('mac') " v:true on macOS
-" let g:neovide_cursor_animation_length=0.0
-" let g:neovide_cursor_trail_length=0.0
-" let g:neovide_cursor_antialiasing=v:true
+" if exists("g:neovide")
+"     let g:neovide_refresh_rate=60
+"     let g:neovide_transparency=1.0
+"     let g:neovide_scroll_animation_length=0.0
+"     let g:neovide_remember_window_size=v:true
+"     let g:neovide_input_use_logo=has('mac') " v:true on macOS
+"     let g:neovide_cursor_animation_length=0.0
+"     let g:neovide_cursor_trail_length=0.0
+"     let g:neovide_cursor_antialiasing=v:true
+" endif
 
 """ ---- Add more settings here ----
