@@ -51,58 +51,58 @@ command! -bang -nargs=? -complete=dir LinFzfUnrestrictedFiles
 
 """ Text
 " live grep
-nnoremap <silent> <space>r      :call LinUtilExecute("FzfRg")<CR>
-nnoremap <silent> <space>ur     :call LinUtilExecute("LinFzfUnrestrictedRg")<CR>
-nnoremap <silent> <space>pr     :call LinUtilExecute("LinFzfPreciseRg")<CR>
-nnoremap <silent> <space>upr    :call LinUtilExecute("LinFzfUnrestrictedPreciseRg")<CR>
+nnoremap <silent> <space>r      :call LinExecuteOnBuffer("FzfRg")<CR>
+nnoremap <silent> <space>ur     :call LinExecuteOnBuffer("LinFzfUnrestrictedRg")<CR>
+nnoremap <silent> <space>pr     :call LinExecuteOnBuffer("LinFzfPreciseRg")<CR>
+nnoremap <silent> <space>upr    :call LinExecuteOnBuffer("LinFzfUnrestrictedPreciseRg")<CR>
 " cursor word/string
-nnoremap <silent> <space>w      :call LinUtilExecute("LinFzfRgCWord")<CR>
-nnoremap <silent> <space>uw     :call LinUtilExecute("LinFzfUnrestrictedRgCWord")<CR>
+nnoremap <silent> <space>w      :call LinExecuteOnBuffer("LinFzfRgCWord")<CR>
+nnoremap <silent> <space>uw     :call LinExecuteOnBuffer("LinFzfUnrestrictedRgCWord")<CR>
 " lines in opened buffers
-nnoremap <silent> <space>ln     :call LinUtilExecute("FzfLines")<CR>
+nnoremap <silent> <space>ln     :call LinExecuteOnBuffer("FzfLines")<CR>
 " tags
-nnoremap <silent> <space>tg     :call LinUtilExecute("FzfTags")<CR>
+nnoremap <silent> <space>tg     :call LinExecuteOnBuffer("FzfTags")<CR>
 
 """ Files
 " files
-nnoremap <silent> <space>f      :call LinUtilExecute("FzfFiles")<CR>
-nnoremap <silent> <C-p>         :call LinUtilExecute("FzfFiles")<CR>
-nnoremap <silent> <space>uf     :call LinUtilExecute("LinFzfUnrestrictedFiles")<CR>
+nnoremap <silent> <space>f      :call LinExecuteOnBuffer("FzfFiles")<CR>
+nnoremap <silent> <C-p>         :call LinExecuteOnBuffer("FzfFiles")<CR>
+nnoremap <silent> <space>uf     :call LinExecuteOnBuffer("LinFzfUnrestrictedFiles")<CR>
 " opened buffers
-nnoremap <silent> <space>b      :call LinUtilExecute("FzfBuffers")<CR>
+nnoremap <silent> <space>b      :call LinExecuteOnBuffer("FzfBuffers")<CR>
 " history files/oldfiles
-nnoremap <silent> <space>hf     :call LinUtilExecute("FzfHistory")<CR>
+nnoremap <silent> <space>hf     :call LinExecuteOnBuffer("FzfHistory")<CR>
 
 """ History
 " search history
-nnoremap <silent> <space>hs     :call LinUtilExecute("FzfHistory/")<CR>
+nnoremap <silent> <space>hs     :call LinExecuteOnBuffer("FzfHistory/")<CR>
 " vim command history
-nnoremap <silent> <space>hc     :call LinUtilExecute("FzfHistory:")<CR>
+nnoremap <silent> <space>hc     :call LinExecuteOnBuffer("FzfHistory:")<CR>
 
 """ Lsp
 " diagnostics in current buffer
-nnoremap <silent> <space>db     :call LinUtilExecute("LspDiagnostics 0")<CR>
+nnoremap <silent> <space>db     :call LinExecuteOnBuffer("LspDiagnostics 0")<CR>
 " all diagnostics
-nnoremap <silent> <space>da     :call LinUtilExecute("LspDiagnosticsAll")<CR>
+nnoremap <silent> <space>da     :call LinExecuteOnBuffer("LspDiagnosticsAll")<CR>
 
 """ Git
 " git commits
-nnoremap <silent> <space>gc     :call LinUtilExecute("FzfCommits")<CR>
+nnoremap <silent> <space>gc     :call LinExecuteOnBuffer("FzfCommits")<CR>
 " git files
-nnoremap <silent> <space>gf     :call LinUtilExecute("FzfGFiles")<CR>
+nnoremap <silent> <space>gf     :call LinExecuteOnBuffer("FzfGFiles")<CR>
 " git status files
-nnoremap <silent> <space>gs     :call LinUtilExecute("FzfGFiles?")<CR>
+nnoremap <silent> <space>gs     :call LinExecuteOnBuffer("FzfGFiles?")<CR>
 
 """ Vim
 " vim marks
-nnoremap <silent> <space>mk     :call LinUtilExecute("FzfMarks")<CR>
+nnoremap <silent> <space>mk     :call LinExecuteOnBuffer("FzfMarks")<CR>
 " vim key mappings
-nnoremap <silent> <space>mp     :call LinUtilExecute("FzfMaps")<CR>
+nnoremap <silent> <space>mp     :call LinExecuteOnBuffer("FzfMaps")<CR>
 " vim commands
-nnoremap <silent> <space>cm     :call LinUtilExecute("FzfCommands")<CR>
+nnoremap <silent> <space>cm     :call LinExecuteOnBuffer("FzfCommands")<CR>
 " vim help tags
-nnoremap <silent> <space>ht     :call LinUtilExecute("FzfHelptags")<CR>
+nnoremap <silent> <space>ht     :call LinExecuteOnBuffer("FzfHelptags")<CR>
 " vim colorschemes
-nnoremap <silent> <space>cs     :call LinUtilExecute("FzfColors")<CR>
+nnoremap <silent> <space>cs     :call LinExecuteOnBuffer("FzfColors")<CR>
 " vim filetypes
-nnoremap <silent> <space>tp     :call LinUtilExecute("FzfFiletypes")<CR>
+nnoremap <silent> <space>tp     :call LinExecuteOnBuffer("FzfFiletypes")<CR>
