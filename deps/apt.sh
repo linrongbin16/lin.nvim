@@ -7,15 +7,10 @@ message "install dependencies with apt"
 sudo apt-get update
 
 if ! type nvim >/dev/null 2>&1; then
-	if type snap >/dev/null 2>&1; then
-		message "install 'nvim' from snap"
-		sudo snap install nvim --classic
-	else
-		message "install 'nvim' from ppa:neovim-ppa/unstable"
-		sudo add-apt-repository -y ppa:neovim-ppa/unstable
-		sudo apt-get update
-		sudo apt-get install -y neovim
-	fi
+	message "install 'nvim' from ppa:neovim-ppa/unstable"
+	sudo add-apt-repository -y ppa:neovim-ppa/unstable
+	sudo apt-get update
+	sudo apt-get install -y neovim
 else
 	skip_message 'nvim'
 fi
@@ -58,11 +53,11 @@ fi
 
 # ctags
 if ! type "ctags" >/dev/null 2>&1; then
-    sudo apt-get install -y libseccomp-dev
-    sudo apt-get install -y libjansson-dev
-    sudo apt-get install -y libyaml-dev
-    sudo apt-get install -y libxml2-dev
-    install_universal_ctags
+	sudo apt-get install -y libseccomp-dev
+	sudo apt-get install -y libjansson-dev
+	sudo apt-get install -y libyaml-dev
+	sudo apt-get install -y libxml2-dev
+	install_universal_ctags
 else
 	skip_message 'ctags'
 fi
