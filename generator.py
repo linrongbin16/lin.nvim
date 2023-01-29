@@ -305,8 +305,6 @@ class Prop(Expr):
 
 class Props(Prop):
     def __init__(self, *props):
-        for p in props:
-            assert isinstance(p, Prop)
         self.expr = Exprs([p for p in props], delimiter=", ")
 
     def render(self):
@@ -373,7 +371,9 @@ class EventProp(Prop):
     def __init__(self, *value) -> None:
         self.expr = AssignExpr(
             LiteralExpr("event"),
-            BracedExpr4Lua(Props(*[SingleQuoteStringExpr(v) for v in value])),
+            BracedExpr4Lua(
+                Exprs([SingleQuoteStringExpr(v) for v in value], delimiter=", ")
+            ),
         )
 
     def render(self):
@@ -399,7 +399,9 @@ class DependenciesProp(Prop):
     def __init__(self, *value):
         self.expr = AssignExpr(
             LiteralExpr("dependencies"),
-            BracedExpr4Lua(Props(*[SingleQuoteStringExpr(v) for v in value])),
+            BracedExpr4Lua(
+                Exprs([SingleQuoteStringExpr(v) for v in value], delimiter=", ")
+            ),
         )
 
     def render(self):
@@ -428,7 +430,9 @@ class FtProp(Prop):
     def __init__(self, *value) -> None:
         self.expr = AssignExpr(
             LiteralExpr("ft"),
-            BracedExpr4Lua(Props(*[SingleQuoteStringExpr(v) for v in value])),
+            BracedExpr4Lua(
+                Exprs([SingleQuoteStringExpr(v) for v in value], delimiter=", ")
+            ),
         )
 
     def render(self):
@@ -1022,9 +1026,6 @@ class Render:
         setting_stmts = self.render_settings()
         init_stmts = self.render_init()
 
-        for s in plugin_stmts:
-            if not isinstance(s, Expr):
-                print(f"s:{s} (type:({type(s)}))")
         plugins = "".join([s.render() for s in plugin_stmts])
         lspservers = "".join([s.render() for s in lspserver_stmts])
         colorschemes = "".join([s.render() for s in colorscheme_stmts])
