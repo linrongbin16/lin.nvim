@@ -315,7 +315,7 @@ class Plugin:
     ) -> None:
         assert isinstance(repo, Expr)
         assert isinstance(prop, Expr) or prop is None
-        assert isinstance(above, Expr) or isinstance(above, list) or above is None
+        assert isinstance(above, Expr) or above is None
         assert isinstance(color, str) or color is None
         assert isinstance(tag, Tag)
         self.repo = repo  # https://github.com/{repo}
@@ -875,7 +875,9 @@ PLUGINS = [
     Plugin(
         LiteralExpr("liuchengxu/vista.vim"),
         prop=Props([VLEventProp(), DependenciesProp("ludovicchabant/vim-gutentags")]),
-        above=[BigComment("LSP server"), SmallComment("Tags/structure outlines")],
+        above=Exprs(
+            [BigComment("LSP server"), SmallComment("Tags/structure outlines")]
+        ),
         tag=Tag.LANGUAGE,
     ),
     Plugin(
@@ -1116,6 +1118,9 @@ class Render:
         setting_stmts = self.render_settings()
         init_stmts = self.render_init()
 
+        for s in plugin_stmts:
+            if not isinstance(s, Expr):
+                print(f"s:{s} (type:({type(s)}))")
         plugins = "".join([s.render() for s in plugin_stmts])
         lspservers = "".join([s.render() for s in lspserver_stmts])
         colorschemes = "".join([s.render() for s in colorscheme_stmts])
