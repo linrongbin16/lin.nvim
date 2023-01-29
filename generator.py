@@ -898,7 +898,7 @@ PLUGINS = [
     ),
     Plugin(
         LiteralExpr("L3MON4D3/LuaSnip"),
-        prop=ICEventProp(),
+        prop=Props(ICEventProp(), VersionProp("1.*"), BuildProp("make install_jsregexp")),
         tag=Tag.LANGUAGE,
     ),
     Plugin(
