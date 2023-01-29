@@ -295,11 +295,13 @@ class BracedExpr4Lua(Expr):
 
 
 class Tag(enum.Enum):
-    COLORSCHEME = 1
-    HIGHLIGHT = 2
-    LANGUAGE = 3
-    EDITING = 4
-    INFRASTRUCTURE = 5
+    INFRASTRUCTURE = 1
+    COLORSCHEME = 2
+    HIGHLIGHT = 3
+    UI = 4
+    SEARCH = 5
+    LANGUAGE = 6
+    EDITING = 7
 
 
 class Plugin:
@@ -311,6 +313,11 @@ class Plugin:
         color=None,
         tag=None,
     ) -> None:
+        assert isinstance(repo, Expr)
+        assert isinstance(prop, Expr) or prop is None
+        assert isinstance(above, Expr) or isinstance(above, list) or above is None
+        assert isinstance(color, str) or color is None
+        assert isinstance(tag, Tag)
         self.repo = repo  # https://github.com/{repo}
         self.prop = prop  # more plugin properties following this line
         self.above = above  # more clauses above this line
@@ -767,14 +774,22 @@ PLUGINS = [
         LiteralExpr("nvim-tree/nvim-tree.lua"),
         prop=Exprs([VLEventProp(), DependenciesProp("nvim-tree/nvim-web-devicons")]),
         above=Exprs([BigComment("UI"), SmallComment("File explorer")]),
+        tag=Tag.UI,
     ),
-    Plugin(LiteralExpr("nvim-tree/nvim-web-devicons"), prop=LazyProp()),
+    Plugin(
+        LiteralExpr("nvim-tree/nvim-web-devicons"),
+        prop=LazyProp(),
+        tag=Tag.UI,
+    ),
     Plugin(
         LiteralExpr("famiu/bufdelete.nvim"),
-        prop=[
-            VLEventProp(),
-            CmdProp("Bdelete", "Bdelete!", "Bwipeout", "Bwipeout!"),
-        ],
+        prop=Props(
+            [
+                VLEventProp(),
+                CmdProp("Bdelete", "Bdelete!", "Bwipeout", "Bwipeout!"),
+            ]
+        ),
+        tag=Tag.UI,
     ),
     Plugin(
         LiteralExpr("akinsho/bufferline.nvim"),
@@ -789,11 +804,13 @@ PLUGINS = [
             ],
         ),
         above=SmallComment("Tabline"),
+        tag=Tag.UI,
     ),
     Plugin(
         LiteralExpr("lukas-reineke/indent-blankline.nvim"),
         prop=VLEventProp(),
         above=SmallComment("Indentline"),
+        tag=Tag.UI,
     ),
     Plugin(
         LiteralExpr("nvim-lualine/lualine.nvim"),
@@ -806,12 +823,17 @@ PLUGINS = [
             ]
         ),
         above=SmallComment("Statusline"),
+        tag=Tag.UI,
     ),
-    Plugin(LiteralExpr("nvim-lua/lsp-status.nvim")),
+    Plugin(
+        LiteralExpr("nvim-lua/lsp-status.nvim"),
+        tag=Tag.UI,
+    ),
     Plugin(
         LiteralExpr("lewis6991/gitsigns.nvim"),
         prop=VLEventProp(),
         above=SmallComment("Git"),
+        tag=Tag.UI,
     ),
     Plugin(
         LiteralExpr("akinsho/toggleterm.nvim"),
@@ -822,27 +844,32 @@ PLUGINS = [
             ],
         ),
         above=SmallComment("Terminal"),
+        tag=Tag.UI,
     ),
     Plugin(
         LiteralExpr("stevearc/dressing.nvim"),
         prop=VLEventProp(),
         above=SmallComment("UI hooks"),
+        tag=Tag.UI,
     ),
     # Search
     Plugin(
         LiteralExpr("junegunn/fzf"),
         prop=Props([VLEventProp(), BuildProp(":call fzf#install()")]),
+        tag=Tag.SEARCH,
     ),
     Plugin(
         LiteralExpr("junegunn/fzf.vim"),
         prop=Props([VLEventProp(), DependenciesProp("junegunn/fzf")]),
         above=BigComment("Search"),
+        tag=Tag.SEARCH,
     ),
     Plugin(
         LiteralExpr("ojroques/nvim-lspfuzzy"),
         prop=Props(
             [VLEventProp(), DependenciesProp("junegunn/fzf", "junegunn/fzf.vim")]
         ),
+        tag=Tag.SEARCH,
     ),
     # LSP server
     Plugin(
@@ -879,7 +906,7 @@ PLUGINS = [
     Plugin(
         LiteralExpr("neovim/nvim-lspconfig"),
         prop=VLEventProp(),
-        tag=Tag.INFRASTRUCTURE,
+        tag=Tag.LANGUAGE,
     ),
     Plugin(
         LiteralExpr("p00f/clangd_extensions.nvim"),
@@ -924,12 +951,36 @@ PLUGINS = [
         above=SmallComment("Auto-complete engine"),
         tag=Tag.LANGUAGE,
     ),
-    Plugin(LiteralExpr("hrsh7th/cmp-nvim-lsp"), prop=ICEventProp()),
-    Plugin(LiteralExpr("hrsh7th/cmp-buffer"), prop=ICEventProp()),
-    Plugin(LiteralExpr("hrsh7th/cmp-path"), prop=ICEventProp()),
-    Plugin(LiteralExpr("hrsh7th/cmp-cmdline"), prop=ICEventProp()),
-    Plugin(LiteralExpr("L3MON4D3/LuaSnip"), prop=ICEventProp()),
-    Plugin(LiteralExpr("saadparwaiz1/cmp_luasnip"), prop=ICEventProp()),
+    Plugin(
+        LiteralExpr("hrsh7th/cmp-nvim-lsp"),
+        prop=ICEventProp(),
+        tag=Tag.LANGUAGE,
+    ),
+    Plugin(
+        LiteralExpr("hrsh7th/cmp-buffer"),
+        prop=ICEventProp(),
+        tag=Tag.LANGUAGE,
+    ),
+    Plugin(
+        LiteralExpr("hrsh7th/cmp-path"),
+        prop=ICEventProp(),
+        tag=Tag.LANGUAGE,
+    ),
+    Plugin(
+        LiteralExpr("hrsh7th/cmp-cmdline"),
+        prop=ICEventProp(),
+        tag=Tag.LANGUAGE,
+    ),
+    Plugin(
+        LiteralExpr("L3MON4D3/LuaSnip"),
+        prop=ICEventProp(),
+        tag=Tag.LANGUAGE,
+    ),
+    Plugin(
+        LiteralExpr("saadparwaiz1/cmp_luasnip"),
+        prop=ICEventProp(),
+        tag=Tag.LANGUAGE,
+    ),
     # Language support
     Plugin(
         LiteralExpr("iamcco/markdown-preview.nvim"),
@@ -1232,7 +1283,7 @@ class Render:
         return False
 
 
-class Dumper:
+class FileWriter:
     def __init__(
         self,
         plugins,
@@ -1247,7 +1298,7 @@ class Dumper:
         self.settings = settings
         self.inits = inits
 
-    def dump(self):
+    def write(self):
         self.config()
         self.init_vim()
 
@@ -1295,6 +1346,19 @@ class Dumper:
         try_backup(pathlib.Path(init_vim))
         with open(init_vim, "w") as fp:
             fp.write(self.inits)
+
+
+class Dumper:
+    @staticmethod
+    def plugins(filename):
+        formatter = "- [{0}](https://github.com/{0})\n"
+        with open(filename, "w") as fp:
+            for t in Tag:
+                fp.writelines(f"{t.name}\n")
+                fp.writelines(
+                    [formatter.format(p.repo.render()) for p in PLUGINS if p.tag == t]
+                )
+                fp.writelines("\n")
 
 
 class CommandHelp(click.Command):
@@ -1351,6 +1415,18 @@ class CommandHelp(click.Command):
     is_flag=True,
     help="No Windows ctrl+?(and cmd+? on macOS) keys",
 )
+@click.option(
+    "--dump-plugins",
+    "dump_plugins_opt",
+    is_flag=True,
+    help="Dump all plugin list",
+)
+@click.option(
+    "--dump-plugins-filename",
+    "dump_plugins_filename_opt",
+    default="dump_plugins.md",
+    help="Dump plugins filename, by default: dump_plugins.md",
+)
 def generator(
     basic_opt,
     limit_opt,
@@ -1361,7 +1437,12 @@ def generator(
     no_edit_opt,
     no_plug_opt,
     no_ctrl_opt,
+    dump_plugins_opt,
+    dump_plugins_filename_opt,
 ):
+    if dump_plugins_opt:
+        return Dumper.plugins(dump_plugins_filename_opt)
+
     if limit_opt:
         no_color_opt = True
         no_hilight_opt = True
@@ -1377,8 +1458,8 @@ def generator(
         no_ctrl_opt,
     )
     plugins, lspservers, colorschemes, settings, init = render.render()
-    dumper = Dumper(plugins, lspservers, colorschemes, settings, init)
-    dumper.dump()
+    writer = FileWriter(plugins, lspservers, colorschemes, settings, init)
+    writer.write()
 
 
 if __name__ == "__main__":
