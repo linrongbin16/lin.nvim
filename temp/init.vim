@@ -1,6 +1,5 @@
 " ---- Basic ----
 source $HOME/.nvim/conf/basic.vim
-source $HOME/.nvim/conf/filetype.vim
 lua require('conf/lsp')
 
 " ---- Plugin ----
