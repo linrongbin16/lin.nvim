@@ -1,9 +1,5 @@
 # runtime files
 .DS_Store
-.netrwhist
-
-# copy-paste
-.copypaste
 
 # plugins
 lazy-lock.json
@@ -15,6 +11,7 @@ lazy-lock.json
 /colorschemes.vim*
 /init.vim*
 /dump_plugins.md
+.copypaste
 
 # universal-ctags
 universal-ctags
