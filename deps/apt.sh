@@ -7,7 +7,7 @@ message "install dependencies with apt"
 sudo apt-get update
 
 if ! type nvim >/dev/null 2>&1; then
-	if ! type snap >/dev/null 2>&1; then
+	if type snap >/dev/null 2>&1; then
 		message "install 'nvim' from snap"
 		sudo snap install nvim --classic
 	else
