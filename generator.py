@@ -840,7 +840,6 @@ PLUGINS = [
     Plugin(
         LiteralExpr("p00f/clangd_extensions.nvim"),
         prop=LazyProp(),
-        above=SmallComment("Clangd extension"),
         tag=Tag.LANGUAGE,
     ),
     Plugin(
