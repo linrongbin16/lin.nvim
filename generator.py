@@ -592,14 +592,14 @@ PLUGINS = [
     ),
     Plugin(
         LiteralExpr("ishan9299/nvim-solarized-lua"),
-        prop=LazyProp(),
+        prop=Props([LazyProp(), PriorityProp()]),
         above=SmallComment("inherit 'lifepillar/vim-solarized8'"),
         color="solarized",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
         LiteralExpr("junegunn/seoul256.vim"),
-        prop=LazyProp(),
+        prop=Props([LazyProp(), PriorityProp()]),
         color="seoul256",
         tag=Tag.COLORSCHEME,
     ),
@@ -609,6 +609,7 @@ PLUGINS = [
             [
                 BranchProp("main"),
                 LazyProp(),
+                PriorityProp(),
             ],
         ),
         above=SmallComment("inherit sainnhe/gruvbox-material"),
@@ -617,27 +618,32 @@ PLUGINS = [
     ),
     Plugin(
         LiteralExpr("marko-cerovac/material.nvim"),
-        prop=LazyProp(),
+        prop=Props([LazyProp(), PriorityProp()]),
         above=SmallComment("inherit kaicataldo/material.vim"),
         color="material",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
         LiteralExpr("mhartington/oceanic-next"),
-        prop=LazyProp(),
+        prop=Props([LazyProp(), PriorityProp()]),
         color="OceanicNext",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
         LiteralExpr("Mofiqul/dracula.nvim"),
-        prop=LazyProp(),
+        prop=Props([LazyProp(), PriorityProp()]),
         above=SmallComment("inherit dracula/vim"),
         color="dracula",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
         LiteralExpr("navarasu/onedark.nvim"),
-        prop=LazyProp(),
+        prop=Props(
+            [
+                LazyProp(),
+                PriorityProp(),
+            ]
+        ),
         above=SmallComment(
             "inherit joshdick/onedark.vim, tomasiser/vim-code-dark, olimorris/onedarkpro.nvim"
         ),
@@ -646,7 +652,7 @@ PLUGINS = [
     ),
     Plugin(
         LiteralExpr("NLKNguyen/papercolor-theme"),
-        prop=LazyProp(),
+        prop=Props([LazyProp(), PriorityProp()]),
         color="PaperColor",
         tag=Tag.COLORSCHEME,
     ),
@@ -657,43 +663,44 @@ PLUGINS = [
             [
                 BranchProp("main"),
                 LazyProp(),
+                PriorityProp(),
             ],
         ),
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
         LiteralExpr("preservim/vim-colors-pencil"),
-        prop=LazyProp(),
+        prop=Props([LazyProp(), PriorityProp()]),
         color="pencil",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
         LiteralExpr("projekt0n/github-nvim-theme"),
-        prop=LazyProp(),
+        prop=Props([LazyProp(), PriorityProp()]),
         color="github_dark",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
         LiteralExpr("raphamorim/lucario"),
-        prop=LazyProp(),
+        prop=Props([LazyProp(), PriorityProp()]),
         color="lucario",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
         LiteralExpr("rebelot/kanagawa.nvim"),
-        prop=LazyProp(),
+        prop=Props([LazyProp(), PriorityProp()]),
         color="kanagawa",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
         LiteralExpr("Rigellute/rigel"),
-        prop=LazyProp(),
+        prop=Props([LazyProp(), PriorityProp()]),
         color="rigel",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
         LiteralExpr("romainl/Apprentice"),
-        prop=LazyProp(),
+        prop=Props([LazyProp(), PriorityProp()]),
         color="apprentice",
         tag=Tag.COLORSCHEME,
     ),
@@ -704,38 +711,39 @@ PLUGINS = [
             [
                 NameProp("rose-pine"),
                 LazyProp(),
+                PriorityProp(),
             ],
         ),
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
         LiteralExpr("sainnhe/edge"),
-        prop=LazyProp(),
+        prop=Props([LazyProp(), PriorityProp()]),
         color="edge",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
         LiteralExpr("sainnhe/everforest"),
-        prop=LazyProp(),
+        prop=Props([LazyProp(), PriorityProp()]),
         color="everforest",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
         LiteralExpr("sainnhe/sonokai"),
-        prop=LazyProp(),
+        prop=Props([LazyProp(), PriorityProp()]),
         above=SmallComment("inherit sickill/vim-monokai"),
         color="sonokai",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
         LiteralExpr("shaunsingh/nord.nvim"),
-        prop=LazyProp(),
+        prop=Props([LazyProp(), PriorityProp()]),
         color="nord",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
         LiteralExpr("srcery-colors/srcery-vim"),
-        prop=LazyProp(),
+        prop=Props([LazyProp(), PriorityProp()]),
         color="srcery",
         tag=Tag.COLORSCHEME,
     ),
@@ -821,6 +829,7 @@ PLUGINS = [
     ),
     Plugin(
         LiteralExpr("nvim-lua/lsp-status.nvim"),
+        prop=VLEventProp(),
         tag=Tag.UI,
     ),
     Plugin(
@@ -850,12 +859,12 @@ PLUGINS = [
     Plugin(
         LiteralExpr("junegunn/fzf"),
         prop=Props([VLEventProp(), BuildProp(":call fzf#install()")]),
+        above=BigComment("Search"),
         tag=Tag.SEARCH,
     ),
     Plugin(
         LiteralExpr("junegunn/fzf.vim"),
         prop=Props([VLEventProp(), DependenciesProp("junegunn/fzf")]),
-        above=BigComment("Search"),
         tag=Tag.SEARCH,
     ),
     Plugin(
@@ -901,12 +910,12 @@ PLUGINS = [
     ),
     Plugin(
         LiteralExpr("neovim/nvim-lspconfig"),
-        prop=VLEventProp(),
+        prop=LazyProp(),
         tag=Tag.LANGUAGE,
     ),
     Plugin(
         LiteralExpr("p00f/clangd_extensions.nvim"),
-        prop=VLEventProp(),
+        prop=LazyProp(),
         above=SmallComment("Clangd extension"),
         tag=Tag.LANGUAGE,
     ),
