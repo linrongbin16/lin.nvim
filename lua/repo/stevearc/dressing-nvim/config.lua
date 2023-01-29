@@ -4,7 +4,7 @@ local function GetConfig()
 	-- put UI box in global editor if window is too small
 	if vim.api.nvim_win_get_width(0) < 60 then
 		return {
-			relative = "editor",
+			-- relative = "editor",
 			prefer_width = 80,
 		}
 	end
