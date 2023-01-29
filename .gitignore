@@ -14,7 +14,6 @@ lazy-lock.json
 /settings.vim*
 /colorschemes.vim*
 /init.vim*
-/dump*.md
 
 # universal-ctags
 universal-ctags
