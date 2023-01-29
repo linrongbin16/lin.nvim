@@ -15,20 +15,20 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		bufmap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<cr>")
 		bufmap("n", "gr", "<cmd>lua vim.lsp.buf.references()<cr>")
 		bufmap("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<cr>")
-		if vim.fn.exists(":Lspsaga") ~= 0 then
-			bufmap("n", "<Leader>rn", "<cmd>Lspsaga rename<CR>")
-		else
+		-- if vim.fn.exists(":Lspsaga") ~= 0 then
+		-- 	bufmap("n", "<Leader>rn", "<cmd>Lspsaga rename<CR>")
+		-- else
 			bufmap("n", "<Leader>rn", "<cmd>lua vim.lsp.buf.rename()<cr>")
-		end
+		-- end
 		bufmap("n", "<Leader>cf", "<cmd>lua vim.lsp.buf.format()<cr>")
 		bufmap("x", "<Leader>cf", "<cmd>lua vim.lsp.buf.format()<cr>")
-		if vim.fn.exists(":Lspsaga") ~= 0 then
-			bufmap("n", "<Leader>ca", "<cmd>Lspsaga code_action<CR>")
-			bufmap("x", "<Leader>ca", "<cmd>Lspsaga code_action<CR>")
-		else
+		-- if vim.fn.exists(":Lspsaga") ~= 0 then
+		-- 	bufmap("n", "<Leader>ca", "<cmd>Lspsaga code_action<CR>")
+		-- 	bufmap("x", "<Leader>ca", "<cmd>Lspsaga code_action<CR>")
+		-- else
 			bufmap("n", "<Leader>ca", "<cmd>lua vim.lsp.buf.code_action()<cr>")
 			bufmap("x", "<Leader>ca", "<cmd>lua vim.lsp.buf.range_code_action()<cr>")
-		end
+		-- end
 		bufmap("n", "<Leader>df", "<cmd>lua vim.diagnostic.open_float()<cr>")
 		bufmap("n", "<Leader>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<cr>")
 		bufmap("n", "<Leader>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<cr>")
