@@ -1,4 +1,4 @@
-function! Lin#Util#Execute(c) abort
+function! LinUtilExecute(c) abort
     let n = winnr('$')
     let i = 0
     while i < n
