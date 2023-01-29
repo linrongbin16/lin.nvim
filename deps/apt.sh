@@ -58,11 +58,16 @@ fi
 
 # ctags
 if ! type "ctags" >/dev/null 2>&1; then
-	sudo apt-get install -y libseccomp-dev
-	sudo apt-get install -y libjansson-dev
-	sudo apt-get install -y libyaml-dev
-	sudo apt-get install -y libxml2-dev
-	install_universal_ctags
+	if type snap >/dev/null 2>&1; then
+		message "install 'ctags' from snap"
+		sudo snap install universal-ctags
+	else
+		sudo apt-get install -y libseccomp-dev
+		sudo apt-get install -y libjansson-dev
+		sudo apt-get install -y libyaml-dev
+		sudo apt-get install -y libxml2-dev
+		install_universal_ctags
+	fi
 else
 	skip_message 'ctags'
 fi
