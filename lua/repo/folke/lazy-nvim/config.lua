@@ -11,4 +11,12 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup("plugins")
+local constants = require("conf/constants")
+
+local opts = {
+    ui = {
+        border = constants.ui.border,
+    },
+}
+
+require("lazy").setup("plugins", opts)

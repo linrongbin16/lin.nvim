@@ -11,9 +11,9 @@ local key_mappings = {
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
-local constants = require('conf/constants')
+local constants = require("conf/constants")
 
-require 'nvim-tree'.setup {
+require("nvim-tree").setup({
     open_on_setup = true,
     open_on_setup_file = true,
     view = {
@@ -53,4 +53,4 @@ require 'nvim-tree'.setup {
     modified = {
         enable = true,
     },
-}
+})
