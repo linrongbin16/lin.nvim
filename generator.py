@@ -294,46 +294,21 @@ class BracedExpr4Lua(Expr):
 # }
 
 
-class Tag(enum.Enum):
-    INFRASTRUCTURE = 1
-    COLORSCHEME = 2
-    HIGHLIGHT = 3
-    UI = 4
-    SEARCH = 5
-    LANGUAGE = 6
-    EDITING = 7
-
-
-class Plugin:
-    def __init__(
-        self,
-        repo,
-        prop=None,
-        above=None,
-        color=None,
-        tag=None,
-    ) -> None:
-        assert isinstance(repo, Expr)
-        assert isinstance(prop, Expr) or prop is None
-        assert isinstance(above, Expr) or above is None
-        assert isinstance(color, str) or color is None
-        assert isinstance(tag, Tag)
-        self.repo = repo  # https://github.com/{repo}
-        self.prop = prop  # more plugin properties following this line
-        self.above = above  # more clauses above this line
-        self.color = color
-        self.tag = tag
-
-    def __str__(self):
-        return self.repo.render() if isinstance(self.repo, Expr) else str(self.repo)
-
-
 # Helper Expr {
 
 
-class Props(Exprs):
+class Prop(Expr):
+    @abc.abstractmethod
+    def render(self):
+        pass
+
+
+class Props(Prop):
     def __init__(self, exprs):
-        super(Props, self).__init__(exprs, delimiter=", ")
+        self.expr = Exprs(exprs, delimiter=", ")
+
+    def render(self):
+        return self.expr.render()
 
 
 class BigComment(Expr):
@@ -365,7 +340,7 @@ class SmallComment(Expr):
         return self.expr.render()
 
 
-class LazyProp(Expr):
+class LazyProp(Prop):
     def __init__(self, value="true"):
         assert value == "true" or value == "false"
         self.expr = AssignExpr(LiteralExpr("lazy"), LiteralExpr(value))
@@ -374,7 +349,7 @@ class LazyProp(Expr):
         return self.expr.render()
 
 
-class NameProp(Expr):
+class NameProp(Prop):
     def __init__(self, value):
         assert isinstance(value, str)
         self.expr = AssignExpr(LiteralExpr("name"), SingleQuoteStringExpr(value))
@@ -383,7 +358,7 @@ class NameProp(Expr):
         return self.expr.render()
 
 
-class BranchProp(Expr):
+class BranchProp(Prop):
     def __init__(self, value):
         assert isinstance(value, str)
         self.expr = AssignExpr(LiteralExpr("branch"), SingleQuoteStringExpr(value))
@@ -392,7 +367,7 @@ class BranchProp(Expr):
         return self.expr.render()
 
 
-class EventProp(Expr):
+class EventProp(Prop):
     def __init__(self, *value) -> None:
         self.expr = AssignExpr(
             LiteralExpr("event"),
@@ -418,7 +393,7 @@ class IEventProp(EventProp):
         super(IEventProp, self).__init__("InsertEnter")
 
 
-class DependenciesProp(Expr):
+class DependenciesProp(Prop):
     def __init__(self, *value):
         self.expr = AssignExpr(
             LiteralExpr("dependencies"),
@@ -429,7 +404,7 @@ class DependenciesProp(Expr):
         return self.expr.render()
 
 
-class VersionProp(Expr):
+class VersionProp(Prop):
     def __init__(self, value) -> None:
         assert isinstance(value, str)
         self.expr = AssignExpr(LiteralExpr("version"), SingleQuoteStringExpr(value))
@@ -438,7 +413,7 @@ class VersionProp(Expr):
         return self.expr.render()
 
 
-class BuildProp(Expr):
+class BuildProp(Prop):
     def __init__(self, value) -> None:
         assert isinstance(value, str)
         self.expr = AssignExpr(LiteralExpr("build"), SingleQuoteStringExpr(value))
@@ -447,7 +422,7 @@ class BuildProp(Expr):
         return self.expr.render()
 
 
-class FtProp(Expr):
+class FtProp(Prop):
     def __init__(self, *value) -> None:
         self.expr = AssignExpr(
             LiteralExpr("ft"),
@@ -458,7 +433,7 @@ class FtProp(Expr):
         return self.expr.render()
 
 
-class PriorityProp(Expr):
+class PriorityProp(Prop):
     def __init__(self, value=1000) -> None:
         self.expr = AssignExpr(LiteralExpr("priority"), LiteralExpr(value))
 
@@ -466,18 +441,42 @@ class PriorityProp(Expr):
         return self.expr.render()
 
 
-class CmdProp(Expr):
-    def __init__(self, *value) -> None:
-        self.expr = AssignExpr(
-            LiteralExpr("cmd"),
-            BracedExpr4Lua(Props([SingleQuoteStringExpr(v) for v in value])),
-        )
-
-    def render(self):
-        return self.expr.render()
-
-
 # }
+
+
+class Tag(enum.Enum):
+    INFRASTRUCTURE = 1
+    COLORSCHEME = 2
+    HIGHLIGHT = 3
+    UI = 4
+    SEARCH = 5
+    LANGUAGE = 6
+    EDITING = 7
+
+
+class Plugin:
+    def __init__(
+        self,
+        repo,
+        prop=None,
+        above=None,
+        color=None,
+        tag=None,
+    ) -> None:
+        assert isinstance(repo, Expr)
+        assert isinstance(tag, Tag)
+        assert isinstance(prop, Prop) or prop is None
+        assert isinstance(above, Expr) or above is None
+        assert isinstance(color, str) or color is None
+        self.repo = repo  # https://github.com/{repo}
+        self.prop = prop  # more plugin properties following this line
+        self.above = above  # more clauses above this line
+        self.color = color
+        self.tag = tag
+
+    def __str__(self):
+        return self.repo.render() if isinstance(self.repo, Expr) else str(self.repo)
+
 
 PLUGINS = [
     # Infrastructure
@@ -772,7 +771,7 @@ PLUGINS = [
     ),
     Plugin(
         LiteralExpr("nvim-tree/nvim-tree.lua"),
-        prop=Exprs([VLEventProp(), DependenciesProp("nvim-tree/nvim-web-devicons")]),
+        prop=Props([VLEventProp(), DependenciesProp("nvim-tree/nvim-web-devicons")]),
         above=Exprs([BigComment("UI"), SmallComment("File explorer")]),
         tag=Tag.UI,
     ),
@@ -783,12 +782,7 @@ PLUGINS = [
     ),
     Plugin(
         LiteralExpr("famiu/bufdelete.nvim"),
-        prop=Props(
-            [
-                VLEventProp(),
-                CmdProp("Bdelete", "Bdelete!", "Bwipeout", "Bwipeout!"),
-            ]
-        ),
+        prop=VLEventProp(),
         tag=Tag.UI,
     ),
     Plugin(
@@ -814,7 +808,7 @@ PLUGINS = [
     ),
     Plugin(
         LiteralExpr("nvim-lualine/lualine.nvim"),
-        prop=Exprs(
+        prop=Props(
             [
                 VLEventProp(),
                 DependenciesProp(
