@@ -45,6 +45,18 @@ local function TagsStatus()
 	return tags_status
 end
 
+local function SearchStatus()
+	if vim.v.hlsearch == 0 then
+		return ""
+	end
+	local lastsearch = vim.fn.getreg("/")
+	if not lastsearch or lastsearch == "" then
+		return ""
+	end
+	local searchcount = vim.fn.searchcount({ maxcount = 9999 })
+	return lastsearch .. "(" .. searchcount.current .. "/" .. searchcount.total .. ")"
+end
+
 local constants = require("conf/constants")
 
 local config = {
@@ -79,7 +91,7 @@ local config = {
 			TagsStatus,
 		},
 		lualine_x = {
-			"searchcount",
+			SearchStatus,
 			CursorHex,
 			"filetype",
 			{
