@@ -51,58 +51,58 @@ command! -bang -nargs=? -complete=dir LinFzfUnrestrictedFiles
 
 """ Text
 " live grep
-nnoremap <silent> <space>r      :FzfRg<CR>
-nnoremap <silent> <space>ur     :LinFzfUnrestrictedRg<CR>
-nnoremap <silent> <space>pr     :LinFzfPreciseRg<CR>
-nnoremap <silent> <space>upr    :LinFzfUnrestrictedPreciseRg<CR>
+nnoremap <silent> <space>r      :call Lin#Util#Execute("FzfRg")<CR>
+nnoremap <silent> <space>ur     :call Lin#Util#Execute("LinFzfUnrestrictedRg")<CR>
+nnoremap <silent> <space>pr     :call Lin#Util#Execute("LinFzfPreciseRg")<CR>
+nnoremap <silent> <space>upr    :call Lin#Util#Execute("LinFzfUnrestrictedPreciseRg")<CR>
 " cursor word/string
-nnoremap <silent> <space>w      :LinFzfRgCWord<CR>
-nnoremap <silent> <space>uw     :LinFzfUnrestrictedRgCWord<CR>
+nnoremap <silent> <space>w      :call Lin#Util#Execute("LinFzfRgCWord")<CR>
+nnoremap <silent> <space>uw     :call Lin#Util#Execute("LinFzfUnrestrictedRgCWord")<CR>
 " lines in opened buffers
-nnoremap <silent> <space>ln     :FzfLines<CR>
+nnoremap <silent> <space>ln     :call Lin#Util#Execute("FzfLines")<CR>
 " tags
-nnoremap <silent> <space>tg     :FzfTags<CR>
+nnoremap <silent> <space>tg     :call Lin#Util#Execute("FzfTags")<CR>
 
 """ Files
 " files
-nnoremap <silent> <space>f      :FzfFiles<CR>
-nnoremap <silent> <C-p>         :FzfFiles<CR>
-nnoremap <silent> <space>uf     :LinFzfUnrestrictedFiles<CR>
+nnoremap <silent> <space>f      :call Lin#Util#Execute("FzfFiles")<CR>
+nnoremap <silent> <C-p>         :call Lin#Util#Execute("FzfFiles")<CR>
+nnoremap <silent> <space>uf     :call Lin#Util#Execute("LinFzfUnrestrictedFiles")<CR>
 " opened buffers
-nnoremap <silent> <space>b      :FzfBuffers<CR>
+nnoremap <silent> <space>b      :call Lin#Util#Execute("FzfBuffers")<CR>
 " history files/oldfiles
-nnoremap <silent> <space>hf     :FzfHistory<CR>
+nnoremap <silent> <space>hf     :call Lin#Util#Execute("FzfHistory")<CR>
 
 """ History
 " search history
-nnoremap <silent> <space>hs     :FzfHistory/<CR>
+nnoremap <silent> <space>hs     :call Lin#Util#Execute("FzfHistory/")<CR>
 " vim command history
-nnoremap <silent> <space>hc     :FzfHistory:<CR>
+nnoremap <silent> <space>hc     :call Lin#Util#Execute("FzfHistory:")<CR>
 
 """ Lsp
 " diagnostics in current buffer
-nnoremap <silent> <space>db     :LspDiagnostics 0<CR>
+nnoremap <silent> <space>db     :call Lin#Util#Execute("LspDiagnostics 0")<CR>
 " all diagnostics
-nnoremap <silent> <space>da     :LspDiagnosticsAll<CR>
+nnoremap <silent> <space>da     :call Lin#Util#Execute("LspDiagnosticsAll")<CR>
 
 """ Git
 " git commits
-nnoremap <silent> <space>gc     :FzfCommits<CR>
+nnoremap <silent> <space>gc     :call Lin#Util#Execute("FzfCommits")<CR>
 " git files
-nnoremap <silent> <space>gf     :FzfGFiles<CR>
+nnoremap <silent> <space>gf     :call Lin#Util#Execute("FzfGFiles")<CR>
 " git status files
-nnoremap <silent> <space>gs     :FzfGFiles?<CR>
+nnoremap <silent> <space>gs     :call Lin#Util#Execute("FzfGFiles?")<CR>
 
 """ Vim
 " vim marks
-nnoremap <silent> <space>mk     :FzfMarks<CR>
+nnoremap <silent> <space>mk     :call Lin#Util#Execute("FzfMarks")<CR>
 " vim key mappings
-nnoremap <silent> <space>mp     :FzfMaps<CR>
+nnoremap <silent> <space>mp     :call Lin#Util#Execute("FzfMaps")<CR>
 " vim commands
-nnoremap <silent> <space>cm     :FzfCommands<CR>
+nnoremap <silent> <space>cm     :call Lin#Util#Execute("FzfCommands")<CR>
 " vim help tags
-nnoremap <silent> <space>ht     :FzfHelptags<CR>
+nnoremap <silent> <space>ht     :call Lin#Util#Execute("FzfHelptags")<CR>
 " vim colorschemes
-nnoremap <silent> <space>cs     :FzfColors<CR>
+nnoremap <silent> <space>cs     :call Lin#Util#Execute("FzfColors")<CR>
 " vim filetypes
-nnoremap <silent> <space>tp     :FzfFiletypes<CR>
+nnoremap <silent> <space>tp     :call Lin#Util#Execute("FzfFiletypes")<CR>
