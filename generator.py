@@ -770,12 +770,13 @@ PLUGINS = [
         above=SmallComment("UI hooks"),
         tag=Tag.UI,
     ),
-    Plugin(
-        LiteralExpr("glepnir/lspsaga.nvim"),
-        prop=Props(
-            EventProp("BufRead"), DependenciesProp("nvim-tree/nvim-web-devicons")
-        ),
-    ),
+    # Plugin(
+    #     LiteralExpr("glepnir/lspsaga.nvim"),
+    #     prop=Props(
+    #         EventProp("BufRead"), DependenciesProp("nvim-tree/nvim-web-devicons")
+    #     ),
+    #     tag=Tag.UI
+    # ),
     # Plugin(LiteralExpr("smjonas/inc-rename.nvim"), prop=VLEventProp(), tag=Tag.UI),
     # Search
     Plugin(
