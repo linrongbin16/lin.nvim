@@ -962,20 +962,15 @@ PLUGINS = [
     ),
     # Editing enhancement
     Plugin(
-        LiteralExpr("alvan/vim-closetag"),
+        LiteralExpr("windwp/nvim-autopairs"),
         prop=IEventProp(),
         above=Exprs(
-            [BigComment("Editing enhancement"), SmallComment("Auto close/pair/end")]
+            [BigComment("Editing enhancement"), SmallComment("Auto pair/close")]
         ),
         tag=Tag.EDITING,
     ),
     Plugin(
-        LiteralExpr("tpope/vim-endwise"),
-        prop=IEventProp(),
-        tag=Tag.EDITING,
-    ),
-    Plugin(
-        LiteralExpr("windwp/nvim-autopairs"),
+        LiteralExpr("alvan/vim-closetag"),
         prop=IEventProp(),
         tag=Tag.EDITING,
     ),
