@@ -723,11 +723,6 @@ PLUGINS = [
         tag=Tag.UI,
     ),
     Plugin(
-        LiteralExpr("famiu/bufdelete.nvim"),
-        prop=VLEventProp(),
-        tag=Tag.UI,
-    ),
-    Plugin(
         LiteralExpr("akinsho/bufferline.nvim"),
         prop=Props(
             VersionProp("v3.*"),
@@ -735,6 +730,11 @@ PLUGINS = [
             DependenciesProp("nvim-tree/nvim-web-devicons", "famiu/bufdelete.nvim"),
         ),
         above=SmallComment("Tabline"),
+        tag=Tag.UI,
+    ),
+    Plugin(
+        LiteralExpr("famiu/bufdelete.nvim"),
+        prop=VLEventProp(),
         tag=Tag.UI,
     ),
     Plugin(
