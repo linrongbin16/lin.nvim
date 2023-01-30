@@ -7,4 +7,5 @@ endfunction
 augroup LinNvimTreeAuGroup
     autocmd!
     autocmd FileType NvimTree call s:NvimTreeSettings()
+    autocmd VimEnter * NvimTreeOpen
 augroup END
