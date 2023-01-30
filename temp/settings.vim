@@ -30,8 +30,7 @@ nnoremap <C-l> :nohlsearch<CR>
 
 """ ---- Optimize large file editing ----
 augroup LinLargeFileAuGroup
-    " autocmd BufWinEnter * if line2byte(line("$") + 1) > luaeval("require('conf/constants').perf.filesystem.maxsize") | syntax clear | endif
-    autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f) > luaeval("require('conf/constants').perf.filesystem.maxsize") | setlocal eventignore+=FileType | setlocal undolevels=-1 | endif
+    autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f) > luaeval("require('conf/constants').perf.filesystem.maxsize") | syntax clear | setlocal eventignore+=FileType | setlocal undolevels=-1 | endif
 augroup END
 
 """ ---- Neovide ----
