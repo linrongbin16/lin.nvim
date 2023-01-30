@@ -1146,32 +1146,39 @@ class Render:
                 vim_config = f"{vim_base}/config.vim"
                 vim_config_file = f"{NVIM_DIR}/{vim_config}"
 
+                def require_formatter(s):
+                    return RequireExpr(SingleQuoteStringExpr(s)).render()
+
+                def source_formatter(s):
+                    source = SourceExpr(LiteralExpr(f"$HOME/.nvim/{s}"))
+                    return f"vim.cmd('{source.render()}')"
+
+                def function_formatter(lines):
+                    return f"function() {'; '.join(lines)} end"
+
+                def init_function_formatter(lines):
+                    return f"init = {function_formatter(lines)}"
+
+                def config_function_formatter(lines):
+                    return f"config = {function_formatter(lines)}"
+
                 # init
                 inits = []
                 if pathlib.Path(lua_init_file).exists():
-                    inits.append(RequireExpr(SingleQuoteStringExpr(lua_init)).render())
+                    inits.append(require_formatter(lua_init))
                 if pathlib.Path(vim_init_file).exists():
-                    init_source = SourceExpr(LiteralExpr(f"$HOME/.nvim/{vim_init}"))
-                    inits.append(f"vim.cmd('{init_source.render()}')")
+                    inits.append(source_formatter(vim_init))
                 if len(inits) > 0:
-                    prop = Props(
-                        prop, LiteralExpr(f"init = function() {' '.join(inits)} end")
-                    )
+                    prop = Props(prop, LiteralExpr(init_function_formatter(inits)))
 
                 # config
                 configs = []
                 if pathlib.Path(lua_config_file).exists():
-                    configs.append(
-                        RequireExpr(SingleQuoteStringExpr(lua_config)).render()
-                    )
+                    configs.append(require_formatter(lua_config))
                 if pathlib.Path(vim_config_file).exists():
-                    config_source = SourceExpr(LiteralExpr(f"$HOME/.nvim/{vim_config}"))
-                    configs.append(f"vim.cmd('{config_source.render()}')")
+                    configs.append(source_formatter(vim_config))
                 if len(configs) > 0:
-                    prop = Props(
-                        prop,
-                        LiteralExpr(f"config = function() {' '.join(configs)} end"),
-                    )
+                    prop = Props(prop, LiteralExpr(config_function_formatter(configs)))
 
                 plugins.append(
                     Stmt(IndentExpr(CommaExpr(LazySpecExpr4Lua(ctx.repo, prop))))
