@@ -9,16 +9,16 @@ require("bufferline").setup({
 		max_name_length = 60,
 		max_prefix_length = 55,
 		diagnostics = false,
-		offsets = {
-			{
-				filetype = "NvimTree",
-				text = "NvimTree",
-			},
-			{
-				filetype = "neo-tree",
-				text = "neo-tree",
-			},
-		},
+		-- offsets = {
+		-- 	{
+		-- 		filetype = "NvimTree",
+		-- 		text = "NvimTree",
+		-- 	},
+		-- 	{
+		-- 		filetype = "neo-tree",
+		-- 		text = "neo-tree",
+		-- 	},
+		-- },
 		-- separator_style = "slant",
 		hover = {
 			enabled = false,
