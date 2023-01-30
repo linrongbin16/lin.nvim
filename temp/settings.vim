@@ -29,6 +29,8 @@ nnoremap <Leader>p :r $HOME/.nvim/.copypaste<CR>
 nnoremap <C-l> :nohlsearch<CR>
 
 """ ---- Optmization ----
+" More icons
+set listchars=tab:>-,trail:~,extends:>,precedes:<,space:󰧟,nbsp:+
 " Rendering
 set ttyfast
 " Large file
