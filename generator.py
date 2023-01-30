@@ -1160,7 +1160,7 @@ class Render:
                     return f"vim.cmd('{source.render()}')"
 
                 def function_formatter(lines):
-                    return f"function() {'; '.join(lines)} end"
+                    return f"function() {' '.join(lines)} end"
 
                 def init_function_formatter(lines):
                     return f"init = {function_formatter(lines)}"
