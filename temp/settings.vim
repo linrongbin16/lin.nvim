@@ -30,6 +30,7 @@ nnoremap <C-l> :nohlsearch<CR>
 
 """ ---- Optmization ----
 " More icons
+" space: nf-md-circle_small \udb82\udddf
 set listchars=tab:>-,trail:~,extends:>,precedes:<,space:󰧟,nbsp:+
 " Rendering
 set ttyfast
