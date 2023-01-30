@@ -733,7 +733,9 @@ PLUGINS = [
     ),
     Plugin(
         LiteralExpr("nvim-tree/nvim-tree.lua"),
-        prop=Props(VLEventProp(), DependenciesProp("nvim-tree/nvim-web-devicons")),
+        prop=Props(
+            EventProp("VimEnter"), DependenciesProp("nvim-tree/nvim-web-devicons")
+        ),
         above=Exprs([BigComment("UI"), SmallComment("File explorer")]),
         tag=Tag.UI,
     ),
@@ -746,7 +748,7 @@ PLUGINS = [
         LiteralExpr("akinsho/bufferline.nvim"),
         prop=Props(
             VersionProp("v3.*"),
-            VLEventProp(),
+            EventProp("VimEnter"),
             DependenciesProp("nvim-tree/nvim-web-devicons", "moll/vim-bbye"),
         ),
         above=SmallComment("Tabline"),
