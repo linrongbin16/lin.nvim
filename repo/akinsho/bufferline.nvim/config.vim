@@ -17,7 +17,7 @@ nnoremap <silent> <Leader>0 :call LinGotoBuffer(-1)<CR>
 " go to next/previous buffer, close buffer
 nnoremap <silent> ]b :call LinExecuteOnEditableBuffer("BufferLineCycleNext")<CR>
 nnoremap <silent> [b :call LinExecuteOnEditableBuffer("BufferLineCyclePrev")<CR>
-nnoremap <silent> <Leader>bd :call LinExecuteOnEditableBuffer("Bdelete!")<CR>
+nnoremap <silent> <Leader>bd :bdelete!<CR>
 
 " re-order current buffer to next/previous position
 nnoremap <silent> <Leader>> :call LinExecuteOnEditableBuffer("BufferLineMoveNext")<CR>

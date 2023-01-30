@@ -747,14 +747,9 @@ PLUGINS = [
         prop=Props(
             VersionProp("v3.*"),
             VLEventProp(),
-            DependenciesProp("nvim-tree/nvim-web-devicons", "famiu/bufdelete.nvim"),
+            DependenciesProp("nvim-tree/nvim-web-devicons"),
         ),
         above=SmallComment("Tabline"),
-        tag=Tag.UI,
-    ),
-    Plugin(
-        LiteralExpr("famiu/bufdelete.nvim"),
-        prop=Props(VLEventProp()),
         tag=Tag.UI,
     ),
     Plugin(

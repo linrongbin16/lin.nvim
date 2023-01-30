@@ -28,7 +28,10 @@ nnoremap <Leader>p :r $HOME/.nvim/.copypaste<CR>
 """ ---- nohlsearch ----
 nnoremap <C-l> :nohlsearch<CR>
 
-""" ---- Optimize large file editing ----
+""" ---- Optmization ----
+" Rendering
+set ttyfast
+" Large file
 augroup LinLargeFileAuGroup
     autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f) > luaeval("require('conf/constants').perf.filesystem.maxsize") | syntax clear | setlocal eventignore+=FileType | setlocal undolevels=-1 | endif
 augroup END
