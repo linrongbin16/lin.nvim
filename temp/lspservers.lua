@@ -77,10 +77,7 @@ end
 require("mason-lspconfig").setup_handlers({
 	-- Default server setup for nvim-lspconfig.
 	function(server)
-		require("lspconfig")[server].setup({
-			on_attach = require("lsp-status").on_attach,
-			capabilities = require("lsp-status").capabilities,
-		})
+		require("lspconfig")[server].setup({})
 	end,
 
 	-- Specific server setup.

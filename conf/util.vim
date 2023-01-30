@@ -12,4 +12,7 @@ function! LinExecuteOnEditableBuffer(c) abort
             return
         endif
     endwhile
+    " if finally don't have an editable window
+    " execute command on original window
+    execute a:c
 endfunction
