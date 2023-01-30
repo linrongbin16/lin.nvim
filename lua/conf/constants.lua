@@ -18,4 +18,10 @@ M.ui = {
 	border = "rounded", -- border options: single,double,rounded,solid,shadow
 }
 
+M.perf = { -- performance
+	filesystem = {
+		maxsize = 1024 * 1024, -- 1MB
+	},
+}
+
 return M

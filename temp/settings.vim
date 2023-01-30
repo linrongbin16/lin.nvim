@@ -28,9 +28,11 @@ nnoremap <Leader>p :r $HOME/.nvim/.copypaste<CR>
 """ ---- nohlsearch ----
 nnoremap <C-l> :nohlsearch<CR>
 
-""" ---- Disable syntax highlight for super big file ----
-""" filesize=1000000
-" autocmd BufWinEnter * if line2byte(line("$") + 1) > 1000000 | syntax clear | endif
+""" ---- Optimize large file editing ----
+augroup LinLargeFileAuGroup
+    " autocmd BufWinEnter * if line2byte(line("$") + 1) > luaeval("require('conf/constants').perf.filesystem.maxsize") | syntax clear | endif
+    autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f) > luaeval("require('conf/constants').perf.filesystem.maxsize") | setlocal eventignore+=FileType | setlocal undolevels=-1 | endif
+augroup END
 
 """ ---- Neovide ----
 " if exists("g:neovide")

@@ -1060,13 +1060,7 @@ class Render:
         colorschemes = "".join([s.render() for s in colorscheme_stmts])
         settings = "".join([s.render() for s in setting_stmts])
         init = "".join([s.render() for s in init_stmts])
-        return (
-            plugins,
-            lspservers,
-            colorschemes,
-            settings,
-            init,
-        )
+        return plugins, lspservers, colorschemes, settings, init
 
     # plugins.lua
     def render_plugins(self, core_plugins):
