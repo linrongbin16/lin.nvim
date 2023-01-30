@@ -49,6 +49,7 @@ require("nvim-tree").setup({
     git = {
         enable = true,
         ignore = false,
+        timeout=200,
     },
     modified = {
         enable = true,
