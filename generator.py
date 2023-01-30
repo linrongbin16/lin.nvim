@@ -228,14 +228,22 @@ class RequireExpr(Expr):
 
 
 class Exprs(Expr):
-    def __init__(self, exprs, delimiter=""):
+    def __init__(self, exprs, delimiter="", begin="", end=""):
         assert isinstance(delimiter, str)
+        assert isinstance(begin, str)
+        assert isinstance(end, str)
         assert isinstance(exprs, list)
         self.exprs = [e for e in exprs if e is not None]
         self.delimiter = delimiter
+        self.begin = begin
+        self.end = end
 
     def render(self):
-        return self.delimiter.join([e.render() for e in self.exprs])
+        return (
+            self.begin
+            + self.delimiter.join([e.render() for e in self.exprs])
+            + self.end
+        )
 
 
 class AssignExpr(Expr):
@@ -272,9 +280,11 @@ class LazySpecExpr4Lua(Expr):
 
     def render(self):
         if not self.prop:
-            return f"'{self.repo.render()}'"
+            return f"\t'{self.repo.render()}'"
         else:
-            return f"""{{ '{self.repo.render()}', {self.prop.render()} }}"""
+            return f"""\t{{
+\t\t'{self.repo.render()}',{self.prop.render()}
+\t}}"""
 
 
 class BracedExpr4Lua(Expr):
@@ -305,10 +315,18 @@ class Prop(Expr):
 
 class Props(Prop):
     def __init__(self, *props):
-        self.expr = Exprs([p for p in props], delimiter=", ")
+        for p in props:
+            assert isinstance(p, Expr)
+        self.props = [p for p in props]
+
+    def append(self, p):
+        assert isinstance(p, Expr)
+        self.props.append(p)
 
     def render(self):
-        return self.expr.render()
+        return Exprs(
+            [p for p in self.props], delimiter=",\n\t\t", begin="\n\t\t"
+        ).render()
 
 
 class LazyProp(Prop):
@@ -476,7 +494,7 @@ class Plugin:
     ) -> None:
         assert isinstance(repo, Expr)
         assert isinstance(tag, Tag)
-        assert isinstance(prop, Prop) or prop is None
+        assert isinstance(prop, Props) or prop is None
         assert isinstance(above, Expr) or above is None
         assert isinstance(color, str) or color is None
         self.repo = repo  # https://github.com/{repo}
@@ -689,18 +707,18 @@ PLUGINS = [
     # Highlight
     Plugin(
         LiteralExpr("RRethy/vim-illuminate"),
-        prop=VLEventProp(),
+        prop=Props(VLEventProp()),
         above=BigComment("Highlight"),
         tag=Tag.HIGHLIGHT,
     ),
     Plugin(
         LiteralExpr("NvChad/nvim-colorizer.lua"),
-        prop=VLEventProp(),
+        prop=Props(VLEventProp()),
         tag=Tag.HIGHLIGHT,
     ),
     Plugin(
         LiteralExpr("andymass/vim-matchup"),
-        prop=VLEventProp(),
+        prop=Props(VLEventProp()),
         tag=Tag.HIGHLIGHT,
     ),
     Plugin(
@@ -709,7 +727,9 @@ PLUGINS = [
         tag=Tag.HIGHLIGHT,
     ),
     Plugin(
-        LiteralExpr("inkarkat/vim-ingo-library"), prop=LazyProp(), tag=Tag.HIGHLIGHT
+        LiteralExpr("inkarkat/vim-ingo-library"),
+        prop=Props(LazyProp()),
+        tag=Tag.HIGHLIGHT,
     ),
     Plugin(
         LiteralExpr("nvim-tree/nvim-tree.lua"),
@@ -719,7 +739,7 @@ PLUGINS = [
     ),
     Plugin(
         LiteralExpr("nvim-tree/nvim-web-devicons"),
-        prop=LazyProp(),
+        prop=Props(LazyProp()),
         tag=Tag.UI,
     ),
     Plugin(
@@ -734,12 +754,12 @@ PLUGINS = [
     ),
     Plugin(
         LiteralExpr("famiu/bufdelete.nvim"),
-        prop=VLEventProp(),
+        prop=Props(VLEventProp()),
         tag=Tag.UI,
     ),
     Plugin(
         LiteralExpr("lukas-reineke/indent-blankline.nvim"),
-        prop=VLEventProp(),
+        prop=Props(VLEventProp()),
         above=SmallComment("Indentline"),
         tag=Tag.UI,
     ),
@@ -754,12 +774,12 @@ PLUGINS = [
     ),
     Plugin(
         LiteralExpr("nvim-lua/lsp-status.nvim"),
-        prop=VLEventProp(),
+        prop=Props(VLEventProp()),
         tag=Tag.UI,
     ),
     Plugin(
         LiteralExpr("lewis6991/gitsigns.nvim"),
-        prop=VLEventProp(),
+        prop=Props(VLEventProp()),
         above=SmallComment("Git"),
         tag=Tag.UI,
     ),
@@ -771,7 +791,7 @@ PLUGINS = [
     ),
     Plugin(
         LiteralExpr("stevearc/dressing.nvim"),
-        prop=VLEventProp(),
+        prop=Props(VLEventProp()),
         above=SmallComment("UI hooks"),
         tag=Tag.UI,
     ),
@@ -782,7 +802,7 @@ PLUGINS = [
     #     ),
     #     tag=Tag.UI
     # ),
-    # Plugin(LiteralExpr("smjonas/inc-rename.nvim"), prop=VLEventProp(), tag=Tag.UI),
+    # Plugin(LiteralExpr("smjonas/inc-rename.nvim"), prop=Props(VLEventProp()), tag=Tag.UI),
     # Search
     Plugin(
         LiteralExpr("junegunn/fzf"),
@@ -811,12 +831,12 @@ PLUGINS = [
     ),
     Plugin(
         LiteralExpr("ludovicchabant/vim-gutentags"),
-        prop=VLEventProp(),
+        prop=Props(VLEventProp()),
         tag=Tag.LANGUAGE,
     ),
     Plugin(
         LiteralExpr("williamboman/mason.nvim"),
-        prop=VLEventProp(),
+        prop=Props(VLEventProp()),
         above=SmallComment("LSP server management"),
         tag=Tag.LANGUAGE,
     ),
@@ -834,12 +854,12 @@ PLUGINS = [
     ),
     Plugin(
         LiteralExpr("neovim/nvim-lspconfig"),
-        prop=LazyProp(),
+        prop=Props(LazyProp()),
         tag=Tag.LANGUAGE,
     ),
     Plugin(
         LiteralExpr("p00f/clangd_extensions.nvim"),
-        prop=LazyProp(),
+        prop=Props(LazyProp()),
         tag=Tag.LANGUAGE,
     ),
     Plugin(
@@ -847,7 +867,9 @@ PLUGINS = [
         prop=Props(VLEventProp(), DependenciesProp("nvim-lua/plenary.nvim")),
         tag=Tag.LANGUAGE,
     ),
-    Plugin(LiteralExpr("nvim-lua/plenary.nvim"), prop=LazyProp(), tag=Tag.LANGUAGE),
+    Plugin(
+        LiteralExpr("nvim-lua/plenary.nvim"), prop=Props(LazyProp()), tag=Tag.LANGUAGE
+    ),
     Plugin(
         LiteralExpr("jay-babu/mason-null-ls.nvim"),
         prop=Props(
@@ -877,22 +899,22 @@ PLUGINS = [
     ),
     Plugin(
         LiteralExpr("hrsh7th/cmp-nvim-lsp"),
-        prop=ICEventProp(),
+        prop=Props(ICEventProp()),
         tag=Tag.LANGUAGE,
     ),
     Plugin(
         LiteralExpr("hrsh7th/cmp-buffer"),
-        prop=ICEventProp(),
+        prop=Props(ICEventProp()),
         tag=Tag.LANGUAGE,
     ),
     Plugin(
         LiteralExpr("hrsh7th/cmp-path"),
-        prop=ICEventProp(),
+        prop=Props(ICEventProp()),
         tag=Tag.LANGUAGE,
     ),
     Plugin(
         LiteralExpr("hrsh7th/cmp-cmdline"),
-        prop=ICEventProp(),
+        prop=Props(ICEventProp()),
         tag=Tag.LANGUAGE,
     ),
     Plugin(
@@ -902,7 +924,7 @@ PLUGINS = [
     ),
     Plugin(
         LiteralExpr("saadparwaiz1/cmp_luasnip"),
-        prop=ICEventProp(),
+        prop=Props(ICEventProp()),
         tag=Tag.LANGUAGE,
     ),
     # Language support
@@ -921,25 +943,25 @@ PLUGINS = [
     ),
     Plugin(
         LiteralExpr("justinmk/vim-syntax-extra"),
-        prop=FtProp("lex", "flex", "yacc", "bison"),
+        prop=Props(FtProp("lex", "flex", "yacc", "bison")),
         above=SmallComment("Lex/yacc, flex/bison"),
         tag=Tag.LANGUAGE,
     ),
     Plugin(
         LiteralExpr("rhysd/vim-llvm"),
-        prop=FtProp("llvm", "mir", "mlir", "tablegen"),
+        prop=Props(FtProp("llvm", "mir", "mlir", "tablegen")),
         above=SmallComment("LLVM"),
         tag=Tag.LANGUAGE,
     ),
     Plugin(
         LiteralExpr("zebradil/hive.vim"),
-        prop=FtProp("hive"),
+        prop=Props(FtProp("hive")),
         above=SmallComment("Hive"),
         tag=Tag.LANGUAGE,
     ),
     Plugin(
         LiteralExpr("slim-template/vim-slim"),
-        prop=FtProp("slim"),
+        prop=Props(FtProp("slim")),
         above=SmallComment("Slim"),
         tag=Tag.LANGUAGE,
     ),
@@ -957,13 +979,13 @@ PLUGINS = [
     ),
     Plugin(
         LiteralExpr("chaoren/vim-wordmotion"),
-        prop=VLEventProp(),
+        prop=Props(VLEventProp()),
         tag=Tag.EDITING,
     ),
     # Editing enhancement
     Plugin(
         LiteralExpr("windwp/nvim-autopairs"),
-        prop=IEventProp(),
+        prop=Props(IEventProp()),
         above=Exprs(
             [BigComment("Editing enhancement"), SmallComment("Auto pair/close")]
         ),
@@ -971,35 +993,35 @@ PLUGINS = [
     ),
     Plugin(
         LiteralExpr("alvan/vim-closetag"),
-        prop=IEventProp(),
+        prop=Props(IEventProp()),
         tag=Tag.EDITING,
     ),
     Plugin(
         LiteralExpr("numToStr/Comment.nvim"),
-        prop=VLEventProp(),
+        prop=Props(VLEventProp()),
         above=SmallComment("Comment"),
         tag=Tag.EDITING,
     ),
     Plugin(
         LiteralExpr("haya14busa/is.vim"),
-        prop=VLEventProp(),
+        prop=Props(VLEventProp()),
         above=SmallComment("Incremental search"),
         tag=Tag.EDITING,
     ),
     Plugin(
         LiteralExpr("tpope/vim-repeat"),
-        prop=VLEventProp(),
+        prop=Props(VLEventProp()),
         above=SmallComment("Other"),
         tag=Tag.EDITING,
     ),
     Plugin(
         LiteralExpr("mbbill/undotree"),
-        prop=VLEventProp(),
+        prop=Props(VLEventProp()),
         tag=Tag.EDITING,
     ),
     Plugin(
         LiteralExpr("editorconfig/editorconfig-vim"),
-        prop=VLEventProp(),
+        prop=Props(VLEventProp()),
         tag=Tag.EDITING,
     ),
 ]
@@ -1155,7 +1177,9 @@ class Render:
                     return f"vim.cmd('{source.render()}')"
 
                 def function_formatter(lines):
-                    return f"function() {' '.join(lines)} end"
+                    LINE_INDENT = "\n\t\t\t"
+                    return f"""function(){LINE_INDENT}{LINE_INDENT.join(lines)}
+\t\tend"""
 
                 def init_function_formatter(lines):
                     return f"init = {function_formatter(lines)}"
@@ -1170,7 +1194,11 @@ class Render:
                 if pathlib.Path(vim_init_file).exists():
                     inits.append(source_formatter(vim_init))
                 if len(inits) > 0:
-                    prop = Props(prop, LiteralExpr(init_function_formatter(inits)))
+                    if isinstance(prop, Props):
+                        prop.append(LiteralExpr(init_function_formatter(inits)))
+                    else:
+                        assert prop is None
+                        prop = Props(LiteralExpr(init_function_formatter(inits)))
 
                 # config
                 configs = []
@@ -1179,11 +1207,13 @@ class Render:
                 if pathlib.Path(vim_config_file).exists():
                     configs.append(source_formatter(vim_config))
                 if len(configs) > 0:
-                    prop = Props(prop, LiteralExpr(config_function_formatter(configs)))
+                    if isinstance(prop, Props):
+                        prop.append(LiteralExpr(config_function_formatter(configs)))
+                    else:
+                        assert prop is None
+                        prop = Props(LiteralExpr(config_function_formatter(configs)))
 
-                plugins.append(
-                    Stmt(IndentExpr(CommaExpr(LazySpecExpr4Lua(ctx.repo, prop))))
-                )
+                plugins.append(Stmt(CommaExpr(LazySpecExpr4Lua(ctx.repo, prop))))
                 # color settings
                 if ctx.tag == Tag.COLORSCHEME:
                     colors.append(
