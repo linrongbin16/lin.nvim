@@ -29,8 +29,6 @@ nnoremap <Leader>p :r $HOME/.nvim/.copypaste<CR>
 nnoremap <C-l> :nohlsearch<CR>
 
 """ ---- Optmization ----
-" Use icon for space: nf-md-circle_small \udb82\udddf
-" set listchars=tab:>-,trail:~,extends:>,precedes:<,space:󰧟,nbsp:+
 " Rendering
 set ttyfast
 " Large file
