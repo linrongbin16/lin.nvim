@@ -768,7 +768,7 @@ PLUGINS = [
     Plugin(
         LiteralExpr("nvim-lualine/lualine.nvim"),
         prop=Props(
-            VLEventProp(),
+            EventProp("VimEnter"),
             DependenciesProp("nvim-tree/nvim-web-devicons", "nvim-lua/lsp-status.nvim"),
         ),
         above=SmallComment("Statusline"),
