@@ -157,7 +157,7 @@ else {
     if ($LastExitCode -ne 0) {
         exit 1
     }
-    cmd /c nvim -E -u "$NVIM_HOME\temp\init-tool.vim" -c "Lazy! sync" -c "qall!"
+    cmd /c nvim -E -u "$NVIM_HOME\temp\init-tool.vim" -c "Lazy! sync" -c "qall!" /wait
 }
 
 Message "install with $MODE_NAME mode - done"
