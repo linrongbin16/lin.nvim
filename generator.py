@@ -747,9 +747,14 @@ PLUGINS = [
         prop=Props(
             VersionProp("v3.*"),
             VLEventProp(),
-            DependenciesProp("nvim-tree/nvim-web-devicons"),
+            DependenciesProp("nvim-tree/nvim-web-devicons", "moll/vim-bbye"),
         ),
         above=SmallComment("Tabline"),
+        tag=Tag.UI,
+    ),
+    Plugin(
+        LiteralExpr("moll/vim-bbye"),
+        prop=Props(VLEventProp()),
         tag=Tag.UI,
     ),
     Plugin(
