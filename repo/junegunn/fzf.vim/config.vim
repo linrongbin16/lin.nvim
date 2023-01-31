@@ -82,6 +82,7 @@ nnoremap <silent> <space>tg     :call LinExecuteOnEditableBuffer("FzfTags")<CR>
 nnoremap <silent> <space>f      :call LinExecuteOnEditableBuffer("FzfFiles")<CR>
 nnoremap <silent> <C-p>         :call LinExecuteOnEditableBuffer("FzfFiles")<CR>
 nnoremap <silent> <space>uf     :call LinExecuteOnEditableBuffer("LinFzfUnrestrictedFiles")<CR>
+" files by cursor word
 nnoremap <silent> <space>wf     :call LinExecuteOnEditableBuffer("LinFzfFilesCWord")<CR>
 nnoremap <silent> <space>uwf    :call LinExecuteOnEditableBuffer("LinFzfUnrestrictedFilesCWord")<CR>
 " opened buffers
