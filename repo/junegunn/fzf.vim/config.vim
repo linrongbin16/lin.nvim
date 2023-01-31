@@ -1,6 +1,6 @@
 command! -bang -nargs=* LinFzfUnrestrictedRg
             \ call fzf#vim#grep(
-            \ "rg --column --no-heading --color=always -S -uu --glob=!.git/ ".shellescape(<q-args>), 1,
+            \ "rg --column --no-heading --color=always -S -uu ".shellescape(<q-args>), 1,
             \ fzf#vim#with_preview(), <bang>0)
 
 function! s:LinFzfAdvancedRg(query, fullscreen)
@@ -13,7 +13,7 @@ function! s:LinFzfAdvancedRg(query, fullscreen)
 endfunction
 
 function! s:LinFzfUnrestrictedAdvancedRg(query, fullscreen)
-    let command_fmt = 'rg --column --no-heading --color=always -S -uu --glob=!.git/ -- %s || true'
+    let command_fmt = 'rg --column --no-heading --color=always -S -uu -- %s || true'
     let initial_command = printf(command_fmt, shellescape(a:query))
     let reload_command = printf(command_fmt, '{q}')
     let spec = {'options': ['--disabled', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
@@ -32,7 +32,7 @@ command! -bang -nargs=0 LinFzfRgCWord
 
 command! -bang -nargs=0 LinFzfUnrestrictedRgCWord
             \ call fzf#vim#grep(
-            \ "rg --column --no-heading --color=always -S -uu --glob=!.git/ ".shellescape(expand('<cword>')), 1,
+            \ "rg --column --no-heading --color=always -S -uu ".shellescape(expand('<cword>')), 1,
             \ fzf#vim#with_preview(), <bang>0)
 
 if executable('fd')

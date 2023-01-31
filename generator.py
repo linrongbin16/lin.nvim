@@ -426,6 +426,11 @@ class IEventProp(EventProp):
         super(IEventProp, self).__init__("InsertEnter")
 
 
+class VEventProp(EventProp):
+    def __init__(self) -> None:
+        super(VEventProp, self).__init__("VimEnter")
+
+
 class DependenciesProp(Prop):
     def __init__(self, *value):
         self.expr = AssignExpr(
@@ -733,9 +738,7 @@ PLUGINS = [
     ),
     Plugin(
         LiteralExpr("nvim-tree/nvim-tree.lua"),
-        prop=Props(
-            EventProp("VimEnter"), DependenciesProp("nvim-tree/nvim-web-devicons")
-        ),
+        prop=Props(VEventProp(), DependenciesProp("nvim-tree/nvim-web-devicons")),
         above=Exprs([BigComment("UI"), SmallComment("File explorer")]),
         tag=Tag.UI,
     ),
@@ -748,7 +751,7 @@ PLUGINS = [
         LiteralExpr("akinsho/bufferline.nvim"),
         prop=Props(
             VersionProp("v3.*"),
-            EventProp("VimEnter"),
+            VEventProp(),
             DependenciesProp("nvim-tree/nvim-web-devicons", "moll/vim-bbye"),
         ),
         above=SmallComment("Tabline"),
@@ -768,7 +771,7 @@ PLUGINS = [
     Plugin(
         LiteralExpr("nvim-lualine/lualine.nvim"),
         prop=Props(
-            EventProp("VimEnter"),
+            VEventProp(),
             DependenciesProp(
                 "nvim-tree/nvim-web-devicons", "linrongbin16/lsp-progress.nvim"
             ),
@@ -778,7 +781,7 @@ PLUGINS = [
     ),
     Plugin(
         LiteralExpr("linrongbin16/lsp-progress.nvim"),
-        prop=Props(BranchProp("main"), EventProp("VimEnter")),
+        prop=Props(BranchProp("main"), VEventProp()),
         tag=Tag.UI,
     ),
     Plugin(
@@ -810,18 +813,18 @@ PLUGINS = [
     # Search
     Plugin(
         LiteralExpr("junegunn/fzf"),
-        prop=Props(VLEventProp(), BuildProp(":call fzf#install()")),
+        prop=Props(VEventProp(), BuildProp(":call fzf#install()")),
         above=BigComment("Search"),
         tag=Tag.SEARCH,
     ),
     Plugin(
         LiteralExpr("junegunn/fzf.vim"),
-        prop=Props(VLEventProp(), DependenciesProp("junegunn/fzf")),
+        prop=Props(VEventProp(), DependenciesProp("junegunn/fzf")),
         tag=Tag.SEARCH,
     ),
     Plugin(
         LiteralExpr("ojroques/nvim-lspfuzzy"),
-        prop=Props(VLEventProp(), DependenciesProp("junegunn/fzf", "junegunn/fzf.vim")),
+        prop=Props(VEventProp(), DependenciesProp("junegunn/fzf", "junegunn/fzf.vim")),
         tag=Tag.SEARCH,
     ),
     # LSP server
