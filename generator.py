@@ -759,7 +759,7 @@ PLUGINS = [
     ),
     Plugin(
         LiteralExpr("moll/vim-bbye"),
-        prop=Props(VLEventProp()),
+        prop=Props(VEventProp()),
         tag=Tag.UI,
     ),
     Plugin(
@@ -792,7 +792,7 @@ PLUGINS = [
     ),
     Plugin(
         LiteralExpr("akinsho/toggleterm.nvim"),
-        prop=Props(VersionProp("*"), VLEventProp()),
+        prop=Props(VersionProp("*"), VEventProp()),
         above=SmallComment("Terminal"),
         tag=Tag.UI,
     ),
@@ -830,7 +830,7 @@ PLUGINS = [
     # LSP server
     Plugin(
         LiteralExpr("liuchengxu/vista.vim"),
-        prop=Props(VLEventProp(), DependenciesProp("ludovicchabant/vim-gutentags")),
+        prop=Props(VEventProp(), DependenciesProp("ludovicchabant/vim-gutentags")),
         above=Exprs(
             [BigComment("LSP server"), SmallComment("Tags/structure outlines")]
         ),
@@ -931,7 +931,7 @@ PLUGINS = [
     ),
     Plugin(
         LiteralExpr("saadparwaiz1/cmp_luasnip"),
-        prop=Props(ICEventProp()),
+        prop=Props(ICEventProp(), DependenciesProp("L3MON4D3/LuaSnip")),
         tag=Tag.LANGUAGE,
     ),
     # Language support
@@ -975,18 +975,18 @@ PLUGINS = [
     # Movement
     Plugin(
         LiteralExpr("phaazon/hop.nvim"),
-        prop=Props(BranchProp("v2"), VLEventProp()),
+        prop=Props(BranchProp("v2"), VEventProp()),
         above=Exprs([BigComment("Movement"), SmallComment("Cursor Movement")]),
         tag=Tag.EDITING,
     ),
     Plugin(
         LiteralExpr("ggandor/leap.nvim"),
-        prop=Props(DependenciesProp("tpope/vim-repeat"), VLEventProp()),
+        prop=Props(VEventProp(), DependenciesProp("tpope/vim-repeat")),
         tag=Tag.EDITING,
     ),
     Plugin(
         LiteralExpr("chaoren/vim-wordmotion"),
-        prop=Props(VLEventProp()),
+        prop=Props(VEventProp()),
         tag=Tag.EDITING,
     ),
     # Editing enhancement
@@ -1005,30 +1005,30 @@ PLUGINS = [
     ),
     Plugin(
         LiteralExpr("numToStr/Comment.nvim"),
-        prop=Props(VLEventProp()),
+        prop=Props(VEventProp()),
         above=SmallComment("Comment"),
         tag=Tag.EDITING,
     ),
     Plugin(
         LiteralExpr("haya14busa/is.vim"),
-        prop=Props(VLEventProp()),
+        prop=Props(VEventProp()),
         above=SmallComment("Incremental search"),
         tag=Tag.EDITING,
     ),
     Plugin(
         LiteralExpr("tpope/vim-repeat"),
-        prop=Props(VLEventProp()),
+        prop=Props(VEventProp()),
         above=SmallComment("Other"),
         tag=Tag.EDITING,
     ),
     Plugin(
         LiteralExpr("mbbill/undotree"),
-        prop=Props(VLEventProp()),
+        prop=Props(VEventProp()),
         tag=Tag.EDITING,
     ),
     Plugin(
         LiteralExpr("editorconfig/editorconfig-vim"),
-        prop=Props(VLEventProp()),
+        prop=Props(VEventProp()),
         tag=Tag.EDITING,
     ),
 ]
