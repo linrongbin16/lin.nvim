@@ -1,5 +1,3 @@
-local null_ls = require("null-ls")
-
 -- {{
 -- ---- Add new LSP server ----
 --
@@ -13,6 +11,8 @@ local null_ls = require("null-ls")
 --  Please refer to:
 --      * [mason-null-ls Available Null-ls sources](https://github.com/jay-babu/mason-null-ls.nvim#available-null-ls-sources) for more null-ls sources.
 --      * [null-ls BUILTINS](https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md) for null-ls source configurations.
+
+local null_ls = require("null-ls")
 
 local embeded_servers = {
     -- clang
