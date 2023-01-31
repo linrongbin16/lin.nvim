@@ -773,7 +773,9 @@ PLUGINS = [
         prop=Props(
             VEventProp(),
             DependenciesProp(
-                "nvim-tree/nvim-web-devicons", "linrongbin16/lsp-progress.nvim"
+                "nvim-tree/nvim-web-devicons",
+                "linrongbin16/lsp-progress.nvim",
+                "itchyny/vim-gitbranch",
             ),
         ),
         above=SmallComment("Statusline"),
@@ -785,9 +787,25 @@ PLUGINS = [
         tag=Tag.UI,
     ),
     Plugin(
-        LiteralExpr("lewis6991/gitsigns.nvim"),
+        LiteralExpr("itchyny/vim-gitbranch"),
+        prop=Props(VEventProp()),
+        tag=Tag.UI,
+    ),
+    # Plugin(
+    #     LiteralExpr("lewis6991/gitsigns.nvim"),
+    #     prop=Props(VLEventProp()),
+    #     above=SmallComment("Git"),
+    #     tag=Tag.UI,
+    # ),
+    Plugin(
+        LiteralExpr("airblade/vim-gitgutter"),
         prop=Props(VLEventProp()),
         above=SmallComment("Git"),
+        tag=Tag.UI,
+    ),
+    Plugin(
+        LiteralExpr("f-person/git-blame.nvim"),
+        prop=Props(VLEventProp()),
         tag=Tag.UI,
     ),
     Plugin(
