@@ -65,7 +65,10 @@ if vim.fn.has("win32") == 1 then
 else
     -- bash for UNIX/Linux/macOS
     table.insert(embeded_servers, "bashls")
-    table.insert(embeded_extras, { "shfmt", { null_ls.builtins.formatting.shfmt } })
+    table.insert(
+        embeded_extras,
+        { "shfmt", { null_ls.builtins.formatting.shfmt.with({ extra_args = { "--indent=4" } }) } }
+    )
 end
 
 -- }}
