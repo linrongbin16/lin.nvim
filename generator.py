@@ -769,7 +769,9 @@ PLUGINS = [
         LiteralExpr("nvim-lualine/lualine.nvim"),
         prop=Props(
             EventProp("VimEnter"),
-            DependenciesProp("nvim-tree/nvim-web-devicons"),
+            DependenciesProp(
+                "nvim-tree/nvim-web-devicons", "linrongbin16/lsp-progress.nvim"
+            ),
         ),
         above=SmallComment("Statusline"),
         tag=Tag.UI,
