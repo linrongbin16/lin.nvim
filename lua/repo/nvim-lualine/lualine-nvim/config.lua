@@ -58,7 +58,6 @@ local function SearchStatus()
 end
 
 local constants = require("conf/constants")
-local lsp_progress = require("repo/linrongbin16/lsp-progress-nvim/config")
 
 local config = {
 	options = {
@@ -96,7 +95,7 @@ local config = {
 					hint = constants.lsp.diagnostics.signs["hint"] .. " ",
 				},
 			},
-			lsp_progress.progress,
+			require("lsp-progress").progress,
 			TagsStatus,
 		},
 		lualine_x = {
@@ -130,5 +129,4 @@ local config = {
 	extensions = {},
 }
 
-lsp_progress.setup({})
 require("lualine").setup(config)
