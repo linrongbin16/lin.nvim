@@ -130,3 +130,10 @@ local config = {
 }
 
 require("lualine").setup(config)
+
+vim.cmd([[
+augroup lualine_augroup
+    autocmd!
+    autocmd User LspProgressStatusUpdate lua require("lualine").refresh() -- listen to user event and trigger refresh
+augroup END
+]])

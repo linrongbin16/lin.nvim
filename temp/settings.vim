@@ -32,7 +32,7 @@ nnoremap <C-l> :nohlsearch<CR>
 " Rendering
 set ttyfast
 " Large file
-augroup LinLargeFileAuGroup
+augroup large_file_augroup
     autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f) > luaeval("require('conf/constants').perf.filesystem.maxsize") | syntax clear | setlocal eventignore+=FileType | setlocal undolevels=-1 | endif
 augroup END
 

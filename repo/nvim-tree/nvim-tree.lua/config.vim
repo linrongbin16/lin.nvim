@@ -4,7 +4,7 @@ function! s:NvimTreeSettings() abort
     nnoremap <silent> <buffer> <Leader>< :NvimTreeResize -10<CR>
 endfunction
 
-augroup LinNvimTreeAuGroup
+augroup nvim_tree_augroup
     autocmd!
     autocmd FileType NvimTree call s:NvimTreeSettings()
     autocmd VimEnter * NvimTreeOpen

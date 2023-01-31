@@ -775,6 +775,11 @@ PLUGINS = [
         tag=Tag.UI,
     ),
     Plugin(
+        LiteralExpr("linrongbin16/lsp-progress.nvim"),
+        prop=Props(BranchProp("main"), EventProp("VimEnter")),
+        tag=Tag.UI,
+    ),
+    Plugin(
         LiteralExpr("lewis6991/gitsigns.nvim"),
         prop=Props(VLEventProp()),
         above=SmallComment("Git"),
