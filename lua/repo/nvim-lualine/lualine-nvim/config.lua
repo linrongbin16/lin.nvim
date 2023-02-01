@@ -152,6 +152,6 @@ require("lualine").setup(config)
 vim.cmd([[
 augroup lualine_augroup
     autocmd!
-    autocmd User LspProgressStatusUpdate lua require("lualine").refresh()
+    autocmd User LspProgressStatusUpdated lua require("lualine").refresh()
 augroup END
 ]])
