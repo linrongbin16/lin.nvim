@@ -3,7 +3,7 @@ command! -bang -nargs=* LinFzfUnrestrictedRg
             \ "rg --column --no-heading --color=always -S -uu -g '!.git/' ".shellescape(<q-args>), 1,
             \ fzf#vim#with_preview(), <bang>0)
 
-function! s:linFzfAdvancedRg(query, fullscreen)
+function! s:LinFzfAdvancedRg(query, fullscreen)
     let command_fmt = 'rg --column --no-heading --color=always -- %s || true'
     let initial_command = printf(command_fmt, shellescape(a:query))
     let reload_command = printf(command_fmt, '{q}')
@@ -12,7 +12,7 @@ function! s:linFzfAdvancedRg(query, fullscreen)
     call fzf#vim#grep(initial_command, 1, spec, a:fullscreen)
 endfunction
 
-function! s:linFzfUnrestrictedAdvancedRg(query, fullscreen)
+function! s:LinFzfUnrestrictedAdvancedRg(query, fullscreen)
     let command_fmt = "rg --column --no-heading --color=always -S -uu -g '!.git/' -- %s || true"
     let initial_command = printf(command_fmt, shellescape(a:query))
     let reload_command = printf(command_fmt, '{q}')
@@ -21,9 +21,9 @@ function! s:linFzfUnrestrictedAdvancedRg(query, fullscreen)
     call fzf#vim#grep(initial_command, 1, spec, a:fullscreen)
 endfunction
 
-command! -bang -nargs=* LinFzfPreciseRg call s:linFzfAdvancedRg(<q-args>, <bang>0)
+command! -bang -nargs=* LinFzfPreciseRg call s:LinFzfAdvancedRg(<q-args>, <bang>0)
 
-command! -bang -nargs=* LinFzfUnrestrictedPreciseRg call s:linFzfUnrestrictedAdvancedRg(<q-args>, <bang>0)
+command! -bang -nargs=* LinFzfUnrestrictedPreciseRg call s:LinFzfUnrestrictedAdvancedRg(<q-args>, <bang>0)
 
 command! -bang -nargs=0 LinFzfRgCWord
             \ call fzf#vim#grep(
