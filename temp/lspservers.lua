@@ -32,12 +32,12 @@ local embeded_servers = {
     "sumneko_lua",
     -- python
     "pyright",
-    -- yaml
-    "yamlls",
     -- vim
     "vimls",
     -- xml
     "lemminx",
+    -- yaml
+    "yamlls",
 }
 local embeded_extras = {
     -- js/ts
