@@ -55,9 +55,9 @@ require("nvim-tree").setup({
     },
 })
 
-vim.api.nvim_create_augroup("nvim_tree_oepn_on_start_augroup", { clear = true })
+vim.api.nvim_create_augroup("nvim_tree_open_on_start_augroup", { clear = true })
 vim.api.nvim_create_autocmd("VimEnter", {
-    group = "nvim_tree_oepn_on_start_augroup",
+    group = "nvim_tree_open_on_start_augroup",
     callback = function(data)
         -- buffer is a [No Name]
         local no_name = data.file == "" and vim.bo[data.buf].buftype == ""
