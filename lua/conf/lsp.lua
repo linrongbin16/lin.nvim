@@ -22,14 +22,13 @@ vim.api.nvim_create_autocmd("LspAttach", {
         bufmap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<cr>")
         bufmap("n", "gr", "<cmd>lua vim.lsp.buf.references()<cr>")
         bufmap("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>")
-        bufmap("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<cr>")
+        bufmap({ "n", "i" }, "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<cr>")
         -- if vim.fn.exists(":Lspsaga") ~= 0 then
         -- 	bufmap("n", "<Leader>rn", "<cmd>Lspsaga rename<CR>")
         -- else
         bufmap("n", "<Leader>rn", "<cmd>lua vim.lsp.buf.rename()<cr>")
         -- end
-        bufmap("n", "<Leader>cf", "<cmd>lua vim.lsp.buf.format({async=false})<cr>")
-        bufmap("x", "<Leader>cf", "<cmd>lua vim.lsp.buf.format({async=false})<cr>")
+        bufmap({"n", "x"}, "<Leader>cf", "<cmd>lua vim.lsp.buf.format({async=false})<cr>")
         -- if vim.fn.exists(":Lspsaga") ~= 0 then
         -- 	bufmap("n", "<Leader>ca", "<cmd>Lspsaga code_action<CR>")
         -- 	bufmap("x", "<Leader>ca", "<cmd>Lspsaga code_action<CR>")
