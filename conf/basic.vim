@@ -19,7 +19,6 @@ set clipboard^=unnamed,unnamedplus
 set history=1000
 
 """ language
-set nolangremap
 language messages en_US.UTF-8
 
 """ encoding
