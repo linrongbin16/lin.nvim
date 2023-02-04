@@ -83,7 +83,7 @@ endif
 set redrawtime=1000 maxmempattern=100000
 
 """ shorter timeout, better response
-set ttimeout ttimeoutlen=100
+set timeoutlen=300
 
 """ tags
 set tags+=./tags,tags
