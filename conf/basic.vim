@@ -5,10 +5,11 @@ set nocompatible
 
 """ bell
 set noerrorbells novisualbell
-autocmd GUIEnter * set visualbell t_vb=
+set t_vb=
+autocmd GUIEnter * set visualbell
 
 """ file
-set autoread autowrite nobackup noswapfile nowritebackup modifiable hidden
+set autoread autowrite nobackup noswapfile nowritebackup modifiable hidden confirm
 autocmd FocusGained,BufEnter * checktime
 
 """ editing
@@ -54,7 +55,7 @@ set foldenable foldlevel=100 foldnestmax=100 foldmethod=indent
 nnoremap zz @=((foldclosed(line('.')) < 0) ? 'zc':'zo')<CR>
 
 " search
-set magic noignorecase hlsearch
+set magic smartcase ignorecase hlsearch
 if has('patch-8.0.1238')
     set incsearch
 endif

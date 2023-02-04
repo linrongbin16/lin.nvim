@@ -1,5 +1,21 @@
 
+""" ---- Enhancements ----
+
+" `n` always search forward, `N` always search backward
+" see: https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
+nnoremap <expr> n  'Nn'[v:searchforward]
+xnoremap <expr> n  'Nn'[v:searchforward]
+onoremap <expr> n  'Nn'[v:searchforward]
+
+nnoremap <expr> N  'nN'[v:searchforward]
+xnoremap <expr> N  'nN'[v:searchforward]
+onoremap <expr> N  'nN'[v:searchforward]
+
+" <C-l> do clean highlight, update diff, and refresh color
+nnoremap <C-l> :nohlsearch<cr>:diffupdate<cr>:syntax sync fromstart<cr><c-l>
+
 """ ---- Hot keys ----
+
 " Toggle file explorer
 nnoremap <F1> :NvimTreeToggle<CR>
 " Find current file in nvim-tree
@@ -20,13 +36,11 @@ nnoremap <F9> :MarkdownPreview<CR>
 nnoremap <F10> :ToggleTerm<CR>
 
 """ ---- Enhanced copy-paste ----
+
 " Copy visual selected text to cache
 xnoremap <Leader>y :w! $HOME/.nvim/.copypaste<CR>
 " Paste from cache to current cursor
 nnoremap <Leader>p :r $HOME/.nvim/.copypaste<CR>
-
-""" ---- nohlsearch ----
-nnoremap <C-l> :nohlsearch<CR>
 
 """ ---- Optmization ----
 " Rendering
@@ -37,6 +51,7 @@ augroup large_file_augroup
 augroup END
 
 """ ---- Neovide ----
+
 " if exists("g:neovide")
 "     let g:neovide_refresh_rate=60
 "     let g:neovide_transparency=1.0
