@@ -10,7 +10,7 @@ autocmd GUIEnter * set visualbell
 
 """ file
 set autoread autowrite nobackup noswapfile nowritebackup modifiable hidden confirm
-autocmd FocusGained,BufEnter * checktime
+autocmd FocusGained,TermClose,TermLeave * checktime
 
 """ editing
 set backspace=indent,eol,start

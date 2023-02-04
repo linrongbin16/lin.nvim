@@ -8,12 +8,20 @@ vim.api.nvim_create_autocmd("LspAttach", {
             local opts = { buffer = true, noremap = true, silent = true }
             vim.keymap.set(mode, lhs, rhs, opts)
         end
-        bufmap("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>")
+        local function diagnostic_goto(next, severity)
+            local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
+            severity = severity and vim.diagnostic.severity[severity] or nil
+            return function()
+                go({ severity = severity })
+            end
+        end
+
         bufmap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<cr>")
         bufmap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>")
         bufmap("n", "gt", "<cmd>lua vim.lsp.buf.type_definition()<cr>")
         bufmap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<cr>")
         bufmap("n", "gr", "<cmd>lua vim.lsp.buf.references()<cr>")
+        bufmap("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>")
         bufmap("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<cr>")
         -- if vim.fn.exists(":Lspsaga") ~= 0 then
         -- 	bufmap("n", "<Leader>rn", "<cmd>Lspsaga rename<CR>")
@@ -30,11 +38,12 @@ vim.api.nvim_create_autocmd("LspAttach", {
         bufmap("x", "<Leader>ca", "<cmd>lua vim.lsp.buf.range_code_action()<cr>")
         -- end
         bufmap("n", "<Leader>df", "<cmd>lua vim.diagnostic.open_float()<cr>")
-        bufmap("n", "<Leader>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<cr>")
-        bufmap("n", "<Leader>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<cr>")
-        bufmap("n", "<Leader>wl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<cr>")
-        bufmap("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<cr>")
-        bufmap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<cr>")
+        bufmap("n", "]d", diagnostic_goto(true))
+        bufmap("n", "[d", diagnostic_goto(false))
+        bufmap("n", "]e", diagnostic_goto(true, "ERROR"))
+        bufmap("n", "[e", diagnostic_goto(false, "ERROR"))
+        bufmap("n", "]w", diagnostic_goto(true, "WARN"))
+        bufmap("n", "[w", diagnostic_goto(false, "WARN"))
     end,
 })
 
