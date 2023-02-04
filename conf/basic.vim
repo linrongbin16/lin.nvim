@@ -74,7 +74,7 @@ set nocursorcolumn cursorline
 " set colorcolumn=120
 
 """ ui
-set number norelativenumber ruler showcmd showmatch showmode wrap
+set number norelativenumber ruler showcmd showmatch noshowmode wrap
 set signcolumn=yes cmdheight=2 laststatus=3 scrolloff=1 shortmess+=c updatetime=250 display+=lastline
 if has('patch-7.4.2109')
     set display+=truncate
