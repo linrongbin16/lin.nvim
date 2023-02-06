@@ -1,4 +1,4 @@
-function! LinExecuteOnEditableBuffer(c) abort
+function! LinExecuteOnEditableBuffer(cmd) abort
     let n = winnr('$')
     let i = 0
     while i < n
@@ -8,11 +8,11 @@ function! LinExecuteOnEditableBuffer(c) abort
             execute "wincmd w"
         else
             " editable window
-            execute a:c
+            execute a:cmd
             return
         endif
     endwhile
     " if finally don't have an editable window
     " execute command on original window
-    execute a:c
+    execute a:cmd
 endfunction
