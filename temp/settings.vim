@@ -1,19 +1,4 @@
 
-""" ---- Enhancements ----
-
-" `n` always search forward, `N` always search backward
-" see: https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
-nnoremap <expr> n  'Nn'[v:searchforward]
-xnoremap <expr> n  'Nn'[v:searchforward]
-onoremap <expr> n  'Nn'[v:searchforward]
-
-nnoremap <expr> N  'nN'[v:searchforward]
-xnoremap <expr> N  'nN'[v:searchforward]
-onoremap <expr> N  'nN'[v:searchforward]
-
-" <C-l> do clean highlight, update diff, and refresh color
-nnoremap <C-l> :nohlsearch<cr>:diffupdate<cr>:syntax sync fromstart<cr><c-l>
-
 """ ---- Hot keys ----
 
 " Toggle file explorer
