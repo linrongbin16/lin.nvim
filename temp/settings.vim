@@ -21,9 +21,9 @@ nnoremap <F10> :ToggleTerm<CR>
 
 """ ---- Biscuits ----
 
-""" Toggle folding
+" Toggle folding
 nnoremap zz @=((foldclosed(line('.')) < 0) ? 'zc':'zo')<CR>
-""" Clean highlight, update diff, and refresh color
+" Clean highlight, update diff, and refresh color
 nnoremap <C-l> :nohlsearch<cr>:diffupdate<cr>:syntax sync fromstart<cr><c-l>
 " Copy visual selected text to cache
 xnoremap <Leader>y :w! $HOME/.nvim/.copypaste<CR>
@@ -31,6 +31,7 @@ xnoremap <Leader>y :w! $HOME/.nvim/.copypaste<CR>
 nnoremap <Leader>p :r $HOME/.nvim/.copypaste<CR>
 
 """ ---- Optmization ----
+
 " Rendering
 set ttyfast
 " Large file
