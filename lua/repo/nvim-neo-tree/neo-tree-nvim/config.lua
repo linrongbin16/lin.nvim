@@ -1,4 +1,4 @@
-local constants = require('conf/constants')
+local constants = require("conf/constants")
 
 require("neo-tree").setup({
     popup_border_style = constants.ui.border,
@@ -8,23 +8,23 @@ require("neo-tree").setup({
             folder_open = "", -- nf-fa-folder_open \uf07c
             folder_empty = "", -- nf-fa-folder_o \uf114
             folder_empty_open = "", -- nf-fa-folder_open_o \uf115
-            default = "", -- nf-fa-file_o \uf016
+            default = "", -- nf-fa-file_text_o \uf0f6
         },
-        git_status = {
-            symbols = {
-                -- Change type
-                added     = "", -- nf-fa-plus \uf067
-                modified  = "", -- nf-fa-circle \uf111
-                deleted   = "", -- nf-fa-minus_square_o f147
-                renamed   = "", -- nf-fa-arrow_right \uf061
-                -- Status type
-                untracked = "", -- nf-fa-question \uf128
-                ignored   = "", -- nf-fa-circle_thin \uf1db
-                unstaged  = "", -- disable unstaged, it's quite useless.
-                staged    = "", -- nf-fa-edit \uf044
-                conflict  = "", -- nf-dev-git_merge \ue727
-            }
-        },
+        -- git_status = {
+        --     symbols = {
+        --         -- Change type
+        --         added = "", -- nf-fa-plus \uf067
+        --         modified = "", -- nf-fa-circle \uf111
+        --         deleted = "", -- nf-fa-minus_square_o f147
+        --         renamed = "", -- nf-fa-arrow_right \uf061
+        --         -- Status type
+        --         untracked = "", -- nf-fa-question \uf128
+        --         ignored = "", -- nf-fa-circle_thin \uf1db
+        --         unstaged = "", -- disable unstaged, it's quite useless.
+        --         staged = "", -- nf-fa-edit \uf044
+        --         conflict = "", -- nf-dev-git_merge \ue727
+        --     },
+        -- },
     },
     renderers = {
         directory = {
@@ -54,7 +54,7 @@ require("neo-tree").setup({
                 content = {
                     {
                         "name",
-                        zindex = 10
+                        zindex = 10,
                     },
                     {
                         "symlink_target",
@@ -79,39 +79,40 @@ require("neo-tree").setup({
             ["t"] = "",
             ["w"] = "",
             ["C"] = "",
+            ['z'] = "",
 
             -- added mappings
             ["h"] = function(state)
                 local node = state.tree:get_node()
-                if node.type == 'directory' and node:is_expanded() then
-                    require'neo-tree.sources.filesystem'.toggle_directory(state, node)
+                if node.type == "directory" and node:is_expanded() then
+                    require("neo-tree.sources.filesystem").toggle_directory(state, node)
                 else
-                    require'neo-tree.ui.renderer'.focus_node(state, node:get_parent_id())
+                    require("neo-tree.ui.renderer").focus_node(state, node:get_parent_id())
                 end
             end,
             ["l"] = "open",
             ["<C-x>"] = "open_split",
             ["<C-v>"] = "open_vsplit",
             ["<C-t>"] = "open_tabnew",
-            ["Z"] = "expand_all_nodes",
+            ["W"] = "close_all_nodes",
+            ["E"] = "expand_all_nodes",
         },
     },
     filesystem = {
-      filtered_items = {
-        visible = true,
-      },
-      follow_current_file = true,
-      window = {
-        mappings = {
-            -- diabled mappings
-            ["[g"] = "",
-            ["]g"] = "",
+        filtered_items = {
+            visible = true,
+        },
+        follow_current_file = true,
+        window = {
+            mappings = {
+                -- diabled mappings
+                ["[g"] = "",
+                ["]g"] = "",
 
-            -- added mappings
-            ["[c"] = "prev_git_modified",
-            ["]c"] = "next_git_modified",
-        }
-      }
+                -- added mappings
+                ["[c"] = "prev_git_modified",
+                ["]c"] = "next_git_modified",
+            },
+        },
     },
 })
-

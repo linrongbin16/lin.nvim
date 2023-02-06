@@ -1,7 +1,7 @@
 """ ---- Hot keys ----
 
 " Toggle file explorer
-nnoremap <F1> :NvimTreeToggle<CR>
+nnoremap <F1> :Neotree reveal toggle<CR>
 " Find current file in nvim-tree
 nnoremap <S-F1> :NvimTreeFindFile<CR>
 " Toggle undotree

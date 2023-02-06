@@ -4,7 +4,7 @@ function! LinExecuteOnEditableBuffer(c) abort
     while i < n
         let i += 1
         " non-editable window
-        if &filetype ==# "NvimTree" || &filetype ==# "undotree" || &filetype ==# "vista" || &filetype ==# 'diff'
+        if &filetype ==# "neo-tree" || &filetype ==# "NvimTree" || &filetype ==# "undotree" || &filetype ==# "vista" || &filetype ==# 'diff'
             execute "wincmd w"
         else
             " editable window
