@@ -519,6 +519,11 @@ PLUGINS = [
         above=BigComment("Infrastructure"),
         tag=Tag.INFRASTRUCTURE,
     ),
+    Plugin(
+        LiteralExpr("nvim-lua/plenary.nvim"),
+        prop=Props(LazyProp()),
+        tag=Tag.INFRASTRUCTURE,
+    ),
     # Colorscheme
     Plugin(
         LiteralExpr("bluz71/vim-nightfly-colors"),
@@ -736,12 +741,30 @@ PLUGINS = [
         prop=Props(LazyProp()),
         tag=Tag.HIGHLIGHT,
     ),
+    # Plugin(
+    #     LiteralExpr("nvim-tree/nvim-tree.lua"),
+    #     prop=Props(VEventProp(), DependenciesProp("nvim-tree/nvim-web-devicons")),
+    #     above=Exprs([BigComment("UI"), SmallComment("File explorer")]),
+    #     tag=Tag.UI,
+    # ),
     Plugin(
-        LiteralExpr("nvim-tree/nvim-tree.lua"),
-        prop=Props(VEventProp(), DependenciesProp("nvim-tree/nvim-web-devicons")),
+        LiteralExpr("nvim-neo-tree/neo-tree.nvim"),
+        prop=Props(
+            BranchProp("v2.x"),
+            VEventProp(),
+            DependenciesProp(
+                "nvim-lua/plenary.nvim",
+                "nvim-tree/nvim-web-devicons",
+                "MunifTanjim/nui.nvim",
+            ),
+        ),
         above=Exprs([BigComment("UI"), SmallComment("File explorer")]),
         tag=Tag.UI,
     ),
+    Plugin(LiteralExpr("MunifTanjim/nui.nvim"),
+        prop=Props(LazyProp()),
+        tag=Tag.UI,
+           ),
     Plugin(
         LiteralExpr("nvim-tree/nvim-web-devicons"),
         prop=Props(LazyProp()),
@@ -906,9 +929,6 @@ PLUGINS = [
         LiteralExpr("jose-elias-alvarez/null-ls.nvim"),
         prop=Props(VLEventProp(), DependenciesProp("nvim-lua/plenary.nvim")),
         tag=Tag.LANGUAGE,
-    ),
-    Plugin(
-        LiteralExpr("nvim-lua/plenary.nvim"), prop=Props(LazyProp()), tag=Tag.LANGUAGE
     ),
     Plugin(
         LiteralExpr("jay-babu/mason-null-ls.nvim"),
