@@ -1,3 +1,5 @@
+""" ---- Utils ----
+
 function! LinExecuteOnEditableBuffer(cmd) abort
     let n = winnr('$')
     let i = 0

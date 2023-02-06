@@ -1,3 +1,5 @@
+-- ---- Lsp settings ----
+
 local constants = require("conf/constants")
 
 -- key mappings
@@ -46,8 +48,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end,
 })
 
--- diagnostic
-local diagnostics_sign = function(opts)
+-- diagnostic signs
+local setDiagnosticSign = function(opts)
     vim.fn.sign_define(opts.name, {
         texthl = opts.name,
         text = opts.text,
@@ -55,10 +57,10 @@ local diagnostics_sign = function(opts)
     })
 end
 
-diagnostics_sign({ name = "DiagnosticSignError", text = constants.lsp.diagnostics.signs["error"] })
-diagnostics_sign({ name = "DiagnosticSignWarn", text = constants.lsp.diagnostics.signs["warning"] })
-diagnostics_sign({ name = "DiagnosticSignInfo", text = constants.lsp.diagnostics.signs["info"] })
-diagnostics_sign({ name = "DiagnosticSignHint", text = constants.lsp.diagnostics.signs["hint"] })
+setDiagnosticSign({ name = "DiagnosticSignError", text = constants.lsp.diagnostics.signs["error"] })
+setDiagnosticSign({ name = "DiagnosticSignWarn", text = constants.lsp.diagnostics.signs["warning"] })
+setDiagnosticSign({ name = "DiagnosticSignInfo", text = constants.lsp.diagnostics.signs["info"] })
+setDiagnosticSign({ name = "DiagnosticSignHint", text = constants.lsp.diagnostics.signs["hint"] })
 
 vim.diagnostic.config({
     virtual_text = false,

@@ -10,21 +10,20 @@ require("neo-tree").setup({
             folder_empty_open = "", -- nf-fa-folder_open_o \uf115
             default = "", -- nf-fa-file_text_o \uf0f6
         },
-        -- git_status = {
-        --     symbols = {
-        --         -- Change type
-        --         added = "", -- nf-fa-plus \uf067
-        --         modified = "", -- nf-fa-circle \uf111
-        --         deleted = "", -- nf-fa-minus_square_o f147
-        --         renamed = "", -- nf-fa-arrow_right \uf061
-        --         -- Status type
-        --         untracked = "", -- nf-fa-question \uf128
-        --         ignored = "", -- nf-fa-circle_thin \uf1db
-        --         unstaged = "", -- disable unstaged, it's quite useless.
-        --         staged = "", -- nf-fa-edit \uf044
-        --         conflict = "", -- nf-dev-git_merge \ue727
-        --     },
-        -- },
+        git_status = {
+            symbols = {
+                added = "", -- : nf-fa-plus \uf067
+                modified = "", -- : nf-fa-circle \uf111
+                deleted = "", -- nf-fa-times \uf00d
+                renamed = "", -- nf-fa-arrow_right \uf061
+                -- Status type
+                untracked = "", -- nf-fa-star \uf005
+                ignored = "", -- nf-fa-circle_thin \uf1db
+                unstaged = "✘", -- unicode: &#x2718;
+                staged = "✔", -- unicode: &#x2714;
+                conflict = "", -- nf-dev-git_merge \ue727
+            },
+        },
     },
     renderers = {
         directory = {
