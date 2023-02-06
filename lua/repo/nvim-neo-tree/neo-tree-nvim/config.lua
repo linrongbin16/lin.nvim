@@ -79,7 +79,6 @@ require("neo-tree").setup({
             ["t"] = "",
             ["w"] = "",
             ["C"] = "",
-            ['z'] = "",
 
             -- added mappings
             ["h"] = function(state)
@@ -94,8 +93,8 @@ require("neo-tree").setup({
             ["<C-x>"] = "open_split",
             ["<C-v>"] = "open_vsplit",
             ["<C-t>"] = "open_tabnew",
-            ["W"] = "close_all_nodes",
-            ["E"] = "expand_all_nodes",
+            ["z"] = "close_all_nodes",
+            ["Z"] = "expand_all_nodes",
         },
     },
     filesystem = {
