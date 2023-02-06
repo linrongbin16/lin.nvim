@@ -33,7 +33,7 @@ require("nvim-tree").setup({
             git_placement = "after",
             modified_placement = "before",
             glyphs = {
-                default = "",
+                default = "", -- nf-fa-file_text_o \uf0f6
             },
         },
     },
