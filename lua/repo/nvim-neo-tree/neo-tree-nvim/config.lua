@@ -90,7 +90,7 @@ require("neo-tree").setup({
                 end
             end,
             ["l"] = "open",
-            ["<C-x>"] = "open_split",
+            ["<C-s>"] = "open_split",
             ["<C-v>"] = "open_vsplit",
             ["<C-t>"] = "open_tabnew",
             ["z"] = "close_all_nodes",
