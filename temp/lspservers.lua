@@ -76,6 +76,8 @@ end
 -- {{
 -- ---- The real setup work goes here ----
 
+local constants = require("conf/constants")
+
 -- Setup nvim-lspconfig
 require("mason-lspconfig").setup_handlers({
     -- Default server setup for nvim-lspconfig.
@@ -107,10 +109,10 @@ require("mason-lspconfig").setup_handlers({
                     },
                 },
                 memory_usage = {
-                    border = vim.g.lin_globals_ui_border,
+                    border = constants.ui.border,
                 },
                 symbol_info = {
-                    border = vim.g.lin_globals_ui_border,
+                    border = constants.ui.border,
                 },
             },
         })
