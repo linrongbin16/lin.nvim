@@ -761,10 +761,11 @@ PLUGINS = [
         above=Exprs([BigComment("UI"), SmallComment("File explorer")]),
         tag=Tag.UI,
     ),
-    Plugin(LiteralExpr("MunifTanjim/nui.nvim"),
+    Plugin(
+        LiteralExpr("MunifTanjim/nui.nvim"),
         prop=Props(LazyProp()),
         tag=Tag.UI,
-           ),
+    ),
     Plugin(
         LiteralExpr("nvim-tree/nvim-web-devicons"),
         prop=Props(LazyProp()),
@@ -1068,6 +1069,9 @@ PLUGINS = [
         prop=Props(VEventProp()),
         above=SmallComment("Other"),
         tag=Tag.EDITING,
+    ),
+    Plugin(
+        LiteralExpr("kylechui/nvim-surround"), prop=Props(VersionProp('*'), VEventProp()), tag=Tag.EDITING
     ),
     Plugin(
         LiteralExpr("mbbill/undotree"),
