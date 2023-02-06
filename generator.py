@@ -1373,7 +1373,7 @@ class Dumper:
 
 
 class CommandHelp(click.Command):
-    HELP_FILE = pathlib.Path(f"{NVIM_DIR}/install/help.txt")
+    HELP_FILE = pathlib.Path(f"{NVIM_DIR}/deps/help.txt")
 
     def format_help(self, ctx, formatter):
         with open(CommandHelp.HELP_FILE, "r") as hf:
