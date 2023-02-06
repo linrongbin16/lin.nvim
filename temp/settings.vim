@@ -12,8 +12,6 @@ nnoremap <F3> :Vista!!<CR>
 nnoremap <F4> :ClangdSwitchSourceHeader<CR>
 " Toggle marks
 nmap <F8> <Plug>MarkToggle
-" Clear marks, use '<Plug>MarkAllClear' without confirmation
-nmap <S-F8> <Plug>MarkConfirmAllClear
 " Markdown preview
 nnoremap <F9> :MarkdownPreview<CR>
 " Toggle terminal
