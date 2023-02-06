@@ -1002,11 +1002,6 @@ PLUGINS = [
         prop=Props(VEventProp(), DependenciesProp("tpope/vim-repeat")),
         tag=Tag.EDITING,
     ),
-    Plugin(
-        LiteralExpr("chaoren/vim-wordmotion"),
-        prop=Props(VEventProp()),
-        tag=Tag.EDITING,
-    ),
     # Editing enhancement
     Plugin(
         LiteralExpr("windwp/nvim-autopairs"),
