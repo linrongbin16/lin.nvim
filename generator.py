@@ -787,6 +787,21 @@ PLUGINS = [
         tag=Tag.UI,
     ),
     Plugin(
+        LiteralExpr("utilyre/barbecue.nvim"),
+        prop=Props(
+            NameProp("barbecue"),
+            VersionProp("*"),
+            VEventProp(),
+            DependenciesProp("SmiteshP/nvim-navic", "nvim-tree/nvim-web-devicons"),
+        ),
+        tag=Tag.UI,
+    ),
+    Plugin(
+        LiteralExpr("SmiteshP/nvim-navic"),
+        prop=Props(LazyProp(), DependenciesProp("neovim/nvim-lspconfig")),
+        tag=Tag.UI,
+    ),
+    Plugin(
         LiteralExpr("itchyny/vim-gitbranch"),
         prop=Props(VEventProp()),
         tag=Tag.UI,
