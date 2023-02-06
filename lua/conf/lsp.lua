@@ -28,7 +28,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         -- else
         bufmap("n", "<Leader>rn", "<cmd>lua vim.lsp.buf.rename()<cr>")
         -- end
-        bufmap({"n", "x"}, "<Leader>cf", "<cmd>lua vim.lsp.buf.format({async=false})<cr>")
+        bufmap({ "n", "x" }, "<Leader>cf", "<cmd>lua vim.lsp.buf.format({async=false})<cr>")
         -- if vim.fn.exists(":Lspsaga") ~= 0 then
         -- 	bufmap("n", "<Leader>ca", "<cmd>Lspsaga code_action<CR>")
         -- 	bufmap("x", "<Leader>ca", "<cmd>Lspsaga code_action<CR>")

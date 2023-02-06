@@ -34,11 +34,11 @@ install_or_skip "sudo dnf install -y nodejs npm" "node"
 
 # ctags
 if ! type "ctags" >/dev/null 2>&1; then
-	sudo dnf install -y libseccomp-devel
-	sudo dnf install -y jansson-devel
-	sudo dnf install -y libyaml-devel
-	sudo dnf install -y libxml2-devel
-	install_universal_ctags
+    sudo dnf install -y libseccomp-devel
+    sudo dnf install -y jansson-devel
+    sudo dnf install -y libyaml-devel
+    sudo dnf install -y libxml2-devel
+    install_universal_ctags
 else
-	skip_message "ctags"
+    skip_message "ctags"
 fi
