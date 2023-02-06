@@ -1,7 +1,7 @@
 """ ---- Hot keys ----
 
 " Toggle file explorer
-nnoremap <F1> :NvimTreeToggle<CR>
+nnoremap <F1> :Neotree reveal toggle<CR>
 " Find current file in nvim-tree
 nnoremap <S-F1> :NvimTreeFindFile<CR>
 " Toggle undotree
@@ -12,8 +12,6 @@ nnoremap <F3> :Vista!!<CR>
 nnoremap <F4> :ClangdSwitchSourceHeader<CR>
 " Toggle marks
 nmap <F8> <Plug>MarkToggle
-" Clear marks, use '<Plug>MarkAllClear' without confirmation
-nmap <S-F8> <Plug>MarkConfirmAllClear
 " Markdown preview
 nnoremap <F9> :MarkdownPreview<CR>
 " Toggle terminal
