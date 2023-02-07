@@ -100,9 +100,8 @@ local config = {
     },
     sections = {
         lualine_a = { "mode" },
-        lualine_b = { "filename" },
+        lualine_b = { GitStatus },
         lualine_c = {
-            GitStatus,
             {
                 "diagnostics",
                 symbols = {
