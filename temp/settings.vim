@@ -21,8 +21,6 @@ nnoremap <F10> :ToggleTerm<CR>
 
 " Toggle folding
 nnoremap zz @=((foldclosed(line('.')) < 0) ? 'zc':'zo')<CR>
-" Clean highlight, update diff, and refresh color
-nnoremap <C-l> :nohlsearch<cr>:diffupdate<cr>:syntax sync fromstart<cr><c-l>
 " Copy visual selected text to cache
 xnoremap <Leader>y :w! $HOME/.nvim/.copypaste<CR>
 " Paste from cache to current cursor
