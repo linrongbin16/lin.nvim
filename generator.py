@@ -1036,7 +1036,7 @@ PLUGINS = [
         props=Props(
             BuildProp("cd app && npm install"),
             AssignExpr(
-                "init",
+                LiteralExpr("init"),
                 LiteralExpr('function() vim.g.mkdp_filetypes = { "markdown" } end'),
             ),
             FtProp("markdown"),
