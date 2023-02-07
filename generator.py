@@ -1071,7 +1071,9 @@ PLUGINS = [
         tag=Tag.EDITING,
     ),
     Plugin(
-        LiteralExpr("kylechui/nvim-surround"), prop=Props(VersionProp('*'), VEventProp()), tag=Tag.EDITING
+        LiteralExpr("kylechui/nvim-surround"),
+        prop=Props(VersionProp("*"), VEventProp()),
+        tag=Tag.EDITING,
     ),
     Plugin(
         LiteralExpr("mbbill/undotree"),
