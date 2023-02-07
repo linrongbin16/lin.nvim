@@ -275,18 +275,18 @@ class CommentExpr4Lua(Expr):
 
 
 class LazySpecExpr4Lua(Expr):
-    def __init__(self, repo, prop=None):
+    def __init__(self, repo, props=None):
         assert isinstance(repo, Expr)
-        assert isinstance(prop, Expr) or prop is None
+        assert isinstance(props, Expr) or props is None
         self.repo = repo
-        self.prop = prop
+        self.props = props
 
     def render(self):
-        if not self.prop:
+        if not self.props:
             return f"{INDENT}'{self.repo.render()}'"
         else:
             return f"""{INDENT}{{
-{INDENT * 2}'{self.repo.render()}',{self.prop.render()}
+{INDENT * 2}'{self.repo.render()}',{self.props.render()}
 {INDENT}}}"""
 
 
@@ -528,7 +528,7 @@ class Plugin:
         )
         assert isinstance(color, str) or color is None
         self.repo = LiteralExpr(repo)  # https://github.com/{org}/{repo}
-        self.prop = props  # more plugin properties following this line
+        self.props = props  # more plugin properties following this line
         self.comments = (
             Exprs(comments) if isinstance(comments, list) else comments
         )  # more clauses above this line
@@ -762,12 +762,12 @@ PLUGINS = [
     ),
     # Plugin(
     #     "inkarkat/vim-mark",
-    #     prop=Props(DependenciesProp("inkarkat/vim-ingo-library"), VLEventProp()),
+    #     props=Props(DependenciesProp("inkarkat/vim-ingo-library"), VLEventProp()),
     #     tag=Tag.HIGHLIGHT,
     # ),
     # Plugin(
     #     "inkarkat/vim-ingo-library",
-    #     prop=Props(LazyProp()),
+    #     props=Props(LazyProp()),
     #     tag=Tag.HIGHLIGHT,
     # ),
     Plugin(
@@ -794,7 +794,7 @@ PLUGINS = [
     # { UI
     # Plugin(
     #     "nvim-tree/nvim-tree.lua",
-    #     prop=Props(VEventProp(), DependenciesProp("nvim-tree/nvim-web-devicons")),
+    #     props=Props(VEventProp(), DependenciesProp("nvim-tree/nvim-web-devicons")),
     #     above=Exprs([BigComment("UI"), SmallComment("File explorer")]),
     #     tag=Tag.UI,
     # ),
@@ -870,7 +870,9 @@ PLUGINS = [
         "utilyre/barbecue.nvim",
         props=Props(
             NameProp("barbecue"),
-            VersionProp("*"),
+            # see: https://github.com/utilyre/barbecue.nvim/issues/61
+            BranchProp("fix/E36"),
+            # VersionProp("*"),
             VLEventProp(),
             DependenciesProp("SmiteshP/nvim-navic", "nvim-tree/nvim-web-devicons"),
         ),
@@ -883,7 +885,7 @@ PLUGINS = [
     ),
     # Plugin(
     #     "lewis6991/gitsigns.nvim",
-    #     prop=Props(VLEventProp()),
+    #     props=Props(VLEventProp()),
     #     above=SmallComment("Git"),
     #     tag=Tag.UI,
     # ),
@@ -906,12 +908,12 @@ PLUGINS = [
     ),
     # Plugin(
     #     "glepnir/lspsaga.nvim",
-    #     prop=Props(
+    #     props=Props(
     #         EventProp("BufRead"), DependenciesProp("nvim-tree/nvim-web-devicons")
     #     ),
     #     tag=Tag.UI
     # ),
-    # Plugin("smjonas/inc-rename.nvim", prop=Props(VLEventProp()), tag=Tag.UI),
+    # Plugin("smjonas/inc-rename.nvim", props=Props(VLEventProp()), tag=Tag.UI),
     # } UI
     # { Search
     Plugin(
@@ -1259,8 +1261,8 @@ class Render:
                 plugins.append(ctx.comments)
             # body
             if not self.is_disabled(ctx):
-                # plugins
-                prop = ctx.prop
+                # props
+                props = ctx.props
                 lua_base = f"repo/{str(ctx).replace('.', '-')}"
                 lua_init = f"{lua_base}/init"
                 lua_init_file = f"{NVIM_DIR}/lua/{lua_init}.lua"
@@ -1297,12 +1299,11 @@ class Render:
                 if pathlib.Path(vim_init_file).exists():
                     inits.append(source_formatter(vim_init))
                 if len(inits) > 0:
-                    if isinstance(prop, Props):
-                        prop.append(LiteralExpr(init_function_formatter(inits)))
+                    if isinstance(props, Props):
+                        props.append(LiteralExpr(init_function_formatter(inits)))
                     else:
-                        assert prop is None
-                        prop = Props(LiteralExpr(init_function_formatter(inits)))
-
+                        assert props is None
+                        props = Props(LiteralExpr(init_function_formatter(inits)))
                 # config
                 configs = []
                 if pathlib.Path(lua_config_file).exists():
@@ -1310,14 +1311,15 @@ class Render:
                 if pathlib.Path(vim_config_file).exists():
                     configs.append(source_formatter(vim_config))
                 if len(configs) > 0:
-                    if isinstance(prop, Props):
-                        prop.append(LiteralExpr(config_function_formatter(configs)))
+                    if isinstance(props, Props):
+                        props.append(LiteralExpr(config_function_formatter(configs)))
                     else:
-                        assert prop is None
-                        prop = Props(LiteralExpr(config_function_formatter(configs)))
+                        assert props is None
+                        props = Props(LiteralExpr(config_function_formatter(configs)))
 
-                plugins.append(Stmt(CommaExpr(LazySpecExpr4Lua(ctx.repo, prop))))
-                # color settings
+                plugins.append(Stmt(CommaExpr(LazySpecExpr4Lua(ctx.repo, props))))
+
+                # colors
                 if ctx.tag == Tag.COLORSCHEME:
                     colors.append(
                         Stmt(
