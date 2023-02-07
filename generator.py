@@ -33,6 +33,7 @@ def try_backup(src):
 
 
 INDENT_SIZE = 4
+INDENT = " " * INDENT_SIZE
 
 
 # class Indentable:
@@ -280,11 +281,11 @@ class LazySpecExpr4Lua(Expr):
 
     def render(self):
         if not self.prop:
-            return f"\t'{self.repo.render()}'"
+            return f"{INDENT}'{self.repo.render()}'"
         else:
-            return f"""\t{{
-\t\t'{self.repo.render()}',{self.prop.render()}
-\t}}"""
+            return f"""{INDENT}{{
+{INDENT * 2}'{self.repo.render()}',{self.prop.render()}
+{INDENT}}}"""
 
 
 class BracedExpr4Lua(Expr):
@@ -429,6 +430,11 @@ class IEventProp(EventProp):
 class VEventProp(EventProp):
     def __init__(self) -> None:
         super(VEventProp, self).__init__("VimEnter")
+
+
+class CEventProp(EventProp):
+    def __init__(self) -> None:
+        super(CEventProp, self).__init__("CmdlineEnter")
 
 
 class DependenciesProp(Prop):
@@ -1071,7 +1077,7 @@ PLUGINS = [
     ),
     Plugin(
         LiteralExpr("winston0410/range-highlight.nvim"),
-        prop=Props(VEventProp(), DependenciesProp("winston0410/cmd-parser.nvim")),
+        prop=Props(CEventProp(), DependenciesProp("winston0410/cmd-parser.nvim")),
         tag=Tag.EDITING,
     ),
     Plugin(
@@ -1241,9 +1247,9 @@ class Render:
                     return f"vim.cmd('{source.render()}')"
 
                 def function_formatter(lines):
-                    LINE_INDENT = "\n\t\t\t"
+                    LINE_INDENT = "\n" + (INDENT * 3)
                     return f"""function(){LINE_INDENT}{LINE_INDENT.join(lines)}
-\t\tend"""
+{INDENT * 2}end"""
 
                 def init_function_formatter(lines):
                     return f"init = {function_formatter(lines)}"
