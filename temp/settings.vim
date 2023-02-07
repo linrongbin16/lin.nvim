@@ -2,8 +2,6 @@
 
 " Toggle file explorer
 nnoremap <F1> :Neotree reveal toggle<CR>
-" Find current file in nvim-tree
-nnoremap <S-F1> :NvimTreeFindFile<CR>
 " Toggle undotree
 nnoremap <F2> :UndotreeToggle<CR>
 " Toggle outline
