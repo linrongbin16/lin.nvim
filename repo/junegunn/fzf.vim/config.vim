@@ -80,7 +80,6 @@ nnoremap <silent> <space>tg     :call LinExecuteOnEditableBuffer("FzfTags")<CR>
 """ Files
 " files
 nnoremap <silent> <space>f      :call LinExecuteOnEditableBuffer("FzfFiles")<CR>
-nnoremap <silent> <C-p>         :call LinExecuteOnEditableBuffer("FzfFiles")<CR>
 nnoremap <silent> <space>uf     :call LinExecuteOnEditableBuffer("LinFzfUnrestrictedFiles")<CR>
 " files by cursor word
 nnoremap <silent> <space>wf     :call LinExecuteOnEditableBuffer("LinFzfFilesCWord")<CR>
