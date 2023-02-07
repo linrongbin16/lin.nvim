@@ -9,7 +9,7 @@ require("bufferline").setup({
         max_name_length = 60,
         max_prefix_length = 55,
         diagnostics = false,
-        -- separator_style = "slant",
+        separator_style = "slant",
         hover = {
             enabled = false,
         },
