@@ -4,10 +4,10 @@ require("neo-tree").setup({
     popup_border_style = constants.ui.border,
     default_component_configs = {
         icon = {
-            folder_closed = "", -- nf-fa-folder \uf07b
-            folder_open = "", -- nf-fa-folder_open \uf07c
-            folder_empty = "", -- nf-fa-folder_o \uf114
-            folder_empty_open = "", -- nf-fa-folder_open_o \uf115
+            folder_closed = "", -- nf-custom-folder \ue5ff
+            folder_open = "", -- nf-custom-folder_open \ue5fe
+            folder_empty = "", -- nf-cod-folder \uea83
+            folder_empty_open = "", -- nf-cod-folder_opened \ueaf7
             default = "", -- nf-fa-file_text_o \uf0f6
         },
         git_status = {
@@ -19,8 +19,8 @@ require("neo-tree").setup({
                 -- Status type
                 untracked = "", -- nf-fa-star \uf005
                 ignored = "", -- nf-fa-circle_thin \uf1db
-                unstaged = "✘", -- unicode: &#x2718;
-                staged = "✔", -- unicode: &#x2714;
+                unstaged = "✗", -- unicode: &#x2717;
+                staged = "✓", -- unicode: &#x2713;
                 conflict = "", -- nf-dev-git_merge \ue727
             },
         },
