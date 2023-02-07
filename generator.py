@@ -780,16 +780,17 @@ PLUGINS = [
         props=Props(VLEventProp()),
         tag=Tag.HIGHLIGHT,
     ),
-    Plugin(
-        "winston0410/range-highlight.nvim",
-        props=Props(CEventProp(), DependenciesProp("winston0410/cmd-parser.nvim")),
-        tag=Tag.HIGHLIGHT,
-    ),
-    Plugin(
-        "winston0410/cmd-parser.nvim",
-        props=Props(LazyProp()),
-        tag=Tag.HIGHLIGHT,
-    ),
+    # Plugin(
+    #     "winston0410/range-highlight.nvim",
+    #     props=Props(CEventProp(), DependenciesProp("winston0410/cmd-parser.nvim")),
+    #     tag=Tag.HIGHLIGHT,
+    # ),
+    # Plugin(
+    #     "winston0410/cmd-parser.nvim",
+    #     props=Props(LazyProp()),
+    #     tag=Tag.HIGHLIGHT,
+    # ),
+    Plugin("markonm/traces.vim", props=Props(CEventProp()), tag=Tag.HIGHLIGHT),
     # } Highlight
     # { UI
     # Plugin(
