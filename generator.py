@@ -1070,7 +1070,14 @@ PLUGINS = [
         tag=Tag.EDITING,
     ),
     Plugin(
-        LiteralExpr("markonm/traces.vim"), prop=Props(VEventProp()), tag=Tag.EDITING
+        LiteralExpr("winston0410/range-highlight.nvim"),
+        prop=Props(VEventProp(), DependenciesProp("winston0410/cmd-parser.nvim")),
+        tag=Tag.EDITING,
+    ),
+    Plugin(
+        LiteralExpr("winston0410/cmd-parser.nvim"),
+        prop=Props(LazyProp()),
+        tag=Tag.EDITING,
     ),
     Plugin(
         LiteralExpr("kylechui/nvim-surround"),
