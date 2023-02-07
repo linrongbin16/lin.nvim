@@ -19,9 +19,9 @@ nnoremap <F10> :ToggleTerm<CR>
 
 " Quit
 nnoremap <Leader>qt :quit<CR>
-nnoremap <Leader>Qt :quit!<CR>
+nnoremap <Leader>qT :quit!<CR>
 nnoremap <Leader>qa :qall<CR>
-nnoremap <Leader>Qa :qall!<CR>
+nnoremap <Leader>qA :qall!<CR>
 " Toggle folding
 nnoremap <Leader>zz @=((foldclosed(line('.')) < 0) ? 'zc':'zo')<CR>
 " Copy visual selected text to cache
