@@ -1059,16 +1059,18 @@ PLUGINS = [
         tag=Tag.EDITING,
     ),
     Plugin(
-        LiteralExpr("haya14busa/is.vim"),
-        prop=Props(VEventProp()),
-        above=SmallComment("Incremental search"),
-        tag=Tag.EDITING,
-    ),
-    Plugin(
         LiteralExpr("tpope/vim-repeat"),
         prop=Props(VEventProp()),
         above=SmallComment("Other"),
         tag=Tag.EDITING,
+    ),
+    Plugin(
+        LiteralExpr("haya14busa/is.vim"),
+        prop=Props(VEventProp()),
+        tag=Tag.EDITING,
+    ),
+    Plugin(
+        LiteralExpr("markonm/traces.vim"), prop=Props(VEventProp()), tag=Tag.EDITING
     ),
     Plugin(
         LiteralExpr("kylechui/nvim-surround"),
