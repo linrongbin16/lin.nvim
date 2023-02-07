@@ -737,13 +737,29 @@ PLUGINS = [
         prop=Props(VLEventProp()),
         tag=Tag.HIGHLIGHT,
     ),
+    # Plugin(
+    #     LiteralExpr("inkarkat/vim-mark"),
+    #     prop=Props(DependenciesProp("inkarkat/vim-ingo-library"), VLEventProp()),
+    #     tag=Tag.HIGHLIGHT,
+    # ),
+    # Plugin(
+    #     LiteralExpr("inkarkat/vim-ingo-library"),
+    #     prop=Props(LazyProp()),
+    #     tag=Tag.HIGHLIGHT,
+    # ),
+    Plugin("lfv89/vim-interestingwords", prop=Props(VLEventProp()), tag=Tag.HIGHLIGHT),
     Plugin(
-        LiteralExpr("inkarkat/vim-mark"),
-        prop=Props(DependenciesProp("inkarkat/vim-ingo-library"), VLEventProp()),
+        LiteralExpr("haya14busa/is.vim"),
+        prop=Props(VEventProp()),
         tag=Tag.HIGHLIGHT,
     ),
     Plugin(
-        LiteralExpr("inkarkat/vim-ingo-library"),
+        LiteralExpr("winston0410/range-highlight.nvim"),
+        prop=Props(CEventProp(), DependenciesProp("winston0410/cmd-parser.nvim")),
+        tag=Tag.HIGHLIGHT,
+    ),
+    Plugin(
+        LiteralExpr("winston0410/cmd-parser.nvim"),
         prop=Props(LazyProp()),
         tag=Tag.HIGHLIGHT,
     ),
@@ -1068,21 +1084,6 @@ PLUGINS = [
         LiteralExpr("tpope/vim-repeat"),
         prop=Props(VEventProp()),
         above=SmallComment("Other"),
-        tag=Tag.EDITING,
-    ),
-    Plugin(
-        LiteralExpr("haya14busa/is.vim"),
-        prop=Props(VEventProp()),
-        tag=Tag.EDITING,
-    ),
-    Plugin(
-        LiteralExpr("winston0410/range-highlight.nvim"),
-        prop=Props(CEventProp(), DependenciesProp("winston0410/cmd-parser.nvim")),
-        tag=Tag.EDITING,
-    ),
-    Plugin(
-        LiteralExpr("winston0410/cmd-parser.nvim"),
-        prop=Props(LazyProp()),
         tag=Tag.EDITING,
     ),
     Plugin(
