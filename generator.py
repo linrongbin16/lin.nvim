@@ -234,6 +234,8 @@ class Exprs(Expr):
         assert isinstance(begin, str)
         assert isinstance(end, str)
         assert isinstance(exprs, list)
+        for e in exprs:
+            assert isinstance(e, Expr)
         self.exprs = [e for e in exprs if e is not None]
         self.delimiter = delimiter
         self.begin = begin
@@ -528,7 +530,7 @@ class Plugin:
         self.repo = LiteralExpr(repo)  # https://github.com/{org}/{repo}
         self.prop = props  # more plugin properties following this line
         self.comments = (
-            Exprs([comments]) if isinstance(comments, list) else comments
+            Exprs(comments) if isinstance(comments, list) else comments
         )  # more clauses above this line
         self.color = color
         self.tag = tag
@@ -869,7 +871,7 @@ PLUGINS = [
         props=Props(
             NameProp("barbecue"),
             VersionProp("*"),
-            VEventProp(),
+            VLEventProp(),
             DependenciesProp("SmiteshP/nvim-navic", "nvim-tree/nvim-web-devicons"),
         ),
         tag=Tag.UI,
