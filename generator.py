@@ -305,7 +305,36 @@ class BracedExpr4Lua(Expr):
 # }
 
 
-# Prop Expr {
+# Helper Expr {
+
+
+class BigComment(Expr):
+    def __init__(self, *value):
+        assert value is not None
+        stmts = []
+        stmts.append(EmptyStmt())
+        stmts.extend(
+            [
+                Stmt(IndentExpr(CommentExpr4Lua(LiteralExpr(f"---- {v} ----"))))
+                for v in value
+            ]
+        )
+        stmts.append(EmptyStmt())
+        self.expr = Exprs(stmts)
+
+    def render(self):
+        return self.expr.render()
+
+
+class SmallComment(Expr):
+    def __init__(self, *value):
+        assert value is not None
+        stmts = []
+        stmts.extend([Stmt(IndentExpr(CommentExpr4Lua(LiteralExpr(v)))) for v in value])
+        self.expr = Exprs(stmts)
+
+    def render(self):
+        return self.expr.render()
 
 
 class Prop(Expr):
@@ -352,35 +381,6 @@ class PriorityProp(Prop):
 class ColorProps(Props):
     def __init__(self, *props):
         super(ColorProps, self).__init__(LazyProp(), PriorityProp(1000), *props)
-
-
-class BigComment(Expr):
-    def __init__(self, *value):
-        assert value is not None
-        stmts = []
-        stmts.append(EmptyStmt())
-        stmts.extend(
-            [
-                Stmt(IndentExpr(CommentExpr4Lua(LiteralExpr(f"---- {v} ----"))))
-                for v in value
-            ]
-        )
-        stmts.append(EmptyStmt())
-        self.expr = Exprs(stmts)
-
-    def render(self):
-        return self.expr.render()
-
-
-class SmallComment(Expr):
-    def __init__(self, *value):
-        assert value is not None
-        stmts = []
-        stmts.extend([Stmt(IndentExpr(CommentExpr4Lua(LiteralExpr(v)))) for v in value])
-        self.expr = Exprs(stmts)
-
-    def render(self):
-        return self.expr.render()
 
 
 class NameProp(Prop):
@@ -513,19 +513,19 @@ class Plugin:
     def __init__(
         self,
         repo,
-        prop=None,
+        props=None,
         comments=None,
         color=None,
         tag=None,
     ) -> None:
         assert isinstance(repo, str)
         assert isinstance(tag, Tag)
-        assert isinstance(prop, Props) or prop is None
+        assert isinstance(props, Props) or props is None
         assert isinstance(comments, Expr) or comments is None
         assert isinstance(color, str) or color is None
         self.repo = LiteralExpr(repo)  # https://github.com/{org}/{repo}
-        self.prop = prop  # more plugin properties following this line
-        self.above = comments  # more clauses above this line
+        self.prop = props  # more plugin properties following this line
+        self.comments = comments  # more clauses above this line
         self.color = color
         self.tag = tag
 
@@ -542,109 +542,109 @@ PLUGINS = [
     ),
     Plugin(
         "nvim-lua/plenary.nvim",
-        prop=Props(LazyProp()),
+        props=Props(LazyProp()),
         tag=Tag.INFRASTRUCTURE,
     ),
     # } Infrastructure and dependencies
     # { Colorscheme
     Plugin(
         "bluz71/vim-nightfly-colors",
-        prop=ColorProps(),
+        props=ColorProps(),
         comments=BigComment("Colorscheme"),
         color="nightfly",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
         "bluz71/vim-moonfly-colors",
-        prop=ColorProps(),
+        props=ColorProps(),
         color="moonfly",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
         "catppuccin/nvim",
-        prop=ColorProps(NameProp("catppuccin")),
+        props=ColorProps(NameProp("catppuccin")),
         color="catppuccin",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
-        LiteralExpr("challenger-deep-theme/vim"),
-        prop=ColorProps(NameProp("challenger-deep")),
+        "challenger-deep-theme/vim",
+        props=ColorProps(NameProp("challenger-deep")),
         color="challenger_deep",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
-        LiteralExpr("cocopon/iceberg.vim"),
-        prop=ColorProps(),
+        "cocopon/iceberg.vim",
+        props=ColorProps(),
         color="iceberg",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
-        LiteralExpr("EdenEast/nightfox.nvim"),
-        prop=ColorProps(),
+        "EdenEast/nightfox.nvim",
+        props=ColorProps(),
         color="nightfox",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
-        LiteralExpr("embark-theme/vim"),
-        prop=ColorProps(NameProp("embark")),
+        "embark-theme/vim",
+        props=ColorProps(NameProp("embark")),
         color="embark",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
-        LiteralExpr("fenetikm/falcon"),
-        prop=ColorProps(),
+        "fenetikm/falcon",
+        props=ColorProps(),
         color="falcon",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
-        LiteralExpr("folke/tokyonight.nvim"),
-        prop=ColorProps(BranchProp("main")),
+        "folke/tokyonight.nvim",
+        props=ColorProps(BranchProp("main")),
         color="tokyonight",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
-        LiteralExpr("ishan9299/nvim-solarized-lua"),
-        prop=ColorProps(),
+        "ishan9299/nvim-solarized-lua",
+        props=ColorProps(),
         comments=SmallComment("inherit 'lifepillar/vim-solarized8'"),
         color="solarized",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
-        LiteralExpr("junegunn/seoul256.vim"),
-        prop=ColorProps(),
+        "junegunn/seoul256.vim",
+        props=ColorProps(),
         color="seoul256",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
-        LiteralExpr("luisiacc/gruvbox-baby"),
-        prop=ColorProps(BranchProp("main")),
+        "luisiacc/gruvbox-baby",
+        props=ColorProps(BranchProp("main")),
         comments=SmallComment("inherit sainnhe/gruvbox-material"),
         color="gruvbox-baby",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
-        LiteralExpr("marko-cerovac/material.nvim"),
-        prop=ColorProps(),
+        "marko-cerovac/material.nvim",
+        props=ColorProps(),
         comments=SmallComment("inherit kaicataldo/material.vim"),
         color="material",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
-        LiteralExpr("mhartington/oceanic-next"),
-        prop=ColorProps(),
+        "mhartington/oceanic-next",
+        props=ColorProps(),
         color="OceanicNext",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
-        LiteralExpr("Mofiqul/dracula.nvim"),
-        prop=ColorProps(),
+        "Mofiqul/dracula.nvim",
+        props=ColorProps(),
         comments=SmallComment("inherit dracula/vim"),
         color="dracula",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
-        LiteralExpr("navarasu/onedark.nvim"),
-        prop=ColorProps(),
+        "navarasu/onedark.nvim",
+        props=ColorProps(),
         comments=SmallComment(
             "inherit joshdick/onedark.vim, tomasiser/vim-code-dark, olimorris/onedarkpro.nvim"
         ),
@@ -652,149 +652,149 @@ PLUGINS = [
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
-        LiteralExpr("NLKNguyen/papercolor-theme"),
-        prop=ColorProps(),
+        "NLKNguyen/papercolor-theme",
+        props=ColorProps(),
         color="PaperColor",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
-        LiteralExpr("pineapplegiant/spaceduck"),
-        prop=ColorProps(BranchProp("main")),
+        "pineapplegiant/spaceduck",
+        props=ColorProps(BranchProp("main")),
         color="spaceduck",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
-        LiteralExpr("preservim/vim-colors-pencil"),
-        prop=ColorProps(),
+        "preservim/vim-colors-pencil",
+        props=ColorProps(),
         color="pencil",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
-        LiteralExpr("projekt0n/github-nvim-theme"),
-        prop=ColorProps(),
+        "projekt0n/github-nvim-theme",
+        props=ColorProps(),
         color="github_dark",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
-        LiteralExpr("raphamorim/lucario"),
-        prop=ColorProps(),
+        "raphamorim/lucario",
+        props=ColorProps(),
         color="lucario",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
-        LiteralExpr("rebelot/kanagawa.nvim"),
-        prop=ColorProps(),
+        "rebelot/kanagawa.nvim",
+        props=ColorProps(),
         color="kanagawa",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
-        LiteralExpr("Rigellute/rigel"),
-        prop=ColorProps(),
+        "Rigellute/rigel",
+        props=ColorProps(),
         color="rigel",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
-        LiteralExpr("romainl/Apprentice"),
-        prop=ColorProps(),
+        "romainl/Apprentice",
+        props=ColorProps(),
         color="apprentice",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
-        LiteralExpr("rose-pine/neovim"),
-        prop=ColorProps(NameProp("rose-pine")),
+        "rose-pine/neovim",
+        props=ColorProps(NameProp("rose-pine")),
         color="rose-pine",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
-        LiteralExpr("sainnhe/edge"),
-        prop=ColorProps(),
+        "sainnhe/edge",
+        props=ColorProps(),
         color="edge",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
-        LiteralExpr("sainnhe/everforest"),
-        prop=ColorProps(),
+        "sainnhe/everforest",
+        props=ColorProps(),
         color="everforest",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
-        LiteralExpr("sainnhe/sonokai"),
-        prop=ColorProps(),
+        "sainnhe/sonokai",
+        props=ColorProps(),
         comments=SmallComment("inherit sickill/vim-monokai"),
         color="sonokai",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
-        LiteralExpr("shaunsingh/nord.nvim"),
-        prop=ColorProps(),
+        "shaunsingh/nord.nvim",
+        props=ColorProps(),
         color="nord",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
-        LiteralExpr("srcery-colors/srcery-vim"),
-        prop=ColorProps(),
+        "srcery-colors/srcery-vim",
+        props=ColorProps(),
         color="srcery",
         tag=Tag.COLORSCHEME,
     ),
     # } Colorscheme
     # { Highlight
     Plugin(
-        LiteralExpr("RRethy/vim-illuminate"),
-        prop=Props(VLEventProp()),
+        "RRethy/vim-illuminate",
+        props=Props(VLEventProp()),
         comments=BigComment("Highlight"),
         tag=Tag.HIGHLIGHT,
     ),
     Plugin(
-        LiteralExpr("NvChad/nvim-colorizer.lua"),
-        prop=Props(VLEventProp()),
+        "NvChad/nvim-colorizer.lua",
+        props=Props(VLEventProp()),
         tag=Tag.HIGHLIGHT,
     ),
     Plugin(
-        LiteralExpr("andymass/vim-matchup"),
-        prop=Props(VLEventProp()),
+        "andymass/vim-matchup",
+        props=Props(VLEventProp()),
         tag=Tag.HIGHLIGHT,
     ),
     # Plugin(
-    #     LiteralExpr("inkarkat/vim-mark"),
+    #     "inkarkat/vim-mark",
     #     prop=Props(DependenciesProp("inkarkat/vim-ingo-library"), VLEventProp()),
     #     tag=Tag.HIGHLIGHT,
     # ),
     # Plugin(
-    #     LiteralExpr("inkarkat/vim-ingo-library"),
+    #     "inkarkat/vim-ingo-library",
     #     prop=Props(LazyProp()),
     #     tag=Tag.HIGHLIGHT,
     # ),
     Plugin(
-        LiteralExpr("lfv89/vim-interestingwords"),
-        prop=Props(VLEventProp()),
+        "lfv89/vim-interestingwords",
+        props=Props(VLEventProp()),
         tag=Tag.HIGHLIGHT,
     ),
     Plugin(
-        LiteralExpr("haya14busa/is.vim"),
-        prop=Props(VLEventProp()),
+        "haya14busa/is.vim",
+        props=Props(VLEventProp()),
         tag=Tag.HIGHLIGHT,
     ),
     Plugin(
-        LiteralExpr("winston0410/range-highlight.nvim"),
-        prop=Props(CEventProp(), DependenciesProp("winston0410/cmd-parser.nvim")),
+        "winston0410/range-highlight.nvim",
+        props=Props(CEventProp(), DependenciesProp("winston0410/cmd-parser.nvim")),
         tag=Tag.HIGHLIGHT,
     ),
     Plugin(
-        LiteralExpr("winston0410/cmd-parser.nvim"),
-        prop=Props(LazyProp()),
+        "winston0410/cmd-parser.nvim",
+        props=Props(LazyProp()),
         tag=Tag.HIGHLIGHT,
     ),
     # } Highlight
     # { UI
     # Plugin(
-    #     LiteralExpr("nvim-tree/nvim-tree.lua"),
+    #     "nvim-tree/nvim-tree.lua",
     #     prop=Props(VEventProp(), DependenciesProp("nvim-tree/nvim-web-devicons")),
     #     above=Exprs([BigComment("UI"), SmallComment("File explorer")]),
     #     tag=Tag.UI,
     # ),
     Plugin(
-        LiteralExpr("nvim-neo-tree/neo-tree.nvim"),
-        prop=Props(
+        "nvim-neo-tree/neo-tree.nvim",
+        props=Props(
             BranchProp("v2.x"),
             VEventProp(),
             DependenciesProp(
@@ -803,22 +803,22 @@ PLUGINS = [
                 "MunifTanjim/nui.nvim",
             ),
         ),
-        comments=Exprs([BigComment("UI"), SmallComment("File explorer")]),
+        comments=[BigComment("UI"), SmallComment("File explorer")],
         tag=Tag.UI,
     ),
     Plugin(
-        LiteralExpr("MunifTanjim/nui.nvim"),
-        prop=Props(LazyProp()),
+        "MunifTanjim/nui.nvim",
+        props=Props(LazyProp()),
         tag=Tag.UI,
     ),
     Plugin(
-        LiteralExpr("nvim-tree/nvim-web-devicons"),
-        prop=Props(LazyProp()),
+        "nvim-tree/nvim-web-devicons",
+        props=Props(LazyProp()),
         tag=Tag.UI,
     ),
     Plugin(
-        LiteralExpr("akinsho/bufferline.nvim"),
-        prop=Props(
+        "akinsho/bufferline.nvim",
+        props=Props(
             VersionProp("v3.*"),
             VEventProp(),
             DependenciesProp("nvim-tree/nvim-web-devicons", "moll/vim-bbye"),
@@ -827,19 +827,19 @@ PLUGINS = [
         tag=Tag.UI,
     ),
     Plugin(
-        LiteralExpr("moll/vim-bbye"),
-        prop=Props(CEventProp()),
+        "moll/vim-bbye",
+        props=Props(CEventProp()),
         tag=Tag.UI,
     ),
     Plugin(
-        LiteralExpr("lukas-reineke/indent-blankline.nvim"),
-        prop=Props(VLEventProp()),
+        "lukas-reineke/indent-blankline.nvim",
+        props=Props(VLEventProp()),
         comments=SmallComment("Indentline"),
         tag=Tag.UI,
     ),
     Plugin(
-        LiteralExpr("nvim-lualine/lualine.nvim"),
-        prop=Props(
+        "nvim-lualine/lualine.nvim",
+        props=Props(
             VEventProp(),
             DependenciesProp(
                 "nvim-tree/nvim-web-devicons",
@@ -851,18 +851,18 @@ PLUGINS = [
         tag=Tag.UI,
     ),
     Plugin(
-        LiteralExpr("linrongbin16/lsp-progress.nvim"),
-        prop=Props(BranchProp("main"), VEventProp()),
+        "linrongbin16/lsp-progress.nvim",
+        props=Props(BranchProp("main"), VEventProp()),
         tag=Tag.UI,
     ),
     Plugin(
-        LiteralExpr("itchyny/vim-gitbranch"),
-        prop=Props(VEventProp()),
+        "itchyny/vim-gitbranch",
+        props=Props(VEventProp()),
         tag=Tag.UI,
     ),
     Plugin(
-        LiteralExpr("utilyre/barbecue.nvim"),
-        prop=Props(
+        "utilyre/barbecue.nvim",
+        props=Props(
             NameProp("barbecue"),
             VersionProp("*"),
             VEventProp(),
@@ -871,83 +871,81 @@ PLUGINS = [
         tag=Tag.UI,
     ),
     Plugin(
-        LiteralExpr("SmiteshP/nvim-navic"),
-        prop=Props(LazyProp(), DependenciesProp("neovim/nvim-lspconfig")),
+        "SmiteshP/nvim-navic",
+        props=Props(LazyProp(), DependenciesProp("neovim/nvim-lspconfig")),
         tag=Tag.UI,
     ),
     # Plugin(
-    #     LiteralExpr("lewis6991/gitsigns.nvim"),
+    #     "lewis6991/gitsigns.nvim",
     #     prop=Props(VLEventProp()),
     #     above=SmallComment("Git"),
     #     tag=Tag.UI,
     # ),
     Plugin(
-        LiteralExpr("airblade/vim-gitgutter"),
-        prop=Props(VLEventProp()),
+        "airblade/vim-gitgutter",
+        props=Props(VLEventProp()),
         comments=SmallComment("Git"),
         tag=Tag.UI,
     ),
     Plugin(
-        LiteralExpr("f-person/git-blame.nvim"),
-        prop=Props(VLEventProp()),
+        "f-person/git-blame.nvim",
+        props=Props(VLEventProp()),
         tag=Tag.UI,
     ),
     Plugin(
-        LiteralExpr("stevearc/dressing.nvim"),
-        prop=Props(VLEventProp()),
+        "stevearc/dressing.nvim",
+        props=Props(VLEventProp()),
         comments=SmallComment("UI hooks"),
         tag=Tag.UI,
     ),
     # Plugin(
-    #     LiteralExpr("glepnir/lspsaga.nvim"),
+    #     "glepnir/lspsaga.nvim",
     #     prop=Props(
     #         EventProp("BufRead"), DependenciesProp("nvim-tree/nvim-web-devicons")
     #     ),
     #     tag=Tag.UI
     # ),
-    # Plugin(LiteralExpr("smjonas/inc-rename.nvim"), prop=Props(VLEventProp()), tag=Tag.UI),
+    # Plugin("smjonas/inc-rename.nvim", prop=Props(VLEventProp()), tag=Tag.UI),
     # } UI
     # { Search
     Plugin(
-        LiteralExpr("junegunn/fzf"),
-        prop=Props(VEventProp(), BuildProp(":call fzf#install()")),
+        "junegunn/fzf",
+        props=Props(VEventProp(), BuildProp(":call fzf#install()")),
         comments=BigComment("Search"),
         tag=Tag.SEARCH,
     ),
     Plugin(
-        LiteralExpr("junegunn/fzf.vim"),
-        prop=Props(VEventProp(), DependenciesProp("junegunn/fzf")),
+        "junegunn/fzf.vim",
+        props=Props(VEventProp(), DependenciesProp("junegunn/fzf")),
         tag=Tag.SEARCH,
     ),
     Plugin(
-        LiteralExpr("ojroques/nvim-lspfuzzy"),
-        prop=Props(VEventProp(), DependenciesProp("junegunn/fzf", "junegunn/fzf.vim")),
+        "ojroques/nvim-lspfuzzy",
+        props=Props(VEventProp(), DependenciesProp("junegunn/fzf", "junegunn/fzf.vim")),
         tag=Tag.SEARCH,
     ),
     # } Search
     # { LSP
     Plugin(
-        LiteralExpr("liuchengxu/vista.vim"),
-        prop=Props(VEventProp(), DependenciesProp("ludovicchabant/vim-gutentags")),
-        comments=Exprs(
-            [BigComment("LSP server"), SmallComment("Tags/structure outlines")]
-        ),
+        "liuchengxu/vista.vim",
+        props=Props(VEventProp(), DependenciesProp("ludovicchabant/vim-gutentags")),
+        comments=[BigComment("LSP server"), SmallComment("Tags/structure outlines")],
         tag=Tag.LANGUAGE,
     ),
     Plugin(
-        LiteralExpr("ludovicchabant/vim-gutentags"),
-        prop=Props(VLEventProp()),
+        "ludovicchabant/vim-gutentags",
+        props=Props(VLEventProp()),
         tag=Tag.LANGUAGE,
     ),
     Plugin(
-        LiteralExpr("williamboman/mason.nvim"),
-        prop=Props(VLEventProp()),
+        "williamboman/mason.nvim",
+        props=Props(VLEventProp()),
         comments=SmallComment("LSP server management"),
         tag=Tag.LANGUAGE,
     ),
     Plugin(
-        LiteralExpr("williamboman/mason-lspconfig.nvim"),
-        prop=Props(
+        "williamboman/mason-lspconfig.nvim",
+        props=Props(
             VLEventProp(),
             DependenciesProp(
                 "williamboman/mason.nvim",
@@ -958,23 +956,23 @@ PLUGINS = [
         tag=Tag.LANGUAGE,
     ),
     Plugin(
-        LiteralExpr("neovim/nvim-lspconfig"),
-        prop=Props(LazyProp()),
+        "neovim/nvim-lspconfig",
+        props=Props(LazyProp()),
         tag=Tag.LANGUAGE,
     ),
     Plugin(
-        LiteralExpr("p00f/clangd_extensions.nvim"),
-        prop=Props(LazyProp()),
+        "p00f/clangd_extensions.nvim",
+        props=Props(LazyProp()),
         tag=Tag.LANGUAGE,
     ),
     Plugin(
-        LiteralExpr("jose-elias-alvarez/null-ls.nvim"),
-        prop=Props(VLEventProp(), DependenciesProp("nvim-lua/plenary.nvim")),
+        "jose-elias-alvarez/null-ls.nvim",
+        props=Props(VLEventProp(), DependenciesProp("nvim-lua/plenary.nvim")),
         tag=Tag.LANGUAGE,
     ),
     Plugin(
-        LiteralExpr("jay-babu/mason-null-ls.nvim"),
-        prop=Props(
+        "jay-babu/mason-null-ls.nvim",
+        props=Props(
             VLEventProp(),
             DependenciesProp(
                 "williamboman/mason.nvim", "jose-elias-alvarez/null-ls.nvim"
@@ -983,8 +981,8 @@ PLUGINS = [
         tag=Tag.LANGUAGE,
     ),
     Plugin(
-        LiteralExpr("hrsh7th/nvim-cmp"),
-        prop=Props(
+        "hrsh7th/nvim-cmp",
+        props=Props(
             ICEventProp(),
             DependenciesProp(
                 "neovim/nvim-lspconfig",
@@ -1000,134 +998,132 @@ PLUGINS = [
         tag=Tag.LANGUAGE,
     ),
     Plugin(
-        LiteralExpr("hrsh7th/cmp-nvim-lsp"),
-        prop=Props(ICEventProp()),
+        "hrsh7th/cmp-nvim-lsp",
+        props=Props(ICEventProp()),
         tag=Tag.LANGUAGE,
     ),
     Plugin(
-        LiteralExpr("hrsh7th/cmp-buffer"),
-        prop=Props(ICEventProp()),
+        "hrsh7th/cmp-buffer",
+        props=Props(ICEventProp()),
         tag=Tag.LANGUAGE,
     ),
     Plugin(
-        LiteralExpr("hrsh7th/cmp-path"),
-        prop=Props(ICEventProp()),
+        "hrsh7th/cmp-path",
+        props=Props(ICEventProp()),
         tag=Tag.LANGUAGE,
     ),
     Plugin(
-        LiteralExpr("hrsh7th/cmp-cmdline"),
-        prop=Props(ICEventProp()),
+        "hrsh7th/cmp-cmdline",
+        props=Props(ICEventProp()),
         tag=Tag.LANGUAGE,
     ),
     Plugin(
-        LiteralExpr("L3MON4D3/LuaSnip"),
-        prop=Props(ICEventProp(), VersionProp("1.*")),
+        "L3MON4D3/LuaSnip",
+        props=Props(ICEventProp(), VersionProp("1.*")),
         tag=Tag.LANGUAGE,
     ),
     Plugin(
-        LiteralExpr("saadparwaiz1/cmp_luasnip"),
-        prop=Props(ICEventProp(), DependenciesProp("L3MON4D3/LuaSnip")),
+        "saadparwaiz1/cmp_luasnip",
+        props=Props(ICEventProp(), DependenciesProp("L3MON4D3/LuaSnip")),
         tag=Tag.LANGUAGE,
     ),
     # } LSP
     # { Language support
     Plugin(
-        LiteralExpr("iamcco/markdown-preview.nvim"),
-        prop=Props(
+        "iamcco/markdown-preview.nvim",
+        props=Props(
             BuildProp("cd app && npm install"),
             AssignExpr(
-                LiteralExpr("init"),
+                "init",
                 LiteralExpr('function() vim.g.mkdp_filetypes = { "markdown" } end'),
             ),
             FtProp("markdown"),
         ),
-        comments=Exprs([BigComment("Language support"), SmallComment("Markdown")]),
+        comments=[BigComment("Language support"), SmallComment("Markdown")],
         tag=Tag.LANGUAGE,
     ),
     Plugin(
-        LiteralExpr("justinmk/vim-syntax-extra"),
-        prop=Props(FtProp("lex", "flex", "yacc", "bison")),
+        "justinmk/vim-syntax-extra",
+        props=Props(FtProp("lex", "flex", "yacc", "bison")),
         comments=SmallComment("Lex/yacc, flex/bison"),
         tag=Tag.LANGUAGE,
     ),
     Plugin(
-        LiteralExpr("rhysd/vim-llvm"),
-        prop=Props(FtProp("llvm", "mir", "mlir", "tablegen")),
+        "rhysd/vim-llvm",
+        props=Props(FtProp("llvm", "mir", "mlir", "tablegen")),
         comments=SmallComment("LLVM"),
         tag=Tag.LANGUAGE,
     ),
     Plugin(
-        LiteralExpr("zebradil/hive.vim"),
-        prop=Props(FtProp("hive")),
+        "zebradil/hive.vim",
+        props=Props(FtProp("hive")),
         comments=SmallComment("Hive"),
         tag=Tag.LANGUAGE,
     ),
     Plugin(
-        LiteralExpr("slim-template/vim-slim"),
-        prop=Props(FtProp("slim")),
+        "slim-template/vim-slim",
+        props=Props(FtProp("slim")),
         comments=SmallComment("Slim"),
         tag=Tag.LANGUAGE,
     ),
     # } Language support
     # { Motion
     Plugin(
-        LiteralExpr("phaazon/hop.nvim"),
-        prop=Props(BranchProp("v2"), VEventProp()),
+        "phaazon/hop.nvim",
+        props=Props(BranchProp("v2"), VEventProp()),
         comments=BigComment("Cursor Motion"),
         tag=Tag.EDITING,
     ),
     Plugin(
-        LiteralExpr("ggandor/leap.nvim"),
-        prop=Props(VEventProp(), DependenciesProp("tpope/vim-repeat")),
+        "ggandor/leap.nvim",
+        props=Props(VEventProp(), DependenciesProp("tpope/vim-repeat")),
         tag=Tag.EDITING,
     ),
     # } Motion
     # { Editing enhancement
     Plugin(
-        LiteralExpr("windwp/nvim-autopairs"),
-        prop=Props(IEventProp()),
-        comments=Exprs(
-            [BigComment("Editing enhancement"), SmallComment("Auto pair/close")]
-        ),
+        "windwp/nvim-autopairs",
+        props=Props(IEventProp()),
+        comments=[BigComment("Editing enhancement"), SmallComment("Auto pair/close")],
         tag=Tag.EDITING,
     ),
     Plugin(
-        LiteralExpr("alvan/vim-closetag"),
-        prop=Props(IEventProp()),
+        "alvan/vim-closetag",
+        props=Props(IEventProp()),
         tag=Tag.EDITING,
     ),
     Plugin(
-        LiteralExpr("numToStr/Comment.nvim"),
-        prop=Props(VEventProp()),
+        "numToStr/Comment.nvim",
+        props=Props(VEventProp()),
         comments=SmallComment("Comment"),
         tag=Tag.EDITING,
     ),
     Plugin(
-        LiteralExpr("akinsho/toggleterm.nvim"),
-        prop=Props(VersionProp("*"), VEventProp()),
+        "akinsho/toggleterm.nvim",
+        props=Props(VersionProp("*"), VEventProp()),
         comments=SmallComment("Terminal"),
         tag=Tag.EDITING,
     ),
     Plugin(
-        LiteralExpr("mbbill/undotree"),
-        prop=Props(VEventProp()),
+        "mbbill/undotree",
+        props=Props(VEventProp()),
         comments=SmallComment("Undo tree"),
         tag=Tag.EDITING,
     ),
     Plugin(
-        LiteralExpr("tpope/vim-repeat"),
-        prop=Props(VEventProp()),
+        "tpope/vim-repeat",
+        props=Props(VEventProp()),
         comments=SmallComment("Other"),
         tag=Tag.EDITING,
     ),
     Plugin(
-        LiteralExpr("kylechui/nvim-surround"),
-        prop=Props(VersionProp("*"), VEventProp()),
+        "kylechui/nvim-surround",
+        props=Props(VersionProp("*"), VEventProp()),
         tag=Tag.EDITING,
     ),
     Plugin(
-        LiteralExpr("editorconfig/editorconfig-vim"),
-        prop=Props(VEventProp()),
+        "editorconfig/editorconfig-vim",
+        props=Props(VEventProp()),
         tag=Tag.EDITING,
     ),
     # } Editing enhancement
@@ -1252,9 +1248,13 @@ class Render:
         colors = []
         for ctx in PLUGINS:
             assert isinstance(ctx, Plugin)
-            # above
-            if ctx.above:
-                plugins.append(ctx.above)
+            # comments
+            if ctx.comments:
+                plugins.append(
+                    Exprs([ctx.comments])
+                    if isinstance(ctx.comments, list)
+                    else ctx.comments
+                )
             # body
             if not self.is_disabled(ctx):
                 # plugins
