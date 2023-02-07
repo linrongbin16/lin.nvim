@@ -527,7 +527,9 @@ class Plugin:
         assert isinstance(color, str) or color is None
         self.repo = LiteralExpr(repo)  # https://github.com/{org}/{repo}
         self.prop = props  # more plugin properties following this line
-        self.comments = comments  # more clauses above this line
+        self.comments = (
+            Exprs([comments]) if isinstance(comments, list) else comments
+        )  # more clauses above this line
         self.color = color
         self.tag = tag
 
@@ -1252,11 +1254,7 @@ class Render:
             assert isinstance(ctx, Plugin)
             # comments
             if ctx.comments:
-                plugins.append(
-                    Exprs([ctx.comments])
-                    if isinstance(ctx.comments, list)
-                    else ctx.comments
-                )
+                plugins.append(ctx.comments)
             # body
             if not self.is_disabled(ctx):
                 # plugins
