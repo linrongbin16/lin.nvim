@@ -1,56 +1,41 @@
-""" ---- Basic settings ----
+""" ---- Basic ----
 
-""" VI compatible
+""" Common settings: https://github.com/tpope/vim-sensible
+""" Tips: https://github.com/mhinz/vim-galore#tips-1
+
+""" no VI compatible
 set nocompatible
 
-""" bell
+""" filetype on
+filetype plugin indent on
+
+""" syntax on
+syntax enable
+
+""" no bell
 set noerrorbells novisualbell
 set t_vb=
 autocmd GUIEnter * set visualbell
 
-""" file
-set autoread autowrite noswapfile confirm
-autocmd FocusGained,BufEnter,TermClose,TermLeave * checktime
-
-""" editing
+""" backspace delete
 set backspace=indent,eol,start
+""" keys move to previous/next line
 set whichwrap+=b,s,<,>,[,]
-set clipboard^=unnamed,unnamedplus
-set history=1000
-
-""" language
-language messages en_US.UTF-8
-set langmenu=en_US
-
-""" encoding
-" set fileformat=unix
-" set fileformats=unix,dos,mac
-set fileencoding=utf-8
-set fileencodings=ucs-bom,utf-8,cp936,gb18030,gbk,big5,euc-jp,euc-kr,default,latin1
-set encoding=utf-8
-set termencoding=utf-8
-
-""" mouse
-set mouse=a
-set selection=exclusive
-set selectmode=mouse,key
-
-""" indent
-set cindent smartindent autoindent
-set expandtab smarttab tabstop=4 softtabstop=4 shiftwidth=4
-
-""" filetype
-filetype on
-filetype plugin indent on
-
-""" syntax
-syntax on
 
 """ complete option
 set completeopt=menu,menuone,preview
 
-""" folding
-set foldenable foldlevel=100 foldnestmax=100 foldmethod=indent
+""" indent with 4 spaces
+set cindent smartindent autoindent
+set expandtab smarttab tabstop=4 softtabstop=4 shiftwidth=4
+
+""" clipboard with system
+set clipboard^=unnamed,unnamedplus
+
+""" shorter keycode timeout, better response
+set ttimeout ttimeoutlen=200
+""" shorter updatetime, better response
+set updatetime=300
 
 """ search
 set magic smartcase ignorecase hlsearch
@@ -58,38 +43,85 @@ if has('patch-8.0.1238')
     set incsearch
 endif
 
+" clean highlight
+nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
+
+""" brackets
+set showmatch
+
+""" cursor/line/column
+set cursorline nocursorcolumn wrap
+" set colorcolumn=120
+
+""" side bar: number, signcolumn
+set number norelativenumber signcolumn=yes
+
+""" status line
+set ruler noshowmode laststatus=3
+
+""" command line and message
+set wildmenu showcmd cmdheight=2 display+=lastline shortmess+=c
+if has('patch-7.4.2109')
+    set display+=truncate
+endif
+
+""" scroll
+set scrolloff=1 sidescroll=1 sidescrolloff=2
+
 """ whitespace
 set listchars=tab:>·,trail:~,extends:>,precedes:<,nbsp:+
 " set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣,nbsp:+
 set list
 
-""" color and highlights
-set background=dark
-if has("termguicolors")
-    set termguicolors
-endif
-set nocursorcolumn cursorline
-" set colorcolumn=120
-
-""" ui
-set number norelativenumber ruler showcmd showmatch noshowmode wrap
-set signcolumn=yes cmdheight=2 laststatus=3 scrolloff=3 shortmess+=c updatetime=300 display+=lastline
-if has('patch-7.4.2109')
-    set display+=truncate
-endif
+""" delete extra comments when formatting
+set formatoptions+=j
 
 """ render
 set redrawtime=1000 maxmempattern=100000
 
-""" shorter timeout, better response
-set timeoutlen=300
-
 """ tags
 set tags+=./tags,tags
 
-""" disable save options in session and view
+""" file auto read/write/load
+set autoread autowrite noswapfile confirm
+autocmd FocusGained,BufEnter,TermClose,TermLeave * checktime
+
+""" encodings
+set fileencoding=utf-8
+set fileencodings=ucs-bom,utf-8,cp936,gb18030,gbk,big5,euc-jp,euc-kr,default,latin1
+set encoding=utf-8
+set termencoding=utf-8
+" set fileformat=unix
+" set fileformats=unix,dos,mac
+
+""" vim command history
+set history=1000
+
+""" tabs
+set tabpagemax=100
+
+""" disable save options in session and view files
 set sessionoptions-=options
 set viewoptions-=options
+
+""" true colors and dark
+set background=dark
+if has("termguicolors")
+    set termguicolors
+endif
+
+""" EN language
+language messages en_US.UTF-8
+set langmenu=en_US
+set nolangremap
+
+""" allow mouse
+set mouse=a
+set selection=exclusive
+set selectmode=mouse,key
+
+""" folding
+set foldenable foldlevel=100 foldnestmax=100 foldmethod=indent
 
 """ disable GUI menu
 set guioptions-=T
