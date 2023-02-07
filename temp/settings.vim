@@ -17,8 +17,13 @@ nnoremap <F10> :ToggleTerm<CR>
 
 """ ---- Biscuits ----
 
+" Quit
+nnoremap <Leader>qt :quit<CR>
+nnoremap <Leader>Qt :quit!<CR>
+nnoremap <Leader>qa :qall<CR>
+nnoremap <Leader>Qa :qall!<CR>
 " Toggle folding
-nnoremap zz @=((foldclosed(line('.')) < 0) ? 'zc':'zo')<CR>
+nnoremap <Leader>zz @=((foldclosed(line('.')) < 0) ? 'zc':'zo')<CR>
 " Copy visual selected text to cache
 xnoremap <Leader>y :w! $HOME/.nvim/.copypaste<CR>
 " Paste from cache to current cursor
