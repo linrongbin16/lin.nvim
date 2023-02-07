@@ -481,6 +481,19 @@ class FtProp(Prop):
         return self.expr.render()
 
 
+class KeyProp(Prop):
+    def __init__(self, *value) -> None:
+        self.expr = AssignExpr(
+            LiteralExpr("keys"),
+            BracedExpr4Lua(
+                Exprs([SingleQuoteStringExpr(v) for v in value], delimiter=", ")
+            ),
+        )
+
+    def render(self):
+        return self.expr.render()
+
+
 # }
 
 
@@ -519,7 +532,7 @@ class Plugin:
 
 
 PLUGINS = [
-    # Infrastructure
+    # { Infrastructure and dependencies
     Plugin(
         LiteralExpr("nathom/filetype.nvim"),
         above=BigComment("Infrastructure"),
@@ -530,7 +543,8 @@ PLUGINS = [
         prop=Props(LazyProp()),
         tag=Tag.INFRASTRUCTURE,
     ),
-    # Colorscheme
+    # } Infrastructure and dependencies
+    # { Colorscheme
     Plugin(
         LiteralExpr("bluz71/vim-nightfly-colors"),
         prop=ColorProps(),
@@ -720,7 +734,8 @@ PLUGINS = [
         color="srcery",
         tag=Tag.COLORSCHEME,
     ),
-    # Highlight
+    # } Colorscheme
+    # { Highlight
     Plugin(
         LiteralExpr("RRethy/vim-illuminate"),
         prop=Props(VLEventProp()),
@@ -747,10 +762,14 @@ PLUGINS = [
     #     prop=Props(LazyProp()),
     #     tag=Tag.HIGHLIGHT,
     # ),
-    Plugin("lfv89/vim-interestingwords", prop=Props(VLEventProp()), tag=Tag.HIGHLIGHT),
+    Plugin(
+        LiteralExpr("lfv89/vim-interestingwords"),
+        prop=Props(VLEventProp()),
+        tag=Tag.HIGHLIGHT,
+    ),
     Plugin(
         LiteralExpr("haya14busa/is.vim"),
-        prop=Props(VEventProp()),
+        prop=Props(VLEventProp()),
         tag=Tag.HIGHLIGHT,
     ),
     Plugin(
@@ -763,6 +782,8 @@ PLUGINS = [
         prop=Props(LazyProp()),
         tag=Tag.HIGHLIGHT,
     ),
+    # } Highlight
+    # { UI
     # Plugin(
     #     LiteralExpr("nvim-tree/nvim-tree.lua"),
     #     prop=Props(VEventProp(), DependenciesProp("nvim-tree/nvim-web-devicons")),
@@ -805,7 +826,7 @@ PLUGINS = [
     ),
     Plugin(
         LiteralExpr("moll/vim-bbye"),
-        prop=Props(VEventProp()),
+        prop=Props(CEventProp()),
         tag=Tag.UI,
     ),
     Plugin(
@@ -833,6 +854,11 @@ PLUGINS = [
         tag=Tag.UI,
     ),
     Plugin(
+        LiteralExpr("itchyny/vim-gitbranch"),
+        prop=Props(VEventProp()),
+        tag=Tag.UI,
+    ),
+    Plugin(
         LiteralExpr("utilyre/barbecue.nvim"),
         prop=Props(
             NameProp("barbecue"),
@@ -845,11 +871,6 @@ PLUGINS = [
     Plugin(
         LiteralExpr("SmiteshP/nvim-navic"),
         prop=Props(LazyProp(), DependenciesProp("neovim/nvim-lspconfig")),
-        tag=Tag.UI,
-    ),
-    Plugin(
-        LiteralExpr("itchyny/vim-gitbranch"),
-        prop=Props(VEventProp()),
         tag=Tag.UI,
     ),
     # Plugin(
@@ -870,12 +891,6 @@ PLUGINS = [
         tag=Tag.UI,
     ),
     Plugin(
-        LiteralExpr("akinsho/toggleterm.nvim"),
-        prop=Props(VersionProp("*"), VEventProp()),
-        above=SmallComment("Terminal"),
-        tag=Tag.UI,
-    ),
-    Plugin(
         LiteralExpr("stevearc/dressing.nvim"),
         prop=Props(VLEventProp()),
         above=SmallComment("UI hooks"),
@@ -889,7 +904,8 @@ PLUGINS = [
     #     tag=Tag.UI
     # ),
     # Plugin(LiteralExpr("smjonas/inc-rename.nvim"), prop=Props(VLEventProp()), tag=Tag.UI),
-    # Search
+    # } UI
+    # { Search
     Plugin(
         LiteralExpr("junegunn/fzf"),
         prop=Props(VEventProp(), BuildProp(":call fzf#install()")),
@@ -906,7 +922,8 @@ PLUGINS = [
         prop=Props(VEventProp(), DependenciesProp("junegunn/fzf", "junegunn/fzf.vim")),
         tag=Tag.SEARCH,
     ),
-    # LSP server
+    # } Search
+    # { LSP
     Plugin(
         LiteralExpr("liuchengxu/vista.vim"),
         prop=Props(VEventProp(), DependenciesProp("ludovicchabant/vim-gutentags")),
@@ -1010,7 +1027,8 @@ PLUGINS = [
         prop=Props(ICEventProp(), DependenciesProp("L3MON4D3/LuaSnip")),
         tag=Tag.LANGUAGE,
     ),
-    # Language support
+    # } LSP
+    # { Language support
     Plugin(
         LiteralExpr("iamcco/markdown-preview.nvim"),
         prop=Props(
@@ -1048,11 +1066,12 @@ PLUGINS = [
         above=SmallComment("Slim"),
         tag=Tag.LANGUAGE,
     ),
-    # Movement
+    # } Language support
+    # { Motion
     Plugin(
         LiteralExpr("phaazon/hop.nvim"),
         prop=Props(BranchProp("v2"), VEventProp()),
-        above=Exprs([BigComment("Movement"), SmallComment("Cursor Movement")]),
+        above=BigComment("Cursor Motion"),
         tag=Tag.EDITING,
     ),
     Plugin(
@@ -1060,7 +1079,8 @@ PLUGINS = [
         prop=Props(VEventProp(), DependenciesProp("tpope/vim-repeat")),
         tag=Tag.EDITING,
     ),
-    # Editing enhancement
+    # } Motion
+    # { Editing enhancement
     Plugin(
         LiteralExpr("windwp/nvim-autopairs"),
         prop=Props(IEventProp()),
@@ -1081,6 +1101,18 @@ PLUGINS = [
         tag=Tag.EDITING,
     ),
     Plugin(
+        LiteralExpr("akinsho/toggleterm.nvim"),
+        prop=Props(VersionProp("*"), VEventProp()),
+        above=SmallComment("Terminal"),
+        tag=Tag.EDITING,
+    ),
+    Plugin(
+        LiteralExpr("mbbill/undotree"),
+        prop=Props(VEventProp()),
+        above=SmallComment("Undo tree"),
+        tag=Tag.EDITING,
+    ),
+    Plugin(
         LiteralExpr("tpope/vim-repeat"),
         prop=Props(VEventProp()),
         above=SmallComment("Other"),
@@ -1092,15 +1124,11 @@ PLUGINS = [
         tag=Tag.EDITING,
     ),
     Plugin(
-        LiteralExpr("mbbill/undotree"),
-        prop=Props(VEventProp()),
-        tag=Tag.EDITING,
-    ),
-    Plugin(
         LiteralExpr("editorconfig/editorconfig-vim"),
         prop=Props(VEventProp()),
         tag=Tag.EDITING,
     ),
+    # } Editing enhancement
 ]
 
 

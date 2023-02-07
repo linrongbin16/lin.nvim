@@ -8,8 +8,8 @@ nnoremap <F2> :UndotreeToggle<CR>
 nnoremap <F3> :Vista!!<CR>
 " Switch between C/C++ header and source
 nnoremap <F4> :ClangdSwitchSourceHeader<CR>
-" Toggle marks
-nmap <F8> <Plug>MarkToggle
+" Clear all marked words
+nnoremap <F8> :call UncolorAllWords()<CR>
 " Markdown preview
 nnoremap <F9> :MarkdownPreview<CR>
 " Toggle terminal
