@@ -103,11 +103,6 @@ local config = {
         lualine_b = { "branch", "diff" },
         lualine_c = {
             "filename",
-            require("lsp-progress").progress,
-            TagsStatus,
-        },
-        lualine_x = {
-            SearchStatus,
             {
                 "diagnostics",
                 symbols = {
@@ -117,6 +112,11 @@ local config = {
                     hint = constants.lsp.diagnostics.signs["hint"] .. " ",
                 },
             },
+            require("lsp-progress").progress,
+            TagsStatus,
+        },
+        lualine_x = {
+            SearchStatus,
             "filetype",
             {
                 "fileformat",
