@@ -44,17 +44,8 @@
 -- end
 
 local function FileStatus()
-    local modified = "[+]"
-    local readonly = "[-]"
-    local status = {}
-    if vim.bo.modified then
-        table.insert(status, modified)
-    end
     if vim.bo.modifiable == false or vim.bo.readonly == true then
-        table.insert(status, readonly)
-    end
-    if #status > 0 then
-        return table.concat(status, " ")
+        return "[RO]"
     else
         return ""
     end
