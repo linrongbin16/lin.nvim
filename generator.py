@@ -871,9 +871,8 @@ PLUGINS = [
         "utilyre/barbecue.nvim",
         props=Props(
             NameProp("barbecue"),
-            # see: https://github.com/utilyre/barbecue.nvim/issues/61
-            BranchProp("fix/E36"),
-            # VersionProp("*"),
+            VersionProp("*"),
+            # BranchProp("fix/E36"), see: https://github.com/utilyre/barbecue.nvim/issues/61
             VLEventProp(),
             DependenciesProp("SmiteshP/nvim-navic", "nvim-tree/nvim-web-devicons"),
         ),
