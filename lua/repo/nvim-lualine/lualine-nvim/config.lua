@@ -43,6 +43,23 @@
 --     return ""
 -- end
 
+local function FileStatus()
+    local modified = "[+]"
+    local readonly = "[-]"
+    local status = {}
+    if vim.bo.modified then
+        table.insert(status, modified)
+    end
+    if vim.bo.modifiable == false or vim.bo.readonly == true then
+        table.insert(status, readonly)
+    end
+    if #status > 0 then
+        return table.concat(status, " ")
+    else
+        return ""
+    end
+end
+
 local function CursorLocation()
     return " %3l:%-2v"
 end
@@ -100,9 +117,10 @@ local config = {
     },
     sections = {
         lualine_a = { "mode" },
-        lualine_b = { "branch", "diff" },
+        lualine_b = { "branch", { "diff", colored = false } },
         lualine_c = {
-            "filename",
+            -- "filename",
+            FileStatus,
             {
                 "diagnostics",
                 symbols = {
@@ -134,8 +152,10 @@ local config = {
     inactive_sections = {
         lualine_a = {},
         lualine_b = {},
-        lualine_c = { "filename" },
-        lualine_x = { "location" },
+        -- lualine_c = { "filename" },
+        -- lualine_x = { "location"},
+        lualine_c = {},
+        lualine_x = {},
         lualine_y = {},
         lualine_z = {},
     },
