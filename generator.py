@@ -521,12 +521,12 @@ class Plugin:
         tag=None,
     ) -> None:
         assert isinstance(repo, str)
-        assert isinstance(tag, Tag)
         assert isinstance(props, Props) or props is None
         assert (
             isinstance(comments, Expr) or isinstance(comments, list) or comments is None
         )
         assert isinstance(color, str) or color is None
+        assert isinstance(tag, Tag)
         self.repo = LiteralExpr(repo)  # https://github.com/{org}/{repo}
         self.props = props  # more plugin properties following this line
         self.comments = (
