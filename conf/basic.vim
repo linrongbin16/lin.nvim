@@ -79,7 +79,7 @@ set list
 set formatoptions+=j
 
 """ render
-set redrawtime=1000 maxmempattern=100000
+set redrawtime=1000 maxmempattern=2000000
 
 """ tags
 set tags+=./tags,tags
