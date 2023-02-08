@@ -117,7 +117,6 @@ local config = {
                     hint = constants.lsp.diagnostics.signs["hint"] .. " ",
                 },
             },
-            CursorHex,
             "filetype",
             {
                 "fileformat",
