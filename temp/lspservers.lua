@@ -22,8 +22,6 @@ local embeded_servers = {
     -- css
     "cssls",
     "cssmodules_ls",
-    -- graphql
-    "graphql",
     -- html
     "html",
     -- json
@@ -86,7 +84,6 @@ require("mason-lspconfig").setup_handlers({
     function(server)
         require("lspconfig")[server].setup({})
     end,
-
     -- Specific server setup.
     clangd = function()
         require("clangd_extensions").setup({
