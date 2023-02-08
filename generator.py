@@ -851,7 +851,7 @@ PLUGINS = [
             DependenciesProp(
                 "nvim-tree/nvim-web-devicons",
                 "linrongbin16/lsp-progress.nvim",
-                "itchyny/vim-gitbranch",
+                # "itchyny/vim-gitbranch", # use lualine's builtin 'branch'
             ),
         ),
         comments=SmallComment("Statusline"),
@@ -862,11 +862,11 @@ PLUGINS = [
         props=Props(BranchProp("main"), VEventProp()),
         tag=Tag.UI,
     ),
-    Plugin(
-        "itchyny/vim-gitbranch",
-        props=Props(VEventProp()),
-        tag=Tag.UI,
-    ),
+    # Plugin(
+    #     "itchyny/vim-gitbranch",
+    #     props=Props(VEventProp()),
+    #     tag=Tag.UI,
+    # ),
     Plugin(
         "utilyre/barbecue.nvim",
         props=Props(

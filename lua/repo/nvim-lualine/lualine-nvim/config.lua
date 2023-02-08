@@ -36,14 +36,7 @@
 --     return s:sub(1, n)
 -- end
 
--- local function LspStatusProgress()
---     if #vim.lsp.buf_get_clients() > 0 then
---         return Rtrim(require("lsp-status").status())
---     end
---     return ""
--- end
-
-local function FileStatus()
+local function Modifiable()
     if vim.bo.modifiable == false or vim.bo.readonly == true then
         return "[RO]"
     else
@@ -51,15 +44,15 @@ local function FileStatus()
     end
 end
 
-local function CursorLocation()
+local function Location()
     return " %3l:%-2v"
 end
 
-local function CursorHex()
-    return "0x%04B"
-end
+-- local function CursorHex()
+--     return "0x%04B"
+-- end
 
-local function TagsStatus()
+local function Ctags()
     if not vim.fn.exists("*gutentags#statusline") then
         return ""
     end
@@ -70,7 +63,7 @@ local function TagsStatus()
     return stats
 end
 
-local function SearchStatus()
+local function Search()
     if vim.v.hlsearch == 0 then
         return ""
     end
@@ -111,7 +104,7 @@ local config = {
         lualine_b = { "branch", { "diff", colored = false } },
         lualine_c = {
             -- "filename",
-            FileStatus,
+            Modifiable,
             {
                 "diagnostics",
                 symbols = {
@@ -122,10 +115,10 @@ local config = {
                 },
             },
             require("lsp-progress").progress,
-            TagsStatus,
+            Ctags,
         },
         lualine_x = {
-            SearchStatus,
+            Search,
             "filetype",
             {
                 "fileformat",
@@ -138,7 +131,7 @@ local config = {
             "encoding",
         },
         lualine_y = { "progress" },
-        lualine_z = { CursorLocation },
+        lualine_z = { Location },
     },
     inactive_sections = {
         lualine_a = {},
