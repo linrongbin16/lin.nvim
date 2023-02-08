@@ -7,9 +7,11 @@
 set nocompatible
 
 """ filetype on
+filetype on
 filetype plugin indent on
 
 """ syntax on
+syntax on
 syntax enable
 
 """ no bell
