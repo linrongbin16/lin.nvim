@@ -1,54 +1,54 @@
-local function GitStatus()
-    local branch = vim.fn["gitbranch#name"]()
-    if branch == nil or branch == "" then
-        return ""
-    end
-    local changes = vim.fn["GitGutterGetHunkSummary"]()
-    if changes == nil or #changes ~= 3 then
-        return string.format(" %s", branch)
-    else
-        local added = changes[1]
-        local modified = changes[2]
-        local removed = changes[3]
-        local msg = {}
-        if added > 0 then
-            table.insert(msg, string.format("+%d", added))
-        end
-        if modified > 0 then
-            table.insert(msg, string.format("~%d", modified))
-        end
-        if removed > 0 then
-            table.insert(msg, string.format("-%d", removed))
-        end
-        if #msg > 0 then
-            return string.format(" %s %s", branch, table.concat(msg, " "))
-        else
-            return string.format(" %s", branch)
-        end
-    end
-end
+-- local function GitStatus()
+--     local branch = vim.fn["gitbranch#name"]()
+--     if branch == nil or branch == "" then
+--         return ""
+--     end
+--     local changes = vim.fn["GitGutterGetHunkSummary"]()
+--     if changes == nil or #changes ~= 3 then
+--         return string.format(" %s", branch)
+--     else
+--         local added = changes[1]
+--         local modified = changes[2]
+--         local removed = changes[3]
+--         local msg = {}
+--         if added > 0 then
+--             table.insert(msg, string.format("+%d", added))
+--         end
+--         if modified > 0 then
+--             table.insert(msg, string.format("~%d", modified))
+--         end
+--         if removed > 0 then
+--             table.insert(msg, string.format("-%d", removed))
+--         end
+--         if #msg > 0 then
+--             return string.format(" %s %s", branch, table.concat(msg, " "))
+--         else
+--             return string.format(" %s", branch)
+--         end
+--     end
+-- end
 
-local function Rtrim(s)
-    local n = #s
-    while n > 0 and s:find("^%s", n) do
-        n = n - 1
-    end
-    return s:sub(1, n)
-end
+-- local function Rtrim(s)
+--     local n = #s
+--     while n > 0 and s:find("^%s", n) do
+--         n = n - 1
+--     end
+--     return s:sub(1, n)
+-- end
 
-local function LspStatusProgress()
-    if #vim.lsp.buf_get_clients() > 0 then
-        return Rtrim(require("lsp-status").status())
-    end
-    return ""
-end
+-- local function LspStatusProgress()
+--     if #vim.lsp.buf_get_clients() > 0 then
+--         return Rtrim(require("lsp-status").status())
+--     end
+--     return ""
+-- end
 
 local function CursorLocation()
     return " %3l:%-2v"
 end
 
 local function CursorHex()
-    return "0x%02B"
+    return "0x%04B"
 end
 
 local function TagsStatus()
@@ -100,8 +100,14 @@ local config = {
     },
     sections = {
         lualine_a = { "mode" },
-        lualine_b = { GitStatus },
+        lualine_b = { "branch", "diff" },
         lualine_c = {
+            "filename",
+            require("lsp-progress").progress,
+            TagsStatus,
+        },
+        lualine_x = {
+            SearchStatus,
             {
                 "diagnostics",
                 symbols = {
@@ -111,11 +117,6 @@ local config = {
                     hint = constants.lsp.diagnostics.signs["hint"] .. " ",
                 },
             },
-            require("lsp-progress").progress,
-            TagsStatus,
-        },
-        lualine_x = {
-            SearchStatus,
             CursorHex,
             "filetype",
             {
