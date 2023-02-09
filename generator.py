@@ -760,19 +760,14 @@ PLUGINS = [
         props=Props(VLEventProp()),
         tag=Tag.HIGHLIGHT,
     ),
-    # Plugin(
-    #     "inkarkat/vim-mark",
-    #     props=Props(DependenciesProp("inkarkat/vim-ingo-library"), VLEventProp()),
-    #     tag=Tag.HIGHLIGHT,
-    # ),
-    # Plugin(
-    #     "inkarkat/vim-ingo-library",
-    #     props=Props(LazyProp()),
-    #     tag=Tag.HIGHLIGHT,
-    # ),
     Plugin(
-        "lfv89/vim-interestingwords",
-        props=Props(VLEventProp()),
+        "inkarkat/vim-mark",
+        props=Props(DependenciesProp("inkarkat/vim-ingo-library"), VLEventProp()),
+        tag=Tag.HIGHLIGHT,
+    ),
+    Plugin(
+        "inkarkat/vim-ingo-library",
+        props=Props(LazyProp()),
         tag=Tag.HIGHLIGHT,
     ),
     Plugin(
