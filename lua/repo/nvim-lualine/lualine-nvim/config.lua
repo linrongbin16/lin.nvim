@@ -36,12 +36,27 @@
 --     return s:sub(1, n)
 -- end
 
-local function Modifiable()
-    if vim.bo.modifiable == false or vim.bo.readonly == true then
-        return "[RO]"
-    else
+local function GitDiff()
+    if not vim.fn.exists("*GitGutterGetHunkSummary") then
         return ""
     end
+    local changes = vim.fn["GitGutterGetHunkSummary"]()
+    if changes == nil or #changes ~= 3 then
+        return ""
+    end
+    -- added, modified, removed
+    local signs = { "+", "~", "-" }
+    local msg = {}
+    for i = 1, 3 do
+        if changes[i] > 0 then
+            table.insert(msg, signs[i] .. changes[i])
+        end
+    end
+    return #msg > 0 and table.concat(msg, " ") or ""
+end
+
+local function Modifiable()
+    return (vim.bo.modifiable == false or vim.bo.readonly == true) and "[RO]" or ""
 end
 
 local function Location()
@@ -57,10 +72,7 @@ local function Ctags()
         return ""
     end
     local stats = vim.fn["gutentags#statusline"]()
-    if stats == nil or stats == "" then
-        return ""
-    end
-    return stats
+    return (stats == nil or stats == "") and "" or stats
 end
 
 local function Search()
@@ -101,7 +113,7 @@ local config = {
     },
     sections = {
         lualine_a = { "mode" },
-        lualine_b = { "branch", { "diff", colored = false } },
+        lualine_b = { "branch", GitDiff },
         lualine_c = {
             -- "filename",
             Modifiable,
