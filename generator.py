@@ -859,7 +859,7 @@ PLUGINS = [
     ),
     Plugin(
         "linrongbin16/lsp-progress.nvim",
-        props=Props(BranchProp("main"), VEventProp()),
+        props=Props(BranchProp("main"), LazyProp()),
         tag=Tag.UI,
     ),
     # Plugin(
@@ -936,7 +936,7 @@ PLUGINS = [
     # { LSP
     Plugin(
         "liuchengxu/vista.vim",
-        props=Props(VEventProp(), DependenciesProp("ludovicchabant/vim-gutentags")),
+        props=Props(VLEventProp(), DependenciesProp("ludovicchabant/vim-gutentags")),
         comments=[BigComment("LSP server"), SmallComment("Tags/structure outlines")],
         tag=Tag.LANGUAGE,
     ),
@@ -1102,36 +1102,36 @@ PLUGINS = [
     ),
     Plugin(
         "numToStr/Comment.nvim",
-        props=Props(VEventProp()),
+        props=Props(VLEventProp()),
         comments=SmallComment("Comment"),
         tag=Tag.EDITING,
     ),
     Plugin(
         "akinsho/toggleterm.nvim",
-        props=Props(VersionProp("*"), VEventProp()),
+        props=Props(VersionProp("*"), VLEventProp()),
         comments=SmallComment("Terminal"),
         tag=Tag.EDITING,
     ),
     Plugin(
         "mbbill/undotree",
-        props=Props(VEventProp()),
+        props=Props(VLEventProp()),
         comments=SmallComment("Undo tree"),
         tag=Tag.EDITING,
     ),
     Plugin(
         "tpope/vim-repeat",
-        props=Props(VEventProp()),
+        props=Props(VLEventProp()),
         comments=SmallComment("Other"),
         tag=Tag.EDITING,
     ),
     Plugin(
         "kylechui/nvim-surround",
-        props=Props(VersionProp("*"), VEventProp()),
+        props=Props(VersionProp("*"), VLEventProp()),
         tag=Tag.EDITING,
     ),
     Plugin(
         "editorconfig/editorconfig-vim",
-        props=Props(VEventProp()),
+        props=Props(VLEventProp()),
         tag=Tag.EDITING,
     ),
     # } Editing enhancement
