@@ -37,7 +37,7 @@
 -- end
 
 local function GitDiff()
-    if not vim.fn.exists("*GitGutterGetHunkSummary") then
+    if vim.g.loaded_gitgutter <= 0 then
         return ""
     end
     local changes = vim.fn["GitGutterGetHunkSummary"]()
@@ -68,7 +68,7 @@ end
 -- end
 
 local function Ctags()
-    if not vim.fn.exists("*gutentags#statusline") then
+    if vim.g.loaded_gutentags <= 0 then
         return ""
     end
     local stats = vim.fn["gutentags#statusline"]()

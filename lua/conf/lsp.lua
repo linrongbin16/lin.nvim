@@ -18,26 +18,26 @@ vim.api.nvim_create_autocmd("LspAttach", {
             end
         end
 
+        -- navigation
         bufmap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<cr>")
         bufmap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>")
         bufmap("n", "gt", "<cmd>lua vim.lsp.buf.type_definition()<cr>")
         bufmap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<cr>")
         bufmap("n", "gr", "<cmd>lua vim.lsp.buf.references()<cr>")
+        bufmap("n", "gci", "<cmd>lua vim.lsp.buf.incoming_calls()<cr>")
+        bufmap("n", "gco", "<cmd>lua vim.lsp.buf.outgoing_calls()<cr>")
+
+        -- hover
         bufmap("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>")
         bufmap({ "n", "i" }, "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<cr>")
-        -- if vim.fn.exists(":Lspsaga") ~= 0 then
-        -- 	bufmap("n", "<Leader>rn", "<cmd>Lspsaga rename<CR>")
-        -- else
+
+        -- operation
         bufmap("n", "<Leader>rn", "<cmd>lua vim.lsp.buf.rename()<cr>")
-        -- end
         bufmap({ "n", "x" }, "<Leader>cf", "<cmd>lua vim.lsp.buf.format({async=false})<cr>")
-        -- if vim.fn.exists(":Lspsaga") ~= 0 then
-        -- 	bufmap("n", "<Leader>ca", "<cmd>Lspsaga code_action<CR>")
-        -- 	bufmap("x", "<Leader>ca", "<cmd>Lspsaga code_action<CR>")
-        -- else
         bufmap("n", "<Leader>ca", "<cmd>lua vim.lsp.buf.code_action()<cr>")
         bufmap("x", "<Leader>ca", "<cmd>lua vim.lsp.buf.range_code_action()<cr>")
-        -- end
+
+        -- diagnostic
         bufmap("n", "<Leader>df", "<cmd>lua vim.diagnostic.open_float()<cr>")
         bufmap("n", "]d", diagnostic_goto(true))
         bufmap("n", "[d", diagnostic_goto(false))
