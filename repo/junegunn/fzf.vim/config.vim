@@ -95,12 +95,6 @@ nnoremap <silent> <space>hs     :call LinExecuteOnEditableBuffer("FzfHistory/")<
 " vim command history
 nnoremap <silent> <space>hc     :call LinExecuteOnEditableBuffer("FzfHistory:")<CR>
 
-""" Lsp
-" diagnostics in current buffer
-nnoremap <silent> <space>db     :call LinExecuteOnEditableBuffer("LspDiagnostics 0")<CR>
-" all diagnostics
-nnoremap <silent> <space>da     :call LinExecuteOnEditableBuffer("LspDiagnosticsAll")<CR>
-
 """ Git
 " git commits
 nnoremap <silent> <space>gc     :call LinExecuteOnEditableBuffer("FzfCommits")<CR>
