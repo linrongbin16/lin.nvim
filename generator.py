@@ -1103,6 +1103,12 @@ PLUGINS = [
         tag=Tag.EDITING,
     ),
     Plugin(
+        "folke/which-key.nvim",
+        props=Props(CEventProp()),
+        comments=SmallComment("Key mappings"),
+        tag=Tag.EDITING,
+    ),
+    Plugin(
         "akinsho/toggleterm.nvim",
         props=Props(VersionProp("*"), VLEventProp()),
         comments=SmallComment("Terminal"),
