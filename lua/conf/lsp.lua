@@ -45,7 +45,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
                 go({ severity = severity })
             end
         end
-        bufmap("n", "<Leader>df", "<cmd>lua vim.diagnostic.open_float()<cr>")
+        bufmap("n", "<Leader>dc", "<cmd>lua vim.diagnostic.open_float()<cr>")
         bufmap("n", "]d", diagnostic_goto(true))
         bufmap("n", "[d", diagnostic_goto(false))
         bufmap("n", "]e", diagnostic_goto(true, "ERROR"))
