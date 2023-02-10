@@ -41,7 +41,7 @@ augroup END
 """ ---- Neovide ----
 
 " if exists("g:neovide")
-"     let g:neovide_refresh_rate=60
+"     let g:neovide_refresh_rate=30
 "     let g:neovide_transparency=1.0
 "     let g:neovide_scroll_animation_length=0.0
 "     let g:neovide_remember_window_size=v:true
