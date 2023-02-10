@@ -922,11 +922,11 @@ PLUGINS = [
         props=Props(VEventProp(), DependenciesProp("junegunn/fzf")),
         tag=Tag.SEARCH,
     ),
-    Plugin(
-        "ojroques/nvim-lspfuzzy",
-        props=Props(VEventProp(), DependenciesProp("junegunn/fzf", "junegunn/fzf.vim")),
-        tag=Tag.SEARCH,
-    ),
+    # Plugin(
+    #     "ojroques/nvim-lspfuzzy",
+    #     props=Props(VEventProp(), DependenciesProp("junegunn/fzf", "junegunn/fzf.vim")),
+    #     tag=Tag.SEARCH,
+    # ),
     # } Search
     # { LSP
     Plugin(
@@ -1030,6 +1030,7 @@ PLUGINS = [
         props=Props(ICEventProp(), DependenciesProp("L3MON4D3/LuaSnip")),
         tag=Tag.LANGUAGE,
     ),
+    Plugin("DNLHC/glance.nvim", props=Props(VLEventProp()), tag=Tag.LANGUAGE),
     # } LSP
     # { Language support
     Plugin(

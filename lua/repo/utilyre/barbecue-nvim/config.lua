@@ -1,4 +1,5 @@
 require("barbecue").setup({
+    attach_navic = false, -- prevent auto attach, do it manually
     symbols = {
         ---entry separator
         ---@type string
