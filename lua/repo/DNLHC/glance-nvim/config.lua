@@ -29,7 +29,7 @@ glance.setup({
             ["<C-t>"] = actions.jump_tab,
             ["<CR>"] = actions.jump,
             ["o"] = actions.jump,
-            ["<leader>p"] = actions.enter_win("preview"), -- Focus preview window
+            ["<leader>p"] = actions.enter_win("preview"), -- go to preview window
             ["<leader>l"] = false,
 
             -- quit
@@ -48,12 +48,12 @@ glance.setup({
             ["<C-c>"] = actions.close,
 
             -- navigation
-            ["<Tab>"] = actions.next_location,
-            ["<S-Tab>"] = actions.previous_location,
+            ["<Tab>"] = false,
+            ["<S-Tab>"] = false,
 
             -- go back from preview
-            ["<leader>p"] = actions.enter_win("list"), -- Focus list window
-            ["<leader>l"] = false,
+            ["<leader>p"] = false,
+            ["<leader>l"] = actions.enter_win("list"), -- go back to list window
         },
     },
 })
