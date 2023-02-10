@@ -54,10 +54,10 @@ local embeded_extras = {
     },
     { "prettierd", { null_ls.builtins.formatting.prettierd } },
     -- lua
-    { "stylua", { null_ls.builtins.formatting.stylua.with({ extra_args = { "--indent-type", "Spaces" } }) } }, -- Better lua formatter
+    { "stylua",    { null_ls.builtins.formatting.stylua.with({ extra_args = { "--indent-type", "Spaces" } }) } }, -- Better lua formatter
     -- python
-    { "black", { null_ls.builtins.formatting.black } }, -- Since pyright doesn't include code format.
-    { "isort", { null_ls.builtins.formatting.isort } }, -- So registered black/isort as null-ls sources to let them work.
+    { "black",     { null_ls.builtins.formatting.black } }, -- Since pyright doesn't include code format.
+    { "isort",     { null_ls.builtins.formatting.isort } }, -- So registered black/isort as null-ls sources to let them work.
 }
 if vim.fn.has("win32") == 1 then
     -- powershell for windows
@@ -78,11 +78,22 @@ end
 
 local constants = require("conf/constants")
 
+local function attach_winbar(client, bufnr)
+    -- attach navic to working with multiple buffers/tabs
+    if client.server_capabilities["documentSymbolProvider"] then
+        require("nvim-navic").attach(client, bufnr)
+    end
+end
+
 -- Setup nvim-lspconfig
 require("mason-lspconfig").setup_handlers({
     -- Default server setup for nvim-lspconfig.
     function(server)
-        require("lspconfig")[server].setup({})
+        require("lspconfig")[server].setup({
+            on_attach = function(client, bufnr)
+                attach_winbar(client, bufnr)
+            end,
+        })
     end,
     -- Specific server setup.
     clangd = function()
@@ -114,11 +125,18 @@ require("mason-lspconfig").setup_handlers({
                     border = constants.ui.border,
                 },
             },
+            on_attach = function(client, bufnr)
+                attach_winbar(client, bufnr)
+            end,
         })
     end,
     -- ["rust_analyzer"] = function()
-    --     require("rust-tools").setup {}
-    -- end
+    --     require("rust-tools").setup({
+    --         on_attach = function(client, bufnr)
+    --             attach_winbar(client, bufnr)
+    --         end,
+    --     })
+    -- end,
 })
 
 -- Setup mason-lspconfig

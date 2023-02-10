@@ -10,22 +10,22 @@ vim.api.nvim_create_autocmd("LspAttach", {
             local opts = { buffer = true, noremap = true, silent = true }
             vim.keymap.set(mode, lhs, rhs, opts)
         end
-        local function diagnostic_goto(next, severity)
-            local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
-            severity = severity and vim.diagnostic.severity[severity] or nil
-            return function()
-                go({ severity = severity })
-            end
-        end
 
         -- navigation
-        bufmap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<cr>")
+        if vim.fn.exists(":Glance") > 0 then
+            bufmap("n", "gd", "<CMD>Glance definitions<CR>")
+            bufmap("n", "gt", "<CMD>Glance type_definitions<CR>")
+            bufmap("n", "gi", "<CMD>Glance implementations<CR>")
+            bufmap("n", "gr", "<CMD>Glance references<CR>")
+        else
+            bufmap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<cr>")
+            bufmap("n", "gt", "<cmd>lua vim.lsp.buf.type_definition()<cr>")
+            bufmap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<cr>")
+            bufmap("n", "gr", "<cmd>lua vim.lsp.buf.references()<cr>")
+        end
         bufmap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>")
-        bufmap("n", "gt", "<cmd>lua vim.lsp.buf.type_definition()<cr>")
-        bufmap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<cr>")
-        bufmap("n", "gr", "<cmd>lua vim.lsp.buf.references()<cr>")
-        bufmap("n", "gci", "<cmd>lua vim.lsp.buf.incoming_calls()<cr>")
-        bufmap("n", "gco", "<cmd>lua vim.lsp.buf.outgoing_calls()<cr>")
+        bufmap("n", "gI", "<cmd>lua vim.lsp.buf.incoming_calls()<cr>")
+        bufmap("n", "gO", "<cmd>lua vim.lsp.buf.outgoing_calls()<cr>")
 
         -- hover
         bufmap("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>")
@@ -38,6 +38,13 @@ vim.api.nvim_create_autocmd("LspAttach", {
         bufmap("x", "<Leader>ca", "<cmd>lua vim.lsp.buf.range_code_action()<cr>")
 
         -- diagnostic
+        local function diagnostic_goto(next, severity)
+            local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
+            severity = severity and vim.diagnostic.severity[severity] or nil
+            return function()
+                go({ severity = severity })
+            end
+        end
         bufmap("n", "<Leader>df", "<cmd>lua vim.diagnostic.open_float()<cr>")
         bufmap("n", "]d", diagnostic_goto(true))
         bufmap("n", "[d", diagnostic_goto(false))
