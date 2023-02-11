@@ -29,12 +29,13 @@ xnoremap <Leader>y :w! $HOME/.nvim/.copypaste<CR>
 " Paste from cache to current cursor
 nnoremap <Leader>p :r $HOME/.nvim/.copypaste<CR>
 
-""" ---- Optmization ----
+""" ---- Optimization ----
 
 " Rendering
 set ttyfast
 " Large file
-augroup large_file_augroup
+augroup optimization_augroup
+    autocmd!
     autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f) > luaeval("require('conf/constants').perf.filesystem.maxsize") | syntax clear | setlocal eventignore+=FileType | setlocal undolevels=-1 | endif
 augroup END
 " Neovide
