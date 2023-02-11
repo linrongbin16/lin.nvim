@@ -1,3 +1,4 @@
+
 """ ---- Hot keys ----
 " Toggle file explorer
 lua require('conf/keymap').map('n', '<F1>', ':Neotree reveal toggle<CR>', {silent=false})
