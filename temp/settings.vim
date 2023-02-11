@@ -1,40 +1,41 @@
-""" ---- Hot keys ----
 
+""" ---- Hot keys ----
 " Toggle file explorer
-nnoremap <F1> :Neotree reveal toggle<CR>
+lua require('conf/keymap').map('n', '<F1>', ':Neotree reveal toggle<CR>', {silent=false})
 " Toggle undotree
-nnoremap <F2> :UndotreeToggle<CR>
+lua require('conf/keymap').map('n', '<F2>', ':UndotreeToggle<CR>', {silent=false})
 " Toggle outline
-nnoremap <F3> :Vista!!<CR>
+lua require('conf/keymap').map('n', '<F3>', ':Vista!!<CR>', {silent=false})
 " Switch between C/C++ header and source
-nnoremap <F4> :ClangdSwitchSourceHeader<CR>
-" Clear all marked words
-nnoremap <F8> :call UncolorAllWords()<CR>
+lua require('conf/keymap').map('n', '<F4>', ':ClangdSwitchSourceHeader<CR>', {silent=false})
 " Markdown preview
-nnoremap <F9> :MarkdownPreview<CR>
+lua require('conf/keymap').map('n', '<F9>', ':MarkdownPreview<CR>', {silent=false})
 " Toggle terminal
-nnoremap <F10> :ToggleTerm<CR>
+lua require('conf/keymap').map('n', '<F10>', ':ToggleTerm<CR>', {silent=false})
 
 """ ---- Biscuits ----
-
+" Commands
+lua require('conf/keymap').map('n', '<leader>ms', ':Mason<CR>', {silent=false})
+lua require('conf/keymap').map('n', '<leader>lz', ':Lazy<CR>', {silent=false})
+lua require('conf/keymap').map('n', '<leader>wk', ':WhichKey ', {silent=false})
 " Quit
-nnoremap <Leader>qt :quit<CR>
-nnoremap <Leader>qT :quit!<CR>
-nnoremap <Leader>qa :qall<CR>
-nnoremap <Leader>qA :qall!<CR>
+lua require('conf/keymap').map('n', '<leader>qt', ':quit<CR>', {silent=false})
+lua require('conf/keymap').map('n', '<leader>qT', ':quit!<CR>', {silent=false})
+lua require('conf/keymap').map('n', '<leader>qa', ':qall<CR>', {silent=false})
+lua require('conf/keymap').map('n', '<leader>qA', ':qall!<CR>', {silent=false})
 " Toggle folding
-nnoremap <Leader>zz @=((foldclosed(line('.')) < 0) ? 'zc':'zo')<CR>
+lua require('conf/keymap').map('n', '<leader>zz', "@=((foldclosed(line('.')) < 0) ? 'zc':'zo')<CR>", {silent=false})
 " Copy visual selected text to cache
-xnoremap <Leader>y :w! $HOME/.nvim/.copypaste<CR>
+lua require('conf/keymap').map('n', '<leader>y', ":w! $HOME/.nvim/.copypaste<CR>", {silent=false})
 " Paste from cache to current cursor
-nnoremap <Leader>p :r $HOME/.nvim/.copypaste<CR>
+lua require('conf/keymap').map('n', '<leader>y', ":r $HOME/.nvim/.copypaste<CR>", {silent=false})
 
-""" ---- Optmization ----
-
+""" ---- Optimization ----
 " Rendering
 set ttyfast
 " Large file
-augroup large_file_augroup
+augroup optimization_augroup
+    autocmd!
     autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f) > luaeval("require('conf/constants').perf.filesystem.maxsize") | syntax clear | setlocal eventignore+=FileType | setlocal undolevels=-1 | endif
 augroup END
 " Neovide

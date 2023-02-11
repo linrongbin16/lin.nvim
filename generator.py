@@ -1104,7 +1104,7 @@ PLUGINS = [
     ),
     Plugin(
         "folke/which-key.nvim",
-        props=Props(CEventProp()),
+        props=Props(VLEventProp()),
         comments=SmallComment("Key mappings"),
         tag=Tag.EDITING,
     ),
@@ -1296,10 +1296,10 @@ class Render:
 
                 # init
                 inits = []
-                if pathlib.Path(lua_init_file).exists():
-                    inits.append(require_formatter(lua_init))
                 if pathlib.Path(vim_init_file).exists():
                     inits.append(source_formatter(vim_init))
+                if pathlib.Path(lua_init_file).exists():
+                    inits.append(require_formatter(lua_init))
                 if len(inits) > 0:
                     if isinstance(props, Props):
                         props.append(LiteralExpr(init_function_formatter(inits)))
@@ -1308,10 +1308,10 @@ class Render:
                         props = Props(LiteralExpr(init_function_formatter(inits)))
                 # config
                 configs = []
-                if pathlib.Path(lua_config_file).exists():
-                    configs.append(require_formatter(lua_config))
                 if pathlib.Path(vim_config_file).exists():
                     configs.append(source_formatter(vim_config))
+                if pathlib.Path(lua_config_file).exists():
+                    configs.append(require_formatter(lua_config))
                 if len(configs) > 0:
                     if isinstance(props, Props):
                         props.append(LiteralExpr(config_function_formatter(configs)))

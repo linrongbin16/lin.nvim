@@ -11,7 +11,7 @@ require("barbecue").setup({
     show_modified = true,
 })
 
-vim.api.nvim_create_augroup("barbecue_update_augroup", { clear = true })
+vim.api.nvim_create_augroup("barbecue_augroup", { clear = true })
 vim.api.nvim_create_autocmd({
     "BufWinEnter",
     "CursorHold",
@@ -22,7 +22,7 @@ vim.api.nvim_create_autocmd({
     "TextChanged",
     "TextChangedI",
 }, {
-    group = "barbecue_update_augroup",
+    group = "barbecue_augroup",
     callback = function(data)
         require("barbecue.ui").update()
     end,

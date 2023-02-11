@@ -1,4 +1,4 @@
-command! -bang -nargs=* LinFzfUnrestrictedRg
+command! -bang -nargs=* FzfUnrestrictedRg
             \ call fzf#vim#grep(
             \ "rg --column --no-heading --color=always -S -uu -g '!.git/' ".shellescape(<q-args>), 1,
             \ fzf#vim#with_preview(), <bang>0)
@@ -21,16 +21,16 @@ function! s:LinFzfUnrestrictedAdvancedRg(query, fullscreen)
     call fzf#vim#grep(initial_command, 1, spec, a:fullscreen)
 endfunction
 
-command! -bang -nargs=* LinFzfPreciseRg call s:LinFzfAdvancedRg(<q-args>, <bang>0)
+command! -bang -nargs=* FzfPrecisedRg call s:LinFzfAdvancedRg(<q-args>, <bang>0)
 
-command! -bang -nargs=* LinFzfUnrestrictedPreciseRg call s:LinFzfUnrestrictedAdvancedRg(<q-args>, <bang>0)
+command! -bang -nargs=* FzfUnrestrictedPrecisedRg call s:LinFzfUnrestrictedAdvancedRg(<q-args>, <bang>0)
 
-command! -bang -nargs=0 LinFzfRgCWord
+command! -bang -nargs=0 FzfCWordRg
             \ call fzf#vim#grep(
             \ "rg --column --no-heading --color=always -S ".shellescape(expand('<cword>')), 1,
             \ fzf#vim#with_preview(), <bang>0)
 
-command! -bang -nargs=0 LinFzfUnrestrictedRgCWord
+command! -bang -nargs=0 FzfUnrestrictedCWordRg
             \ call fzf#vim#grep(
             \ "rg --column --no-heading --color=always -S -uu -g '!.git/' ".shellescape(expand('<cword>')), 1,
             \ fzf#vim#with_preview(), <bang>0)
@@ -41,78 +41,23 @@ elseif executable('fdfind')
     let s:lin_find_command = 'fdfind'
 endif
  
-command! -bang -nargs=? -complete=dir LinFzfUnrestrictedFiles
+command! -bang -nargs=? -complete=dir FzfUnrestrictedFiles
     \ call fzf#run(
     \   fzf#vim#with_preview(
     \     fzf#wrap({ 'source': s:lin_find_command." -tf -tl -i -u --exclude '.git' ".shellescape(<q-args>) }, <bang>0)
     \   )
     \ )
  
-command! -bang -nargs=? -complete=dir LinFzfFilesCWord
+command! -bang -nargs=? -complete=dir FzfCWordFiles
     \ call fzf#run(
     \   fzf#vim#with_preview(
     \     fzf#wrap({ 'source': s:lin_find_command.' -tf -tl -i '.shellescape(expand('<cword>')) }, <bang>0)
     \   )
     \ )
  
-command! -bang -nargs=? -complete=dir LinFzfUnrestrictedFilesCWord
+command! -bang -nargs=? -complete=dir FzfUnrestrictedCWordFiles
     \ call fzf#run(
     \   fzf#vim#with_preview(
     \     fzf#wrap({ 'source': s:lin_find_command." -tf -tl -i -u --exclude '.git' ".shellescape(expand('<cword>')) }, <bang>0)
     \   )
     \ )
-
-
-""" Text
-" live grep
-nnoremap <silent> <space>r      :call LinExecuteOnEditableBuffer("FzfRg")<CR>
-nnoremap <silent> <space>ur     :call LinExecuteOnEditableBuffer("LinFzfUnrestrictedRg")<CR>
-nnoremap <silent> <space>pr     :call LinExecuteOnEditableBuffer("LinFzfPreciseRg")<CR>
-nnoremap <silent> <space>upr    :call LinExecuteOnEditableBuffer("LinFzfUnrestrictedPreciseRg")<CR>
-" cursor word/string
-nnoremap <silent> <space>wr     :call LinExecuteOnEditableBuffer("LinFzfRgCWord")<CR>
-nnoremap <silent> <space>uwr    :call LinExecuteOnEditableBuffer("LinFzfUnrestrictedRgCWord")<CR>
-" lines in opened buffers
-nnoremap <silent> <space>ln     :call LinExecuteOnEditableBuffer("FzfLines")<CR>
-" tags
-nnoremap <silent> <space>tg     :call LinExecuteOnEditableBuffer("FzfTags")<CR>
-
-""" Files
-" files
-nnoremap <silent> <space>f      :call LinExecuteOnEditableBuffer("FzfFiles")<CR>
-nnoremap <silent> <space>uf     :call LinExecuteOnEditableBuffer("LinFzfUnrestrictedFiles")<CR>
-" files by cursor word
-nnoremap <silent> <space>wf     :call LinExecuteOnEditableBuffer("LinFzfFilesCWord")<CR>
-nnoremap <silent> <space>uwf    :call LinExecuteOnEditableBuffer("LinFzfUnrestrictedFilesCWord")<CR>
-" opened buffers
-nnoremap <silent> <space>b      :call LinExecuteOnEditableBuffer("FzfBuffers")<CR>
-" history files/oldfiles
-nnoremap <silent> <space>hf     :call LinExecuteOnEditableBuffer("FzfHistory")<CR>
-
-""" History
-" search history
-nnoremap <silent> <space>hs     :call LinExecuteOnEditableBuffer("FzfHistory/")<CR>
-" vim command history
-nnoremap <silent> <space>hc     :call LinExecuteOnEditableBuffer("FzfHistory:")<CR>
-
-""" Git
-" git commits
-nnoremap <silent> <space>gc     :call LinExecuteOnEditableBuffer("FzfCommits")<CR>
-" git files
-nnoremap <silent> <space>gf     :call LinExecuteOnEditableBuffer("FzfGFiles")<CR>
-" git status files
-nnoremap <silent> <space>gs     :call LinExecuteOnEditableBuffer("FzfGFiles?")<CR>
-
-""" Vim
-" vim marks
-nnoremap <silent> <space>mk     :call LinExecuteOnEditableBuffer("FzfMarks")<CR>
-" vim key mappings
-nnoremap <silent> <space>mp     :call LinExecuteOnEditableBuffer("FzfMaps")<CR>
-" vim commands
-nnoremap <silent> <space>cm     :call LinExecuteOnEditableBuffer("FzfCommands")<CR>
-" vim help tags
-nnoremap <silent> <space>ht     :call LinExecuteOnEditableBuffer("FzfHelptags")<CR>
-" vim colorschemes
-nnoremap <silent> <space>cs     :call LinExecuteOnEditableBuffer("FzfColors")<CR>
-" vim filetypes
-nnoremap <silent> <space>tp     :call LinExecuteOnEditableBuffer("FzfFiletypes")<CR>
