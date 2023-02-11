@@ -60,8 +60,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
             map("n", "gr", "<cmd>lua vim.lsp.buf.references()<cr>")
         end
         map("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>")
-        map("n", "gI", "<cmd>lua vim.lsp.buf.incoming_calls()<cr>")
-        map("n", "gO", "<cmd>lua vim.lsp.buf.outgoing_calls()<cr>")
+        map("n", "<leader>ic", "<cmd>lua vim.lsp.buf.incoming_calls()<cr>")
+        map("n", "<leader>og", "<cmd>lua vim.lsp.buf.outgoing_calls()<cr>")
 
         -- hover
         map("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>")

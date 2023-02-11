@@ -1104,7 +1104,7 @@ PLUGINS = [
     ),
     Plugin(
         "folke/which-key.nvim",
-        props=Props(CEventProp()),
+        props=Props(VLEventProp()),
         comments=SmallComment("Key mappings"),
         tag=Tag.EDITING,
     ),
