@@ -45,7 +45,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     group = "lsp_attach_augroup",
     callback = function()
         local map = require("conf/keymap").map
-        local opts = { buffer = true, noremap = true, silent = true }
+        local opts = { buffer = true }
 
         -- navigation
         if vim.fn.exists(":Glance") > 0 then

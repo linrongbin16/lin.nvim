@@ -48,6 +48,9 @@ local DEFAULT_OPTS = {
 
 local function map(mode, lhs, rhs, opts)
     opts = vim.tbl_deep_extend("force", DEFAULT_OPTS, opts or {})
+    if type(rhs) == "string" and string.len(rhs) >= 6 and string.sub(rhs, 1, 6) == "<plug>" then
+        opts.noremap = false
+    end
     vim.keymap.set(mode, lhs, rhs, opts)
 end
 

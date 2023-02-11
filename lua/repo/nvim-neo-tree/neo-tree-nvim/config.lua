@@ -40,7 +40,13 @@ require("neo-tree").setup({
                         highlight = "NeoTreeSymbolicLinkTarget",
                     },
                     { "clipboard", zindex = 10 },
-                    { "diagnostics", errors_only = true, zindex = 20, align = "left", hide_when_expanded = true }, -- move this indicator to left side
+                    {
+                        "diagnostics",
+                        errors_only = true,
+                        zindex = 20,
+                        align = "left",
+                        hide_when_expanded = true,
+                    }, -- move this indicator to left side
                     { "git_status", zindex = 20, align = "right", hide_when_expanded = true },
                 },
             },
@@ -113,4 +119,22 @@ require("neo-tree").setup({
             },
         },
     },
+})
+
+vim.api.nvim_create_augroup("neo_tree_augroup", { clear = true })
+vim.api.nvim_create_autocmd("FileType", {
+    group = "neo_tree_augroup",
+    pattern = "neo-tree",
+    callback = function()
+        local map = require("conf/keymap").map
+        local opts = { buffer = true }
+        map("n", "<leader>>", "<cmd>vertical resize +10<cr>", opts)
+        map("n", "<leader><", "<cmd>vertical resize -10<cr>", opts)
+    end,
+})
+vim.api.nvim_create_autocmd("VimEnter", {
+    group = "neo_tree_augroup",
+    callback = function()
+        vim.cmd("Neotree reveal")
+    end,
 })
