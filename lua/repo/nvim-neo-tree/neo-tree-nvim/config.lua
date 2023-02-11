@@ -107,6 +107,7 @@ require("neo-tree").setup({
             visible = true,
         },
         follow_current_file = true,
+        use_libuv_file_watcher = true,
         window = {
             mappings = {
                 -- diabled mappings
