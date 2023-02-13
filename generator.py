@@ -1103,12 +1103,6 @@ PLUGINS = [
         tag=Tag.EDITING,
     ),
     Plugin(
-        "danymat/neogen",
-        props=Props(ICEventProp()),
-        comments=SmallComment("Annotation/document generator"),
-        tag=Tag.EDITING,
-    ),
-    Plugin(
         "ruifm/gitlinker.nvim",
         props=Props(VLEventProp(), DependenciesProp("nvim-lua/plenary.nvim")),
         comments=SmallComment("Open In Github/Gitlab/etc"),
