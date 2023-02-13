@@ -1,15 +1,15 @@
 let g:gutentags_project_root = ['.svn', '.git', '.hg', 'package.json', 'CMakeLists.txt', 'pom.xml', '.idea', '.vscode']
 if executable('fd')
-    let g:gutentags_file_list_command = 'fd -tf -tl'
+  let g:gutentags_file_list_command = 'fd -tf -tl'
 elseif executable('fdfind')
-    let g:gutentags_file_list_command = 'fdfind -tf -tl'
+  let g:gutentags_file_list_command = 'fdfind -tf -tl'
 elseif executable('rg')
-    let g:gutentags_file_list_command = 'rg --files'
+  let g:gutentags_file_list_command = 'rg --files'
 endif
 
 let g:gutentags_ctags_exclude = [
-      \ '*.git', 
-      \ '*.svg', 
+      \ '*.git',
+      \ '*.svg',
       \ '*.hg',
       \ '*/tests/*',
       \ 'build',
