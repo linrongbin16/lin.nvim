@@ -523,15 +523,21 @@ class Plugin:
         assert isinstance(repo, str)
         assert isinstance(props, Props) or props is None
         assert (
-            isinstance(comments, Expr) or isinstance(comments, list) or comments is None
+            isinstance(comments, Expr)
+            or isinstance(comments, list)
+            or isinstance(comments, str)
+            or comments is None
         )
         assert isinstance(color, str) or color is None
         assert isinstance(tag, Tag)
         self.repo = LiteralExpr(repo)  # https://github.com/{org}/{repo}
         self.props = props  # more plugin properties following this line
-        self.comments = (
-            Exprs(comments) if isinstance(comments, list) else comments
-        )  # more clauses above this line
+        if isinstance(comments, list):
+            self.comments = Exprs(comments)
+        elif isinstance(comments, str):
+            self.comments = SmallComment(comments)
+        else:
+            self.comments = comments
         self.color = color
         self.tag = tag
 
@@ -611,7 +617,7 @@ PLUGINS = [
     Plugin(
         "ishan9299/nvim-solarized-lua",
         props=ColorProps(),
-        comments=SmallComment("inherit 'lifepillar/vim-solarized8'"),
+        comments="inherit 'lifepillar/vim-solarized8'",
         color="solarized",
         tag=Tag.COLORSCHEME,
     ),
@@ -624,14 +630,14 @@ PLUGINS = [
     Plugin(
         "luisiacc/gruvbox-baby",
         props=ColorProps(BranchProp("main")),
-        comments=SmallComment("inherit sainnhe/gruvbox-material"),
+        comments="inherit sainnhe/gruvbox-material",
         color="gruvbox-baby",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
         "marko-cerovac/material.nvim",
         props=ColorProps(),
-        comments=SmallComment("inherit kaicataldo/material.vim"),
+        comments="inherit kaicataldo/material.vim",
         color="material",
         tag=Tag.COLORSCHEME,
     ),
@@ -644,16 +650,14 @@ PLUGINS = [
     Plugin(
         "Mofiqul/dracula.nvim",
         props=ColorProps(),
-        comments=SmallComment("inherit dracula/vim"),
+        comments="inherit dracula/vim",
         color="dracula",
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
         "navarasu/onedark.nvim",
         props=ColorProps(),
-        comments=SmallComment(
-            "inherit joshdick/onedark.vim, tomasiser/vim-code-dark, olimorris/onedarkpro.nvim"
-        ),
+        comments="inherit joshdick/onedark.vim, tomasiser/vim-code-dark, olimorris/onedarkpro.nvim",
         color="onedark",
         tag=Tag.COLORSCHEME,
     ),
@@ -726,7 +730,7 @@ PLUGINS = [
     Plugin(
         "sainnhe/sonokai",
         props=ColorProps(),
-        comments=SmallComment("inherit sickill/vim-monokai"),
+        comments="inherit sickill/vim-monokai",
         color="sonokai",
         tag=Tag.COLORSCHEME,
     ),
@@ -825,7 +829,7 @@ PLUGINS = [
             VEventProp(),
             DependenciesProp("nvim-tree/nvim-web-devicons", "moll/vim-bbye"),
         ),
-        comments=SmallComment("Tabline"),
+        comments="Tabline",
         tag=Tag.UI,
     ),
     Plugin(
@@ -836,7 +840,7 @@ PLUGINS = [
     Plugin(
         "lukas-reineke/indent-blankline.nvim",
         props=Props(VLEventProp()),
-        comments=SmallComment("Indentline"),
+        comments="Indentline",
         tag=Tag.UI,
     ),
     Plugin(
@@ -849,7 +853,7 @@ PLUGINS = [
                 # "itchyny/vim-gitbranch", # use lualine's builtin 'branch'
             ),
         ),
-        comments=SmallComment("Statusline"),
+        comments="Statusline",
         tag=Tag.UI,
     ),
     Plugin(
@@ -881,13 +885,13 @@ PLUGINS = [
     # Plugin(
     #     "lewis6991/gitsigns.nvim",
     #     props=Props(VLEventProp()),
-    #     above=SmallComment("Git"),
+    #     above="Git",
     #     tag=Tag.UI,
     # ),
     Plugin(
         "airblade/vim-gitgutter",
         props=Props(VLEventProp()),
-        comments=SmallComment("Git"),
+        comments="Git",
         tag=Tag.UI,
     ),
     Plugin(
@@ -898,7 +902,7 @@ PLUGINS = [
     Plugin(
         "stevearc/dressing.nvim",
         props=Props(VLEventProp()),
-        comments=SmallComment("UI hooks"),
+        comments="UI hooks",
         tag=Tag.UI,
     ),
     # Plugin(
@@ -932,7 +936,7 @@ PLUGINS = [
     Plugin(
         "liuchengxu/vista.vim",
         props=Props(VLEventProp(), DependenciesProp("ludovicchabant/vim-gutentags")),
-        comments=[BigComment("LSP server"), SmallComment("Tags/structure outlines")],
+        comments=[BigComment("LSP"), SmallComment("Tags/structure outlines")],
         tag=Tag.LANGUAGE,
     ),
     Plugin(
@@ -943,7 +947,7 @@ PLUGINS = [
     Plugin(
         "williamboman/mason.nvim",
         props=Props(VLEventProp()),
-        comments=SmallComment("LSP server management"),
+        comments="LSP server management",
         tag=Tag.LANGUAGE,
     ),
     Plugin(
@@ -997,7 +1001,7 @@ PLUGINS = [
                 "saadparwaiz1/cmp_luasnip",
             ),
         ),
-        comments=SmallComment("Auto-complete engine"),
+        comments="Auto-complete engine",
         tag=Tag.LANGUAGE,
     ),
     Plugin(
@@ -1049,25 +1053,25 @@ PLUGINS = [
     Plugin(
         "justinmk/vim-syntax-extra",
         props=Props(FtProp("lex", "flex", "yacc", "bison")),
-        comments=SmallComment("Lex/yacc, flex/bison"),
+        comments="Lex/yacc, flex/bison",
         tag=Tag.LANGUAGE,
     ),
     Plugin(
         "rhysd/vim-llvm",
         props=Props(FtProp("llvm", "mir", "mlir", "tablegen")),
-        comments=SmallComment("LLVM"),
+        comments="LLVM",
         tag=Tag.LANGUAGE,
     ),
     Plugin(
         "zebradil/hive.vim",
         props=Props(FtProp("hive")),
-        comments=SmallComment("Hive"),
+        comments="Hive",
         tag=Tag.LANGUAGE,
     ),
     Plugin(
         "slim-template/vim-slim",
         props=Props(FtProp("slim")),
-        comments=SmallComment("Slim"),
+        comments="Slim",
         tag=Tag.LANGUAGE,
     ),
     # } Language support
@@ -1099,37 +1103,37 @@ PLUGINS = [
     Plugin(
         "numToStr/Comment.nvim",
         props=Props(VLEventProp()),
-        comments=SmallComment("Comment"),
+        comments="Comment",
         tag=Tag.EDITING,
     ),
     Plugin(
         "ruifm/gitlinker.nvim",
         props=Props(VLEventProp(), DependenciesProp("nvim-lua/plenary.nvim")),
-        comments=SmallComment("Open In Github/Gitlab/etc"),
+        comments="Open In Github/Gitlab/etc",
         tag=Tag.EDITING,
     ),
     Plugin(
         "folke/which-key.nvim",
         props=Props(VLEventProp()),
-        comments=SmallComment("Key mappings"),
+        comments="Key mappings",
         tag=Tag.EDITING,
     ),
     Plugin(
         "akinsho/toggleterm.nvim",
         props=Props(VersionProp("*"), VLEventProp()),
-        comments=SmallComment("Terminal"),
+        comments="Terminal",
         tag=Tag.EDITING,
     ),
     Plugin(
         "mbbill/undotree",
         props=Props(VLEventProp()),
-        comments=SmallComment("Undo tree"),
+        comments="Undo tree",
         tag=Tag.EDITING,
     ),
     Plugin(
         "tpope/vim-repeat",
         props=Props(VLEventProp()),
-        comments=SmallComment("Other"),
+        comments="Other",
         tag=Tag.EDITING,
     ),
     Plugin(

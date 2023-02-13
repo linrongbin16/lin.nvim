@@ -1,32 +1,21 @@
 
 """ ---- Hot keys ----
-" Toggle file explorer
-lua require('conf/keymap').map('n', '<F1>', ':Neotree reveal toggle<CR>', {silent=false})
-" Toggle undotree
-lua require('conf/keymap').map('n', '<F2>', ':UndotreeToggle<CR>', {silent=false})
-" Toggle outline
-lua require('conf/keymap').map('n', '<F3>', ':Vista!!<CR>', {silent=false})
-" Switch between C/C++ header and source
-lua require('conf/keymap').map('n', '<F4>', ':ClangdSwitchSourceHeader<CR>', {silent=false})
-" Markdown preview
-lua require('conf/keymap').map('n', '<F9>', ':MarkdownPreview<CR>', {silent=false})
-" Toggle terminal
-lua require('conf/keymap').map('n', '<F10>', ':ToggleTerm<CR>', {silent=false})
+lua require('conf/keymap').map('n', '<F1>', ':Neotree reveal toggle<CR>', {silent=false, desc="Toggle file explorer"})
+lua require('conf/keymap').map('n', '<F2>', ':UndotreeToggle<CR>', {silent=false, desc="Toggle undo tree"})
+lua require('conf/keymap').map('n', '<F3>', ':Vista!!<CR>', {silent=false, desc="Toggle outlines/tags"})
+lua require('conf/keymap').map('n', '<F4>', ':ClangdSwitchSourceHeader<CR>', {silent=false, desc="Switch between c/c++ header and source"})
+lua require('conf/keymap').map('n', '<F9>', ':MarkdownPreview<CR>', {silent=false, desc="Markdown preview"})
+lua require('conf/keymap').map('n', '<F10>', ':ToggleTerm<CR>', {silent=false, desc="Toggle terminal"})
 
 """ ---- Biscuits ----
-" Save file without formatting
-lua require('conf/keymap').map('n', '<leader>ww', ':noa w', {silent=false})
-" Quit
-lua require('conf/keymap').map('n', '<leader>qt', ':quit<CR>', {silent=false})
-lua require('conf/keymap').map('n', '<leader>qT', ':quit!<CR>', {silent=false})
-lua require('conf/keymap').map('n', '<leader>qa', ':qall<CR>', {silent=false})
-lua require('conf/keymap').map('n', '<leader>qA', ':qall!<CR>', {silent=false})
-" Toggle folding
-lua require('conf/keymap').map('n', '<leader>zz', "@=((foldclosed(line('.')) < 0) ? 'zc':'zo')<CR>", {silent=false})
-" Copy visual selected text to cache
-lua require('conf/keymap').map('n', '<leader>y', ":w! $HOME/.nvim/.copypaste<CR>", {silent=false})
-" Paste from cache to current cursor
-lua require('conf/keymap').map('n', '<leader>y', ":r $HOME/.nvim/.copypaste<CR>", {silent=false})
+lua require('conf/keymap').map('n', '<leader>ww', ':noa w<CR>', {silent=false, desc="Save file without formatting"})
+lua require('conf/keymap').map('n', '<leader>qt', ':quit<CR>', {silent=false, desc=":quit"})
+lua require('conf/keymap').map('n', '<leader>qT', ':quit!<CR>', {silent=false, desc=":quit!"})
+lua require('conf/keymap').map('n', '<leader>qa', ':qall<CR>', {silent=false, desc=":qall"})
+lua require('conf/keymap').map('n', '<leader>qA', ':qall!<CR>', {silent=false, desc=":qall!"})
+lua require('conf/keymap').map('n', '<leader>zz', "@=((foldclosed(line('.')) < 0) ? 'zc':'zo')<CR>", {silent=false, desc="Toggle folding"})
+lua require('conf/keymap').map('x', '<leader>y', ":w! $HOME/.nvim/.copypaste<CR>", {silent=false, desc="Copy visual-selected text to cache"})
+lua require('conf/keymap').map('n', '<leader>p', ":r $HOME/.nvim/.copypaste<CR>", {silent=false, desc="Paste from cache"})
 
 """ ---- Optimization ----
 " Rendering
