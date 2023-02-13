@@ -54,7 +54,7 @@ local embeded_extras = {
     },
     { "prettierd", { null_ls.builtins.formatting.prettierd } },
     -- lua
-    { "stylua", { null_ls.builtins.formatting.stylua.with({ extra_args = { "--indent-type", "Spaces" } }) } }, -- Better lua formatter
+    { "stylua", { null_ls.builtins.formatting.stylua } }, -- Better lua formatter
     -- python
     { "black", { null_ls.builtins.formatting.black } }, -- Since pyright doesn't include code format.
     { "isort", { null_ls.builtins.formatting.isort } }, -- So registered black/isort as null-ls sources to let them work.
@@ -67,7 +67,7 @@ else
     table.insert(embeded_servers, "bashls")
     table.insert(
         embeded_extras,
-        { "shfmt", { null_ls.builtins.formatting.shfmt.with({ extra_args = { "--indent=4" } }) } }
+        { "shfmt", { null_ls.builtins.formatting.shfmt } }
     )
 end
 
