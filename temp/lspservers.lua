@@ -62,7 +62,7 @@ local embeded_extras = {
   { "black", { null_ls.builtins.formatting.black } },
   { "isort", { null_ls.builtins.formatting.isort } },
 }
-if vim.fn.has("win32") == 1 then
+if vim.fn.has("win32") > 0 then
   -- powershell for windows
   table.insert(embeded_servers, "powershell_es")
 else
