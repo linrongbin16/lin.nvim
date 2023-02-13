@@ -765,7 +765,6 @@ PLUGINS = [
     ),
     Plugin(
         "andymass/vim-matchup",
-        props=Props(VLEventProp()),
         tag=Tag.HIGHLIGHT,
     ),
     Plugin(
