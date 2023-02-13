@@ -42,7 +42,7 @@ set updatetime=300
 """ search
 set magic smartcase ignorecase hlsearch
 if has('patch-8.0.1238')
-    set incsearch
+  set incsearch
 endif
 
 " clean highlight
@@ -64,7 +64,7 @@ set ruler noshowmode laststatus=3
 """ command line and message
 set wildmenu showcmd cmdheight=2 display+=lastline shortmess+=c
 if has('patch-7.4.2109')
-    set display+=truncate
+  set display+=truncate
 endif
 
 """ scroll
@@ -109,7 +109,7 @@ set viewoptions-=options
 """ true colors and dark
 set background=dark
 if has("termguicolors")
-    set termguicolors
+  set termguicolors
 endif
 
 """ EN language
@@ -131,14 +131,14 @@ set guioptions-=m
 
 """ maximize GUI window
 if has("gui_running")
-    set lines=9999
-    set columns=9999
+  set lines=9999
+  set columns=9999
 endif
 if has('win32') || has('win64')
-    autocmd GUIEnter * simalt ~x
+  autocmd GUIEnter * simalt ~x
 endif
 
 """ disable macvim GUI key mappings
 if has("gui_macvim")
-    let macvim_skip_cmd_opt_movement = 1
+  let macvim_skip_cmd_opt_movement = 1
 endif
