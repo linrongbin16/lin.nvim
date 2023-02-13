@@ -556,6 +556,16 @@ PLUGINS = [
         props=Props(LazyProp()),
         tag=Tag.INFRASTRUCTURE,
     ),
+    Plugin(
+        "neovim/nvim-lspconfig",
+        props=Props(LazyProp()),
+        tag=Tag.INFRASTRUCTURE,
+    ),
+    Plugin(
+        "nvim-treesitter/nvim-treesitter",
+        props=Props(VLEventProp()),
+        tag=Tag.INFRASTRUCTURE,
+    ),
     # } Infrastructure and dependencies
     # { Colorscheme
     Plugin(
@@ -959,11 +969,6 @@ PLUGINS = [
                 "p00f/clangd_extensions.nvim",
             ),
         ),
-        tag=Tag.LANGUAGE,
-    ),
-    Plugin(
-        "neovim/nvim-lspconfig",
-        props=Props(LazyProp()),
         tag=Tag.LANGUAGE,
     ),
     Plugin(
