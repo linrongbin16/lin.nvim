@@ -13,6 +13,7 @@
 --      * [null-ls BUILTINS](https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md) for null-ls source configurations.
 
 local null_ls = require("null-ls")
+local constants = require("conf/constants")
 
 local embeded_servers = {
   -- clang
@@ -142,8 +143,6 @@ local lspconfig_setups = {
 
 -- {{
 -- ---- The real setup work goes here ----
-
-local constants = require("conf/constants")
 
 -- Setup mason-lspconfig
 local ensure_installed_servers = {}
