@@ -1,4 +1,4 @@
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+local lazypath = vim.fs.normalize("~/.nvim") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
     "git",
@@ -12,9 +12,17 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local opts = {
+  root = vim.fn.stdpath("config") .. "/lazy",
   ui = {
     border = require("conf/constants").ui.border,
   },
+  readme = {
+    root = vim.fn.stdpath("state") .. "/lazy/readme",
+    files = { "README.md", "lua/**/README.md" },
+    -- only generate markdown helptags for plugins that dont have docs
+    skip_if_doc_exists = true,
+  },
+  state = vim.fn.stdpath("config") .. "/lazy/state.json",
 }
 
 require("lazy").setup("plugins", opts)

@@ -74,31 +74,25 @@ else
   )
 end
 
--- }}
-
--- {{
--- ---- The real setup work goes here ----
-
-local constants = require("conf/constants")
-
-local function attach_winbar(client, bufnr)
+-- { nvim-lspconfig setups
+local function attach_ext(client, bufnr)
   -- attach navic to working with multiple buffers/tabs
   if client.server_capabilities["documentSymbolProvider"] then
     require("nvim-navic").attach(client, bufnr)
   end
 end
 
--- Setup nvim-lspconfig
-require("mason-lspconfig").setup_handlers({
-  -- Default server setup for nvim-lspconfig.
+local lspconfig_setups = {
+  -- { default setup
   function(server)
     require("lspconfig")[server].setup({
       on_attach = function(client, bufnr)
-        attach_winbar(client, bufnr)
+        attach_ext(client, bufnr)
       end,
     })
   end,
-  -- Specific server setup.
+  -- } default setup
+  -- { specific setup
   clangd = function()
     require("clangd_extensions").setup({
       extensions = {
@@ -129,18 +123,27 @@ require("mason-lspconfig").setup_handlers({
         },
       },
       on_attach = function(client, bufnr)
-        attach_winbar(client, bufnr)
+        attach_ext(client, bufnr)
       end,
     })
   end,
   -- ["rust_analyzer"] = function()
-  --     require("rust-tools").setup({
-  --         on_attach = function(client, bufnr)
-  --             attach_winbar(client, bufnr)
-  --         end,
-  --     })
+  --   require("rust-tools").setup({
+  --     on_attach = function(client, bufnr)
+  --       attach_ext(client, bufnr)
+  --     end,
+  --   })
   -- end,
-})
+  -- } specific setup
+}
+-- } nvim-lspconfig setups
+
+-- }}
+
+-- {{
+-- ---- The real setup work goes here ----
+
+local constants = require("conf/constants")
 
 -- Setup mason-lspconfig
 local ensure_installed_servers = {}
@@ -150,6 +153,9 @@ end
 require("mason-lspconfig").setup({
   ensure_installed = ensure_installed_servers,
 })
+
+-- Extensions for Specific Languages
+require("mason-lspconfig").setup_handlers(lspconfig_setups)
 
 -- Setup mason-null-ls and null-ls configs
 local ensure_installed_extras = {}

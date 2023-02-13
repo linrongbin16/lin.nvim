@@ -3,6 +3,8 @@
 
 # plugins
 lazy-lock.json
+mason
+lazy
 
 # generated
 /lua/plugins.lua*
@@ -12,6 +14,7 @@ lazy-lock.json
 /init.vim*
 /dump_plugins.md
 .copypaste
+.temp
 
 # universal-ctags
 universal-ctags

@@ -1579,6 +1579,12 @@ def make_arguments():
         help="no ctrl+?/cmd+? keys",
     )
     parser.add_argument(
+        "--ext-lsp",
+        dest="ext_lsp_opt",
+        action="store_true",
+        help="extend lsp servers",
+    )
+    parser.add_argument(
         "--dump-plugins",
         dest="dump_plugins_opt",
         action="store_true",
