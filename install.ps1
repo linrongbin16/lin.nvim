@@ -13,32 +13,39 @@ $OPT_BASIC = $False
 
 # utils
 
-function Message([string]$content) {
+function Message([string]$content)
+{
     Write-Host "[lin.nvim] - $content"
 }
 
-function ErrorMessage([string] $content) {
+function ErrorMessage([string] $content)
+{
     Message "error! $content"
 }
 
-function InstallOrSkip([string]$command, [string]$target) {
-    if (Get-Command -Name $target -ErrorAction SilentlyContinue) {
+function InstallOrSkip([string]$command, [string]$target)
+{
+    if (Get-Command -Name $target -ErrorAction SilentlyContinue)
+    {
         Message "'${target}' already exist, skip..."
-    }
-    else {
+    } else
+    {
         Message "install '${target}' with command: '${command}'"
         Invoke-Expression $command
     }
 }
 
 # Test if symlink
-function TestReparsePoint([string]$path) {
+function TestReparsePoint([string]$path)
+{
     $file = Get-Item $path -Force -ea SilentlyContinue
     return [bool]($file.Attributes -band [IO.FileAttributes]::ReparsePoint)
 }
 
-function TryBackup([string]$src) {
-    if ((TestReparsePoint $src) -or (Test-Path $src)) {
+function TryBackup([string]$src)
+{
+    if ((TestReparsePoint $src) -or (Test-Path $src))
+    {
         $now = Get-Date -Format "yyyy-MM-dd.HH-mm-ss.fffffff"
         $dest = -join ($src, ".", $now)
         Rename-Item $src $dest
@@ -46,12 +53,14 @@ function TryBackup([string]$src) {
     }
 }
 
-function RequiresAnArgumentError([string]$name) {
+function RequiresAnArgumentError([string]$name)
+{
     ErrorMessage "option '$name' requires an argument."
     exit 1
 }
 
-function UnknownOptionError() {
+function UnknownOptionError()
+{
     ErrorMessage "unknown option, please try --help for more information."
     exit 1
 }
@@ -65,7 +74,8 @@ function UnknownOptionError() {
 
 # dependency
 
-function CargoDependency() {
+function CargoDependency()
+{
     Message "install modern rust commands with cargo"
     InstallOrSkip -command "cargo install ripgrep" -target "rg"
     InstallOrSkip -command "cargo install fd-find" -target "fd"
@@ -73,19 +83,22 @@ function CargoDependency() {
     InstallOrSkip -command "cargo install --locked bat" -target "bat"
 }
 
-function Pip3Dependency() {
+function Pip3Dependency()
+{
     Message "install python packages with pip3"
     python3 -m pip install pynvim
 }
 
-function NpmDependency() {
+function NpmDependency()
+{
     Message "install node packages with npm"
     npm install -g neovim
 }
 
 # basic
 
-function InstallBasic() {
+function InstallBasic()
+{
     $basicVim = "$NVIM_HOME\conf\basic.vim"
     $initVim = "$APPDATA_LOCAL_NVIM_HOME\init.vim"
     Message "install $APPDATA_LOCAL_NVIM_HOME\init.vim for neovim on windows"
@@ -95,7 +108,8 @@ function InstallBasic() {
     cmd /c mklink $initVim $basicVim
 }
 
-function ShowHelp() {
+function ShowHelp()
+{
     Get-Content -Path "$DEPS_HOME\help.txt" | Write-Host
 }
 
@@ -118,33 +132,36 @@ function ShowHelp() {
 
 # check arguments
 $argsLength = $args.Length
-for ($i = 0; $i -lt $argsLength; $i++) {
+for ($i = 0; $i -lt $argsLength; $i++)
+{
     $a = $args[ $i ];
-    if ($a.StartsWith("-h") -or $a.StartsWith("--help")) {
+    if ($a.StartsWith("-h") -or $a.StartsWith("--help"))
+    {
         ShowHelp
         exit 0
-    }
-    elseif ($a.StartsWith("-b") -or $a.StartsWith("--basic")) {
+    } elseif ($a.StartsWith("-b") -or $a.StartsWith("--basic"))
+    {
         $MODE_NAME = "basic"
         $OPT_BASIC = $True
-    }
-    elseif ($a.StartsWith("-l") -or $a.StartsWith("--limit")) {
+    } elseif ($a.StartsWith("-l") -or $a.StartsWith("--limit"))
+    {
         $MODE_NAME = "limit"
-    }
-    elseif ($a.StartsWith("--use-color") -or $a.StartsWith("--no-color") -or $a.StartsWith("--no-hilight") -or $a.StartsWith("--no-lang") -or $a.StartsWith("--no-edit") -or $a.StartsWith("--no-ctrl") -or $a.StartsWith("--no-plug")) {
+    } elseif ($a.StartsWith("--use-color") -or $a.StartsWith("--no-color") -or $a.StartsWith("--no-hilight") -or $a.StartsWith("--no-lang") -or $a.StartsWith("--no-edit") -or $a.StartsWith("--no-ctrl") -or $a.StartsWith("--no-plug") -or $a.StartsWith('--ext-lsp'))
+    {
         # Nothing here
-    }
-    else {
+    } else
+    {
         UnknownOptionError
     }
 }
 
 Message "install with $MODE_NAME mode"
 
-if ($OPT_BASIC) {
+if ($OPT_BASIC)
+{
     InstallBasic
-}
-else {
+} else
+{
     # dependency
     Message "install dependencies for windows"
     CargoDependency
@@ -154,7 +171,8 @@ else {
     # vim settings
     Message "install settings for vim"
     python3 $NVIM_HOME\generator.py $args
-    if ($LastExitCode -ne 0) {
+    if ($LastExitCode -ne 0)
+    {
         exit 1
     }
     cmd /c nvim -E -u "$NVIM_HOME\temp\init-tool.vim" -c "Lazy! sync" -c "qall!" /wait
