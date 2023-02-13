@@ -31,7 +31,7 @@ def try_backup(src):
         message(f"backup '{src}' to '{dest}'")
 
 
-INDENT_SIZE = 4
+INDENT_SIZE = 2
 INDENT = " " * INDENT_SIZE
 
 
