@@ -1,1 +1,1 @@
-require('lspfuzzy').setup {}
+require("lspfuzzy").setup({})
