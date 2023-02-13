@@ -1,11 +1,11 @@
-require('gitsigns').setup {
+require("gitsigns").setup({
     signs = {
-        add          = { text = '+' }, -- vim-gitgutter style signs
-        change       = { text = '~' },
-        delete       = { text = '_' },
-        topdelete    = { text = '‾' },
-        changedelete = { text = '~_' },
-        untracked    = { text = '┆' },
+        add = { text = "+" }, -- vim-gitgutter style signs
+        change = { text = "~" },
+        delete = { text = "_" },
+        topdelete = { text = "‾" },
+        changedelete = { text = "~_" },
+        untracked = { text = "┆" },
     },
     current_line_blame_opts = {
         delay = 300,
@@ -20,16 +20,24 @@ require('gitsigns').setup {
         end
 
         -- Navigation
-        map('n', ']c', function()
-            if vim.wo.diff then return ']c' end
-            vim.schedule(function() gs.next_hunk() end)
-            return '<Ignore>'
+        map("n", "]h", function()
+            if vim.wo.diff then
+                return "]c"
+            end
+            vim.schedule(function()
+                gs.next_hunk()
+            end)
+            return "<Ignore>"
         end, { expr = true })
 
-        map('n', '[c', function()
-            if vim.wo.diff then return '[c' end
-            vim.schedule(function() gs.prev_hunk() end)
-            return '<Ignore>'
+        map("n", "[h", function()
+            if vim.wo.diff then
+                return "[c"
+            end
+            vim.schedule(function()
+                gs.prev_hunk()
+            end)
+            return "<Ignore>"
         end, { expr = true })
-    end
-}
+    end,
+})

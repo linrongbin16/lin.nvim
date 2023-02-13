@@ -14,12 +14,8 @@ lua require('conf/keymap').map('n', '<F9>', ':MarkdownPreview<CR>', {silent=fals
 lua require('conf/keymap').map('n', '<F10>', ':ToggleTerm<CR>', {silent=false})
 
 """ ---- Biscuits ----
-" Commands
-lua require('conf/keymap').map('n', '<leader>ms', ':Mason<CR>', {silent=false})
-lua require('conf/keymap').map('n', '<leader>lz', ':Lazy<CR>', {silent=false})
-lua require('conf/keymap').map('n', '<leader>wk', ':WhichKey ', {silent=false})
 " Save file without formatting
-lua require('conf/keymap').map('n', '<leader>ww', ':WhichKey ', {silent=false})
+lua require('conf/keymap').map('n', '<leader>ww', ':noa w', {silent=false})
 " Quit
 lua require('conf/keymap').map('n', '<leader>qt', ':quit<CR>', {silent=false})
 lua require('conf/keymap').map('n', '<leader>qT', ':quit!<CR>', {silent=false})

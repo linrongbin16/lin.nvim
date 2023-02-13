@@ -1,14 +1,6 @@
 local constants = require("conf/constants")
 
--- For Windows: $env:USERPROFILE\AppData\Local\nvim-data\lazy\lazy.nvim
--- For *NIX: ~/.local/share/nvim/lazy/lazy.nvim
-local lazypath = string.format(
-    "%s%slazy%slazy.nvim",
-    vim.fn.stdpath("data"),
-    constants.fs.path_separator,
-    constants.fs.path_separator
-)
-
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
     vim.fn.system({
         "git",
@@ -28,3 +20,5 @@ local opts = {
 }
 
 require("lazy").setup("plugins", opts)
+
+require("conf/keymap").map("n", "<leader>lz", ":Lazy<CR>", { silent = false, desc = "Open Lazy" })

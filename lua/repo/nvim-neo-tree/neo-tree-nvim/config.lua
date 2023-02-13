@@ -110,13 +110,9 @@ require("neo-tree").setup({
         use_libuv_file_watcher = true,
         window = {
             mappings = {
-                -- diabled mappings
-                ["[g"] = "",
-                ["]g"] = "",
-
                 -- added mappings
-                ["[c"] = "prev_git_modified",
-                ["]c"] = "next_git_modified",
+                ["[h"] = "prev_git_modified",
+                ["]h"] = "next_git_modified",
             },
         },
     },
