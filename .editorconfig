@@ -1,6 +1,6 @@
 root = true
 
-[*.{vim,lua,py,ps1,sh}]
+[*.{vim,ps1,sh}]
 end_of_line = lf
 insert_final_newline = false
 charset = utf-8
@@ -9,3 +9,7 @@ trim_trailing_whitespace = true
 [*.vim]
 indent_style = space
 indent_size = 2
+
+[*.{sh,ps1}]
+indent_style = space
+indent_size = 4
