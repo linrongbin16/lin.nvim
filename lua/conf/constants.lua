@@ -22,7 +22,7 @@ M.ui = {
 M.perf = {
   -- performance
   filesystem = {
-    maxsize = 1024 * 1024 * 10, -- 10MB
+    maxsize = 1024 * 512, -- 512KB
   },
 }
 
