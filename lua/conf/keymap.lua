@@ -42,12 +42,13 @@ end
 
 local DEFAULT_OPTS = {
     silent = true,
-    noremap = true, -- automatically set false for <Plug>
+    noremap = true,
     -- buffer = false,
 }
 
 local function map(mode, lhs, rhs, opts)
     opts = vim.tbl_deep_extend("force", DEFAULT_OPTS, opts or {})
+    -- forcibly set `noremap=false` for <Plug>
     if type(rhs) == "string" and string.len(rhs) >= 6 and string.sub(rhs, 1, 6) == "<plug>" then
         opts.noremap = false
     end
