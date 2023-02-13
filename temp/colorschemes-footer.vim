@@ -5,7 +5,7 @@ function! s:rand_int(n) abort
 endfunction
 
 function s:lin_next_color(color, update)
-  echom 'a:color:' . a:color . ', a:update:' . a:update
+  " echom 'a:color:' . a:color . ', a:update:' . a:update
   if len(a:color) > 0
     execute 'colorscheme ' . shellescape(a:color)
   else
