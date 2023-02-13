@@ -1,5 +1,4 @@
--- {{
--- ---- Add new LSP server ----
+-- { ---- Add new LSP server ----
 --
 -- Case-1: Add LSP server name in 'embeded_servers'.
 --  LSP server is working as nvim-cmp sources, installed by mason-lspconfig.
@@ -15,6 +14,14 @@
 local null_ls = require("null-ls")
 local constants = require("conf/constants")
 
+local function attach_ext(client, bufnr)
+  -- attach navic to working with multiple buffers/tabs
+  if client.server_capabilities["documentSymbolProvider"] then
+    require("nvim-navic").attach(client, bufnr)
+  end
+end
+
+-- { mason's config
 local embeded_servers = {
   -- clang
   "clangd",
@@ -39,52 +46,11 @@ local embeded_servers = {
   "lemminx",
   -- yaml
   "yamlls",
+  -- bash/powershell
+  vim.fn.has("win32") > 0 and "powershell_es" or "bashls",
 }
-local embeded_extras = {
-  -- js/ts
-  {
-    -- Some eslint_d and prettierd are not valid LSP servers,
-    -- They're not working through nvim-cmp when editing js/ts files.
-    -- So we registered them as null-ls sources to let them work.
-    "eslint_d",
-    {
-      null_ls.builtins.diagnostics.eslint_d,
-      null_ls.builtins.formatting.eslint_d,
-      null_ls.builtins.code_actions.eslint_d,
-    },
-  },
-  { "prettierd", { null_ls.builtins.formatting.prettierd } },
-  -- lua
-  -- Better lua formatter
-  { "stylua", { null_ls.builtins.formatting.stylua } },
-  -- python
-  -- Since pyright doesn't include code format.
-  -- So registered black/isort as null-ls sources to let them work.
-  { "black", { null_ls.builtins.formatting.black } },
-  { "isort", { null_ls.builtins.formatting.isort } },
-}
-if vim.fn.has("win32") > 0 then
-  -- powershell for windows
-  table.insert(embeded_servers, "powershell_es")
-else
-  -- bash for UNIX/Linux/macOS
-  table.insert(embeded_servers, "bashls")
-  table.insert(
-    embeded_extras,
-    { "shfmt", { null_ls.builtins.formatting.shfmt } }
-  )
-end
-
--- { nvim-lspconfig setups
-local function attach_ext(client, bufnr)
-  -- attach navic to working with multiple buffers/tabs
-  if client.server_capabilities["documentSymbolProvider"] then
-    require("nvim-navic").attach(client, bufnr)
-  end
-end
-
-local lspconfig_setups = {
-  -- { default setup
+local embeded_server_setups = {
+  -- default setup
   function(server)
     require("lspconfig")[server].setup({
       on_attach = function(client, bufnr)
@@ -92,8 +58,7 @@ local lspconfig_setups = {
       end,
     })
   end,
-  -- } default setup
-  -- { specific setup
+  -- specific setup
   clangd = function()
     require("clangd_extensions").setup({
       extensions = {
@@ -135,46 +100,49 @@ local lspconfig_setups = {
   --     end,
   --   })
   -- end,
-  -- } specific setup
 }
--- } nvim-lspconfig setups
+-- } mason's config
 
--- }}
+-- { null-ls's config
+local embeded_nulllses = {
+  -- js/ts
+  "eslint_d",
+  "prettierd",
+  -- lua
+  "stylua", -- Better lua formatter
+  -- python
+  "black", -- Since pyright doesn't include code format.
+  "isort", -- Use black/isort as code formatter.
+}
+if vim.fn.has("win32") <= 0 then
+  table.insert(
+    embeded_nulllses,
+    { "shfmt", { null_ls.builtins.formatting.shfmt } }
+  )
+end
+local embeded_nullls_setups = {
+  -- default setup
+  function(source, methods)
+    require("mason-null-ls.automatic_setup")(source, methods)
+  end,
+  -- specific setup
+  -- stylua = function(source, methods)
+  --   null_ls.register(null_ls.builtins.formatting.stylua)
+  -- end,
+}
+-- } null-ls's config
 
--- {{
--- ---- The real setup work goes here ----
+-- }
+
+-- { ---- The real config work goes here ----
 
 -- Setup mason-lspconfig
-local ensure_installed_servers = {}
-for i, server in ipairs(embeded_servers) do
-  table.insert(ensure_installed_servers, server)
-end
-require("mason-lspconfig").setup({
-  ensure_installed = ensure_installed_servers,
-})
-
--- Extensions for Specific Languages
-require("mason-lspconfig").setup_handlers(lspconfig_setups)
+require("mason-lspconfig").setup({ ensure_installed = embeded_servers })
+require("mason-lspconfig").setup_handlers(embeded_server_setups)
 
 -- Setup mason-null-ls and null-ls configs
-local ensure_installed_extras = {}
-local null_ls_sources = {}
--- print('null-ls')
-for i, extra in ipairs(embeded_extras) do
-  local name = extra[1]
-  table.insert(ensure_installed_extras, name)
-  local configs = extra[2]
-  -- print('i:', i, ", name:", name, ", configs:", configs, ", configs.length:", #configs)
-  for j, conf in ipairs(configs) do
-    -- print('j:', j, ", conf:", conf)
-    table.insert(null_ls_sources, conf)
-  end
-end
-require("mason-null-ls").setup({
-  ensure_installed = ensure_installed_extras,
-})
-null_ls.setup({
-  sources = null_ls_sources,
-})
+require("mason-null-ls").setup({ ensure_installed = embeded_nulllses })
+require("mason-null-ls").setup_handlers(embeded_nullls_setups)
+null_ls.setup()
 
--- }}
+-- }
