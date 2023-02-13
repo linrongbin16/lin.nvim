@@ -29,7 +29,7 @@ local embeded_servers = {
     -- js/ts
     "tsserver",
     -- lua
-    "sumneko_lua",
+    "lua_ls",
     -- python
     "pyright",
     -- vim
@@ -54,10 +54,10 @@ local embeded_extras = {
     },
     { "prettierd", { null_ls.builtins.formatting.prettierd } },
     -- lua
-    { "stylua",    { null_ls.builtins.formatting.stylua.with({ extra_args = { "--indent-type", "Spaces" } }) } }, -- Better lua formatter
+    { "stylua", { null_ls.builtins.formatting.stylua.with({ extra_args = { "--indent-type", "Spaces" } }) } }, -- Better lua formatter
     -- python
-    { "black",     { null_ls.builtins.formatting.black } }, -- Since pyright doesn't include code format.
-    { "isort",     { null_ls.builtins.formatting.isort } }, -- So registered black/isort as null-ls sources to let them work.
+    { "black", { null_ls.builtins.formatting.black } }, -- Since pyright doesn't include code format.
+    { "isort", { null_ls.builtins.formatting.isort } }, -- So registered black/isort as null-ls sources to let them work.
 }
 if vim.fn.has("win32") == 1 then
     -- powershell for windows
