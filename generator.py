@@ -1250,9 +1250,7 @@ class Render:
                             LiteralExpr("---- Random colorscheme on startup ----")
                         )
                     ),
-                    Stmt(
-                        CallExpr(FunctionInvokeExpr(LiteralExpr("LinNextRandomColor")))
-                    ),
+                    Stmt(LiteralExpr("NextColor")),
                 ]
             )
         if not self.no_ctrl:
