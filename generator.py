@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
 
 import abc
+import argparse
 import datetime
 import enum
 import pathlib
 import platform
-
-import click
 
 HOME_DIR = pathlib.Path.home()
 NVIM_DIR = pathlib.Path(f"{HOME_DIR}/.nvim")
@@ -1436,106 +1435,191 @@ class Dumper:
                 fp.writelines("\n")
 
 
-class CommandHelp(click.Command):
-    HELP_FILE = pathlib.Path(f"{NVIM_DIR}/deps/help.txt")
+# class CommandHelp(click.Command):
+#     HELP_FILE = pathlib.Path(f"{NVIM_DIR}/deps/help.txt")
+#
+#     def format_help(self, ctx, formatter):
+#         with open(CommandHelp.HELP_FILE, "r") as hf:
+#             formatter.write(hf.read())
 
-    def format_help(self, ctx, formatter):
-        with open(CommandHelp.HELP_FILE, "r") as hf:
-            formatter.write(hf.read())
+
+# @click.command(cls=CommandHelp)
+# @click.option("-b", "--basic", "basic_opt", is_flag=True, help="Basic mode")
+# @click.option("-l", "--limit", "limit_opt", is_flag=True, help="Limit mode")
+# @click.option(
+#     "--use-color",
+#     "use_color_opt",
+#     default=None,
+#     show_default=True,
+#     help="Use static colorscheme",
+# )
+# @click.option(
+#     "--no-color",
+#     "no_color_opt",
+#     is_flag=True,
+#     help="No extra colors",
+# )
+# @click.option(
+#     "--no-hilight",
+#     "no_hilight_opt",
+#     is_flag=True,
+#     help="No extra highlights",
+# )
+# @click.option(
+#     "--no-lang",
+#     "no_lang_opt",
+#     is_flag=True,
+#     help="No language supports",
+# )
+# @click.option(
+#     "--no-edit",
+#     "no_edit_opt",
+#     is_flag=True,
+#     help="No editing enhancements",
+# )
+# @click.option(
+#     "--no-plug",
+#     "no_plug_opt",
+#     multiple=True,
+#     help="No specific plugin",
+# )
+# @click.option(
+#     "--no-ctrl",
+#     "no_ctrl_opt",
+#     is_flag=True,
+#     help="No Windows ctrl+?(and cmd+? on macOS) keys",
+# )
+# @click.option(
+#     "--dump-plugins",
+#     "dump_plugins_opt",
+#     is_flag=True,
+#     help="Dump all plugin list",
+# )
+# @click.option(
+#     "--dump-plugins-filename",
+#     "dump_plugins_filename_opt",
+#     default="dump_plugins.md",
+#     help="Dump plugins filename, by default: dump_plugins.md",
+# )
+# def generator(
+#     basic_opt,
+#     limit_opt,
+#     use_color_opt,
+#     no_color_opt,
+#     no_hilight_opt,
+#     no_lang_opt,
+#     no_edit_opt,
+#     no_plug_opt,
+#     no_ctrl_opt,
+#     dump_plugins_opt,
+#     dump_plugins_filename_opt,
+# ):
+#     if dump_plugins_opt:
+#         return Dumper.plugins(dump_plugins_filename_opt)
+#
+#     if limit_opt:
+#         no_color_opt = True
+#         no_hilight_opt = True
+#         no_lang_opt = True
+#         no_edit_opt = True
+#     render = Render(
+#         use_color_opt,
+#         no_color_opt,
+#         no_hilight_opt,
+#         no_lang_opt,
+#         no_edit_opt,
+#         no_plug_opt,
+#         no_ctrl_opt,
+#     )
+#     plugins, lspservers, colorschemes, settings, init = render.render()
+#     writer = FileWriter(plugins, lspservers, colorschemes, settings, init)
+#     writer.write()
 
 
-@click.command(cls=CommandHelp)
-@click.option("-b", "--basic", "basic_opt", is_flag=True, help="Basic mode")
-@click.option("-l", "--limit", "limit_opt", is_flag=True, help="Limit mode")
-@click.option(
-    "--use-color",
-    "use_color_opt",
-    default=None,
-    show_default=True,
-    help="Use static colorscheme",
-)
-@click.option(
-    "--no-color",
-    "no_color_opt",
-    is_flag=True,
-    help="No extra colors",
-)
-@click.option(
-    "--no-hilight",
-    "no_hilight_opt",
-    is_flag=True,
-    help="No extra highlights",
-)
-@click.option(
-    "--no-lang",
-    "no_lang_opt",
-    is_flag=True,
-    help="No language supports",
-)
-@click.option(
-    "--no-edit",
-    "no_edit_opt",
-    is_flag=True,
-    help="No editing enhancements",
-)
-@click.option(
-    "--no-plug",
-    "no_plug_opt",
-    multiple=True,
-    help="No specific plugin",
-)
-@click.option(
-    "--no-ctrl",
-    "no_ctrl_opt",
-    is_flag=True,
-    help="No Windows ctrl+?(and cmd+? on macOS) keys",
-)
-@click.option(
-    "--dump-plugins",
-    "dump_plugins_opt",
-    is_flag=True,
-    help="Dump all plugin list",
-)
-@click.option(
-    "--dump-plugins-filename",
-    "dump_plugins_filename_opt",
-    default="dump_plugins.md",
-    help="Dump plugins filename, by default: dump_plugins.md",
-)
-def generator(
-    basic_opt,
-    limit_opt,
-    use_color_opt,
-    no_color_opt,
-    no_hilight_opt,
-    no_lang_opt,
-    no_edit_opt,
-    no_plug_opt,
-    no_ctrl_opt,
-    dump_plugins_opt,
-    dump_plugins_filename_opt,
-):
-    if dump_plugins_opt:
-        return Dumper.plugins(dump_plugins_filename_opt)
+def make_arguments():
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "-b", "--basic", dest="basic_opt", action="store_true", help="basic mode"
+    )
+    parser.add_argument(
+        "-l", "--limit", dest="limit_opt", action="store_true", help="limit mode"
+    )
+    parser.add_argument(
+        "--use-color",
+        dest="use_color_opt",
+        metavar="NAME",
+        help="use specific colorscheme",
+    )
+    parser.add_argument(
+        "--no-color", dest="no_color_opt", action="store_true", help="no extra colors"
+    )
+    parser.add_argument(
+        "--no-hilight",
+        dest="no_hilight_opt",
+        action="store_true",
+        help="no extra highlights",
+    )
+    parser.add_argument(
+        "--no-lang", dest="no_lang_opt", action="store_true", help="no language support"
+    )
+    parser.add_argument(
+        "--no-edit",
+        dest="no_edit_opt",
+        action="store_true",
+        help="no editing enhancements",
+    )
+    parser.add_argument(
+        "--no-plug",
+        dest="no_plug_opt",
+        metavar="ORG/REPO",
+        action="append",
+        help="no specific plugin",
+    )
+    parser.add_argument(
+        "--no-ctrl",
+        dest="no_ctrl_opt",
+        action="store_true",
+        help="no ctrl+?/cmd+? keys",
+    )
+    parser.add_argument(
+        "--dump-plugins",
+        dest="dump_plugins_opt",
+        action="store_true",
+        help="dump plugin list",
+    )
+    parser.add_argument(
+        "--dump-plugins-file",
+        dest="dump_plugins_file_opt",
+        default="dump-plugins.md",
+        metavar="FILE",
+        help="file to dump plugin list",
+    )
+    arguments = parser.parse_args()
+    return arguments
 
-    if limit_opt:
-        no_color_opt = True
-        no_hilight_opt = True
-        no_lang_opt = True
-        no_edit_opt = True
+
+if __name__ == "__main__":
+    arguments = make_arguments()
+    print(arguments)
+
+    if arguments.dump_plugins_opt:
+        Dumper.plugins(arguments.dump_plugins_filename_opt)
+        exit(0)
+
+    if arguments.limit_opt:
+        arguments.no_color_opt = True
+        arguments.no_hilight_opt = True
+        arguments.no_lang_opt = True
+        arguments.no_edit_opt = True
     render = Render(
-        use_color_opt,
-        no_color_opt,
-        no_hilight_opt,
-        no_lang_opt,
-        no_edit_opt,
-        no_plug_opt,
-        no_ctrl_opt,
+        arguments.use_color_opt,
+        arguments.no_color_opt,
+        arguments.no_hilight_opt,
+        arguments.no_lang_opt,
+        arguments.no_edit_opt,
+        arguments.no_plug_opt,
+        arguments.no_ctrl_opt,
     )
     plugins, lspservers, colorschemes, settings, init = render.render()
     writer = FileWriter(plugins, lspservers, colorschemes, settings, init)
     writer.write()
-
-
-if __name__ == "__main__":
-    generator()

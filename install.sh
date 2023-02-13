@@ -26,7 +26,7 @@ source $DEPS_HOME/util.sh
 
 pip3_dependency() {
     message "install python packages with pip3"
-    sudo python3 -m pip install pynvim click
+    sudo python3 -m pip install pynvim
 }
 
 npm_dependency() {
