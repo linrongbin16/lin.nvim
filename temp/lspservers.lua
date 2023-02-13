@@ -54,10 +54,13 @@ local embeded_extras = {
   },
   { "prettierd", { null_ls.builtins.formatting.prettierd } },
   -- lua
-  { "stylua", { null_ls.builtins.formatting.stylua } }, -- Better lua formatter
+  -- Better lua formatter
+  { "stylua", { null_ls.builtins.formatting.stylua } },
   -- python
-  { "black", { null_ls.builtins.formatting.black } }, -- Since pyright doesn't include code format.
-  { "isort", { null_ls.builtins.formatting.isort } }, -- So registered black/isort as null-ls sources to let them work.
+  -- Since pyright doesn't include code format.
+  -- So registered black/isort as null-ls sources to let them work.
+  { "black", { null_ls.builtins.formatting.black } },
+  { "isort", { null_ls.builtins.formatting.isort } },
 }
 if vim.fn.has("win32") == 1 then
   -- powershell for windows

@@ -10,4 +10,5 @@ Options:
   --no-edit                 No editing enhancements
   --no-plug=org/repo        No specific plugin
   --no-ctrl                 No Windows ctrl+?(macOS cmd+?) keys
+  --ext-lsp                 Extend LSP servers.
   -h, --help                Help message
