@@ -7,7 +7,7 @@ endfunction
 function s:lin_next_color(color, update)
   " echom 'a:color:' . a:color . ', a:update:' . a:update
   if len(a:color) > 0
-    execute 'colorscheme ' . shellescape(a:color)
+    execute 'colorscheme ' . a:color
   else
     if len(s:colors) > 0
       let idx = s:rand_int(len(s:colors))
