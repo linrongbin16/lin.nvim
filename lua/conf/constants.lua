@@ -26,4 +26,8 @@ M.perf = {
     },
 }
 
+M.fs = {
+    path_separator = package.config:sub(1, 1), -- Windows: '\\', *NIX: '/'
+}
+
 return M
