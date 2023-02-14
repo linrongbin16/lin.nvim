@@ -2,9 +2,9 @@
 .DS_Store
 
 # plugins
-lazy-lock.json
-mason
-lazy
+/lazy-lock.json
+/mason
+/lazy
 
 # generated
 /lua/plugins.lua*
