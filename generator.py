@@ -960,16 +960,16 @@ PLUGINS = [
             DependenciesProp(
                 "williamboman/mason.nvim",
                 "neovim/nvim-lspconfig",
-                "p00f/clangd_extensions.nvim",
+                # "p00f/clangd_extensions.nvim",
             ),
         ),
         tag=Tag.LANGUAGE,
     ),
-    Plugin(
-        "p00f/clangd_extensions.nvim",
-        props=Props(LazyProp()),
-        tag=Tag.LANGUAGE,
-    ),
+    # Plugin(
+    #     "p00f/clangd_extensions.nvim",
+    #     props=Props(LazyProp()),
+    #     tag=Tag.LANGUAGE,
+    # ),
     Plugin(
         "jose-elias-alvarez/null-ls.nvim",
         props=Props(VLEventProp(), DependenciesProp("nvim-lua/plenary.nvim")),

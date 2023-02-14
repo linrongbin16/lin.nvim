@@ -23,8 +23,6 @@ end
 
 -- { mason's config
 local embeded_servers = {
-  -- clang
-  "clangd",
   -- lua
   "lua_ls",
   -- vim
@@ -39,41 +37,41 @@ local embeded_servers_setups = {
       end,
     })
   end,
-  -- specific setup
-  clangd = function()
-    require("clangd_extensions").setup({
-      extensions = {
-        ast = {
-          role_icons = {
-            type = "",
-            declaration = "",
-            expression = "",
-            specifier = "",
-            statement = "",
-            ["template argument"] = "",
-          },
-          kind_icons = {
-            Compound = "",
-            Recovery = "",
-            TranslationUnit = "",
-            PackExpansion = "",
-            TemplateTypeParm = "",
-            TemplateTemplateParm = "",
-            TemplateParamObject = "",
-          },
-        },
-        memory_usage = {
-          border = constants.ui.border,
-        },
-        symbol_info = {
-          border = constants.ui.border,
-        },
-      },
-      on_attach = function(client, bufnr)
-        attach_ext(client, bufnr)
-      end,
-    })
-  end,
+  -- -- specific setup
+  -- clangd = function()
+  --   require("clangd_extensions").setup({
+  --     extensions = {
+  --       ast = {
+  --         role_icons = {
+  --           type = "",
+  --           declaration = "",
+  --           expression = "",
+  --           specifier = "",
+  --           statement = "",
+  --           ["template argument"] = "",
+  --         },
+  --         kind_icons = {
+  --           Compound = "",
+  --           Recovery = "",
+  --           TranslationUnit = "",
+  --           PackExpansion = "",
+  --           TemplateTypeParm = "",
+  --           TemplateTemplateParm = "",
+  --           TemplateParamObject = "",
+  --         },
+  --       },
+  --       memory_usage = {
+  --         border = constants.ui.border,
+  --       },
+  --       symbol_info = {
+  --         border = constants.ui.border,
+  --       },
+  --     },
+  --     on_attach = function(client, bufnr)
+  --       attach_ext(client, bufnr)
+  --     end,
+  --   })
+  -- end,
   -- ["rust_analyzer"] = function()
   --   require("rust-tools").setup({
   --     on_attach = function(client, bufnr)
