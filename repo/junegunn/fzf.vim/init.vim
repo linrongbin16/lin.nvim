@@ -5,7 +5,7 @@ elseif executable('fdfind')
   let $FZF_DEFAULT_COMMAND = 'fdfind -tf -tl -i'
 else
   echohl ErrorMsg
-  echo "Error: `fd` or `fdfind` not found!"
+  echo 'Error: `fd` or `fdfind` not found!'
   echohl None
 endif
 " use base16 theme for better color capatibility

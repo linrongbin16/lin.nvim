@@ -26,7 +26,7 @@ augroup optimization_augroup
   autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f) > luaeval("require('conf/constants').perf.filesystem.maxsize") | syntax clear | setlocal eventignore+=FileType | setlocal undolevels=-1 | endif
 augroup END
 " Neovide
-if exists("g:neovide")
+if exists('g:neovide')
   let g:neovide_refresh_rate=30
   let g:neovide_transparency=1.0
   let g:neovide_scroll_animation_length=0.0
