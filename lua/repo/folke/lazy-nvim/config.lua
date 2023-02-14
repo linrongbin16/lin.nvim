@@ -16,13 +16,6 @@ local opts = {
   ui = {
     border = require("conf/constants").ui.border,
   },
-  readme = {
-    root = vim.fn.stdpath("config") .. "/lazy/readme",
-    files = { "README.md", "lua/**/README.md" },
-    -- only generate markdown helptags for plugins that dont have docs
-    skip_if_doc_exists = true,
-  },
-  state = vim.fn.stdpath("config") .. "/lazy/state.json",
 }
 
 require("lazy").setup("plugins", opts)
