@@ -4,6 +4,7 @@
 --  LSP server is working as nvim-cmp sources, installed by mason-lspconfig.
 --  Please refer to:
 --      * [mason-lspconfig Available LSP servers](https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers) for more LSP servers.
+--      * [nvim-lspconfig's language specific plugins](https://github.com/neovim/nvim-lspconfig/wiki/Language-specific-plugins) for more specific language plugins.
 --
 -- Case-2: Add extra null-ls source in 'embeded_extras'.
 --  Extra null-ls source is working as null-ls sources, installed by mason-null-ls.
