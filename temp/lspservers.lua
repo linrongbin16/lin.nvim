@@ -49,7 +49,7 @@ local embeded_servers = {
   -- bash/powershell
   vim.fn.has("win32") > 0 and "powershell_es" or "bashls",
 }
-local embeded_server_setups = {
+local embeded_servers_setups = {
   -- default setup
   function(server)
     require("lspconfig")[server].setup({
@@ -104,7 +104,7 @@ local embeded_server_setups = {
 -- } mason's config
 
 -- { null-ls's config
-local embeded_nulllses = {
+local embeded_nullls = {
   -- js/ts
   "eslint_d",
   "prettierd",
@@ -115,10 +115,7 @@ local embeded_nulllses = {
   "isort", -- Use black/isort as code formatter.
 }
 if vim.fn.has("win32") <= 0 then
-  table.insert(
-    embeded_nulllses,
-    { "shfmt", { null_ls.builtins.formatting.shfmt } }
-  )
+  table.insert(embeded_nullls, "shfmt")
 end
 local embeded_nullls_setups = {
   -- default setup
@@ -138,10 +135,10 @@ local embeded_nullls_setups = {
 
 -- Setup mason-lspconfig
 require("mason-lspconfig").setup({ ensure_installed = embeded_servers })
-require("mason-lspconfig").setup_handlers(embeded_server_setups)
+require("mason-lspconfig").setup_handlers(embeded_servers_setups)
 
 -- Setup mason-null-ls and null-ls configs
-require("mason-null-ls").setup({ ensure_installed = embeded_nulllses })
+require("mason-null-ls").setup({ ensure_installed = embeded_nullls })
 require("mason-null-ls").setup_handlers(embeded_nullls_setups)
 null_ls.setup()
 
