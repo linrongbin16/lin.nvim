@@ -6,6 +6,7 @@ import datetime
 import enum
 import pathlib
 import platform
+import shutil
 
 HOME_DIR = pathlib.Path.home()
 NVIM_DIR = pathlib.Path(f"{HOME_DIR}/.nvim")
@@ -548,24 +549,125 @@ class Plugin:
 
 
 class ExtLsp:
+    def __init__(self):
+        self._lsp = []
+        self._nullls = []
+
+    def name(self):
+        return None
+
+    def lsp_candidates(self):
+        return []
+
+    def nullls_candidates(self):
+        return []
+
+    def lsp_servers(self):
+        return self._lsp
+
+    def nullls_sources(self):
+        return self._nullls
+
     def check(self):
+        if shutil.which(self.name()) is None:
+            return False
+        return self._confirm()
+
+    def _confirm(self):
+        recommend = self.lsp_candidates() + self.nullls_candidates()
+        candidates = ", ".join(
+            [
+                f"{i+1}:{r}{'(default)' if i == 0 else ''}"
+                for i, r in enumerate(recommend)
+            ]
+        )
+        result = input(
+            message(
+                f"install lsp for '{self.name()}': {candidates}(Enter/Y/y to select all, comma separated numbers to select any, N/n to skip)? "
+            )
+        )
+
+        def add_candidate(c):
+            if c in self.lsp_candidates():
+                self._lsp.append(c)
+            else:
+                assert c in self.nullls_candidates()
+                self._nullls.append(c)
+
+        if result.lower().startswith("n"):
+            message(f"not confirmed, skip...")
+            return False
+        if len(result.lower()) <= 0 or result.lower().startswith("y"):
+            message(f"confirmed: {', '.join([r for r in recommend])}")
+            for r in recommend:
+                add_candidate(r)
+            return True
+        try:
+            indexes = [int(i) for i in result.split(",")]
+            choice = []
+            for i in indexes:
+                if i < 1 or i > len(recommend):
+                    error_message(f"unknown number: {i}, skip...")
+                    return False, []
+                add_candidate(recommend[i - 1])
+                choice.append(recommend[i - 1])
+            message(f"confirmed: {', '.join([c for c in choice])}")
+            return True
+        except:
+            error_message(f"unknown choice: {result}, skip...")
+            return False
+
+
+class BashExtLsp(ExtLsp):
+    def __init__(self):
+        super(BashExtLsp).__init__()
+
+    def name(self):
+        return "bash"
+
+    def lsp_candidates(self):
+        return ["bashls"]
+
+    def nullls_candidates(self):
+        return ["shfmt", "shellcheck", "shellharden"]
+
+
+class BufExtLsp(ExtLsp):
+    def __init__(self):
+        super(BufExtLsp).__init__()
+
+    def name(self):
+        return "protoc"
+
+    def lsp_candidates(self):
+        return ["bufls"]
+
+    def nullls_candidates(self):
+        return ["buf", "protolint"]
+
+
+class CppExtLsp(ExtLsp):
+    def __init__(self):
+        super(CppExtLsp).__init__()
+
+    def name(self):
+        return "gcc/clang/cl"
+
+    def lsp_candidates(self):
+        return ["clangd"]
+
+    def nullls_candidates(self):
+        return ["cpplint", "clang_format"]
+
+    def check(self):
+        if shutil.which("gcc") is not None and shutil.which("g++") is not None:
+            return self._confirm()
+        if shutil.which("clang") is not None and shutil.which("clang++") is not None:
+            return self._confirm()
         return False
 
-    def plugin(self):
-        return None
 
-    def server(self):
-        return None
-
-    def server_setup(self):
-        return None
-
-    def nullls(self):
-        return None
-
-    def nullls_setup(self):
-        return None
-
+EXTEND_LSP = []
 
 # Extend Lsp }
 
