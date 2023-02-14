@@ -5,9 +5,6 @@ glance.setup({
   border = {
     enable = true,
   },
-  list = {
-    position = "left",
-  },
   mappings = {
     list = {
       -- navigation
