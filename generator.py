@@ -544,6 +544,31 @@ class Plugin:
         return self.repo.render() if isinstance(self.repo, Expr) else str(self.repo)
 
 
+# Extend Lsp {
+
+
+class ExtLsp:
+    def check(self):
+        return False
+
+    def plugin(self):
+        return None
+
+    def server(self):
+        return None
+
+    def server_setup(self):
+        return None
+
+    def nullls(self):
+        return None
+
+    def nullls_setup(self):
+        return None
+
+
+# Extend Lsp }
+
 PLUGINS = [
     # { Infrastructure and dependencies
     Plugin(
