@@ -15,7 +15,7 @@ local null_ls = require("null-ls")
 local constants = require("conf/constants")
 
 local function attach_ext(client, bufnr)
-  -- attach navic to working with multiple buffers/tabs
+  -- attach navic to work with multiple tabs
   if client.server_capabilities["documentSymbolProvider"] then
     require("nvim-navic").attach(client, bufnr)
   end
@@ -23,31 +23,10 @@ end
 
 -- { mason's config
 local embeded_servers = {
-  -- clang
-  "clangd",
-  -- cmake
-  "cmake",
-  -- css
-  "cssls",
-  "cssmodules_ls",
-  -- html
-  "html",
-  -- json
-  "jsonls",
-  -- js/ts
-  "tsserver",
   -- lua
   "lua_ls",
-  -- python
-  "pyright",
   -- vim
   "vimls",
-  -- xml
-  "lemminx",
-  -- yaml
-  "yamlls",
-  -- bash/powershell
-  vim.fn.has("win32") > 0 and "powershell_es" or "bashls",
 }
 local embeded_servers_setups = {
   -- default setup
@@ -58,41 +37,41 @@ local embeded_servers_setups = {
       end,
     })
   end,
-  -- specific setup
-  clangd = function()
-    require("clangd_extensions").setup({
-      extensions = {
-        ast = {
-          role_icons = {
-            type = "",
-            declaration = "",
-            expression = "",
-            specifier = "",
-            statement = "",
-            ["template argument"] = "",
-          },
-          kind_icons = {
-            Compound = "",
-            Recovery = "",
-            TranslationUnit = "",
-            PackExpansion = "",
-            TemplateTypeParm = "",
-            TemplateTemplateParm = "",
-            TemplateParamObject = "",
-          },
-        },
-        memory_usage = {
-          border = constants.ui.border,
-        },
-        symbol_info = {
-          border = constants.ui.border,
-        },
-      },
-      on_attach = function(client, bufnr)
-        attach_ext(client, bufnr)
-      end,
-    })
-  end,
+  -- -- specific setup
+  -- clangd = function()
+  --   require("clangd_extensions").setup({
+  --     extensions = {
+  --       ast = {
+  --         role_icons = {
+  --           type = "",
+  --           declaration = "",
+  --           expression = "",
+  --           specifier = "",
+  --           statement = "",
+  --           ["template argument"] = "",
+  --         },
+  --         kind_icons = {
+  --           Compound = "",
+  --           Recovery = "",
+  --           TranslationUnit = "",
+  --           PackExpansion = "",
+  --           TemplateTypeParm = "",
+  --           TemplateTemplateParm = "",
+  --           TemplateParamObject = "",
+  --         },
+  --       },
+  --       memory_usage = {
+  --         border = constants.ui.border,
+  --       },
+  --       symbol_info = {
+  --         border = constants.ui.border,
+  --       },
+  --     },
+  --     on_attach = function(client, bufnr)
+  --       attach_ext(client, bufnr)
+  --     end,
+  --   })
+  -- end,
   -- ["rust_analyzer"] = function()
   --   require("rust-tools").setup({
   --     on_attach = function(client, bufnr)
@@ -105,18 +84,11 @@ local embeded_servers_setups = {
 
 -- { null-ls's config
 local embeded_nullls = {
-  -- js/ts
-  "eslint_d",
-  "prettierd",
   -- lua
-  "stylua", -- Better lua formatter
-  -- python
-  "black", -- Since pyright doesn't include code format.
-  "isort", -- Use black/isort as code formatter.
+  "stylua", -- better lua formatter
+  -- vim
+  "vint", -- vim lint
 }
-if vim.fn.has("win32") <= 0 then
-  table.insert(embeded_nullls, "shfmt")
-end
 local embeded_nullls_setups = {
   -- default setup
   function(source, methods)
