@@ -667,13 +667,37 @@ local embeded_servers = {
 local embeded_servers_setups = {
   -- default setup
   function(server)
-    require("lspconfig")[server].setup({
+    lspconfig[server].setup({
       on_attach = function(client, bufnr)
         attach_ext(client, bufnr)
       end,
     })
   end,
-  -- -- specific setup
+  -- specific setup
+  tsserver = function()
+    lspconfig["tsserver"].setup({
+      on_attach = function(client, bufnr)
+        attach_ext(client, bufnr)
+      end,
+      root_dir = function(fname)
+        -- disable tsserver when detect flow
+        return lspconfig.util.root_pattern("tsconfig.json")(fname)
+          or not lspconfig.util.root_pattern(".flowconfig")(fname)
+            and lspconfig.util.root_pattern(
+              "package.json",
+              "jsconfig.json",
+              ".git"
+            )(fname)
+      end,
+    })
+  end,
+  flow = function()
+    lspconfig["flow"].setup({
+      on_attach = function(client, bufnr)
+        attach_ext(client, bufnr)
+      end,
+    })
+  end,
   -- clangd = function()
   --   require("clangd_extensions").setup({
   --     on_attach = function(client, bufnr)

@@ -13,7 +13,7 @@
 --      * [null-ls BUILTINS](https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md) for null-ls source configurations.
 
 local null_ls = require("null-ls")
-local constants = require("conf/constants")
+local lspconfig = require("lspconfig")
 
 local function attach_ext(client, bufnr)
   -- attach navic to work with multiple tabs
@@ -21,4 +21,3 @@ local function attach_ext(client, bufnr)
     require("nvim-navic").attach(client, bufnr)
   end
 end
-
