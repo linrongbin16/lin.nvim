@@ -14,11 +14,11 @@
 /init.vim*
 /dump-plugins.md
 /dump-lsp.md
-.copypaste
-.temp
+/.copypaste
+/.temp
 
 # universal-ctags
-universal-ctags
+/universal-ctags
 
 # project
 /.idea
