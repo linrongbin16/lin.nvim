@@ -2,66 +2,20 @@ require("hop").setup()
 
 local map = require("conf/keymap").map
 
--- <Leader><Leader>f{char} - move to {char} forward
-map(
-  { "n", "x" },
-  "<leader><leader>f",
-  ":HopChar1AC<CR>",
-  { desc = "Jump forward by {char}" }
-)
+local keys = {
+  { "f", "HopChar1", "by {char}" },
+  { "s", "HopChar2", "by {char}{char}" },
+  { "w", "HopWord", "by word" },
+  { "l", "HopLine", "by line" },
+}
 
--- <Leader><Leader>F{char} - move to {char} backward
-map(
-  { "n", "x" },
-  "<leader><leader>F",
-  ":HopChar1BC<CR>",
-  { desc = "Jump backward by {char}" }
-)
-
--- <Leader><Leader>s{char}{char} - move to {char}{char} forward
-map(
-  { "n", "x" },
-  "<leader><leader>s",
-  ":HopChar2AC<CR>",
-  { desc = "Jump forward by {char}{char}" }
-)
-
--- <Leader><Leader>S{char}{char} - move to {char}{char} backward
-map(
-  { "n", "x" },
-  "<leader><leader>S",
-  ":HopChar2BC<CR>",
-  { desc = "Jump backward by {char}{char}" }
-)
-
--- <Leader><Leader>w - move to word forward
-map(
-  { "n", "x" },
-  "<leader><leader>w",
-  ":HopWordAC<CR>",
-  { desc = "Jump forward by word" }
-)
-
--- <Leader><Leader>W - move to word backward
-map(
-  { "n", "x" },
-  "<leader><leader>W",
-  ":HopWordBC<CR>",
-  { desc = "Jump backward by word" }
-)
-
--- <Leader><Leader>l - move to line forward
-map(
-  { "n", "x" },
-  "<leader><leader>l",
-  ":HopLineAC<CR>",
-  { desc = "Jump forward by line" }
-)
-
--- <Leader><Leader>L - move to line backward
-map(
-  { "n", "x" },
-  "<leader><leader>L",
-  ":HopLineBC<CR>",
-  { desc = "Jump backward by line" }
-)
+for _, k in ipairs(keys) do
+  for i = 1, 2 do
+    map(
+      { "n", "x" },
+      string.format("<leader><leader>%s", i == 1 and k[1] or string.upper(k[1])), -- f/F
+      string.format("<cmd>%s<cr>", i == 1 and k[2] .. "AC" or k[2] .. "BC"), -- HopChar1AC/HopChar1BC
+      { desc = i == 1 and "Jump forward " .. k[3] or "Jump backward " .. k[3] }
+    )
+  end
+end

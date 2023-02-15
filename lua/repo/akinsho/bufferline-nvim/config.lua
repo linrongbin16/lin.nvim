@@ -19,61 +19,17 @@ require("bufferline").setup({
 -- key maps
 local keymap = require("conf/keymap")
 
--- go to absolute buffer
-keymap.map(
-  "n",
-  "<leader>1",
-  keymap.exec("require('bufferline').go_to_buffer(1, true)"),
-  { desc = "Go to buffer-1" }
-)
-keymap.map(
-  "n",
-  "<leader>2",
-  keymap.exec("require('bufferline').go_to_buffer(2, true)"),
-  { desc = "Go to buffer-2" }
-)
-keymap.map(
-  "n",
-  "<leader>3",
-  keymap.exec("require('bufferline').go_to_buffer(3, true)"),
-  { desc = "Go to buffer-3" }
-)
-keymap.map(
-  "n",
-  "<leader>4",
-  keymap.exec("require('bufferline').go_to_buffer(4, true)"),
-  { desc = "Go to buffer-4" }
-)
-keymap.map(
-  "n",
-  "<leader>5",
-  keymap.exec("require('bufferline').go_to_buffer(5, true)"),
-  { desc = "Go to buffer-5" }
-)
-keymap.map(
-  "n",
-  "<leader>6",
-  keymap.exec("require('bufferline').go_to_buffer(6, true)"),
-  { desc = "Go to buffer-6" }
-)
-keymap.map(
-  "n",
-  "<leader>7",
-  keymap.exec("require('bufferline').go_to_buffer(7, true)"),
-  { desc = "Go to buffer-7" }
-)
-keymap.map(
-  "n",
-  "<leader>8",
-  keymap.exec("require('bufferline').go_to_buffer(8, true)"),
-  { desc = "Go to buffer-8" }
-)
-keymap.map(
-  "n",
-  "<leader>9",
-  keymap.exec("require('bufferline').go_to_buffer(9, true)"),
-  { desc = "Go to buffer-9" }
-)
+-- go to absolute buffer 1~9, and 0
+for i = 1, 9 do
+  keymap.map(
+    "n",
+    string.format("<leader>%d", i),
+    keymap.exec(
+      string.format("require('bufferline').go_to_buffer(%d, true)", i)
+    ),
+    { desc = string.format("Go to buffer-%d", i) }
+  )
+end
 keymap.map(
   "n",
   "<leader>0",
@@ -107,13 +63,13 @@ keymap.map(
 -- re-order/move current buffer to next/previous position
 keymap.map(
   "n",
-  "<leader>>",
+  "<leader>.",
   keymap.exec("BufferLineMoveNext"),
   { desc = "Move buffer to next" }
 )
 keymap.map(
   "n",
-  "<leader><",
+  "<leader>,",
   keymap.exec("BufferLineMovePrev"),
   { desc = "Move buffer to previous" }
 )

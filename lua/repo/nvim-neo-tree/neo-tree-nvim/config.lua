@@ -125,8 +125,8 @@ vim.api.nvim_create_autocmd("FileType", {
   callback = function()
     local map = require("conf/keymap").map
     local opts = { buffer = true }
-    map("n", "<leader>>", "<cmd>vertical resize +10<cr>", opts)
-    map("n", "<leader><", "<cmd>vertical resize -10<cr>", opts)
+    map("n", "<leader>.", "<cmd>vertical resize +10<cr>", opts)
+    map("n", "<leader>,", "<cmd>vertical resize -10<cr>", opts)
   end,
 })
 vim.api.nvim_create_autocmd("VimEnter", {

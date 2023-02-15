@@ -1388,11 +1388,6 @@ PLUGINS = [
         tag=Tag.UI,
     ),
     Plugin(
-        "f-person/git-blame.nvim",
-        props=Props(VLEventProp()),
-        tag=Tag.UI,
-    ),
-    Plugin(
         "stevearc/dressing.nvim",
         props=Props(VLEventProp()),
         comments="UI hooks",
@@ -1523,6 +1518,7 @@ PLUGINS = [
         tag=Tag.LANGUAGE,
     ),
     Plugin("DNLHC/glance.nvim", props=Props(VLEventProp()), tag=Tag.LANGUAGE),
+    Plugin("onsails/lspkind.nvim", props=Props(LazyProp()), tag=Tag.LANGUAGE),
     # } LSP
     # { Language support
     Plugin(
@@ -1576,6 +1572,20 @@ PLUGINS = [
         tag=Tag.EDITING,
     ),
     # } Motion
+    # { Git
+    Plugin(
+        "f-person/git-blame.nvim",
+        props=Props(VLEventProp()),
+        comments=BigComment("Git"),
+        tag=Tag.EDITING,
+    ),
+    Plugin(
+        "ruifm/gitlinker.nvim",
+        props=Props(VLEventProp(), DependenciesProp("nvim-lua/plenary.nvim")),
+        comments="Open In Github/Gitlab/etc",
+        tag=Tag.EDITING,
+    ),
+    # } Git
     # { Editing enhancement
     Plugin(
         "windwp/nvim-autopairs",
@@ -1592,12 +1602,6 @@ PLUGINS = [
         "numToStr/Comment.nvim",
         props=Props(VLEventProp()),
         comments="Comment",
-        tag=Tag.EDITING,
-    ),
-    Plugin(
-        "ruifm/gitlinker.nvim",
-        props=Props(VLEventProp(), DependenciesProp("nvim-lua/plenary.nvim")),
-        comments="Open In Github/Gitlab/etc",
         tag=Tag.EDITING,
     ),
     Plugin(

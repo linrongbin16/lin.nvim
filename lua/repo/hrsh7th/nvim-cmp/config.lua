@@ -38,12 +38,16 @@ cmp.setup({
     documentation = cmp.config.window.bordered(),
   },
   formatting = {
-    fields = { "menu", "abbr", "kind" },
-    format = function(entry, item)
+    -- fields = { "menu", "abbr", "kind" },
+    format = pcall(require, "lspkind") and require("lspkind").cmp_format({
+      mode = "symbol_text",
+      maxwidth = 50,
+      ellipsis_char = "…",
+    }) or function(entry, item)
       local menu_icon = {
-        nvim_lsp = "λ",
-        luasnip = "⋗",
-        buffer = "Ω",
+        nvim_lsp = "",
+        luasnip = "",
+        buffer = "",
         path = "",
       }
       item.menu = menu_icon[entry.source.name]

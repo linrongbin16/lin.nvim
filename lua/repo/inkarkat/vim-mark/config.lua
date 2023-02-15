@@ -1,27 +1,27 @@
 local map = require("conf/keymap").map
 
--- toggle mark under cursor in normal/visual mode
-map("n", "<leader>km", "<Plug>MarkSet", { desc = "Toggle highlight word" })
+-- toggle cursor word in normal/visual mode
+map("n", "<leader>hw", "<Plug>MarkSet", { desc = "Toggle highlight word" })
 map(
   "x",
-  "<leader>km",
+  "<leader>hw",
   "<Plug>MarkIWhiteSet",
   { desc = "Toggle highlight word" }
 )
 
--- search next/previous mark
-map("n", "<leader>kn", "<Plug>MarkSearchNext", { desc = "Next highlight word" })
+-- search next/previous word
+map("n", "<leader>hn", "<Plug>MarkSearchNext", { desc = "Next highlight word" })
 map(
   "n",
-  "<leader>kN",
+  "<leader>hN",
   "<Plug>MarkSearchPrev",
   { desc = "Previous highlight word" }
 )
 
--- clear all marks with confirm
+-- clear all words
 map(
   "n",
-  "<leader>kM",
+  "<leader>hW",
   "<Plug>MarkAllClear",
   { desc = "Clear all highlight words" }
 )
