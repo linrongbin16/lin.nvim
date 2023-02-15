@@ -12,7 +12,8 @@
 /settings.vim*
 /colorschemes.vim*
 /init.vim*
-/dump_plugins.md
+/dump-plugins.md
+/dump-lsp.md
 .copypaste
 .temp
 

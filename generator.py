@@ -170,15 +170,26 @@ EXTEND_LSP = [
         or (has_command("MSBuild") and has_command("cl")),
     ),
     ExtLsp(
+        name="clojure",
+        compiler="clj",
+        lsp="clojure_lsp",
+        nullls="joker",
+    ),
+    ExtLsp(
         name="cmake",
         compiler="cmake",
         lsp=["cmake", "neocmake"],
     ),
     ExtLsp(
+        name="crystal",
+        compiler="crystal",
+        lsp="crystalline",
+    ),
+    ExtLsp(
         name="csharp",
         compiler=["csc", "dotnet", "mcs"],
         lsp=["csharp_ls", "omnisharp_mono", "omnisharp"],
-        nullls="csharpier",
+        nullls=["csharpier", "clang_format"],
         checker=lambda cmd: has_command("csc")
         or has_command("dotnet")
         or has_command("mcs"),
@@ -189,6 +200,17 @@ EXTEND_LSP = [
         lsp=["cssls", "cssmodules_ls", "unocss"],
     ),
     ExtLsp(
+        name="docker",
+        compiler="docker",
+        lsp="dockerls",
+        nullls="hadolint",
+    ),
+    ExtLsp(
+        name="dot(graphviz)",
+        compiler="dot",
+        lsp="dotls",
+    ),
+    ExtLsp(
         name="elixir",
         compiler="elixir",
         lsp="elixirls",
@@ -197,6 +219,11 @@ EXTEND_LSP = [
         name="erlang",
         compiler="erl",
         lsp="erlangls",
+    ),
+    ExtLsp(
+        name="fortran",
+        compiler="gfortran",
+        lsp="fortls",
     ),
     ExtLsp(
         name="fsharp",
@@ -368,6 +395,13 @@ EXTEND_LSP = [
         name="sh",
         compiler="sh",
         nullls=["shellcheck", "shellharden", "shfmt"],
+    ),
+    ExtLsp(
+        name="solidity",
+        compiler=["solc", "solcjs"],
+        lsp=["solang", "solc", "solidity"],
+        nullls="solhint",
+        checker=lambda cmd: has_command("solc") or has_command("solcjs"),
     ),
     ExtLsp(
         name="toml",
@@ -1922,6 +1956,24 @@ class Dumper:
                 )
                 fp.writelines("\n")
 
+    @staticmethod
+    def lsp(filename):
+        with open(filename, "w") as fp:
+            for ext_lsp in EXTEND_LSP:
+                lsp = [ext_lsp.lsp] if isinstance(ext_lsp.lsp, str) else ext_lsp.lsp
+                nullls = (
+                    [ext_lsp.nullls]
+                    if isinstance(ext_lsp.nullls, str)
+                    else ext_lsp.nullls
+                )
+                fp.writelines(f"- {ext_lsp.name}:\n")
+                fp.writelines(
+                    f"  - lsp servers: {', '.join(['`' + l + '`' for l in lsp]) if len(lsp) > 0 else 'empty'}\n"
+                )
+                fp.writelines(
+                    f"  - null-ls sources: {', '.join(['`' + n + '`' for n in nullls]) if len(nullls) > 0 else 'empty'}\n"
+                )
+
 
 def make_arguments():
     parser = argparse.ArgumentParser()
@@ -1987,6 +2039,19 @@ def make_arguments():
         metavar="FILE",
         help="file to dump plugin list",
     )
+    parser.add_argument(
+        "--dump-lsp",
+        dest="dump_lsp_opt",
+        action="store_true",
+        help="dump lsp server list",
+    )
+    parser.add_argument(
+        "--dump-lsp-file",
+        dest="dump_lsp_file_opt",
+        default="dump-lsp.md",
+        metavar="FILE",
+        help="file to dump lsp server list",
+    )
     arguments = parser.parse_args()
     return arguments
 
@@ -1995,7 +2060,11 @@ if __name__ == "__main__":
     arguments = make_arguments()
 
     if arguments.dump_plugins_opt:
-        Dumper.plugins(arguments.dump_plugins_filename_opt)
+        Dumper.plugins(arguments.dump_plugins_file_opt)
+        exit(0)
+
+    if arguments.dump_lsp_opt:
+        Dumper.lsp(arguments.dump_lsp_file_opt)
         exit(0)
 
     if arguments.limit_opt:
