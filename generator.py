@@ -101,6 +101,7 @@ class ExtLsp:
         #   * ENTER: select all
         #   * Numbers(separated by comma): select any
         #   * n/N: skip
+        print("")
         result = input(
             format_message(
                 f"detected '{self.name}' (by {'/'.join(self.compiler)}), install lsp({candidates})? "
@@ -120,7 +121,7 @@ class ExtLsp:
         confirmed = None
 
         if result.lower().startswith("n"):
-            message(f"confirm denied, skip...")
+            message(f"confirm denied")
             confirmed = False
         elif len(result.lower()) <= 0:
             message(f"confirmed all: {', '.join([r for r in recommends])}")
@@ -129,7 +130,8 @@ class ExtLsp:
             confirmed = True
         else:
             try:
-                indexes = [int(i) for i in result.split(",")]
+                # tolerate extra commas, could be error input
+                indexes = [int(i) for i in result.split(",") if len(i) > 0]
                 choice = []
                 for i in indexes:
                     if i < 1 or i > len(recommends):
@@ -143,6 +145,7 @@ class ExtLsp:
                 error_message(f"unknown choice: {result}, skip...")
                 confirmed = False
 
+        print("")
         assert confirmed is not None
         return confirmed, lsp_servers, nullls_sources
 
@@ -1651,21 +1654,26 @@ class Render:
         embeded_servers = []
         embeded_nullls = []
         if len(extend_lsp_servers) > 0:
-            print("")
-            message("checking available languages...")
+            message("")
+            message("checking available lsp servers...")
             message("note:")
             message("   1. `ENTER` to accept all")
             message("   2. Numbers separated by comma(e.g 1,2,3...) to select")
-            message("   3. `n`/`N` to skip")
-            print("")
-            for ext_lsp in extend_lsp_servers:
-                if not ext_lsp.checker(ext_lsp.compiler):
-                    continue
-                confirmed, lsp, nullls = ext_lsp.confirm()
-                if not confirmed:
-                    continue
-                embeded_servers.extend(lsp)
-                embeded_nullls.extend(nullls)
+            message("   3. `n`/`N` to accept none")
+            message("   4. `CTRL-C` to stop extending available lsp servers")
+            message("")
+            try:
+                for ext_lsp in extend_lsp_servers:
+                    if not ext_lsp.checker(ext_lsp.compiler):
+                        continue
+                    confirmed, lsp, nullls = ext_lsp.confirm()
+                    if not confirmed:
+                        continue
+                    embeded_servers.extend(lsp)
+                    embeded_nullls.extend(nullls)
+            except KeyboardInterrupt:
+                message("stop extending available lsp servers...")
+                message("")
 
         stmts.append(EmbededServers4Lua(dedup_list(embeded_servers)))
         stmts.append(EmbededNullls4Lua(dedup_list(embeded_nullls)))
