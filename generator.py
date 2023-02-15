@@ -80,13 +80,13 @@ INDENT = " " * INDENT_SIZE
 
 
 class ExtLsp:
-    def __init__(self, name=None, compiler=[], lsp=[], nullls=[], checker=None):
+    def __init__(self, name=None, command=[], lsp=[], nullls=[], checker=None):
         assert isinstance(name, str)
-        assert isinstance(compiler, str) or isinstance(compiler, list)
+        assert isinstance(command, str) or isinstance(command, list)
         assert isinstance(lsp, str) or isinstance(lsp, list)
         assert isinstance(nullls, str) or isinstance(nullls, list)
         self.name = name
-        self.compiler = [compiler] if isinstance(compiler, str) else compiler
+        self.command = [command] if isinstance(command, str) else command
         self.lsp = [lsp] if isinstance(lsp, str) else lsp
         self.nullls = [nullls] if isinstance(nullls, str) else nullls
         if checker:
@@ -104,7 +104,7 @@ class ExtLsp:
         message("")
         result = input(
             format_message(
-                f"detected '{self.name}' (by {'/'.join(self.compiler)}), install lsp({candidates})? "
+                f"detected '{self.name}' (by {'/'.join(self.command)}), install lsp({candidates})? "
             )
         )
 
@@ -152,17 +152,17 @@ class ExtLsp:
 EXTEND_LSP = [
     ExtLsp(
         name="assembly",
-        compiler=["as", "rustc", "cargo"],
+        command=["as", "rustc", "cargo"],
         lsp="asm_lsp",
     ),
     ExtLsp(
         name="bash",
-        compiler="bash",
+        command="bash",
         lsp="bashls",
     ),
     ExtLsp(
         name="c/c++",
-        compiler=["gcc", "g++", "clang", "clang++", "MSBuild", "cl"],
+        command=["gcc", "g++", "clang", "clang++", "MSBuild", "cl"],
         lsp="clangd",
         nullls=["cpplint", "clang_format"],
         checker=lambda cmd: (has_command("gcc") and has_command("g++"))
@@ -171,23 +171,23 @@ EXTEND_LSP = [
     ),
     ExtLsp(
         name="clojure",
-        compiler="clj",
+        command="clj",
         lsp="clojure_lsp",
         nullls="joker",
     ),
     ExtLsp(
         name="cmake",
-        compiler="cmake",
+        command="cmake",
         lsp=["cmake", "neocmake"],
     ),
     ExtLsp(
         name="crystal",
-        compiler="crystal",
+        command="crystal",
         lsp="crystalline",
     ),
     ExtLsp(
         name="csharp",
-        compiler=["csc", "dotnet", "mcs"],
+        command=["csc", "dotnet", "mcs"],
         lsp=["csharp_ls", "omnisharp_mono", "omnisharp"],
         nullls=["csharpier", "clang_format"],
         checker=lambda cmd: has_command("csc")
@@ -196,43 +196,43 @@ EXTEND_LSP = [
     ),
     ExtLsp(
         name="css",
-        compiler=["node", "npm"],
+        command=["node", "npm"],
         lsp=["cssls", "cssmodules_ls", "unocss"],
     ),
     ExtLsp(
         name="docker",
-        compiler="docker",
+        command="docker",
         lsp="dockerls",
         nullls="hadolint",
     ),
     ExtLsp(
         name="dot(graphviz)",
-        compiler="dot",
+        command="dot",
         lsp="dotls",
     ),
     ExtLsp(
         name="elixir",
-        compiler="elixir",
+        command="elixir",
         lsp="elixirls",
     ),
     ExtLsp(
         name="erlang",
-        compiler="erl",
+        command="erl",
         lsp="erlangls",
     ),
     ExtLsp(
         name="fortran",
-        compiler="gfortran",
+        command="gfortran",
         lsp="fortls",
     ),
     ExtLsp(
         name="fsharp",
-        compiler="dotnet",
+        command="dotnet",
         lsp="fsautocomplete",
     ),
     ExtLsp(
         name="go",
-        compiler="go",
+        command="go",
         lsp=["golangci_lint_ls", "gopls"],
         nullls=[
             "gofumpt",
@@ -246,53 +246,53 @@ EXTEND_LSP = [
     ),
     ExtLsp(
         name="groovy",
-        compiler="groovy",
+        command="groovy",
         lsp="groovyls",
     ),
     ExtLsp(
         name="haskell",
-        compiler="ghc",
+        command="ghc",
         lsp="hls",
     ),
     ExtLsp(
         name="html",
-        compiler=["node", "npm"],
+        command=["node", "npm"],
         lsp="html",
         nullls="curlylint",
     ),
     ExtLsp(
         name="java",
-        compiler=["javac", "java"],
+        command=["javac", "java"],
         lsp="jdtls",
         nullls="clang_format",
     ),
     ExtLsp(
         name="javascript/typescript",
-        compiler=["node", "npm"],
+        command=["node", "npm"],
         lsp=["quick_lint_js", "tsserver", "vtsls", "eslint"],
         nullls=["rome", "xo", "eslint_d", "prettier", "prettierd"],
     ),
     ExtLsp(
         name="json",
-        compiler=["node", "npm"],
+        command=["node", "npm"],
         lsp="jsonls",
         nullls=["fixjson", "jq", "cfn_lint"],
     ),
     ExtLsp(
         name="julia",
-        compiler="julia",
+        command="julia",
         lsp="julials",
         nullls=["fixjson", "jq"],
     ),
     ExtLsp(
         name="kotlin",
-        compiler="kotlinc",
+        command="kotlinc",
         lsp="kotlin_language_server",
         nullls="ktlint",
     ),
     ExtLsp(
         name="latex",
-        compiler=["latex", "pdflatex", "xelatex"],
+        command=["latex", "pdflatex", "xelatex"],
         lsp=["ltex", "texlab"],
         nullls=["proselint", "vale"],
         checker=lambda cmd: has_command("latex")
@@ -301,48 +301,48 @@ EXTEND_LSP = [
     ),
     ExtLsp(
         name="lua",
-        compiler="lua",
+        command="lua",
         lsp=["lua_ls"],
         nullls=["luacheck", "selene", "stylua"],
         checker=lambda cmd: True,  # lua is embeded
     ),
     ExtLsp(
         name="markdown",
-        compiler=["node", "npm"],
+        command=["node", "npm"],
         lsp=["marksman", "prosemd_lsp", "remark_ls", "zk"],
         nullls=["alex", "markdownlint", "write_good", "cbfmt", "proselint", "vale"],
     ),
     ExtLsp(
         name="ocaml",
-        compiler="ocaml",
+        command="ocaml",
         lsp=["ocamllsp"],
     ),
     ExtLsp(
         name="perl",
-        compiler="perl",
+        command="perl",
         lsp=["perlnavigator"],
     ),
     ExtLsp(
         name="php",
-        compiler="php",
+        command="php",
         lsp=["intelephense", "phpactor", "psalm"],
         nullls=["phpcbf", "psalm"],
     ),
     ExtLsp(
         name="powershell",
-        compiler=["pwsh", "powershell"],
+        command=["pwsh", "powershell"],
         lsp=["powershell_es"],
         checker=lambda cmd: has_command("pwsh") or has_command("powershell"),
     ),
     ExtLsp(
         name="protobuf",
-        compiler="protoc",
+        command="protoc",
         lsp=["bufls"],
         nullls=["buf", "protolint"],
     ),
     ExtLsp(
         name="python",
-        compiler=["python", "python2", "python3"],
+        command=["python", "python2", "python3"],
         lsp=[
             "jedi_language_server",
             "pyre",
@@ -368,23 +368,23 @@ EXTEND_LSP = [
     ),
     ExtLsp(
         name="R",
-        compiler="R",
+        command="R",
         lsp="r_language_server",
     ),
     ExtLsp(
         name="ruby",
-        compiler="ruby",
+        command="ruby",
         lsp=["ruby_ls", "solargraph"],
         nullls=["rubocop", "standardrb", "erb_lint"],
     ),
     ExtLsp(
         name="rust",
-        compiler=["rustc", "cargo"],
+        command=["rustc", "cargo"],
         lsp="rust_analyzer",
     ),
     ExtLsp(
         name="sql",
-        compiler=["mysql", "psql", "sqlplus"],  # mysql/postgresql/oracle
+        command=["mysql", "psql", "sqlplus"],  # mysql/postgresql/oracle
         lsp=["sqlls", "sqls"],
         nullls=["sqlfluff", "sql_formatter"],
         checker=lambda cmd: has_command("mysql")
@@ -393,37 +393,37 @@ EXTEND_LSP = [
     ),
     ExtLsp(
         name="sh",
-        compiler="sh",
+        command="sh",
         nullls=["shellcheck", "shellharden", "shfmt"],
     ),
     ExtLsp(
         name="solidity",
-        compiler=["solc", "solcjs"],
+        command=["solc", "solcjs"],
         lsp=["solang", "solc", "solidity"],
         nullls="solhint",
         checker=lambda cmd: has_command("solc") or has_command("solcjs"),
     ),
     ExtLsp(
         name="toml",
-        compiler=["node", "npm"],
+        command=["node", "npm"],
         lsp="taplo",
         nullls="taplo",
     ),
     ExtLsp(
         name="vim",
-        compiler="vim",
+        command="vim",
         lsp="vimls",
         nullls="vint",
         checker=lambda cmd: True,  # vim is embeded
     ),
     ExtLsp(
         name="xml",
-        compiler=["node", "npm"],
+        command=["node", "npm"],
         lsp="lemminx",
     ),
     ExtLsp(
         name="yaml",
-        compiler=["node", "npm"],
+        command=["node", "npm"],
         lsp="yamlls",
         nullls=["actionlint", "yamlfmt", "yamllint", "cfn_lint"],
     ),
@@ -1717,7 +1717,7 @@ class Render:
             message("")
             try:
                 for ext_lsp in EXTEND_LSP:
-                    if not ext_lsp.checker(ext_lsp.compiler):
+                    if not ext_lsp.checker(ext_lsp.command):
                         continue
                     confirmed, lsp, nullls = ext_lsp.confirm()
                     if not confirmed:
