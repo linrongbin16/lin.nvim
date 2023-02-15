@@ -303,8 +303,13 @@ EXTEND_LSP = [
         name="lua",
         command="lua",
         lsp=["lua_ls"],
-        nullls=["luacheck", "selene", "stylua"],
+        nullls=["selene", "stylua"],
         checker=lambda cmd: True,  # lua is embeded
+    ),
+    ExtLsp(
+        name="luarocks",
+        command=["lua", "luarocks"],
+        nullls="luacheck",
     ),
     ExtLsp(
         name="markdown",
@@ -413,8 +418,13 @@ EXTEND_LSP = [
         name="vim",
         command="vim",
         lsp="vimls",
-        nullls="vint",
         checker=lambda cmd: True,  # vim is embeded
+    ),
+    ExtLsp(
+        name="vim(unix only)",
+        command="vim",
+        nullls="vint",
+        checker=lambda cmd: not IS_WINDOWS,  # vint only works on unix
     ),
     ExtLsp(
         name="xml",

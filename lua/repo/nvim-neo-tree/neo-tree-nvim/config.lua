@@ -82,15 +82,6 @@ require("neo-tree").setup({
   },
   window = {
     mappings = {
-      -- disabled mappings
-      ["<space>"] = "",
-      ["S"] = "",
-      ["s"] = "",
-      ["t"] = "",
-      ["w"] = "",
-      ["C"] = "",
-
-      -- added mappings
       ["h"] = function(state)
         local node = state.tree:get_node()
         if node.type == "directory" and node:is_expanded() then
@@ -102,12 +93,20 @@ require("neo-tree").setup({
           )
         end
       end,
+      ["C"] = "none",
       ["l"] = "open",
-      ["<C-s>"] = "open_split",
-      ["<C-v>"] = "open_vsplit",
-      ["<C-t>"] = "open_tabnew",
-      ["z"] = "close_all_nodes",
-      ["Z"] = "expand_all_nodes",
+      ["<space>"] = "none",
+      ["w"] = "none",
+
+      ["s"] = "open_split",
+      ["v"] = "open_vsplit",
+      ["t"] = "open_tabnew",
+
+      ["W"] = "close_all_nodes",
+      ["E"] = "expand_all_nodes",
+      ["z"] = "none",
+
+      ["e"] = "none",
     },
   },
   filesystem = {
@@ -116,13 +115,6 @@ require("neo-tree").setup({
     },
     follow_current_file = true,
     use_libuv_file_watcher = true,
-    window = {
-      mappings = {
-        -- added mappings
-        ["[h"] = "prev_git_modified",
-        ["]h"] = "next_git_modified",
-      },
-    },
   },
 })
 
