@@ -7,6 +7,7 @@ import enum
 import pathlib
 import platform
 import shutil
+from os import name
 
 HOME_DIR = pathlib.Path.home()
 NVIM_DIR = pathlib.Path(f"{HOME_DIR}/.nvim")
@@ -14,6 +15,15 @@ TEMPLATE_DIR = pathlib.Path(f"{NVIM_DIR}/temp")
 
 IS_WINDOWS = platform.system().lower().startswith("win")
 IS_MACOS = platform.system().lower().startswith("darwin")
+# IS_MACOS_SILICON_CHIP = platform.processor().startswith("arm") or (
+#     platform.processor().startswith("i386")
+#     and int(
+#         subprocess.run(
+#             ["sysctl", "-n", "sysctl.proc_translated"], capture_output=True, text=True
+#         ).stdout
+#     )
+#     > 0
+# )
 
 
 def message(*args):
@@ -52,6 +62,336 @@ INDENT = " " * INDENT_SIZE
 #
 #     def get_dec_indentlevel(self):
 #         return max(self._value - 1, 0)
+
+
+# Extend Lsp {
+
+
+class ExtLsp:
+    def __init__(self, name=None, compiler=[], lsp=[], nullls=[], checker=None):
+        assert isinstance(name, str)
+        assert (
+            isinstance(compiler, str)
+            or isinstance(compiler, list)
+            or isinstance(compiler, set)
+        )
+        assert isinstance(lsp, str) or isinstance(lsp, list) or isinstance(lsp, set)
+        assert (
+            isinstance(nullls, str)
+            or isinstance(nullls, list)
+            or isinstance(nullls, set)
+        )
+        self.name = name
+        self.compiler = set([compiler]) if isinstance(compiler, str) else set(compiler)
+        self.lsp = set([lsp]) if isinstance(lsp, str) else set(lsp)
+        self.nullls = set([nullls]) if isinstance(nullls, str) else set(nullls)
+        if checker:
+            self.checker = checker
+        else:
+            self.checker = lambda cmd: any(
+                [shutil.which(c) is not None for c in set(cmd)]
+            )
+
+    def confirm(self):
+        recommends = list(set(self.lsp).union(self.nullls))
+        candidates = ", ".join(
+            [
+                f"{i+1}:{r}{'(default)' if i == 0 else ''}"
+                for i, r in enumerate(recommends)
+            ]
+        )
+        # Accept:
+        #   * ENTER: select all
+        #   * Numbers(separated by comma): select any
+        #   * n/N: skip
+        result = input(
+            message(
+                f"detected '{self.name}' (by {'/'.join(self.compiler)}), install lsp: {candidates}? "
+            )
+        )
+
+        lsp_servers = []
+        nullls_sources = []
+
+        def add_candidate(c):
+            if c in self.lsp:
+                lsp_servers.append(c)
+            else:
+                assert c in self.nullls
+                nullls_sources.append(c)
+
+        confirmed = None
+
+        if result.lower().startswith("n"):
+            message(f"confirm denied, skip...")
+            confirmed = False
+        elif len(result.lower()) <= 0:
+            message(f"confirmed all: {', '.join([r for r in recommends])}")
+            for r in recommends:
+                add_candidate(r)
+            confirmed = True
+        else:
+            try:
+                indexes = [int(i) for i in result.split(",")]
+                choice = []
+                for i in indexes:
+                    if i < 1 or i > len(recommends):
+                        error_message(f"unknown number: {i}, skip...")
+                        return False, lsp_servers, nullls_sources
+                    add_candidate(recommends[i - 1])
+                    choice.append(recommends[i - 1])
+                message(f"confirmed: {', '.join([c for c in choice])}")
+                confirmed = True
+            except:
+                error_message(f"unknown choice: {result}, skip...")
+                confirmed = False
+
+        assert confirmed is not None
+        return confirmed, lsp_servers, nullls_sources
+
+
+EXTEND_LSP = [
+    ExtLsp(
+        name="assembly",
+        compiler="as",
+        lsp="asm_lsp",
+    ),
+    ExtLsp(
+        name="bash",
+        compiler="bash",
+        lsp="bashls",
+    ),
+    ExtLsp(
+        name="c/c++",
+        compiler=["gcc", "g++", "clang", "clang++", "MSBuild", "cl"],
+        lsp="clangd",
+        nullls=["cpplint", "clang_format"],
+    ),
+    ExtLsp(
+        name="cmake",
+        compiler="cmake",
+        lsp=["cmake", "neocmake"],
+    ),
+    ExtLsp(
+        name="cmake",
+        compiler="cmake",
+        lsp=["cmake", "neocmake"],
+    ),
+    ExtLsp(
+        name="csharp",
+        compiler=["csc", "dotnet", "mcs"],
+        lsp=["csharp_ls", "omnisharp_mono", "omnisharp"],
+        nullls=["csharpier"],
+    ),
+    ExtLsp(
+        name="csharp",
+        compiler=["csc", "dotnet", "mcs"],
+        lsp=["csharp_ls", "omnisharp_mono", "omnisharp"],
+        nullls="csharpier",
+    ),
+    ExtLsp(
+        name="css",
+        compiler=["node", "npm"],
+        lsp=["cssls", "cssmodules_ls", "unocss"],
+    ),
+    ExtLsp(
+        name="elixir",
+        compiler="elixir",
+        lsp="elixirls",
+    ),
+    ExtLsp(
+        name="erlang",
+        compiler="erl",
+        lsp="erlangls",
+    ),
+    ExtLsp(
+        name="fsharp",
+        compiler="dotnet",
+        lsp="fsautocomplete",
+    ),
+    ExtLsp(
+        name="go",
+        compiler="go",
+        lsp=["golangci_lint_ls", "gopls"],
+        nullls=[
+            "gofumpt",
+            "goimports",
+            "goimports_reviser",
+            "golangci_lint",
+            "golines",
+            "revive",
+            "staticcheck",
+        ],
+    ),
+    ExtLsp(
+        name="groovy",
+        compiler="groovy",
+        lsp="groovyls",
+    ),
+    ExtLsp(
+        name="haskell",
+        compiler="ghc",
+        lsp="hls",
+    ),
+    ExtLsp(
+        name="html",
+        compiler=["node", "npm"],
+        lsp="html",
+        nullls="curlylint",
+    ),
+    ExtLsp(
+        name="java",
+        compiler=["javac", "java"],
+        lsp="jdtls",
+        nullls="clang_format",
+    ),
+    ExtLsp(
+        name="javascript/typescript",
+        compiler=["node", "npm"],
+        lsp=["quick_lint_js", "tsserver", "vtsls", "eslint"],
+        nullls=["rome", "xo", "eslint_d", "prettier", "prettierd"],
+    ),
+    ExtLsp(
+        name="json",
+        compiler=["node", "npm"],
+        lsp="jsonls",
+        nullls=["fixjson", "jq", "cfn_lint"],
+    ),
+    ExtLsp(
+        name="julia",
+        compiler="julia",
+        lsp="julials",
+        nullls=["fixjson", "jq"],
+    ),
+    ExtLsp(
+        name="kotlin",
+        compiler="kotlinc",
+        lsp="kotlin_language_server",
+        nullls="ktlint",
+    ),
+    ExtLsp(
+        name="latex",
+        compiler=["latex", "pdflatex", "xelatex"],
+        lsp=["ltex", "texlab"],
+        nullls=["proselint", "vale"],
+    ),
+    ExtLsp(
+        name="lua",
+        compiler=["lua", "luac"],
+        lsp=["lua_ls"],
+        nullls=["luacheck", "selene", "stylua"],
+        checker=lambda cmd: True,  # lua is embeded
+    ),
+    ExtLsp(
+        name="markdown",
+        compiler=["node", "npm"],
+        lsp=["marksman", "prosemd_lsp", "remark_ls", "zk"],
+        nullls=["alex", "markdownlint", "write_good", "cbfmt", "proselint", "vale"],
+    ),
+    ExtLsp(
+        name="ocaml",
+        compiler="ocaml",
+        lsp=["ocamllsp"],
+    ),
+    ExtLsp(
+        name="perl",
+        compiler="perl",
+        lsp=["perlnavigator"],
+    ),
+    ExtLsp(
+        name="php",
+        compiler="php",
+        lsp=["intelephense", "phpactor", "psalm"],
+        nullls=["phpcbf", "psalm"],
+    ),
+    ExtLsp(
+        name="powershell",
+        compiler=["pwsh", "powershell"],
+        lsp=["powershell_es"],
+    ),
+    ExtLsp(
+        name="protobuf",
+        compiler="protoc",
+        lsp=["bufls"],
+        nullls=["buf", "protolint"],
+    ),
+    ExtLsp(
+        name="python",
+        compiler=["python", "python2", "python3"],
+        lsp=[
+            "jedi_language_server",
+            "pyre",
+            "pyright",
+            "sourcery",
+            "pylsp",
+            "ruff_lsp",
+        ],
+        nullls=[
+            "autopep8",
+            "black",
+            "blue",
+            "flake8",
+            "isort",
+            "mypy",
+            "pylint",
+            "vulture",
+            "yapf",
+        ],
+    ),
+    ExtLsp(
+        name="R",
+        compiler="R",
+        lsp="r_language_server",
+    ),
+    ExtLsp(
+        name="ruby",
+        compiler="ruby",
+        lsp=["ruby_ls", "solargraph"],
+        nullls=["rubocop", "standardrb", "erb_lint"],
+    ),
+    ExtLsp(
+        name="rust",
+        compiler=["rustc", "cargo"],
+        lsp="rust_analyzer",
+    ),
+    ExtLsp(
+        name="sql",
+        compiler=["mysql", "psql", "sqlplus"],  # mysql/postgresql/oracle
+        lsp=["sqlls", "sqls"],
+        nullls=["sqlfluff", "sql_formatter"],
+    ),
+    ExtLsp(
+        name="sh",
+        compiler="sh",
+        nullls=["shellcheck", "shellharden", "shfmt"],
+    ),
+    ExtLsp(
+        name="toml",
+        compiler=["node", "npm"],
+        lsp="taplo",
+        nullls="taplo",
+    ),
+    ExtLsp(
+        name="vim",
+        compiler="vim",
+        lsp="vimls",
+        nullls="vint",
+    ),
+    ExtLsp(
+        name="xml",
+        compiler=["node", "npm"],
+        lsp="lemminx",
+    ),
+    ExtLsp(
+        name="yaml",
+        compiler=["node", "npm"],
+        lsp="yamlls",
+        nullls=["actionlint", "yamlfmt", "yamllint", "cfn_lint"],
+    ),
+]
+
+
+# Extend Lsp }
 
 
 # Vim AST {
@@ -260,7 +600,7 @@ class AssignExpr(Expr):
         return f"{self.lhs.render()} = {self.rhs.render()}"
 
 
-# }
+# Vim AST }
 
 # Lua AST {
 
@@ -304,7 +644,74 @@ class BracedExpr4Lua(Expr):
         return f"{left_braces} {self.expr.render()} {right_braces}"
 
 
-# }
+class EmbededServers4Lua(Expr):
+    def __init__(self, servers):
+        assert isinstance(servers, list)
+        self.servers = servers
+
+    def render(self):
+        rendered_servers = '\n'.join([f"{INDENT}{s}," for s in self.servers])
+        return """
+-- { mason's config
+local embeded_servers = {
+""" + rendered_servers +
+"""}
+local embeded_servers_setups = {
+  -- default setup
+  function(server)
+    require("lspconfig")[server].setup({
+      on_attach = function(client, bufnr)
+        attach_ext(client, bufnr)
+      end,
+    })
+  end,
+  -- -- specific setup
+  -- clangd = function()
+  --   require("clangd_extensions").setup({
+  --     on_attach = function(client, bufnr)
+  --       attach_ext(client, bufnr)
+  --     end,
+  --   })
+  -- end,
+  -- ["rust_analyzer"] = function()
+  --   require("rust-tools").setup({
+  --     on_attach = function(client, bufnr)
+  --       attach_ext(client, bufnr)
+  --     end,
+  --   })
+  -- end,
+}
+-- } mason's config
+"""
+
+
+class EmbededNullls4Lua(Expr):
+    def __init__(self, nullls):
+        assert isinstance(nullls, list)
+        self.nullls = nullls
+
+    def render(self):
+        rendered_nullls = '\n'.join([f"{INDENT}{n}," for n in self.nullls])
+        return """
+-- { null-ls's config
+local embeded_nullls = {
+""" +  rendered_nullls + """
+}
+local embeded_nullls_setups = {
+  -- default setup
+  function(source, methods)
+    require("mason-null-ls.automatic_setup")(source, methods)
+  end,
+  -- specific setup
+  -- stylua = function(source, methods)
+  --   null_ls.register(null_ls.builtins.formatting.stylua)
+  -- end,
+}
+-- } null-ls's config
+"""
+
+
+# Lua AST }
 
 
 # Helper Expr {
@@ -498,7 +905,7 @@ class KeyProp(Prop):
         return self.expr.render()
 
 
-# }
+# Helper Expr }
 
 
 class Tag(enum.Enum):
@@ -544,132 +951,6 @@ class Plugin:
     def __str__(self):
         return self.repo.render() if isinstance(self.repo, Expr) else str(self.repo)
 
-
-# Extend Lsp {
-
-
-class ExtLsp:
-    def __init__(self):
-        self._lsp = []
-        self._nullls = []
-
-    def name(self):
-        return None
-
-    def lsp_candidates(self):
-        return []
-
-    def nullls_candidates(self):
-        return []
-
-    def lsp_servers(self):
-        return self._lsp
-
-    def nullls_sources(self):
-        return self._nullls
-
-    def check(self):
-        if shutil.which(self.name()) is None:
-            return False
-        return self._confirm()
-
-    def _confirm(self):
-        recommend = self.lsp_candidates() + self.nullls_candidates()
-        candidates = ", ".join(
-            [
-                f"{i+1}:{r}{'(default)' if i == 0 else ''}"
-                for i, r in enumerate(recommend)
-            ]
-        )
-        result = input(
-            message(
-                f"install lsp for '{self.name()}': {candidates}(Enter/Y/y to select all, comma separated numbers to select any, N/n to skip)? "
-            )
-        )
-
-        def add_candidate(c):
-            if c in self.lsp_candidates():
-                self._lsp.append(c)
-            else:
-                assert c in self.nullls_candidates()
-                self._nullls.append(c)
-
-        if result.lower().startswith("n"):
-            message(f"not confirmed, skip...")
-            return False
-        if len(result.lower()) <= 0 or result.lower().startswith("y"):
-            message(f"confirmed: {', '.join([r for r in recommend])}")
-            for r in recommend:
-                add_candidate(r)
-            return True
-        try:
-            indexes = [int(i) for i in result.split(",")]
-            choice = []
-            for i in indexes:
-                if i < 1 or i > len(recommend):
-                    error_message(f"unknown number: {i}, skip...")
-                    return False, []
-                add_candidate(recommend[i - 1])
-                choice.append(recommend[i - 1])
-            message(f"confirmed: {', '.join([c for c in choice])}")
-            return True
-        except:
-            error_message(f"unknown choice: {result}, skip...")
-            return False
-
-
-class BashExtLsp(ExtLsp):
-    def __init__(self):
-        super(BashExtLsp).__init__()
-
-    def name(self):
-        return "bash"
-
-    def lsp_candidates(self):
-        return ["bashls"]
-
-    def nullls_candidates(self):
-        return ["shfmt", "shellcheck", "shellharden"]
-
-
-class BufExtLsp(ExtLsp):
-    def __init__(self):
-        super(BufExtLsp).__init__()
-
-    def name(self):
-        return "protoc"
-
-    def lsp_candidates(self):
-        return ["bufls"]
-
-    def nullls_candidates(self):
-        return ["buf", "protolint"]
-
-
-class CppExtLsp(ExtLsp):
-    def __init__(self):
-        super(CppExtLsp).__init__()
-
-    def name(self):
-        return "gcc/clang/cl"
-
-    def lsp_candidates(self):
-        return ["clangd"]
-
-    def nullls_candidates(self):
-        return ["cpplint", "clang_format"]
-
-    def check(self):
-        if shutil.which("gcc") is not None and shutil.which("g++") is not None:
-            return self._confirm()
-        if shutil.which("clang") is not None and shutil.which("clang++") is not None:
-            return self._confirm()
-        return False
-
-
-EXTEND_LSP = []
-
-# Extend Lsp }
 
 PLUGINS = [
     # { Infrastructure and dependencies
@@ -1244,6 +1525,18 @@ PLUGINS = [
         tag=Tag.EDITING,
     ),
     Plugin(
+        "kkoomen/vim-doge",
+        props=Props(
+            VLEventProp(),
+            # build for macOS to avoid error on silicon chip
+            BuildProp("npm i --no-save && npm run build:binary:unix"),
+        )
+        if IS_MACOS
+        else Props(VLEventProp()),
+        comments="Generate documents",
+        tag=Tag.EDITING,
+    ),
+    Plugin(
         "akinsho/toggleterm.nvim",
         props=Props(VersionProp("*"), VLEventProp()),
         comments="Terminal",
@@ -1278,13 +1571,14 @@ PLUGINS = [
 class Render:
     def __init__(
         self,
-        use_color=None,
-        no_color=False,
-        no_hilight=False,
-        no_lang=False,
-        no_edit=False,
-        no_plugs=None,
-        no_ctrl_opt=False,
+        use_color,
+        no_color,
+        no_hilight,
+        no_lang,
+        no_edit,
+        no_plugs,
+        no_ctrl_opt,
+        ext_lsp_opt,
     ):
         self.use_color = use_color
         self.no_color = no_color
@@ -1293,6 +1587,7 @@ class Render:
         self.no_edit = no_edit
         self.no_plugs = no_plugs
         self.no_ctrl = no_ctrl_opt
+        self.ext_lsp_opt = ext_lsp_opt
 
     def render(self):
         gen_plugin_stmts, gen_colorscheme_stmts = self.generate()
@@ -1331,10 +1626,36 @@ class Render:
     # lspservers.lua
     def render_lspservers(self):
         stmts = []
-        if not self.no_lang:
-            stmts.append(
-                TemplateContent(pathlib.Path(f"{TEMPLATE_DIR}/lspservers.lua"))
-            )
+        if self.no_lang:
+            return stmts
+        stmts.append(
+            TemplateContent(pathlib.Path(f"{TEMPLATE_DIR}/lspservers-header.lua"))
+        )
+        extend_lsp_servers = (
+            [E for E in EXTEND_LSP if E.name == "vim" or E.name == "lua"]
+            if not self.ext_lsp_opt
+            else EXTEND_LSP
+        )
+
+        embeded_servers = []
+        embeded_nullls = []
+        for ext_lsp in extend_lsp_servers:
+            message("checking available languages...")
+            message("operation:")
+            message("   1. accept all: `ENTER`")
+            message("   2. select: numbers separated by comma(e.g 1,2,3...)")
+            message("   3. skip: `n`/`N`")
+            confirmed, lsp, nullls = ext_lsp.confirm()
+            if not confirmed:
+                continue
+            embeded_servers.extend(lsp)
+            embeded_nullls.extend(nullls)
+
+        stmts.append(EmbededServers4Lua(embeded_servers))
+        stmts.append(EmbededNullls4Lua(embeded_nullls))
+        stmts.append(
+            TemplateContent(pathlib.Path(f"{TEMPLATE_DIR}/lspservers-footer.lua"))
+        )
         return stmts
 
     # colorschemes.vim
@@ -1559,107 +1880,6 @@ class Dumper:
                 fp.writelines("\n")
 
 
-# class CommandHelp(click.Command):
-#     HELP_FILE = pathlib.Path(f"{NVIM_DIR}/deps/help.txt")
-#
-#     def format_help(self, ctx, formatter):
-#         with open(CommandHelp.HELP_FILE, "r") as hf:
-#             formatter.write(hf.read())
-
-
-# @click.command(cls=CommandHelp)
-# @click.option("-b", "--basic", "basic_opt", is_flag=True, help="Basic mode")
-# @click.option("-l", "--limit", "limit_opt", is_flag=True, help="Limit mode")
-# @click.option(
-#     "--use-color",
-#     "use_color_opt",
-#     default=None,
-#     show_default=True,
-#     help="Use static colorscheme",
-# )
-# @click.option(
-#     "--no-color",
-#     "no_color_opt",
-#     is_flag=True,
-#     help="No extra colors",
-# )
-# @click.option(
-#     "--no-hilight",
-#     "no_hilight_opt",
-#     is_flag=True,
-#     help="No extra highlights",
-# )
-# @click.option(
-#     "--no-lang",
-#     "no_lang_opt",
-#     is_flag=True,
-#     help="No language supports",
-# )
-# @click.option(
-#     "--no-edit",
-#     "no_edit_opt",
-#     is_flag=True,
-#     help="No editing enhancements",
-# )
-# @click.option(
-#     "--no-plug",
-#     "no_plug_opt",
-#     multiple=True,
-#     help="No specific plugin",
-# )
-# @click.option(
-#     "--no-ctrl",
-#     "no_ctrl_opt",
-#     is_flag=True,
-#     help="No Windows ctrl+?(and cmd+? on macOS) keys",
-# )
-# @click.option(
-#     "--dump-plugins",
-#     "dump_plugins_opt",
-#     is_flag=True,
-#     help="Dump all plugin list",
-# )
-# @click.option(
-#     "--dump-plugins-filename",
-#     "dump_plugins_filename_opt",
-#     default="dump_plugins.md",
-#     help="Dump plugins filename, by default: dump_plugins.md",
-# )
-# def generator(
-#     basic_opt,
-#     limit_opt,
-#     use_color_opt,
-#     no_color_opt,
-#     no_hilight_opt,
-#     no_lang_opt,
-#     no_edit_opt,
-#     no_plug_opt,
-#     no_ctrl_opt,
-#     dump_plugins_opt,
-#     dump_plugins_filename_opt,
-# ):
-#     if dump_plugins_opt:
-#         return Dumper.plugins(dump_plugins_filename_opt)
-#
-#     if limit_opt:
-#         no_color_opt = True
-#         no_hilight_opt = True
-#         no_lang_opt = True
-#         no_edit_opt = True
-#     render = Render(
-#         use_color_opt,
-#         no_color_opt,
-#         no_hilight_opt,
-#         no_lang_opt,
-#         no_edit_opt,
-#         no_plug_opt,
-#         no_ctrl_opt,
-#     )
-#     plugins, lspservers, colorschemes, settings, init = render.render()
-#     writer = FileWriter(plugins, lspservers, colorschemes, settings, init)
-#     writer.write()
-
-
 def make_arguments():
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -1741,6 +1961,7 @@ if __name__ == "__main__":
         arguments.no_hilight_opt = True
         arguments.no_lang_opt = True
         arguments.no_edit_opt = True
+        arguments.ext_lsp_opt = False
     render = Render(
         arguments.use_color_opt,
         arguments.no_color_opt,
@@ -1749,6 +1970,7 @@ if __name__ == "__main__":
         arguments.no_edit_opt,
         arguments.no_plug_opt,
         arguments.no_ctrl_opt,
+        arguments.ext_lsp_opt,
     )
     plugins, lspservers, colorschemes, settings, init = render.render()
     writer = FileWriter(plugins, lspservers, colorschemes, settings, init)
