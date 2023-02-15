@@ -50,6 +50,10 @@ def dedup_list(l):
     return list(OrderedDict.fromkeys(l))
 
 
+def has_command(cmd):
+    return shutil.which(cmd) is not None
+
+
 INDENT_SIZE = 2
 INDENT = " " * INDENT_SIZE
 
@@ -88,7 +92,7 @@ class ExtLsp:
         if checker:
             self.checker = checker
         else:
-            self.checker = lambda cmd: any([shutil.which(c) is not None for c in cmd])
+            self.checker = lambda cmd: all([has_command(c) for c in cmd])
 
     def confirm(self):
         recommends = dedup_list(self.lsp + self.nullls)
@@ -146,7 +150,7 @@ class ExtLsp:
 EXTEND_LSP = [
     ExtLsp(
         name="assembly",
-        compiler="as",
+        compiler=["as", "rustc", "cargo"],
         lsp="asm_lsp",
     ),
     ExtLsp(
@@ -159,6 +163,9 @@ EXTEND_LSP = [
         compiler=["gcc", "g++", "clang", "clang++", "MSBuild", "cl"],
         lsp="clangd",
         nullls=["cpplint", "clang_format"],
+        checker=lambda cmd: (has_command("gcc") and has_command("g++"))
+        or (has_command("clang") and has_command("clang++"))
+        or (has_command("MSBuild") and has_command("cl")),
     ),
     ExtLsp(
         name="cmake",
@@ -170,6 +177,9 @@ EXTEND_LSP = [
         compiler=["csc", "dotnet", "mcs"],
         lsp=["csharp_ls", "omnisharp_mono", "omnisharp"],
         nullls="csharpier",
+        checker=lambda cmd: has_command("csc")
+        or has_command("dotnet")
+        or has_command("mcs"),
     ),
     ExtLsp(
         name="css",
@@ -256,10 +266,13 @@ EXTEND_LSP = [
         compiler=["latex", "pdflatex", "xelatex"],
         lsp=["ltex", "texlab"],
         nullls=["proselint", "vale"],
+        checker=lambda cmd: has_command("latex")
+        or has_command("pdflatex")
+        or has_command("xelatex"),
     ),
     ExtLsp(
         name="lua",
-        compiler=["lua", "luac"],
+        compiler="lua",
         lsp=["lua_ls"],
         nullls=["luacheck", "selene", "stylua"],
         checker=lambda cmd: True,  # lua is embeded
@@ -290,6 +303,7 @@ EXTEND_LSP = [
         name="powershell",
         compiler=["pwsh", "powershell"],
         lsp=["powershell_es"],
+        checker=lambda cmd: has_command("pwsh") or has_command("powershell"),
     ),
     ExtLsp(
         name="protobuf",
@@ -319,6 +333,9 @@ EXTEND_LSP = [
             "vulture",
             "yapf",
         ],
+        checker=lambda cmd: has_command("python")
+        or has_command("python2")
+        or has_command("python3"),
     ),
     ExtLsp(
         name="R",
@@ -341,6 +358,9 @@ EXTEND_LSP = [
         compiler=["mysql", "psql", "sqlplus"],  # mysql/postgresql/oracle
         lsp=["sqlls", "sqls"],
         nullls=["sqlfluff", "sql_formatter"],
+        checker=lambda cmd: has_command("mysql")
+        or has_command("psql")
+        or has_command("sqlplus"),
     ),
     ExtLsp(
         name="sh",
