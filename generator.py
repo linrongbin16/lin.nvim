@@ -1541,11 +1541,11 @@ PLUGINS = [
         "kkoomen/vim-doge",
         props=Props(
             VLEventProp(),
-            # build for macOS to avoid error on silicon chip
-            BuildProp("npm i --no-save && npm run build:binary:unix"),
-        )
-        if IS_MACOS
-        else Props(VLEventProp()),
+            # build for non-Windows to avoid error on arm(apple silicon chip)
+            BuildProp("npm i --no-save && npm run build:binary:unix")
+            if not IS_WINDOWS
+            else BuildProp(":call doge#install()"),
+        ),
         comments="Generate documents",
         tag=Tag.EDITING,
     ),
