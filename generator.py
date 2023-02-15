@@ -7,7 +7,7 @@ import enum
 import pathlib
 import platform
 import shutil
-from os import name
+from collections import OrderedDict
 
 HOME_DIR = pathlib.Path.home()
 NVIM_DIR = pathlib.Path(f"{HOME_DIR}/.nvim")
@@ -26,8 +26,12 @@ IS_MACOS = platform.system().lower().startswith("darwin")
 # )
 
 
+def format_message(*args):
+    return f"[lin.nvim] - {' '.join(args)}"
+
+
 def message(*args):
-    print(f"[lin.nvim] - {' '.join(args)}")
+    print(format_message(*[a for a in args]))
 
 
 def error_message(*args):
@@ -40,6 +44,10 @@ def try_backup(src):
         dest = f"{src}.{datetime.datetime.now().strftime('%Y-%m-%d.%H-%M-%S.%f')}"
         src.rename(dest)
         message(f"backup '{src}' to '{dest}'")
+
+
+def dedup_list(l):
+    return list(OrderedDict.fromkeys(l))
 
 
 INDENT_SIZE = 2
@@ -70,43 +78,28 @@ INDENT = " " * INDENT_SIZE
 class ExtLsp:
     def __init__(self, name=None, compiler=[], lsp=[], nullls=[], checker=None):
         assert isinstance(name, str)
-        assert (
-            isinstance(compiler, str)
-            or isinstance(compiler, list)
-            or isinstance(compiler, set)
-        )
-        assert isinstance(lsp, str) or isinstance(lsp, list) or isinstance(lsp, set)
-        assert (
-            isinstance(nullls, str)
-            or isinstance(nullls, list)
-            or isinstance(nullls, set)
-        )
+        assert isinstance(compiler, str) or isinstance(compiler, list)
+        assert isinstance(lsp, str) or isinstance(lsp, list)
+        assert isinstance(nullls, str) or isinstance(nullls, list)
         self.name = name
-        self.compiler = set([compiler]) if isinstance(compiler, str) else set(compiler)
-        self.lsp = set([lsp]) if isinstance(lsp, str) else set(lsp)
-        self.nullls = set([nullls]) if isinstance(nullls, str) else set(nullls)
+        self.compiler = [compiler] if isinstance(compiler, str) else compiler
+        self.lsp = [lsp] if isinstance(lsp, str) else lsp
+        self.nullls = [nullls] if isinstance(nullls, str) else nullls
         if checker:
             self.checker = checker
         else:
-            self.checker = lambda cmd: any(
-                [shutil.which(c) is not None for c in set(cmd)]
-            )
+            self.checker = lambda cmd: any([shutil.which(c) is not None for c in cmd])
 
     def confirm(self):
-        recommends = list(set(self.lsp).union(self.nullls))
-        candidates = ", ".join(
-            [
-                f"{i+1}:{r}{'(default)' if i == 0 else ''}"
-                for i, r in enumerate(recommends)
-            ]
-        )
+        recommends = dedup_list(self.lsp + self.nullls)
+        candidates = ", ".join([f"{i+1}:{r}" for i, r in enumerate(recommends)])
         # Accept:
         #   * ENTER: select all
         #   * Numbers(separated by comma): select any
         #   * n/N: skip
         result = input(
-            message(
-                f"detected '{self.name}' (by {'/'.join(self.compiler)}), install lsp: {candidates}? "
+            format_message(
+                f"detected '{self.name}' (by {'/'.join(self.compiler)}), install lsp({candidates})? "
             )
         )
 
@@ -171,17 +164,6 @@ EXTEND_LSP = [
         name="cmake",
         compiler="cmake",
         lsp=["cmake", "neocmake"],
-    ),
-    ExtLsp(
-        name="cmake",
-        compiler="cmake",
-        lsp=["cmake", "neocmake"],
-    ),
-    ExtLsp(
-        name="csharp",
-        compiler=["csc", "dotnet", "mcs"],
-        lsp=["csharp_ls", "omnisharp_mono", "omnisharp"],
-        nullls=["csharpier"],
     ),
     ExtLsp(
         name="csharp",
@@ -376,6 +358,7 @@ EXTEND_LSP = [
         compiler="vim",
         lsp="vimls",
         nullls="vint",
+        checker=lambda cmd: True,  # vim is embeded
     ),
     ExtLsp(
         name="xml",
@@ -650,12 +633,15 @@ class EmbededServers4Lua(Expr):
         self.servers = servers
 
     def render(self):
-        rendered_servers = '\n'.join([f"{INDENT}{s}," for s in self.servers])
-        return """
+        rendered_servers = "\n".join([f"{INDENT}'{s}'," for s in self.servers])
+        return (
+            """
 -- { mason's config
 local embeded_servers = {
-""" + rendered_servers +
-"""}
+"""
+            + rendered_servers
+            + """
+}
 local embeded_servers_setups = {
   -- default setup
   function(server)
@@ -683,6 +669,7 @@ local embeded_servers_setups = {
 }
 -- } mason's config
 """
+        )
 
 
 class EmbededNullls4Lua(Expr):
@@ -691,11 +678,14 @@ class EmbededNullls4Lua(Expr):
         self.nullls = nullls
 
     def render(self):
-        rendered_nullls = '\n'.join([f"{INDENT}{n}," for n in self.nullls])
-        return """
+        rendered_nullls = "\n".join([f"{INDENT}'{n}'," for n in self.nullls])
+        return (
+            """
 -- { null-ls's config
 local embeded_nullls = {
-""" +  rendered_nullls + """
+"""
+            + rendered_nullls
+            + """
 }
 local embeded_nullls_setups = {
   -- default setup
@@ -709,6 +699,7 @@ local embeded_nullls_setups = {
 }
 -- } null-ls's config
 """
+        )
 
 
 # Lua AST }
@@ -1639,20 +1630,25 @@ class Render:
 
         embeded_servers = []
         embeded_nullls = []
-        for ext_lsp in extend_lsp_servers:
+        if len(extend_lsp_servers) > 0:
+            print("")
             message("checking available languages...")
-            message("operation:")
-            message("   1. accept all: `ENTER`")
-            message("   2. select: numbers separated by comma(e.g 1,2,3...)")
-            message("   3. skip: `n`/`N`")
-            confirmed, lsp, nullls = ext_lsp.confirm()
-            if not confirmed:
-                continue
-            embeded_servers.extend(lsp)
-            embeded_nullls.extend(nullls)
+            message("note:")
+            message("   1. `ENTER` to accept all")
+            message("   2. Numbers separated by comma(e.g 1,2,3...) to select")
+            message("   3. `n`/`N` to skip")
+            print("")
+            for ext_lsp in extend_lsp_servers:
+                if not ext_lsp.checker(ext_lsp.compiler):
+                    continue
+                confirmed, lsp, nullls = ext_lsp.confirm()
+                if not confirmed:
+                    continue
+                embeded_servers.extend(lsp)
+                embeded_nullls.extend(nullls)
 
-        stmts.append(EmbededServers4Lua(embeded_servers))
-        stmts.append(EmbededNullls4Lua(embeded_nullls))
+        stmts.append(EmbededServers4Lua(dedup_list(embeded_servers)))
+        stmts.append(EmbededNullls4Lua(dedup_list(embeded_nullls)))
         stmts.append(
             TemplateContent(pathlib.Path(f"{TEMPLATE_DIR}/lspservers-footer.lua"))
         )
@@ -1950,7 +1946,6 @@ def make_arguments():
 
 if __name__ == "__main__":
     arguments = make_arguments()
-    print(arguments)
 
     if arguments.dump_plugins_opt:
         Dumper.plugins(arguments.dump_plugins_filename_opt)
