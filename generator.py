@@ -101,7 +101,7 @@ class ExtLsp:
         #   * ENTER: select all
         #   * Numbers(separated by comma): select any
         #   * n/N: skip
-        print("")
+        message("")
         result = input(
             format_message(
                 f"detected '{self.name}' (by {'/'.join(self.compiler)}), install lsp({candidates})? "
@@ -145,7 +145,6 @@ class ExtLsp:
                 error_message(f"unknown choice: {result}, skip...")
                 confirmed = False
 
-        print("")
         assert confirmed is not None
         return confirmed, lsp_servers, nullls_sources
 
@@ -1645,15 +1644,10 @@ class Render:
         stmts.append(
             TemplateContent(pathlib.Path(f"{TEMPLATE_DIR}/lspservers-header.lua"))
         )
-        extend_lsp_servers = (
-            [E for E in EXTEND_LSP if E.name == "vim" or E.name == "lua"]
-            if not self.ext_lsp_opt
-            else EXTEND_LSP
-        )
 
         embeded_servers = []
         embeded_nullls = []
-        if len(extend_lsp_servers) > 0:
+        if self.ext_lsp_opt:
             message("")
             message("checking available lsp servers...")
             message("note:")
@@ -1663,7 +1657,7 @@ class Render:
             message("   4. `CTRL-C` to stop extending available lsp servers")
             message("")
             try:
-                for ext_lsp in extend_lsp_servers:
+                for ext_lsp in EXTEND_LSP:
                     if not ext_lsp.checker(ext_lsp.compiler):
                         continue
                     confirmed, lsp, nullls = ext_lsp.confirm()
@@ -1673,7 +1667,7 @@ class Render:
                     embeded_nullls.extend(nullls)
             except KeyboardInterrupt:
                 message("stop extending available lsp servers...")
-                message("")
+            message("")
 
         stmts.append(EmbededServers4Lua(dedup_list(embeded_servers)))
         stmts.append(EmbededNullls4Lua(dedup_list(embeded_nullls)))
