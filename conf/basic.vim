@@ -81,8 +81,8 @@ set formatoptions+=j
 """ render
 set redrawtime=1000 maxmempattern=2000000
 
-""" tags
-set tags+=./tags,tags
+""" search tags from current file to all ancestor folders
+set tags+=./tags;,tags
 
 """ file auto read/write/load
 set autoread autowrite noswapfile confirm
@@ -108,7 +108,7 @@ set viewoptions-=options
 
 """ true colors and dark
 set background=dark
-if has("termguicolors")
+if has('termguicolors')
   set termguicolors
 endif
 
@@ -130,7 +130,7 @@ set guioptions-=T
 set guioptions-=m
 
 """ maximize GUI window
-if has("gui_running")
+if has('gui_running')
   set lines=9999
   set columns=9999
 endif
@@ -139,6 +139,6 @@ if has('win32') || has('win64')
 endif
 
 """ disable macvim GUI key mappings
-if has("gui_macvim")
+if has('gui_macvim')
   let macvim_skip_cmd_opt_movement = 1
 endif

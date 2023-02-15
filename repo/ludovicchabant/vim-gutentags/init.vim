@@ -1,4 +1,25 @@
-let g:gutentags_project_root = ['.svn', '.git', '.hg', 'package.json', 'CMakeLists.txt', 'pom.xml', '.idea', '.vscode']
+let g:gutentags_project_root = [
+      \ '.svn',
+      \ '.git',
+      \ '.hg',
+      \ 'package.json',
+      \ 'CMakeLists.txt',
+      \ 'Makefile',
+      \ 'makefile',
+      \ 'pom.xml',
+      \ '.idea',
+      \ '.vscode',
+      \ 'Gemfile',
+      \ 'Gemfile.lock',
+      \ 'Cargo.toml',
+      \ 'Cargo.lock',
+      \ ]
+
+let g:gutentags_generate_on_new = 1
+let g:gutentags_generate_on_missing = 1
+let g:gutentags_generate_on_write = 1
+let g:gutentags_generate_on_empty_buffer = 0
+
 if executable('fd')
   let g:gutentags_file_list_command = 'fd -tf -tl'
 elseif executable('fdfind')
@@ -8,9 +29,7 @@ elseif executable('rg')
 endif
 
 let g:gutentags_ctags_exclude = [
-      \ '*.git',
-      \ '*.svg',
-      \ '*.hg',
+      \ '*.git', '*.svg', '*.hg',
       \ '*/tests/*',
       \ 'build',
       \ 'dist',
@@ -57,14 +76,13 @@ let g:gutentags_ctags_exclude = [
       \ '*.pdf', '*.doc', '*.docx', '*.ppt', '*.pptx',
       \ ]
 
-let s:tags_dir = expand('~/.cache/nvim/tags')
-let g:gutentags_cache_dir = s:tags_dir
+let g:gutentags_cache_dir = expand('~/.cache/nvim/tags')
+" create folder if not exists
+if !isdirectory(g:gutentags_cache_dir)
+    silent! call mkdir(g:gutentags_cache_dir, 'p', 0700)
+endif
 
-let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extras=+q']
+let g:gutentags_ctags_extra_args = ['--fields=+ailmnzS', '--extras=+q']
 let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
 let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
 let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
-
-if !isdirectory(s:tags_dir)
-    silent! call mkdir(s:tags_dir, 'p', 0700)
-endif
