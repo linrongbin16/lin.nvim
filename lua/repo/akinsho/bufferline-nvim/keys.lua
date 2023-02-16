@@ -46,26 +46,6 @@ table.insert(
     )
 )
 
--- close buffer
-table.insert(
-    M,
-    keymap.map_lazy(
-        "n",
-        "<leader>bd",
-        keymap.exec("Bdelete"),
-        { desc = "Close buffer" }
-    )
-)
-table.insert(
-    M,
-    keymap.map_lazy(
-        "n",
-        "<leader>bD",
-        keymap.exec("Bdelete!"),
-        { desc = "Close buffer forcibly!" }
-    )
-)
-
 -- re-order/move current buffer to next/previous position
 table.insert(
     M,

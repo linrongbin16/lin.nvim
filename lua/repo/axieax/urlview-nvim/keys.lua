@@ -1,6 +1,8 @@
 local map_lazy = require("conf/keymap").map_lazy
 
 local M = {
+    "]u",
+    "[u",
     map_lazy(
         "n",
         "<leader>ub",

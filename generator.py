@@ -892,29 +892,39 @@ class EventProp(Prop):
         return self.expr.render()
 
 
-class VLEventProp(EventProp):
+class VeryLazyEventProp(EventProp):
     def __init__(self) -> None:
-        super(VLEventProp, self).__init__("VeryLazy")
+        super(VeryLazyEventProp, self).__init__("VeryLazy")
 
 
-class ICEventProp(EventProp):
+class InsertCmdlineEventProp(EventProp):
     def __init__(self) -> None:
-        super(ICEventProp, self).__init__("InsertEnter", "CmdlineEnter")
+        super(InsertCmdlineEventProp, self).__init__("InsertEnter", "CmdlineEnter")
 
 
-class IEventProp(EventProp):
+class InsertEventProp(EventProp):
     def __init__(self) -> None:
-        super(IEventProp, self).__init__("InsertEnter")
+        super(InsertEventProp, self).__init__("InsertEnter")
 
 
-class VEventProp(EventProp):
+class VimEnterEventProp(EventProp):
     def __init__(self) -> None:
-        super(VEventProp, self).__init__("VimEnter")
+        super(VimEnterEventProp, self).__init__("VimEnter")
 
 
-class CEventProp(EventProp):
+class CmdlineEventProp(EventProp):
     def __init__(self) -> None:
-        super(CEventProp, self).__init__("CmdlineEnter")
+        super(CmdlineEventProp, self).__init__("CmdlineEnter")
+
+
+class BufReadPostEventProp(EventProp):
+    def __init__(self) -> None:
+        super(BufReadPostEventProp, self).__init__("BufReadPost")
+
+
+class BufReadPreEventProp(EventProp):
+    def __init__(self) -> None:
+        super(BufReadPreEventProp, self).__init__("BufReadPre")
 
 
 class DependenciesProp(Prop):
@@ -1222,22 +1232,22 @@ PLUGINS = [
     # { Highlight
     Plugin(
         "RRethy/vim-illuminate",
-        props=Props(VLEventProp()),
+        props=Props(BufReadPostEventProp()),
         tag=Tag.HIGHLIGHT,
     ),
     Plugin(
         "NvChad/nvim-colorizer.lua",
-        props=Props(VLEventProp()),
+        props=Props(BufReadPostEventProp()),
         tag=Tag.HIGHLIGHT,
     ),
     Plugin(
         "andymass/vim-matchup",
-        props=Props(VLEventProp()),
+        props=Props(BufReadPostEventProp()),
         tag=Tag.HIGHLIGHT,
     ),
     Plugin(
         "inkarkat/vim-mark",
-        props=Props(DependenciesProp("inkarkat/vim-ingo-library"), VLEventProp()),
+        props=Props(DependenciesProp("inkarkat/vim-ingo-library"), CmdlineEventProp()),
         tag=Tag.HIGHLIGHT,
     ),
     Plugin(
@@ -1247,25 +1257,17 @@ PLUGINS = [
     ),
     Plugin(
         "haya14busa/is.vim",
-        props=Props(VLEventProp()),
+        props=Props(BufReadPostEventProp()),
         tag=Tag.HIGHLIGHT,
     ),
-    # Plugin(
-    #     "winston0410/range-highlight.nvim",
-    #     props=Props(CEventProp(), DependenciesProp("winston0410/cmd-parser.nvim")),
-    #     tag=Tag.HIGHLIGHT,
-    # ),
-    # Plugin(
-    #     "winston0410/cmd-parser.nvim",
-    #     props=Props(LazyProp()),
-    #     tag=Tag.HIGHLIGHT,
-    # ),
-    Plugin("markonm/traces.vim", props=Props(CEventProp()), tag=Tag.HIGHLIGHT),
+    Plugin("markonm/traces.vim", props=Props(CmdlineEventProp()), tag=Tag.HIGHLIGHT),
     # } Highlight
     # { UI
     Plugin(
         "nvim-tree/nvim-tree.lua",
-        props=Props(VEventProp(), DependenciesProp("nvim-tree/nvim-web-devicons")),
+        props=Props(
+            VeryLazyEventProp(), DependenciesProp("nvim-tree/nvim-web-devicons")
+        ),
         comments="File explorer",
         tag=Tag.UI,
     ),
@@ -1297,7 +1299,7 @@ PLUGINS = [
         "akinsho/bufferline.nvim",
         props=Props(
             VersionProp("v3.*"),
-            VEventProp(),
+            VeryLazyEventProp(),
             DependenciesProp("nvim-tree/nvim-web-devicons", "moll/vim-bbye"),
         ),
         comments="Tabline",
@@ -1305,19 +1307,19 @@ PLUGINS = [
     ),
     Plugin(
         "moll/vim-bbye",
-        props=Props(CEventProp()),
+        props=Props(CmdlineEventProp()),
         tag=Tag.UI,
     ),
     Plugin(
         "lukas-reineke/indent-blankline.nvim",
-        props=Props(VLEventProp()),
+        props=Props(BufReadPostEventProp()),
         comments="Indentline",
         tag=Tag.UI,
     ),
     Plugin(
         "nvim-lualine/lualine.nvim",
         props=Props(
-            VEventProp(),
+            VeryLazyEventProp(),
             DependenciesProp(
                 "nvim-tree/nvim-web-devicons",
                 "linrongbin16/lsp-progress.nvim",
@@ -1343,7 +1345,7 @@ PLUGINS = [
             NameProp("barbecue"),
             VersionProp("*"),
             # BranchProp("fix/E36"), see: https://github.com/utilyre/barbecue.nvim/issues/61
-            VLEventProp(),
+            VeryLazyEventProp(),
             DependenciesProp("SmiteshP/nvim-navic", "nvim-tree/nvim-web-devicons"),
         ),
         tag=Tag.UI,
@@ -1361,13 +1363,13 @@ PLUGINS = [
     # ),
     Plugin(
         "airblade/vim-gitgutter",
-        props=Props(VLEventProp()),
+        props=Props(BufReadPostEventProp()),
         comments="Git",
         tag=Tag.UI,
     ),
     Plugin(
         "stevearc/dressing.nvim",
-        props=Props(VLEventProp()),
+        props=Props(VeryLazyEventProp()),
         comments="UI hooks",
         tag=Tag.UI,
     ),
@@ -1383,12 +1385,12 @@ PLUGINS = [
     # { Search
     Plugin(
         "junegunn/fzf",
-        props=Props(VEventProp(), BuildProp(":call fzf#install()")),
+        props=Props(CmdlineEventProp(), BuildProp(":call fzf#install()")),
         tag=Tag.SEARCH,
     ),
     Plugin(
         "junegunn/fzf.vim",
-        props=Props(VEventProp(), DependenciesProp("junegunn/fzf")),
+        props=Props(CmdlineEventProp(), DependenciesProp("junegunn/fzf")),
         tag=Tag.SEARCH,
     ),
     # Plugin(
@@ -1400,25 +1402,27 @@ PLUGINS = [
     # { LSP
     Plugin(
         "liuchengxu/vista.vim",
-        props=Props(VLEventProp(), DependenciesProp("ludovicchabant/vim-gutentags")),
+        props=Props(
+            CmdlineEventProp(), DependenciesProp("ludovicchabant/vim-gutentags")
+        ),
         comments="Ctags/structure outlines",
         tag=Tag.CTAGS,
     ),
     Plugin(
         "ludovicchabant/vim-gutentags",
-        props=Props(VLEventProp()),
+        props=Props(VeryLazyEventProp()),
         tag=Tag.CTAGS,
     ),
     Plugin(
         "williamboman/mason.nvim",
-        props=Props(VLEventProp()),
+        props=Props(VeryLazyEventProp()),
         comments="LSP",
         tag=Tag.LSP,
     ),
     Plugin(
         "williamboman/mason-lspconfig.nvim",
         props=Props(
-            VLEventProp(),
+            VeryLazyEventProp(),
             DependenciesProp(
                 "williamboman/mason.nvim",
                 "neovim/nvim-lspconfig",
@@ -1434,13 +1438,13 @@ PLUGINS = [
     # ),
     Plugin(
         "jose-elias-alvarez/null-ls.nvim",
-        props=Props(VLEventProp(), DependenciesProp("nvim-lua/plenary.nvim")),
+        props=Props(VeryLazyEventProp(), DependenciesProp("nvim-lua/plenary.nvim")),
         tag=Tag.LSP,
     ),
     Plugin(
         "jay-babu/mason-null-ls.nvim",
         props=Props(
-            VLEventProp(),
+            VeryLazyEventProp(),
             DependenciesProp(
                 "williamboman/mason.nvim", "jose-elias-alvarez/null-ls.nvim"
             ),
@@ -1450,7 +1454,7 @@ PLUGINS = [
     Plugin(
         "hrsh7th/nvim-cmp",
         props=Props(
-            ICEventProp(),
+            InsertCmdlineEventProp(),
             DependenciesProp(
                 "neovim/nvim-lspconfig",
                 "hrsh7th/cmp-nvim-lsp",
@@ -1466,35 +1470,35 @@ PLUGINS = [
     ),
     Plugin(
         "hrsh7th/cmp-nvim-lsp",
-        props=Props(ICEventProp()),
+        props=Props(InsertCmdlineEventProp()),
         tag=Tag.LSP,
     ),
     Plugin(
         "hrsh7th/cmp-buffer",
-        props=Props(ICEventProp()),
+        props=Props(InsertCmdlineEventProp()),
         tag=Tag.LSP,
     ),
     Plugin(
         "hrsh7th/cmp-path",
-        props=Props(ICEventProp()),
+        props=Props(InsertCmdlineEventProp()),
         tag=Tag.LSP,
     ),
     Plugin(
         "hrsh7th/cmp-cmdline",
-        props=Props(ICEventProp()),
+        props=Props(InsertCmdlineEventProp()),
         tag=Tag.LSP,
     ),
     Plugin(
         "L3MON4D3/LuaSnip",
-        props=Props(ICEventProp(), VersionProp("1.*")),
+        props=Props(InsertCmdlineEventProp(), VersionProp("1.*")),
         tag=Tag.LSP,
     ),
     Plugin(
         "saadparwaiz1/cmp_luasnip",
-        props=Props(ICEventProp(), DependenciesProp("L3MON4D3/LuaSnip")),
+        props=Props(InsertCmdlineEventProp(), DependenciesProp("L3MON4D3/LuaSnip")),
         tag=Tag.LSP,
     ),
-    Plugin("DNLHC/glance.nvim", props=Props(VLEventProp()), tag=Tag.LSP),
+    Plugin("DNLHC/glance.nvim", props=Props(BufReadPostEventProp()), tag=Tag.LSP),
     Plugin("onsails/lspkind.nvim", props=Props(LazyProp()), tag=Tag.LSP),
     # } LSP
     # { Language support
@@ -1539,7 +1543,7 @@ PLUGINS = [
     # { Key binding
     Plugin(
         "folke/which-key.nvim",
-        props=Props(VLEventProp()),
+        props=Props(InsertCmdlineEventProp(), BufReadPostEventProp()),
         comments="Key mappings",
         tag=Tag.KEY_BINDING,
     ),
@@ -1547,24 +1551,24 @@ PLUGINS = [
     # { Motion
     Plugin(
         "phaazon/hop.nvim",
-        props=Props(BranchProp("v2"), VLEventProp()),
+        props=Props(BranchProp("v2"), CmdlineEventProp()),
         tag=Tag.CURSOR_MOTION,
     ),
     Plugin(
         "ggandor/leap.nvim",
-        props=Props(VLEventProp(), DependenciesProp("tpope/vim-repeat")),
+        props=Props(BufReadPostEventProp(), DependenciesProp("tpope/vim-repeat")),
         tag=Tag.CURSOR_MOTION,
     ),
     # } Motion
     # { Git
     Plugin(
         "f-person/git-blame.nvim",
-        props=Props(VLEventProp()),
+        props=Props(CmdlineEventProp()),
         tag=Tag.GIT,
     ),
     Plugin(
         "ruifm/gitlinker.nvim",
-        props=Props(VLEventProp(), DependenciesProp("nvim-lua/plenary.nvim")),
+        props=Props(CmdlineEventProp(), DependenciesProp("nvim-lua/plenary.nvim")),
         comments="Open In Github/Gitlab/etc",
         tag=Tag.GIT,
     ),
@@ -1572,25 +1576,25 @@ PLUGINS = [
     # { Editing enhancement
     Plugin(
         "windwp/nvim-autopairs",
-        props=Props(IEventProp()),
+        props=Props(InsertEventProp()),
         comments="Auto pair/close",
         tag=Tag.EDITING_ENHANCEMENTS,
     ),
     Plugin(
         "alvan/vim-closetag",
-        props=Props(IEventProp()),
+        props=Props(InsertEventProp()),
         tag=Tag.EDITING_ENHANCEMENTS,
     ),
     Plugin(
         "numToStr/Comment.nvim",
-        props=Props(VLEventProp()),
+        props=Props(BufReadPostEventProp()),
         comments="Comment",
         tag=Tag.EDITING_ENHANCEMENTS,
     ),
     Plugin(
         "kkoomen/vim-doge",
         props=Props(
-            VLEventProp(),
+            CmdlineEventProp(),
             # build for non-Windows to avoid error on arm(apple silicon chip)
             BuildProp("npm i --no-save && npm run build:binary:unix")
             if not IS_WINDOWS
@@ -1601,35 +1605,35 @@ PLUGINS = [
     ),
     Plugin(
         "akinsho/toggleterm.nvim",
-        props=Props(VersionProp("*"), VLEventProp()),
+        props=Props(VersionProp("*"), CmdlineEventProp()),
         comments="Terminal",
         tag=Tag.EDITING_ENHANCEMENTS,
     ),
     Plugin(
         "mbbill/undotree",
-        props=Props(VLEventProp()),
+        props=Props(CmdlineEventProp()),
         comments="Undo tree",
         tag=Tag.EDITING_ENHANCEMENTS,
     ),
     Plugin(
         "tpope/vim-repeat",
-        props=Props(VLEventProp()),
+        props=Props(BufReadPostEventProp()),
         comments="Other",
         tag=Tag.EDITING_ENHANCEMENTS,
     ),
     Plugin(
         "kylechui/nvim-surround",
-        props=Props(VersionProp("*"), VLEventProp()),
+        props=Props(VersionProp("*"), BufReadPostEventProp()),
         tag=Tag.EDITING_ENHANCEMENTS,
     ),
     Plugin(
         "editorconfig/editorconfig-vim",
-        props=Props(VLEventProp()),
+        props=Props(BufReadPostEventProp()),
         tag=Tag.EDITING_ENHANCEMENTS,
     ),
     Plugin(
         "axieax/urlview.nvim",
-        props=Props(VLEventProp()),
+        props=Props(CmdlineEventProp()),
         tag=Tag.EDITING_ENHANCEMENTS,
     ),
     # } Editing enhancement
