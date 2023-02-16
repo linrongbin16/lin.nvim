@@ -11,10 +11,3 @@ require("mason").setup({
         },
     },
 })
-
-require("conf/keymap").map(
-    "n",
-    "<leader>ms",
-    ":Mason<CR>",
-    { silent = false, desc = "Open Mason" }
-)

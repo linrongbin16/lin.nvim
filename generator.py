@@ -961,19 +961,6 @@ class FtProp(Prop):
         return self.expr.render()
 
 
-class KeyProp(Prop):
-    def __init__(self, *value) -> None:
-        self.expr = AssignExpr(
-            LiteralExpr("keys"),
-            BracedExpr4Lua(
-                Exprs([SingleQuoteStringExpr(v) for v in value], delimiter=", ")
-            ),
-        )
-
-    def render(self):
-        return self.expr.render()
-
-
 # Helper Expr }
 
 
@@ -1818,6 +1805,8 @@ class Render:
                 vim_init_file = f"{NVIM_DIR}/{vim_init}"
                 vim_config = f"{vim_base}/config.vim"
                 vim_config_file = f"{NVIM_DIR}/{vim_config}"
+                lua_keys = f"{lua_base}/keys"
+                lua_keys_file = f"{NVIM_DIR}/lua/{lua_keys}.lua"
 
                 def require_formatter(s):
                     return RequireExpr(SingleQuoteStringExpr(s)).render()
@@ -1837,6 +1826,9 @@ class Render:
                 def config_function_formatter(lines):
                     return f"config = {function_formatter(lines)}"
 
+                def keys_prop_formatter(lines):
+                    return f"keys = {lines}"
+
                 # init
                 inits = []
                 if pathlib.Path(vim_init_file).exists():
@@ -1844,11 +1836,12 @@ class Render:
                 if pathlib.Path(lua_init_file).exists():
                     inits.append(require_formatter(lua_init))
                 if len(inits) > 0:
+                    exp = LiteralExpr(init_function_formatter(inits))
                     if isinstance(props, Props):
-                        props.append(LiteralExpr(init_function_formatter(inits)))
+                        props.append(exp)
                     else:
                         assert props is None
-                        props = Props(LiteralExpr(init_function_formatter(inits)))
+                        props = Props(exp)
                 # config
                 configs = []
                 if pathlib.Path(vim_config_file).exists():
@@ -1856,11 +1849,20 @@ class Render:
                 if pathlib.Path(lua_config_file).exists():
                     configs.append(require_formatter(lua_config))
                 if len(configs) > 0:
+                    exp = LiteralExpr(config_function_formatter(configs))
                     if isinstance(props, Props):
-                        props.append(LiteralExpr(config_function_formatter(configs)))
+                        props.append(exp)
                     else:
                         assert props is None
-                        props = Props(LiteralExpr(config_function_formatter(configs)))
+                        props = Props(exp)
+                # keys
+                if pathlib.Path(lua_keys_file).exists():
+                    exp = LiteralExpr(keys_prop_formatter(require_formatter(lua_keys)))
+                    if isinstance(props, Props):
+                        props.append(exp)
+                    else:
+                        assert props is None
+                        props = Props(exp)
 
                 plugins.append(Stmt(CommaExpr(LazySpecExpr4Lua(ctx.repo, props))))
 
