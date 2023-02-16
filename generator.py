@@ -897,7 +897,7 @@ class EventProp(Prop):
 
 class VeryLazyEventProp(EventProp):
     def __init__(self, *value) -> None:
-        super(VeryLazyEventProp, self).__init__("VeryLazy", value)
+        super(VeryLazyEventProp, self).__init__("VeryLazy", *value)
 
 
 class InsertCmdlineEventProp(EventProp):
@@ -909,33 +909,33 @@ class InsertCmdlineEventProp(EventProp):
 
 class InsertEventProp(EventProp):
     def __init__(self, *value) -> None:
-        super(InsertEventProp, self).__init__("InsertEnter", value)
+        super(InsertEventProp, self).__init__("InsertEnter", *value)
 
 
 class VimEnterEventProp(EventProp):
     def __init__(self, *value) -> None:
-        super(VimEnterEventProp, self).__init__("VimEnter", value)
+        super(VimEnterEventProp, self).__init__("VimEnter", *value)
 
 
 class CmdlineEventProp(EventProp):
     def __init__(self, *value) -> None:
-        super(CmdlineEventProp, self).__init__("CmdlineEnter", value)
+        super(CmdlineEventProp, self).__init__("CmdlineEnter", *value)
 
 
 class BufReadPostEventProp(EventProp):
     def __init__(self, *value) -> None:
-        super(BufReadPostEventProp, self).__init__("BufReadPost", value)
+        super(BufReadPostEventProp, self).__init__("BufReadPost", *value)
 
 
 class BufReadPreEventProp(EventProp):
     def __init__(self, *value) -> None:
-        super(BufReadPreEventProp, self).__init__("BufReadPre", value)
+        super(BufReadPreEventProp, self).__init__("BufReadPre", *value)
 
 
 class CursorEventProp(EventProp):
     def __init__(self, *value) -> None:
         super(CursorEventProp, self).__init__(
-            "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI", value
+            "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI", *value
         )
 
 
