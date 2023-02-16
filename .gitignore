@@ -16,6 +16,7 @@
 /dump-lsp.md
 /.copypaste
 /.temp
+/.mypy_cache
 
 # universal-ctags
 /universal-ctags

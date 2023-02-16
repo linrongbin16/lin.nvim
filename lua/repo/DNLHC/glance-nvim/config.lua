@@ -10,6 +10,13 @@ glance.setup({
   end,
   mappings = {
     list = {
+      ["<C-s>"] = actions.jump_split,
+      ["s"] = false,
+      ["<C-v>"] = actions.jump_vsplit,
+      ["v"] = false,
+      ["<C-t>"] = actions.jump_tab,
+      ["t"] = false,
+
       -- quit
       ["Q"] = false,
     },

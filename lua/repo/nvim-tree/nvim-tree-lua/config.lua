@@ -6,6 +6,8 @@ local key_mappings = {
   -- diagnostics
   { key = "]d", action = "next_diag_item" }, -- next diagnostic item
   { key = "[d", action = "prev_diag_item" }, -- previous diagnostic item
+  { key = "]e", action = "" }, -- removed old next diagnostic item
+  { key = "[e", action = "" }, -- removed old previous diagnostic item
 }
 
 vim.g.loaded_netrw = 1
@@ -37,6 +39,9 @@ require("nvim-tree").setup({
       },
     },
   },
+  update_focused_file = {
+    enable = true,
+  },
   diagnostics = {
     enable = true,
     icons = {
@@ -54,22 +59,6 @@ require("nvim-tree").setup({
     enable = true,
   },
 })
-
-local function key_mappings()
-  local map = require("conf/keymap").map
-  map(
-    "n",
-    "<leader>.",
-    "<cmd>NvimTreeResize +10<cr>",
-    { buffer = true, desc = "Resize bigger explorer width" }
-  )
-  map(
-    "n",
-    "<leader>,",
-    "<cmd>NvimTreeResize -10<cr>",
-    { buffer = true, desc = "Resize bigger explorer width" }
-  )
-end
 
 vim.api.nvim_create_augroup("nvim_tree_augroup", { clear = true })
 vim.api.nvim_create_autocmd("VimEnter", {
