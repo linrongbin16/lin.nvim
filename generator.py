@@ -704,46 +704,46 @@ local embeded_servers = {
             + """
 }
 local embeded_servers_setups = {
-  -- default setup
-  function(server)
-    lspconfig[server].setup({
-      on_attach = function(client, bufnr)
-        attach_ext(client, bufnr)
-      end,
-    })
-  end,
-  -- specific setup
-  tsserver = function()
-    lspconfig["tsserver"].setup({
-      on_attach = function(client, bufnr)
-        attach_ext(client, bufnr)
-      end,
-      root_dir = function(fname)
-        -- disable tsserver when detect flow
-        return lspconfig.util.root_pattern("tsconfig.json")(fname)
-          or not lspconfig.util.root_pattern(".flowconfig")(fname)
-            and lspconfig.util.root_pattern(
-              "package.json",
-              "jsconfig.json",
-              ".git"
-            )(fname)
-      end,
-    })
-  end,
-  -- clangd = function()
-  --   require("clangd_extensions").setup({
-  --     on_attach = function(client, bufnr)
-  --       attach_ext(client, bufnr)
-  --     end,
-  --   })
-  -- end,
-  -- ["rust_analyzer"] = function()
-  --   require("rust-tools").setup({
-  --     on_attach = function(client, bufnr)
-  --       attach_ext(client, bufnr)
-  --     end,
-  --   })
-  -- end,
+    -- default setup
+    function(server)
+        lspconfig[server].setup({
+            on_attach = function(client, bufnr)
+                attach_ext(client, bufnr)
+            end,
+        })
+    end,
+    -- specific setup
+    tsserver = function()
+        lspconfig["tsserver"].setup({
+            on_attach = function(client, bufnr)
+                attach_ext(client, bufnr)
+            end,
+            root_dir = function(fname)
+                -- disable tsserver when detect flow
+                return lspconfig.util.root_pattern("tsconfig.json")(fname)
+                    or not lspconfig.util.root_pattern(".flowconfig")(fname)
+                        and lspconfig.util.root_pattern(
+                            "package.json",
+                            "jsconfig.json",
+                            ".git"
+                        )(fname)
+            end,
+        })
+    end,
+    -- clangd = function()
+    --   require("clangd_extensions").setup({
+    --     on_attach = function(client, bufnr)
+    --       attach_ext(client, bufnr)
+    --     end,
+    --   })
+    -- end,
+    -- ["rust_analyzer"] = function()
+    --   require("rust-tools").setup({
+    --     on_attach = function(client, bufnr)
+    --       attach_ext(client, bufnr)
+    --     end,
+    --   })
+    -- end,
 }
 -- } mason's config
 """
@@ -766,14 +766,14 @@ local embeded_nullls = {
             + """
 }
 local embeded_nullls_setups = {
-  -- default setup
-  function(source, methods)
-    require("mason-null-ls.automatic_setup")(source, methods)
-  end,
-  -- specific setup
-  -- stylua = function(source, methods)
-  --   null_ls.register(null_ls.builtins.formatting.stylua)
-  -- end,
+    -- default setup
+    function(source, methods)
+        require("mason-null-ls.automatic_setup")(source, methods)
+    end,
+    -- specific setup
+    -- stylua = function(source, methods)
+    --   null_ls.register(null_ls.builtins.formatting.stylua)
+    -- end,
 }
 -- } null-ls's config
 """
