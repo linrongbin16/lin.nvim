@@ -1266,7 +1266,7 @@ PLUGINS = [
     Plugin(
         "nvim-tree/nvim-tree.lua",
         props=Props(
-            VeryLazyEventProp(), DependenciesProp("nvim-tree/nvim-web-devicons")
+            VimEnterEventProp(), DependenciesProp("nvim-tree/nvim-web-devicons")
         ),
         comments="File explorer",
         tag=Tag.UI,
