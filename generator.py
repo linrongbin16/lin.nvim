@@ -1043,9 +1043,14 @@ PLUGINS = [
     # } Infrastructure and dependencies
     # { Colorscheme
     Plugin(
+        "folke/lsp-colors.nvim",
+        props=Props(LazyProp()),
+        comments=BigComment("Colorscheme"),
+        tag=Tag.COLORSCHEME,
+    ),
+    Plugin(
         "bluz71/vim-nightfly-colors",
         props=ColorProps(),
-        comments=BigComment("Colorscheme"),
         color="nightfly",
         tag=Tag.COLORSCHEME,
     ),
@@ -1637,6 +1642,11 @@ PLUGINS = [
     ),
     Plugin(
         "editorconfig/editorconfig-vim",
+        props=Props(VLEventProp()),
+        tag=Tag.EDITING,
+    ),
+    Plugin(
+        "axieax/urlview.nvim",
         props=Props(VLEventProp()),
         tag=Tag.EDITING,
     ),
