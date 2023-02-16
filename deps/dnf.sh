@@ -21,10 +21,14 @@ install_or_skip "sudo dnf install -y cmake" "cmake"
 install_or_skip "sudo dnf install -y xsel" "xsel"
 install_or_skip "sudo dnf install -y xclip" "xclip"
 install_or_skip "sudo dnf install -y wl-clipboard" "wl-copy"
-install_or_skip "sudo dnf install -y bat" "bat"
-install_or_skip "sudo dnf install -y ripgrep" "rg"
-install_or_skip "sudo dnf install -y fd-find" "fd"
-install_or_skip "sudo dnf install -y git-delta" "delta"
+if type rustc cargo >/dev/null 2>&1; then
+    install_rust_commands
+else
+    install_or_skip "sudo dnf install -y bat" "bat"
+    install_or_skip "sudo dnf install -y ripgrep" "rg"
+    install_or_skip "sudo dnf install -y fd-find" "fd"
+    install_or_skip "sudo dnf install -y git-delta" "delta"
+fi
 
 # python3
 install_or_skip "sudo dnf install -y python3 python3-devel python3-pip python3-docutils" "python3"

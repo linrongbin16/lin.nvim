@@ -21,10 +21,14 @@ install_or_skip "yes | sudo pacman -S cmake" "cmake"
 install_or_skip "yes | sudo pacman -S xsel" "xsel"
 install_or_skip "yes | sudo pacman -S xclip" "xclip"
 install_or_skip "yes | sudo pacman -S wl-clipboard" "wl-copy"
-install_or_skip "yes | sudo pacman -S bat" "bat"
-install_or_skip "yes | sudo pacman -S ripgrep" "rg"
-install_or_skip "yes | sudo pacman -S fd" "fd"
-install_or_skip "yes | sudo pacman -S git-delta" "delta"
+if type rustc cargo >/dev/null 2>&1; then
+    install_rust_commands
+else
+    install_or_skip "yes | sudo pacman -S bat" "bat"
+    install_or_skip "yes | sudo pacman -S ripgrep" "rg"
+    install_or_skip "yes | sudo pacman -S fd" "fd"
+    install_or_skip "yes | sudo pacman -S git-delta" "delta"
+fi
 
 # Python3
 install_or_skip "yes | sudo pacman -S python python-pip" "python3"
