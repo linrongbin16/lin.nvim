@@ -54,7 +54,7 @@ def has_command(cmd):
     return shutil.which(cmd) is not None
 
 
-INDENT_SIZE = 2
+INDENT_SIZE = 4
 INDENT = " " * INDENT_SIZE
 
 
@@ -1561,12 +1561,12 @@ PLUGINS = [
     # { Motion
     Plugin(
         "phaazon/hop.nvim",
-        props=Props(BranchProp("v2"), VEventProp()),
+        props=Props(BranchProp("v2"), VLEventProp()),
         tag=Tag.CURSOR_MOTION,
     ),
     Plugin(
         "ggandor/leap.nvim",
-        props=Props(VEventProp(), DependenciesProp("tpope/vim-repeat")),
+        props=Props(VLEventProp(), DependenciesProp("tpope/vim-repeat")),
         tag=Tag.CURSOR_MOTION,
     ),
     # } Motion

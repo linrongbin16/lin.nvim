@@ -13,9 +13,9 @@ null_ls.setup()
 
 -- Setup flow here :)
 lspconfig["flow"].setup({
-  on_attach = function(client, bufnr)
-    attach_ext(client, bufnr)
-  end,
+    on_attach = function(client, bufnr)
+        attach_ext(client, bufnr)
+    end,
 })
 
 -- }

@@ -16,8 +16,8 @@ local null_ls = require("null-ls")
 local lspconfig = require("lspconfig")
 
 local function attach_ext(client, bufnr)
-  -- attach navic to work with multiple tabs
-  if client.server_capabilities["documentSymbolProvider"] then
-    require("nvim-navic").attach(client, bufnr)
-  end
+    -- attach navic to work with multiple tabs
+    if client.server_capabilities["documentSymbolProvider"] then
+        require("nvim-navic").attach(client, bufnr)
+    end
 end
