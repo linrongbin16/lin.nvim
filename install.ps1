@@ -76,11 +76,14 @@ function UnknownOptionError()
 
 function CargoDependency()
 {
-    Message "install modern rust commands with cargo"
-    InstallOrSkip -command "cargo install ripgrep" -target "rg"
-    InstallOrSkip -command "cargo install fd-find" -target "fd"
-    # fzf preview syntax highlight
-    InstallOrSkip -command "cargo install --locked bat" -target "bat"
+    # if rustc/cargo exists, try using cargo install rust commands
+    if ((Get-Command -Name 'rustc' -ErrorAction SilentlyContinue) -and (Get-Command -Name 'cargo' -ErrorAction SilentlyContinue)) {
+        Message "install modern rust commands with cargo"
+        InstallOrSkip -command "cargo install ripgrep" -target "rg"
+        InstallOrSkip -command "cargo install fd-find" -target "fd"
+        # fzf preview syntax highlight
+        InstallOrSkip -command "cargo install --locked bat" -target "bat"
+    }
 }
 
 function Pip3Dependency()
