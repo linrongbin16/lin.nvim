@@ -1,7 +1,4 @@
 
-""" ---- Hot keys ----
-lua require('conf/keymap').map('n', '<F4>', ':ClangdSwitchSourceHeader<CR>', {silent=false, desc="Switch between c/c++ header and source"})
-
 """ ---- Biscuits ----
 lua require('conf/keymap').map('n', '<leader>ww', ':noa w<CR>', {silent=false, desc="Save file without formatting"})
 lua require('conf/keymap').map('n', '<leader>qt', ':quit<CR>', {silent=false, desc=":quit"})

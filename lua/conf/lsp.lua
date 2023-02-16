@@ -1,6 +1,7 @@
 -- ---- Lsp settings ----
 
 local constants = require("conf/constants")
+local map = require("conf/keymap").map
 
 -- diagnostic signs
 local diagnosticSign = function(opts)
@@ -60,7 +61,6 @@ vim.api.nvim_create_augroup("lsp_attach_augroup", { clear = true })
 vim.api.nvim_create_autocmd("LspAttach", {
     group = "lsp_attach_augroup",
     callback = function()
-        local map = require("conf/keymap").map
         local opts = { buffer = true }
 
         -- navigation
@@ -122,3 +122,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
         })
     end,
 })
+
+map(
+    "n",
+    "<F4>",
+    ":ClangdSwitchSourceHeader<CR>",
+    { silent = false, desc = "Switch between c/c++ header and source" }
+)
