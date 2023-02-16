@@ -932,6 +932,13 @@ class BufReadPreEventProp(EventProp):
         super(BufReadPreEventProp, self).__init__("BufReadPre", value)
 
 
+class CursorEventProp(EventProp):
+    def __init__(self, *value) -> None:
+        super(CursorEventProp, self).__init__(
+            "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI", value
+        )
+
+
 class DependenciesProp(Prop):
     def __init__(self, *value):
         self.expr = AssignExpr(
@@ -1237,7 +1244,7 @@ PLUGINS = [
     # { Highlight
     Plugin(
         "RRethy/vim-illuminate",
-        props=Props(BufReadPostEventProp()),
+        props=Props(CursorEventProp()),
         tag=Tag.HIGHLIGHT,
     ),
     Plugin(
@@ -1247,7 +1254,7 @@ PLUGINS = [
     ),
     Plugin(
         "andymass/vim-matchup",
-        props=Props(BufReadPostEventProp()),
+        props=Props(CursorEventProp()),
         tag=Tag.HIGHLIGHT,
     ),
     Plugin(
@@ -1262,7 +1269,15 @@ PLUGINS = [
     ),
     Plugin(
         "haya14busa/is.vim",
-        props=Props(BufReadPostEventProp()),
+        props=Props(
+            BufReadPostEventProp(
+                "CmdlineEnter",
+                "CursorHold",
+                "CursorHoldI",
+                "CursorMoved",
+                "CursorMovedI",
+            )
+        ),
         tag=Tag.HIGHLIGHT,
     ),
     Plugin("markonm/traces.vim", props=Props(CmdlineEventProp()), tag=Tag.HIGHLIGHT),
@@ -1350,7 +1365,7 @@ PLUGINS = [
             NameProp("barbecue"),
             VersionProp("*"),
             # BranchProp("fix/E36"), see: https://github.com/utilyre/barbecue.nvim/issues/61
-            VeryLazyEventProp(),
+            BufReadPostEventProp(),
             DependenciesProp("SmiteshP/nvim-navic", "nvim-tree/nvim-web-devicons"),
         ),
         tag=Tag.UI,
@@ -1503,7 +1518,11 @@ PLUGINS = [
         props=Props(InsertCmdlineEventProp(), DependenciesProp("L3MON4D3/LuaSnip")),
         tag=Tag.LSP,
     ),
-    Plugin("DNLHC/glance.nvim", props=Props(BufReadPostEventProp()), tag=Tag.LSP),
+    Plugin(
+        "DNLHC/glance.nvim",
+        props=Props(CursorEventProp()),
+        tag=Tag.LSP,
+    ),
     Plugin("onsails/lspkind.nvim", props=Props(LazyProp()), tag=Tag.LSP),
     # } LSP
     # { Language support
@@ -1548,7 +1567,7 @@ PLUGINS = [
     # { Key binding
     Plugin(
         "folke/which-key.nvim",
-        props=Props(InsertCmdlineEventProp("BufReadPost")),
+        props=Props(CursorEventProp("CmdlineEnter")),
         comments="Key mappings",
         tag=Tag.KEY_BINDING,
     ),
@@ -1561,7 +1580,7 @@ PLUGINS = [
     ),
     Plugin(
         "ggandor/leap.nvim",
-        props=Props(BufReadPostEventProp(), DependenciesProp("tpope/vim-repeat")),
+        props=Props(CursorEventProp(), DependenciesProp("tpope/vim-repeat")),
         tag=Tag.CURSOR_MOTION,
     ),
     # } Motion
@@ -1592,7 +1611,7 @@ PLUGINS = [
     ),
     Plugin(
         "numToStr/Comment.nvim",
-        props=Props(BufReadPostEventProp()),
+        props=Props(CursorEventProp()),
         comments="Comment",
         tag=Tag.EDITING_ENHANCEMENTS,
     ),
@@ -1622,18 +1641,18 @@ PLUGINS = [
     ),
     Plugin(
         "tpope/vim-repeat",
-        props=Props(BufReadPostEventProp()),
+        props=Props(BufReadPostEventProp("CmdlineEnter")),
         comments="Other",
         tag=Tag.EDITING_ENHANCEMENTS,
     ),
     Plugin(
         "kylechui/nvim-surround",
-        props=Props(VersionProp("*"), BufReadPostEventProp()),
+        props=Props(VersionProp("*"), CursorEventProp()),
         tag=Tag.EDITING_ENHANCEMENTS,
     ),
     Plugin(
         "editorconfig/editorconfig-vim",
-        props=Props(BufReadPostEventProp()),
+        props=Props(InsertCmdlineEventProp()),
         tag=Tag.EDITING_ENHANCEMENTS,
     ),
     Plugin(
