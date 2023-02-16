@@ -884,7 +884,10 @@ class EventProp(Prop):
         self.expr = AssignExpr(
             LiteralExpr("event"),
             BracedExpr4Lua(
-                Exprs([SingleQuoteStringExpr(v) for v in value], delimiter=", ")
+                Exprs(
+                    [SingleQuoteStringExpr(v) for v in dedup_list(value)],
+                    delimiter=", ",
+                )
             ),
         )
 
@@ -893,8 +896,8 @@ class EventProp(Prop):
 
 
 class VeryLazyEventProp(EventProp):
-    def __init__(self) -> None:
-        super(VeryLazyEventProp, self).__init__("VeryLazy")
+    def __init__(self, *value) -> None:
+        super(VeryLazyEventProp, self).__init__("VeryLazy", value)
 
 
 class InsertCmdlineEventProp(EventProp):
@@ -905,28 +908,28 @@ class InsertCmdlineEventProp(EventProp):
 
 
 class InsertEventProp(EventProp):
-    def __init__(self) -> None:
-        super(InsertEventProp, self).__init__("InsertEnter")
+    def __init__(self, *value) -> None:
+        super(InsertEventProp, self).__init__("InsertEnter", value)
 
 
 class VimEnterEventProp(EventProp):
-    def __init__(self) -> None:
-        super(VimEnterEventProp, self).__init__("VimEnter")
+    def __init__(self, *value) -> None:
+        super(VimEnterEventProp, self).__init__("VimEnter", value)
 
 
 class CmdlineEventProp(EventProp):
-    def __init__(self) -> None:
-        super(CmdlineEventProp, self).__init__("CmdlineEnter")
+    def __init__(self, *value) -> None:
+        super(CmdlineEventProp, self).__init__("CmdlineEnter", value)
 
 
 class BufReadPostEventProp(EventProp):
-    def __init__(self) -> None:
-        super(BufReadPostEventProp, self).__init__("BufReadPost")
+    def __init__(self, *value) -> None:
+        super(BufReadPostEventProp, self).__init__("BufReadPost", value)
 
 
 class BufReadPreEventProp(EventProp):
-    def __init__(self) -> None:
-        super(BufReadPreEventProp, self).__init__("BufReadPre")
+    def __init__(self, *value) -> None:
+        super(BufReadPreEventProp, self).__init__("BufReadPre", value)
 
 
 class DependenciesProp(Prop):
