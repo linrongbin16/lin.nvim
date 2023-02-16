@@ -985,13 +985,20 @@ class KeyProp(Prop):
 
 
 class Tag(enum.Enum):
-    INFRASTRUCTURE = 1
-    COLORSCHEME = 2
-    HIGHLIGHT = 3
-    UI = 4
-    SEARCH = 5
-    LANGUAGE = 6
-    EDITING = 7
+    INFRASTRUCTURE = 100
+    COLORSCHEME = 200
+    HIGHLIGHT = 300
+    UI = 400
+    SEARCH = 500
+
+    LANGUAGE = 600
+    CTAGS = 610
+    SPECIFIC_LANGUAGE = 620
+
+    EDITING = 700
+    KEY_BINDING = 710
+    CURSOR_MOTION = 720
+    GIT = 730
 
 
 class Plugin:
@@ -1005,22 +1012,14 @@ class Plugin:
     ) -> None:
         assert isinstance(repo, str)
         assert isinstance(props, Props) or props is None
-        assert (
-            isinstance(comments, Expr)
-            or isinstance(comments, list)
-            or isinstance(comments, str)
-            or comments is None
-        )
+        assert isinstance(comments, str) or comments is None
         assert isinstance(color, str) or color is None
         assert isinstance(tag, Tag)
         self.repo = LiteralExpr(repo)  # https://github.com/{org}/{repo}
         self.props = props  # more plugin properties following this line
-        if isinstance(comments, list):
-            self.comments = Exprs(comments)
-        elif isinstance(comments, str):
-            self.comments = SmallComment(comments)
-        else:
-            self.comments = comments
+        self.comments = (
+            SmallComment(comments) if isinstance(comments, str) else comments
+        )
         self.color = color
         self.tag = tag
 
@@ -1032,7 +1031,6 @@ PLUGINS = [
     # { Infrastructure and dependencies
     Plugin(
         "nathom/filetype.nvim",
-        comments=BigComment("Infrastructure"),
         tag=Tag.INFRASTRUCTURE,
     ),
     Plugin(
@@ -1050,7 +1048,6 @@ PLUGINS = [
     Plugin(
         "folke/lsp-colors.nvim",
         props=Props(LazyProp()),
-        comments=BigComment("Colorscheme"),
         tag=Tag.COLORSCHEME,
     ),
     Plugin(
@@ -1244,7 +1241,6 @@ PLUGINS = [
     Plugin(
         "RRethy/vim-illuminate",
         props=Props(VLEventProp()),
-        comments=BigComment("Highlight"),
         tag=Tag.HIGHLIGHT,
     ),
     Plugin(
@@ -1288,7 +1284,7 @@ PLUGINS = [
     Plugin(
         "nvim-tree/nvim-tree.lua",
         props=Props(VEventProp(), DependenciesProp("nvim-tree/nvim-web-devicons")),
-        comments=[BigComment("UI"), SmallComment("File explorer")],
+        comments="File explorer",
         tag=Tag.UI,
     ),
     # Plugin(
@@ -1302,7 +1298,7 @@ PLUGINS = [
     #             "MunifTanjim/nui.nvim",
     #         ),
     #     ),
-    #     comments=[BigComment("UI"), SmallComment("File explorer")],
+    #     comments="File explorer",
     #     tag=Tag.UI,
     # ),
     # Plugin(
@@ -1406,7 +1402,6 @@ PLUGINS = [
     Plugin(
         "junegunn/fzf",
         props=Props(VEventProp(), BuildProp(":call fzf#install()")),
-        comments=BigComment("Search"),
         tag=Tag.SEARCH,
     ),
     Plugin(
@@ -1424,18 +1419,18 @@ PLUGINS = [
     Plugin(
         "liuchengxu/vista.vim",
         props=Props(VLEventProp(), DependenciesProp("ludovicchabant/vim-gutentags")),
-        comments=[BigComment("LSP"), SmallComment("Tags/structure outlines")],
-        tag=Tag.LANGUAGE,
+        comments="Ctags/structure outlines",
+        tag=Tag.CTAGS,
     ),
     Plugin(
         "ludovicchabant/vim-gutentags",
         props=Props(VLEventProp()),
-        tag=Tag.LANGUAGE,
+        tag=Tag.CTAGS,
     ),
     Plugin(
         "williamboman/mason.nvim",
         props=Props(VLEventProp()),
-        comments="LSP server management",
+        comments="LSP",
         tag=Tag.LANGUAGE,
     ),
     Plugin(
@@ -1531,66 +1526,72 @@ PLUGINS = [
             ),
             FtProp("markdown"),
         ),
-        comments=[BigComment("Language support"), SmallComment("Markdown")],
-        tag=Tag.LANGUAGE,
+        comments="Markdown",
+        tag=Tag.SPECIFIC_LANGUAGE,
     ),
     Plugin(
         "justinmk/vim-syntax-extra",
         props=Props(FtProp("lex", "flex", "yacc", "bison")),
         comments="Lex/yacc, flex/bison",
-        tag=Tag.LANGUAGE,
+        tag=Tag.SPECIFIC_LANGUAGE,
     ),
     Plugin(
         "rhysd/vim-llvm",
         props=Props(FtProp("llvm", "mir", "mlir", "tablegen")),
         comments="LLVM",
-        tag=Tag.LANGUAGE,
+        tag=Tag.SPECIFIC_LANGUAGE,
     ),
     Plugin(
         "zebradil/hive.vim",
         props=Props(FtProp("hive")),
         comments="Hive",
-        tag=Tag.LANGUAGE,
+        tag=Tag.SPECIFIC_LANGUAGE,
     ),
     Plugin(
         "slim-template/vim-slim",
         props=Props(FtProp("slim")),
         comments="Slim",
-        tag=Tag.LANGUAGE,
+        tag=Tag.SPECIFIC_LANGUAGE,
     ),
     # } Language support
+    # { Key binding
+    Plugin(
+        "folke/which-key.nvim",
+        props=Props(VLEventProp()),
+        comments="Key mappings",
+        tag=Tag.KEY_BINDING,
+    ),
+    # } Key binding
     # { Motion
     Plugin(
         "phaazon/hop.nvim",
         props=Props(BranchProp("v2"), VEventProp()),
-        comments=BigComment("Cursor Motion"),
-        tag=Tag.EDITING,
+        tag=Tag.CURSOR_MOTION,
     ),
     Plugin(
         "ggandor/leap.nvim",
         props=Props(VEventProp(), DependenciesProp("tpope/vim-repeat")),
-        tag=Tag.EDITING,
+        tag=Tag.CURSOR_MOTION,
     ),
     # } Motion
     # { Git
     Plugin(
         "f-person/git-blame.nvim",
         props=Props(VLEventProp()),
-        comments=BigComment("Git"),
-        tag=Tag.EDITING,
+        tag=Tag.GIT,
     ),
     Plugin(
         "ruifm/gitlinker.nvim",
         props=Props(VLEventProp(), DependenciesProp("nvim-lua/plenary.nvim")),
         comments="Open In Github/Gitlab/etc",
-        tag=Tag.EDITING,
+        tag=Tag.GIT,
     ),
     # } Git
     # { Editing enhancement
     Plugin(
         "windwp/nvim-autopairs",
         props=Props(IEventProp()),
-        comments=[BigComment("Editing enhancement"), SmallComment("Auto pair/close")],
+        comments="Auto pair/close",
         tag=Tag.EDITING,
     ),
     Plugin(
@@ -1602,12 +1603,6 @@ PLUGINS = [
         "numToStr/Comment.nvim",
         props=Props(VLEventProp()),
         comments="Comment",
-        tag=Tag.EDITING,
-    ),
-    Plugin(
-        "folke/which-key.nvim",
-        props=Props(VLEventProp()),
-        comments="Key mappings",
         tag=Tag.EDITING,
     ),
     Plugin(
@@ -1806,9 +1801,12 @@ class Render:
     def generate(self):
         plugins = []
         colors = []
+        prev_tag = None
         for ctx in PLUGINS:
             assert isinstance(ctx, Plugin)
             # comments
+            if ctx.tag != prev_tag:
+                plugins.append(BigComment(" ".join(ctx.tag.name.split("_")).title()))
             if ctx.comments:
                 plugins.append(ctx.comments)
             # body
@@ -1882,6 +1880,9 @@ class Render:
                             )
                         )
                     )
+            # update tag if it's changed
+            if prev_tag != ctx.tag:
+                prev_tag = ctx.tag
         return plugins, colors
 
     def is_disabled(self, ctx):
@@ -1891,9 +1892,9 @@ class Render:
             return True
         if self.no_hilight and ctx.tag == Tag.HIGHLIGHT:
             return True
-        if self.no_lang and ctx.tag == Tag.LANGUAGE:
+        if self.no_lang and ctx.tag >= Tag.LANGUAGE and ctx.tag < Tag.EDITING:
             return True
-        if self.no_edit and ctx.tag == Tag.EDITING:
+        if self.no_edit and ctx.tag >= Tag.EDITING:
             return True
         return False
 
