@@ -3,7 +3,7 @@
 local constants = require("conf/constants")
 
 -- diagnostic signs
-local setDiagnosticSign = function(opts)
+local diagnosticSign = function(opts)
     vim.fn.sign_define(opts.name, {
         texthl = opts.name,
         text = opts.text,
@@ -11,19 +11,19 @@ local setDiagnosticSign = function(opts)
     })
 end
 
-setDiagnosticSign({
+diagnosticSign({
     name = "DiagnosticSignError",
     text = constants.lsp.diagnostics.signs["error"],
 })
-setDiagnosticSign({
+diagnosticSign({
     name = "DiagnosticSignWarn",
     text = constants.lsp.diagnostics.signs["warning"],
 })
-setDiagnosticSign({
+diagnosticSign({
     name = "DiagnosticSignInfo",
     text = constants.lsp.diagnostics.signs["info"],
 })
-setDiagnosticSign({
+diagnosticSign({
     name = "DiagnosticSignHint",
     text = constants.lsp.diagnostics.signs["hint"],
 })
