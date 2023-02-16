@@ -1392,6 +1392,7 @@ PLUGINS = [
     #     tag=Tag.UI
     # ),
     # Plugin("smjonas/inc-rename.nvim", props=Props(VLEventProp()), tag=Tag.UI),
+    Plugin("anuvyklack/pretty-fold.nvim", props=Props(VLEventProp()), tag=Tag.UI),
     # } UI
     # { Search
     Plugin(

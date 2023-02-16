@@ -1,0 +1,1 @@
+require("pretty-fold").setup()
