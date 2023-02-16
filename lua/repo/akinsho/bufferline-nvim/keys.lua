@@ -10,7 +10,10 @@ for i = 1, 9 do
             "n",
             string.format("<leader>%d", i),
             keymap.exec(
-                string.format("require('bufferline').go_to_buffer(%d, true)", i)
+                string.format(
+                    "lua require('bufferline').go_to_buffer(%d, true)",
+                    i
+                )
             ),
             { desc = string.format("Go to buffer-%d", i) }
         )
@@ -21,7 +24,7 @@ table.insert(
     keymap.map_lazy(
         "n",
         "<leader>0",
-        keymap.exec("require('bufferline').go_to_buffer(-1, true)"),
+        keymap.exec("lua require('bufferline').go_to_buffer(-1, true)"),
         { desc = "Go to the last buffer" }
     )
 )
