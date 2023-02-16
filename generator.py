@@ -76,10 +76,10 @@ INDENT = " " * INDENT_SIZE
 #         return max(self._value - 1, 0)
 
 
-# Extend Lsp {
+# Lsp {
 
 
-class ExtLsp:
+class LangLsp:
     def __init__(self, name=None, command=[], lsp=[], nullls=[], checker=None):
         assert isinstance(name, str)
         assert isinstance(command, str) or isinstance(command, list)
@@ -149,18 +149,18 @@ class ExtLsp:
         return confirmed, lsp_servers, nullls_sources
 
 
-EXTEND_LSP = [
-    ExtLsp(
+LANGUAGE_LSPS = [
+    LangLsp(
         name="assembly",
         command=["as", "rustc", "cargo"],
         lsp="asm_lsp",
     ),
-    ExtLsp(
+    LangLsp(
         name="bash",
         command="bash",
         lsp="bashls",
     ),
-    ExtLsp(
+    LangLsp(
         name="c/c++",
         command=["gcc", "g++", "clang", "clang++", "MSBuild", "cl"],
         lsp="clangd",
@@ -169,23 +169,23 @@ EXTEND_LSP = [
         or (has_command("clang") and has_command("clang++"))
         or (has_command("MSBuild") and has_command("cl")),
     ),
-    ExtLsp(
+    LangLsp(
         name="clojure",
         command="clj",
         lsp="clojure_lsp",
         nullls="joker",
     ),
-    ExtLsp(
+    LangLsp(
         name="cmake",
         command="cmake",
         lsp=["cmake", "neocmake"],
     ),
-    ExtLsp(
+    LangLsp(
         name="crystal",
         command="crystal",
         lsp="crystalline",
     ),
-    ExtLsp(
+    LangLsp(
         name="csharp",
         command=["csc", "dotnet", "mcs"],
         lsp=["csharp_ls", "omnisharp_mono", "omnisharp"],
@@ -194,43 +194,43 @@ EXTEND_LSP = [
         or has_command("dotnet")
         or has_command("mcs"),
     ),
-    ExtLsp(
+    LangLsp(
         name="css",
         command=["node", "npm"],
         lsp=["cssls", "cssmodules_ls", "unocss"],
     ),
-    ExtLsp(
+    LangLsp(
         name="docker",
         command="docker",
         lsp="dockerls",
         nullls="hadolint",
     ),
-    ExtLsp(
+    LangLsp(
         name="dot(graphviz)",
         command="dot",
         lsp="dotls",
     ),
-    ExtLsp(
+    LangLsp(
         name="elixir",
         command="elixir",
         lsp="elixirls",
     ),
-    ExtLsp(
+    LangLsp(
         name="erlang",
         command="erl",
         lsp="erlangls",
     ),
-    ExtLsp(
+    LangLsp(
         name="fortran",
         command="gfortran",
         lsp="fortls",
     ),
-    ExtLsp(
+    LangLsp(
         name="fsharp",
         command="dotnet",
         lsp="fsautocomplete",
     ),
-    ExtLsp(
+    LangLsp(
         name="go",
         command="go",
         lsp=["golangci_lint_ls", "gopls"],
@@ -244,53 +244,53 @@ EXTEND_LSP = [
             "staticcheck",
         ],
     ),
-    ExtLsp(
+    LangLsp(
         name="groovy",
         command="groovy",
         lsp="groovyls",
     ),
-    ExtLsp(
+    LangLsp(
         name="haskell",
         command="ghc",
         lsp="hls",
     ),
-    ExtLsp(
+    LangLsp(
         name="html",
         command=["node", "npm"],
         lsp="html",
         nullls="curlylint",
     ),
-    ExtLsp(
+    LangLsp(
         name="java",
         command=["javac", "java"],
         lsp="jdtls",
         nullls="clang_format",
     ),
-    ExtLsp(
+    LangLsp(
         name="javascript/typescript",
         command=["node", "npm"],
         lsp=["quick_lint_js", "tsserver", "vtsls", "eslint"],
         nullls=["rome", "xo", "eslint_d", "prettier", "prettierd"],
     ),
-    ExtLsp(
+    LangLsp(
         name="json",
         command=["node", "npm"],
         lsp="jsonls",
         nullls=["fixjson", "jq", "cfn_lint"],
     ),
-    ExtLsp(
+    LangLsp(
         name="julia",
         command="julia",
         lsp="julials",
         nullls=["fixjson", "jq"],
     ),
-    ExtLsp(
+    LangLsp(
         name="kotlin",
         command="kotlinc",
         lsp="kotlin_language_server",
         nullls="ktlint",
     ),
-    ExtLsp(
+    LangLsp(
         name="latex",
         command=["latex", "pdflatex", "xelatex"],
         lsp=["ltex", "texlab"],
@@ -299,48 +299,48 @@ EXTEND_LSP = [
         or has_command("pdflatex")
         or has_command("xelatex"),
     ),
-    ExtLsp(
+    LangLsp(
         name="lua",
         command="lua",
         lsp=["lua_ls"],
         nullls=["selene", "stylua", "luacheck"],
         checker=lambda cmd: True,  # lua is embeded
     ),
-    ExtLsp(
+    LangLsp(
         name="markdown",
         command=["node", "npm"],
         lsp=["marksman", "prosemd_lsp", "remark_ls", "zk"],
         nullls=["alex", "markdownlint", "write_good", "cbfmt", "proselint", "vale"],
     ),
-    ExtLsp(
+    LangLsp(
         name="ocaml",
         command="ocaml",
         lsp=["ocamllsp"],
     ),
-    ExtLsp(
+    LangLsp(
         name="perl",
         command="perl",
         lsp=["perlnavigator"],
     ),
-    ExtLsp(
+    LangLsp(
         name="php",
         command="php",
         lsp=["intelephense", "phpactor", "psalm"],
         nullls=["phpcbf", "psalm"],
     ),
-    ExtLsp(
+    LangLsp(
         name="powershell",
         command=["pwsh", "powershell"],
         lsp=["powershell_es"],
         checker=lambda cmd: has_command("pwsh") or has_command("powershell"),
     ),
-    ExtLsp(
+    LangLsp(
         name="protobuf",
         command="protoc",
         lsp=["bufls"],
         nullls=["buf", "protolint"],
     ),
-    ExtLsp(
+    LangLsp(
         name="python",
         command=["python", "python2", "python3"],
         lsp=[
@@ -366,23 +366,23 @@ EXTEND_LSP = [
         or has_command("python2")
         or has_command("python3"),
     ),
-    ExtLsp(
+    LangLsp(
         name="R",
         command="R",
         lsp="r_language_server",
     ),
-    ExtLsp(
+    LangLsp(
         name="ruby",
         command="ruby",
         lsp=["ruby_ls", "solargraph"],
         nullls=["rubocop", "standardrb", "erb_lint"],
     ),
-    ExtLsp(
+    LangLsp(
         name="rust",
         command=["rustc", "cargo"],
         lsp="rust_analyzer",
     ),
-    ExtLsp(
+    LangLsp(
         name="sql",
         command=["mysql", "psql", "sqlplus"],  # mysql/postgresql/oracle
         lsp=["sqlls", "sqls"],
@@ -391,37 +391,37 @@ EXTEND_LSP = [
         or has_command("psql")
         or has_command("sqlplus"),
     ),
-    ExtLsp(
+    LangLsp(
         name="sh",
         command="sh",
         nullls=["shellcheck", "shellharden", "shfmt"],
     ),
-    ExtLsp(
+    LangLsp(
         name="solidity",
         command=["solc", "solcjs"],
         lsp=["solang", "solc", "solidity"],
         nullls="solhint",
         checker=lambda cmd: has_command("solc") or has_command("solcjs"),
     ),
-    ExtLsp(
+    LangLsp(
         name="toml",
         command=["node", "npm"],
         lsp="taplo",
         nullls="taplo",
     ),
-    ExtLsp(
+    LangLsp(
         name="vim",
         command="vim",
         lsp="vimls",
         nullls="vint",
         checker=lambda cmd: True,  # vim is embeded
     ),
-    ExtLsp(
+    LangLsp(
         name="xml",
         command=["node", "npm"],
         lsp="lemminx",
     ),
-    ExtLsp(
+    LangLsp(
         name="yaml",
         command=["node", "npm"],
         lsp="yamlls",
@@ -430,7 +430,7 @@ EXTEND_LSP = [
 ]
 
 
-# Extend Lsp }
+# Lsp }
 
 
 # Vim AST {
@@ -1664,7 +1664,7 @@ class Render:
         no_edit,
         no_plugs,
         no_ctrl_opt,
-        ext_lsp_opt,
+        with_lsp_opt,
     ):
         self.use_color = use_color
         self.no_color = no_color
@@ -1673,7 +1673,7 @@ class Render:
         self.no_edit = no_edit
         self.no_plugs = no_plugs
         self.no_ctrl = no_ctrl_opt
-        self.ext_lsp_opt = ext_lsp_opt
+        self.with_lsp_opt = with_lsp_opt
 
     def render(self):
         gen_plugin_stmts, gen_colorscheme_stmts = self.generate()
@@ -1720,7 +1720,7 @@ class Render:
 
         embeded_servers = []
         embeded_nullls = []
-        if self.ext_lsp_opt:
+        if self.with_lsp_opt:
             message("")
             message("checking available lsp servers...")
             message("note:")
@@ -1730,13 +1730,13 @@ class Render:
             message("   4. `CTRL-C` to stop extending available lsp servers")
             message("")
             try:
-                for ext_lsp in EXTEND_LSP:
-                    if not ext_lsp.checker(ext_lsp.command):
+                for ll in LANGUAGE_LSPS:
+                    if not ll.checker(ll.command):
                         continue
-                    confirmed, lsp, nullls = ext_lsp.confirm()
+                    confirmed, ll, nullls = ll.confirm()
                     if not confirmed:
                         continue
-                    embeded_servers.extend(lsp)
+                    embeded_servers.extend(ll)
                     embeded_nullls.extend(nullls)
             except KeyboardInterrupt:
                 message("stop extending available lsp servers...")
@@ -1973,14 +1973,10 @@ class Dumper:
     @staticmethod
     def lsp(filename):
         with open(filename, "w") as fp:
-            for ext_lsp in EXTEND_LSP:
-                lsp = [ext_lsp.lsp] if isinstance(ext_lsp.lsp, str) else ext_lsp.lsp
-                nullls = (
-                    [ext_lsp.nullls]
-                    if isinstance(ext_lsp.nullls, str)
-                    else ext_lsp.nullls
-                )
-                fp.writelines(f"- {ext_lsp.name}:\n")
+            for ll in LANGUAGE_LSPS:
+                lsp = [ll.lsp] if isinstance(ll.lsp, str) else ll.lsp
+                nullls = [ll.nullls] if isinstance(ll.nullls, str) else ll.nullls
+                fp.writelines(f"- {ll.name}:\n")
                 fp.writelines(
                     f"  - lsp servers: {', '.join(['`' + l + '`' for l in lsp]) if len(lsp) > 0 else 'empty'}\n"
                 )
@@ -2035,10 +2031,10 @@ def make_arguments():
         help="no ctrl+?/cmd+? keys",
     )
     parser.add_argument(
-        "--ext-lsp",
-        dest="ext_lsp_opt",
+        "--with-lsp",
+        dest="with_lsp_opt",
         action="store_true",
-        help="extend lsp servers",
+        help="with available lsp servers",
     )
     parser.add_argument(
         "--dump-plugins",
@@ -2086,7 +2082,7 @@ if __name__ == "__main__":
         arguments.no_hilight_opt = True
         arguments.no_lang_opt = True
         arguments.no_edit_opt = True
-        arguments.ext_lsp_opt = False
+        arguments.with_lsp_opt = False
     render = Render(
         arguments.use_color_opt,
         arguments.no_color_opt,
@@ -2095,7 +2091,7 @@ if __name__ == "__main__":
         arguments.no_edit_opt,
         arguments.no_plug_opt,
         arguments.no_ctrl_opt,
-        arguments.ext_lsp_opt,
+        arguments.with_lsp_opt,
     )
     plugins, lspservers, colorschemes, settings, init = render.render()
     writer = FileWriter(plugins, lspservers, colorschemes, settings, init)
