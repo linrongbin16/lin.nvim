@@ -898,8 +898,10 @@ class VeryLazyEventProp(EventProp):
 
 
 class InsertCmdlineEventProp(EventProp):
-    def __init__(self) -> None:
-        super(InsertCmdlineEventProp, self).__init__("InsertEnter", "CmdlineEnter")
+    def __init__(self, *value) -> None:
+        super(InsertCmdlineEventProp, self).__init__(
+            "InsertEnter", "CmdlineEnter", *value
+        )
 
 
 class InsertEventProp(EventProp):
@@ -1543,7 +1545,7 @@ PLUGINS = [
     # { Key binding
     Plugin(
         "folke/which-key.nvim",
-        props=Props(InsertCmdlineEventProp(), BufReadPostEventProp()),
+        props=Props(InsertCmdlineEventProp("BufReadPost")),
         comments="Key mappings",
         tag=Tag.KEY_BINDING,
     ),
