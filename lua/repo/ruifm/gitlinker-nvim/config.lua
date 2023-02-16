@@ -1,3 +1,3 @@
 require("gitlinker").setup({
-    mappings = nil,
+    mappings = "<leader>gl",
 })
