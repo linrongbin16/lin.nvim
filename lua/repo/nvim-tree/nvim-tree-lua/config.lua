@@ -88,13 +88,13 @@ vim.api.nvim_create_autocmd("FileType", {
             "n",
             "<leader>.",
             "<cmd>NvimTreeResize +10<cr>",
-            { buffer = true, desc = "Resize bigger explorer width" }
+            { buffer = true, desc = "Resize explorer bigger" }
         )
         map(
             "n",
             "<leader>,",
             "<cmd>NvimTreeResize -10<cr>",
-            { buffer = true, desc = "Resize bigger explorer width" }
+            { buffer = true, desc = "Resize explorer smaller" }
         )
     end,
 })
