@@ -1,12 +1,12 @@
 root = true
 
-[*.{vim,ps1,sh}]
+[*.{vim,lua,ps1,sh}]
 end_of_line = lf
 insert_final_newline = false
 charset = utf-8
 trim_trailing_whitespace = true
 
-[*.vim]
+[*.{vim, lua}]
 indent_style = space
 indent_size = 2
 

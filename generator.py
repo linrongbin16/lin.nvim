@@ -1285,31 +1285,31 @@ PLUGINS = [
     Plugin("markonm/traces.vim", props=Props(CEventProp()), tag=Tag.HIGHLIGHT),
     # } Highlight
     # { UI
-    # Plugin(
-    #     "nvim-tree/nvim-tree.lua",
-    #     props=Props(VEventProp(), DependenciesProp("nvim-tree/nvim-web-devicons")),
-    #     above=Exprs([BigComment("UI"), SmallComment("File explorer")]),
-    #     tag=Tag.UI,
-    # ),
     Plugin(
-        "nvim-neo-tree/neo-tree.nvim",
-        props=Props(
-            BranchProp("v2.x"),
-            VEventProp(),
-            DependenciesProp(
-                "nvim-lua/plenary.nvim",
-                "nvim-tree/nvim-web-devicons",
-                "MunifTanjim/nui.nvim",
-            ),
-        ),
+        "nvim-tree/nvim-tree.lua",
+        props=Props(VEventProp(), DependenciesProp("nvim-tree/nvim-web-devicons")),
         comments=[BigComment("UI"), SmallComment("File explorer")],
         tag=Tag.UI,
     ),
-    Plugin(
-        "MunifTanjim/nui.nvim",
-        props=Props(LazyProp()),
-        tag=Tag.UI,
-    ),
+    # Plugin(
+    #     "nvim-neo-tree/neo-tree.nvim",
+    #     props=Props(
+    #         BranchProp("v2.x"),
+    #         VEventProp(),
+    #         DependenciesProp(
+    #             "nvim-lua/plenary.nvim",
+    #             "nvim-tree/nvim-web-devicons",
+    #             "MunifTanjim/nui.nvim",
+    #         ),
+    #     ),
+    #     comments=[BigComment("UI"), SmallComment("File explorer")],
+    #     tag=Tag.UI,
+    # ),
+    # Plugin(
+    #     "MunifTanjim/nui.nvim",
+    #     props=Props(LazyProp()),
+    #     tag=Tag.UI,
+    # ),
     Plugin(
         "nvim-tree/nvim-web-devicons",
         props=Props(LazyProp()),

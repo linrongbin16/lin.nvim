@@ -55,9 +55,25 @@ require("nvim-tree").setup({
   },
 })
 
-vim.api.nvim_create_augroup("nvim_tree_open_on_start_augroup", { clear = true })
+local function key_mappings()
+  local map = require("conf/keymap").map
+  map(
+    "n",
+    "<leader>.",
+    "<cmd>NvimTreeResize +10<cr>",
+    { buffer = true, desc = "Resize bigger explorer width" }
+  )
+  map(
+    "n",
+    "<leader>,",
+    "<cmd>NvimTreeResize -10<cr>",
+    { buffer = true, desc = "Resize bigger explorer width" }
+  )
+end
+
+vim.api.nvim_create_augroup("nvim_tree_augroup", { clear = true })
 vim.api.nvim_create_autocmd("VimEnter", {
-  group = "nvim_tree_open_on_start_augroup",
+  group = "nvim_tree_augroup",
   callback = function(data)
     -- buffer is a [No Name]
     local no_name = data.file == "" and vim.bo[data.buf].buftype == ""
@@ -72,5 +88,24 @@ vim.api.nvim_create_autocmd("VimEnter", {
     end
     -- open the tree
     require("nvim-tree.api").tree.open()
+  end,
+})
+vim.api.nvim_create_autocmd("FileType", {
+  group = "nvim_tree_augroup",
+  pattern = "NvimTree",
+  callback = function(data)
+    local map = require("conf/keymap").map
+    map(
+      "n",
+      "<leader>.",
+      "<cmd>NvimTreeResize +10<cr>",
+      { buffer = true, desc = "Resize bigger explorer width" }
+    )
+    map(
+      "n",
+      "<leader>,",
+      "<cmd>NvimTreeResize -10<cr>",
+      { buffer = true, desc = "Resize bigger explorer width" }
+    )
   end,
 })
