@@ -57,8 +57,8 @@ local function diagnosticGoto(next, severity)
     end
 end
 
-local function make_desc(desc)
-    return { buffer = true, desc = desc }
+local function make_desc(value)
+    return { buffer = true, desc = value }
 end
 
 vim.api.nvim_create_augroup("lsp_attach_augroup", { clear = true })
@@ -71,94 +71,150 @@ vim.api.nvim_create_autocmd("LspAttach", {
                 "n",
                 "gd",
                 "<CMD>Glance definitions<CR>",
-                make_desc("Go to definitions"),
+                make_desc("Go to definitions")
             )
             map(
                 "n",
                 "gt",
                 "<CMD>Glance type_definitions<CR>",
-                make_desc("Go to type definitions"),
+                make_desc("Go to type definitions")
             )
             map(
                 "n",
                 "gi",
                 "<CMD>Glance implementations<CR>",
-                make_desc("Go to implementations"),
+                make_desc("Go to implementations")
             )
             map(
                 "n",
                 "gr",
                 "<CMD>Glance references<CR>",
-                make_desc("Go to references"),
+                make_desc("Go to references")
             )
         else
             map(
                 "n",
                 "gd",
                 "<cmd>lua vim.lsp.buf.definition()<cr>",
-                make_desc("Go to definitions"),
+                make_desc("Go to definitions")
             )
             map(
                 "n",
                 "gt",
                 "<cmd>lua vim.lsp.buf.type_definition()<cr>",
-                make_desc("Go to type definitions"),
+                make_desc("Go to type definitions")
             )
             map(
                 "n",
                 "gi",
                 "<cmd>lua vim.lsp.buf.implementation()<cr>",
-                make_desc("Go to implementations"),
+                make_desc("Go to implementations")
             )
             map(
                 "n",
                 "gr",
                 "<cmd>lua vim.lsp.buf.references()<cr>",
-                make_desc("Go to references"),
+                make_desc("Go to references")
             )
         end
         map(
             "n",
             "gD",
             "<cmd>lua vim.lsp.buf.declaration()<cr>",
-            make_desc("Go to declarations"),
+            make_desc("Go to declarations")
         )
         map(
             "n",
             "<leader>ic",
             "<cmd>lua vim.lsp.buf.incoming_calls()<cr>",
-            make_desc("Go to incoming calls"),
+            make_desc("Go to incoming calls")
         )
         map(
             "n",
             "<leader>og",
             "<cmd>lua vim.lsp.buf.outgoing_calls()<cr>",
-            make_desc("Go to outgoing calls"),
+            make_desc("Go to outgoing calls")
         )
 
         -- hover
-        map("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>", make_desc("Show hover"))
+        map(
+            "n",
+            "K",
+            "<cmd>lua vim.lsp.buf.hover()<cr>",
+            make_desc("Show hover")
+        )
 
-        map({ "n", "i" }, "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<cr>", make_desc("Show signature help"))
+        map(
+            { "n", "i" },
+            "<C-k>",
+            "<cmd>lua vim.lsp.buf.signature_help()<cr>",
+            make_desc("Show signature help")
+        )
 
         -- operation
-        map("n", "<Leader>rn", "<cmd>lua vim.lsp.buf.rename()<cr>", make_desc("Rename symbol"))
+        map(
+            "n",
+            "<Leader>rn",
+            "<cmd>lua vim.lsp.buf.rename()<cr>",
+            make_desc("Rename symbol")
+        )
         map(
             { "n", "x" },
             "<Leader>cf",
-            "<cmd>lua vim.lsp.buf.format({async=false})<cr>", make_desc("Code format")
+            "<cmd>lua vim.lsp.buf.format({async=false})<cr>",
+            make_desc("Code format")
         )
-        map("n", "<Leader>ca", "<cmd>lua vim.lsp.buf.code_action()<cr>", make_desc("Code actions"))
-        map("x", "<Leader>ca", "<cmd>lua vim.lsp.buf.range_code_action()<cr>", make_desc("Code actions"))
+        map(
+            "n",
+            "<Leader>ca",
+            "<cmd>lua vim.lsp.buf.code_action()<cr>",
+            make_desc("Code actions")
+        )
+        map(
+            "x",
+            "<Leader>ca",
+            "<cmd>lua vim.lsp.buf.range_code_action()<cr>",
+            make_desc("Code actions")
+        )
 
         -- diagnostic
-        map("n", "<Leader>dc", "<cmd>lua vim.diagnostic.open_float()<cr>", make_desc("Show diagnostic under cursor"))
+        map(
+            "n",
+            "<Leader>dc",
+            "<cmd>lua vim.diagnostic.open_float()<cr>",
+            make_desc("Show diagnostic under cursor")
+        )
         map("n", "]d", diagnosticGoto(true), make_desc("Next diagnostic item"))
-        map("n", "[d", diagnosticGoto(false), make_desc("Previous diagnostic item"))
-        map("n", "]e", diagnosticGoto(true, "ERROR"), make_desc("Next diagnostic error"))
-        map("n", "[e", diagnosticGoto(false, "ERROR"), make_desc("Previous diagnostic error"))
-        map("n", "]w", diagnosticGoto(true, "WARN"), make_desc("Next diagnostic warning"))
-        map("n", "[w", diagnosticGoto(false, "WARN"), make_desc("Previous diagnostic warning"))
+        map(
+            "n",
+            "[d",
+            diagnosticGoto(false),
+            make_desc("Previous diagnostic item")
+        )
+        map(
+            "n",
+            "]e",
+            diagnosticGoto(true, "ERROR"),
+            make_desc("Next diagnostic error")
+        )
+        map(
+            "n",
+            "[e",
+            diagnosticGoto(false, "ERROR"),
+            make_desc("Previous diagnostic error")
+        )
+        map(
+            "n",
+            "]w",
+            diagnosticGoto(true, "WARN"),
+            make_desc("Next diagnostic warning")
+        )
+        map(
+            "n",
+            "[w",
+            diagnosticGoto(false, "WARN"),
+            make_desc("Previous diagnostic warning")
+        )
 
         -- detach lsp client when after buffer
         vim.api.nvim_create_autocmd("BufDelete", {
