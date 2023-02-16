@@ -303,8 +303,13 @@ LANGUAGE_LSPS = [
         name="lua",
         command="lua",
         lsp=["lua_ls"],
-        nullls=["selene", "stylua", "luacheck"],
+        nullls=["selene", "stylua"],
         checker=lambda cmd: True,  # lua is embeded
+    ),
+    LangLsp(
+        name="luarocks",
+        command=["lua", "luarocks"],
+        nullls="luacheck",
     ),
     LangLsp(
         name="markdown",
