@@ -993,12 +993,14 @@ class Tag(enum.Enum):
 
     LANGUAGE = 600
     CTAGS = 610
-    SPECIFIC_LANGUAGE = 620
+    LSP = 620
+    SPECIFIC_LANGUAGE = 630
 
     EDITING = 700
     KEY_BINDING = 710
     CURSOR_MOTION = 720
     GIT = 730
+    EDITING_ENHANCEMENTS = 740
 
 
 class Plugin:
@@ -1431,7 +1433,7 @@ PLUGINS = [
         "williamboman/mason.nvim",
         props=Props(VLEventProp()),
         comments="LSP",
-        tag=Tag.LANGUAGE,
+        tag=Tag.LSP,
     ),
     Plugin(
         "williamboman/mason-lspconfig.nvim",
@@ -1443,17 +1445,17 @@ PLUGINS = [
                 # "p00f/clangd_extensions.nvim",
             ),
         ),
-        tag=Tag.LANGUAGE,
+        tag=Tag.LSP,
     ),
     # Plugin(
     #     "p00f/clangd_extensions.nvim",
     #     props=Props(LazyProp()),
-    #     tag=Tag.LANGUAGE,
+    #     tag=Tag.LSP,
     # ),
     Plugin(
         "jose-elias-alvarez/null-ls.nvim",
         props=Props(VLEventProp(), DependenciesProp("nvim-lua/plenary.nvim")),
-        tag=Tag.LANGUAGE,
+        tag=Tag.LSP,
     ),
     Plugin(
         "jay-babu/mason-null-ls.nvim",
@@ -1463,7 +1465,7 @@ PLUGINS = [
                 "williamboman/mason.nvim", "jose-elias-alvarez/null-ls.nvim"
             ),
         ),
-        tag=Tag.LANGUAGE,
+        tag=Tag.LSP,
     ),
     Plugin(
         "hrsh7th/nvim-cmp",
@@ -1480,40 +1482,40 @@ PLUGINS = [
             ),
         ),
         comments="Auto-complete engine",
-        tag=Tag.LANGUAGE,
+        tag=Tag.LSP,
     ),
     Plugin(
         "hrsh7th/cmp-nvim-lsp",
         props=Props(ICEventProp()),
-        tag=Tag.LANGUAGE,
+        tag=Tag.LSP,
     ),
     Plugin(
         "hrsh7th/cmp-buffer",
         props=Props(ICEventProp()),
-        tag=Tag.LANGUAGE,
+        tag=Tag.LSP,
     ),
     Plugin(
         "hrsh7th/cmp-path",
         props=Props(ICEventProp()),
-        tag=Tag.LANGUAGE,
+        tag=Tag.LSP,
     ),
     Plugin(
         "hrsh7th/cmp-cmdline",
         props=Props(ICEventProp()),
-        tag=Tag.LANGUAGE,
+        tag=Tag.LSP,
     ),
     Plugin(
         "L3MON4D3/LuaSnip",
         props=Props(ICEventProp(), VersionProp("1.*")),
-        tag=Tag.LANGUAGE,
+        tag=Tag.LSP,
     ),
     Plugin(
         "saadparwaiz1/cmp_luasnip",
         props=Props(ICEventProp(), DependenciesProp("L3MON4D3/LuaSnip")),
-        tag=Tag.LANGUAGE,
+        tag=Tag.LSP,
     ),
-    Plugin("DNLHC/glance.nvim", props=Props(VLEventProp()), tag=Tag.LANGUAGE),
-    Plugin("onsails/lspkind.nvim", props=Props(LazyProp()), tag=Tag.LANGUAGE),
+    Plugin("DNLHC/glance.nvim", props=Props(VLEventProp()), tag=Tag.LSP),
+    Plugin("onsails/lspkind.nvim", props=Props(LazyProp()), tag=Tag.LSP),
     # } LSP
     # { Language support
     Plugin(
@@ -1592,18 +1594,18 @@ PLUGINS = [
         "windwp/nvim-autopairs",
         props=Props(IEventProp()),
         comments="Auto pair/close",
-        tag=Tag.EDITING,
+        tag=Tag.EDITING_ENHANCEMENTS,
     ),
     Plugin(
         "alvan/vim-closetag",
         props=Props(IEventProp()),
-        tag=Tag.EDITING,
+        tag=Tag.EDITING_ENHANCEMENTS,
     ),
     Plugin(
         "numToStr/Comment.nvim",
         props=Props(VLEventProp()),
         comments="Comment",
-        tag=Tag.EDITING,
+        tag=Tag.EDITING_ENHANCEMENTS,
     ),
     Plugin(
         "kkoomen/vim-doge",
@@ -1615,40 +1617,40 @@ PLUGINS = [
             else BuildProp(":call doge#install()"),
         ),
         comments="Generate documents",
-        tag=Tag.EDITING,
+        tag=Tag.EDITING_ENHANCEMENTS,
     ),
     Plugin(
         "akinsho/toggleterm.nvim",
         props=Props(VersionProp("*"), VLEventProp()),
         comments="Terminal",
-        tag=Tag.EDITING,
+        tag=Tag.EDITING_ENHANCEMENTS,
     ),
     Plugin(
         "mbbill/undotree",
         props=Props(VLEventProp()),
         comments="Undo tree",
-        tag=Tag.EDITING,
+        tag=Tag.EDITING_ENHANCEMENTS,
     ),
     Plugin(
         "tpope/vim-repeat",
         props=Props(VLEventProp()),
         comments="Other",
-        tag=Tag.EDITING,
+        tag=Tag.EDITING_ENHANCEMENTS,
     ),
     Plugin(
         "kylechui/nvim-surround",
         props=Props(VersionProp("*"), VLEventProp()),
-        tag=Tag.EDITING,
+        tag=Tag.EDITING_ENHANCEMENTS,
     ),
     Plugin(
         "editorconfig/editorconfig-vim",
         props=Props(VLEventProp()),
-        tag=Tag.EDITING,
+        tag=Tag.EDITING_ENHANCEMENTS,
     ),
     Plugin(
         "axieax/urlview.nvim",
         props=Props(VLEventProp()),
-        tag=Tag.EDITING,
+        tag=Tag.EDITING_ENHANCEMENTS,
     ),
     # } Editing enhancement
 ]
@@ -1806,7 +1808,7 @@ class Render:
             assert isinstance(ctx, Plugin)
             # comments
             if ctx.tag != prev_tag:
-                plugins.append(BigComment(" ".join(ctx.tag.name.split("_")).title()))
+                plugins.append(BigComment(" ".join(ctx.tag.name.split("_"))))
             if ctx.comments:
                 plugins.append(ctx.comments)
             # body
