@@ -730,13 +730,6 @@ local embeded_servers_setups = {
       end,
     })
   end,
-  flow = function()
-    lspconfig["flow"].setup({
-      on_attach = function(client, bufnr)
-        attach_ext(client, bufnr)
-      end,
-    })
-  end,
   -- clangd = function()
   --   require("clangd_extensions").setup({
   --     on_attach = function(client, bufnr)

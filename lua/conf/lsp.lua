@@ -55,6 +55,7 @@ local function diagnosticGoto(next, severity)
     go({ severity = severity })
   end
 end
+
 vim.api.nvim_create_augroup("lsp_attach_augroup", { clear = true })
 vim.api.nvim_create_autocmd("LspAttach", {
   group = "lsp_attach_augroup",
@@ -100,5 +101,24 @@ vim.api.nvim_create_autocmd("LspAttach", {
     map("n", "[e", diagnosticGoto(false, "ERROR"))
     map("n", "]w", diagnosticGoto(true, "WARN"))
     map("n", "[w", diagnosticGoto(false, "WARN"))
+
+    -- detach lsp client when after buffer
+    vim.api.nvim_create_autocmd("BufDelete", {
+      buffer = vim.api.nvim_get_current_buf(),
+      callback = function(opts)
+        local bufnr = opts.buf
+        local clients = vim.lsp.get_active_clients({ bufnr = bufnr })
+        for client_id, _ in pairs(clients) do
+          -- quietly without warning
+          vim.cmd(
+            string.format(
+              "silent lua vim.lsp.buf_detach_client(%d,%d)",
+              bufnr,
+              client_id
+            )
+          )
+        end
+      end,
+    })
   end,
 })
