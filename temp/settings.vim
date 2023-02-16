@@ -1,12 +1,4 @@
 
-""" ---- Hot keys ----
-lua require('conf/keymap').map('n', '<F1>', ':Neotree reveal toggle<CR>', {silent=false, desc="Toggle file explorer"})
-lua require('conf/keymap').map('n', '<F2>', ':UndotreeToggle<CR>', {silent=false, desc="Toggle undo tree"})
-lua require('conf/keymap').map('n', '<F3>', ':Vista!!<CR>', {silent=false, desc="Toggle outlines/tags"})
-lua require('conf/keymap').map('n', '<F4>', ':ClangdSwitchSourceHeader<CR>', {silent=false, desc="Switch between c/c++ header and source"})
-lua require('conf/keymap').map('n', '<F9>', ':MarkdownPreview<CR>', {silent=false, desc="Markdown preview"})
-lua require('conf/keymap').map('n', '<F10>', ':ToggleTerm<CR>', {silent=false, desc="Toggle terminal"})
-
 """ ---- Biscuits ----
 lua require('conf/keymap').map('n', '<leader>ww', ':noa w<CR>', {silent=false, desc="Save file without formatting"})
 lua require('conf/keymap').map('n', '<leader>qt', ':quit<CR>', {silent=false, desc=":quit"})
