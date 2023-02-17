@@ -1024,13 +1024,13 @@ class Tag(enum.Enum):
     LANGUAGE = 600
     TAGS = 610
     LSP = 620
-    SPECIFIC_LANGUAGE = 630
+    SPECIFIC_SUPPORT = 630
 
     EDITING = 700
     KEY_BINDING = 710
     CURSOR_MOTION = 720
     GIT = 730
-    EDITING_ENHANCEMENTS = 740
+    ENHANCEMENTS = 740
 
 
 class Plugin:
@@ -1556,31 +1556,31 @@ PLUGINS = [
             CmdProp("MarkdownPreview"),
         ),
         comments="Markdown",
-        tag=Tag.SPECIFIC_LANGUAGE,
+        tag=Tag.SPECIFIC_SUPPORT,
     ),
     Plugin(
         "justinmk/vim-syntax-extra",
         props=Props(FtProp("lex", "flex", "yacc", "bison")),
         comments="Lex/yacc, flex/bison",
-        tag=Tag.SPECIFIC_LANGUAGE,
+        tag=Tag.SPECIFIC_SUPPORT,
     ),
     Plugin(
         "rhysd/vim-llvm",
         props=Props(FtProp("llvm", "mir", "mlir", "tablegen")),
         comments="LLVM",
-        tag=Tag.SPECIFIC_LANGUAGE,
+        tag=Tag.SPECIFIC_SUPPORT,
     ),
     Plugin(
         "zebradil/hive.vim",
         props=Props(FtProp("hive")),
         comments="Hive",
-        tag=Tag.SPECIFIC_LANGUAGE,
+        tag=Tag.SPECIFIC_SUPPORT,
     ),
     Plugin(
         "slim-template/vim-slim",
         props=Props(FtProp("slim")),
         comments="Slim",
-        tag=Tag.SPECIFIC_LANGUAGE,
+        tag=Tag.SPECIFIC_SUPPORT,
     ),
     # } Language support
     # { Key binding
@@ -1621,18 +1621,18 @@ PLUGINS = [
         "windwp/nvim-autopairs",
         props=Props(InsertEventProp()),
         comments="Auto pair/close",
-        tag=Tag.EDITING_ENHANCEMENTS,
+        tag=Tag.ENHANCEMENTS,
     ),
     Plugin(
         "alvan/vim-closetag",
         props=Props(InsertEventProp()),
-        tag=Tag.EDITING_ENHANCEMENTS,
+        tag=Tag.ENHANCEMENTS,
     ),
     Plugin(
         "numToStr/Comment.nvim",
         props=Props(BufReadPostEventProp()),
         comments="Comment",
-        tag=Tag.EDITING_ENHANCEMENTS,
+        tag=Tag.ENHANCEMENTS,
     ),
     Plugin(
         "kkoomen/vim-doge",
@@ -1644,40 +1644,40 @@ PLUGINS = [
             else BuildProp(":call doge#install()"),
         ),
         comments="Generate documents",
-        tag=Tag.EDITING_ENHANCEMENTS,
+        tag=Tag.ENHANCEMENTS,
     ),
     Plugin(
         "akinsho/toggleterm.nvim",
         props=Props(VersionProp("*"), CmdlineEventProp()),
         comments="Terminal",
-        tag=Tag.EDITING_ENHANCEMENTS,
+        tag=Tag.ENHANCEMENTS,
     ),
     Plugin(
         "mbbill/undotree",
         props=Props(CmdlineEventProp()),
         comments="Undo tree",
-        tag=Tag.EDITING_ENHANCEMENTS,
+        tag=Tag.ENHANCEMENTS,
     ),
     Plugin(
         "tpope/vim-repeat",
         props=Props(BufReadPostEventProp()),
         comments="Other",
-        tag=Tag.EDITING_ENHANCEMENTS,
+        tag=Tag.ENHANCEMENTS,
     ),
     Plugin(
         "kylechui/nvim-surround",
         props=Props(VersionProp("*"), BufReadPostEventProp()),
-        tag=Tag.EDITING_ENHANCEMENTS,
+        tag=Tag.ENHANCEMENTS,
     ),
     Plugin(
         "editorconfig/editorconfig-vim",
         props=Props(InsertEventProp()),
-        tag=Tag.EDITING_ENHANCEMENTS,
+        tag=Tag.ENHANCEMENTS,
     ),
     Plugin(
         "axieax/urlview.nvim",
         props=Props(CmdProp("UrlView")),
-        tag=Tag.EDITING_ENHANCEMENTS,
+        tag=Tag.ENHANCEMENTS,
     ),
     # } Editing enhancement
 ]
