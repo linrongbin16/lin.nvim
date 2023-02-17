@@ -4,10 +4,23 @@ function! s:rand_int(n) abort
     return str2nr(matchstr(reltimestr(reltime()), '\v\.@<=\d+')[1:]) % a:n
 endfunction
 
+function! s:has_colorscheme(name) abort
+    let pat = 'colors/'.a:name.'.vim'
+    return !empty(globpath(&runtimepath, pat))
+endfunction
+
 function s:lin_next_color(color, update)
     " echom 'a:color:' . a:color . ', a:update:' . a:update
     if len(a:color) > 0
-        execute 'colorscheme ' . a:color
+        if s:has_colorscheme(a:color)
+            execute 'colorscheme ' . a:color
+        else
+            execute 'normal! \<Esc>'
+            echohl ErrorMsg
+            echomsg 'Error: unknown colorscheme: ' . a:color . ', fallback to default!'
+            echohl None
+            execute 'colorscheme default'
+        endif
     else
         if len(s:colors) > 0
             let idx = s:rand_int(len(s:colors))
