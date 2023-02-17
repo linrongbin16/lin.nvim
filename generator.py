@@ -697,6 +697,7 @@ class EmbededServers4Lua(Expr):
         rendered_servers = "\n".join([f"{INDENT}'{s}'," for s in self.servers])
         return (
             """
+
 -- { mason's config
 local embeded_servers = {
 """
@@ -776,6 +777,19 @@ local embeded_nullls_setups = {
     -- end,
 }
 -- } null-ls's config
+
+-- { lspconfig's setup
+
+local embeded_lspconfig_setups = {
+    ["flow"] = {
+        on_attach = function(client, bufnr)
+            attach_ext(client, bufnr)
+        end,
+    },
+}
+
+-- } lspconfig's setup
+
 """
         )
 
