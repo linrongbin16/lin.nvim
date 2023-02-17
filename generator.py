@@ -1272,7 +1272,7 @@ PLUGINS = [
     # { Highlight
     Plugin(
         "RRethy/vim-illuminate",
-        props=Props(CursorHoldEventProp()),
+        props=Props(VeryLazyEventProp()),
         tag=Tag.HIGHLIGHT,
     ),
     Plugin(
@@ -1282,7 +1282,7 @@ PLUGINS = [
     ),
     Plugin(
         "andymass/vim-matchup",
-        props=Props(CursorEventProp()),
+        props=Props(VeryLazyEventProp()),
         tag=Tag.HIGHLIGHT,
     ),
     Plugin(
@@ -1599,7 +1599,7 @@ PLUGINS = [
     ),
     Plugin(
         "ggandor/leap.nvim",
-        props=Props(CursorEventProp(), DependenciesProp("tpope/vim-repeat")),
+        props=Props(BufReadPostEventProp(), DependenciesProp("tpope/vim-repeat")),
         tag=Tag.CURSOR_MOTION,
     ),
     # } Motion
@@ -1630,7 +1630,7 @@ PLUGINS = [
     ),
     Plugin(
         "numToStr/Comment.nvim",
-        props=Props(CursorEventProp()),
+        props=Props(BufReadPostEventProp()),
         comments="Comment",
         tag=Tag.EDITING_ENHANCEMENTS,
     ),
@@ -1660,13 +1660,13 @@ PLUGINS = [
     ),
     Plugin(
         "tpope/vim-repeat",
-        props=Props(VeryLazyEventProp()),
+        props=Props(BufReadPostEventProp()),
         comments="Other",
         tag=Tag.EDITING_ENHANCEMENTS,
     ),
     Plugin(
         "kylechui/nvim-surround",
-        props=Props(VersionProp("*"), CursorEventProp()),
+        props=Props(VersionProp("*"), BufReadPostEventProp()),
         tag=Tag.EDITING_ENHANCEMENTS,
     ),
     Plugin(
