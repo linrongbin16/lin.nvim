@@ -1030,7 +1030,7 @@ class Tag(enum.Enum):
     KEY_BINDING = 710
     CURSOR_MOTION = 720
     GIT = 730
-    ENHANCEMENTS = 740
+    ENHANCEMENT = 740
 
 
 class Plugin:
@@ -1621,18 +1621,18 @@ PLUGINS = [
         "windwp/nvim-autopairs",
         props=Props(InsertEventProp()),
         comments="Auto pair/close",
-        tag=Tag.ENHANCEMENTS,
+        tag=Tag.ENHANCEMENT,
     ),
     Plugin(
         "alvan/vim-closetag",
         props=Props(InsertEventProp()),
-        tag=Tag.ENHANCEMENTS,
+        tag=Tag.ENHANCEMENT,
     ),
     Plugin(
         "numToStr/Comment.nvim",
         props=Props(BufReadPostEventProp()),
         comments="Comment",
-        tag=Tag.ENHANCEMENTS,
+        tag=Tag.ENHANCEMENT,
     ),
     Plugin(
         "kkoomen/vim-doge",
@@ -1644,40 +1644,40 @@ PLUGINS = [
             else BuildProp(":call doge#install()"),
         ),
         comments="Generate documents",
-        tag=Tag.ENHANCEMENTS,
+        tag=Tag.ENHANCEMENT,
     ),
     Plugin(
         "akinsho/toggleterm.nvim",
         props=Props(VersionProp("*"), CmdlineEventProp()),
         comments="Terminal",
-        tag=Tag.ENHANCEMENTS,
+        tag=Tag.ENHANCEMENT,
     ),
     Plugin(
         "mbbill/undotree",
         props=Props(CmdlineEventProp()),
         comments="Undo tree",
-        tag=Tag.ENHANCEMENTS,
+        tag=Tag.ENHANCEMENT,
     ),
     Plugin(
         "tpope/vim-repeat",
         props=Props(BufReadPostEventProp()),
         comments="Other",
-        tag=Tag.ENHANCEMENTS,
+        tag=Tag.ENHANCEMENT,
     ),
     Plugin(
         "kylechui/nvim-surround",
         props=Props(VersionProp("*"), BufReadPostEventProp()),
-        tag=Tag.ENHANCEMENTS,
+        tag=Tag.ENHANCEMENT,
     ),
     Plugin(
         "editorconfig/editorconfig-vim",
         props=Props(InsertEventProp()),
-        tag=Tag.ENHANCEMENTS,
+        tag=Tag.ENHANCEMENT,
     ),
     Plugin(
         "axieax/urlview.nvim",
         props=Props(CmdProp("UrlView")),
-        tag=Tag.ENHANCEMENTS,
+        tag=Tag.ENHANCEMENT,
     ),
     # } Editing enhancement
 ]
