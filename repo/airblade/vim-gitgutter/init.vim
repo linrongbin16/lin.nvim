@@ -7,7 +7,9 @@ let g:gitgutter_sign_priority = 1
 " let g:gitgutter_sign_allow_clobber = 0
 
 " use rg to improve performance
-let g:gitgutter_grep = 'rg'
+if executable('rg')
+    let g:gitgutter_grep = 'rg'
+endif
 
 " use float window for preview
 let g:gitgutter_preview_win_floating = 1

@@ -879,6 +879,22 @@ class BranchProp(Prop):
         return self.expr.render()
 
 
+class CmdProp(Prop):
+    def __init__(self, *value):
+        self.expr = AssignExpr(
+            LiteralExpr("cmd"),
+            BracedExpr4Lua(
+                Exprs(
+                    [SingleQuoteStringExpr(v) for v in dedup_list(value)],
+                    delimiter=", ",
+                )
+            ),
+        )
+
+    def render(self):
+        return self.expr.render()
+
+
 class EventProp(Prop):
     def __init__(self, *value) -> None:
         self.expr = AssignExpr(
@@ -936,6 +952,18 @@ class CursorEventProp(EventProp):
     def __init__(self, *value) -> None:
         super(CursorEventProp, self).__init__(
             "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI", *value
+        )
+
+
+class CursorHoldEventProp(EventProp):
+    def __init__(self, *value) -> None:
+        super(CursorHoldEventProp, self).__init__("CursorHold", "CursorHoldI", *value)
+
+
+class CursorMovedEventProp(EventProp):
+    def __init__(self, *value) -> None:
+        super(CursorMovedEventProp, self).__init__(
+            "CursorMoved", "CursorMovedI", *value
         )
 
 
@@ -1244,7 +1272,7 @@ PLUGINS = [
     # { Highlight
     Plugin(
         "RRethy/vim-illuminate",
-        props=Props(CursorEventProp()),
+        props=Props(CursorHoldEventProp("BufReadPost")),
         tag=Tag.HIGHLIGHT,
     ),
     Plugin(
@@ -1254,7 +1282,7 @@ PLUGINS = [
     ),
     Plugin(
         "andymass/vim-matchup",
-        props=Props(CursorEventProp()),
+        props=Props(CursorHoldEventProp("BufReadPost")),
         tag=Tag.HIGHLIGHT,
     ),
     Plugin(
@@ -1269,15 +1297,7 @@ PLUGINS = [
     ),
     Plugin(
         "haya14busa/is.vim",
-        props=Props(
-            BufReadPostEventProp(
-                "CmdlineEnter",
-                "CursorHold",
-                "CursorHoldI",
-                "CursorMoved",
-                "CursorMovedI",
-            )
-        ),
+        props=Props(BufReadPostEventProp("CmdlineEnter")),
         tag=Tag.HIGHLIGHT,
     ),
     Plugin("markonm/traces.vim", props=Props(CmdlineEventProp()), tag=Tag.HIGHLIGHT),
@@ -1422,9 +1442,7 @@ PLUGINS = [
     # { LSP
     Plugin(
         "liuchengxu/vista.vim",
-        props=Props(
-            CmdlineEventProp(), DependenciesProp("ludovicchabant/vim-gutentags")
-        ),
+        props=Props(CmdProp("Vista"), DependenciesProp("ludovicchabant/vim-gutentags")),
         comments="Ctags/structure outlines",
         tag=Tag.CTAGS,
     ),
@@ -1520,7 +1538,7 @@ PLUGINS = [
     ),
     Plugin(
         "DNLHC/glance.nvim",
-        props=Props(CursorEventProp()),
+        props=Props(CmdProp("Glance")),
         tag=Tag.LSP,
     ),
     Plugin("onsails/lspkind.nvim", props=Props(LazyProp()), tag=Tag.LSP),
@@ -1534,7 +1552,8 @@ PLUGINS = [
                 LiteralExpr("init"),
                 LiteralExpr('function() vim.g.mkdp_filetypes = { "markdown" } end'),
             ),
-            FtProp("markdown"),
+            # FtProp("markdown"),
+            CmdProp("MarkdownPreview"),
         ),
         comments="Markdown",
         tag=Tag.SPECIFIC_LANGUAGE,
@@ -1567,7 +1586,7 @@ PLUGINS = [
     # { Key binding
     Plugin(
         "folke/which-key.nvim",
-        props=Props(CursorEventProp("CmdlineEnter")),
+        props=Props(CmdProp("WhichKey")),
         comments="Key mappings",
         tag=Tag.KEY_BINDING,
     ),
@@ -1580,7 +1599,7 @@ PLUGINS = [
     ),
     Plugin(
         "ggandor/leap.nvim",
-        props=Props(CursorEventProp(), DependenciesProp("tpope/vim-repeat")),
+        props=Props(BufReadPostEventProp(), DependenciesProp("tpope/vim-repeat")),
         tag=Tag.CURSOR_MOTION,
     ),
     # } Motion
@@ -1592,7 +1611,7 @@ PLUGINS = [
     ),
     Plugin(
         "ruifm/gitlinker.nvim",
-        props=Props(CmdlineEventProp(), DependenciesProp("nvim-lua/plenary.nvim")),
+        props=Props(CmdProp("lua"), DependenciesProp("nvim-lua/plenary.nvim")),
         comments="Open In Github/Gitlab/etc",
         tag=Tag.GIT,
     ),
@@ -1611,14 +1630,14 @@ PLUGINS = [
     ),
     Plugin(
         "numToStr/Comment.nvim",
-        props=Props(CursorEventProp()),
+        props=Props(VeryLazyEventProp()),
         comments="Comment",
         tag=Tag.EDITING_ENHANCEMENTS,
     ),
     Plugin(
         "kkoomen/vim-doge",
         props=Props(
-            CmdlineEventProp(),
+            CmdProp("DogeGenerate"),
             # build for non-Windows to avoid error on arm(apple silicon chip)
             BuildProp("npm i --no-save && npm run build:binary:unix")
             if not IS_WINDOWS
@@ -1641,23 +1660,23 @@ PLUGINS = [
     ),
     Plugin(
         "tpope/vim-repeat",
-        props=Props(BufReadPostEventProp("CmdlineEnter")),
+        props=Props(VeryLazyEventProp()),
         comments="Other",
         tag=Tag.EDITING_ENHANCEMENTS,
     ),
     Plugin(
         "kylechui/nvim-surround",
-        props=Props(VersionProp("*"), CursorEventProp()),
+        props=Props(VersionProp("*"), VeryLazyEventProp()),
         tag=Tag.EDITING_ENHANCEMENTS,
     ),
     Plugin(
         "editorconfig/editorconfig-vim",
-        props=Props(InsertCmdlineEventProp()),
+        props=Props(InsertEventProp()),
         tag=Tag.EDITING_ENHANCEMENTS,
     ),
     Plugin(
         "axieax/urlview.nvim",
-        props=Props(CmdlineEventProp()),
+        props=Props(CmdProp("UrlView")),
         tag=Tag.EDITING_ENHANCEMENTS,
     ),
     # } Editing enhancement
