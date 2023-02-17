@@ -1621,7 +1621,7 @@ PLUGINS = [
     Plugin(
         "ruifm/gitlinker.nvim",
         props=Props(LazyProp(), DependenciesProp("nvim-lua/plenary.nvim")),
-        comments="Open In Github/Gitlab/etc",
+        comments="Open git repository In browser",
         tag=Tag.GIT,
     ),
     # } Git
