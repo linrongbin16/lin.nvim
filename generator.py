@@ -1022,7 +1022,7 @@ class Tag(enum.Enum):
     SEARCH = 500
 
     LANGUAGE = 600
-    CTAGS = 610
+    TAGS = 610
     LSP = 620
     SPECIFIC_LANGUAGE = 630
 
@@ -1272,7 +1272,7 @@ PLUGINS = [
     # { Highlight
     Plugin(
         "RRethy/vim-illuminate",
-        props=Props(CursorHoldEventProp("BufReadPost")),
+        props=Props(CursorHoldEventProp()),
         tag=Tag.HIGHLIGHT,
     ),
     Plugin(
@@ -1282,7 +1282,7 @@ PLUGINS = [
     ),
     Plugin(
         "andymass/vim-matchup",
-        props=Props(CursorHoldEventProp("BufReadPost")),
+        props=Props(CursorEventProp()),
         tag=Tag.HIGHLIGHT,
     ),
     Plugin(
@@ -1297,7 +1297,7 @@ PLUGINS = [
     ),
     Plugin(
         "haya14busa/is.vim",
-        props=Props(BufReadPostEventProp("CmdlineEnter")),
+        props=Props(CmdlineEventProp()),
         tag=Tag.HIGHLIGHT,
     ),
     Plugin("markonm/traces.vim", props=Props(CmdlineEventProp()), tag=Tag.HIGHLIGHT),
@@ -1347,7 +1347,7 @@ PLUGINS = [
     ),
     Plugin(
         "moll/vim-bbye",
-        props=Props(CmdlineEventProp()),
+        props=Props(CmdProp("Bdelete", "Bwipeout")),
         tag=Tag.UI,
     ),
     Plugin(
@@ -1443,13 +1443,13 @@ PLUGINS = [
     Plugin(
         "liuchengxu/vista.vim",
         props=Props(CmdProp("Vista"), DependenciesProp("ludovicchabant/vim-gutentags")),
-        comments="Ctags/structure outlines",
-        tag=Tag.CTAGS,
+        comments="Tags/structure outlines",
+        tag=Tag.TAGS,
     ),
     Plugin(
         "ludovicchabant/vim-gutentags",
-        props=Props(VeryLazyEventProp()),
-        tag=Tag.CTAGS,
+        props=Props(BufReadPostEventProp()),
+        tag=Tag.TAGS,
     ),
     Plugin(
         "williamboman/mason.nvim",
@@ -1599,7 +1599,7 @@ PLUGINS = [
     ),
     Plugin(
         "ggandor/leap.nvim",
-        props=Props(BufReadPostEventProp(), DependenciesProp("tpope/vim-repeat")),
+        props=Props(CursorEventProp(), DependenciesProp("tpope/vim-repeat")),
         tag=Tag.CURSOR_MOTION,
     ),
     # } Motion
@@ -1611,7 +1611,7 @@ PLUGINS = [
     ),
     Plugin(
         "ruifm/gitlinker.nvim",
-        props=Props(CmdProp("lua"), DependenciesProp("nvim-lua/plenary.nvim")),
+        props=Props(LazyProp(), DependenciesProp("nvim-lua/plenary.nvim")),
         comments="Open In Github/Gitlab/etc",
         tag=Tag.GIT,
     ),
@@ -1630,7 +1630,7 @@ PLUGINS = [
     ),
     Plugin(
         "numToStr/Comment.nvim",
-        props=Props(VeryLazyEventProp()),
+        props=Props(CursorEventProp()),
         comments="Comment",
         tag=Tag.EDITING_ENHANCEMENTS,
     ),
@@ -1666,7 +1666,7 @@ PLUGINS = [
     ),
     Plugin(
         "kylechui/nvim-surround",
-        props=Props(VersionProp("*"), VeryLazyEventProp()),
+        props=Props(VersionProp("*"), CursorEventProp()),
         tag=Tag.EDITING_ENHANCEMENTS,
     ),
     Plugin(
