@@ -1606,7 +1606,16 @@ PLUGINS = [
     # { Git
     Plugin(
         "f-person/git-blame.nvim",
-        props=Props(CmdlineEventProp()),
+        props=Props(
+            CmdProp(
+                "GitBlameOpenCommitURL",
+                "GitBlameToggle",
+                "GitBlameEnable",
+                "GitBlameDisable",
+                "GitBlameCopySHA",
+                "GitBlameCopyCommitURL",
+            )
+        ),
         tag=Tag.GIT,
     ),
     Plugin(
@@ -1648,13 +1657,26 @@ PLUGINS = [
     ),
     Plugin(
         "akinsho/toggleterm.nvim",
-        props=Props(VersionProp("*"), CmdlineEventProp()),
+        props=Props(
+            VersionProp("*"),
+            CmdProp(
+                "TermExec",
+                "ToggleTerm",
+                "ToggleTermToggleAll",
+                "ToggleTermSendVisualLines",
+                "ToggleTermSendVisualSelection",
+                "ToggleTermSendCurrentLine",
+                "ToggleTermSetName",
+            ),
+        ),
         comments="Terminal",
         tag=Tag.ENHANCEMENT,
     ),
     Plugin(
         "mbbill/undotree",
-        props=Props(CmdlineEventProp()),
+        props=Props(
+            CmdProp("UndotreeToggle", "UndotreeHide", "UndotreeShow", "UndotreeFocus")
+        ),
         comments="Undo tree",
         tag=Tag.ENHANCEMENT,
     ),
