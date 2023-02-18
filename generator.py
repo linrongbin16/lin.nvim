@@ -1515,6 +1515,7 @@ PLUGINS = [
                 "hrsh7th/cmp-cmdline",
                 "L3MON4D3/LuaSnip",
                 "saadparwaiz1/cmp_luasnip",
+                "quangnguyen30192/cmp-nvim-tags",
             ),
         ),
         comments="Auto-complete engine",
@@ -1548,6 +1549,11 @@ PLUGINS = [
     Plugin(
         "saadparwaiz1/cmp_luasnip",
         props=Props(InsertCmdlineEventProp(), DependenciesProp("L3MON4D3/LuaSnip")),
+        tag=Tag.LSP,
+    ),
+    Plugin(
+        "quangnguyen30192/cmp-nvim-tags",
+        props=Props(InsertCmdlineEventProp()),
         tag=Tag.LSP,
     ),
     Plugin(

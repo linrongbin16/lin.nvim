@@ -28,10 +28,11 @@ cmp.setup({
     },
     sources = cmp.config.sources({
         { name = "nvim_lsp", keyword_length = keyword },
-        { name = "luasnip", keyword_length = keyword },
+        { name = "luasnip",  keyword_length = keyword },
     }, {
         { name = "buffer", keyword_length = keyword },
-        { name = "path", keyword_length = keyword },
+        { name = "path",   keyword_length = keyword },
+        { name = "tags",   keyword_length = keyword },
     }),
     window = {
         completion = cmp.config.window.bordered(),
@@ -39,27 +40,26 @@ cmp.setup({
     },
     formatting = {
         -- fields = { "menu", "abbr", "kind" },
-        format = pcall(require, "lspkind") and require("lspkind").cmp_format({
-            mode = "symbol_text",
+        format = require("lspkind").cmp_format({
+            mode = "symbol",
+            menu = {
+                buffer = "[BUF]",
+                nvim_lsp = "[LSP]",
+                luasnip = "[SNIP]",
+                tags = "[TAGS]",
+                path = "[PATH]",
+                cmdline = "[CMD]",
+            },
             maxwidth = 50,
             ellipsis_char = "…",
-        }) or function(entry, item)
-            local menu_icon = {
-                nvim_lsp = "",
-                luasnip = "",
-                buffer = "",
-                path = "",
-            }
-            item.menu = menu_icon[entry.source.name]
-            return item
-        end,
+        }),
     },
     mapping = cmp.mapping.preset.insert({
         ["<Up>"] = cmp.mapping.select_prev_item(select_opts),
         ["<C-p>"] = cmp.mapping.select_prev_item(select_opts),
         ["<Down>"] = cmp.mapping.select_next_item(select_opts),
         ["<C-n>"] = cmp.mapping.select_next_item(select_opts),
-        ["<C-u>"] = cmp.mapping.scroll_docs(-4),
+        ["<C-u>"] = cmp.mapping.scroll_docs( -4),
         ["<C-d>"] = cmp.mapping.scroll_docs(4),
         ["<C-Space>"] = cmp.mapping.complete(),
         ["<C-e>"] = cmp.mapping.abort(),
@@ -90,8 +90,8 @@ cmp.setup({
             end
         end, { "i", "s" }),
         ["<C-b>"] = cmp.mapping(function(fallback)
-            if luasnip.jumpable(-1) then
-                luasnip.jump(-1)
+            if luasnip.jumpable( -1) then
+                luasnip.jump( -1)
             else
                 fallback()
             end
@@ -123,11 +123,3 @@ cmp.setup.cmdline(":", {
         { name = "cmdline", keyword_length = keyword },
     }),
 })
-
--- auto format on save
-vim.cmd([[
-augroup nvim_cmp_augroup
-    autocmd!
-    autocmd BufWritePre * lua vim.lsp.buf.format({async = false})
-augroup END
-]])
