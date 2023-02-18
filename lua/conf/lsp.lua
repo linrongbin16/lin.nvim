@@ -216,6 +216,14 @@ vim.api.nvim_create_autocmd("LspAttach", {
             make_desc("Previous diagnostic warning")
         )
 
+        -- switch header/source for c/c++
+        map(
+            "n",
+            "<leader>cs",
+            ":ClangdSwitchSourceHeader<CR>",
+            { silent = false, desc = "Switch between c/c++ header and source" }
+        )
+
         -- detach lsp client when after buffer
         vim.api.nvim_create_autocmd("BufDelete", {
             buffer = vim.api.nvim_get_current_buf(),
@@ -244,10 +252,3 @@ vim.api.nvim_create_autocmd("LspAttach", {
         })
     end,
 })
-
-map(
-    "n",
-    "<F4>",
-    ":ClangdSwitchSourceHeader<CR>",
-    { silent = false, desc = "Switch between c/c++ header and source" }
-)
