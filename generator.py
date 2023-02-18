@@ -1373,7 +1373,7 @@ PLUGINS = [
     Plugin(
         "nvim-lualine/lualine.nvim",
         props=Props(
-            VeryLazyEventProp(),
+            VimEnterEventProp(),
             DependenciesProp(
                 "nvim-tree/nvim-web-devicons",
                 "linrongbin16/lsp-progress.nvim",
@@ -1423,7 +1423,7 @@ PLUGINS = [
     ),
     Plugin(
         "stevearc/dressing.nvim",
-        props=Props(VeryLazyEventProp()),
+        props=Props(VimEnterEventProp()),
         comments="UI hooks",
         tag=Tag.UI,
     ),
