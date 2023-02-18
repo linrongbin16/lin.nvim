@@ -1,35 +1,54 @@
 local map_lazy = require("conf/keymap").map_lazy
 
-local M = {}
-
-local keys = {
-    { "f", "HopChar1", "by {char}" },
-    { "s", "HopChar2", "by {char}{char}" },
-    { "w", "HopWord", "by word" },
-    { "l", "HopLine", "by line" },
+local M = {
+    map_lazy(
+        { "n", "x" },
+        "<leader>f",
+        "<cmd>HopChar1AC<cr>",
+        { desc = "Jump forward by {char}" }
+    ),
+    map_lazy(
+        { "n", "x" },
+        "<leader>F",
+        "<cmd>HopChar1BC<cr>",
+        { desc = "Jump backward by {char}" }
+    ),
+    map_lazy(
+        { "n", "x" },
+        "<leader>s",
+        "<cmd>HopChar2AC<cr>",
+        { desc = "Jump forward by {char}{char}" }
+    ),
+    map_lazy(
+        { "n", "x" },
+        "<leader>S",
+        "<cmd>HopChar2BC<cr>",
+        { desc = "Jump backward by {char}{char}" }
+    ),
+    map_lazy(
+        { "n", "x" },
+        "<leader>wd",
+        "<cmd>HopWordAC<cr>",
+        { desc = "Jump forward by word" }
+    ),
+    map_lazy(
+        { "n", "x" },
+        "<leader>wD",
+        "<cmd>HopWordBC<cr>",
+        { desc = "Jump backward by word" }
+    ),
+    map_lazy(
+        { "n", "x" },
+        "<leader>ln",
+        "<cmd>HopLineAC<cr>",
+        { desc = "Jump forward by line" }
+    ),
+    map_lazy(
+        { "n", "x" },
+        "<leader>lN",
+        "<cmd>HopLineBC<cr>",
+        { desc = "Jump backward by line" }
+    ),
 }
-
-for _, k in ipairs(keys) do
-    for i = 1, 2 do
-        table.insert(
-            M,
-            map_lazy(
-                { "n", "x" },
-                string.format(
-                    "<leader><leader>%s",
-                    i == 1 and k[1] or string.upper(k[1])
-                ), -- f/F
-                string.format(
-                    "<cmd>%s<cr>",
-                    i == 1 and k[2] .. "AC" or k[2] .. "BC"
-                ), -- HopChar1AC/HopChar1BC
-                {
-                    desc = i == 1 and "Jump forward " .. k[3]
-                        or "Jump backward " .. k[3],
-                }
-            )
-        )
-    end
-end
 
 return M
