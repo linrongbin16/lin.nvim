@@ -1,7 +1,6 @@
 local map_lazy = require("conf/keymap").map_lazy
 
 local M = {
-    { "<leader>gL", nil, { "n", "v" }, desc = "Copy git link to clipboard" },
     map_lazy(
         "n",
         "<leader>gl",

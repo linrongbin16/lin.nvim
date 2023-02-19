@@ -1639,9 +1639,11 @@ PLUGINS = [
         tag=Tag.GIT,
     ),
     Plugin(
-        "ruifm/gitlinker.nvim",
-        props=Props(LazyProp(), DependenciesProp("nvim-lua/plenary.nvim")),
-        comments="Open git repository In browser",
+        "linrongbin16/gitlinker.nvim",
+        props=Props(
+            LazyProp(), BranchProp("master"), DependenciesProp("nvim-lua/plenary.nvim")
+        ),
+        comments="Open git link In browser",
         tag=Tag.GIT,
     ),
     # } Git
