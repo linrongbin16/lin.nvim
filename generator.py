@@ -1301,7 +1301,10 @@ PLUGINS = [
     ),
     Plugin(
         "inkarkat/vim-mark",
-        props=Props(DependenciesProp("inkarkat/vim-ingo-library"), CmdlineEventProp()),
+        props=Props(
+            DependenciesProp("inkarkat/vim-ingo-library"),
+            CmdlineEventProp("BufReadPost"),
+        ),
         tag=Tag.HIGHLIGHT,
     ),
     Plugin(
@@ -1614,7 +1617,7 @@ PLUGINS = [
     # { Motion
     Plugin(
         "phaazon/hop.nvim",
-        props=Props(BranchProp("v2"), CmdlineEventProp()),
+        props=Props(BranchProp("v2"), CmdlineEventProp("BufReadPost")),
         tag=Tag.CURSOR_MOTION,
     ),
     Plugin(
@@ -1641,7 +1644,9 @@ PLUGINS = [
     Plugin(
         "linrongbin16/gitlinker.nvim",
         props=Props(
-            LazyProp(), BranchProp("master"), DependenciesProp("nvim-lua/plenary.nvim")
+            BufReadPostEventProp(),
+            BranchProp("master"),
+            DependenciesProp("nvim-lua/plenary.nvim"),
         ),
         comments="Open git link In browser",
         tag=Tag.GIT,
