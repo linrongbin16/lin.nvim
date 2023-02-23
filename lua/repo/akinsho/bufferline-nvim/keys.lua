@@ -38,7 +38,7 @@ local M = {
     ),
 }
 
--- go to absolute buffer 1~9, and 0
+-- go to absolute buffer 1~9
 for i = 1, 9 do
     table.insert(
         M,
