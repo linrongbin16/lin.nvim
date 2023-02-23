@@ -66,7 +66,7 @@ end
 
 local function map_lazy(mode, lhs, rhs, opts)
     opts = make_opts(opts)
-    local key = { lhs, rhs, mode }
+    local key = { lhs, rhs, mode = mode }
     for k, v in pairs(opts) do
         key[k] = v
     end
