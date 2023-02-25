@@ -1303,7 +1303,7 @@ PLUGINS = [
         "inkarkat/vim-mark",
         props=Props(
             DependenciesProp("inkarkat/vim-ingo-library"),
-            CmdlineEventProp("BufReadPost"),
+            CmdlineEventProp(),
         ),
         tag=Tag.HIGHLIGHT,
     ),
@@ -1617,7 +1617,7 @@ PLUGINS = [
     # { Motion
     Plugin(
         "phaazon/hop.nvim",
-        props=Props(BranchProp("v2"), CmdlineEventProp("BufReadPost")),
+        props=Props(BranchProp("v2"), CmdlineEventProp()),
         tag=Tag.CURSOR_MOTION,
     ),
     Plugin(
@@ -1644,7 +1644,7 @@ PLUGINS = [
     Plugin(
         "linrongbin16/gitlinker.nvim",
         props=Props(
-            BufReadPostEventProp(),
+            LazyProp(),
             BranchProp("master"),
             DependenciesProp("nvim-lua/plenary.nvim"),
         ),
