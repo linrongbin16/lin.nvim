@@ -1569,14 +1569,7 @@ PLUGINS = [
     # { Language support
     Plugin(
         "iamcco/markdown-preview.nvim",
-        props=Props(
-            BuildProp("cd app && npm install"),
-            AssignExpr(
-                LiteralExpr("init"),
-                LiteralExpr('function() vim.g.mkdp_filetypes = { "markdown" } end'),
-            ),
-            FtProp("markdown"),
-        ),
+        props=Props(BuildProp("cd app && npm install"), FtProp("markdown")),
         comments="Markdown",
         tag=Tag.SPECIFIC_SUPPORT,
     ),
