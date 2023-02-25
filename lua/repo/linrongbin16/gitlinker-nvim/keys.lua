@@ -4,8 +4,8 @@ local M = {
     map_lazy(
         { "n", "x" },
         "<leader>gl",
-        '<cmd>lua require"gitlinker".link()<cr>',
-        { silent = true, desc = "Open git link in browser" }
+        '<cmd>lua require("gitlinker").link()<cr>',
+        { desc = "Open git link in browser" }
     ),
 }
 
