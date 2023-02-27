@@ -1286,7 +1286,7 @@ PLUGINS = [
     # { Highlight
     Plugin(
         "RRethy/vim-illuminate",
-        props=Props(VeryLazyEventProp()),
+        props=Props(VeryLazyEventProp("BufReadPost")),
         tag=Tag.HIGHLIGHT,
     ),
     Plugin(
@@ -1296,7 +1296,7 @@ PLUGINS = [
     ),
     Plugin(
         "andymass/vim-matchup",
-        props=Props(VeryLazyEventProp()),
+        props=Props(VeryLazyEventProp("BufReadPost")),
         tag=Tag.HIGHLIGHT,
     ),
     Plugin(
@@ -1356,7 +1356,7 @@ PLUGINS = [
         "akinsho/bufferline.nvim",
         props=Props(
             VersionProp("v3.*"),
-            VeryLazyEventProp(),
+            VeryLazyEventProp("BufReadPost"),
             DependenciesProp("nvim-tree/nvim-web-devicons", "moll/vim-bbye"),
         ),
         comments="Tabline",
@@ -1470,14 +1470,14 @@ PLUGINS = [
     ),
     Plugin(
         "williamboman/mason.nvim",
-        props=Props(VeryLazyEventProp()),
+        props=Props(VeryLazyEventProp("BufReadPost")),
         comments="LSP",
         tag=Tag.LSP,
     ),
     Plugin(
         "williamboman/mason-lspconfig.nvim",
         props=Props(
-            VeryLazyEventProp(),
+            VeryLazyEventProp("BufReadPost"),
             DependenciesProp(
                 "williamboman/mason.nvim",
                 "neovim/nvim-lspconfig",
@@ -1493,13 +1493,15 @@ PLUGINS = [
     # ),
     Plugin(
         "jose-elias-alvarez/null-ls.nvim",
-        props=Props(VeryLazyEventProp(), DependenciesProp("nvim-lua/plenary.nvim")),
+        props=Props(
+            VeryLazyEventProp("BufReadPost"), DependenciesProp("nvim-lua/plenary.nvim")
+        ),
         tag=Tag.LSP,
     ),
     Plugin(
         "jay-babu/mason-null-ls.nvim",
         props=Props(
-            VeryLazyEventProp(),
+            VeryLazyEventProp("BufReadPost"),
             DependenciesProp(
                 "williamboman/mason.nvim", "jose-elias-alvarez/null-ls.nvim"
             ),
