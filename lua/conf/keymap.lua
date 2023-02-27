@@ -46,7 +46,7 @@ local DEFAULT_OPTS = {
     -- buffer = false,
 }
 
-local function make_opts(opts)
+local function make_opts(rhs, opts)
     opts = vim.tbl_deep_extend("force", DEFAULT_OPTS, opts or {})
     -- forcibly set `noremap=false` for <Plug>
     if
@@ -60,12 +60,12 @@ local function make_opts(opts)
 end
 
 local function map(mode, lhs, rhs, opts)
-    opts = make_opts(opts)
+    opts = make_opts(rhs, opts)
     vim.keymap.set(mode, lhs, rhs, opts)
 end
 
 local function map_lazy(mode, lhs, rhs, opts)
-    opts = make_opts(opts)
+    opts = make_opts(rhs, opts)
     local key = { lhs, rhs, mode = mode }
     for k, v in pairs(opts) do
         key[k] = v
