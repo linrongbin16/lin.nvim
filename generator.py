@@ -20,18 +20,22 @@ INDENT = " " * INDENT_SIZE
 
 
 def format_message(*args):
+    """format message"""
     return f"[lin.nvim] - {' '.join(args)}"
 
 
 def message(*args):
+    """message"""
     print(format_message(*[a for a in args]))
 
 
 def error_message(*args):
+    """error message"""
     print(f"[lin.nvim] - error! {' '.join(args)}")
 
 
 def try_backup(src):
+    """backup file"""
     assert isinstance(src, pathlib.Path)
     if src.is_symlink() or src.exists():
         dest = f"{src}.{datetime.datetime.now().strftime('%Y-%m-%d.%H-%M-%S.%f')}"
@@ -40,10 +44,12 @@ def try_backup(src):
 
 
 def dedup_list(l):
+    """dedup items in list"""
     return list(OrderedDict.fromkeys(l))
 
 
 def has_command(cmd):
+    """detect command exist"""
     return shutil.which(cmd) is not None
 
 
@@ -53,7 +59,9 @@ def has_command(cmd):
 
 
 class Lsp:
-    def __init__(self, name=None, command=[], lsp=[], nullls=[], checker=None):
+    """Lsp data"""
+
+    def __init__(self, name=None, command=None, lsp=None, nullls=None, checker=None):
         assert isinstance(name, str)
         assert isinstance(command, str) or isinstance(command, list)
         assert isinstance(lsp, str) or isinstance(lsp, list)
