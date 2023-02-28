@@ -1,4 +1,4 @@
-local keymap = require("conf/keymap")
+local keymap = require("cfg.keymap")
 
 local M = {}
 

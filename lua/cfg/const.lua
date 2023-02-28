@@ -1,4 +1,4 @@
--- ---- Constants ----
+-- ---- Const ----
 
 local M = {}
 

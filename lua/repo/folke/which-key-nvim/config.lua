@@ -1,5 +1,7 @@
+local const = require("cfg.const")
+
 require("which-key").setup({
     window = {
-        border = require("conf/constants").ui.border,
+        border = const.ui.border,
     },
 })

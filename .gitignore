@@ -7,16 +7,12 @@
 /lazy
 
 # generated
-/lua/plugins.lua*
-/lua/lspservers.lua*
-/settings.vim*
-/colorschemes.vim*
-/init.vim*
 /dump-plugins.md
 /dump-lsp.md
 /.copypaste
 /.temp
 /.mypy_cache
+/lua/cfg/lspservers.lua*
 
 # universal-ctags
 /universal-ctags

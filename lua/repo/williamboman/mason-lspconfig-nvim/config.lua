@@ -1,2 +1,2 @@
 -- setup lsp servers
-require("lspservers")
+require("cfg.lspservers")

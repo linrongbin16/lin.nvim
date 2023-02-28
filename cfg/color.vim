@@ -1,3 +1,37 @@
+""" ---- Color schemes ----
+
+let s:colors=[
+    \ 'None',
+    \ 'nightfly',
+    \ 'moonfly',
+    \ 'catppuccin',
+    \ 'challenger_deep',
+    \ 'iceberg',
+    \ 'nightfox',
+    \ 'embark',
+    \ 'falcon',
+    \ 'tokyonight',
+    \ 'solarized',
+    \ 'seoul256',
+    \ 'gruvbox-baby',
+    \ 'material',
+    \ 'OceanicNext',
+    \ 'dracula',
+    \ 'onedark',
+    \ 'PaperColor',
+    \ 'spaceduck',
+    \ 'pencil',
+    \ 'github_dark',
+    \ 'lucario',
+    \ 'kanagawa',
+    \ 'rigel',
+    \ 'apprentice',
+    \ 'rose-pine',
+    \ 'edge',
+    \ 'everforest',
+    \ 'sonokai',
+    \ 'nord',
+    \ 'srcery',
     \]
 
 function! s:rand_int(n) abort
