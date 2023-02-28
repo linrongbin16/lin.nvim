@@ -8,8 +8,7 @@ CONFIG_NVIM_HOME=$HOME/.config/nvim
 DEPS_HOME=$NVIM_HOME/deps
 OS="$(uname -s)"
 
-MODE_NAME='full' # default mode
-OPT_BASIC=0
+OPT_WITH_LSP=0
 
 source $DEPS_HOME/util.sh
 
@@ -67,25 +66,9 @@ guifont_dependency() {
     fi
 }
 
-# basic
-install_basic() {
-    message "install ~/.config/nvim/init.vim for neovim"
-    try_backup $CONFIG_NVIM_HOME/init.vim
-    try_backup $CONFIG_NVIM_HOME
-    mkdir -p $HOME/.config
-    ln -s $NVIM_HOME $CONFIG_NVIM_HOME
-    ln -s $NVIM_HOME/conf/basic.vim $CONFIG_NVIM_HOME/init.vim
-}
-
+# parse options
 show_help() {
     cat $DEPS_HOME/help.txt
-}
-
-# parse options
-
-requires_an_argument_error() {
-    error_message "option '$a' requires an argument."
-    exit 1
 }
 
 unknown_option_error() {
@@ -103,15 +86,8 @@ for ((i = 0; i < args_length; i++)); do
         show_help
         exit 0
         ;;
-    -b | --basic)
-        MODE_NAME='basic'
-        OPT_BASIC=1
-        ;;
-    -l | --limit)
-        MODE_NAME='limit'
-        ;;
-    --use-color* | --no-plug* | --no-hilight | --no-lang | --no-edit | --no-ctrl | --no-color | --with-lsp)
-        # nothing here
+    --with-lsp)
+        OPT_WITH_LSP=1
         ;;
     *)
         unknown_option_error
@@ -119,51 +95,48 @@ for ((i = 0; i < args_length; i++)); do
     esac
 done
 
-message "install with $MODE_NAME mode"
-if [ $OPT_BASIC -gt 0 ]; then
-    install_basic
-else
-    # dependency
-    case "$OS" in
-    Linux)
-        if [ -f "/etc/arch-release" ] || [ -f "/etc/artix-release" ]; then
-            $DEPS_HOME/pacman.sh
-        elif [ -f "/etc/fedora-release" ] || [ -f "/etc/redhat-release" ]; then
-            $DEPS_HOME/dnf.sh
-        elif [ -f "/etc/gentoo-release" ]; then
-            $DEPS_HOME/emerge.sh
-        else
-            # assume apt
-            $DEPS_HOME/apt.sh
-        fi
-        ;;
-    FreeBSD)
-        $DEPS_HOME/pkg.sh
-        ;;
-    NetBSD)
-        $DEPS_HOME/pkgin.sh
-        ;;
-    OpenBSD)
-        $DEPS_HOME/pkg_add.sh
-        ;;
-    Darwin)
-        $DEPS_HOME/brew.sh
-        ;;
-    *)
-        message "$OS is not supported, exit..."
-        exit 1
-        ;;
-    esac
-    pip3_dependency
-    npm_dependency
-    guifont_dependency
+message "install for $OS"
 
-    # vim settings
-    message "install settings for vim"
-    python3 $NVIM_HOME/generator.py "$@"
-    if [ $? -ne 0 ]; then
-        exit 1
+# dependency
+case "$OS" in
+Linux)
+    if [ -f "/etc/arch-release" ] || [ -f "/etc/artix-release" ]; then
+        $DEPS_HOME/pacman.sh
+    elif [ -f "/etc/fedora-release" ] || [ -f "/etc/redhat-release" ]; then
+        $DEPS_HOME/dnf.sh
+    elif [ -f "/etc/gentoo-release" ]; then
+        $DEPS_HOME/emerge.sh
+    else
+        # assume apt
+        $DEPS_HOME/apt.sh
     fi
-    nvim -E -u $NVIM_HOME/temp/init-tool.vim -c "Lazy! sync" -c "qall!"
+    ;;
+FreeBSD)
+    $DEPS_HOME/pkg.sh
+    ;;
+NetBSD)
+    $DEPS_HOME/pkgin.sh
+    ;;
+OpenBSD)
+    $DEPS_HOME/pkg_add.sh
+    ;;
+Darwin)
+    $DEPS_HOME/brew.sh
+    ;;
+*)
+    message "$OS is not supported, exit..."
+    exit 1
+    ;;
+esac
+pip3_dependency
+npm_dependency
+guifont_dependency
+
+# with lsp servers
+if [ $OPT_WITH_LSP -gt 0 ]; then
+    message "install language servers for nvim..."
+    python3 $NVIM_HOME/generator.py
 fi
-message "install with $MODE_NAME mode - done"
+nvim -E -c "Lazy! sync" -c "qall!"
+
+message "install for $OS - done"

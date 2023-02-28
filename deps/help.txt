@@ -1,14 +1,1 @@
-Usage: ./install.sh [OPTIONS]
-
-Options:
-  -b, --basic               basic mode
-  -l, --limit               limit mode
-  --use-color=name          use a static colorscheme
-  --no-color                no extra colors
-  --no-hilight              no extra highlights
-  --no-lang                 no language supports
-  --no-edit                 no editing enhancements
-  --no-plug=org/repo        no specific plugin
-  --no-ctrl                 no Windows ctrl+?(macOS cmd+?) keys
-  --with-lsp                with available lsp servers
-  -h, --help                show help message
+usage: ./install.sh [--with-lsp] [-h/--help]

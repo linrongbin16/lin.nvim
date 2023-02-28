@@ -8,8 +8,7 @@ $APPDATA_LOCAL_HOME = "$env:USERPROFILE\AppData\Local"
 $APPDATA_LOCAL_NVIM_HOME = "$APPDATA_LOCAL_HOME\nvim"
 $DEPS_HOME = "$NVIM_HOME\deps"
 
-$MODE_NAME = "full" # default mode
-$OPT_BASIC = $False
+$OPT_WITH_OPT = $False
 
 # utils
 
@@ -51,12 +50,6 @@ function TryBackup([string]$src)
         Rename-Item $src $dest
         Message "backup '$src' to '$dest'"
     }
-}
-
-function RequiresAnArgumentError([string]$name)
-{
-    ErrorMessage "option '$name' requires an argument."
-    exit 1
 }
 
 function UnknownOptionError()
@@ -116,23 +109,6 @@ function ShowHelp()
     Get-Content -Path "$DEPS_HOME\help.txt" | Write-Host
 }
 
-# # Get the ID and security principal of the current user account
-# $currentID = [System.Security.Principal.WindowsIdentity]::GetCurrent();
-# $currentPrincipal = New-Object System.Security.Principal.WindowsPrincipal($currentID);
-# # Get the security principal for the administrator role
-# $adminRole = [System.Security.Principal.WindowsBuiltInRole]::Administrator;
-#
-# # If we are not running as an administrator, relaunch as administrator
-# if (!($currentPrincipal.IsInRole($adminRole)))
-# {
-#     # Create a new process that run as administrator
-#     $installer=$script:MyInvocation.MyCommand.Path
-#     Start-Process powershell "& '$installer' $args" -Verb RunAs
-#
-#     # Exit from the current process
-#     Exit;
-# }
-
 # check arguments
 $argsLength = $args.Length
 for ($i = 0; $i -lt $argsLength; $i++)
@@ -142,43 +118,30 @@ for ($i = 0; $i -lt $argsLength; $i++)
     {
         ShowHelp
         exit 0
-    } elseif ($a.StartsWith("-b") -or $a.StartsWith("--basic"))
+    }
+    elseif ($a.StartsWith('--with-lsp'))
     {
-        $MODE_NAME = "basic"
-        $OPT_BASIC = $True
-    } elseif ($a.StartsWith("-l") -or $a.StartsWith("--limit"))
-    {
-        $MODE_NAME = "limit"
-    } elseif ($a.StartsWith("--use-color") -or $a.StartsWith("--no-color") -or $a.StartsWith("--no-hilight") -or $a.StartsWith("--no-lang") -or $a.StartsWith("--no-edit") -or $a.StartsWith("--no-ctrl") -or $a.StartsWith("--no-plug") -or $a.StartsWith('--with-lsp'))
-    {
-        # Nothing here
-    } else
+        $OPT_WITH_OPT=$True
+    }
+    else
     {
         UnknownOptionError
     }
 }
 
-Message "install with $MODE_NAME mode"
+Message "install for windows"
 
-if ($OPT_BASIC)
-{
-    InstallBasic
-} else
-{
-    # dependency
-    Message "install dependencies for windows"
-    CargoDependency
-    Pip3Dependency
-    NpmDependency
+# dependency
+Message "install dependencies for windows"
+CargoDependency
+Pip3Dependency
+NpmDependency
 
-    # vim settings
-    Message "install settings for vim"
-    python3 $NVIM_HOME\generator.py $args
-    if ($LastExitCode -ne 0)
-    {
-        exit 1
-    }
-    cmd /c nvim -E -u "$NVIM_HOME\temp\init-tool.vim" -c "Lazy! sync" -c "qall!" /wait
+# with lsp servers
+if ($OPT_WITH_OPT ) {
+    Message "install language servers for nvim..."
+    python3 $NVIM_HOME\generator.py
 }
+cmd /c nvim -E -c "Lazy! sync" -c "qall!" /wait
 
-Message "install with $MODE_NAME mode - done"
+Message "install for windows - done"
