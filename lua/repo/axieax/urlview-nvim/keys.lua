@@ -1,8 +1,8 @@
 local map_lazy = require("cfg.keymap").map_lazy
 
 local M = {
-    "]u",
-    "[u",
+    map_lazy("n", "]u", nil, { desc = "Next url" }),
+    map_lazy("n", "[u", nil, { desc = "Previous url" }),
     map_lazy(
         "n",
         "<leader>ub",
