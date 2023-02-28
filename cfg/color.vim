@@ -50,7 +50,7 @@ function s:lin_next_color(update, ...)
         else
             " execute 'normal! \<Esc>'
             echohl ErrorMsg
-            echomsg 'Error: no colorscheme installed, check `~/.nvim/colorschemes.vim`!'
+            echomsg 'Error: no colorscheme installed, please check `~/.nvim/cfg/color.vim`'
             echohl None
         endif
     endif
