@@ -61,14 +61,18 @@ def has_command(cmd):
 class Lsp:
     """Lsp data"""
 
-    def __init__(self, name=None, command=None, lsp=None, nullls=None, checker=None):
+    def __init__(self, name=None, command=None, server=None, nullls=None, checker=None):
         assert isinstance(name, str)
         assert isinstance(command, str) or isinstance(command, list)
-        assert isinstance(lsp, str) or isinstance(lsp, list)
-        assert isinstance(nullls, str) or isinstance(nullls, list)
+        assert isinstance(server, str) or isinstance(server, list) or server is None
+        assert isinstance(nullls, str) or isinstance(nullls, list) or nullls is None
         self.name = name
         self.command = [command] if isinstance(command, str) else command
-        self.lsp = [lsp] if isinstance(lsp, str) else lsp
+        if server is None:
+            server = []
+        if nullls is None:
+            nullls = []
+        self.server = [server] if isinstance(server, str) else server
         self.nullls = [nullls] if isinstance(nullls, str) else nullls
         if checker:
             self.checker = checker
@@ -76,7 +80,7 @@ class Lsp:
             self.checker = lambda cmd: all([has_command(c) for c in cmd])
 
     def confirm(self):
-        recommends = dedup_list(self.lsp + self.nullls)
+        recommends = dedup_list(self.server + self.nullls)
         candidates = ", ".join([f"{i+1}:{r}" for i, r in enumerate(recommends)])
         message("")
         result = input(
@@ -89,7 +93,7 @@ class Lsp:
         nullls_sources = []
 
         def add_candidate(c):
-            if c in self.lsp:
+            if c in self.server:
                 lsp_servers.append(c)
             else:
                 assert c in self.nullls
@@ -126,21 +130,23 @@ class Lsp:
         return confirmed, lsp_servers, nullls_sources
 
 
+# https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers
+# https://github.com/jay-babu/mason-null-ls.nvim#available-null-ls-sources
 LANGUAGES = [
     Lsp(
         name="assembly",
         command=["as", "rustc", "cargo"],
-        lsp="asm_lsp",
+        server="asm_lsp",
     ),
     Lsp(
         name="bash",
         command="bash",
-        lsp="bashls",
+        server="bashls",
     ),
     Lsp(
         name="c/c++",
         command=["gcc", "g++", "clang", "clang++", "MSBuild", "cl"],
-        lsp="clangd",
+        server="clangd",
         nullls=["cpplint", "clang_format"],
         checker=lambda cmd: (has_command("gcc") and has_command("g++"))
         or (has_command("clang") and has_command("clang++"))
@@ -149,23 +155,23 @@ LANGUAGES = [
     Lsp(
         name="clojure",
         command="clj",
-        lsp="clojure_lsp",
+        server="clojure_lsp",
         nullls="joker",
     ),
     Lsp(
         name="cmake",
         command="cmake",
-        lsp=["cmake", "neocmake"],
+        server=["cmake", "neocmake"],
     ),
     Lsp(
         name="crystal",
         command="crystal",
-        lsp="crystalline",
+        server="crystalline",
     ),
     Lsp(
         name="csharp",
         command=["csc", "dotnet", "mcs"],
-        lsp=["csharp_ls", "omnisharp_mono", "omnisharp"],
+        server=["csharp_ls", "omnisharp_mono", "omnisharp"],
         nullls=["csharpier", "clang_format"],
         checker=lambda cmd: has_command("csc")
         or has_command("dotnet")
@@ -174,43 +180,43 @@ LANGUAGES = [
     Lsp(
         name="css",
         command=["node", "npm"],
-        lsp=["cssls", "cssmodules_ls", "unocss"],
+        server=["cssls", "cssmodules_ls", "unocss"],
     ),
     Lsp(
         name="docker",
         command="docker",
-        lsp="dockerls",
+        server="dockerls",
         nullls="hadolint",
     ),
     Lsp(
         name="dot(graphviz)",
         command="dot",
-        lsp="dotls",
+        server="dotls",
     ),
     Lsp(
         name="elixir",
         command="elixir",
-        lsp="elixirls",
+        server="elixirls",
     ),
     Lsp(
         name="erlang",
         command="erl",
-        lsp="erlangls",
+        server="erlangls",
     ),
     Lsp(
         name="fortran",
         command="gfortran",
-        lsp="fortls",
+        server="fortls",
     ),
     Lsp(
         name="fsharp",
         command="dotnet",
-        lsp="fsautocomplete",
+        server="fsautocomplete",
     ),
     Lsp(
         name="go",
         command="go",
-        lsp=["golangci_lint_ls", "gopls"],
+        server=["golangci_lint_ls", "gopls"],
         nullls=[
             "gofumpt",
             "goimports",
@@ -224,53 +230,53 @@ LANGUAGES = [
     Lsp(
         name="groovy",
         command="groovy",
-        lsp="groovyls",
+        server="groovyls",
     ),
     Lsp(
         name="haskell",
         command="ghc",
-        lsp="hls",
+        server="hls",
     ),
     Lsp(
         name="html",
         command=["node", "npm"],
-        lsp="html",
+        server="html",
         nullls="curlylint",
     ),
     Lsp(
         name="java",
         command=["javac", "java"],
-        lsp="jdtls",
+        server="jdtls",
         nullls="clang_format",
     ),
     Lsp(
         name="javascript/typescript",
         command=["node", "npm"],
-        lsp=["quick_lint_js", "tsserver", "vtsls", "eslint"],
+        server=["quick_lint_js", "tsserver", "vtsls", "eslint"],
         nullls=["rome", "xo", "eslint_d", "prettier", "prettierd"],
     ),
     Lsp(
         name="json",
         command=["node", "npm"],
-        lsp="jsonls",
+        server="jsonls",
         nullls=["fixjson", "jq", "cfn_lint"],
     ),
     Lsp(
         name="julia",
         command="julia",
-        lsp="julials",
+        server="julials",
         nullls=["fixjson", "jq"],
     ),
     Lsp(
         name="kotlin",
         command="kotlinc",
-        lsp="kotlin_language_server",
+        server="kotlin_language_server",
         nullls="ktlint",
     ),
     Lsp(
         name="latex",
         command=["latex", "pdflatex", "xelatex"],
-        lsp=["ltex", "texlab"],
+        server=["ltex", "texlab"],
         nullls=["proselint", "vale"],
         checker=lambda cmd: has_command("latex")
         or has_command("pdflatex")
@@ -279,7 +285,7 @@ LANGUAGES = [
     Lsp(
         name="lua",
         command="lua",
-        lsp=["lua_ls"],
+        server=["lua_ls"],
         nullls=["selene", "stylua"],
         checker=lambda cmd: True,  # lua is embeded
     ),
@@ -291,41 +297,41 @@ LANGUAGES = [
     Lsp(
         name="markdown",
         command=["node", "npm"],
-        lsp=["marksman", "prosemd_lsp", "remark_ls", "zk"],
+        server=["marksman", "prosemd_lsp", "remark_ls", "zk"],
         nullls=["alex", "markdownlint", "write_good", "cbfmt", "proselint", "vale"],
     ),
     Lsp(
         name="ocaml",
         command="ocaml",
-        lsp=["ocamllsp"],
+        server=["ocamllsp"],
     ),
     Lsp(
         name="perl",
         command="perl",
-        lsp=["perlnavigator"],
+        server=["perlnavigator"],
     ),
     Lsp(
         name="php",
         command="php",
-        lsp=["intelephense", "phpactor", "psalm"],
+        server=["intelephense", "phpactor", "psalm"],
         nullls=["phpcbf", "psalm"],
     ),
     Lsp(
         name="powershell",
         command=["pwsh", "powershell"],
-        lsp=["powershell_es"],
+        server=["powershell_es"],
         checker=lambda cmd: has_command("pwsh") or has_command("powershell"),
     ),
     Lsp(
         name="protobuf",
         command="protoc",
-        lsp=["bufls"],
+        server=["bufls"],
         nullls=["buf", "protolint"],
     ),
     Lsp(
         name="python",
         command=["python", "python2", "python3"],
-        lsp=[
+        server=[
             "jedi_language_server",
             "pyre",
             "pyright",
@@ -351,23 +357,23 @@ LANGUAGES = [
     Lsp(
         name="R",
         command="R",
-        lsp="r_language_server",
+        server="r_language_server",
     ),
     Lsp(
         name="ruby",
         command="ruby",
-        lsp=["ruby_ls", "solargraph"],
+        server=["ruby_ls", "solargraph"],
         nullls=["rubocop", "standardrb", "erb_lint"],
     ),
     Lsp(
         name="rust",
         command=["rustc", "cargo"],
-        lsp="rust_analyzer",
+        server="rust_analyzer",
     ),
     Lsp(
         name="sql",
         command=["mysql", "psql", "sqlplus"],  # mysql/postgresql/oracle
-        lsp=["sqlls", "sqls"],
+        server=["sqlls", "sqls"],
         nullls=["sqlfluff", "sql_formatter"],
         checker=lambda cmd: has_command("mysql")
         or has_command("psql")
@@ -381,32 +387,32 @@ LANGUAGES = [
     Lsp(
         name="solidity",
         command=["solc", "solcjs"],
-        lsp=["solang", "solc", "solidity"],
+        server=["solang", "solc", "solidity"],
         nullls="solhint",
         checker=lambda cmd: has_command("solc") or has_command("solcjs"),
     ),
     Lsp(
         name="toml",
         command=["node", "npm"],
-        lsp="taplo",
+        server="taplo",
         nullls="taplo",
     ),
     Lsp(
         name="vim",
         command="vim",
-        lsp="vimls",
+        server="vimls",
         nullls="vint",
         checker=lambda cmd: True,  # vim is embeded
     ),
     Lsp(
         name="xml",
         command=["node", "npm"],
-        lsp="lemminx",
+        server="lemminx",
     ),
     Lsp(
         name="yaml",
         command=["node", "npm"],
-        lsp="yamlls",
+        server="yamlls",
         nullls=["actionlint", "yamlfmt", "yamllint", "cfn_lint"],
     ),
 ]
@@ -606,7 +612,7 @@ class LanguageList:
     def dump(filename):
         with open(filename, "w") as fp:
             for lang in LANGUAGES:
-                lsp = [lang.lsp] if isinstance(lang.lsp, str) else lang.lsp
+                lsp = [lang.server] if isinstance(lang.server, str) else lang.server
                 nullls = [lang.nullls] if isinstance(lang.nullls, str) else lang.nullls
                 fp.writelines(f"- {lang.name}:\n")
                 fp.writelines(
