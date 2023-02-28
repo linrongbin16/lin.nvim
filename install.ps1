@@ -140,7 +140,7 @@ NpmDependency
 # with lsp servers
 if ($OPT_WITH_OPT ) {
     Message "install language servers for nvim..."
-    python3 $NVIM_HOME\generator.py
+    python3 $NVIM_HOME\generator.py $args
 }
 cmd /c nvim -E -c "Lazy! sync" -c "qall!" /wait
 
