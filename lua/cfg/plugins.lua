@@ -253,7 +253,10 @@ return {
     {
         "nvim-tree/nvim-tree.lua",
         event = { "VimEnter" },
-        dependencies = { "nvim-tree/nvim-web-devicons" },
+        dependencies = {
+            "nvim-tree/nvim-web-devicons",
+            "stevearc/dressing.nvim",
+        },
         config = function()
             require("repo.nvim-tree.nvim-tree-lua.config")
         end,
