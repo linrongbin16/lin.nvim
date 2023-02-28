@@ -2,7 +2,7 @@
 source $HOME/.nvim/cfg/basic.vim
 
 " ---- Plugin ----
-lua require('repo/folke/lazy-nvim/config')
+lua require('repo.folke.lazy-nvim.config')
 
 " ---- Others ----
 lua require('cfg.lsp')
