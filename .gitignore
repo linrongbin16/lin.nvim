@@ -12,6 +12,7 @@
 /.copypaste
 /.temp
 /.mypy_cache
+/lua/cfg/lspservers.lua*
 
 # universal-ctags
 /universal-ctags

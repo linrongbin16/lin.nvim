@@ -73,7 +73,7 @@ class Lsp:
         message("")
         result = input(
             format_message(
-                f"detected '{self.name}' (by {'/'.join(self.command)}), install lsp({candidates})? "
+                f"detect '{self.name}' (by {'/'.join(self.command)}), install lsp({candidates})? "
             )
         )
 
@@ -538,8 +538,10 @@ end
 """
     # Template }
 
-    def __init__(self, with_lsp_opt, target=f"{NVIM_DIR}/lua/lspservers.lua") -> None:
-        self.with_lsp_opt
+    def __init__(
+        self, with_lsp_opt, target=f"{NVIM_DIR}/lua/cfg/lspservers.lua"
+    ) -> None:
+        self.with_lsp_opt = with_lsp_opt
         self.target = target
 
     def generate(self):
@@ -559,12 +561,11 @@ end
         if self.with_lsp_opt:
             message("")
             message("checking available lsp servers...")
-            message("note:")
-            message("   1. `ENTER` to accept all")
-            message("   2. Numbers separated by comma(e.g 1,2,3...) to select")
-            message("   3. `n`/`N` to accept none")
-            message("   4. `CTRL-C` to stop extending available lsp servers")
-            message("")
+            message("operation:")
+            message("   1. Use `ENTER` to accept all")
+            message("   2. Use numbers(e.g. 1,2,3...) to select")
+            message("   3. Use `N` to accept none")
+            message("   4. Use `CTRL-C` to stop extending available lsp servers")
             try:
                 for lang in LANGUAGES:
                     if not lang.checker(lang.command):
@@ -576,7 +577,6 @@ end
                     embeded_nullls.extend(nullls)
             except KeyboardInterrupt:
                 message("stop extending available lsp servers...")
-            message("")
 
         embeded_servers = "\n".join(
             [f"{INDENT}'{e}'," for e in dedup_list(embeded_servers)]
@@ -630,6 +630,7 @@ def make_arguments():
         metavar="FILE",
         help="file to dump lsp server list",
     )
+    return parser.parse_args()
 
 
 if __name__ == "__main__":
