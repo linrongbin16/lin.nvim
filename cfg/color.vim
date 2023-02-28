@@ -40,7 +40,7 @@ endfunction
 
 function s:lin_next_color(update, ...)
     " echom 'a:0:' . string(a:0) . ', a:000:' . string(a:000)
-    if a:0 > 0
+    if a:0 > 0 && strlen(a:1) > 0
         " echom 'a:1:' . string(a:1)
         execute 'colorscheme ' . a:1
     else
