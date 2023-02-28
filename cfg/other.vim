@@ -1,8 +1,17 @@
 
-" ---- GUI Font ----
-set guifont=Hack\ Nerd\ Font\ Mono:h13
+""" ---- GUI font ----
+if has('win32') || has('win64')
+    " for Windows
+    set guifont=Hack\ NFM:h10
+elseif has('mac')
+    " for macOS
+    set guifont=Hack\ Nerd\ Font\ Mono:h13
+else
+    " for other Linux
+    set guifont=Hack\ Nerd\ Font\ Mono:h10
+endif
 
-" ---- Random colorscheme on startup ----
+""" ---- Random colorscheme ----
 NextColor
 
 """ ---- CTRL+?/CMD+? ----
