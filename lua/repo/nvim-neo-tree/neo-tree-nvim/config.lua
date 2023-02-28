@@ -1,7 +1,7 @@
-local constants = require("conf/constants")
+local const = require("cfg.const")
 
 require("neo-tree").setup({
-    popup_border_style = constants.ui.border,
+    popup_border_style = const.ui.border,
     default_component_configs = {
         icon = {
             folder_closed = "", -- nf-custom-folder \ue5ff
@@ -126,7 +126,7 @@ vim.api.nvim_create_autocmd("FileType", {
     group = "neo_tree_augroup",
     pattern = "neo-tree",
     callback = function()
-        local map = require("conf/keymap").map
+        local map = require("cfg.keymap").map
         local opts = { buffer = true }
         map("n", "<leader>.", "<cmd>vertical resize +10<cr>", opts)
         map("n", "<leader>,", "<cmd>vertical resize -10<cr>", opts)

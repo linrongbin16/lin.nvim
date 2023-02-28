@@ -93,7 +93,7 @@ local function Search()
         .. ")"
 end
 
-local constants = require("conf/constants")
+local const = require("cfg.const")
 
 local config = {
     options = {
@@ -126,10 +126,10 @@ local config = {
             {
                 "diagnostics",
                 symbols = {
-                    error = constants.lsp.diagnostics.signs["error"] .. " ",
-                    warn = constants.lsp.diagnostics.signs["warning"] .. " ",
-                    info = constants.lsp.diagnostics.signs["info"] .. " ",
-                    hint = constants.lsp.diagnostics.signs["hint"] .. " ",
+                    error = const.lsp.diagnostics.signs["error"] .. " ",
+                    warn = const.lsp.diagnostics.signs["warning"] .. " ",
+                    info = const.lsp.diagnostics.signs["info"] .. " ",
+                    hint = const.lsp.diagnostics.signs["hint"] .. " ",
                 },
             },
             require("lsp-progress").progress,

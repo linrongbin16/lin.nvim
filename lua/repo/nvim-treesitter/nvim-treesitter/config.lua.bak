@@ -1,11 +1,12 @@
+local const = require("cfg.const")
+
 require("nvim-treesitter.configs").setup({
     auto_install = false,
     highlight = {
         enable = true,
         -- disable for super large file
         disable = function(lang, buf)
-            local max_filesize =
-                require("conf/constants").perf.filesystem.maxsize
+            local max_filesize = const.perf.filesystem.maxsize
             local ok, stats =
                 pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
             if ok and stats and stats.size > max_filesize then

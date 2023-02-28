@@ -13,7 +13,7 @@ local key_mappings = {
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
-local constants = require("conf/constants")
+local const = require("cfg.const")
 
 require("nvim-tree").setup({
     -- open_on_setup = true, -- deprecated
@@ -45,10 +45,10 @@ require("nvim-tree").setup({
     diagnostics = {
         enable = true,
         icons = {
-            hint = constants.lsp.diagnostics.signs["hint"],
-            info = constants.lsp.diagnostics.signs["info"],
-            warning = constants.lsp.diagnostics.signs["warning"],
-            error = constants.lsp.diagnostics.signs["error"],
+            hint = const.lsp.diagnostics.signs["hint"],
+            info = const.lsp.diagnostics.signs["info"],
+            warning = const.lsp.diagnostics.signs["warning"],
+            error = const.lsp.diagnostics.signs["error"],
         },
     },
     git = {
@@ -88,7 +88,7 @@ vim.api.nvim_create_autocmd("FileType", {
     group = "nvim_tree_augroup",
     pattern = "NvimTree",
     callback = function(data)
-        local map = require("conf/keymap").map
+        local map = require("cfg.keymap").map
         map(
             "n",
             "<leader>.",

@@ -1,7 +1,7 @@
--- ---- Lsp settings ----
+-- ---- Lsp ----
 
-local constants = require("conf/constants")
-local map = require("conf/keymap").map
+local const = require("cfg.const")
+local map = require("cfg.keymap").map
 
 -- diagnostic signs
 local diagnosticSign = function(opts)
@@ -14,26 +14,26 @@ end
 
 diagnosticSign({
     name = "DiagnosticSignError",
-    text = constants.lsp.diagnostics.signs["error"],
+    text = const.lsp.diagnostics.signs["error"],
 })
 diagnosticSign({
     name = "DiagnosticSignWarn",
-    text = constants.lsp.diagnostics.signs["warning"],
+    text = const.lsp.diagnostics.signs["warning"],
 })
 diagnosticSign({
     name = "DiagnosticSignInfo",
-    text = constants.lsp.diagnostics.signs["info"],
+    text = const.lsp.diagnostics.signs["info"],
 })
 diagnosticSign({
     name = "DiagnosticSignHint",
-    text = constants.lsp.diagnostics.signs["hint"],
+    text = const.lsp.diagnostics.signs["hint"],
 })
 
 vim.diagnostic.config({
     virtual_text = false,
     severity_sort = true,
     float = {
-        border = constants.ui.border,
+        border = const.ui.border,
         source = "always",
         header = "",
         prefix = "",
@@ -42,11 +42,9 @@ vim.diagnostic.config({
 
 -- hover/signatureHelp
 vim.lsp.handlers["textDocument/hover"] =
-    vim.lsp.with(vim.lsp.handlers.hover, { border = constants.ui.border })
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
-    vim.lsp.handlers.signature_help,
-    { border = constants.ui.border }
-)
+    vim.lsp.with(vim.lsp.handlers.hover, { border = const.ui.border })
+vim.lsp.handlers["textDocument/signatureHelp"] =
+    vim.lsp.with(vim.lsp.handlers.signature_help, { border = const.ui.border })
 
 -- key mappings
 local function diagnosticGoto(next, severity)

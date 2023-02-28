@@ -1,8 +1,8 @@
-local constants = require("conf/constants")
+local const = require("cfg.const")
 
 require("illuminate").configure({
     -- delay: delay in milliseconds
     delay = 500,
     -- disable cursor word for big file
-    large_file_cutoff = constants.perf.filesystem.maxsize,
+    large_file_cutoff = const.perf.filesystem.maxsize,
 })
