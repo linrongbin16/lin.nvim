@@ -76,7 +76,14 @@ def duplicate_color(repos, r):
     def same(r1, r2):
         r1 = r1.url.split("/")[-1]
         r2 = r2.url.split("/")[-1]
-        if r1 == r2:
+        if r1 == r2 and (
+            r1 != "vim"
+            and r1 != "nvim"
+            and r1 != "neovim"
+            and r2 != "vim"
+            and r2 != "nvim"
+            and r2 != "neovim"
+        ):
             return True
         pos1 = position(r1)
         pos2 = position(r2)
@@ -88,8 +95,8 @@ def duplicate_color(repos, r):
 
     for repo in repos:
         if same(repo, r):
-            return True
-    return False
+            return True, repo
+    return False, None
 
 
 def blacklist(repo):
@@ -137,19 +144,22 @@ def make_driver():
 
 
 @dataclass
-class Repo:
+class PluginData:
     url: str
     stars: int
     last_update: typing.Optional[datetime.datetime]
 
     def __str__(self):
-        return f"<Repo url:{self.url}, stars:{self.stars}, last_update:{self.last_update.isoformat() if isinstance(self.last_update, datetime.datetime) else None}>"
+        return f"<PluginData url:{self.url}, stars:{self.stars}, last_update:{self.last_update.isoformat() if isinstance(self.last_update, datetime.datetime) else None}>"
 
     def __hash__(self):
         return hash(self.url.lower())
 
     def __eq__(self, other):
-        return isinstance(other, Repo) and self.url.lower() == other.url.lower()
+        return isinstance(other, PluginData) and self.url.lower() == other.url.lower()
+
+    def github_url(self):
+        return f"https://github.com/{self.url}"
 
 
 class Vcs:
@@ -184,7 +194,7 @@ class Vcs:
             .get_attribute("datetime")
         )
 
-        return Repo(url=repo, stars=stars, last_update=last_update)
+        return PluginData(url=repo, stars=stars, last_update=last_update)
 
     def parse(self):
         repositories = []
@@ -220,7 +230,7 @@ class Acs:
         a_splits = a.split("(")
         repo = a_splits[0].strip()
         stars = parse_numbers(a_splits[1])
-        return Repo(url=repo, stars=stars, last_update=None)
+        return PluginData(url=repo, stars=stars, last_update=None)
 
     def parse_color(self, driver, tag_id):
         repositories = []
@@ -254,9 +264,9 @@ class Acs:
         return repositories
 
 
-def format_lazy(repo, duplicated):
+def format_lazy(repo, duplicated, duplicated_repo):
     return f"""{INDENT}{{
-{INDENT*2}-- https://github.com/{repo.url}{' (duplicated)' if duplicated else ''}
+{INDENT*2}-- stars:{int(repo.stars)}, {repo.github_url()}{' (duplicated with ' + duplicated_repo.github_url() + ')' if duplicated else ''}
 {INDENT*2}'{repo.url}',
 {INDENT*2}lazy = true,
 {INDENT*2}priority = 1000,
@@ -270,23 +280,23 @@ if __name__ == "__main__":
     cs = []
     with open("get-colors-list.lua", "w") as fp:
         fp.writelines("return {\n")
-        fp.writelines(f"{INDENT}-- https://vimcolorschemes.com/\n")
+        fp.writelines(
+            f"{INDENT}-- https://www.trackawesomelist.com/rockerBOO/awesome-neovim/readme/#colorscheme\n"
+        )
+        for repo in sorted(acs, key=lambda r: r.stars, reverse=True):
+            if blacklist(repo):
+                logging.info("acs repo:{repo} in blacklist, skip")
+            dup, dup_repo = duplicate_color(cs, repo)
+            fp.writelines(format_lazy(repo, dup, dup_repo))
+            cs.append(repo)
+        fp.writelines(f"\n{INDENT}-- https://vimcolorschemes.com/\n")
         for repo in sorted(vcs, key=lambda r: r.stars, reverse=True):
             if repo_exist(acs, repo):
                 logging.info("vcs repo:{repo} already exist in acs, skip")
             elif blacklist(repo):
                 logging.info("vcs repo:{repo} in blacklist, skip")
             else:
-                dup = duplicate_color(cs, repo)
-                fp.writelines(format_lazy(repo, dup))
+                dup, dup_repo = duplicate_color(cs, repo)
+                fp.writelines(format_lazy(repo, dup, dup_repo))
                 cs.append(repo)
-        fp.writelines(
-            f"\n{INDENT}-- https://www.trackawesomelist.com/rockerBOO/awesome-neovim/readme/#colorscheme\n"
-        )
-        for repo in sorted(acs, key=lambda r: r.stars, reverse=True):
-            if blacklist(repo):
-                logging.info("acs repo:{repo} in blacklist, skip")
-            dup = duplicate_color(cs, repo)
-            fp.writelines(format_lazy(repo, dup))
-            cs.append(repo)
         fp.writelines("}\n")
