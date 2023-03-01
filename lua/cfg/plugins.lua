@@ -26,6 +26,12 @@ return {
         lazy = true,
     },
     {
+        "folke/tokyonight.nvim",
+        lazy = true,
+        priority = 1000,
+        branch = "main",
+    },
+    {
         "nlknguyen/papercolor-theme",
         lazy = true,
         priority = 1000,
@@ -51,14 +57,6 @@ return {
         priority = 1000,
     },
     {
-        "sonph/onehalf",
-        lazy = true,
-        priority = 1000,
-        config = function(plugin)
-            vim.opt.rtp:append(plugin.dir .. "/vim/")
-        end,
-    },
-    {
         "junegunn/seoul256.vim",
         lazy = true,
         priority = 1000,
@@ -79,6 +77,7 @@ return {
         lazy = true,
         priority = 1000,
     },
+    { "jacoborus/tender.vim", lazy = true, priority = 1000 }, -- stars:1017
     {
         "lifepillar/vim-solarized8",
         lazy = true,
@@ -105,6 +104,13 @@ return {
         priority = 1000,
     },
     {
+        "pineapplegiant/spaceduck",
+        lazy = true,
+        priority = 1000,
+        branch = "main",
+    }, -- stars:704
+    { "ajmwagar/vim-deus",    lazy = true, priority = 1000 }, -- stars:673
+    {
         "preservim/vim-colors-pencil",
         lazy = true,
         priority = 1000,
@@ -115,6 +121,12 @@ return {
         priority = 1000,
         name = "challenger-deep-theme",
     },
+    { "rigellute/rigel",           lazy = true, priority = 1000 }, -- stars:488
+    { "lifepillar/vim-gruvbox8",   lazy = true, priority = 1000 }, -- stars:455
+    { "crusoexia/vim-monokai",     lazy = true, priority = 1000 }, -- stars:447
+    { "wadackel/vim-dogrun",       lazy = true, priority = 1000 }, -- stars:433
+    { "jaredgorski/spacecamp",     lazy = true, priority = 1000 }, -- stars:427
+    { "keitanakamura/neodark.vim", lazy = true, priority = 1000 }, -- stars:408
     {
         "ellisonleao/gruvbox.nvim",
         lazy = true,

@@ -10,8 +10,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.ui import WebDriverWait
 
-STARS = 500
-LASTCOMMIT = 365 * 24 * 3600  # 1 years(365 days) * 24 hours * 3600 seconds
+STARS = 400
+LASTCOMMIT = 2 * 365 * 24 * 3600  # 2 years * 365 days * 24 hours * 3600 seconds
 INDENT_SIZE = 4
 INDENT = " " * INDENT_SIZE
 
@@ -64,6 +64,8 @@ def duplicate_color(repos, r):
     def same(r1, r2):
         r1 = r1.url.split("/")[-1]
         r2 = r2.url.split("/")[-1]
+        if r1 == r2:
+            return True
         pos1 = position(r1)
         pos2 = position(r2)
         if pos1 <= 0 or pos2 <= 0:
@@ -75,6 +77,19 @@ def duplicate_color(repos, r):
     for repo in repos:
         if same(repo, r):
             return True
+    return False
+
+
+def blacklist(repo):
+    if repo.url.find("rafi/awesome-vim-colorschemes") >= 0:
+        return True
+    if repo.url.find("sonph/onehalf") >= 0:
+        return True
+    if repo.url.find("ghifarit53/tokyonight-vim") >= 0:
+        logging.warning(
+            " `ghifarit53/tokyonight-vim` is deprecated! please use: https://github.com/folke/tokyonight.nvim"
+        )
+        return True
     return False
 
 
@@ -230,7 +245,7 @@ class Acs:
         return repositories
 
 
-def fmtlazy(repo, duplicated):
+def format_lazy(repo, duplicated):
     return f"{INDENT}{{'{repo.url}', lazy=true, priority=1000, }}, -- stars:{repo.stars}{' (duplicated)' if dup else ''}\n"
 
 
@@ -244,15 +259,19 @@ if __name__ == "__main__":
         for repo in sorted(vcs, key=lambda r: r.stars, reverse=True):
             if repo_exist(acs, repo):
                 logging.info("vcs repo:{repo} already exist in acs, skip")
+            elif blacklist(repo):
+                logging.info("vcs repo:{repo} in blacklist, skip")
             else:
                 dup = duplicate_color(cs, repo)
-                fp.writelines(fmtlazy(repo, dup))
+                fp.writelines(format_lazy(repo, dup))
                 cs.append(repo)
         fp.writelines(
             f"\n{INDENT}-- https://www.trackawesomelist.com/rockerBOO/awesome-neovim/readme/#colorscheme\n"
         )
         for repo in sorted(acs, key=lambda r: r.stars, reverse=True):
+            if blacklist(repo):
+                logging.info("acs repo:{repo} in blacklist, skip")
             dup = duplicate_color(cs, repo)
-            fp.writelines(fmtlazy(repo, dup))
+            fp.writelines(format_lazy(repo, dup))
             cs.append(repo)
         fp.writelines("}\n")
