@@ -95,8 +95,8 @@ def duplicate_color(repos, r):
 
     for repo in repos:
         if same(repo, r):
-            return True, repo
-    return False, None
+            return repo
+    return None
 
 
 def blacklist(repo):
@@ -264,9 +264,9 @@ class Acs:
         return repositories
 
 
-def format_lazy(repo, duplicated, duplicated_repo):
+def format_lazy(repo, duplicated_repo):
     return f"""{INDENT}{{
-{INDENT*2}-- stars:{int(repo.stars)}, {repo.github_url()}{' (duplicated with ' + duplicated_repo.github_url() + ')' if duplicated else ''}
+{INDENT*2}-- stars:{int(repo.stars)}, {repo.github_url()}{' (duplicated with ' + duplicated_repo.github_url() + ')' if duplicated_repo else ''}
 {INDENT*2}'{repo.url}',
 {INDENT*2}lazy = true,
 {INDENT*2}priority = 1000,
@@ -286,8 +286,8 @@ if __name__ == "__main__":
         for repo in sorted(acs, key=lambda r: r.stars, reverse=True):
             if blacklist(repo):
                 logging.info("acs repo:{repo} in blacklist, skip")
-            dup, dup_repo = duplicate_color(cs, repo)
-            fp.writelines(format_lazy(repo, dup, dup_repo))
+            dup = duplicate_color(cs, repo)
+            fp.writelines(format_lazy(repo, dup))
             cs.append(repo)
         fp.writelines(f"\n{INDENT}-- https://vimcolorschemes.com/\n")
         for repo in sorted(vcs, key=lambda r: r.stars, reverse=True):
@@ -296,7 +296,7 @@ if __name__ == "__main__":
             elif blacklist(repo):
                 logging.info("vcs repo:{repo} in blacklist, skip")
             else:
-                dup, dup_repo = duplicate_color(cs, repo)
-                fp.writelines(format_lazy(repo, dup, dup_repo))
+                dup = duplicate_color(cs, repo)
+                fp.writelines(format_lazy(repo, dup))
                 cs.append(repo)
         fp.writelines("}\n")
