@@ -12,7 +12,7 @@ else
 endif
 
 """ ---- Random colorscheme ----
-NextColor
+SwitchColor
 
 """ ---- CTRL+?/CMD+? ----
 if exists('$VIMRUNTIME/mswin.vim')
