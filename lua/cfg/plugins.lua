@@ -26,121 +26,12 @@ return {
         lazy = true,
     },
     {
-        "bluz71/vim-nightfly-colors",
+        "nlknguyen/papercolor-theme",
         lazy = true,
         priority = 1000,
-    },
-    {
-        "bluz71/vim-moonfly-colors",
-        lazy = true,
-        priority = 1000,
-    },
-    {
-        "catppuccin/nvim",
-        lazy = true,
-        priority = 1000,
-        name = "catppuccin",
-    },
-    {
-        "challenger-deep-theme/vim",
-        lazy = true,
-        priority = 1000,
-        name = "challenger-deep",
     },
     {
         "cocopon/iceberg.vim",
-        lazy = true,
-        priority = 1000,
-    },
-    {
-        "EdenEast/nightfox.nvim",
-        lazy = true,
-        priority = 1000,
-    },
-    {
-        "embark-theme/vim",
-        lazy = true,
-        priority = 1000,
-        name = "embark",
-    },
-    {
-        "fenetikm/falcon",
-        lazy = true,
-        priority = 1000,
-    },
-    {
-        "folke/tokyonight.nvim",
-        lazy = true,
-        priority = 1000,
-        branch = "main",
-    },
-    -- inherit 'lifepillar/vim-solarized8'
-    {
-        "ishan9299/nvim-solarized-lua",
-        lazy = true,
-        priority = 1000,
-    },
-    {
-        "junegunn/seoul256.vim",
-        lazy = true,
-        priority = 1000,
-        init = function()
-            vim.cmd("source $HOME/.nvim/repo/junegunn/seoul256.vim/init.vim")
-        end,
-    },
-    -- inherit sainnhe/gruvbox-material
-    {
-        "luisiacc/gruvbox-baby",
-        lazy = true,
-        priority = 1000,
-        branch = "main",
-    },
-    -- inherit kaicataldo/material.vim
-    {
-        "marko-cerovac/material.nvim",
-        lazy = true,
-        priority = 1000,
-    },
-    {
-        "mhartington/oceanic-next",
-        lazy = true,
-        priority = 1000,
-    },
-    -- inherit dracula/vim
-    {
-        "Mofiqul/dracula.nvim",
-        lazy = true,
-        priority = 1000,
-    },
-    -- inherit joshdick/onedark.vim, tomasiser/vim-code-dark, olimorris/onedarkpro.nvim
-    {
-        "navarasu/onedark.nvim",
-        lazy = true,
-        priority = 1000,
-    },
-    {
-        "NLKNguyen/papercolor-theme",
-        lazy = true,
-        priority = 1000,
-    },
-    {
-        "pineapplegiant/spaceduck",
-        lazy = true,
-        priority = 1000,
-        branch = "main",
-    },
-    {
-        "preservim/vim-colors-pencil",
-        lazy = true,
-        priority = 1000,
-    },
-    {
-        "projekt0n/github-nvim-theme",
-        lazy = true,
-        priority = 1000,
-    },
-    {
-        "raphamorim/lucario",
         lazy = true,
         priority = 1000,
     },
@@ -150,12 +41,92 @@ return {
         priority = 1000,
     },
     {
-        "Rigellute/rigel",
+        "edeneast/nightfox.nvim",
         lazy = true,
         priority = 1000,
     },
     {
-        "romainl/Apprentice",
+        "sainnhe/everforest",
+        lazy = true,
+        priority = 1000,
+    },
+    {
+        "sonph/onehalf",
+        lazy = true,
+        priority = 1000,
+        config = function(plugin)
+            vim.opt.rtp:append(plugin.dir .. "/vim/")
+        end,
+    },
+    {
+        "junegunn/seoul256.vim",
+        lazy = true,
+        priority = 1000,
+    },
+    {
+        "sainnhe/gruvbox-material",
+        lazy = true,
+        priority = 1000,
+    },
+    {
+        "dracula/vim",
+        lazy = true,
+        priority = 1000,
+        name = "dracula",
+    },
+    {
+        "sainnhe/sonokai",
+        lazy = true,
+        priority = 1000,
+    },
+    {
+        "lifepillar/vim-solarized8",
+        lazy = true,
+        priority = 1000,
+    },
+    {
+        "jnurmine/zenburn",
+        lazy = true,
+        priority = 1000,
+    },
+    {
+        "romainl/apprentice",
+        lazy = true,
+        priority = 1000,
+    },
+    {
+        "raphamorim/lucario",
+        lazy = true,
+        priority = 1000,
+    },
+    {
+        "srcery-colors/srcery-vim",
+        lazy = true,
+        priority = 1000,
+    },
+    {
+        "preservim/vim-colors-pencil",
+        lazy = true,
+        priority = 1000,
+    },
+    {
+        "challenger-deep-theme/vim",
+        lazy = true,
+        priority = 1000,
+        name = "challenger-deep-theme",
+    },
+    {
+        "ellisonleao/gruvbox.nvim",
+        lazy = true,
+        priority = 1000,
+    },
+    {
+        "navarasu/onedark.nvim",
+        lazy = true,
+        priority = 1000,
+    },
+    {
+        "tomasiser/vim-code-dark",
         lazy = true,
         priority = 1000,
     },
@@ -166,20 +137,30 @@ return {
         name = "rose-pine",
     },
     {
+        "marko-cerovac/material.nvim",
+        lazy = true,
+        priority = 1000,
+    },
+    {
         "sainnhe/edge",
         lazy = true,
         priority = 1000,
     },
     {
-        "sainnhe/everforest",
+        "fenetikm/falcon",
         lazy = true,
         priority = 1000,
     },
-    -- inherit sickill/vim-monokai
     {
-        "sainnhe/sonokai",
+        "nyoom-engineering/oxocarbon.nvim",
         lazy = true,
         priority = 1000,
+    },
+    {
+        "bluz71/vim-nightfly-colors",
+        lazy = true,
+        priority = 1000,
+        name = "nightfly",
     },
     {
         "shaunsingh/nord.nvim",
@@ -187,9 +168,16 @@ return {
         priority = 1000,
     },
     {
-        "srcery-colors/srcery-vim",
+        "bluz71/vim-moonfly-colors",
         lazy = true,
         priority = 1000,
+        name = "moonfly",
+    },
+    {
+        "embark-theme/vim",
+        lazy = true,
+        priority = 1000,
+        name = "embark",
     },
 
     -- ---- HIGHLIGHT ----

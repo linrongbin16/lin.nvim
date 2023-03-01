@@ -7,6 +7,7 @@
 /lazy
 
 # generated
+/get-colors-list.lua
 /dump-plugins.md
 /dump-lsp.md
 /.copypaste
