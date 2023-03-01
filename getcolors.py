@@ -21,13 +21,25 @@ logging.basicConfig(
 )
 
 
-def retrieve_integer(s):
+def parse_numbers(s):
+    def impl(v):
+        assert isinstance(v, str)
+        v = v.lower()
+        suffix_map = {"k": 1000, "m": 1000000, "b": 1000000000}
+        if v[-1] in suffix_map.keys():
+            suffix = v[-1]
+            v = float(v[:-1]) * suffix_map[suffix]
+        else:
+            v = float(v)
+        return v
+
     i = 0
     result = None
     while i < len(s):
         c = s[i]
+        assert isinstance(c, str)
         i += 1
-        if c.isdigit():
+        if c.isdigit() or c == "." or c.lower() in ["k", "m", "b"]:
             if result is None:
                 result = c
             else:
@@ -36,7 +48,7 @@ def retrieve_integer(s):
             if result is None:
                 continue
             else:
-                return int(result)
+                return impl(result)
     assert False
 
 
@@ -85,10 +97,7 @@ def blacklist(repo):
         return True
     if repo.url.find("sonph/onehalf") >= 0:
         return True
-    if repo.url.find("ghifarit53/tokyonight-vim") >= 0:
-        logging.warning(
-            " `ghifarit53/tokyonight-vim` is deprecated! please use: https://github.com/folke/tokyonight.nvim"
-        )
+    if repo.url.find("mini.nvim#minischeme") >= 0:
         return True
     return False
 
@@ -137,10 +146,10 @@ class Repo:
         return f"<Repo url:{self.url}, stars:{self.stars}, last_update:{self.last_update.isoformat() if isinstance(self.last_update, datetime.datetime) else None}>"
 
     def __hash__(self):
-        return hash(self.url)
+        return hash(self.url.lower())
 
     def __eq__(self, other):
-        return isinstance(other, Repo) and self.url == other.url
+        return isinstance(other, Repo) and self.url.lower() == other.url.lower()
 
 
 class Vcs:
@@ -210,7 +219,7 @@ class Acs:
         a = element.find_element(By.XPATH, "./a").text
         a_splits = a.split("(")
         repo = a_splits[0].strip()
-        stars = retrieve_integer(a_splits[1])
+        stars = parse_numbers(a_splits[1])
         return Repo(url=repo, stars=stars, last_update=None)
 
     def parse_color(self, driver, tag_id):
@@ -246,9 +255,9 @@ class Acs:
 
 
 def format_lazy(repo, duplicated):
-    dup_line = (INDENT * 2 + "-- duplicated\n") if duplicated else ""
     return f"""{INDENT}{{
-{dup_line}{INDENT*2}'{repo.url}',
+{INDENT*2}-- https://github.com/{repo.url}{' (duplicated)' if duplicated else ''}
+{INDENT*2}'{repo.url}',
 {INDENT*2}lazy = true,
 {INDENT*2}priority = 1000,
 {INDENT}}},
@@ -258,7 +267,6 @@ def format_lazy(repo, duplicated):
 if __name__ == "__main__":
     vcs = Vcs().parse()
     acs = Acs().parse()
-    acs.append(Repo(url="folke/tokyonight.nvim", stars=1000, last_update=None))
     cs = []
     with open("get-colors-list.lua", "w") as fp:
         fp.writelines("return {\n")
