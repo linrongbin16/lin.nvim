@@ -566,9 +566,6 @@ end
             fp.write(content)
 
     def render(self):
-        statements = []
-        statements.append(LspServers.TEMP1)
-
         embeded_servers = []
         embeded_nullls = []
 
@@ -599,6 +596,8 @@ end
             [f"{INDENT}'{e}'," for e in dedup_list(embeded_nullls)]
         )
 
+        statements = []
+        statements.append(LspServers.TEMP1)
         statements.extend(embeded_servers)
         statements.append(LspServers.TEMP2)
         statements.extend(embeded_nullls)

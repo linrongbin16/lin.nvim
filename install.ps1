@@ -91,17 +91,10 @@ function NpmDependency()
     npm install -g neovim
 }
 
-# basic
-
-function InstallBasic()
+function LspDependency()
 {
-    $basicVim = "$NVIM_HOME\conf\basic.vim"
-    $initVim = "$APPDATA_LOCAL_NVIM_HOME\init.vim"
-    Message "install $APPDATA_LOCAL_NVIM_HOME\init.vim for neovim on windows"
-    TryBackup $initVim
-    TryBackup $APPDATA_LOCAL_NVIM_HOME
-    cmd /c mklink $APPDATA_LOCAL_NVIM_HOME $NVIM_HOME
-    cmd /c mklink $initVim $basicVim
+    Message "install language servers"
+    python3 $NVIM_HOME\genlspservers.py $args
 }
 
 function ShowHelp()
@@ -136,12 +129,8 @@ Message "install dependencies for windows"
 CargoDependency
 Pip3Dependency
 NpmDependency
+LspDependency
 
-# with lsp servers
-if ($OPT_WITH_OPT ) {
-    Message "install language servers for nvim..."
-    python3 $NVIM_HOME\generator.py $args
-}
 cmd /c nvim -E -c "Lazy! sync" -c "qall!" /wait
 
 Message "install for windows - done"

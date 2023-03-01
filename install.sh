@@ -66,6 +66,11 @@ guifont_dependency() {
     fi
 }
 
+lsp_dependency() {
+    message "install language servers"
+    python3 $NVIM_HOME/genlspservers.py "$@"
+}
+
 # parse options
 show_help() {
     cat $DEPS_HOME/help.txt
@@ -131,12 +136,8 @@ esac
 pip3_dependency
 npm_dependency
 guifont_dependency
+lsp_dependency
 
-# with lsp servers
-if [ $OPT_WITH_LSP -gt 0 ]; then
-    message "install language servers for nvim..."
-    python3 $NVIM_HOME/generator.py "$@"
-fi
 nvim -E -c "Lazy! sync" -c "qall!"
 
 message "install for $OS - done"
