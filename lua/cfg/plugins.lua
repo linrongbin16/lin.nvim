@@ -358,6 +358,14 @@ return {
         "nvim-tree/nvim-web-devicons",
         lazy = true,
     },
+    -- UI hooks
+    {
+        "stevearc/dressing.nvim",
+        event = { "VimEnter" },
+        config = function()
+            require("repo.stevearc.dressing-nvim.config")
+        end,
+    },
     -- Tabline
     {
         "akinsho/bufferline.nvim",
@@ -399,6 +407,7 @@ return {
             require("repo.linrongbin16.lsp-progress-nvim.config")
         end,
     },
+    -- Winbar
     {
         "utilyre/barbecue.nvim",
         name = "barbecue",
@@ -425,14 +434,6 @@ return {
             vim.cmd("source $HOME/.nvim/repo/airblade/vim-gitgutter/init.vim")
         end,
         keys = require("repo.airblade.vim-gitgutter.keys"),
-    },
-    -- UI hooks
-    {
-        "stevearc/dressing.nvim",
-        event = { "VimEnter" },
-        config = function()
-            require("repo.stevearc.dressing-nvim.config")
-        end,
     },
 
     -- ---- SEARCH ----
@@ -476,7 +477,7 @@ return {
 
     -- ---- LSP ----
 
-    -- LSP
+    -- Lsp server management
     {
         "williamboman/mason.nvim",
         event = { "VeryLazy", "BufReadPost" },
@@ -566,7 +567,7 @@ return {
         lazy = true,
     },
 
-    -- ---- SPECIFIC SUPPORT ----
+    -- ---- SPECIFIC LANGUAGE SUPPORT ----
 
     -- Markdown
     {
