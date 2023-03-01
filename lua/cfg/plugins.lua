@@ -204,13 +204,6 @@ return {
             vim.cmd("source $HOME/.nvim/repo/RRethy/vim-illuminate/config.vim")
         end,
     },
-    -- {
-    --     "NvChad/nvim-colorizer.lua",
-    --     event = { "BufReadPost", "CmdlineEnter" },
-    --     config = function()
-    --         require("repo.NvChad.nvim-colorizer-lua.config")
-    --     end,
-    -- },
     {
         "uga-rosa/ccc.nvim",
         event = { "BufReadPost", "CmdlineEnter" },
