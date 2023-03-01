@@ -246,15 +246,22 @@ class Acs:
 
 
 def format_lazy(repo, duplicated):
-    return f"{INDENT}{{'{repo.url}', lazy=true, priority=1000, }}, -- stars:{repo.stars}{' (duplicated)' if dup else ''}\n"
+    dup_line = (INDENT * 2 + "-- duplicated\n") if duplicated else ""
+    return f"""{INDENT}{{
+{dup_line}{INDENT*2}'{repo.url}',
+{INDENT*2}lazy = true,
+{INDENT*2}priority = 1000,
+{INDENT}}},
+"""
 
 
 if __name__ == "__main__":
     vcs = Vcs().parse()
     acs = Acs().parse()
+    acs.append(Repo(url="folke/tokyonight.nvim", stars=1000, last_update=None))
     cs = []
     with open("get-colors-list.lua", "w") as fp:
-        fp.writelines("{\n")
+        fp.writelines("return {\n")
         fp.writelines(f"{INDENT}-- https://vimcolorschemes.com/\n")
         for repo in sorted(vcs, key=lambda r: r.stars, reverse=True):
             if repo_exist(acs, repo):
