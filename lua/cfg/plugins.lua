@@ -693,7 +693,9 @@ return {
     {
         "kkoomen/vim-doge",
         cmd = { "DogeGenerate" },
-        build = "npm i --no-save && npm run build:binary:unix",
+        build = require("cfg.const").os.is_macos
+                and "npm i --no-save && npm run build:binary:unix"
+            or ":call doge#install()",
         init = function()
             vim.cmd("source $HOME/.nvim/repo/kkoomen/vim-doge/init.vim")
         end,

@@ -2,8 +2,8 @@
 
 import datetime
 import logging
+import sys
 import typing
-from dataclasses import dataclass
 
 from selenium.webdriver import Chrome, ChromeOptions, DesiredCapabilities
 from selenium.webdriver.common.by import By
@@ -14,11 +14,7 @@ STARS = 400
 LASTCOMMIT = 2 * 365 * 24 * 3600  # 2 years * 365 days * 24 hours * 3600 seconds
 INDENT_SIZE = 4
 INDENT = " " * INDENT_SIZE
-
-logging.basicConfig(
-    format="%(asctime)s %(levelname)s [%(filename)s:%(lineno)d](%(funcName)s) %(message)s",
-    level=logging.INFO,
-)
+HEADLESS = False
 
 
 def parse_numbers(s):
@@ -125,7 +121,8 @@ def find_elements(driver, xpath):
 
 def make_driver():
     options = ChromeOptions()
-    options.add_argument("--headless")
+    if HEADLESS:
+        options.add_argument("--headless")
     options.add_argument("--no-sandbox")
     options.add_argument("--single-process")
     options.add_argument("--disable-dev-shm-usage")
@@ -143,11 +140,21 @@ def make_driver():
     return Chrome(options=options, desired_capabilities=desired_capabilities)
 
 
-@dataclass
 class PluginData:
-    url: str
-    stars: int
-    last_update: typing.Optional[datetime.datetime]
+    def __init__(self, url, stars, last_update):
+        assert isinstance(url, str)
+        assert isinstance(stars, int) or isinstance(stars, float)
+        assert isinstance(last_update, datetime.datetime) or last_update is None
+        url = url.strip()
+        while url.startswith("/"):
+            url = url[1:]
+        while url.endswith("/"):
+            url = url[:-1]
+        self.url = url
+        self.stars = int(stars)
+        self.last_update = last_update
+        self.branch = self._get_branch()
+        self.colorscheme_names = self._get_colorscheme_names(self.branch)
 
     def __str__(self):
         return f"<PluginData url:{self.url}, stars:{self.stars}, last_update:{self.last_update.isoformat() if isinstance(self.last_update, datetime.datetime) else None}>"
@@ -160,6 +167,33 @@ class PluginData:
 
     def github_url(self):
         return f"https://github.com/{self.url}"
+
+    def _get_branch(self):
+        with make_driver() as driver:
+            driver.get(self.github_url() + "/branches")
+            branches = find_elements(driver, "//branch-filter-item")
+            for b in branches:
+                if b.get_attribute("branch") == "main":
+                    return "main"
+        return "master"
+
+    def _get_colorscheme_names(self, branch):
+        names = []
+        with make_driver() as driver:
+            driver.get(self.github_url() + f"/tree/{branch}/colors")
+            files = find_elements(driver, "//tr[@class='react-directory-row']")
+            for f in files:
+                filename_td = f.find_elements(By.XPATH, "./td")[0]
+                filetype = filename_td.find_element(By.XPATH, "./div/div/div").text
+                if filetype.lower().find("file") < 0:
+                    continue
+                filename = filename_td.find_element(By.XPATH, "./div/div/h3").text
+                if filename.endswith(".vim") or filename.endswith(".lua"):
+                    names.append(filename[:4])
+        return names
+
+    def lazy_branch(self):
+        return f"branch = '{self.branch}'" if self.branch != "master" else None
 
 
 class Vcs:
@@ -177,7 +211,7 @@ class Vcs:
             element.find_element(By.XPATH, "./a[@class='card__link']")
             .get_attribute("href")
             .split("/")[-2:]
-        ).strip()
+        )
         stars = int(
             element.find_element(
                 By.XPATH,
@@ -194,7 +228,7 @@ class Vcs:
             .get_attribute("datetime")
         )
 
-        return PluginData(url=repo, stars=stars, last_update=last_update)
+        return PluginData(repo, stars, last_update)
 
     def parse(self):
         repositories = []
@@ -206,20 +240,20 @@ class Vcs:
                     repo = self.parse_repo(element)
                     logging.debug(f"vsc repo:{repo}")
                     if repo.stars < STARS:
-                        logging.info(f"vsc skip for stars - repo:{repo}")
+                        logging.debug(f"vsc skip for stars - repo:{repo}")
                         continue
                     assert isinstance(repo.last_update, datetime.datetime)
                     if (
                         repo.last_update.timestamp() + LASTCOMMIT
                         < datetime.datetime.now().timestamp()
                     ):
-                        logging.info(f"vsc skip for last_update - repo:{repo}")
+                        logging.debug(f"vsc skip for last_update - repo:{repo}")
                         continue
-                    logging.info(f"vsc get - repo:{repo}")
+                    logging.debug(f"vsc get - repo:{repo}")
                     repositories.append(repo)
                     any_valid_stars = True
                 if not any_valid_stars:
-                    logging.info(f"vsc no valid stars, exit")
+                    logging.debug(f"vsc no valid stars, exit")
                     break
             return repositories
 
@@ -228,9 +262,9 @@ class Acs:
     def parse_repo(self, element):
         a = element.find_element(By.XPATH, "./a").text
         a_splits = a.split("(")
-        repo = a_splits[0].strip()
+        repo = a_splits[0]
         stars = parse_numbers(a_splits[1])
-        return PluginData(url=repo, stars=stars, last_update=None)
+        return PluginData(repo, stars, None)
 
     def parse_color(self, driver, tag_id):
         repositories = []
@@ -257,24 +291,34 @@ class Acs:
             treesitter_colors.extend(lua_colors)
             for repo in treesitter_colors:
                 if repo.stars < STARS:
-                    logging.info(f"asc skip for stars - repo:{repo}")
+                    logging.debug(f"asc skip for stars - repo:{repo}")
                     continue
-                logging.info(f"acs get - repo:{repo}")
+                logging.debug(f"acs get - repo:{repo}")
                 repositories.append(repo)
         return repositories
 
 
 def format_lazy(repo, duplicated_repo):
+    optional_branch = (
+        (INDENT * 2 + repo.lazy_branch() + "\n") if repo.lazy_branch() else ""
+    )
     return f"""{INDENT}{{
-{INDENT*2}-- stars:{int(repo.stars)}, {repo.github_url()}{' (duplicated with ' + duplicated_repo.github_url() + ')' if duplicated_repo else ''}
+{INDENT*2}-- stars:{int(repo.stars)}
+{INDENT*2}-- repo:{repo.github_url()}, {' (duplicated with repo:' + duplicated_repo.github_url() + ')' if duplicated_repo else ''}
+{INDENT*2}-- colorscheme names:{' '.join(repo.colorscheme_names)}
 {INDENT*2}'{repo.url}',
 {INDENT*2}lazy = true,
 {INDENT*2}priority = 1000,
-{INDENT}}},
+{optional_branch}{INDENT}}},
 """
 
 
 if __name__ == "__main__":
+    logging.basicConfig(
+        format="%(asctime)s %(levelname)s [%(filename)s:%(lineno)d](%(funcName)s) %(message)s",
+        level=logging.DEBUG if "--debug" in sys.argv else logging.INFO,
+    )
+
     vcs = Vcs().parse()
     acs = Acs().parse()
     cs = []
@@ -285,16 +329,16 @@ if __name__ == "__main__":
         )
         for repo in sorted(acs, key=lambda r: r.stars, reverse=True):
             if blacklist(repo):
-                logging.info("acs repo:{repo} in blacklist, skip")
+                logging.debug("acs repo:{repo} in blacklist, skip")
             dup = duplicate_color(cs, repo)
             fp.writelines(format_lazy(repo, dup))
             cs.append(repo)
         fp.writelines(f"\n{INDENT}-- https://vimcolorschemes.com/\n")
         for repo in sorted(vcs, key=lambda r: r.stars, reverse=True):
             if repo_exist(acs, repo):
-                logging.info("vcs repo:{repo} already exist in acs, skip")
+                logging.debug("vcs repo:{repo} already exist in acs, skip")
             elif blacklist(repo):
-                logging.info("vcs repo:{repo} in blacklist, skip")
+                logging.debug("vcs repo:{repo} in blacklist, skip")
             else:
                 dup = duplicate_color(cs, repo)
                 fp.writelines(format_lazy(repo, dup))

@@ -38,7 +38,7 @@ set ttyfast
 " Large file
 augroup optimization_augroup
     autocmd!
-    autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f) > luaeval("require('cfg.const').perf.filesystem.maxsize") | syntax clear | setlocal eventignore+=FileType | setlocal undolevels=-1 | endif
+    autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f) > luaeval("require('cfg.const').perf.file.maxsize") | syntax clear | setlocal eventignore+=FileType | setlocal undolevels=-1 | endif
 augroup END
 " Neovide
 if exists('g:neovide')
