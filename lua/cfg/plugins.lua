@@ -135,7 +135,6 @@ return {
         "sainnhe/edge",
         lazy = true,
         priority = 1000,
-        branch = "master",
     },
     {
         -- stars:624, repo:https://github.com/fenetikm/falcon
@@ -203,7 +202,6 @@ return {
         "sickill/vim-monokai",
         lazy = true,
         priority = 1000,
-        branch = "master",
     },
     {
         -- stars:1018, repo:https://github.com/jacoborus/tender.vim
