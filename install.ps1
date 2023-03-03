@@ -91,12 +91,6 @@ function NpmDependency()
     npm install -g neovim
 }
 
-function LspDependency()
-{
-    Message "install language servers"
-    python3 $NVIM_HOME\genlspservers.py $args
-}
-
 function ShowHelp()
 {
     Get-Content -Path "$DEPS_HOME\help.txt" | Write-Host
@@ -129,7 +123,9 @@ Message "install dependencies for windows"
 CargoDependency
 Pip3Dependency
 NpmDependency
-LspDependency
+
+Message "install language servers"
+python3 $NVIM_HOME\genlspservers.py $args
 
 cmd /c nvim -E -c "Lazy! sync" -c "qall!" /wait
 
