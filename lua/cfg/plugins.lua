@@ -26,13 +26,12 @@ return {
         lazy = true,
     },
 
-    -- https://www.trackawesomelist.com/rockerBOO/awesome-neovim/readme/#colorscheme
+    -- awesome-neovim#colorscheme
     {
         -- stars:3200, repo:https://github.com/folke/tokyonight.nvim
         "folke/tokyonight.nvim",
         lazy = true,
         priority = 1000,
-        branch = "main",
     },
     {
         -- stars:2300, repo:https://github.com/catppuccin/nvim
@@ -40,7 +39,6 @@ return {
         lazy = true,
         priority = 1000,
         name = "catppuccin",
-        branch = "main",
     },
     {
         -- stars:2000, repo:https://github.com/rebelot/kanagawa.nvim
@@ -53,7 +51,6 @@ return {
         "EdenEast/nightfox.nvim",
         lazy = true,
         priority = 1000,
-        branch = "main",
     },
     {
         -- stars:1700, repo:https://github.com/sainnhe/everforest
@@ -98,7 +95,6 @@ return {
         "ellisonleao/gruvbox.nvim",
         lazy = true,
         priority = 1000,
-        branch = "main",
     },
     {
         -- stars:858, repo:https://github.com/navarasu/onedark.nvim
@@ -118,7 +114,6 @@ return {
         lazy = true,
         priority = 1000,
         name = "rose-pine",
-        branch = "main",
         config = function()
             require("rose-pine").setup()
         end,
@@ -128,7 +123,6 @@ return {
         "marko-cerovac/material.nvim",
         lazy = true,
         priority = 1000,
-        branch = "main",
     },
     {
         -- stars:698, repo:https://github.com/sainnhe/edge
@@ -147,7 +141,6 @@ return {
         "nyoom-engineering/oxocarbon.nvim",
         lazy = true,
         priority = 1000,
-        branch = "main",
     },
     {
         -- stars:577, repo:https://github.com/bluz71/vim-nightfly-colors
@@ -175,10 +168,9 @@ return {
         lazy = true,
         priority = 1000,
         name = "embark",
-        branch = "main",
     },
 
-    -- https://vimcolorschemes.com/
+    -- vimcolorschemes.com
     {
         -- stars:2440, repo:https://github.com/nlknguyen/papercolor-theme
         "nlknguyen/papercolor-theme",
@@ -210,7 +202,7 @@ return {
         priority = 1000,
     },
     {
-        -- stars:912, repo:https://github.com/lifepillar/vim-solarized8
+        -- stars:913, repo:https://github.com/lifepillar/vim-solarized8
         "lifepillar/vim-solarized8",
         lazy = true,
         priority = 1000,
@@ -222,7 +214,7 @@ return {
         priority = 1000,
     },
     {
-        -- stars:826, repo:https://github.com/romainl/apprentice
+        -- stars:827, repo:https://github.com/romainl/apprentice
         "romainl/apprentice",
         lazy = true,
         priority = 1000,
@@ -245,10 +237,9 @@ return {
         "pineapplegiant/spaceduck",
         lazy = true,
         priority = 1000,
-        branch = "main",
     },
     {
-        -- stars:673, repo:https://github.com/ajmwagar/vim-deus
+        -- stars:672, repo:https://github.com/ajmwagar/vim-deus
         "ajmwagar/vim-deus",
         lazy = true,
         priority = 1000,
@@ -283,7 +274,6 @@ return {
         "wadackel/vim-dogrun",
         lazy = true,
         priority = 1000,
-        branch = "main",
     },
     {
         -- stars:428, repo:https://github.com/jaredgorski/spacecamp
