@@ -52,12 +52,12 @@ function TryBackup([string]$src)
     }
 }
 
-function UnknownOptionError()
-{
-    ErrorMessage "unknown option, please try --help for more information."
-    exit 1
-}
-
+# function UnknownOptionError()
+# {
+#     ErrorMessage "unknown option, please try --help for more information."
+#     exit 1
+# }
+#
 # function TryDelete([string]$src) {
 #     if ((TestReparsePoint $src) -or (Test-Path $src)) {
 #         (Get-Item $src).Delete()
@@ -91,30 +91,30 @@ function NpmDependency()
     npm install -g neovim
 }
 
-function ShowHelp()
-{
-    Get-Content -Path "$DEPS_HOME\help.txt" | Write-Host
-}
+# function ShowHelp()
+# {
+#     Get-Content -Path "$DEPS_HOME\help.txt" | Write-Host
+# }
 
 # check arguments
-$argsLength = $args.Length
-for ($i = 0; $i -lt $argsLength; $i++)
-{
-    $a = $args[ $i ];
-    if ($a.StartsWith("-h") -or $a.StartsWith("--help"))
-    {
-        ShowHelp
-        exit 0
-    }
-    elseif ($a.StartsWith('--with-lsp'))
-    {
-        $OPT_WITH_OPT=$True
-    }
-    else
-    {
-        UnknownOptionError
-    }
-}
+# $argsLength = $args.Length
+# for ($i = 0; $i -lt $argsLength; $i++)
+# {
+#     $a = $args[ $i ];
+#     if ($a.StartsWith("-h") -or $a.StartsWith("--help"))
+#     {
+#         ShowHelp
+#         exit 0
+#     }
+#     elseif ($a.StartsWith('--with-lsp'))
+#     {
+#         $OPT_WITH_OPT=$True
+#     }
+#     else
+#     {
+#         UnknownOptionError
+#     }
+# }
 
 Message "install for windows"
 

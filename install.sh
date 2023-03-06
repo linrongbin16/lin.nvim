@@ -67,33 +67,33 @@ guifont_dependency() {
 }
 
 # parse options
-show_help() {
-    cat $DEPS_HOME/help.txt
-}
-
-unknown_option_error() {
-    error_message "unknown option, please try --help for more information."
-    exit 1
-}
+# show_help() {
+#     cat $DEPS_HOME/help.txt
+# }
+#
+# unknown_option_error() {
+#     error_message "unknown option, please try --help for more information."
+#     exit 1
+# }
 
 # check arguments
-args_length=$#
-args=("$@")
-for ((i = 0; i < args_length; i++)); do
-    a="${args[i]}"
-    case "$a" in
-    -h | --help)
-        show_help
-        exit 0
-        ;;
-    --with-lsp)
-        OPT_WITH_LSP=1
-        ;;
-    *)
-        unknown_option_error
-        ;;
-    esac
-done
+# args_length=$#
+# args=("$@")
+# for ((i = 0; i < args_length; i++)); do
+#     a="${args[i]}"
+#     case "$a" in
+#     -h | --help)
+#         show_help
+#         exit 0
+#         ;;
+#     --with-lsp)
+#         OPT_WITH_LSP=1
+#         ;;
+#     *)
+#         unknown_option_error
+#         ;;
+#     esac
+# done
 
 message "install for $OS"
 
