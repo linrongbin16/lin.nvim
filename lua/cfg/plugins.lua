@@ -18,13 +18,21 @@ return {
         "neovim/nvim-lspconfig",
         lazy = true,
     },
-
-    -- ---- COLORSCHEME ----
-
     {
         "folke/lsp-colors.nvim",
+    },
+    {
+        "nvim-tree/nvim-web-devicons",
         lazy = true,
     },
+    {
+        "stevearc/dressing.nvim",
+        config = function()
+            require("repo.stevearc.dressing-nvim.config")
+        end,
+    },
+
+    -- ---- COLORSCHEME ----
 
     -- awesome-neovim#colorscheme
     {
@@ -255,7 +263,7 @@ return {
         "challenger-deep-theme/vim",
         lazy = true,
         priority = 1000,
-        name = "challenger-deep-theme",
+        name = "challenger-deep",
     },
     {
         -- stars:488, repo:https://github.com/rigellute/rigel
@@ -335,7 +343,7 @@ return {
     },
     {
         "haya14busa/is.vim",
-        event = { "CmdlineEnter" },
+        event = { "BufReadPost", "CmdlineEnter" },
     },
     {
         "markonm/traces.vim",
@@ -348,33 +356,17 @@ return {
     {
         "nvim-tree/nvim-tree.lua",
         event = { "VimEnter" },
-        dependencies = {
-            "nvim-tree/nvim-web-devicons",
-            "stevearc/dressing.nvim",
-        },
         config = function()
             require("repo.nvim-tree.nvim-tree-lua.config")
         end,
         keys = require("repo.nvim-tree.nvim-tree-lua.keys"),
-    },
-    {
-        "nvim-tree/nvim-web-devicons",
-        lazy = true,
-    },
-    -- UI hooks
-    {
-        "stevearc/dressing.nvim",
-        event = { "VimEnter" },
-        config = function()
-            require("repo.stevearc.dressing-nvim.config")
-        end,
     },
     -- Tabline
     {
         "akinsho/bufferline.nvim",
         version = "v3.*",
         event = { "VeryLazy", "BufReadPost" },
-        dependencies = { "nvim-tree/nvim-web-devicons", "moll/vim-bbye" },
+        dependencies = { "moll/vim-bbye" },
         config = function()
             require("repo.akinsho.bufferline-nvim.config")
         end,
@@ -394,10 +386,7 @@ return {
     {
         "nvim-lualine/lualine.nvim",
         event = { "VimEnter" },
-        dependencies = {
-            "nvim-tree/nvim-web-devicons",
-            "linrongbin16/lsp-progress.nvim",
-        },
+        dependencies = { "linrongbin16/lsp-progress.nvim" },
         config = function()
             require("repo.nvim-lualine.lualine-nvim.config")
         end,
@@ -416,7 +405,7 @@ return {
         name = "barbecue",
         version = "*",
         event = { "BufReadPost" },
-        dependencies = { "SmiteshP/nvim-navic", "nvim-tree/nvim-web-devicons" },
+        dependencies = { "SmiteshP/nvim-navic" },
         config = function()
             require("repo.utilyre.barbecue-nvim.config")
         end,
@@ -500,7 +489,6 @@ return {
     {
         "jose-elias-alvarez/null-ls.nvim",
         event = { "VeryLazy", "BufReadPost" },
-        dependencies = { "nvim-lua/plenary.nvim" },
     },
     {
         "jay-babu/mason-null-ls.nvim",
@@ -582,29 +570,6 @@ return {
         end,
         keys = require("repo.iamcco.markdown-preview-nvim.keys"),
     },
-    -- Lex/yacc, flex/bison
-    {
-        "justinmk/vim-syntax-extra",
-        ft = { "lex", "flex", "yacc", "bison" },
-    },
-    -- LLVM
-    {
-        "rhysd/vim-llvm",
-        ft = { "llvm", "mir", "mlir", "tablegen" },
-        init = function()
-            vim.cmd("source $HOME/.nvim/repo/rhysd/vim-llvm/init.vim")
-        end,
-    },
-    -- Hive
-    {
-        "zebradil/hive.vim",
-        ft = { "hive" },
-    },
-    -- Slim
-    {
-        "slim-template/vim-slim",
-        ft = { "slim" },
-    },
 
     -- ---- KEY BINDING ----
 
@@ -642,14 +607,7 @@ return {
 
     {
         "f-person/git-blame.nvim",
-        cmd = {
-            "GitBlameOpenCommitURL",
-            "GitBlameToggle",
-            "GitBlameEnable",
-            "GitBlameDisable",
-            "GitBlameCopySHA",
-            "GitBlameCopyCommitURL",
-        },
+        event = { "CmdlineEnter" },
         init = function()
             vim.cmd("source $HOME/.nvim/repo/f-person/git-blame.nvim/init.vim")
         end,
@@ -660,7 +618,6 @@ return {
         "linrongbin16/gitlinker.nvim",
         lazy = true,
         branch = "master",
-        dependencies = { "nvim-lua/plenary.nvim" },
         config = function()
             require("repo.linrongbin16.gitlinker-nvim.config")
         end,
@@ -708,15 +665,7 @@ return {
     {
         "akinsho/toggleterm.nvim",
         version = "*",
-        cmd = {
-            "TermExec",
-            "ToggleTerm",
-            "ToggleTermToggleAll",
-            "ToggleTermSendVisualLines",
-            "ToggleTermSendVisualSelection",
-            "ToggleTermSendCurrentLine",
-            "ToggleTermSetName",
-        },
+        event = { "CmdlineEnter" },
         config = function()
             require("repo.akinsho.toggleterm-nvim.config")
         end,
@@ -725,12 +674,7 @@ return {
     -- Undo tree
     {
         "mbbill/undotree",
-        cmd = {
-            "UndotreeToggle",
-            "UndotreeHide",
-            "UndotreeShow",
-            "UndotreeFocus",
-        },
+        event = { "CmdlineEnter" },
         keys = require("repo.mbbill.undotree.keys"),
     },
     -- Other

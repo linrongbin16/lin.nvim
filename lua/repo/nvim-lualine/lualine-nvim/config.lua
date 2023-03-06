@@ -154,8 +154,8 @@ local config = {
     inactive_sections = {
         lualine_a = {},
         lualine_b = {},
-        -- lualine_c = { "filename" },
-        -- lualine_x = { "location"},
+        lualine_c = { Modifiable },
+        lualine_x = { Location },
         lualine_c = {},
         lualine_x = {},
         lualine_y = {},
@@ -169,7 +169,7 @@ local config = {
 
 require("lualine").setup(config)
 
--- listen to lsp-progress event and trigger refresh
+-- listen to lsp-progress event and refresh
 vim.cmd([[
 augroup lualine_augroup
     autocmd!
