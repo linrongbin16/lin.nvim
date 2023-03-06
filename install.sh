@@ -132,9 +132,6 @@ pip3_dependency
 npm_dependency
 guifont_dependency
 
-message "install language servers"
-python3 $NVIM_HOME/genlspservers.py "$@"
-
 nvim -E -c "Lazy! sync" -c "qall!"
 
 message "install for $OS - done"

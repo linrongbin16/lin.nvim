@@ -124,9 +124,6 @@ CargoDependency
 Pip3Dependency
 NpmDependency
 
-Message "install language servers"
-python3 $NVIM_HOME\genlspservers.py $args
-
 cmd /c nvim -E -c "Lazy! sync" -c "qall!" /wait
 
 Message "install for windows - done"
