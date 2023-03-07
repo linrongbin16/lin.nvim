@@ -1,14 +1,53 @@
 -- ---- Plugins Header ----
 
+local function lua_config(repo)
+    local function wrap()
+        local config_path = "repo." .. repo:gsub("%.", "-") .. ".config"
+        require(config_path)
+    end
+    return wrap
+end
+
+local function lua_keys(repo)
+    local keys_path = "repo." .. repo:gsub("%.", "-") .. ".keys"
+    require(keys_path)
+end
+
+local function lua_init(repo)
+    local function wrap()
+        local init_path = "repo." .. repo:gsub("%.", "-") .. ".init"
+        require(init_path)
+    end
+    return wrap
+end
+
+local function vim_config(repo)
+    local function wrap()
+        vim.cmd("source $HOME/.nvim/repo/" .. repo .. "/config.vim")
+    end
+    return wrap
+end
+
+local function vim_init(repo)
+    local function wrap()
+        vim.cmd("source $HOME/.nvim/repo/" .. repo .. "/init.vim")
+    end
+    return wrap
+end
+
+local VeryLazy = "VeryLazy"
+local BufReadPost = "BufReadPost"
+local CmdlineEnter = "CmdlineEnter"
+local VimEnter = "VimEnter"
+local InsertEnter = "InsertEnter"
+
 return {
 
     -- ---- INFRASTRUCTURE ----
 
     {
         "nathom/filetype.nvim",
-        init = function()
-            require("repo.nathom.filetype-nvim.init")
-        end,
+        init = lua_init("nathom/filetype.nvim"),
     },
     {
         "folke/lsp-colors.nvim",
@@ -27,9 +66,7 @@ return {
     },
     {
         "stevearc/dressing.nvim",
-        config = function()
-            require("repo.stevearc.dressing-nvim.config")
-        end,
+        config = lua_config("stevearc/dressing.nvim"),
     },
 
     -- ---- COLORSCHEME ----
@@ -303,36 +340,26 @@ return {
 
     {
         "RRethy/vim-illuminate",
-        event = { "VeryLazy", "BufReadPost" },
-        init = function()
-            require("repo.RRethy.vim-illuminate.init")
-        end,
-        config = function()
-            vim.cmd("source $HOME/.nvim/repo/RRethy/vim-illuminate/config.vim")
-        end,
+        event = { VeryLazy, BufReadPost },
+        init = lua_init("RRethy/vim-illuminate"),
+        config = vim_config("RRethy/vim-illuminate"),
     },
     {
         "uga-rosa/ccc.nvim",
-        event = { "BufReadPost", "CmdlineEnter" },
-        config = function()
-            require("repo.uga-rosa.ccc-nvim.config")
-        end,
+        event = { VeryLazy, BufReadPost, CmdlineEnter },
+        config = lua_config("uga-rosa/ccc.nvim"),
     },
     {
         "andymass/vim-matchup",
-        event = { "VeryLazy", "BufReadPost" },
-        init = function()
-            require("repo.andymass.vim-matchup.init")
-        end,
+        event = { VeryLazy, BufReadPost },
+        init = lua_init("andymass/vim-matchup"),
     },
     {
         "inkarkat/vim-mark",
         dependencies = { "inkarkat/vim-ingo-library" },
-        event = { "CmdlineEnter" },
-        init = function()
-            vim.cmd("source $HOME/.nvim/repo/inkarkat/vim-mark/init.vim")
-        end,
-        keys = require("repo.inkarkat.vim-mark.keys"),
+        event = { CmdlineEnter },
+        init = vim_init("inkarkat/vim-mark"),
+        keys = lua_keys("inkarkat/vim-mark"),
     },
     {
         "inkarkat/vim-ingo-library",
@@ -340,11 +367,11 @@ return {
     },
     {
         "haya14busa/is.vim",
-        event = { "BufReadPost", "CmdlineEnter" },
+        event = { VeryLazy, BufReadPost, CmdlineEnter },
     },
     {
         "markonm/traces.vim",
-        event = { "CmdlineEnter" },
+        event = { CmdlineEnter },
     },
 
     -- ---- UI ----
@@ -352,96 +379,78 @@ return {
     -- File explorer
     {
         "nvim-tree/nvim-tree.lua",
-        event = { "VimEnter" },
-        config = function()
-            require("repo.nvim-tree.nvim-tree-lua.config")
-        end,
-        keys = require("repo.nvim-tree.nvim-tree-lua.keys"),
+        event = { VimEnter },
+        config = lua_config("nvim-tree/nvim-tree.lua"),
+        keys = lua_keys("nvim-tree/nvim-tree.lua"),
     },
     -- Tabline
     {
         "akinsho/bufferline.nvim",
         version = "v3.*",
-        event = { "VeryLazy", "BufReadPost" },
+        event = { VeryLazy, BufReadPost },
         dependencies = { "moll/vim-bbye" },
-        config = function()
-            require("repo.akinsho.bufferline-nvim.config")
-        end,
-        keys = require("repo.akinsho.bufferline-nvim.keys"),
+        config = lua_config("akinsho/bufferline.nvim"),
+        keys = lua_keys("akinsho/bufferline.nvim"),
     },
     {
         "moll/vim-bbye",
         cmd = { "Bdelete", "Bwipeout" },
-        keys = require("repo.moll.vim-bbye.keys"),
+        keys = lua_keys("moll/vim-bbye"),
     },
     -- Indentline
     {
         "lukas-reineke/indent-blankline.nvim",
-        event = { "BufReadPost" },
+        event = { VeryLazy, BufReadPost },
     },
     -- Statusline
     {
         "nvim-lualine/lualine.nvim",
-        event = { "VimEnter" },
+        event = { VimEnter },
         dependencies = { "linrongbin16/lsp-progress.nvim" },
-        config = function()
-            require("repo.nvim-lualine.lualine-nvim.config")
-        end,
+        config = lua_config("nvim-lualine/lualine.nvim"),
     },
     {
         "linrongbin16/lsp-progress.nvim",
         branch = "main",
         lazy = true,
-        config = function()
-            require("repo.linrongbin16.lsp-progress-nvim.config")
-        end,
+        config = lua_config("linrongbin16/lsp-progress.nvim"),
     },
     -- Winbar
     {
         "utilyre/barbecue.nvim",
         name = "barbecue",
         version = "*",
-        event = { "BufReadPost" },
+        event = { VeryLazy, BufReadPost },
         dependencies = { "SmiteshP/nvim-navic" },
-        config = function()
-            require("repo.utilyre.barbecue-nvim.config")
-        end,
+        config = lua_config("utilyre/barbecue.nvim"),
     },
     {
         "SmiteshP/nvim-navic",
         lazy = true,
-        init = function()
-            vim.cmd("source $HOME/.nvim/repo/SmiteshP/nvim-navic/init.vim")
-        end,
+        init = vim_init("SmiteshP/nvim-navic"),
     },
     -- Git
     {
         "airblade/vim-gitgutter",
-        event = { "BufReadPost" },
-        init = function()
-            vim.cmd("source $HOME/.nvim/repo/airblade/vim-gitgutter/init.vim")
-        end,
-        keys = require("repo.airblade.vim-gitgutter.keys"),
+        event = { VeryLazy, BufReadPost },
+        init = vim_init("airblade/vim-gitgutter"),
+        keys = lua_keys("airblade/vim-gitgutter"),
     },
 
     -- ---- SEARCH ----
 
     {
         "junegunn/fzf",
-        event = { "CmdlineEnter" },
+        event = { CmdlineEnter },
         build = ":call fzf#install()",
     },
     {
         "junegunn/fzf.vim",
-        event = { "CmdlineEnter" },
+        event = { CmdlineEnter },
         dependencies = { "junegunn/fzf" },
-        init = function()
-            vim.cmd("source $HOME/.nvim/repo/junegunn/fzf.vim/init.vim")
-        end,
-        config = function()
-            vim.cmd("source $HOME/.nvim/repo/junegunn/fzf.vim/config.vim")
-        end,
-        keys = require("repo.junegunn.fzf-vim.keys"),
+        init = vim_init("junegunn/fzf.vim"),
+        config = vim_config("junegunn/fzf.vim"),
+        keys = lua_keys("junegunn/fzf.vim"),
     },
 
     -- ---- TAGS ----
@@ -451,16 +460,12 @@ return {
         "liuchengxu/vista.vim",
         cmd = { "Vista" },
         dependencies = { "ludovicchabant/vim-gutentags" },
-        keys = require("repo.liuchengxu.vista-vim.keys"),
+        keys = lua_keys("liuchengxu/vista.vim"),
     },
     {
         "ludovicchabant/vim-gutentags",
-        event = { "BufReadPost" },
-        init = function()
-            vim.cmd(
-                "source $HOME/.nvim/repo/ludovicchabant/vim-gutentags/init.vim"
-            )
-        end,
+        event = { VeryLazy, BufReadPost },
+        init = vim_init("ludovicchabant/vim-gutentags"),
     },
 
     -- ---- LSP ----
@@ -468,24 +473,22 @@ return {
     -- Lsp server management
     {
         "williamboman/mason.nvim",
-        event = { "VeryLazy", "BufReadPost" },
-        config = function()
-            require("repo.williamboman.mason-nvim.config")
-        end,
-        keys = require("repo.williamboman.mason-nvim.keys"),
+        event = { VeryLazy, BufReadPost },
+        config = lua_config("williamboman/mason.nvim"),
+        keys = lua_keys("williamboman/mason.nvim"),
     },
     {
         "williamboman/mason-lspconfig.nvim",
-        event = { "VeryLazy", "BufReadPost" },
+        event = { VeryLazy, BufReadPost },
         dependencies = { "williamboman/mason.nvim" },
     },
     {
         "jose-elias-alvarez/null-ls.nvim",
-        event = { "VeryLazy", "BufReadPost" },
+        event = { VeryLazy, BufReadPost },
     },
     {
         "jay-babu/mason-null-ls.nvim",
-        event = { "VeryLazy", "BufReadPost" },
+        event = { VeryLazy, BufReadPost },
         dependencies = {
             "williamboman/mason.nvim",
             "jose-elias-alvarez/null-ls.nvim",
@@ -494,7 +497,7 @@ return {
     -- Auto-complete engine
     {
         "hrsh7th/nvim-cmp",
-        event = { "InsertEnter", "CmdlineEnter" },
+        event = { InsertEnter, CmdlineEnter },
         dependencies = {
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-buffer",
@@ -504,46 +507,42 @@ return {
             "saadparwaiz1/cmp_luasnip",
             "quangnguyen30192/cmp-nvim-tags",
         },
-        config = function()
-            require("repo.hrsh7th.nvim-cmp.config")
-        end,
+        config = lua_config("hrsh7th/nvim-cmp"),
     },
     {
         "hrsh7th/cmp-nvim-lsp",
-        event = { "InsertEnter", "CmdlineEnter" },
+        event = { InsertEnter, CmdlineEnter },
     },
     {
         "hrsh7th/cmp-buffer",
-        event = { "InsertEnter", "CmdlineEnter" },
+        event = { InsertEnter, CmdlineEnter },
     },
     {
         "hrsh7th/cmp-path",
-        event = { "InsertEnter", "CmdlineEnter" },
+        event = { InsertEnter, CmdlineEnter },
     },
     {
         "hrsh7th/cmp-cmdline",
-        event = { "InsertEnter", "CmdlineEnter" },
+        event = { InsertEnter, CmdlineEnter },
     },
     {
         "L3MON4D3/LuaSnip",
-        event = { "InsertEnter", "CmdlineEnter" },
+        event = { InsertEnter, CmdlineEnter },
         version = "1.*",
     },
     {
         "saadparwaiz1/cmp_luasnip",
-        event = { "InsertEnter", "CmdlineEnter" },
+        event = { InsertEnter, CmdlineEnter },
         dependencies = { "L3MON4D3/LuaSnip" },
     },
     {
         "quangnguyen30192/cmp-nvim-tags",
-        event = { "InsertEnter", "CmdlineEnter" },
+        event = { InsertEnter, CmdlineEnter },
     },
     {
         "DNLHC/glance.nvim",
         cmd = { "Glance" },
-        config = function()
-            require("repo.DNLHC.glance-nvim.config")
-        end,
+        config = lua_config("DNLHC/glance.nvim"),
     },
     {
         "onsails/lspkind.nvim",
@@ -557,10 +556,8 @@ return {
         "iamcco/markdown-preview.nvim",
         build = "cd app && npm install",
         ft = { "markdown" },
-        init = function()
-            require("repo.iamcco.markdown-preview-nvim.init")
-        end,
-        keys = require("repo.iamcco.markdown-preview-nvim.keys"),
+        init = lua_init("iamcco/markdown-preview.nvim"),
+        keys = lua_keys("iamcco/markdown-preview.nvim"),
     },
 
     -- ---- KEY BINDING ----
@@ -569,10 +566,8 @@ return {
     {
         "folke/which-key.nvim",
         cmd = { "WhichKey" },
-        config = function()
-            require("repo.folke.which-key-nvim.config")
-        end,
-        keys = require("repo.folke.which-key-nvim.keys"),
+        config = lua_config("folke/which-key.nvim"),
+        keys = lua_keys("folke/which-key.nvim"),
     },
 
     -- ---- CURSOR MOTION ----
@@ -580,40 +575,32 @@ return {
     {
         "phaazon/hop.nvim",
         branch = "v2",
-        event = { "CmdlineEnter" },
-        config = function()
-            require("repo.phaazon.hop-nvim.config")
-        end,
-        keys = require("repo.phaazon.hop-nvim.keys"),
+        event = { CmdlineEnter },
+        config = lua_config("phaazon/hop.nvim"),
+        keys = lua_keys("phaazon/hop.nvim"),
     },
     {
         "ggandor/leap.nvim",
-        event = { "BufReadPost" },
+        event = { VeryLazy, BufReadPost },
         dependencies = { "tpope/vim-repeat" },
-        config = function()
-            require("repo.ggandor.leap-nvim.config")
-        end,
+        config = lua_config("ggandor/leap.nvim"),
     },
 
     -- ---- GIT ----
 
     {
         "f-person/git-blame.nvim",
-        event = { "CmdlineEnter" },
-        init = function()
-            vim.cmd("source $HOME/.nvim/repo/f-person/git-blame.nvim/init.vim")
-        end,
-        keys = require("repo.f-person.git-blame-nvim.keys"),
+        event = { CmdlineEnter },
+        init = vim_init("f-person/git-blame.nvim"),
+        keys = lua_keys("f-person/git-blame.nvim"),
     },
     -- Open git link In browser
     {
         "linrongbin16/gitlinker.nvim",
         lazy = true,
         branch = "master",
-        config = function()
-            require("repo.linrongbin16.gitlinker-nvim.config")
-        end,
-        keys = require("repo.linrongbin16.gitlinker-nvim.keys"),
+        config = lua_config("linrongbin16/gitlinker.nvim"),
+        keys = lua_keys("linrongbin16/gitlinker.nvim"),
     },
 
     -- ---- ENHANCEMENT ----
@@ -621,78 +608,64 @@ return {
     -- Auto pair/close
     {
         "windwp/nvim-autopairs",
-        event = { "InsertEnter" },
-        config = function()
-            require("repo.windwp.nvim-autopairs.config")
-        end,
+        event = { InsertEnter },
+        config = lua_config("windwp/nvim-autopairs"),
     },
     {
         "alvan/vim-closetag",
-        event = { "InsertEnter" },
-        init = function()
-            vim.cmd("source $HOME/.nvim/repo/alvan/vim-closetag/init.vim")
-        end,
+        event = { InsertEnter },
+        init = vim_init("alvan/vim-closetag"),
     },
     -- Comment
     {
         "numToStr/Comment.nvim",
-        event = { "BufReadPost" },
-        config = function()
-            require("repo.numToStr.Comment-nvim.config")
-        end,
+        event = { VeryLazy, BufReadPost },
+        config = lua_config("numToStr/Comment.nvim"),
     },
     -- Generate documents
     {
         "kkoomen/vim-doge",
         cmd = { "DogeGenerate" },
         build = require("cfg.const").os.is_macos
-            and "npm i --no-save && npm run build:binary:unix"
+                and "npm i --no-save && npm run build:binary:unix"
             or ":call doge#install()",
-        init = function()
-            vim.cmd("source $HOME/.nvim/repo/kkoomen/vim-doge/init.vim")
-        end,
-        keys = require("repo.kkoomen.vim-doge.keys"),
+        init = vim_init("kkoomen/vim-doge"),
+        keys = lua_keys("kkoomen/vim-doge"),
     },
     -- Terminal
     {
         "akinsho/toggleterm.nvim",
         version = "*",
-        event = { "CmdlineEnter" },
-        config = function()
-            require("repo.akinsho.toggleterm-nvim.config")
-        end,
-        keys = require("repo.akinsho.toggleterm-nvim.keys"),
+        event = { CmdlineEnter },
+        config = lua_config("akinsho/toggleterm.nvim"),
+        keys = lua_keys("akinsho/toggleterm.nvim"),
     },
     -- Undo tree
     {
         "mbbill/undotree",
-        event = { "CmdlineEnter" },
-        keys = require("repo.mbbill.undotree.keys"),
+        event = { CmdlineEnter },
+        keys = lua_keys("mbbill/undotree"),
     },
     -- Other
     {
         "tpope/vim-repeat",
-        event = { "BufReadPost" },
+        event = { VeryLazy, BufReadPost },
     },
     {
         "kylechui/nvim-surround",
         version = "*",
-        event = { "BufReadPost" },
-        config = function()
-            require("repo.kylechui.nvim-surround.config")
-        end,
+        event = { VeryLazy, BufReadPost },
+        config = lua_config("kylechui/nvim-surround"),
     },
     {
         "editorconfig/editorconfig-vim",
-        event = { "InsertEnter" },
+        event = { InsertEnter },
     },
     {
         "axieax/urlview.nvim",
         cmd = { "UrlView" },
-        config = function()
-            require("repo.axieax.urlview-nvim.config")
-        end,
-        keys = require("repo.axieax.urlview-nvim.keys"),
+        config = lua_config("axieax/urlview.nvim"),
+        keys = lua_keys("axieax/urlview.nvim"),
     },
 }
 
