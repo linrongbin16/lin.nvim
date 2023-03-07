@@ -83,7 +83,7 @@ local embeded_nullls_setups = {
 -- { lspconfig's setup
 
 local embeded_lspconfig_setups = {
-    ["flow"] = {
+        ["flow"] = {
         on_attach = function(client, bufnr)
             attach_ext(client, bufnr)
         end,
@@ -105,7 +105,7 @@ require("mason-null-ls").setup({ ensure_installed = embeded_nullls })
 require("mason-null-ls").setup_handlers(embeded_nullls_setups)
 null_ls.setup()
 
--- Lspconfig setups
+-- Setup nvim-lspconfig
 for name, cfg in pairs(embeded_lspconfig_setups) do
     lspconfig[name].setup(cfg)
 end

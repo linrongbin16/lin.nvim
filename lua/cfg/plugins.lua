@@ -413,7 +413,6 @@ return {
     {
         "SmiteshP/nvim-navic",
         lazy = true,
-        dependencies = { "neovim/nvim-lspconfig" },
         init = function()
             vim.cmd("source $HOME/.nvim/repo/SmiteshP/nvim-navic/init.vim")
         end,
@@ -481,10 +480,7 @@ return {
     {
         "williamboman/mason-lspconfig.nvim",
         event = { "VeryLazy", "BufReadPost" },
-        dependencies = { "williamboman/mason.nvim", "neovim/nvim-lspconfig" },
-        config = function()
-            require("repo.williamboman.mason-lspconfig-nvim.config")
-        end,
+        dependencies = { "williamboman/mason.nvim" },
     },
     {
         "jose-elias-alvarez/null-ls.nvim",
@@ -503,7 +499,6 @@ return {
         "hrsh7th/nvim-cmp",
         event = { "InsertEnter", "CmdlineEnter" },
         dependencies = {
-            "neovim/nvim-lspconfig",
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-buffer",
             "hrsh7th/cmp-path",
