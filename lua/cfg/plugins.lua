@@ -11,15 +11,15 @@ return {
         end,
     },
     {
+        "folke/lsp-colors.nvim",
+    },
+    {
         "nvim-lua/plenary.nvim",
         lazy = true,
     },
     {
         "neovim/nvim-lspconfig",
         lazy = true,
-    },
-    {
-        "folke/lsp-colors.nvim",
     },
     {
         "nvim-tree/nvim-web-devicons",
@@ -122,9 +122,6 @@ return {
         lazy = true,
         priority = 1000,
         name = "rose-pine",
-        config = function()
-            require("rose-pine").setup()
-        end,
     },
     {
         -- stars:717, repo:https://github.com/marko-cerovac/material.nvim
@@ -649,7 +646,7 @@ return {
         "kkoomen/vim-doge",
         cmd = { "DogeGenerate" },
         build = require("cfg.const").os.is_macos
-                and "npm i --no-save && npm run build:binary:unix"
+            and "npm i --no-save && npm run build:binary:unix"
             or ":call doge#install()",
         init = function()
             vim.cmd("source $HOME/.nvim/repo/kkoomen/vim-doge/init.vim")
