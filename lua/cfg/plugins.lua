@@ -10,7 +10,7 @@ end
 
 local function lua_keys(repo)
     local keys_path = "repo." .. repo:gsub("%.", "-") .. ".keys"
-    require(keys_path)
+    return require(keys_path)
 end
 
 local function lua_init(repo)
