@@ -8,8 +8,12 @@ else
     echo 'Error: `fd` or `fdfind` not found!'
     echohl None
 endif
+
 " use base16 theme for better color capatibility
 let $BAT_THEME='base16'
 
-" Fzf command prefix
+" bigger window
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9 } }
+
+" command prefix
 let g:fzf_command_prefix = 'Fzf'
