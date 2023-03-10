@@ -13,7 +13,7 @@ endif
 let $BAT_THEME='base16'
 
 " bigger window
-let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8 } }
+let g:fzf_layout = { 'window': { 'width': 0.95, 'height': 0.85 } }
 
 " command prefix
 let g:fzf_command_prefix = 'Fzf'
