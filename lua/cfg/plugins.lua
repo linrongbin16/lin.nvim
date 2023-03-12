@@ -300,42 +300,6 @@ return {
         priority = 1000,
         name = "challenger-deep",
     },
-    {
-        -- stars:488, repo:https://github.com/rigellute/rigel
-        "rigellute/rigel",
-        lazy = true,
-        priority = 1000,
-    },
-    {
-        -- stars:456, repo:https://github.com/lifepillar/vim-gruvbox8
-        "lifepillar/vim-gruvbox8",
-        lazy = true,
-        priority = 1000,
-    },
-    {
-        -- stars:433, repo:https://github.com/wadackel/vim-dogrun
-        "wadackel/vim-dogrun",
-        lazy = true,
-        priority = 1000,
-    },
-    {
-        -- stars:428, repo:https://github.com/jaredgorski/spacecamp
-        "jaredgorski/spacecamp",
-        lazy = true,
-        priority = 1000,
-    },
-    {
-        -- stars:408, repo:https://github.com/keitanakamura/neodark.vim
-        "keitanakamura/neodark.vim",
-        lazy = true,
-        priority = 1000,
-    },
-    {
-        -- stars:400, repo:https://github.com/savq/melange-nvim
-        "savq/melange-nvim",
-        lazy = true,
-        priority = 1000,
-    },
 
     -- ---- HIGHLIGHT ----
 

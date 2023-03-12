@@ -37,12 +37,6 @@ let s:colors=[
             \ 'deus',
             \ 'pencil',
             \ 'challenger_deep',
-            \ 'rigel',
-            \ 'gruvbox8',
-            \ 'dogrun',
-            \ 'spacecamp',
-            \ 'neodark',
-            \ 'melange',
             \]
 
 function! s:rand_int(n) abort
