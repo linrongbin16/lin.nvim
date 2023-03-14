@@ -18,6 +18,7 @@ local function attach_ext(client, bufnr)
     if client.server_capabilities["documentSymbolProvider"] then
         require("nvim-navic").attach(client, bufnr)
     end
+    -- format on save and load buffer
     if client.supports_method("textDocument/formatting") then
         vim.api.nvim_create_autocmd("BufWritePre", {
             buffer = bufnr,
