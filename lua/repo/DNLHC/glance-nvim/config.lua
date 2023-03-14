@@ -5,9 +5,6 @@ glance.setup({
     border = {
         enable = true,
     },
-    detached = function(winid)
-        return vim.api.nvim_win_get_width(winid) < 80
-    end,
     mappings = {
         list = {
             ["<C-s>"] = actions.jump_split,
@@ -16,7 +13,6 @@ glance.setup({
             ["v"] = false,
             ["<C-t>"] = actions.jump_tab,
             ["t"] = false,
-
             -- quit
             ["Q"] = false,
         },
