@@ -3,7 +3,6 @@
 let s:colors=[
             \ 'tokyonight-moon',
             \ 'tokyonight-night',
-            \ 'tokyonight-day',
             \ 'tokyonight-storm',
             \ 'tokyonight',
             \ 'PaperColor',
@@ -20,7 +19,6 @@ let s:colors=[
             \ 'terafox',
             \ 'carbonfox',
             \ 'nightfox',
-            \ 'dayfox',
             \ 'dawnfox',
             \ 'nordfox',
             \ 'duskfox',
