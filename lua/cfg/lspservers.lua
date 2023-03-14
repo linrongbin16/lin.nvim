@@ -18,6 +18,14 @@ local function attach_ext(client, bufnr)
     if client.server_capabilities["documentSymbolProvider"] then
         require("nvim-navic").attach(client, bufnr)
     end
+    if client.supports_method("textDocument/formatting") then
+        vim.api.nvim_create_autocmd("BufWritePre", {
+            buffer = bufnr,
+            callback = function()
+                vim.lsp.buf.format()
+            end,
+        })
+    end
 end
 
 -- { mason's config
@@ -41,11 +49,11 @@ local embeded_servers_setups = {
                 -- disable tsserver when detect flow
                 return lspconfig.util.root_pattern("tsconfig.json")(fname)
                     or not lspconfig.util.root_pattern(".flowconfig")(fname)
-                    and lspconfig.util.root_pattern(
-                        "package.json",
-                        "jsconfig.json",
-                        ".git"
-                    )(fname)
+                        and lspconfig.util.root_pattern(
+                            "package.json",
+                            "jsconfig.json",
+                            ".git"
+                        )(fname)
             end,
         })
     end,
@@ -83,7 +91,7 @@ local embeded_nullls_setups = {
 -- { lspconfig's setup
 
 local embeded_lspconfig_setups = {
-        ["flow"] = {
+    ["flow"] = {
         on_attach = function(client, bufnr)
             attach_ext(client, bufnr)
         end,
@@ -101,9 +109,15 @@ require("mason-lspconfig").setup({ ensure_installed = embeded_servers })
 require("mason-lspconfig").setup_handlers(embeded_servers_setups)
 
 -- Setup mason-null-ls and null-ls configs
-require("mason-null-ls").setup({ ensure_installed = embeded_nullls })
+require("mason-null-ls").setup({
+    ensure_installed = embeded_nullls,
+})
 require("mason-null-ls").setup_handlers(embeded_nullls_setups)
-null_ls.setup()
+null_ls.setup({
+    on_attach = function(client, bufnr)
+        attach_ext(client, bufnr)
+    end,
+})
 
 -- Setup nvim-lspconfig
 for name, cfg in pairs(embeded_lspconfig_setups) do
