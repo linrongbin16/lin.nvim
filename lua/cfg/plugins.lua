@@ -507,9 +507,6 @@ return {
         "onsails/lspkind.nvim",
         lazy = true,
     },
-    {
-        "lukas-reineke/lsp-format.nvim",
-    },
 
     -- ---- SPECIFIC LANGUAGE SUPPORT ----
 
@@ -589,7 +586,7 @@ return {
         "kkoomen/vim-doge",
         cmd = { "DogeGenerate" },
         build = require("cfg.const").os.is_macos
-                and "npm i --no-save && npm run build:binary:unix"
+            and "npm i --no-save && npm run build:binary:unix"
             or ":call doge#install()",
         init = vim_init("kkoomen/vim-doge"),
         keys = lua_keys("kkoomen/vim-doge"),

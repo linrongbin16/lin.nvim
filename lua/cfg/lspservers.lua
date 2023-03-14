@@ -13,14 +13,11 @@
 local null_ls = require("null-ls")
 local lspconfig = require("lspconfig")
 
-require("lsp-format").setup()
 local function attach_ext(client, bufnr)
     -- attach navic to work with multiple tabs
     if client.server_capabilities["documentSymbolProvider"] then
         require("nvim-navic").attach(client, bufnr)
     end
-    -- lsp format on save
-    require("lsp-format").on_attach(client)
 end
 
 -- { mason's config
@@ -86,7 +83,7 @@ local embeded_nullls_setups = {
 -- { lspconfig's setup
 
 local embeded_lspconfig_setups = {
-    ["flow"] = {
+        ["flow"] = {
         on_attach = function(client, bufnr)
             attach_ext(client, bufnr)
         end,
