@@ -11,8 +11,8 @@ else
     set guifont=Hack\ Nerd\ Font\ Mono:h10
 endif
 
-""" ---- Random colorscheme ----
-SwitchColor
+""" ---- Choose colorscheme ----
+lua require('colorswitch').switch()
 
 """ ---- CTRL+?/CMD+? ----
 if exists('$VIMRUNTIME/mswin.vim')
