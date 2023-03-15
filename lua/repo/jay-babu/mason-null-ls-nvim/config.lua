@@ -1,1 +1,1 @@
-require("cfg.lsp")
+require("cfg.lsp.setup")
