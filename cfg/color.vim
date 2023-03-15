@@ -71,15 +71,8 @@ function s:switch_color(update, ...)
         " echom 'a:1:' . string(a:1)
         execute 'colorscheme ' . a:1
     else
-        if len(s:colors) > 0
-            let idx = s:rand_int(len(s:colors))
-            execute 'colorscheme ' . s:colors[idx]
-        else
-            " execute 'normal! \<Esc>'
-            echohl ErrorMsg
-            echomsg 'Error: no colorscheme installed, please check `~/.nvim/cfg/color.vim`'
-            echohl None
-        endif
+        let idx = s:rand_int(len(s:colors))
+        execute 'colorscheme ' . s:colors[idx]
     endif
     if a:update
         execute 'diffupdate'
