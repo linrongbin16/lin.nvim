@@ -10,6 +10,3 @@ require("mason").setup({
         },
     },
 })
-
--- setup lsp servers
-require("cfg.lspservers")

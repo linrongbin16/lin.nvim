@@ -450,8 +450,10 @@ return {
         event = { VeryLazy, BufRead, BufEnter },
         dependencies = {
             "williamboman/mason.nvim",
+            "williamboman/mason-lspconfig.nvim",
             "jose-elias-alvarez/null-ls.nvim",
         },
+        config = lua_config("jay-babu/mason-null-ls.nvim"),
     },
     -- Auto-complete engine
     {
