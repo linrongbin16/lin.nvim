@@ -36,7 +36,6 @@ local function vim_init(repo)
 end
 
 local VeryLazy = "VeryLazy"
-local BufRead = "BufRead"
 local BufEnter = "BufEnter"
 local CmdlineEnter = "CmdlineEnter"
 local VimEnter = "VimEnter"
@@ -299,18 +298,18 @@ return {
 
     {
         "RRethy/vim-illuminate",
-        event = { VeryLazy, BufRead, BufEnter },
+        event = { VeryLazy, BufEnter },
         init = lua_init("RRethy/vim-illuminate"),
         config = vim_config("RRethy/vim-illuminate"),
     },
     {
         "NvChad/nvim-colorizer.lua",
-        event = { VeryLazy, BufRead, BufEnter },
+        event = { VeryLazy, BufEnter },
         config = lua_config("NvChad/nvim-colorizer.lua"),
     },
     {
         "andymass/vim-matchup",
-        event = { VeryLazy, BufRead, BufEnter },
+        event = { VeryLazy, BufEnter },
         init = lua_init("andymass/vim-matchup"),
     },
     {
@@ -326,7 +325,7 @@ return {
     },
     {
         "haya14busa/is.vim",
-        event = { VeryLazy, BufRead, BufEnter, CmdlineEnter },
+        event = { VeryLazy, BufEnter, CmdlineEnter },
     },
     {
         "markonm/traces.vim",
@@ -346,7 +345,7 @@ return {
     {
         "akinsho/bufferline.nvim",
         version = "v3.*",
-        event = { VeryLazy, BufRead, BufEnter },
+        event = { VeryLazy, BufEnter },
         dependencies = { "moll/vim-bbye" },
         config = lua_config("akinsho/bufferline.nvim"),
         keys = lua_keys("akinsho/bufferline.nvim"),
@@ -359,7 +358,7 @@ return {
     -- Indentline
     {
         "lukas-reineke/indent-blankline.nvim",
-        event = { VeryLazy, BufRead, BufEnter },
+        event = { VeryLazy, BufEnter },
     },
     -- Statusline
     {
@@ -379,7 +378,7 @@ return {
         "utilyre/barbecue.nvim",
         name = "barbecue",
         version = "*",
-        event = { VeryLazy, BufRead, BufEnter },
+        event = { VeryLazy, BufEnter },
         dependencies = { "SmiteshP/nvim-navic" },
         config = lua_config("utilyre/barbecue.nvim"),
     },
@@ -391,7 +390,7 @@ return {
     -- Git
     {
         "airblade/vim-gitgutter",
-        event = { VeryLazy, BufRead, BufEnter },
+        event = { VeryLazy, BufEnter },
         init = vim_init("airblade/vim-gitgutter"),
         keys = lua_keys("airblade/vim-gitgutter"),
     },
@@ -423,7 +422,7 @@ return {
     },
     {
         "ludovicchabant/vim-gutentags",
-        event = { VeryLazy, BufRead, BufEnter },
+        event = { VeryLazy, BufEnter },
         init = vim_init("ludovicchabant/vim-gutentags"),
     },
 
@@ -432,22 +431,22 @@ return {
     -- Lsp server management
     {
         "williamboman/mason.nvim",
-        event = { VeryLazy, BufRead, BufEnter },
+        event = { VeryLazy, BufEnter },
         config = lua_config("williamboman/mason.nvim"),
         keys = lua_keys("williamboman/mason.nvim"),
     },
     {
         "williamboman/mason-lspconfig.nvim",
-        event = { VeryLazy, BufRead, BufEnter },
+        event = { VeryLazy, BufEnter },
         dependencies = { "williamboman/mason.nvim" },
     },
     {
         "jose-elias-alvarez/null-ls.nvim",
-        event = { VeryLazy, BufRead, BufEnter },
+        event = { VeryLazy, BufEnter },
     },
     {
         "jay-babu/mason-null-ls.nvim",
-        event = { VeryLazy, BufRead, BufEnter },
+        event = { VeryLazy, BufEnter },
         dependencies = {
             "williamboman/mason.nvim",
             "williamboman/mason-lspconfig.nvim",
@@ -542,7 +541,7 @@ return {
     },
     {
         "ggandor/leap.nvim",
-        event = { VeryLazy, BufRead, BufEnter },
+        event = { VeryLazy, BufEnter },
         dependencies = { "tpope/vim-repeat" },
         config = lua_config("ggandor/leap.nvim"),
     },
@@ -580,7 +579,7 @@ return {
     -- Comment
     {
         "numToStr/Comment.nvim",
-        event = { VeryLazy, BufRead, BufEnter },
+        event = { VeryLazy, BufEnter },
         config = lua_config("numToStr/Comment.nvim"),
     },
     -- Generate documents
@@ -610,12 +609,12 @@ return {
     -- Other
     {
         "tpope/vim-repeat",
-        event = { VeryLazy, BufRead, BufEnter },
+        event = { VeryLazy, BufEnter },
     },
     {
         "kylechui/nvim-surround",
         version = "*",
-        event = { VeryLazy, BufRead, BufEnter },
+        event = { VeryLazy, BufEnter },
         config = lua_config("kylechui/nvim-surround"),
     },
     {
