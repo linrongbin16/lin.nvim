@@ -510,9 +510,8 @@ return {
     },
     {
         "lukas-reineke/lsp-format.nvim",
-        config = function()
-            require("lsp-format").setup({})
-        end,
+        event = { VeryLazy, BufRead },
+        config = lua_config("lukas-reineke/lsp-format.nvim"),
     },
 
     -- ---- SPECIFIC LANGUAGE SUPPORT ----
