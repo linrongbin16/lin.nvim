@@ -508,6 +508,12 @@ return {
         "onsails/lspkind.nvim",
         lazy = true,
     },
+    {
+        "lukas-reineke/lsp-format.nvim",
+        config = function()
+            require("lsp-format").setup({})
+        end,
+    },
 
     -- ---- SPECIFIC LANGUAGE SUPPORT ----
 
