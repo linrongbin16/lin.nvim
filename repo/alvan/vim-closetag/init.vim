@@ -1,34 +1,28 @@
-" filenames like *.xml, *.html, *.xhtml, ...
-" These are the file extensions where this plugin is enabled.
+" Enable by filenames
 let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.xml,*.js,*.jsx,*.ts,*.tsx,*.erb'
 
-" filenames like *.xml, *.xhtml, ...
-" This will make the list of non-closing tags self-closing in the specified files.
-let g:closetag_xhtml_filenames = '*.xhtml,*.jsx,*.xml,*.js,*.ts,*.tsx,*.erb'
+" Enable xhtml by filenames
+let g:closetag_xhtml_filenames = '*.xhtml,*.xml,*.js,*.jsx,*.ts,*.tsx,*.erb'
 
-" filetypes like xml, html, xhtml, ...
-" These are the file types where this plugin is enabled.
-let g:closetag_filetypes = 'html,xhtml,phtml,xml,javascript,javascriptreact,js,jsx,typescript,typescriptreact,ts,tsx,eruby'
+" Enable by filetypes
+let g:closetag_filetypes = 'html,xhtml,phtml,xml,javascript,javascriptreact,typescript,typescriptreact,eruby'
 
-" filetypes like xml, xhtml, ...
-" This will make the list of non-closing tags self-closing in the specified files.
-let g:closetag_xhtml_filetypes = 'xhtml,jsx,xml,javascript,javascriptreact,js,typescript,typescriptreact,ts,tsx,eruby'
+" Enable xhtml by filetypes
+let g:closetag_xhtml_filetypes = 'xhtml,xml,javascript,javascriptreact,typescript,typescriptreact,eruby'
 
-" integer value [0|1]
-" This will make the list of non-closing tags case-sensitive (e.g. `<Link>` will be closed while `<link>` won't.)
+" Sensitive cases
 let g:closetag_emptyTags_caseSensitive = 1
 
-" dict
-" Disables auto-close if not in a "valid" region (based on filetype)
+" Enable on all regions
 let g:closetag_regions = {
-   \ 'typescript.tsx': 'jsxRegion,tsxRegion',
-   \ 'javascript.jsx': 'jsxRegion',
-   \ 'typescriptreact': 'jsxRegion,tsxRegion',
-   \ 'javascriptreact': 'jsxRegion',
+   \ 'typescript.tsx': '',
+   \ 'javascript.jsx': '',
+   \ 'typescriptreact': '',
+   \ 'javascriptreact': '',
    \ }
 
-" Shortcut for closing tags, default is '>'
+" Closing tags using >
 let g:closetag_shortcut = '>'
 
-" Add > at current position without closing the current tag, default is ''
+" Add > without closing tag
 let g:closetag_close_shortcut = '<leader>>'

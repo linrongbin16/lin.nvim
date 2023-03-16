@@ -578,7 +578,7 @@ return {
     },
     {
         "alvan/vim-closetag",
-        event = { InsertEnter },
+        event = { VeryLazy, BufRead },
         init = vim_init("alvan/vim-closetag"),
     },
     -- Comment
@@ -592,7 +592,7 @@ return {
         "kkoomen/vim-doge",
         cmd = { "DogeGenerate" },
         build = require("cfg.const").os.is_macos
-                and "npm i --no-save && npm run build:binary:unix"
+            and "npm i --no-save && npm run build:binary:unix"
             or ":call doge#install()",
         init = vim_init("kkoomen/vim-doge"),
         keys = lua_keys("kkoomen/vim-doge"),
