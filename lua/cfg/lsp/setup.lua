@@ -18,6 +18,8 @@ local function lsp_on_attach(client, bufnr)
     if client.server_capabilities["documentSymbolProvider"] then
         require("nvim-navic").attach(client, bufnr)
     end
+    -- async code format
+    require("lsp-format").on_attach(client)
 end
 
 -- { mason's config

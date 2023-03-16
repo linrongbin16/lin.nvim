@@ -508,6 +508,11 @@ return {
         "onsails/lspkind.nvim",
         lazy = true,
     },
+    {
+        "lukas-reineke/lsp-format.nvim",
+        event = { VeryLazy, BufRead },
+        config = lua_config("lukas-reineke/lsp-format.nvim"),
+    },
 
     -- ---- SPECIFIC LANGUAGE SUPPORT ----
 
