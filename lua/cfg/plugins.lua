@@ -579,7 +579,6 @@ return {
     },
     {
         "alvan/vim-closetag",
-        event = { VeryLazy, BufRead, BufNewFile },
         init = vim_init("alvan/vim-closetag"),
     },
     -- Comment
