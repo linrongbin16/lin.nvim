@@ -294,8 +294,7 @@ return {
     {
         "RRethy/vim-illuminate",
         event = { VeryLazy, BufRead, BufNewFile },
-        init = lua_init("RRethy/vim-illuminate"),
-        config = vim_config("RRethy/vim-illuminate"),
+        config = lua_config("RRethy/vim-illuminate"),
     },
     {
         "NvChad/nvim-colorizer.lua",
