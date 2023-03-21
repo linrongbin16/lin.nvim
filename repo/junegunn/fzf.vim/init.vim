@@ -10,7 +10,7 @@ else
 endif
 
 " use base16 theme for better color capatibility
-let $BAT_THEME='base16'
+" let $BAT_THEME='base16'
 
 " bigger window
 let g:fzf_layout = { 'window': { 'width': 0.95, 'height': 0.85 } }
