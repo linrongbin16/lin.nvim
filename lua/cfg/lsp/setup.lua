@@ -33,16 +33,6 @@ local embeded_servers_setups = {
     tsserver = function()
         lspconfig["tsserver"].setup({
             on_attach = lsp_on_attach,
-            root_dir = function(fname)
-                -- disable tsserver when detect flow
-                return lspconfig.util.root_pattern("tsconfig.json")(fname)
-                    or not lspconfig.util.root_pattern(".flowconfig")(fname)
-                        and lspconfig.util.root_pattern(
-                            "package.json",
-                            "jsconfig.json",
-                            ".git"
-                        )(fname)
-            end,
         })
     end,
     -- clangd = function()
