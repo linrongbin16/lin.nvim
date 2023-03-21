@@ -503,9 +503,10 @@ return {
         lazy = true,
     },
     {
-        "lukas-reineke/lsp-format.nvim",
+        "linrongbin16/lspformatter.nvim",
         event = { VeryLazy, BufRead, BufNewFile },
-        config = lua_config("lukas-reineke/lsp-format.nvim"),
+        dependencies = "linrongbin16/logger.nvim",
+        config = lua_config("linrongbin16/lspformatter.nvim"),
     },
 
     -- ---- SPECIFIC LANGUAGE SUPPORT ----
