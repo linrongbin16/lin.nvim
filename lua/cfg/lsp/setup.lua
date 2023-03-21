@@ -19,7 +19,7 @@ local function lsp_on_attach(client, bufnr)
         require("nvim-navic").attach(client, bufnr)
     end
     -- async code format
-    require("lsp-format").on_attach(client)
+    require("lspformatter").on_attach(client, bufnr)
 end
 
 -- { mason's config
