@@ -1,1 +1,1 @@
-require("lsp-progress").setup({ decay = 500 })
+require("lsp-progress").setup()
