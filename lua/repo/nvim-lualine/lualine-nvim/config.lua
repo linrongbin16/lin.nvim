@@ -7,37 +7,33 @@
 -- end
 
 local function GitDiff()
+    -- added, modified, removed
+    local signs = { "+", "~", "-" }
+    local msg = {}
     if vim.g.loaded_gitgutter and vim.g.loaded_gitgutter > 0 then
         local changes = vim.fn["GitGutterGetHunkSummary"]()
         if changes == nil or #changes ~= 3 then
             return ""
         end
-        -- added, modified, removed
-        local signs = { "+", "~", "-" }
-        local msg = {}
         for i = 1, 3 do
             if changes[i] > 0 then
                 table.insert(msg, signs[i] .. changes[i])
             end
         end
-        return #msg > 0 and table.concat(msg, " ") or ""
     end
     if
         vim.b.gitsigns_status_dict
         and type(vim.b.gitsigns_status_dict) == "table"
     then
-        local signs = { "+", "~", "-" }
-        local signs_key = { "added", "changed", "removed" }
-        local msg = {}
+        local signkeys = { "added", "changed", "removed" }
         for i = 1, 3 do
-            local value = vim.b.gitsigns_status_dict[signs_key[i]]
+            local value = vim.b.gitsigns_status_dict[signkeys[i]]
             if value and value > 0 then
                 table.insert(msg, signs[i] .. value)
             end
         end
-        return #msg > 0 and table.concat(msg, " ") or ""
     end
-    return ""
+    return #msg > 0 and table.concat(msg, " ") or ""
 end
 
 local function Modifiable()
