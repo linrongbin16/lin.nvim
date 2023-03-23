@@ -561,7 +561,7 @@ return {
                 init = vim_init("f-person/git-blame.nvim"),
                 keys = lua_keys("f-person/git-blame.nvim"),
             }
-        or nil,
+        or {},
     -- Open git link In browser
     {
         "linrongbin16/gitlinker.nvim",
