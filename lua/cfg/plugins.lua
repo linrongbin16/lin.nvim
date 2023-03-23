@@ -554,12 +554,14 @@ return {
 
     -- ---- GIT ----
 
-    {
-        "f-person/git-blame.nvim",
-        event = { CmdlineEnter },
-        init = vim_init("f-person/git-blame.nvim"),
-        keys = lua_keys("f-person/git-blame.nvim"),
-    },
+    vim.fn.has("win32") > 0
+            and {
+                "f-person/git-blame.nvim",
+                event = { CmdlineEnter },
+                init = vim_init("f-person/git-blame.nvim"),
+                keys = lua_keys("f-person/git-blame.nvim"),
+            }
+        or nil,
     -- Open git link In browser
     {
         "linrongbin16/gitlinker.nvim",

@@ -3,7 +3,7 @@ require("gitsigns").setup({
         changedelete = { text = "~_" },
     },
     current_line_blame_opts = {
-        delay = 300,
+        delay = 200,
     },
     on_attach = function(bufnr)
         local map = require("cfg.keymap").map
