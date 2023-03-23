@@ -1,7 +1,7 @@
 require("gitsigns").setup({
     signs = {
-        add = { text = "+" }, -- vim-gitgutter style signs
-        change = { text = "~" },
+        -- add = { text = "+" }, -- vim-gitgutter style signs
+        -- change = { text = "~" },
         delete = { text = "_" },
         topdelete = { text = "‾" },
         changedelete = { text = "~_" },
@@ -11,16 +11,11 @@ require("gitsigns").setup({
         delay = 300,
     },
     on_attach = function(bufnr)
+        local map = require("cfg.keymap").map
         local gs = package.loaded.gitsigns
 
-        local function map(mode, l, r, opts)
-            opts = opts or {}
-            opts.buffer = bufnr
-            vim.keymap.set(mode, l, r, opts)
-        end
-
         -- Navigation
-        map("n", "]h", function()
+        map("n", "]c", function()
             if vim.wo.diff then
                 return "]c"
             end
@@ -28,9 +23,9 @@ require("gitsigns").setup({
                 gs.next_hunk()
             end)
             return "<Ignore>"
-        end, { expr = true })
+        end, { expr = true, buffer = bufnr })
 
-        map("n", "[h", function()
+        map("n", "[c", function()
             if vim.wo.diff then
                 return "[c"
             end
@@ -38,6 +33,6 @@ require("gitsigns").setup({
                 gs.prev_hunk()
             end)
             return "<Ignore>"
-        end, { expr = true })
+        end, { expr = true, buffer = bufnr })
     end,
 })

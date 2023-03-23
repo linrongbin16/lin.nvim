@@ -1,33 +1,3 @@
--- local function GitStatus()
---     local branch = vim.fn["gitbranch#name"]()
---     if branch == nil or branch == "" then
---         return ""
---     end
---     local changes = vim.fn["GitGutterGetHunkSummary"]()
---     if changes == nil or #changes ~= 3 then
---         return string.format(" %s", branch)
---     else
---         local added = changes[1]
---         local modified = changes[2]
---         local removed = changes[3]
---         local msg = {}
---         if added > 0 then
---             table.insert(msg, string.format("+%d", added))
---         end
---         if modified > 0 then
---             table.insert(msg, string.format("~%d", modified))
---         end
---         if removed > 0 then
---             table.insert(msg, string.format("-%d", removed))
---         end
---         if #msg > 0 then
---             return string.format(" %s %s", branch, table.concat(msg, " "))
---         else
---             return string.format(" %s", branch)
---         end
---     end
--- end
-
 -- local function Rtrim(s)
 --     local n = #s
 --     while n > 0 and s:find("^%s", n) do
@@ -37,22 +7,37 @@
 -- end
 
 local function GitDiff()
-    if vim.g.loaded_gitgutter <= 0 then
-        return ""
-    end
-    local changes = vim.fn["GitGutterGetHunkSummary"]()
-    if changes == nil or #changes ~= 3 then
-        return ""
-    end
-    -- added, modified, removed
-    local signs = { "+", "~", "-" }
-    local msg = {}
-    for i = 1, 3 do
-        if changes[i] > 0 then
-            table.insert(msg, signs[i] .. changes[i])
+    if vim.g.loaded_gitgutter and vim.g.loaded_gitgutter > 0 then
+        local changes = vim.fn["GitGutterGetHunkSummary"]()
+        if changes == nil or #changes ~= 3 then
+            return ""
         end
+        -- added, modified, removed
+        local signs = { "+", "~", "-" }
+        local msg = {}
+        for i = 1, 3 do
+            if changes[i] > 0 then
+                table.insert(msg, signs[i] .. changes[i])
+            end
+        end
+        return #msg > 0 and table.concat(msg, " ") or ""
     end
-    return #msg > 0 and table.concat(msg, " ") or ""
+    if
+        vim.b.gitsigns_status_dict
+        and type(vim.b.gitsigns_status_dict) == "table"
+    then
+        local signs = { "+", "~", "-" }
+        local signs_key = { "added", "changed", "removed" }
+        local msg = {}
+        for i = 1, 3 do
+            local value = vim.b.gitsigns_status_dict[signs_key[i]]
+            if value and value > 0 then
+                table.insert(msg, signs[i] .. value)
+            end
+        end
+        return #msg > 0 and table.concat(msg, " ") or ""
+    end
+    return ""
 end
 
 local function Modifiable()

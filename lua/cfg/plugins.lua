@@ -363,7 +363,6 @@ return {
     },
     {
         "linrongbin16/lsp-progress.nvim",
-        branch = "main",
         lazy = true,
         config = lua_config("linrongbin16/lsp-progress.nvim"),
     },
@@ -382,12 +381,19 @@ return {
         init = vim_init("SmiteshP/nvim-navic"),
     },
     -- Git
-    {
-        "airblade/vim-gitgutter",
-        event = { VeryLazy, BufRead, BufNewFile },
-        init = vim_init("airblade/vim-gitgutter"),
-        keys = lua_keys("airblade/vim-gitgutter"),
-    },
+    vim.fn.has("win32") > 0
+            and {
+                "airblade/vim-gitgutter",
+                event = { VeryLazy, BufRead, BufNewFile },
+                init = vim_init("airblade/vim-gitgutter"),
+                keys = lua_keys("airblade/vim-gitgutter"),
+            }
+        or {
+            "lewis6991/gitsigns.nvim",
+            event = { VeryLazy, BufRead, BufNewFile },
+            config = lua_config("lewis6991/gitsigns.nvim"),
+            keys = lua_keys("lewis6991/gitsigns.nvim"),
+        },
 
     -- ---- SEARCH ----
 
