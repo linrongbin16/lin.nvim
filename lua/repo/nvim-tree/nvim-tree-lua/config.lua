@@ -47,10 +47,30 @@ local on_attach = function(bufnr)
     )
 end
 
+local function make_width()
+    local rate = 0.25
+    local min_w = 30
+    local max_w = 60
+    local editor_w = vim.o.columns
+    local tree_w = math.floor(editor_w * rate)
+    tree_w = vim.fn.min({ max_w, tree_w })
+    tree_w = vim.fn.max({ min_w, tree_w })
+    -- print(
+    --     string.format(
+    --         "make_width editor_w:%d, min_w:%d, max_w:%d, tree_w:%d",
+    --         editor_w,
+    --         min_w,
+    --         max_w,
+    --         tree_w
+    --     )
+    -- )
+    return tree_w
+end
+
 require("nvim-tree").setup({
     on_attach = on_attach,
     view = {
-        width = 40,
+        width = make_width(),
     },
     renderer = {
         highlight_git = true,
