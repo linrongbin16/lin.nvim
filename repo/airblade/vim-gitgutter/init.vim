@@ -13,3 +13,9 @@ endif
 
 " use float window for preview
 let g:gitgutter_preview_win_floating = 1
+
+" gitsigns style signs
+let g:gitgutter_sign_added = '┃' " '+'
+let g:gitgutter_sign_modified = '┃' " '~'
+let g:gitgutter_sign_removed = '▁' " '_'
+let g:gitgutter_sign_removed_first_line = '▔' " '‾'

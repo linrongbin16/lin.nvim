@@ -5,13 +5,13 @@ local M = {
         "n",
         "]c",
         "<Plug>(GitGutterNextHunk)",
-        { desc = "Next git hunk" }
+        { desc = "Go to next git hunk" }
     ),
     map_lazy(
         "n",
         "[c",
         "<Plug>(GitGutterPrevHunk)",
-        { desc = "Previous git hunk" }
+        { desc = "Go to previous git hunk" }
     ),
 }
 
