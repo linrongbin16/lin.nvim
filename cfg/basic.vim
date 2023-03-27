@@ -40,7 +40,7 @@ set ttimeout ttimeoutlen=200
 set updatetime=300
 
 """ search
-set magic smartcase ignorecase hlsearch
+set magic smartcase noignorecase hlsearch
 if has('patch-8.0.1238')
     set incsearch
 endif
