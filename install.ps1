@@ -96,7 +96,7 @@ function NvimConfig()
     Message "install $APPDATA_LOCAL_HOME\nvim\init.vim for neovim on windows"
     TryBackup "$APPDATA_LOCAL_NVIM_HOME\init.vim"
     TryBackup $APPDATA_LOCAL_NVIM_HOME
-    cmd /c mklink $APPDATA_LOCAL_NVIM_HOME $NVIM_HOME
+    cmd /c mklink $APPDATA_LOCAL_NVIM_HOME $NVIM_HOME /D
     cmd /c nvim -E -c "Lazy! sync" -c "qall!" /wait
 }
 
