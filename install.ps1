@@ -91,6 +91,16 @@ function NpmDependency()
     Start-Process powershell "npm install -g neovim" -Verb RunAs -Wait
 }
 
+function NvimConfig()
+{
+    Message "install $APPDATA_LOCAL_HOME\nvim\init.vim for neovim on windows"
+    TryBackup $NVIM_HOME\init.vim
+    TryBackup $NVIM_HOME
+    cmd /c mklink $NVIM_HOME $APPDATA_LOCAL_NVIM_HOME
+    cmd /c nvim -E -c "Lazy! sync" -c "qall!" /wait
+}
+
+
 # function ShowHelp()
 # {
 #     Get-Content -Path "$DEPS_HOME\help.txt" | Write-Host
@@ -123,7 +133,6 @@ Message "install dependencies for windows"
 CargoDependency
 Pip3Dependency
 NpmDependency
-
-cmd /c nvim -E -c "Lazy! sync" -c "qall!" /wait
+NvimConfig
 
 Message "install for windows - done"
