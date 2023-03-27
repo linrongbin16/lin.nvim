@@ -68,7 +68,6 @@ guifont_dependency() {
 
 nvim_config() {
     message "install ~/.config/nvim/init.vim for neovim"
-    try_backup $NVIM_HOME/init.vim
     try_backup $NVIM_HOME
     mkdir -p $HOME/.config
     ln -s $NVIM_HOME $CONFIG_NVIM_HOME
