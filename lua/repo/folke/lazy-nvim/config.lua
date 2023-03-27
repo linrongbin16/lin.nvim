@@ -1,6 +1,6 @@
 local const = require("cfg.const")
 
-local lazypath = vim.fn.stdpath('config') .. "/.nvim/lazy/lazy.nvim"
+local lazypath = vim.fn.stdpath('config') .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
     vim.fn.system({
         "git",
@@ -14,7 +14,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local opts = {
-    root = vim.fn.stdpath('config') .. "/.nvim/lazy",
+    root = vim.fn.stdpath('config') .. "/lazy",
     ui = {
         border = const.ui.border,
     },
