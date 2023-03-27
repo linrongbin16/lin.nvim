@@ -1,7 +1,7 @@
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
-local const = require("cfg.const")
+-- local const = require("cfg.const")
 
 -- Please see https://github.com/nvim-tree/nvim-tree.lua/wiki/Migrating-To-on_attach for assistance in migrating.
 local on_attach = function(bufnr)
@@ -47,7 +47,7 @@ local on_attach = function(bufnr)
     )
 end
 
-local function make_width()
+local function get_view_width()
     local rate = 0.25
     local min_w = 30
     local max_w = 60
@@ -55,22 +55,13 @@ local function make_width()
     local tree_w = math.floor(editor_w * rate)
     tree_w = vim.fn.min({ max_w, tree_w })
     tree_w = vim.fn.max({ min_w, tree_w })
-    -- print(
-    --     string.format(
-    --         "make_width editor_w:%d, min_w:%d, max_w:%d, tree_w:%d",
-    --         editor_w,
-    --         min_w,
-    --         max_w,
-    --         tree_w
-    --     )
-    -- )
     return tree_w
 end
 
 require("nvim-tree").setup({
     on_attach = on_attach,
     view = {
-        width = make_width(),
+        width = get_view_width(),
     },
     renderer = {
         highlight_git = true,
