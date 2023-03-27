@@ -1,5 +1,3 @@
-#Requires -RunAsAdministrator
-
 # Debug
 # Set-PSDebug -Trace 1
 
@@ -82,13 +80,15 @@ function CargoDependency()
 function Pip3Dependency()
 {
     Message "install python packages with pip3"
-    python3 -m pip install pynvim
+    # Run as administrator
+    Start-Process powershell "python3 -m pip install pynvim" -Verb RunAs -Wait
 }
 
 function NpmDependency()
 {
     Message "install node packages with npm"
-    npm install -g neovim
+    # Run as administrator
+    Start-Process powershell "npm install -g neovim" -Verb RunAs -Wait
 }
 
 # function ShowHelp()
