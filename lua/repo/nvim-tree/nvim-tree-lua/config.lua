@@ -89,22 +89,22 @@ require("nvim-tree").setup({
     update_focused_file = {
         enable = true,
     },
-    diagnostics = {
-        enable = true,
-        icons = {
-            hint = const.lsp.diagnostics.signs["hint"],
-            info = const.lsp.diagnostics.signs["info"],
-            warning = const.lsp.diagnostics.signs["warning"],
-            error = const.lsp.diagnostics.signs["error"],
-        },
-    },
     git = {
         enable = true,
         ignore = false,
     },
-    modified = {
-        enable = true,
-    },
+    -- diagnostics = {
+    --     enable = true,
+    --     icons = {
+    --         hint = const.lsp.diagnostics.signs["hint"],
+    --         info = const.lsp.diagnostics.signs["info"],
+    --         warning = const.lsp.diagnostics.signs["warning"],
+    --         error = const.lsp.diagnostics.signs["error"],
+    --     },
+    -- },
+    -- modified = {
+    --     enable = true,
+    -- },
 })
 
 vim.api.nvim_create_augroup("nvim_tree_augroup", { clear = true })
