@@ -1,5 +1,3 @@
-#Requires -RunAsAdministrator
-
 # Debug
 # Set-PSDebug -Trace 1
 
@@ -82,14 +80,25 @@ function CargoDependency()
 function Pip3Dependency()
 {
     Message "install python packages with pip3"
-    python3 -m pip install pynvim
+    # Run as administrator
+    Start-Process powershell "python3 -m pip install pynvim" -Verb RunAs -Wait
 }
 
 function NpmDependency()
 {
     Message "install node packages with npm"
-    npm install -g neovim
+    # Run as administrator
+    Start-Process powershell "npm install -g neovim" -Verb RunAs -Wait
 }
+
+function NvimConfig()
+{
+    Message "install $APPDATA_LOCAL_HOME\nvim\init.vim for neovim on windows"
+    TryBackup $APPDATA_LOCAL_NVIM_HOME
+    cmd /c mklink $APPDATA_LOCAL_NVIM_HOME $NVIM_HOME /D
+    cmd /c nvim -E -c "Lazy! sync" -c "qall!" /wait
+}
+
 
 # function ShowHelp()
 # {
@@ -123,7 +132,6 @@ Message "install dependencies for windows"
 CargoDependency
 Pip3Dependency
 NpmDependency
-
-cmd /c nvim -E -c "Lazy! sync" -c "qall!" /wait
+NvimConfig
 
 Message "install for windows - done"

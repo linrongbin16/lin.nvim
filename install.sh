@@ -66,6 +66,14 @@ guifont_dependency() {
     fi
 }
 
+nvim_config() {
+    message "install ~/.config/nvim/init.vim for neovim"
+    try_backup $NVIM_HOME
+    mkdir -p $HOME/.config
+    ln -s $NVIM_HOME $CONFIG_NVIM_HOME
+    nvim -E -c "Lazy! sync" -c "qall!"
+}
+
 # parse options
 # show_help() {
 #     cat $DEPS_HOME/help.txt
@@ -128,10 +136,10 @@ Darwin)
     exit 1
     ;;
 esac
+
 pip3_dependency
 npm_dependency
 guifont_dependency
-
-nvim -E -c "Lazy! sync" -c "qall!"
+nvim_config
 
 message "install for $OS - done"
