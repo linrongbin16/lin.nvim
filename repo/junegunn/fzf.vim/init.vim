@@ -9,10 +9,12 @@ else
     echohl None
 endif
 
-" use base16 theme for better color capatibility
-" let $BAT_THEME='base16'
 
-" UI
+" preview/bat
+" let $BAT_THEME='base16'
+let $BAT_STYLE='numbers,header'
+
+" ui
 let g:fzf_layout = { 'window': { 'width': 0.95, 'height': 0.85 } }
 let g:fzf_preview_window = ['right,40%', 'ctrl-p']
 
