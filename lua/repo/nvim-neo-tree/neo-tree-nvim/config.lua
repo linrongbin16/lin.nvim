@@ -52,12 +52,13 @@ require("neo-tree").setup({
                     },
                     { "clipboard", zindex = 10 },
                     {
+                        -- move this indicator to left side
                         "diagnostics",
                         errors_only = true,
                         zindex = 20,
                         align = "left",
                         hide_when_expanded = true,
-                    }, -- move this indicator to left side
+                    },
                     {
                         "git_status",
                         zindex = 20,
@@ -94,6 +95,9 @@ require("neo-tree").setup({
     window = {
         width = get_view_width(),
         mappings = {
+            -- open node
+            ["l"] = "open",
+            -- close node
             ["h"] = function(state)
                 local node = state.tree:get_node()
                 if node.type == "directory" and node:is_expanded() then
@@ -108,11 +112,11 @@ require("neo-tree").setup({
                     )
                 end
             end,
-            ["l"] = "open",
             ["C"] = "none",
             ["<space>"] = "none",
             ["w"] = "none",
 
+            -- open in split/vsplit/tab
             ["<C-x>"] = "open_split",
             ["<C-v>"] = "open_vsplit",
             ["<C-t>"] = "open_tabnew",
@@ -120,8 +124,11 @@ require("neo-tree").setup({
             ["W"] = "close_all_nodes",
             ["E"] = "expand_all_nodes",
             ["z"] = "none",
-
             ["e"] = "none",
+
+            -- help
+            ["g?"] = "show_help",
+            ["?"] = "none",
         },
     },
     filesystem = {
@@ -130,6 +137,11 @@ require("neo-tree").setup({
         },
         follow_current_file = true,
         use_libuv_file_watcher = true,
+        window = {
+            ["<C-]>"] = "set_root",
+            ["[c"] = "prev_git_modified",
+            ["]c"] = "next_git_modified",
+        },
     },
 })
 
