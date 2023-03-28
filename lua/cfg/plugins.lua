@@ -329,11 +329,29 @@ return {
     -- ---- UI ----
 
     -- File explorer
+    -- {
+    --     "nvim-tree/nvim-tree.lua",
+    --     event = { VimEnter },
+    --     config = lua_config("nvim-tree/nvim-tree.lua"),
+    --     keys = lua_keys("nvim-tree/nvim-tree.lua"),
+    -- },
+    -- {
+    --     "ms-jpq/chadtree",
+    --     event = { VimEnter },
+    --     branch = "chad",
+    --     build = "python3 -m chadtree deps",
+    --     init = lua_init("ms-jpq/chadtree"),
+    -- },
     {
-        "nvim-tree/nvim-tree.lua",
+        "nvim-neo-tree/neo-tree.nvim",
         event = { VimEnter },
-        config = lua_config("nvim-tree/nvim-tree.lua"),
-        keys = lua_keys("nvim-tree/nvim-tree.lua"),
+        branch = "v2.x",
+        dependencies = {
+            "MunifTanjim/nui.nvim",
+        },
+        init = vim_init("nvim-neo-tree/neo-tree.nvim"),
+        config = lua_config("nvim-neo-tree/neo-tree.nvim"),
+        keys = lua_keys("nvim-neo-tree/neo-tree.nvim"),
     },
     -- Tabline
     {
