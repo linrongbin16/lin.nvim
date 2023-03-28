@@ -108,14 +108,14 @@ require("neo-tree").setup({
                     )
                 end
             end,
-            ["C"] = "none",
             ["l"] = "open",
+            ["C"] = "none",
             ["<space>"] = "none",
             ["w"] = "none",
 
-            ["s"] = "open_split",
-            ["v"] = "open_vsplit",
-            ["t"] = "open_tabnew",
+            ["<C-x>"] = "open_split",
+            ["<C-v>"] = "open_vsplit",
+            ["<C-t>"] = "open_tabnew",
 
             ["W"] = "close_all_nodes",
             ["E"] = "expand_all_nodes",
