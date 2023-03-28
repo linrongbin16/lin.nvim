@@ -49,8 +49,8 @@ end
 
 local function get_view_width()
     local rate = 0.25
-    local min_w = 30
-    local max_w = 60
+    local min_w = 20
+    local max_w = 80
     local editor_w = vim.o.columns
     local tree_w = math.floor(editor_w * rate)
     tree_w = vim.fn.min({ max_w, tree_w })
