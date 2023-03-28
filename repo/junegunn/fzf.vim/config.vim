@@ -1,10 +1,10 @@
 command! -bang -nargs=* FzfRg2 call fzf#vim#grep(
-            \ "rg -o --column --no-heading --color=always -s -- ".shellescape(<q-args>), 1,
+            \ "rg --column --no-heading --color=always -s -- ".shellescape(<q-args>), 1,
             \ fzf#vim#with_preview(), <bang>0)
 
 command! -bang -nargs=* FzfUnrestrictedRg
             \ call fzf#vim#grep(
-            \ "rg -o --column --no-heading --color=always -s -uu ".shellescape(<q-args>), 1,
+            \ "rg --column --no-heading --color=always -s -uu ".shellescape(<q-args>), 1,
             \ fzf#vim#with_preview(), <bang>0)
 
 function! s:lin_fzf_advanced_rg(query, fullscreen)
@@ -36,7 +36,7 @@ command! -bang -nargs=0 FzfCWordRg
 
 command! -bang -nargs=0 FzfUnrestrictedCWordRg
             \ call fzf#vim#grep(
-            \ "rg -o --column --no-heading --color=always -s -uu -g ".shellescape(expand('<cword>')), 1,
+            \ "rg -o --column --no-heading --color=always -s -uu ".shellescape(expand('<cword>')), 1,
             \ fzf#vim#with_preview(), <bang>0)
 
 if executable('fd')
