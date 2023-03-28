@@ -7,7 +7,7 @@ local M = {
     keymap.map_lazy(
         "n",
         "<space>r",
-        keymap.exec("FzfRg2"),
+        keymap.exec("FzfRg"),
         { desc = "Search text" }
     ),
     keymap.map_lazy(
