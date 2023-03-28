@@ -14,25 +14,24 @@ local cmp = require("cmp")
 local luasnip = require("luasnip")
 
 local select_opts = { behavior = cmp.SelectBehavior.Select }
-local keyword = 1
+local keyword = 2
 
 cmp.setup({
     completion = {
         completeopt = "menu,menuone,noinsert",
     },
     snippet = {
-        -- REQUIRED - you must specify a snippet engine
         expand = function(args)
-            require("luasnip").lsp_expand(args.body)
+            luasnip.lsp_expand(args.body)
         end,
     },
     sources = cmp.config.sources({
         { name = "nvim_lsp", keyword_length = keyword },
-        { name = "luasnip",  keyword_length = keyword },
+        { name = "luasnip", keyword_length = keyword },
     }, {
         { name = "buffer", keyword_length = keyword },
-        { name = "path",   keyword_length = keyword },
-        { name = "tags",   keyword_length = keyword },
+        { name = "path", keyword_length = keyword },
+        { name = "tags", keyword_length = keyword },
     }),
     window = {
         completion = cmp.config.window.bordered(),
@@ -59,7 +58,7 @@ cmp.setup({
         ["<C-p>"] = cmp.mapping.select_prev_item(select_opts),
         ["<Down>"] = cmp.mapping.select_next_item(select_opts),
         ["<C-n>"] = cmp.mapping.select_next_item(select_opts),
-        ["<C-u>"] = cmp.mapping.scroll_docs( -4),
+        ["<C-u>"] = cmp.mapping.scroll_docs(-4),
         ["<C-d>"] = cmp.mapping.scroll_docs(4),
         ["<C-Space>"] = cmp.mapping.complete(),
         ["<C-e>"] = cmp.mapping.abort(),
@@ -67,7 +66,8 @@ cmp.setup({
             if cmp.visible() then
                 cmp.confirm({ select = true })
             else
-                fallback() -- If you use vim-endwise, this fallback will behave the same as vim-endwise.
+                -- If you use vim-endwise, this fallback will behave the same as vim-endwise.
+                fallback()
             end
         end, { "i", "s" }),
         ["<Tab>"] = cmp.mapping(function(fallback)
@@ -90,8 +90,8 @@ cmp.setup({
             end
         end, { "i", "s" }),
         ["<C-b>"] = cmp.mapping(function(fallback)
-            if luasnip.jumpable( -1) then
-                luasnip.jump( -1)
+            if luasnip.jumpable(-1) then
+                luasnip.jump(-1)
             else
                 fallback()
             end
@@ -123,3 +123,7 @@ cmp.setup.cmdline(":", {
         { name = "cmdline", keyword_length = keyword },
     }),
 })
+
+-- Work with nvim-autopairs
+local autopairs_cmp = require("nvim-autopairs.completion.cmp")
+cmp.event:on("confirm_done", autopairs_cmp.on_confirm_done())
