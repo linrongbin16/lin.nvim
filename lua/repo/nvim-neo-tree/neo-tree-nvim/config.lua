@@ -25,7 +25,7 @@ require("neo-tree").setup({
             symbols = {
                 added = "", -- : nf-fa-plus \uf067
                 modified = "", -- : nf-fa-circle \uf111
-                deleted = "", -- nf-fa-times \uf00d
+                deleted = "", -- : nf-fa-times \uf00d
                 renamed = "", -- nf-fa-arrow_right \uf061
                 -- Status type
                 untracked = "", -- nf-fa-star \uf005
