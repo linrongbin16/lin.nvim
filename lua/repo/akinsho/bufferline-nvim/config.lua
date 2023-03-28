@@ -6,8 +6,6 @@ require("bufferline").setup({
         -- numbers = "ordinal",
         close_command = "Bdelete! %d", -- Bdelete: https://github.com/moll/vim-bbye
         right_mouse_command = "Bdelete! %d",
-        max_name_length = 60,
-        max_prefix_length = 55,
         diagnostics = false,
         -- separator_style = "slant",
         hover = {
