@@ -12,8 +12,9 @@ endif
 " use base16 theme for better color capatibility
 " let $BAT_THEME='base16'
 
-" bigger window
+" UI
 let g:fzf_layout = { 'window': { 'width': 0.95, 'height': 0.85 } }
+let g:fzf_preview_window = ['right,40%', 'ctrl-p']
 
 " command prefix
 let g:fzf_command_prefix = 'Fzf'
