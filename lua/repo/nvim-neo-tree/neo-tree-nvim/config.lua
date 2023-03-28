@@ -138,9 +138,11 @@ require("neo-tree").setup({
         follow_current_file = true,
         use_libuv_file_watcher = true,
         window = {
-            ["<C-]>"] = "set_root",
-            ["[c"] = "prev_git_modified",
-            ["]c"] = "next_git_modified",
+            mappings = {
+                ["<C-]>"] = "set_root",
+                ["[c"] = "prev_git_modified",
+                ["]c"] = "next_git_modified",
+            },
         },
     },
 })
