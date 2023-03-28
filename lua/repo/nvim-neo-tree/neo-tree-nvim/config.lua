@@ -25,7 +25,7 @@ require("neo-tree").setup({
             symbols = {
                 added = "", -- : nf-fa-plus \uf067
                 modified = "", -- : nf-fa-circle \uf111
-                deleted = "", -- nf-fa-times \uf00d
+                deleted = "", -- nf-fa-times \uf00d
                 renamed = "", -- nf-fa-arrow_right \uf061
                 -- Status type
                 untracked = "", -- nf-fa-star \uf005
@@ -52,11 +52,10 @@ require("neo-tree").setup({
                     },
                     { "clipboard", zindex = 10 },
                     {
-                        -- move this indicator to left side
                         "diagnostics",
                         errors_only = true,
                         zindex = 20,
-                        align = "left",
+                        align = "right",
                         hide_when_expanded = true,
                     },
                     {
@@ -85,8 +84,8 @@ require("neo-tree").setup({
                     },
                     { "clipboard", zindex = 10 },
                     { "bufnr", zindex = 10 },
-                    { "modified", zindex = 20, align = "left" }, -- move this indicator to left side
-                    { "diagnostics", zindex = 20, align = "left" }, -- move this indicator to left side
+                    { "modified", zindex = 20, align = "right" },
+                    { "diagnostics", zindex = 20, align = "right" },
                     { "git_status", zindex = 20, align = "right" },
                 },
             },
@@ -120,15 +119,14 @@ require("neo-tree").setup({
             ["<C-x>"] = "open_split",
             ["<C-v>"] = "open_vsplit",
             ["<C-t>"] = "open_tabnew",
+            ["S"] = "none",
+            ["s"] = "none",
+            ["t"] = "none",
 
             ["W"] = "close_all_nodes",
             ["E"] = "expand_all_nodes",
             ["z"] = "none",
             ["e"] = "none",
-
-            -- help
-            ["g?"] = "show_help",
-            ["?"] = "none",
         },
     },
     filesystem = {
