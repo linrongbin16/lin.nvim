@@ -1,5 +1,16 @@
 local const = require("cfg.const")
 
+local function get_view_width()
+    local rate = 0.25
+    local min_w = 25
+    local max_w = 80
+    local editor_w = vim.o.columns
+    local tree_w = math.floor(editor_w * rate)
+    tree_w = vim.fn.min({ max_w, tree_w })
+    tree_w = vim.fn.max({ min_w, tree_w })
+    return tree_w
+end
+
 require("neo-tree").setup({
     popup_border_style = const.ui.border,
     default_component_configs = {
@@ -14,7 +25,7 @@ require("neo-tree").setup({
             symbols = {
                 added = "", -- : nf-fa-plus \uf067
                 modified = "", -- : nf-fa-circle \uf111
-                deleted = "", -- nf-fa-times \uf00d
+                deleted = "", -- : nf-fa-times \uf00d
                 renamed = "", -- nf-fa-arrow_right \uf061
                 -- Status type
                 untracked = "", -- nf-fa-star \uf005
@@ -44,9 +55,9 @@ require("neo-tree").setup({
                         "diagnostics",
                         errors_only = true,
                         zindex = 20,
-                        align = "left",
+                        align = "right",
                         hide_when_expanded = true,
-                    }, -- move this indicator to left side
+                    },
                     {
                         "git_status",
                         zindex = 20,
@@ -73,15 +84,19 @@ require("neo-tree").setup({
                     },
                     { "clipboard", zindex = 10 },
                     { "bufnr", zindex = 10 },
-                    { "modified", zindex = 20, align = "left" }, -- move this indicator to left side
-                    { "diagnostics", zindex = 20, align = "left" }, -- move this indicator to left side
+                    { "modified", zindex = 20, align = "right" },
+                    { "diagnostics", zindex = 20, align = "right" },
                     { "git_status", zindex = 20, align = "right" },
                 },
             },
         },
     },
     window = {
+        width = get_view_width(),
         mappings = {
+            -- open node
+            ["l"] = "open",
+            -- close node
             ["h"] = function(state)
                 local node = state.tree:get_node()
                 if node.type == "directory" and node:is_expanded() then
@@ -97,18 +112,20 @@ require("neo-tree").setup({
                 end
             end,
             ["C"] = "none",
-            ["l"] = "open",
             ["<space>"] = "none",
             ["w"] = "none",
 
-            ["s"] = "open_split",
-            ["v"] = "open_vsplit",
-            ["t"] = "open_tabnew",
+            -- open in split/vsplit/tab
+            ["<C-x>"] = "open_split",
+            ["<C-v>"] = "open_vsplit",
+            ["<C-t>"] = "open_tabnew",
+            ["S"] = "none",
+            ["s"] = "none",
+            ["t"] = "none",
 
             ["W"] = "close_all_nodes",
             ["E"] = "expand_all_nodes",
             ["z"] = "none",
-
             ["e"] = "none",
         },
     },
@@ -118,6 +135,13 @@ require("neo-tree").setup({
         },
         follow_current_file = true,
         use_libuv_file_watcher = true,
+        window = {
+            mappings = {
+                ["<C-]>"] = "set_root",
+                ["[c"] = "prev_git_modified",
+                ["]c"] = "next_git_modified",
+            },
+        },
     },
 })
 
