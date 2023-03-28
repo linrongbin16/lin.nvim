@@ -21,7 +21,7 @@ error_message() {
 try_backup() {
     local src=$1
     if [[ -f "$src" || -d "$src" ]]; then
-        local target=$src.$(date +"%Y-%m-%d.%H-%M-%S.%6N")
+        local target=$src.$(date +"%Y-%m-%d.%H-%M-%S")
         message "backup '$src' to '$target'"
         mv $src $target
     fi
