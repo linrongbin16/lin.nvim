@@ -1,5 +1,5 @@
 command! -bang -nargs=* FzfRg2 call fzf#vim#grep(
-            \ "rg --column --no-heading --color=always -s -- ".shellescape(<q-args>), 1,
+            \ "rg -o --column --no-heading --color=always -s -- ".shellescape(<q-args>), 1,
             \ fzf#vim#with_preview(), <bang>0)
 
 command! -bang -nargs=* FzfUnrestrictedRg
