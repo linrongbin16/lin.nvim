@@ -123,6 +123,11 @@ require("neo-tree").setup({
             ["s"] = "none",
             ["t"] = "none",
 
+            -- preview
+            ["<C-l>"] = { "toggle_preview", config = { use_float = true } },
+            ["P"] = "none",
+
+            -- expand/collapse
             ["W"] = "close_all_nodes",
             ["E"] = "expand_all_nodes",
             ["z"] = "none",

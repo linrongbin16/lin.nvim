@@ -9,11 +9,20 @@ else
     echohl None
 endif
 
-" use base16 theme for better color capatibility
+" preview/bat
 " let $BAT_THEME='base16'
+let $BAT_STYLE='numbers,header'
 
-" bigger window
+" ui
 let g:fzf_layout = { 'window': { 'width': 0.95, 'height': 0.85 } }
+let g:fzf_preview_window = ['right,40%', 'ctrl-l']
 
 " command prefix
 let g:fzf_command_prefix = 'Fzf'
+
+" action
+let g:fzf_action = {
+            \ 'ctrl-t': 'tab split',
+            \ 'ctrl-x': 'split',
+            \ 'ctrl-v': 'vsplit',
+            \ }
