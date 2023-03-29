@@ -13,9 +13,6 @@ glance.setup({
             ["v"] = false,
             ["<C-t>"] = actions.jump_tab,
             ["t"] = false,
-            ["<leader>,"] = actions.enter_win("preview"),
-            ["<leader>."] = actions.enter_win("preview"),
-            ["<leader>l"] = false,
         },
         preview = {
             -- quit
@@ -24,9 +21,6 @@ glance.setup({
             -- navigation
             ["<Tab>"] = false,
             ["<S-Tab>"] = false,
-            ["<leader>,"] = actions.enter_win("list"),
-            ["<leader>."] = actions.enter_win("list"),
-            ["<leader>l"] = false,
         },
     },
 })
