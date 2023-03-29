@@ -367,6 +367,12 @@ return {
         cmd = { "Bdelete", "Bwipeout" },
         keys = lua_keys("moll/vim-bbye"),
     },
+    {
+        "j-morano/buffer_manager.nvim",
+        lazy = true,
+        config = lua_config("j-morano/buffer_manager.nvim"),
+        keys = lua_keys("j-morano/buffer_manager.nvim"),
+    },
     -- Indentline
     {
         "lukas-reineke/indent-blankline.nvim",
