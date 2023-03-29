@@ -1,9 +1,4 @@
-command! -bang -nargs=* FzfUnrestrictedRg
-            \ call fzf#vim#grep(
-            \ "rg --column --no-heading --color=always -S -uu ".shellescape(<q-args>), 1,
-            \ fzf#vim#with_preview(), <bang>0)
-
-function! s:lin_fzf_advanced_rg(query, fullscreen)
+function! s:lin_fzf_precised_rg(query, fullscreen)
     let command_fmt = 'rg --column --no-heading --color=always -S -- %s || true'
     let initial_command = printf(command_fmt, shellescape(a:query))
     let reload_command = printf(command_fmt, '{q}')
@@ -12,7 +7,23 @@ function! s:lin_fzf_advanced_rg(query, fullscreen)
     call fzf#vim#grep(initial_command, 1, spec, a:fullscreen)
 endfunction
 
-function! s:lin_fzf_unrestricted_advanced_rg(query, fullscreen)
+command! -bang -nargs=* FzfUnrestrictedRg
+            \ call fzf#vim#grep(
+            \ "rg --column --no-heading --color=always -S -uu ".shellescape(<q-args>), 1,
+            \ fzf#vim#with_preview(), <bang>0)
+
+function! s:lin_fzf_precised_rg(query, fullscreen)
+    let command_fmt = 'rg --column --no-heading --color=always -S -- %s || true'
+    let initial_command = printf(command_fmt, shellescape(a:query))
+    let reload_command = printf(command_fmt, '{q}')
+    let spec = {'options': ['--disabled', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+    let spec = fzf#vim#with_preview(spec, 'right,40%', 'ctrl-l')
+    call fzf#vim#grep(initial_command, 1, spec, a:fullscreen)
+endfunction
+
+command! -bang -nargs=* FzfPrecisedRg call s:lin_fzf_precised_rg(<q-args>, <bang>0)
+
+function! s:lin_fzf_unrestricted_precised_rg(query, fullscreen)
     let command_fmt = 'rg --column --no-heading --color=always -S -uu -- %s || true'
     let initial_command = printf(command_fmt, shellescape(a:query))
     let reload_command = printf(command_fmt, '{q}')
@@ -21,9 +32,7 @@ function! s:lin_fzf_unrestricted_advanced_rg(query, fullscreen)
     call fzf#vim#grep(initial_command, 1, spec, a:fullscreen)
 endfunction
 
-command! -bang -nargs=* FzfPrecisedRg call s:lin_fzf_advanced_rg(<q-args>, <bang>0)
-
-command! -bang -nargs=* FzfUnrestrictedPrecisedRg call s:lin_fzf_unrestricted_advanced_rg(<q-args>, <bang>0)
+command! -bang -nargs=* FzfUnrestrictedPrecisedRg call s:lin_fzf_unrestricted_precised_rg(<q-args>, <bang>0)
 
 command! -bang -nargs=0 FzfCWordRg
             \ call fzf#vim#grep(
