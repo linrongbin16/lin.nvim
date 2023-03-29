@@ -15,7 +15,7 @@ let $BAT_STYLE='numbers,header'
 
 " ui
 let g:fzf_layout = { 'window': { 'width': 0.95, 'height': 0.85 } }
-let g:fzf_preview_window = ['right,40%', 'ctrl-l']
+" let g:fzf_preview_window = ['right,40%', 'ctrl-l']
 
 " command prefix
 let g:fzf_command_prefix = 'Fzf'
