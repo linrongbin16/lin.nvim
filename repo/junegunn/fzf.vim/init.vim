@@ -8,6 +8,7 @@ else
     echo 'Error: `fd` or `fdfind` not found!'
     echohl None
 endif
+let $FZF_DEFAULT_OPTS='--preview-window=right,40%'
 
 " preview/bat
 " let $BAT_THEME='base16'
@@ -15,7 +16,7 @@ let $BAT_STYLE='numbers,header'
 
 " ui
 let g:fzf_layout = { 'window': { 'width': 0.95, 'height': 0.85 } }
-let g:fzf_preview_window = ['right,40%', 'ctrl-l']
+let g:fzf_preview_window = ['', 'ctrl-l']
 
 " command prefix
 let g:fzf_command_prefix = 'Fzf'
