@@ -8,7 +8,6 @@ else
     echo 'Error: `fd` or `fdfind` not found!'
     echohl None
 endif
-" let $FZF_DEFAULT_OPTS='--preview-window=right,40%'
 
 " preview/bat
 " let $BAT_THEME='base16'
