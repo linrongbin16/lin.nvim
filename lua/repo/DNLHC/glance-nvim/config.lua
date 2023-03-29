@@ -7,12 +7,17 @@ glance.setup({
     },
     mappings = {
         list = {
+            -- open
             ["<C-x>"] = actions.jump_split,
             ["s"] = false,
             ["<C-v>"] = actions.jump_vsplit,
             ["v"] = false,
             ["<C-t>"] = actions.jump_tab,
             ["t"] = false,
+
+            -- go to preview window
+            ["<Leader>l"] = false,
+            ["<C-l>"] = actions.enter_win("preview"),
         },
         preview = {
             -- quit
@@ -21,6 +26,10 @@ glance.setup({
             -- navigation
             ["<Tab>"] = false,
             ["<S-Tab>"] = false,
+
+            -- go to list window
+            ["<Leader>l"] = false,
+            ["<C-l>"] = actions.enter_win("list"),
         },
     },
 })
