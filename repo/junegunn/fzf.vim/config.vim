@@ -8,7 +8,7 @@ function! s:lin_fzf_precised_rg(query, fullscreen)
     let initial_command = printf(command_fmt, shellescape(a:query))
     let reload_command = printf(command_fmt, '{q}')
     let spec = {'options': ['--disabled', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
-    let spec = fzf#vim#with_preview(spec, 'right,40%', 'ctrl-l')
+    let spec = fzf#vim#with_preview(spec)
     call fzf#vim#grep(initial_command, 1, spec, a:fullscreen)
 endfunction
 
@@ -19,7 +19,7 @@ function! s:lin_fzf_unrestricted_precised_rg(query, fullscreen)
     let initial_command = printf(command_fmt, shellescape(a:query))
     let reload_command = printf(command_fmt, '{q}')
     let spec = {'options': ['--disabled', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
-    let spec = fzf#vim#with_preview(spec, 'right,40%', 'ctrl-l')
+    let spec = fzf#vim#with_preview(spec)
     call fzf#vim#grep(initial_command, 1, spec, a:fullscreen)
 endfunction
 
