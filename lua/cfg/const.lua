@@ -22,6 +22,32 @@ local M = {
     },
     ui = {
         border = "rounded", -- border options: single,double,rounded,solid,shadow
+        modal = {
+            primary = {
+                width = {
+                    max = nil,
+                    min = 30,
+                    pct = 0.8,
+                },
+                height = {
+                    max = nil,
+                    min = 20,
+                    pct = 0.7,
+                },
+            },
+            sidebar = {
+                width = {
+                    max = nil,
+                    min = 30,
+                    pct = 0.4,
+                },
+                height = {
+                    max = nil,
+                    min = 20,
+                    pct = 0.7,
+                },
+            },
+        },
     },
     perf = {
         -- performance
