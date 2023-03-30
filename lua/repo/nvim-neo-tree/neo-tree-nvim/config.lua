@@ -1,15 +1,5 @@
 local const = require("cfg.const")
-
-local function get_view_width()
-    local rate = 0.25
-    local min_w = 25
-    local max_w = 80
-    local editor_w = vim.o.columns
-    local tree_w = math.floor(editor_w * rate)
-    tree_w = vim.fn.min({ max_w, tree_w })
-    tree_w = vim.fn.max({ min_w, tree_w })
-    return tree_w
-end
+local width_on_editor = require("cfg.ui").width_on_editor
 
 require("neo-tree").setup({
     popup_border_style = const.ui.border,
@@ -92,7 +82,7 @@ require("neo-tree").setup({
         },
     },
     window = {
-        width = get_view_width(),
+        width = width_on_editor(0.25, 25, 80),
         mappings = {
             -- open node
             ["l"] = "open",
