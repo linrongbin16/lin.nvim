@@ -13,10 +13,10 @@ require("neo-tree").setup({
         },
         git_status = {
             symbols = {
-                added = "", -- : nf-fa-plus \uf067
-                modified = "", -- : nf-fa-circle \uf111
-                deleted = "", -- : nf-fa-times \uf00d
-                renamed = "", -- nf-fa-arrow_right \uf061
+                added = "", -- : nf-fa-plus \uf067, : nf-cod-diff_added \ueadc
+                modified = "", -- : nf-fa-circle \uf111, : nf-oct-diff_modified \uf459
+                deleted = "", -- : nf-oct-diff_removed \uf458, : nf-fa-minus \uf068, : nf-fa-times \uf00d(conflict with diagnostic error)
+                renamed = "", -- : nf-fa-arrow_right \uf061, : nf-oct-diff_renamed \uf45a
                 -- Status type
                 untracked = "", -- nf-fa-star \uf005
                 ignored = "", -- nf-fa-circle_thin \uf1db
@@ -45,7 +45,7 @@ require("neo-tree").setup({
                         "diagnostics",
                         errors_only = true,
                         zindex = 20,
-                        align = "right",
+                        align = "left",
                         hide_when_expanded = true,
                     },
                     {
@@ -74,8 +74,8 @@ require("neo-tree").setup({
                     },
                     { "clipboard", zindex = 10 },
                     { "bufnr", zindex = 10 },
-                    { "modified", zindex = 20, align = "right" },
-                    { "diagnostics", zindex = 20, align = "right" },
+                    { "modified", zindex = 20, align = "left" },
+                    { "diagnostics", zindex = 20, align = "left" },
                     { "git_status", zindex = 20, align = "right" },
                 },
             },
