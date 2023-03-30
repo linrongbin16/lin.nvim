@@ -1,7 +1,6 @@
 """ ---- Color schemes ----
 
 let s:colors=[
-            \ 'deus',
             \ 'moonfly',
             \ 'nightfly',
             \ 'catppuccin',
