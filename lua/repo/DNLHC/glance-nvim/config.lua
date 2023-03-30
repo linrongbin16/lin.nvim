@@ -8,7 +8,7 @@ glance.setup({
     mappings = {
         list = {
             -- open
-            ["<C-x>"] = actions.jump_split,
+            ["<C-s>"] = actions.jump_split,
             ["s"] = false,
             ["<C-v>"] = actions.jump_vsplit,
             ["v"] = false,
