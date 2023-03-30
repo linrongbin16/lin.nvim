@@ -1,3 +1,5 @@
+local width_on_editor = require("cfg.ui").width_on_editor
+
 require("bufferline").setup({
     options = {
         numbers = function(opts)
@@ -6,6 +8,8 @@ require("bufferline").setup({
         -- numbers = "ordinal",
         close_command = "Bdelete! %d", -- Bdelete: https://github.com/moll/vim-bbye
         right_mouse_command = "Bdelete! %d",
+        max_name_length = width_on_editor(0.2, 25, 40),
+        max_prefix_length = width_on_editor(0.15, 15, 25),
         diagnostics = false,
         -- separator_style = "slant",
         hover = {
