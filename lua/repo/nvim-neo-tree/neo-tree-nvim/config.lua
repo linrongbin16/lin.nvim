@@ -132,6 +132,8 @@ require("neo-tree").setup({
         use_libuv_file_watcher = true,
         window = {
             mappings = {
+                ["f"] = "fuzzy_finder",
+                ["/"] = "none",
                 ["<C-]>"] = "set_root",
                 ["[c"] = "prev_git_modified",
                 ["]c"] = "next_git_modified",
