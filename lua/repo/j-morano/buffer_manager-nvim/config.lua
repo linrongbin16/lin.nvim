@@ -1,6 +1,6 @@
 local width_on_editor = require("cfg.ui").width_on_editor
 local height_on_editor = require("cfg.ui").height_on_editor
-local primary_modal = require("cfg.const").ui.modal.primary
+local big_layout = require("cfg.const").ui.layout.big
 
 require("buffer_manager").setup({
     select_menu_item_commands = {
@@ -18,13 +18,13 @@ require("buffer_manager").setup({
         },
     },
     width = width_on_editor(
-        primary_modal.width.pct,
-        primary_modal.width.min,
-        primary_modal.width.max
+        big_layout.width.pct,
+        big_layout.width.min,
+        big_layout.width.max
     ),
     height = height_on_editor(
-        primary_modal.height.pct,
-        primary_modal.height.min,
-        primary_modal.height.max
+        big_layout.height.pct,
+        big_layout.height.min,
+        big_layout.height.max
     ),
 })

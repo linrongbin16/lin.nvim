@@ -22,29 +22,41 @@ local M = {
     },
     ui = {
         border = "rounded", -- border options: single,double,rounded,solid,shadow
-        modal = {
-            primary = {
+        layout = {
+            big = {
                 width = {
                     max = nil,
                     min = 30,
-                    pct = 0.8,
+                    pct = 0.85,
                 },
                 height = {
                     max = nil,
                     min = 20,
-                    pct = 0.7,
+                    pct = 0.75,
                 },
             },
-            sidebar = {
+            middle = {
                 width = {
                     max = nil,
                     min = 30,
-                    pct = 0.4,
+                    pct = 0.7,
                 },
                 height = {
                     max = nil,
                     min = 20,
-                    pct = 0.7,
+                    pct = 0.6,
+                },
+            },
+            small = {
+                width = {
+                    max = nil,
+                    min = 25,
+                    pct = 0.5,
+                },
+                height = {
+                    max = nil,
+                    min = 15,
+                    pct = 0.4,
                 },
             },
         },
