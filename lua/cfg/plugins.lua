@@ -379,13 +379,20 @@ return {
         event = { CmdlineEnter },
         build = ":call fzf#install()",
     },
+    -- {
+    --     "junegunn/fzf.vim",
+    --     event = { CmdlineEnter },
+    --     dependencies = { "junegunn/fzf" },
+    --     init = vim_init("junegunn/fzf.vim"),
+    --     config = vim_config("junegunn/fzf.vim"),
+    --     keys = lua_keys("junegunn/fzf.vim"),
+    -- },
     {
-        "junegunn/fzf.vim",
-        event = { CmdlineEnter },
+        "ibhagwan/fzf-lua",
+        cmd = { "FzfLua" },
         dependencies = { "junegunn/fzf" },
-        init = vim_init("junegunn/fzf.vim"),
-        config = vim_config("junegunn/fzf.vim"),
-        keys = lua_keys("junegunn/fzf.vim"),
+        config = lua_config("ibhagwan/fzf-lua"),
+        keys = lua_keys("ibhagwan/fzf-lua"),
     },
 
     -- ---- TAGS ----
