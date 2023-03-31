@@ -9,20 +9,17 @@ local M = {
         keymap.exec(function()
             require("fzf-lua").files()
         end),
-        { desc = "Search files" }
+        { desc = "Search files(f)" }
     ),
     keymap.map_lazy(
         "n",
         "<space>uf",
         keymap.exec(function()
             require("fzf-lua").files({
-                files = {
-                    previewer = "bat",
-                    cmd = fzf_const.FILES_CMD .. " -u",
-                },
+                cmd = fzf_const.FILES_CMD .. " -u",
             })
         end),
-        { desc = "Unrestricted search files" }
+        { desc = "Unrestricted(u) search files(f)" }
     ),
     -- grep
     keymap.map_lazy(
@@ -31,47 +28,41 @@ local M = {
         keymap.exec(function()
             require("fzf-lua").grep()
         end),
-        { desc = "Grep" }
+        { desc = "Grep(g)" }
     ),
     keymap.map_lazy(
         "n",
         "<space>ug",
         keymap.exec(function()
             require("fzf-lua").grep({
-                grep = {
-                    cmd = fzf_const.GREP_CMD .. " -uu",
-                },
+                cmd = fzf_const.GREP_CMD .. " -uu",
             })
         end),
-        { desc = "Unrestricted grep" }
+        { desc = "Unrestricted(u) grep(g)" }
     ),
     keymap.map_lazy(
         "n",
-        "<space>pg",
+        "<space>og",
         keymap.exec(function()
             require("fzf-lua").grep({
-                grep = {
-                    cmd = fzf_const.GREP_CMD,
-                    rg_glob = true,
-                    glob_flag = "--glob",
-                },
+                cmd = fzf_const.GREP_CMD,
+                rg_glob = true,
+                glob_flag = "--glob",
             })
         end),
-        { desc = "Glob patterned grep" }
+        { desc = "Glob(o) grep(g)" }
     ),
     keymap.map_lazy(
         "n",
-        "<space>upg",
+        "<space>uog",
         keymap.exec(function()
             require("fzf-lua").grep({
-                grep = {
-                    cmd = fzf_const.GREP_CMD .. " -uu",
-                    rg_glob = true,
-                    glob_flag = "--glob",
-                },
+                cmd = fzf_const.GREP_CMD .. " -uu",
+                rg_glob = true,
+                glob_flag = "--glob",
             })
         end),
-        { desc = "Unrestricted glob patterned grep" }
+        { desc = "Unrestricted(u) glob(o) grep(g)" }
     ),
     -- live grep
     keymap.map_lazy(
@@ -80,47 +71,41 @@ local M = {
         keymap.exec(function()
             require("fzf-lua").live_grep()
         end),
-        { desc = "Live grep" }
+        { desc = "Live(l) grep" }
     ),
     keymap.map_lazy(
         "n",
         "<space>ul",
         keymap.exec(function()
             require("fzf-lua").live_grep({
-                grep = {
-                    cmd = fzf_const.GREP_CMD .. " -uu",
-                },
+                cmd = fzf_const.GREP_CMD .. " -uu",
             })
         end),
         { desc = "Unrestricted live grep" }
     ),
     keymap.map_lazy(
         "n",
-        "<space>pl",
+        "<space>ol",
         keymap.exec(function()
             require("fzf-lua").live_grep({
-                grep = {
-                    cmd = fzf_const.GREP_CMD,
-                    rg_glob = true,
-                    glob_flag = "--glob",
-                },
+                cmd = fzf_const.GREP_CMD,
+                rg_glob = true,
+                glob_flag = "--glob",
             })
         end),
-        { desc = "Glob patterned grep" }
+        { desc = "Glob(o) grep(g)" }
     ),
     keymap.map_lazy(
         "n",
-        "<space>upl",
+        "<space>uol",
         keymap.exec(function()
             require("fzf-lua").live_grep({
-                grep = {
-                    cmd = fzf_const.GREP_CMD .. " -uu",
-                    rg_glob = true,
-                    glob_flag = "--glob",
-                },
+                cmd = fzf_const.GREP_CMD .. " -uu",
+                rg_glob = true,
+                glob_flag = "--glob",
             })
         end),
-        { desc = "Unrestricted glob patterned live grep" }
+        { desc = "Unrestricted(u) glob(o) live(l) grep" }
     ),
 }
 
