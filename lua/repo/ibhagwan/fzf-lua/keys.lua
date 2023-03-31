@@ -107,6 +107,8 @@ local M = {
         end),
         { desc = "Unrestricted(u) glob(o) live(l) grep" }
     ),
+    -- FzfLua
+    keymap.map_lazy("n", "<space>fz", ":FzfLua ", { desc = "Open FzfLua" }),
 }
 
 return M
