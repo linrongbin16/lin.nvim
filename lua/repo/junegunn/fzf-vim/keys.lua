@@ -40,8 +40,6 @@ local M = {
         keymap.exec("FzfUnrestrictedCWord"),
         { desc = "Unrestricted search word under cursor(Fzf)" }
     ),
-    -- Fzf
-    keymap.map_lazy("n", "<Leader>fz", ":Fzf", { desc = "Open Fzf" }),
 }
 
 return M

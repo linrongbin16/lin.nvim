@@ -100,8 +100,6 @@ local M = {
         end),
         { desc = "Unrestricted search WORD under cursor(FzfLua)" }
     ),
-    -- FzfLua
-    keymap.map_lazy("n", "<Leader>fl", ":FzfLua ", { desc = "Open FzfLua" }),
 }
 
 return M
