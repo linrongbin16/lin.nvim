@@ -10,7 +10,7 @@ require("fzf-lua").setup({
         preview = {
             default = "bat",
             border = const.ui.border,
-            horizontal = "right:40%",
+            horizontal = "right:45%",
         },
     },
     keymap = {
@@ -72,6 +72,10 @@ require("fzf-lua").setup({
             treesitter = { enable = false },
         },
     },
+    manpages = { previewer = "man_native" },
+    helptags = { previewer = "help_native" },
+    tags = { previewer = "bat" },
+    btags = { previewer = "bat" },
     files = {
         previewer = "bat",
         cmd = fzf_const.FILES_CMD,
@@ -79,4 +83,6 @@ require("fzf-lua").setup({
     grep = {
         cmd = fzf_const.GREP_CMD,
     },
+    global_git_icons = false,
+    global_file_icons = false,
 })
