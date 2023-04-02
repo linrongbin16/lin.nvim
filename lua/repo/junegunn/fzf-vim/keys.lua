@@ -6,13 +6,13 @@ local M = {
         "n",
         "<space>f",
         keymap.exec("FzfFiles"),
-        { desc = "Search files" }
+        { desc = "Search files(Fzf)" }
     ),
     keymap.map_lazy(
         "n",
         "<space>uf",
         keymap.exec("FzfUnrestrictedFiles"),
-        { desc = "Search files unrestrictedly" }
+        { desc = "Search files unrestrictedly(Fzf)" }
     ),
     -- live grep
     keymap.map_lazy(

@@ -318,7 +318,7 @@ return {
         dependencies = {
             "MunifTanjim/nui.nvim",
         },
-        init = vim_init("nvim-neo-tree/neo-tree.nvim"),
+        init = lua_init("nvim-neo-tree/neo-tree.nvim"),
         config = lua_config("nvim-neo-tree/neo-tree.nvim"),
         keys = lua_keys("nvim-neo-tree/neo-tree.nvim"),
     },
@@ -549,7 +549,7 @@ return {
     {
         "f-person/git-blame.nvim",
         event = { CmdlineEnter },
-        init = vim_init("f-person/git-blame.nvim"),
+        init = lua_init("f-person/git-blame.nvim"),
         keys = lua_keys("f-person/git-blame.nvim"),
     },
     -- Open git link In browser
