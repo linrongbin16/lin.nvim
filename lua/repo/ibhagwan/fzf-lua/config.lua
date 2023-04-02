@@ -4,8 +4,8 @@ local fzf_const = require("repo.ibhagwan.fzf-lua.const")
 
 require("fzf-lua").setup({
     winopts = {
-        height = 0.85,
-        width = 0.95,
+        height = 0.8,
+        width = 0.9,
         border = const.ui.border,
         preview = {
             default = "bat",
@@ -34,6 +34,7 @@ require("fzf-lua").setup({
             ["ctrl-d"] = "half-page-down",
             ["ctrl-u"] = "half-page-up", -- "unix-line-discard",
             ["ctrl-l"] = "toggle-preview",
+
             ["ctrl-z"] = false, -- "abort",
             ["ctrl-f"] = false, -- "half-page-down",
             ["ctrl-b"] = false, -- "half-page-up",
@@ -52,6 +53,7 @@ require("fzf-lua").setup({
             ["ctrl-s"] = fzf_actions.file_split,
             ["ctrl-v"] = fzf_actions.file_vsplit,
             ["ctrl-t"] = fzf_actions.file_tabedit,
+
             ["alt-q"] = false, -- fzf_actions.file_sel_to_qf,
             ["alt-l"] = false, -- fzf_actions.file_sel_to_ll,
         },
@@ -83,6 +85,4 @@ require("fzf-lua").setup({
     grep = {
         cmd = fzf_const.GREP_CMD,
     },
-    global_git_icons = false,
-    global_file_icons = false,
 })
