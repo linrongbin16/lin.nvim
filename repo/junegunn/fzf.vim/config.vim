@@ -1,4 +1,5 @@
-let s:lin_rg = 'rg --column --line-number --no-heading --color=always --case-sensitive'
+" let s:lin_rg = 'rg --column --line-number --no-heading --color=always --smart-case'
+let s:lin_rg = 'rg --column -n --no-heading --color=always -S'
 
 function! s:lin_fzf_live_grep(query, fullscreen)
     let command_fmt = s:lin_rg.' -- %s || true'
@@ -33,9 +34,10 @@ command! -bang -nargs=0 FzfUnrestrictedCWord
             \ fzf#vim#with_preview(), <bang>0)
 
 if executable('fd')
-    let s:lin_fd = 'fd --color=never --type f --type symlink --follow --ignore-case'
+    " let s:lin_fd = 'fd --color=never --type f --type symlink --follow --ignore-case'
+    let s:lin_fd = 'fd -cnever -tf -tl -L -i'
 elseif executable('fdfind')
-    let s:lin_fd = 'fdfind --color=never --type f --type symlink --follow --ignore-case'
+    let s:lin_fd = 'fdfind -cnever -tf -tl -L -i'
 endif
 
 command! -bang -nargs=? -complete=dir FzfUnrestrictedFiles

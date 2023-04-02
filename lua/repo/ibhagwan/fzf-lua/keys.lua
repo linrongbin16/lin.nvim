@@ -16,7 +16,7 @@ local M = {
         "<space>uf",
         keymap.exec(function()
             require("fzf-lua").files({
-                cmd = fzf_const.FILES_CMD .. " -u",
+                cmd = fzf_const.FILES_CMD .. " -u", -- --unrestricted
             })
         end),
         { desc = "Unrestricted search files(FzfLua)" }
@@ -35,7 +35,7 @@ local M = {
         "<space>ul",
         keymap.exec(function()
             require("fzf-lua").live_grep({
-                cmd = fzf_const.GREP_CMD .. " -uu",
+                cmd = fzf_const.GREP_CMD .. " -uu", -- --unrestricted --hidden
             })
         end),
         { desc = "Unrestricted live grep(FzfLua)" }
@@ -92,7 +92,7 @@ local M = {
     ),
     keymap.map_lazy(
         "n",
-        "<space>uw",
+        "<space>uW",
         keymap.exec(function()
             require("fzf-lua").grep_cWORD({
                 cmd = fzf_const.GREP_CMD .. " -uu",
