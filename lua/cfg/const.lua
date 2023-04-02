@@ -27,12 +27,12 @@ local M = {
                 width = {
                     max = nil,
                     min = 30,
-                    pct = 0.85,
+                    pct = 0.9,
                 },
                 height = {
                     max = nil,
                     min = 20,
-                    pct = 0.75,
+                    pct = 0.8,
                 },
             },
             middle = {
