@@ -371,13 +371,13 @@ return {
     {
         "SmiteshP/nvim-navic",
         lazy = true,
-        init = vim_init("SmiteshP/nvim-navic"),
+        init = lua_init("SmiteshP/nvim-navic"),
     },
     -- Git
     {
         "airblade/vim-gitgutter",
         event = { VeryLazy, BufRead, BufNewFile },
-        init = vim_init("airblade/vim-gitgutter"),
+        init = lua_init("airblade/vim-gitgutter"),
         keys = lua_keys("airblade/vim-gitgutter"),
     },
 
