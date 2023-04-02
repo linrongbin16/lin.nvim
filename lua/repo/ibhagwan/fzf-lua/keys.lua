@@ -81,27 +81,6 @@ local M = {
         end),
         { desc = "Unrestricted search word under cursor(FzfLua)" }
     ),
-    keymap.map_lazy(
-        "n",
-        "<space>gw",
-        keymap.exec(function()
-            require("fzf-lua").grep_cword({
-                rg_glob = true,
-            })
-        end),
-        { desc = "Glob search word under cursor(FzfLua)" }
-    ),
-    keymap.map_lazy(
-        "n",
-        "<space>ugw",
-        keymap.exec(function()
-            require("fzf-lua").grep_cword({
-                cmd = fzf_const.GREP_CMD .. " -uu",
-                rg_glob = true,
-            })
-        end),
-        { desc = "Unrestricted glob search word under cursor(FzfLua)" }
-    ),
     -- search WORD
     keymap.map_lazy(
         "n",
@@ -120,27 +99,6 @@ local M = {
             })
         end),
         { desc = "Unrestricted search WORD under cursor(FzfLua)" }
-    ),
-    keymap.map_lazy(
-        "n",
-        "<space>W",
-        keymap.exec(function()
-            require("fzf-lua").grep_cWORD({
-                rg_glob = true,
-            })
-        end),
-        { desc = "Glob search WORD under cursor(FzfLua)" }
-    ),
-    keymap.map_lazy(
-        "n",
-        "<space>uW",
-        keymap.exec(function()
-            require("fzf-lua").grep_cWORD({
-                cmd = fzf_const.GREP_CMD .. " -uu",
-                rg_glob = true,
-            })
-        end),
-        { desc = "Unrestricted glob search WORD under cursor(FzfLua)" }
     ),
 }
 
