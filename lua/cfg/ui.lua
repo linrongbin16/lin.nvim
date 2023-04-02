@@ -1,4 +1,4 @@
-local function width_on_editor(pct, min_w, max_w)
+local function editor_width(pct, min_w, max_w)
     local editor_w = vim.o.columns
     local result = math.floor(editor_w * pct)
     if max_w then
@@ -10,7 +10,7 @@ local function width_on_editor(pct, min_w, max_w)
     return result
 end
 
-local function height_on_editor(pct, min_h, max_h)
+local function editor_height(pct, min_h, max_h)
     local editor_h = vim.o.lines
     local result = math.floor(editor_h * pct)
     if max_h then
@@ -23,8 +23,8 @@ local function height_on_editor(pct, min_h, max_h)
 end
 
 local M = {
-    width_on_editor = width_on_editor,
-    height_on_editor = height_on_editor,
+    editor_width = editor_width,
+    editor_height = editor_height,
 }
 
 return M

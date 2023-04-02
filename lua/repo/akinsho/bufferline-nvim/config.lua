@@ -1,4 +1,4 @@
-local width_on_editor = require("cfg.ui").width_on_editor
+local width_on_editor = require("cfg.ui").editor_width
 
 require("bufferline").setup({
     options = {

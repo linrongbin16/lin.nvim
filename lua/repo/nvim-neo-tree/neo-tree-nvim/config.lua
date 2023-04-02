@@ -1,5 +1,5 @@
 local const = require("cfg.const")
-local width_on_editor = require("cfg.ui").width_on_editor
+local editor_width = require("cfg.ui").editor_width
 
 require("neo-tree").setup({
     popup_border_style = const.ui.border,
@@ -82,7 +82,7 @@ require("neo-tree").setup({
         },
     },
     window = {
-        width = width_on_editor(0.25, 25, 80),
+        width = editor_width(0.25, 25, 80),
         mappings = {
             -- open node
             ["l"] = "open",
