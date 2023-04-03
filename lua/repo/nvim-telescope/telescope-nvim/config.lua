@@ -18,12 +18,20 @@ require("telescope").setup({
             BAT_STYLE = "numbers,changes",
         },
         dynamic_preview_title = true,
-        mappings = {
+        default_mappings = {
             i = {
                 ["<C-l>"] = require("telescope.actions.layout").toggle_preview,
+                ["<CR>"] = require("telescope.actions").select_default,
+                ["<C-s>"] = require("telescope.actions").select_horizontal,
+                ["<C-v>"] = require("telescope.actions").select_vertical,
+                ["<C-t>"] = require("telescope.actions").select_tab,
             },
             n = {
                 ["<C-l>"] = require("telescope.actions.layout").toggle_preview,
+                ["<CR>"] = require("telescope.actions").select_default,
+                ["<C-s>"] = require("telescope.actions").select_horizontal,
+                ["<C-v>"] = require("telescope.actions").select_vertical,
+                ["<C-t>"] = require("telescope.actions").select_tab,
             },
         },
         file_previewer = const.os.is_windows and require(
