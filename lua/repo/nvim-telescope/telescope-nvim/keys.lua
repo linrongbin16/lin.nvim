@@ -1,4 +1,5 @@
 local keymap = require("cfg.keymap")
+local FIND = vim.fn.executable("fdfind") > 0 and "fdfind" or "fd"
 
 local M = {
     -- search files
@@ -7,9 +8,14 @@ local M = {
         "<space>f",
         keymap.exec(function()
             require("telescope.builtin").find_files({
-                follow = true,
-                hidden = false,
-                no_ignore = false,
+                find_command = {
+                    FIND,
+                    "-cnever", -- --color=never
+                    "-tf", -- --type file
+                    "-tl", -- --type symlink
+                    "-L", -- --follow
+                    "-i", -- --ignore-case
+                },
             })
         end),
         { desc = "Search files" }
@@ -19,9 +25,15 @@ local M = {
         "<space>uf",
         keymap.exec(function()
             require("telescope.builtin").find_files({
-                follow = true,
-                hidden = true,
-                no_ignore = true,
+                find_command = {
+                    FIND,
+                    "-cnever", -- --color=never
+                    "-tf", -- --type file
+                    "-tl", -- --type symlink
+                    "-L", -- --follow
+                    "-i", -- --ignore-case
+                    "-u", -- --unrestricted (--hidden --no-ignore)
+                },
             })
         end),
         { desc = "Unrestricted search files" }
@@ -40,7 +52,7 @@ local M = {
         "<space>ul",
         keymap.exec(function()
             require("telescope").extensions.live_grep_args.live_grep_args({
-                additional_args = { "-uu" }, -- --unrestricted --hidden
+                additional_args = { "-uu" }, -- --unrestricted (--hidden --no-ignore)
             })
         end),
         { desc = "Unrestricted live grep" }
@@ -59,7 +71,7 @@ local M = {
         "<space>uw",
         keymap.exec(function()
             require("telescope.builtin").grep_string({
-                additional_args = { "-uu" }, -- --unrestricted --hidden
+                additional_args = { "-uu" }, -- --unrestricted (--hidden --no-ignore)
             })
         end),
         { desc = "Unrestricted search word under cursor" }

@@ -13,6 +13,15 @@ require("telescope").setup({
                 width = 0.9,
             },
         },
+        vimgrep_arguments = {
+            "rg",
+            "--color=never",
+            "--no-heading",
+            "-H", -- --with-filename,
+            "-n", -- --line-number
+            "--column",
+            "-S", -- --smart-case,
+        },
         set_env = {
             BAT_THEME = "ansi",
             BAT_STYLE = "numbers,changes",
