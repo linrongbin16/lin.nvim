@@ -1,6 +1,9 @@
+local const = require("cfg.const")
+
 require("telescope").setup({
     defaults = {
         layout_config = {
+            preview_width = 0.5,
             horizontal = {
                 height = 0.9,
                 width = 0.9,
@@ -10,6 +13,11 @@ require("telescope").setup({
                 width = 0.9,
             },
         },
+        set_env = {
+            BAT_THEME = "ansi",
+            BAT_STYLE = "numbers,changes",
+        },
+        dynamic_preview_title = true,
         mappings = {
             i = {
                 ["<C-l>"] = require("telescope.actions.layout").toggle_preview,
@@ -18,6 +26,12 @@ require("telescope").setup({
                 ["<C-l>"] = require("telescope.actions.layout").toggle_preview,
             },
         },
+        file_previewer = const.os.is_windows and require(
+            "telescope.previewers"
+        ).vim_buffer_cat.new or require("telescope.previewers").cat.new,
+        grep_previewer = const.os.is_windows and require(
+            "telescope.previewers"
+        ).vim_buffer_vimgrep.new or require("telescope.previewers").vimgrep.new,
     },
     extensions = {
         fzf = {
