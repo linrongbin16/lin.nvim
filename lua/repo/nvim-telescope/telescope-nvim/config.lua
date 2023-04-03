@@ -10,13 +10,18 @@ require("telescope").setup({
                 width = 0.9,
             },
         },
-        path_display = {
-            truncate = 3,
+        mappings = {
+            i = {
+                ["<C-l>"] = require("telescope.actions.layout").toggle_preview,
+            },
+            n = {
+                ["<C-l>"] = require("telescope.actions.layout").toggle_preview,
+            },
         },
-        set_env = {
-            BAT_THEME = "ansi",
-            BAT_STYLE = "numbers,changes,header",
-        },
+        -- set_env = {
+        --     BAT_THEME = "ansi",
+        --     BAT_STYLE = "numbers,changes,header",
+        -- },
     },
     extensions = {
         fzf = {
