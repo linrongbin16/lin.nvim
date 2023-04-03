@@ -49,7 +49,7 @@ require("telescope").setup({
     extensions = {
         fzf = {
             fuzzy = true,
-            override_generic_sorter = false,
+            override_generic_sorter = false, -- don't fuzzy on live_grep/grep_string
             override_file_sorter = true,
             case_mode = "ignore_case",
         },
