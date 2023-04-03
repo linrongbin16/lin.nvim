@@ -18,10 +18,6 @@ require("telescope").setup({
                 ["<C-l>"] = require("telescope.actions.layout").toggle_preview,
             },
         },
-        -- set_env = {
-        --     BAT_THEME = "ansi",
-        --     BAT_STYLE = "numbers,changes,header",
-        -- },
     },
     extensions = {
         fzf = {
