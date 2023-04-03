@@ -375,26 +375,44 @@ return {
 
     -- ---- SEARCH ----
 
+    -- {
+    --     "junegunn/fzf",
+    --     event = { CmdlineEnter },
+    --     build = ":call fzf#install()",
+    -- },
+    -- {
+    --     "junegunn/fzf.vim",
+    --     event = { CmdlineEnter },
+    --     dependencies = { "junegunn/fzf" },
+    --     init = vim_init("junegunn/fzf.vim"),
+    --     config = vim_config("junegunn/fzf.vim"),
+    --     keys = const.os.is_windows and lua_keys("junegunn/fzf.vim") or {},
+    -- },
+    -- not const.os.is_windows and {
+    --     "ibhagwan/fzf-lua",
+    --     cmd = { "FzfLua" },
+    --     dependencies = { "junegunn/fzf" },
+    --     config = lua_config("ibhagwan/fzf-lua"),
+    --     keys = lua_keys("ibhagwan/fzf-lua"),
+    -- } or {},
     {
-        "junegunn/fzf",
-        event = { CmdlineEnter },
-        build = ":call fzf#install()",
+        "nvim-telescope/telescope.nvim",
+        branch = "0.1.1",
+        cmd = { "Telescope" },
+        dependencies = {
+            "nvim-telescope/telescope-fzf-native.nvim",
+            "nvim-telescope/telescope-live-grep-args.nvim",
+        },
+        config = lua_config("nvim-telescope/telescope.nvim"),
+        keys = lua_keys("nvim-telescope/telescope.nvim"),
     },
     {
-        "junegunn/fzf.vim",
-        event = { CmdlineEnter },
-        dependencies = { "junegunn/fzf" },
-        init = vim_init("junegunn/fzf.vim"),
-        config = vim_config("junegunn/fzf.vim"),
-        keys = const.os.is_windows and lua_keys("junegunn/fzf.vim") or {},
+        "nvim-telescope/telescope-fzf-native.nvim",
+        build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
     },
-    not const.os.is_windows and {
-        "ibhagwan/fzf-lua",
-        cmd = { "FzfLua" },
-        dependencies = { "junegunn/fzf" },
-        config = lua_config("ibhagwan/fzf-lua"),
-        keys = lua_keys("ibhagwan/fzf-lua"),
-    } or {},
+    {
+        "nvim-telescope/telescope-live-grep-args.nvim",
+    },
 
     -- ---- TAGS ----
 

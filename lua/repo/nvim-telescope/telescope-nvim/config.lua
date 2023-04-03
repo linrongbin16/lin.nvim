@@ -1,0 +1,42 @@
+require("telescope").setup({
+    defaults = {
+        layout_config = {
+            horizontal = {
+                height = 0.9,
+                width = 0.9,
+            },
+            vertical = {
+                height = 0.9,
+                width = 0.9,
+            },
+        },
+        path_display = {
+            truncate = 3,
+        },
+        set_env = {
+            BAT_THEME = "ansi",
+            BAT_STYLE = "numbers,changes,header",
+        },
+    },
+    extensions = {
+        fzf = {
+            fuzzy = true,
+            override_generic_sorter = false,
+            override_file_sorter = true,
+            case_mode = "ignore_case",
+        },
+        live_grep_args = {
+            auto_quoting = true, -- enable/disable auto-quoting
+            mappings = { -- extend mappings
+                i = {
+                    ["<C-k>"] = require("telescope-live-grep-args.actions").quote_prompt(),
+                    ["<C-i>"] = require("telescope-live-grep-args.actions").quote_prompt({
+                        postfix = " --iglob ",
+                    }),
+                },
+            },
+        },
+    },
+})
+
+require("telescope").load_extension("fzf")
