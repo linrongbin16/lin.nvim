@@ -375,26 +375,6 @@ return {
 
     -- ---- SEARCH ----
 
-    -- {
-    --     "junegunn/fzf",
-    --     event = { CmdlineEnter },
-    --     build = ":call fzf#install()",
-    -- },
-    -- {
-    --     "junegunn/fzf.vim",
-    --     event = { CmdlineEnter },
-    --     dependencies = { "junegunn/fzf" },
-    --     init = vim_init("junegunn/fzf.vim"),
-    --     config = vim_config("junegunn/fzf.vim"),
-    --     keys = const.os.is_windows and lua_keys("junegunn/fzf.vim") or {},
-    -- },
-    -- not const.os.is_windows and {
-    --     "ibhagwan/fzf-lua",
-    --     cmd = { "FzfLua" },
-    --     dependencies = { "junegunn/fzf" },
-    --     config = lua_config("ibhagwan/fzf-lua"),
-    --     keys = lua_keys("ibhagwan/fzf-lua"),
-    -- } or {},
     {
         "nvim-telescope/telescope.nvim",
         branch = "0.1.1",
