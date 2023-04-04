@@ -76,6 +76,91 @@ local M = {
         end),
         { desc = "Unrestricted search word under cursor" }
     ),
+    -- search git
+    keymap.map_lazy(
+        "n",
+        "<space>g",
+        keymap.exec(function()
+            require("telescope.builtin").git_files()
+        end),
+        { desc = "Search git files" }
+    ),
+    -- search diagnostics
+    keymap.map_lazy(
+        "n",
+        "<space>dw",
+        keymap.exec(function()
+            require("telescope.builtin").diagnostics()
+        end),
+        { desc = "Search workspace diagnostics" }
+    ),
+    keymap.map_lazy(
+        "n",
+        "<space>dd",
+        keymap.exec(function()
+            require("telescope.builtin").diagnostics({
+                bufnr = 0,
+            })
+        end),
+        { desc = "Search document diagnostics" }
+    ),
+    -- search vim
+    keymap.map_lazy(
+        "n",
+        "<space>b",
+        keymap.exec(function()
+            require("telescope.builtin").buffers()
+        end),
+        { desc = "Search buffers" }
+    ),
+    keymap.map_lazy(
+        "n",
+        "<space>cm",
+        keymap.exec(function()
+            require("telescope.builtin").commands()
+        end),
+        { desc = "Search vim commands" }
+    ),
+    keymap.map_lazy(
+        "n",
+        "<space>tg",
+        keymap.exec(function()
+            require("telescope.builtin").tags()
+        end),
+        { desc = "Search vim tags" }
+    ),
+    keymap.map_lazy(
+        "n",
+        "<space>ch",
+        keymap.exec(function()
+            require("telescope.builtin").command_history()
+        end),
+        { desc = "Search vim command history" }
+    ),
+    keymap.map_lazy(
+        "n",
+        "<space>sh",
+        keymap.exec(function()
+            require("telescope.builtin").search_history()
+        end),
+        { desc = "Search vim search history" }
+    ),
+    keymap.map_lazy(
+        "n",
+        "<space>mk",
+        keymap.exec(function()
+            require("telescope.builtin").marks()
+        end),
+        { desc = "Search vim marks" }
+    ),
+    keymap.map_lazy(
+        "n",
+        "<space>km",
+        keymap.exec(function()
+            require("telescope.builtin").keymaps()
+        end),
+        { desc = "Search vim key mappings" }
+    ),
 }
 
 return M
