@@ -261,12 +261,6 @@ return {
         config = lua_config("nvim-treesitter/nvim-treesitter"),
     },
     {
-        "nvim-treesitter/nvim-treesitter-context",
-        dependencies = { "nvim-treesitter/nvim-treesitter" },
-        event = { VeryLazy, BufRead, BufNewFile },
-        config = lua_config("nvim-treesitter/nvim-treesitter-context"),
-    },
-    {
         "RRethy/vim-illuminate",
         event = { VeryLazy, BufRead, BufNewFile },
         config = lua_config("RRethy/vim-illuminate"),
