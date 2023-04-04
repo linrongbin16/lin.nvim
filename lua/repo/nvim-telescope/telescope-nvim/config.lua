@@ -4,14 +4,15 @@ local NO_BAT = vim.fn.executable("bat") <= 0
 require("telescope").setup({
     defaults = {
         layout_config = {
-            preview_width = 0.45,
             horizontal = {
                 height = 0.9,
                 width = 0.9,
+                preview_width = 0.45,
             },
             vertical = {
                 height = 0.9,
                 width = 0.9,
+                preview_width = 0.45,
             },
         },
         vimgrep_arguments = {
