@@ -31,14 +31,28 @@ require("telescope").setup({
         dynamic_preview_title = true,
         mappings = {
             i = {
-                ["<C-s>"] = require("telescope.actions").select_horizontal,
-                ["<C-x>"] = false,
                 ["<C-l>"] = require("telescope.actions.layout").toggle_preview,
+
+                ["<C-s>"] = require("telescope.actions").select_horizontal,
+                ["<C-x>"] = false, -- actions.select_horizontal
+
+                ["<C-c>"] = false, -- actions.close
+                ["<Tab>"] = false, -- actions.toggle_selection + actions.move_selection_worse,
+                ["<S-Tab>"] = false, -- actions.toggle_selection + actions.move_selection_better,
+                ["<C-q>"] = false, -- actions.send_to_qflist + actions.open_qflist,
+                ["<M-q>"] = false, -- actions.send_selected_to_qflist + actions.open_qflist,
+                ["<C-w>"] = false, -- { "<c-s-w>", type = "command" },
             },
             n = {
-                ["<C-s>"] = require("telescope.actions").select_horizontal,
-                ["<C-x>"] = false,
                 ["<C-l>"] = require("telescope.actions.layout").toggle_preview,
+
+                ["<C-s>"] = require("telescope.actions").select_horizontal,
+                ["<C-x>"] = false, -- open in split
+
+                ["<Tab>"] = false, -- actions.toggle_selection + actions.move_selection_worse,
+                ["<S-Tab>"] = false, -- actions.toggle_selection + actions.move_selection_better,
+                ["<C-q>"] = false, -- actions.send_to_qflist + actions.open_qflist,
+                ["<M-q>"] = false, --actions.send_selected_to_qflist + actions.open_qflist,,
             },
         },
         file_previewer = (const.os.is_windows or NO_BAT) and require(
