@@ -24,7 +24,8 @@ let g:fzf_command_prefix = 'Fzf'
 
 " action
 let g:fzf_action = {
-            \ 'ctrl-t': 'tab split',
             \ 'ctrl-s': 'split',
             \ 'ctrl-v': 'vsplit',
             \ }
+
+" \ 'ctrl-t': 'tab split',

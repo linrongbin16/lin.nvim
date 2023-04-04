@@ -52,7 +52,7 @@ require("fzf-lua").setup({
             ["default"] = fzf_actions.file_edit, -- fzf_actions.file_edit_or_qf,
             ["ctrl-s"] = fzf_actions.file_split,
             ["ctrl-v"] = fzf_actions.file_vsplit,
-            ["ctrl-t"] = fzf_actions.file_tabedit,
+            ["ctrl-t"] = false, -- fzf_actions.file_tabedit,
 
             ["alt-q"] = false, -- fzf_actions.file_sel_to_qf,
             ["alt-l"] = false, -- fzf_actions.file_sel_to_ll,
@@ -61,7 +61,7 @@ require("fzf-lua").setup({
             ["default"] = fzf_actions.buf_edit,
             ["ctrl-s"] = fzf_actions.buf_split,
             ["ctrl-v"] = fzf_actions.buf_vsplit,
-            ["ctrl-t"] = fzf_actions.buf_tabedit,
+            ["ctrl-t"] = false, -- fzf_actions.buf_tabedit,
         },
     },
     previewers = {
