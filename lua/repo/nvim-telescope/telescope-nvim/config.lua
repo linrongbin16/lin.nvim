@@ -1,4 +1,5 @@
 local const = require("cfg.const")
+local NO_BAT = vim.fn.executable("bat") <= 0
 
 require("telescope").setup({
     defaults = {
@@ -39,10 +40,10 @@ require("telescope").setup({
                 ["<C-l>"] = require("telescope.actions.layout").toggle_preview,
             },
         },
-        file_previewer = const.os.is_windows and require(
+        file_previewer = (const.os.is_windows or NO_BAT) and require(
             "telescope.previewers"
         ).vim_buffer_cat.new or require("telescope.previewers").cat.new,
-        grep_previewer = const.os.is_windows and require(
+        grep_previewer = (const.os.is_windows or NO_BAT) and require(
             "telescope.previewers"
         ).vim_buffer_vimgrep.new or require("telescope.previewers").vimgrep.new,
     },
