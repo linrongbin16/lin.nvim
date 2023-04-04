@@ -279,7 +279,7 @@ return {
         "inkarkat/vim-mark",
         dependencies = { "inkarkat/vim-ingo-library" },
         event = { CmdlineEnter },
-        init = vim_init("inkarkat/vim-mark"),
+        init = lua_init("inkarkat/vim-mark"),
         keys = lua_keys("inkarkat/vim-mark"),
     },
     {
