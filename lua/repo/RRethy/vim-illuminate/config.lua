@@ -7,7 +7,7 @@ require("illuminate").configure({
     large_file_cutoff = const.perf.file.maxsize,
 })
 
--- Highlight color
+-- highlight style
 vim.cmd([[
 augroup vim_illuminate_augroup
     autocmd!

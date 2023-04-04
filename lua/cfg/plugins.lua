@@ -253,6 +253,20 @@ return {
     -- ---- HIGHLIGHT ----
 
     {
+        "nvim-treesitter/nvim-treesitter",
+        build = function()
+            require("nvim-treesitter.install").update({ with_sync = true })
+        end,
+        event = { VeryLazy, BufRead, BufNewFile },
+        config = lua_config("nvim-treesitter/nvim-treesitter"),
+    },
+    {
+        "nvim-treesitter/nvim-treesitter-context",
+        dependencies = { "nvim-treesitter/nvim-treesitter" },
+        event = { VeryLazy, BufRead, BufNewFile },
+        config = lua_config("nvim-treesitter/nvim-treesitter-context"),
+    },
+    {
         "RRethy/vim-illuminate",
         event = { VeryLazy, BufRead, BufNewFile },
         config = lua_config("RRethy/vim-illuminate"),
@@ -310,7 +324,7 @@ return {
         dependencies = {
             "MunifTanjim/nui.nvim",
         },
-        init = vim_init("nvim-neo-tree/neo-tree.nvim"),
+        init = lua_init("nvim-neo-tree/neo-tree.nvim"),
         config = lua_config("nvim-neo-tree/neo-tree.nvim"),
         keys = lua_keys("nvim-neo-tree/neo-tree.nvim"),
     },
@@ -363,13 +377,13 @@ return {
     {
         "SmiteshP/nvim-navic",
         lazy = true,
-        init = vim_init("SmiteshP/nvim-navic"),
+        init = lua_init("SmiteshP/nvim-navic"),
     },
     -- Git
     {
         "airblade/vim-gitgutter",
         event = { VeryLazy, BufRead, BufNewFile },
-        init = vim_init("airblade/vim-gitgutter"),
+        init = lua_init("airblade/vim-gitgutter"),
         keys = lua_keys("airblade/vim-gitgutter"),
     },
 
@@ -389,9 +403,11 @@ return {
     {
         "nvim-telescope/telescope-fzf-native.nvim",
         build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
+        lazy = true,
     },
     {
         "nvim-telescope/telescope-live-grep-args.nvim",
+        lazy = true,
     },
 
     -- ---- TAGS ----
@@ -540,7 +556,7 @@ return {
     {
         "f-person/git-blame.nvim",
         event = { CmdlineEnter },
-        init = vim_init("f-person/git-blame.nvim"),
+        init = lua_init("f-person/git-blame.nvim"),
         keys = lua_keys("f-person/git-blame.nvim"),
     },
     -- Open git link In browser

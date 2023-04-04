@@ -1,5 +1,5 @@
 local const = require("cfg.const")
-local width_on_editor = require("cfg.ui").width_on_editor
+local editor_width = require("cfg.ui").editor_width
 
 require("neo-tree").setup({
     popup_border_style = const.ui.border,
@@ -82,7 +82,7 @@ require("neo-tree").setup({
         },
     },
     window = {
-        width = width_on_editor(0.25, 25, 80),
+        width = editor_width(0.25, 25, 80),
         mappings = {
             -- open node
             ["l"] = "open",
@@ -106,9 +106,9 @@ require("neo-tree").setup({
             ["w"] = "none",
 
             -- open in split/vsplit/tab
-            ["<C-s>"] = "open_split",
-            ["<C-v>"] = "open_vsplit",
-            ["<C-t>"] = "open_tabnew",
+            ["<C-w>s"] = "open_split",
+            ["<C-w>v"] = "open_vsplit",
+            ["<C-w>t"] = "open_tabnew",
             ["S"] = "none",
             ["s"] = "none",
             ["t"] = "none",

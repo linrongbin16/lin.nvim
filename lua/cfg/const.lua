@@ -1,6 +1,8 @@
 -- ---- Const ----
 
 local OS = vim.loop.os_uname().sysname
+local editor_width = require("cfg.ui").editor_width
+local editor_height = require("cfg.ui").editor_height
 
 local M = {
     os = {
@@ -24,40 +26,16 @@ local M = {
         border = "rounded", -- border options: single,double,rounded,solid,shadow
         layout = {
             big = {
-                width = {
-                    max = nil,
-                    min = 30,
-                    pct = 0.85,
-                },
-                height = {
-                    max = nil,
-                    min = 20,
-                    pct = 0.75,
-                },
+                width = editor_width(0.9, 40, nil),
+                height = editor_height(0.8, 35, nil),
             },
             middle = {
-                width = {
-                    max = nil,
-                    min = 30,
-                    pct = 0.7,
-                },
-                height = {
-                    max = nil,
-                    min = 20,
-                    pct = 0.6,
-                },
+                width = editor_width(0.7, 30, nil),
+                height = editor_height(0.6, 25, nil),
             },
             small = {
-                width = {
-                    max = nil,
-                    min = 25,
-                    pct = 0.5,
-                },
-                height = {
-                    max = nil,
-                    min = 15,
-                    pct = 0.4,
-                },
+                width = editor_width(0.5, 20, nil),
+                height = editor_height(0.4, 15, nil),
             },
         },
     },
