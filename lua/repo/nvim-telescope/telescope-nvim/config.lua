@@ -3,6 +3,7 @@ local NO_BAT = vim.fn.executable("bat") <= 0
 
 require("telescope").setup({
     defaults = {
+        scroll_strategy = "limit",
         layout_config = {
             horizontal = {
                 height = 0.9,
