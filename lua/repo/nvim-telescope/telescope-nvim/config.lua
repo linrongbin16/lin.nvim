@@ -34,9 +34,12 @@ require("telescope").setup({
             i = {
                 ["<C-l>"] = require("telescope.actions.layout").toggle_preview,
 
-                ["<C-s>"] = require("telescope.actions").select_horizontal,
-                ["<C-x>"] = false, -- actions.select_horizontal,
-                ["<C-t>"] = false, -- actions.select_tab,
+                ["<C-w>s"] = require("telescope.actions").select_horizontal,
+                ["<C-x>"] = false, -- select_horizontal,
+                ["<C-w>v"] = require("telescope.actions").select_vertical,
+                ["<C-v>"] = false, -- select_vertical,
+                ["<C-w>t"] = require("telescope.actions").select_tab,
+                ["<C-t>"] = false, -- select_tab,
 
                 ["<C-c>"] = false, -- actions.close
                 ["<Tab>"] = false, -- actions.toggle_selection + actions.move_selection_worse,
@@ -48,9 +51,12 @@ require("telescope").setup({
             n = {
                 ["<C-l>"] = require("telescope.actions.layout").toggle_preview,
 
-                ["<C-s>"] = require("telescope.actions").select_horizontal,
-                ["<C-x>"] = false, -- actions.select_horizontal,
-                ["<C-t>"] = false, -- actions.select_tab,
+                ["<C-w>s"] = require("telescope.actions").select_horizontal,
+                ["<C-x>"] = false, -- select_horizontal,
+                ["<C-w>v"] = require("telescope.actions").select_vertical,
+                ["<C-v>"] = false, -- select_vertical,
+                ["<C-w>t"] = require("telescope.actions").select_tab,
+                ["<C-t>"] = false, -- select_tab,
 
                 ["<Tab>"] = false, -- actions.toggle_selection + actions.move_selection_worse,
                 ["<S-Tab>"] = false, -- actions.toggle_selection + actions.move_selection_better,

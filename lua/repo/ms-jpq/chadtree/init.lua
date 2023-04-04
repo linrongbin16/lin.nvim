@@ -28,9 +28,9 @@ local chadtree_settings = {
         ["secondary"] = {},
 
         -- open in new tab, vsplit, split
-        ["tertiary"] = { "<C-t>" },
-        ["v_split"] = { "<C-v>" },
-        ["h_split"] = { "<C-s>" },
+        ["tertiary"] = { "<C-w>t" },
+        ["v_split"] = { "<C-w>v" },
+        ["h_split"] = { "<C-w>s" },
 
         -- open in system
         ["open_sys"] = { "s" },

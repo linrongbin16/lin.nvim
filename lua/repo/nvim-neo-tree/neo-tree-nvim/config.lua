@@ -106,9 +106,9 @@ require("neo-tree").setup({
             ["w"] = "none",
 
             -- open in split/vsplit/tab
-            ["<C-s>"] = "open_split",
-            ["<C-v>"] = "open_vsplit",
-            ["<C-t>"] = "none",
+            ["<C-w>s"] = "open_split",
+            ["<C-w>v"] = "open_vsplit",
+            ["<C-w>t"] = "open_tabnew",
             ["S"] = "none",
             ["s"] = "none",
             ["t"] = "none",
