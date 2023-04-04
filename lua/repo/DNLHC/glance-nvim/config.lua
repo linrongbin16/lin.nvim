@@ -12,8 +12,7 @@ glance.setup({
             ["s"] = false,
             ["<C-v>"] = actions.jump_vsplit,
             ["v"] = false,
-            ["<C-t>"] = actions.jump_tab,
-            ["t"] = false,
+            ["<C-t>"] = false, -- actions.jump_tab,
 
             -- go to preview window
             ["<Leader>l"] = false,
