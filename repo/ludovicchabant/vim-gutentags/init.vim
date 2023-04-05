@@ -18,12 +18,12 @@ let g:gutentags_project_root = [
 let g:gutentags_generate_on_new = 1
 let g:gutentags_generate_on_missing = 1
 let g:gutentags_generate_on_write = 1
-let g:gutentags_generate_on_empty_buffer = 0
+let g:gutentags_generate_on_empty_buffer = 1
 
 if executable('fd')
-    let g:gutentags_file_list_command = 'fd -tf -tl'
+    let g:gutentags_file_list_command = 'fd -tf -tl -L'
 elseif executable('fdfind')
-    let g:gutentags_file_list_command = 'fdfind -tf -tl'
+    let g:gutentags_file_list_command = 'fdfind -tf -tl -L'
 elseif executable('rg')
     let g:gutentags_file_list_command = 'rg --files'
 endif
