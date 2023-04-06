@@ -66,10 +66,6 @@ return {
         "nvim-tree/nvim-web-devicons",
         lazy = true,
     },
-    {
-        "stevearc/dressing.nvim",
-        config = lua_config("stevearc/dressing.nvim"),
-    },
 
     -- ---- COLORSCHEME ----
 
@@ -384,6 +380,11 @@ return {
         event = { VeryLazy, BufRead, BufNewFile },
         init = lua_init("airblade/vim-gitgutter"),
         keys = lua_keys("airblade/vim-gitgutter"),
+    },
+    {
+        "stevearc/dressing.nvim",
+        event = { VeryLazy, BufRead, BufNewFile },
+        config = lua_config("stevearc/dressing.nvim"),
     },
 
     -- ---- SEARCH ----
