@@ -60,10 +60,6 @@ local function Modifiable()
         or ""
 end
 
-local function Location()
-    return " %3l:%-2v"
-end
-
 -- local function CursorHex()
 --     return "0x%04B"
 -- end
@@ -74,6 +70,25 @@ local function Ctags()
     end
     local stats = vim.fn["gutentags#statusline"]()
     return (stats == nil or stats == "") and "" or stats
+end
+
+local function MatchUpOrLangStatus()
+    if vim.g.loaded_matchup > 0 then
+        local status = vim.fn["MatchupStatusOffscreen"]()
+        if status ~= nil and string.len(status) > 0 then
+            return status
+        end
+    end
+    local status = {}
+    local lsp = require("lsp-progress").progress()
+    if lsp ~= nil and string.len(lsp) > 0 then
+        table.insert(status, lsp)
+    end
+    local tags = Ctags()
+    if tags ~= nil and string.len(tags) > 0 then
+        table.insert(status, lsp)
+    end
+    return table.concat(status, " ")
 end
 
 local function Search()
@@ -91,6 +106,10 @@ local function Search()
         .. "/"
         .. searchcount.total
         .. ")"
+end
+
+local function Location()
+    return " %3l:%-2v"
 end
 
 local const = require("cfg.const")
@@ -132,7 +151,7 @@ local config = {
                     hint = const.lsp.diagnostics.signs["hint"] .. " ",
                 },
             },
-            require("lsp-progress").progress,
+            MatchUpOrLangStatus,
             Ctags,
         },
         lualine_x = {

@@ -257,8 +257,14 @@ return {
         build = function()
             require("nvim-treesitter.install").update({ with_sync = true })
         end,
-        event = { VeryLazy, BufRead, BufNewFile },
+        event = { VeryLazy, BufRead, BufNewFile, CmdlineEnter },
         config = lua_config("nvim-treesitter/nvim-treesitter"),
+    },
+    {
+        "nvim-treesitter/nvim-treesitter-context",
+        dependencies = { "nvim-treesitter/nvim-treesitter" },
+        event = { VeryLazy, BufRead, BufNewFile },
+        config = lua_config("nvim-treesitter/nvim-treesitter-context"),
     },
     {
         "RRethy/vim-illuminate",
