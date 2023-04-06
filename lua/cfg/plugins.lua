@@ -386,6 +386,10 @@ return {
         event = { VeryLazy, BufRead, BufNewFile },
         config = lua_config("stevearc/dressing.nvim"),
     },
+    {
+        "MunifTanjim/nui.nvim",
+        lazy = true,
+    },
 
     -- ---- SEARCH ----
 
