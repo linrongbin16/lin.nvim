@@ -355,7 +355,7 @@ return {
     -- Statusline
     {
         "nvim-lualine/lualine.nvim",
-        event = { VimEnter },
+        event = { VeryLazy, BufRead, BufNewFile },
         dependencies = { "linrongbin16/lsp-progress.nvim" },
         config = lua_config("nvim-lualine/lualine.nvim"),
     },
