@@ -361,7 +361,6 @@ return {
     },
     {
         "linrongbin16/lsp-progress.nvim",
-        branch = "main",
         lazy = true,
         config = lua_config("linrongbin16/lsp-progress.nvim"),
     },
@@ -563,7 +562,6 @@ return {
     {
         "linrongbin16/gitlinker.nvim",
         lazy = true,
-        branch = "master",
         config = lua_config("linrongbin16/gitlinker.nvim"),
         keys = lua_keys("linrongbin16/gitlinker.nvim"),
     },
