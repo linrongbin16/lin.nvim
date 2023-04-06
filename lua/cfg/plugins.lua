@@ -455,7 +455,7 @@ return {
     -- Auto-complete engine
     {
         "hrsh7th/nvim-cmp",
-        event = { InsertEnter, CmdlineEnter },
+        event = { VeryLazy, InsertEnter, CmdlineEnter },
         dependencies = {
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-buffer",
@@ -469,33 +469,33 @@ return {
     },
     {
         "hrsh7th/cmp-nvim-lsp",
-        event = { InsertEnter, CmdlineEnter },
+        event = { VeryLazy, InsertEnter, CmdlineEnter },
     },
     {
         "hrsh7th/cmp-buffer",
-        event = { InsertEnter, CmdlineEnter },
+        event = { VeryLazy, InsertEnter, CmdlineEnter },
     },
     {
         "hrsh7th/cmp-path",
-        event = { InsertEnter, CmdlineEnter },
+        event = { VeryLazy, InsertEnter, CmdlineEnter },
     },
     {
         "hrsh7th/cmp-cmdline",
-        event = { InsertEnter, CmdlineEnter },
+        event = { VeryLazy, InsertEnter, CmdlineEnter },
     },
     {
         "L3MON4D3/LuaSnip",
-        event = { InsertEnter, CmdlineEnter },
+        event = { VeryLazy, InsertEnter, CmdlineEnter },
         version = "1.*",
     },
     {
         "saadparwaiz1/cmp_luasnip",
-        event = { InsertEnter, CmdlineEnter },
+        event = { VeryLazy, InsertEnter, CmdlineEnter },
         dependencies = { "L3MON4D3/LuaSnip" },
     },
     {
         "quangnguyen30192/cmp-nvim-tags",
-        event = { InsertEnter, CmdlineEnter },
+        event = { VeryLazy, InsertEnter, CmdlineEnter },
     },
     {
         "DNLHC/glance.nvim",
@@ -539,7 +539,7 @@ return {
     {
         "phaazon/hop.nvim",
         branch = "v2",
-        event = { CmdlineEnter },
+        event = { VeryLazy, CmdlineEnter },
         config = lua_config("phaazon/hop.nvim"),
         keys = lua_keys("phaazon/hop.nvim"),
     },
@@ -554,7 +554,7 @@ return {
 
     {
         "f-person/git-blame.nvim",
-        event = { CmdlineEnter },
+        event = { VeryLazy, CmdlineEnter },
         init = lua_init("f-person/git-blame.nvim"),
         keys = lua_keys("f-person/git-blame.nvim"),
     },
@@ -571,7 +571,7 @@ return {
     -- Auto pair/close
     {
         "windwp/nvim-autopairs",
-        event = { InsertEnter },
+        event = { VeryLazy, InsertEnter },
         config = lua_config("windwp/nvim-autopairs"),
     },
     {
@@ -598,14 +598,14 @@ return {
     {
         "akinsho/toggleterm.nvim",
         version = "*",
-        event = { CmdlineEnter },
+        event = { VeryLazy, CmdlineEnter },
         config = lua_config("akinsho/toggleterm.nvim"),
         keys = lua_keys("akinsho/toggleterm.nvim"),
     },
     -- Undo tree
     {
         "mbbill/undotree",
-        event = { CmdlineEnter },
+        event = { VeryLazy, CmdlineEnter },
         keys = lua_keys("mbbill/undotree"),
     },
     -- Other
@@ -621,7 +621,7 @@ return {
     },
     {
         "editorconfig/editorconfig-vim",
-        event = { InsertEnter },
+        event = { VeryLazy, InsertEnter },
     },
     {
         "axieax/urlview.nvim",
