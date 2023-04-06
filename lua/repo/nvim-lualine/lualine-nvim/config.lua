@@ -72,23 +72,30 @@ local function Ctags()
     return (stats == nil or stats == "") and "" or stats
 end
 
-local function MatchUpOrLangStatus()
+local function LspSign()
+    return require("lsp-progress").progress({
+        format = function(messages)
+            return " LSP"
+        end,
+    })
+end
+
+local function MatchUp()
     if vim.g.loaded_matchup > 0 then
         local status = vim.fn["MatchupStatusOffscreen"]()
         if status ~= nil and string.len(status) > 0 then
             return status
         end
     end
-    local status = {}
-    local lsp = require("lsp-progress").progress()
-    if lsp ~= nil and string.len(lsp) > 0 then
-        table.insert(status, lsp)
-    end
-    local tags = Ctags()
-    if tags ~= nil and string.len(tags) > 0 then
-        table.insert(status, lsp)
-    end
-    return table.concat(status, " ")
+    return ""
+end
+
+local function LspStatus()
+    return require("lsp-progress").progress({
+        format = function(messages)
+            return #messages > 0 and table.concat(messages, " ") or ""
+        end,
+    })
 end
 
 local function Search()
@@ -151,7 +158,9 @@ local config = {
                     hint = const.lsp.diagnostics.signs["hint"] .. " ",
                 },
             },
-            MatchUpOrLangStatus,
+            LspSign,
+            MatchUp,
+            LspStatus,
             Ctags,
         },
         lualine_x = {
