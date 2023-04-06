@@ -155,7 +155,27 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 vim.api.nvim_create_autocmd("VimEnter", {
     group = "neo_tree_augroup",
-    callback = function()
-        vim.cmd("Neotree reveal")
+    callback = function(data)
+        -- use defer_fn to open async
+        local function open_impl()
+            -- buffer is a [No Name]
+            local no_name = data.file == "" and vim.bo[data.buf].buftype == ""
+            -- buffer is a directory
+            local directory = vim.fn.isdirectory(data.file) == 1
+
+            -- don't open neo-tree if opened buffer is a file
+            if not no_name and not directory then
+                return
+            end
+
+            -- change to the directory
+            if directory then
+                vim.cmd.cd(data.file)
+            end
+
+            -- open neo-tree
+            vim.cmd("Neotree reveal")
+        end
+        vim.defer_fn(open_impl, 0)
     end,
 })

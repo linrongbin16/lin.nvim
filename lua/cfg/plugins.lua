@@ -66,10 +66,6 @@ return {
         "nvim-tree/nvim-web-devicons",
         lazy = true,
     },
-    {
-        "stevearc/dressing.nvim",
-        config = lua_config("stevearc/dressing.nvim"),
-    },
 
     -- ---- COLORSCHEME ----
 
@@ -355,7 +351,7 @@ return {
     -- Statusline
     {
         "nvim-lualine/lualine.nvim",
-        event = { VimEnter },
+        event = { VeryLazy, BufRead, BufNewFile },
         dependencies = { "linrongbin16/lsp-progress.nvim" },
         config = lua_config("nvim-lualine/lualine.nvim"),
     },
@@ -384,6 +380,15 @@ return {
         event = { VeryLazy, BufRead, BufNewFile },
         init = lua_init("airblade/vim-gitgutter"),
         keys = lua_keys("airblade/vim-gitgutter"),
+    },
+    {
+        "stevearc/dressing.nvim",
+        event = { VeryLazy, BufRead, BufNewFile },
+        config = lua_config("stevearc/dressing.nvim"),
+    },
+    {
+        "MunifTanjim/nui.nvim",
+        lazy = true,
     },
 
     -- ---- SEARCH ----
@@ -511,6 +516,10 @@ return {
         event = { VeryLazy, BufRead, BufNewFile },
         dependencies = "linrongbin16/logger.nvim",
         config = lua_config("linrongbin16/lspformatter.nvim"),
+    },
+    {
+        "linrongbin16/logger.nvim",
+        lazy = true,
     },
 
     -- ---- SPECIFIC LANGUAGE SUPPORT ----
