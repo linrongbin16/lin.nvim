@@ -629,10 +629,6 @@ return {
         config = lua_config("kylechui/nvim-surround"),
     },
     {
-        "editorconfig/editorconfig-vim",
-        event = { VeryLazy, InsertEnter },
-    },
-    {
         "axieax/urlview.nvim",
         cmd = { "UrlView" },
         config = lua_config("axieax/urlview.nvim"),
