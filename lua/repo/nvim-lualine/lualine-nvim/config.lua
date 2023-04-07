@@ -84,7 +84,7 @@ local function MatchUp()
     if vim.g.loaded_matchup > 0 then
         local status = vim.fn["MatchupStatusOffscreen"]()
         if status ~= nil and string.len(status) > 0 then
-            return status
+            return "Δ " .. status
         end
     end
     return ""
