@@ -7,14 +7,12 @@
 local null_ls = require("null-ls")
 
 local setup_handlers = {
-    -- default setup
-    function(source, methods)
-        require("mason-null-ls.automatic_setup")(source, methods)
-    end,
-
     -- specific setup
     stylua = function(source, methods)
         null_ls.register(null_ls.builtins.formatting.stylua)
+    end,
+    markdownlint = function(source, methods)
+        null_ls.register(null_ls.builtins.diagnostics.markdownlint)
     end,
 }
 
