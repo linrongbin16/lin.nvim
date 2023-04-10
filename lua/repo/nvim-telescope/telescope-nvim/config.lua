@@ -1,5 +1,7 @@
 local const = require("cfg.const")
+local IS_WIN = const.os.is_windows
 local NO_BAT = vim.fn.executable("bat") <= 0
+local NO_LESS = vim.fn.executable("less") <= 0
 
 require("telescope").setup({
     defaults = {
@@ -64,10 +66,10 @@ require("telescope").setup({
                 ["<M-q>"] = false, --actions.send_selected_to_qflist + actions.open_qflist,,
             },
         },
-        file_previewer = (const.os.is_windows or NO_BAT) and require(
+        file_previewer = (IS_WIN or NO_BAT or NO_LESS) and require(
             "telescope.previewers"
         ).vim_buffer_cat.new or require("telescope.previewers").cat.new,
-        grep_previewer = (const.os.is_windows or NO_BAT) and require(
+        grep_previewer = (IS_WIN or NO_BAT or NO_LESS) and require(
             "telescope.previewers"
         ).vim_buffer_vimgrep.new or require("telescope.previewers").vimgrep.new,
     },
