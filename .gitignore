@@ -19,3 +19,10 @@
 
 # project
 /.idea
+
+# customization
+/lua/cfg/lsp/mason-lspconfig/setup_handlers.lua
+/lua/cfg/lsp/mason-lspconfig/ensure_installed.lua
+/lua/cfg/lsp/mason-null-ls/setup_handlers.lua
+/lua/cfg/lsp/mason-null-ls/ensure_installed.lua
+/lua/cfg/lsp/lspconfig/setup_handlers.lua

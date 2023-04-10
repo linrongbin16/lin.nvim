@@ -48,10 +48,6 @@ return {
     -- ---- INFRASTRUCTURE ----
 
     {
-        "nathom/filetype.nvim",
-        init = lua_init("nathom/filetype.nvim"),
-    },
-    {
         "folke/lsp-colors.nvim",
     },
     {
@@ -324,6 +320,10 @@ return {
         config = lua_config("nvim-neo-tree/neo-tree.nvim"),
         keys = lua_keys("nvim-neo-tree/neo-tree.nvim"),
     },
+    {
+        "MunifTanjim/nui.nvim",
+        lazy = true,
+    },
     -- Tabline
     {
         "akinsho/bufferline.nvim",
@@ -351,13 +351,13 @@ return {
     -- Statusline
     {
         "nvim-lualine/lualine.nvim",
-        event = { VeryLazy, BufRead, BufNewFile },
+        event = { VimEnter },
         dependencies = { "linrongbin16/lsp-progress.nvim" },
         config = lua_config("nvim-lualine/lualine.nvim"),
     },
     {
         "linrongbin16/lsp-progress.nvim",
-        lazy = true,
+        event = { VimEnter },
         config = lua_config("linrongbin16/lsp-progress.nvim"),
     },
     -- Winbar
@@ -385,10 +385,6 @@ return {
         "stevearc/dressing.nvim",
         event = { VeryLazy, BufRead, BufNewFile },
         config = lua_config("stevearc/dressing.nvim"),
-    },
-    {
-        "MunifTanjim/nui.nvim",
-        lazy = true,
     },
 
     -- ---- SEARCH ----
@@ -442,10 +438,12 @@ return {
         "williamboman/mason-lspconfig.nvim",
         event = { VeryLazy, BufRead, BufNewFile },
         dependencies = { "williamboman/mason.nvim" },
+        config = lua_config("williamboman/mason-lspconfig.nvim"),
     },
     {
         "jose-elias-alvarez/null-ls.nvim",
         event = { VeryLazy, BufRead, BufNewFile },
+        config = lua_config("jose-elias-alvarez/null-ls.nvim"),
     },
     {
         "jay-babu/mason-null-ls.nvim",
@@ -627,10 +625,6 @@ return {
         version = "*",
         event = { VeryLazy, BufRead, BufNewFile },
         config = lua_config("kylechui/nvim-surround"),
-    },
-    {
-        "editorconfig/editorconfig-vim",
-        event = { VeryLazy, InsertEnter },
     },
     {
         "axieax/urlview.nvim",
