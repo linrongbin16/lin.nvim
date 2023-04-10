@@ -1,4 +1,4 @@
--- Check if `lsp.mason-null-ls.ensure_installed` exist
+-- Check if `cfg.lsp.mason-null-ls.ensure_installed` exist
 local found_ensure_installed, ensure_installed =
     pcall(require, "cfg.lsp.mason-null-ls.ensure_installed")
 
@@ -6,7 +6,7 @@ if not found_ensure_installed then
     ensure_installed = {}
 end
 
--- Check if `lsp.mason-null-ls.setup_handlers` exist
+-- Check if `cfg.lsp.mason-null-ls.setup_handlers` exist
 local found_setup_handlers, setup_handlers =
     pcall(require, "cfg.lsp.mason-null-ls.setup_handlers")
 
