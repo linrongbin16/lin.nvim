@@ -79,11 +79,35 @@ local M = {
     -- search git
     keymap.map_lazy(
         "n",
-        "<space>g",
+        "<space>gf",
         keymap.exec(function()
             require("telescope.builtin").git_files()
         end),
         { desc = "Search git files" }
+    ),
+    keymap.map_lazy(
+        "n",
+        "<space>gc",
+        keymap.exec(function()
+            require("telescope.builtin").git_commits()
+        end),
+        { desc = "Search git commits" }
+    ),
+    keymap.map_lazy(
+        "n",
+        "<space>gb",
+        keymap.exec(function()
+            require("telescope.builtin").git_branches()
+        end),
+        { desc = "Search git branches" }
+    ),
+    keymap.map_lazy(
+        "n",
+        "<space>gs",
+        keymap.exec(function()
+            require("telescope.builtin").git_status()
+        end),
+        { desc = "Search git status" }
     ),
     -- search diagnostics
     keymap.map_lazy(
@@ -107,7 +131,7 @@ local M = {
     -- search vim
     keymap.map_lazy(
         "n",
-        "<space>b",
+        "<space>bf",
         keymap.exec(function()
             require("telescope.builtin").buffers()
         end),
