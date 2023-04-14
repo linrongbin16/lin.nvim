@@ -113,7 +113,6 @@ if has('termguicolors')
 endif
 
 """ EN language
-language messages en_US.UTF-8
 set langmenu=en_US
 set nolangremap
 
