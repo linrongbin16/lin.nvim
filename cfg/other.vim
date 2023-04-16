@@ -40,16 +40,5 @@ augroup optimization_augroup
     autocmd!
     autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f) > luaeval("require('cfg.const').perf.file.maxsize") | syntax clear | setlocal eventignore+=FileType | setlocal undolevels=-1 | endif
 augroup END
-" Neovide
-if exists('g:neovide')
-    let g:neovide_refresh_rate=30
-    let g:neovide_transparency=1.0
-    let g:neovide_scroll_animation_length=0.0
-    let g:neovide_remember_window_size=v:true
-    let g:neovide_input_use_logo=has('mac') " v:true on macOS
-    let g:neovide_cursor_animation_length=0.0
-    let g:neovide_cursor_trail_length=0.0
-    let g:neovide_cursor_antialiasing=v:true
-endif
 
 """ ---- Add more settings here ----
