@@ -133,7 +133,10 @@ require("neo-tree").setup({
         window = {
             mappings = {
                 ["f"] = "fuzzy_finder",
+                ["<C-f>"] = "clear_filter",
+                ["<C-x>"] = "none",
                 ["/"] = "none",
+                ["#"] = "none",
                 ["<C-]>"] = "set_root",
                 ["[c"] = "prev_git_modified",
                 ["]c"] = "next_git_modified",
