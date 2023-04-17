@@ -7,6 +7,12 @@ local M = {
         '<cmd>lua require("gitlinker").link()<cr>',
         { desc = "Open git link in browser" }
     ),
+    map_lazy(
+        { "n", "x" },
+        "<leader>gL",
+        '<cmd>lua require("gitlinker").link({action = require("gitlinker.actions").clipboard})<cr>',
+        { desc = "Copy git link to clipboard" }
+    ),
 }
 
 return M
