@@ -57,6 +57,7 @@ local M = {
     },
     {
         "neovim/nvim-lspconfig",
+        config = lua_config("neovim/nvim-lspconfig"),
         lazy = true,
     },
     {
@@ -634,8 +635,8 @@ local M = {
     },
 }
 
--- Check if `user.plugins` exist
-local found_user_plugins, user_plugins = pcall(require, "user.plugins")
+-- Check if `user_plugins` exist
+local found_user_plugins, user_plugins = pcall(require, "cfg.user_plugins")
 
 if found_user_plugins then
     for _, plugin in ipairs(user_plugins) do
