@@ -1,12 +1,10 @@
--- ---- Plugins Header ----
-local const = require("cfg.const")
+-- ---- Plugins ----
 
 local function lua_config(repo)
-    local function wrap()
+    return function()
         local config_path = "repo." .. repo:gsub("%.", "-") .. ".config"
         require(config_path)
     end
-    return wrap
 end
 
 local function lua_keys(repo)
@@ -15,25 +13,22 @@ local function lua_keys(repo)
 end
 
 local function lua_init(repo)
-    local function wrap()
+    return function()
         local init_path = "repo." .. repo:gsub("%.", "-") .. ".init"
         require(init_path)
     end
-    return wrap
 end
 
 local function vim_config(repo)
-    local function wrap()
+    return function()
         vim.cmd("source $HOME/.nvim/repo/" .. repo .. "/config.vim")
     end
-    return wrap
 end
 
 local function vim_init(repo)
-    local function wrap()
+    return function()
         vim.cmd("source $HOME/.nvim/repo/" .. repo .. "/init.vim")
     end
-    return wrap
 end
 
 local VeryLazy = "VeryLazy"
@@ -43,7 +38,7 @@ local CmdlineEnter = "CmdlineEnter"
 local VimEnter = "VimEnter"
 local InsertEnter = "InsertEnter"
 
-return {
+local M = {
 
     -- ---- INFRASTRUCTURE ----
 
@@ -56,6 +51,7 @@ return {
     },
     {
         "neovim/nvim-lspconfig",
+        config = lua_config("neovim/nvim-lspconfig"),
         lazy = true,
     },
     {
@@ -633,4 +629,13 @@ return {
     },
 }
 
--- ---- Plugins Footer ----
+-- Check if `user_plugins` exist
+local found_user_plugins, user_plugins = pcall(require, "cfg.user_plugins")
+
+if found_user_plugins then
+    for _, plugin in ipairs(user_plugins) do
+        table.insert(M, plugin)
+    end
+end
+
+return M

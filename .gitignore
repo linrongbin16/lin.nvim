@@ -20,9 +20,11 @@
 # project
 /.idea
 
-# customization
-/lua/cfg/lsp/mason-lspconfig/setup_handlers.lua
-/lua/cfg/lsp/mason-lspconfig/ensure_installed.lua
-/lua/cfg/lsp/mason-null-ls/setup_handlers.lua
-/lua/cfg/lsp/mason-null-ls/ensure_installed.lua
-/lua/cfg/lsp/lspconfig/setup_handlers.lua
+# custom
+/lua/repo/neovim/nvim-lspconfig/setup_handlers.lua
+/lua/repo/williamboman/mason-lspconfig-nvim/setup_handlers.lua
+/lua/repo/williamboman/mason-lspconfig-nvim/ensure_installed.lua
+/lua/repo/jay-babu/mason-null-ls-nvim/setup_handlers.lua
+/lua/repo/jay-babu/mason-null-ls-nvim/ensure_installed.lua
+/lua/repo/hrsh7th/nvim-cmp/user_sources.lua
+/lua/cfg/user_plugins.lua

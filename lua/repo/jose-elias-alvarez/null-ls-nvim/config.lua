@@ -1,3 +1,3 @@
-local global_setup = require("cfg.lsp.global_setup")
+local setup = require("cfg.lsp.setup")
 
-require("null-ls").setup({ on_attach = global_setup.on_attach })
+require("null-ls").setup({ on_attach = setup.on_attach })

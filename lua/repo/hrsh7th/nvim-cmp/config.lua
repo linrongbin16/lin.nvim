@@ -16,6 +16,22 @@ local luasnip = require("luasnip")
 local select_opts = { behavior = cmp.SelectBehavior.Select }
 local keyword = 2
 
+local found_sources, sources =
+    pcall(require, "repo.hrsh7th.nvim-cmp.user_sources")
+
+if not found_sources then
+    sources = cmp.config.sources({
+        { name = "nvim_lsp", keyword_length = keyword },
+        { name = "luasnip", keyword_length = keyword },
+    }, {
+        { name = "buffer", keyword_length = keyword },
+        { name = "path", keyword_length = keyword },
+        { name = "tags", keyword_length = keyword },
+    })
+end
+
+require("mason-lspconfig").setup({ ensure_installed = ensure_installed })
+
 cmp.setup({
     completion = {
         completeopt = "menu,menuone,noinsert",
@@ -25,14 +41,24 @@ cmp.setup({
             luasnip.lsp_expand(args.body)
         end,
     },
-    sources = cmp.config.sources({
-        { name = "nvim_lsp", keyword_length = keyword },
-        { name = "luasnip", keyword_length = keyword },
-    }, {
-        { name = "buffer", keyword_length = keyword },
-        { name = "path", keyword_length = keyword },
-        { name = "tags", keyword_length = keyword },
-    }),
+    sources = sources,
+    sorting = {
+        priority_weight = 2,
+        comparators = {
+            require("copilot_cmp.comparators").prioritize,
+            -- Below is the default comparitor list and order for nvim-cmp
+            cmp.config.compare.offset,
+            -- cmp.config.compare.scopes, --this is commented in nvim-cmp too
+            cmp.config.compare.exact,
+            cmp.config.compare.score,
+            cmp.config.compare.recently_used,
+            cmp.config.compare.locality,
+            cmp.config.compare.kind,
+            cmp.config.compare.sort_text,
+            cmp.config.compare.length,
+            cmp.config.compare.order,
+        },
+    },
     window = {
         completion = cmp.config.window.bordered(),
         documentation = cmp.config.window.bordered(),
@@ -48,7 +74,9 @@ cmp.setup({
                 tags = "[TAGS]",
                 path = "[PATH]",
                 cmdline = "[CMD]",
+                copilot = "[COPILOT]",
             },
+            symbol_map = { Copilot = "" },
             maxwidth = 50,
             ellipsis_char = "…",
         }),
