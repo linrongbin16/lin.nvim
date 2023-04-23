@@ -16,9 +16,9 @@ require("mason").setup({
     },
 })
 
--- Check if `cfg.lsp.lspconfig.setup_handlers` exist
+-- Check if `user.lspconfig.setup_handlers` exist
 local found_setup_handlers, setup_handlers =
-    pcall(require, "cfg.lsp.lspconfig.setup_handlers")
+    pcall(require, "user.lspconfig.setup_handlers")
 
 if not found_setup_handlers then
     setup_handlers = {}

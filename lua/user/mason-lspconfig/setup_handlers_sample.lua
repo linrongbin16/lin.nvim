@@ -5,30 +5,30 @@
 --  * [mason-lspconfig's Automatic server setup](https://github.com/williamboman/mason-lspconfig.nvim#automatic-server-setup-advanced-feature).
 
 local lspconfig = require("lspconfig")
-local global_setup = require("cfg.lsp.global_setup")
+local setup = require("cfg.lsp.setup")
 
 local setup_handlers = {
     -- default setup
     function(server)
         lspconfig[server].setup({
-            on_attach = global_setup.on_attach,
+            on_attach = setup.on_attach,
         })
     end,
 
     -- specific setup
     tsserver = function()
         lspconfig["tsserver"].setup({
-            on_attach = global_setup.on_attach,
+            on_attach = setup.on_attach,
         })
     end,
     clangd = function()
         require("clangd_extensions").setup({
-            on_attach = global_setup.on_attach,
+            on_attach = setup.on_attach,
         })
     end,
     ["rust_analyzer"] = function()
         require("rust-tools").setup({
-            on_attach = global_setup.on_attach,
+            on_attach = setup.on_attach,
         })
     end,
 }

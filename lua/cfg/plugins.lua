@@ -1,4 +1,5 @@
--- ---- Plugins Header ----
+-- ---- Plugins ----
+
 local const = require("cfg.const")
 
 local function lua_config(repo)
@@ -43,7 +44,7 @@ local CmdlineEnter = "CmdlineEnter"
 local VimEnter = "VimEnter"
 local InsertEnter = "InsertEnter"
 
-return {
+local M = {
 
     -- ---- INFRASTRUCTURE ----
 
@@ -633,4 +634,13 @@ return {
     },
 }
 
--- ---- Plugins Footer ----
+-- Check if `user.plugins` exist
+local found_user_plugins, user_plugins = pcall(require, "user.plugins")
+
+if found_user_plugins then
+    for _, plugin in ipairs(user_plugins) do
+        table.insert(M, plugin)
+    end
+end
+
+return M
