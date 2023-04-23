@@ -1,13 +1,10 @@
--- ---- User Plugins ----
-
-local const = require("cfg.const")
+-- ---- Users Plugins ----
 
 local function lua_config(repo)
-    local function wrap()
+    return function()
         local config_path = "repo." .. repo:gsub("%.", "-") .. ".config"
         require(config_path)
     end
-    return wrap
 end
 
 local function lua_keys(repo)
@@ -16,25 +13,22 @@ local function lua_keys(repo)
 end
 
 local function lua_init(repo)
-    local function wrap()
+    return function()
         local init_path = "repo." .. repo:gsub("%.", "-") .. ".init"
         require(init_path)
     end
-    return wrap
 end
 
 local function vim_config(repo)
-    local function wrap()
+    return function()
         vim.cmd("source $HOME/.nvim/repo/" .. repo .. "/config.vim")
     end
-    return wrap
 end
 
 local function vim_init(repo)
-    local function wrap()
+    return function()
         vim.cmd("source $HOME/.nvim/repo/" .. repo .. "/init.vim")
     end
-    return wrap
 end
 
 local VeryLazy = "VeryLazy"
@@ -49,9 +43,11 @@ return {
     {
         "zbirenbaum/copilot-cmp",
         event = { VeryLazy, InsertEnter, CmdlineEnter },
+        config = lua_config("zbirenbaum/copilot-cmp"),
     },
     {
         "zbirenbaum/copilot.lua",
         event = { VeryLazy, InsertEnter, CmdlineEnter },
+        config = lua_config("zbirenbaum/copilot.lua"),
     },
 }

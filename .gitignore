@@ -26,4 +26,5 @@
 /lua/repo/williamboman/mason-lspconfig-nvim/ensure_installed.lua
 /lua/repo/jay-babu/mason-null-ls-nvim/setup_handlers.lua
 /lua/repo/jay-babu/mason-null-ls-nvim/ensure_installed.lua
+/lua/repo/hrsh7th/nvim-cmp/user_sources.lua
 /lua/cfg/user_plugins.lua
