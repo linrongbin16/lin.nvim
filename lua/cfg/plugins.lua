@@ -566,6 +566,7 @@ local M = {
         "linrongbin16/gitlinker.nvim",
         lazy = true,
         config = lua_config("linrongbin16/gitlinker.nvim"),
+        keys = lua_keys("linrongbin16/gitlinker.nvim"),
     },
 
     -- ---- ENHANCEMENT ----
