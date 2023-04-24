@@ -14,10 +14,6 @@ install_or_skip "brew install unzip" "unzip"
 install_or_skip "brew install gzip" "gzip"
 install_or_skip "brew install cmake" "cmake"
 install_or_skip "brew install pkg-config" "pkg-config"
-install_or_skip "brew install bat" "bat"
-install_or_skip "brew install ripgrep" "rg"
-install_or_skip "brew install fd" "fd"
-install_or_skip "brew install git-delta" "delta"
 
 # python3
 install_or_skip "brew install python3" "python3"

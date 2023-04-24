@@ -51,11 +51,3 @@ install_universal_ctags() {
     make
     sudo make install
 }
-
-install_rust_commands() {
-    message 'install modern rust commands with cargo'
-    install_or_skip "cargo install fd-find" "fd"
-    install_or_skip "cargo install ripgrep" "rg"
-    install_or_skip "cargo install --locked bat" "bat"
-    install_or_skip "cargo install git-delta" "delta"
-}
