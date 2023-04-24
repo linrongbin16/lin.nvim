@@ -23,6 +23,17 @@ source $DEPS_HOME/util.sh
 # 	fi
 # }
 
+rust_dependency() {
+    message "install rustc/cargo"
+    install_or_skip "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y" "rustc"
+    install_or_skip "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y" "cargo"
+    message 'install modern rust commands with cargo'
+    install_or_skip "cargo install fd-find" "fd"
+    install_or_skip "cargo install ripgrep" "rg"
+    install_or_skip "cargo install --locked bat" "bat"
+    install_or_skip "cargo install git-delta" "delta"
+}
+
 pip3_dependency() {
     message "install python packages with pip3"
     sudo python3 -m pip install pynvim
@@ -137,6 +148,7 @@ Darwin)
     ;;
 esac
 
+rust_dependency
 pip3_dependency
 npm_dependency
 guifont_dependency

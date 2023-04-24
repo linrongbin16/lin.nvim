@@ -29,13 +29,6 @@ install_or_skip "sudo apt-get install -y cmake" "cmake"
 install_or_skip "sudo apt-get install -y xsel" "xsel"
 install_or_skip "sudo apt-get install -y xclip" "xclip"
 install_or_skip "sudo apt-get install -y wl-clipboard" "wl-copy"
-if type rustc cargo >/dev/null 2>&1; then
-    install_rust_commands
-else
-    install_or_skip "sudo apt-get install -y bat" "batcat"
-    install_or_skip "sudo apt-get install -y ripgrep" "rg"
-    install_or_skip "sudo apt-get install -y fd-find" "fdfind"
-fi
 
 # locale
 sudo locale-gen en_US
