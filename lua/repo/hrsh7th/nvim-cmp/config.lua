@@ -28,7 +28,6 @@ local setup_handler = {
     }, {
         { name = "buffer", keyword_length = 2 },
         { name = "path", keyword_length = 2 },
-        { name = "tags", keyword_length = 2 },
     }),
     window = {
         completion = cmp.config.window.bordered(),

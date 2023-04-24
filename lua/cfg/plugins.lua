@@ -462,7 +462,6 @@ local M = {
             "hrsh7th/cmp-cmdline",
             "L3MON4D3/LuaSnip",
             "saadparwaiz1/cmp_luasnip",
-            "quangnguyen30192/cmp-nvim-tags",
         },
         config = lua_config("hrsh7th/nvim-cmp"),
     },
@@ -491,10 +490,6 @@ local M = {
         "saadparwaiz1/cmp_luasnip",
         event = { VeryLazy, InsertEnter, CmdlineEnter },
         dependencies = { "L3MON4D3/LuaSnip" },
-    },
-    {
-        "quangnguyen30192/cmp-nvim-tags",
-        event = { VeryLazy, InsertEnter, CmdlineEnter },
     },
     {
         "DNLHC/glance.nvim",

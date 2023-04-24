@@ -8,15 +8,14 @@ local setup_handler = {
         { name = "copilot", keyword_length = 2 }, -- github copilot
         { name = "buffer", keyword_length = 2 },
         { name = "path", keyword_length = 2 },
-        { name = "tags", keyword_length = 2 },
+        { name = "tags", keyword_length = 2 }, -- tags
     }),
     sorting = {
         priority_weight = 2,
         comparators = {
             require("copilot_cmp.comparators").prioritize, -- github copilot
-            -- Below is the default comparitor list and order for nvim-cmp
             cmp.config.compare.offset,
-            -- cmp.config.compare.scopes, --this is commented in nvim-cmp too
+            cmp.config.compare.scopes,
             cmp.config.compare.exact,
             cmp.config.compare.score,
             cmp.config.compare.recently_used,
