@@ -11,7 +11,7 @@ local M = {
         { "n", "x" },
         "<leader>gL",
         '<cmd>lua require("gitlinker").link({action = require("gitlinker.actions").system})<cr>',
-        { desc = "Open git link in default browser" }
+        { desc = "Open git link in browser" }
     ),
 }
 
