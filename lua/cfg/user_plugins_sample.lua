@@ -50,4 +50,9 @@ return {
         event = { VeryLazy, InsertEnter, CmdlineEnter },
         config = lua_config("zbirenbaum/copilot.lua"),
     },
+    -- tags
+    {
+        "quangnguyen30192/cmp-nvim-tags",
+        event = { VeryLazy, InsertEnter, CmdlineEnter },
+    },
 }
