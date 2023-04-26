@@ -128,7 +128,7 @@ cmp.setup.filetype("gitcommit", {
 cmp.setup.cmdline({ "/", "?" }, {
     mapping = cmp.mapping.preset.cmdline(),
     sources = {
-        { name = "buffer", keyword_length = 2 },
+        { name = "buffer" },
     },
 })
 
@@ -136,9 +136,14 @@ cmp.setup.cmdline({ "/", "?" }, {
 cmp.setup.cmdline(":", {
     mapping = cmp.mapping.preset.cmdline(),
     sources = cmp.config.sources({
-        { name = "path", keyword_length = 2 },
+        { name = "path" },
     }, {
-        { name = "cmdline", keyword_length = 2 },
+        {
+            name = "cmdline",
+            option = {
+                ignore_cmds = { "Man", "!", "tag" },
+            },
+        },
     }),
 })
 
