@@ -21,6 +21,7 @@ local setup_handler = {
     },
     completion = {
         completeopt = "menu,menuone,noinsert",
+        keyword_length = 2,
     },
     snippet = {
         expand = function(args)
@@ -28,11 +29,11 @@ local setup_handler = {
         end,
     },
     sources = cmp.config.sources({
-        { name = "nvim_lsp", keyword_length = 2 },
-        { name = "luasnip", keyword_length = 2 },
+        { name = "nvim_lsp" },
+        { name = "luasnip" },
     }, {
-        { name = "buffer", keyword_length = 2 },
-        { name = "path", keyword_length = 2 },
+        { name = "buffer" },
+        { name = "path" },
     }),
     window = {
         completion = cmp.config.window.bordered(),
