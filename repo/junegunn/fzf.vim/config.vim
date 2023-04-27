@@ -1,4 +1,4 @@
-" let s:lin_rg = 'rg --column --line-number --no-heading --color=always --smart-case'
+" --column --line-number --no-heading --color=always --smart-case
 let s:lin_rg = 'rg --column -n --no-heading --color=always -S'
 
 function! s:lin_fzf_live_grep(query, fullscreen)
