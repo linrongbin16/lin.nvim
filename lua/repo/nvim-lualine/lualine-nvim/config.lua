@@ -153,7 +153,6 @@ local config = {
         lualine_b = { "branch", GitDiff },
         lualine_c = {
             "filename",
-            Modifiable,
             {
                 "diagnostics",
                 symbols = {
