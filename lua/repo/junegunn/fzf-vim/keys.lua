@@ -17,7 +17,7 @@ local M = {
     -- search buffer
     keymap.map_lazy(
         "n",
-        "<space>bf",
+        "<space>b",
         keymap.exec("FzfBuffers"),
         { desc = "Search buffers (Fzf)" }
     ),

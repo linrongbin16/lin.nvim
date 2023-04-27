@@ -24,20 +24,41 @@ local M = {
     -- search buffer
     keymap.map_lazy(
         "n",
-        "<space>bf",
+        "<space>b",
         keymap.exec(function()
             require("fzf-lua").buffers()
         end),
         { desc = "Search buffers (FzfLua)" }
     ),
     -- live grep
+    -- keymap.map_lazy(
+    --     "n",
+    --     "<space>l",
+    --     keymap.exec(function()
+    --         require("fzf-lua").live_grep()
+    --     end),
+    --     { desc = "Live grep (FzfLua)" }
+    -- ),
+    -- keymap.map_lazy(
+    --     "n",
+    --     "<space>ul",
+    --     keymap.exec(function()
+    --         require("fzf-lua").live_grep({
+    --             cmd = fzf_const.GREP_CMD .. " -uu", -- --unrestricted --hidden
+    --         })
+    --     end),
+    --     { desc = "Unrestricted live grep (FzfLua)" }
+    -- ),
     keymap.map_lazy(
         "n",
         "<space>l",
         keymap.exec(function()
-            require("fzf-lua").live_grep()
+            require("fzf-lua").live_grep({
+                cmd = fzf_const.GREP_CMD,
+                rg_glob = true,
+            })
         end),
-        { desc = "Live grep (FzfLua)" }
+        { desc = "Live grep with glob support via '--' (FzfLua)" }
     ),
     keymap.map_lazy(
         "n",
@@ -45,31 +66,10 @@ local M = {
         keymap.exec(function()
             require("fzf-lua").live_grep({
                 cmd = fzf_const.GREP_CMD .. " -uu", -- --unrestricted --hidden
-            })
-        end),
-        { desc = "Unrestricted live grep (FzfLua)" }
-    ),
-    keymap.map_lazy(
-        "n",
-        "<space>gl",
-        keymap.exec(function()
-            require("fzf-lua").live_grep({
-                cmd = fzf_const.GREP_CMD,
                 rg_glob = true,
             })
         end),
-        { desc = "Live grep with '--' glob (FzfLua)" }
-    ),
-    keymap.map_lazy(
-        "n",
-        "<space>ugl",
-        keymap.exec(function()
-            require("fzf-lua").live_grep({
-                cmd = fzf_const.GREP_CMD .. " -uu",
-                rg_glob = true,
-            })
-        end),
-        { desc = "Unrestricted live grep with '--' glob (FzfLua)" }
+        { desc = "Unrestricted live grep with glob support via '--' (FzfLua)" }
     ),
     -- search word
     keymap.map_lazy(
