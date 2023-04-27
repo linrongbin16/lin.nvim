@@ -483,7 +483,7 @@ local M = {
     },
     {
         "hrsh7th/cmp-nvim-lsp",
-        event = { VeryLazy, InsertEnter },
+        event = { VeryLazy, InsertEnter, CmdlineEnter },
     },
     {
         "hrsh7th/cmp-buffer",
@@ -495,12 +495,12 @@ local M = {
     },
     {
         "L3MON4D3/LuaSnip",
-        event = { VeryLazy, InsertEnter },
+        event = { VeryLazy, InsertEnter, CmdlineEnter },
         version = "1.*",
     },
     {
         "saadparwaiz1/cmp_luasnip",
-        event = { VeryLazy, InsertEnter },
+        event = { VeryLazy, InsertEnter, CmdlineEnter },
         dependencies = { "L3MON4D3/LuaSnip" },
     },
     {
