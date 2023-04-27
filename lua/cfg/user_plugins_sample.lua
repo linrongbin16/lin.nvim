@@ -55,4 +55,35 @@ return {
         "quangnguyen30192/cmp-nvim-tags",
         event = { VeryLazy, InsertEnter, CmdlineEnter },
     },
+    -- buffer manager
+    {
+        "j-morano/buffer_manager.nvim",
+        config = lua_config("j-morano/buffer_manager.nvim"),
+        keys = lua_keys("j-morano/buffer_manager.nvim"),
+    },
+    -- url viewer
+    {
+        "axieax/urlview.nvim",
+        cmd = { "UrlView" },
+        config = lua_config("axieax/urlview.nvim"),
+        keys = lua_keys("axieax/urlview.nvim"),
+    },
+    -- terminal
+    {
+        "akinsho/toggleterm.nvim",
+        version = "*",
+        event = { VeryLazy, CmdlineEnter },
+        config = lua_config("akinsho/toggleterm.nvim"),
+        keys = lua_keys("akinsho/toggleterm.nvim"),
+    },
+    -- Generate documents
+    {
+        "kkoomen/vim-doge",
+        cmd = { "DogeGenerate" },
+        build = require("cfg.const").os.is_macos
+                and "npm i --no-save && npm run build:binary:unix"
+            or ":call doge#install()",
+        init = vim_init("kkoomen/vim-doge"),
+        keys = lua_keys("kkoomen/vim-doge"),
+    },
 }
