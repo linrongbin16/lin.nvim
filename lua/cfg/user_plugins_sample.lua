@@ -55,6 +55,13 @@ return {
         "quangnguyen30192/cmp-nvim-tags",
         event = { VeryLazy, InsertEnter, CmdlineEnter },
     },
+    -- structure outlines based on tags
+    {
+        "liuchengxu/vista.vim",
+        cmd = { "Vista" },
+        dependencies = { "ludovicchabant/vim-gutentags" },
+        keys = lua_keys("liuchengxu/vista.vim"),
+    },
     -- buffer manager
     {
         "j-morano/buffer_manager.nvim",

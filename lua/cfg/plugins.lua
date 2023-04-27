@@ -408,13 +408,7 @@ local M = {
 
     -- ---- TAGS ----
 
-    -- Tags/structure outlines
-    {
-        "liuchengxu/vista.vim",
-        cmd = { "Vista" },
-        dependencies = { "ludovicchabant/vim-gutentags" },
-        keys = lua_keys("liuchengxu/vista.vim"),
-    },
+    -- Tags generator
     {
         "ludovicchabant/vim-gutentags",
         event = { VeryLazy, BufRead, BufNewFile },
