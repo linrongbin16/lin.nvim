@@ -58,7 +58,7 @@ local M = {
                 rg_glob = true,
             })
         end),
-        { desc = "Live grep with glob '--'(FzfLua)" }
+        { desc = "Live grep with '--' glob(FzfLua)" }
     ),
     keymap.map_lazy(
         "n",
@@ -69,7 +69,7 @@ local M = {
                 rg_glob = true,
             })
         end),
-        { desc = "Unrestricted live grep with glob '--'(FzfLua)" }
+        { desc = "Unrestricted live grep with '--' glob(FzfLua)" }
     ),
     -- search word
     keymap.map_lazy(

@@ -17,7 +17,7 @@ require("bufferline").setup({
                     math.floor(vim.fn.max({ (MAX_NAME_LENGTH - 1) / 2, 1 }))
                 local left = string.sub(name, 1, half)
                 local right = string.sub(name, len - half, len)
-                name = left .. "┄" .. right
+                name = left .. "…" .. right
             end
             return name
         end,
