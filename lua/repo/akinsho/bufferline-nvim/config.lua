@@ -13,8 +13,7 @@ require("bufferline").setup({
             local name = buf.name
             local len = name ~= nil and string.len(name) or 0
             if len > MAX_NAME_LENGTH then
-                local half =
-                    math.floor(vim.fn.max({ (MAX_NAME_LENGTH - 1) / 2, 1 }))
+                local half = math.floor(MAX_NAME_LENGTH / 2) - 1
                 local left = string.sub(name, 1, half)
                 local right = string.sub(name, len - half, len)
                 name = left .. "…" .. right
