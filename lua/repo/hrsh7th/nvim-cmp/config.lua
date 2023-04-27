@@ -14,8 +14,14 @@ local cmp = require("cmp")
 local luasnip = require("luasnip")
 local select_opts = { behavior = cmp.SelectBehavior.Select }
 local setup_handler = {
+    -- performance = {
+    -- debounce = 50,
+    -- throttle = 50,
+    -- fetching_timeout = 50,
+    -- },
     completion = {
         completeopt = "menu,menuone,noinsert",
+        keyword_length = 2,
     },
     snippet = {
         expand = function(args)
@@ -23,11 +29,11 @@ local setup_handler = {
         end,
     },
     sources = cmp.config.sources({
-        { name = "nvim_lsp", keyword_length = 2 },
-        { name = "luasnip", keyword_length = 2 },
+        { name = "nvim_lsp" },
+        { name = "luasnip" },
     }, {
-        { name = "buffer", keyword_length = 2 },
-        { name = "path", keyword_length = 2 },
+        { name = "buffer" },
+        { name = "async_path" },
     }),
     window = {
         completion = cmp.config.window.bordered(),
@@ -43,6 +49,7 @@ local setup_handler = {
                 luasnip = "[SNIP]",
                 tags = "[TAGS]",
                 path = "[PATH]",
+                async_path = "[PATH]",
                 cmdline = "[CMD]",
                 copilot = "[COPILOT]",
             },
@@ -114,24 +121,6 @@ cmp.setup(setup_handler)
 cmp.setup.filetype("gitcommit", {
     sources = cmp.config.sources({
         { name = "buffer" },
-    }),
-})
-
--- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline({ "/", "?" }, {
-    mapping = cmp.mapping.preset.cmdline(),
-    sources = {
-        { name = "buffer", keyword_length = 2 },
-    },
-})
-
--- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline(":", {
-    mapping = cmp.mapping.preset.cmdline(),
-    sources = cmp.config.sources({
-        { name = "path", keyword_length = 2 },
-    }, {
-        { name = "cmdline", keyword_length = 2 },
     }),
 })
 

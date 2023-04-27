@@ -454,12 +454,11 @@ local M = {
     -- Auto-complete engine
     {
         "hrsh7th/nvim-cmp",
-        event = { VeryLazy, InsertEnter, CmdlineEnter },
+        event = { VeryLazy, InsertEnter },
         dependencies = {
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-buffer",
-            "hrsh7th/cmp-path",
-            "hrsh7th/cmp-cmdline",
+            "FelipeLema/cmp-async-path",
             "L3MON4D3/LuaSnip",
             "saadparwaiz1/cmp_luasnip",
         },
@@ -467,28 +466,24 @@ local M = {
     },
     {
         "hrsh7th/cmp-nvim-lsp",
-        event = { VeryLazy, InsertEnter, CmdlineEnter },
+        event = { VeryLazy, InsertEnter },
     },
     {
         "hrsh7th/cmp-buffer",
-        event = { VeryLazy, InsertEnter, CmdlineEnter },
+        event = { VeryLazy, InsertEnter },
     },
     {
-        "hrsh7th/cmp-path",
-        event = { VeryLazy, InsertEnter, CmdlineEnter },
-    },
-    {
-        "hrsh7th/cmp-cmdline",
-        event = { VeryLazy, InsertEnter, CmdlineEnter },
+        "FelipeLema/cmp-async-path",
+        event = { VeryLazy, InsertEnter },
     },
     {
         "L3MON4D3/LuaSnip",
-        event = { VeryLazy, InsertEnter, CmdlineEnter },
+        event = { VeryLazy, InsertEnter },
         version = "1.*",
     },
     {
         "saadparwaiz1/cmp_luasnip",
-        event = { VeryLazy, InsertEnter, CmdlineEnter },
+        event = { VeryLazy, InsertEnter },
         dependencies = { "L3MON4D3/LuaSnip" },
     },
     {

@@ -1,14 +1,18 @@
 local cmp = require("cmp")
 
 local setup_handler = {
+    completion = {
+        completeopt = "menu,menuone,noinsert",
+        keyword_length = 2,
+    },
     sources = cmp.config.sources({
-        { name = "nvim_lsp", keyword_length = 2 },
-        { name = "luasnip", keyword_length = 2 },
+        { name = "nvim_lsp" },
+        { name = "luasnip" },
     }, {
-        { name = "copilot", keyword_length = 2 }, -- github copilot
-        { name = "buffer", keyword_length = 2 },
-        { name = "path", keyword_length = 2 },
-        { name = "tags", keyword_length = 2 }, -- tags
+        { name = "copilot" }, -- github copilot
+        { name = "buffer" },
+        { name = "async_path" },
+        { name = "tags" }, -- tags
     }),
     sorting = {
         priority_weight = 2,
