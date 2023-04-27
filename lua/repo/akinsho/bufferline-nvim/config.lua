@@ -1,4 +1,5 @@
 local width_on_editor = require("cfg.ui").editor_width
+local MAX_NAME_LENGTH = width_on_editor(0.2, 15, 40)
 
 require("bufferline").setup({
     options = {
@@ -8,8 +9,20 @@ require("bufferline").setup({
         -- numbers = "ordinal",
         close_command = "Bdelete! %d", -- Bdelete: https://github.com/moll/vim-bbye
         right_mouse_command = "Bdelete! %d",
-        max_name_length = width_on_editor(0.2, 25, 40),
-        max_prefix_length = width_on_editor(0.15, 15, 25),
+        name_formatter = function(buf) -- buf contains:
+            local name = buf.name
+            local len = name ~= nil and string.len(name) or 0
+            if len > MAX_NAME_LENGTH then
+                local half =
+                    math.floor(vim.fn.max({ (MAX_NAME_LENGTH - 1) / 2, 1 }))
+                local left = string.sub(name, 1, half)
+                local right = string.sub(name, len - half, len)
+                name = left .. "┄" .. right
+            end
+            return name
+        end,
+        max_name_length = MAX_NAME_LENGTH,
+        max_prefix_length = width_on_editor(0.1, 5, 10),
         diagnostics = false,
         -- separator_style = "slant",
         hover = {
