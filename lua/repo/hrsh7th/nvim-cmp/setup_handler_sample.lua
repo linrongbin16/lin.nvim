@@ -11,7 +11,6 @@ local setup_handler = {
     }, {
         { name = "copilot" }, -- github copilot
         { name = "buffer" },
-    }, {
         { name = "async_path" },
         { name = "tags" }, -- tags
     }),
