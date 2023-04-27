@@ -14,12 +14,11 @@ local cmp = require("cmp")
 local luasnip = require("luasnip")
 local select_opts = { behavior = cmp.SelectBehavior.Select }
 local setup_handler = {
-    performance = {
-        -- 50ms for better performance
-        -- debounce = 50,
-        -- throttle = 50,
-        -- fetching_timeout = 50,
-    },
+    -- performance = {
+    -- debounce = 50,
+    -- throttle = 50,
+    -- fetching_timeout = 50,
+    -- },
     completion = {
         completeopt = "menu,menuone,noinsert",
         keyword_length = 2,
