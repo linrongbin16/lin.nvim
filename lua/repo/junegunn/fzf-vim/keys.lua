@@ -17,7 +17,7 @@ local M = {
     -- search buffer
     keymap.map_lazy(
         "n",
-        "<space>b",
+        "<space>bf",
         keymap.exec("FzfBuffers"),
         { desc = "Search buffers(Fzf)" }
     ),
@@ -46,6 +46,25 @@ local M = {
         "<space>uw",
         keymap.exec("FzfUnrestrictedCWord"),
         { desc = "Unrestricted search word under cursor(Fzf)" }
+    ),
+    -- search git
+    keymap.map_lazy(
+        "n",
+        "<space>gc",
+        keymap.exec("FzfCommits"),
+        { desc = "Search git commits(Fzf)" }
+    ),
+    keymap.map_lazy(
+        "n",
+        "<space>gf",
+        keymap.exec("FzfGFiles"),
+        { desc = "Search git files(Fzf)" }
+    ),
+    keymap.map_lazy(
+        "n",
+        "<space>gs",
+        keymap.exec("FzfGFiles?"),
+        { desc = "Search git status(Fzf)" }
     ),
 }
 
