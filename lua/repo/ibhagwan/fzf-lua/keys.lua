@@ -21,6 +21,15 @@ local M = {
         end),
         { desc = "Unrestricted search files(FzfLua)" }
     ),
+    -- search buffer
+    keymap.map_lazy(
+        "n",
+        "<space>b",
+        keymap.exec(function()
+            require("fzf-lua").buffers()
+        end),
+        { desc = "Search buffers(FzfLua)" }
+    ),
     -- live grep
     keymap.map_lazy(
         "n",
@@ -42,25 +51,25 @@ local M = {
     ),
     keymap.map_lazy(
         "n",
-        "<space>gl",
+        "<space>g",
         keymap.exec(function()
             require("fzf-lua").live_grep({
                 cmd = fzf_const.GREP_CMD,
                 rg_glob = true,
             })
         end),
-        { desc = "Glob live grep(FzfLua)" }
+        { desc = "Live grep with glob '--'(FzfLua)" }
     ),
     keymap.map_lazy(
         "n",
-        "<space>ugl",
+        "<space>ug",
         keymap.exec(function()
             require("fzf-lua").live_grep({
                 cmd = fzf_const.GREP_CMD .. " -uu",
                 rg_glob = true,
             })
         end),
-        { desc = "Unrestricted glob live grep(FzfLua)" }
+        { desc = "Unrestricted live grep with glob '--'(FzfLua)" }
     ),
     -- search word
     keymap.map_lazy(

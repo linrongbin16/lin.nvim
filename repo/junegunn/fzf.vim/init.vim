@@ -15,7 +15,7 @@ let $BAT_THEME='ansi'
 let $BAT_STYLE='numbers,changes,header'
 
 " ui
-let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8 } }
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.85 } }
 let g:fzf_preview_window = ['right,45%', 'ctrl-l']
 
 " command prefix
