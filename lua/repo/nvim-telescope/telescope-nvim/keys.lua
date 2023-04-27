@@ -185,6 +185,14 @@ local M = {
         end),
         { desc = "Search vim key mappings" }
     ),
+    keymap.map_lazy(
+        "n",
+        "<space>ud",
+        keymap.exec(function()
+            require("telescope").extensions.undo.undo()
+        end),
+        { desc = "Search vim undo tree" }
+    ),
 }
 
 return M
