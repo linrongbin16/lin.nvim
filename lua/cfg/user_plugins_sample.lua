@@ -55,7 +55,7 @@ return {
         "quangnguyen30192/cmp-nvim-tags",
         event = { VeryLazy, InsertEnter, CmdlineEnter },
     },
-    -- structure outlines based on tags
+    -- tags/structure outlines
     {
         "liuchengxu/vista.vim",
         cmd = { "Vista" },
@@ -92,5 +92,11 @@ return {
             or ":call doge#install()",
         init = vim_init("kkoomen/vim-doge"),
         keys = lua_keys("kkoomen/vim-doge"),
+    },
+    -- Undo tree
+    {
+        "mbbill/undotree",
+        event = { VeryLazy, CmdlineEnter },
+        keys = lua_keys("mbbill/undotree"),
     },
 }
