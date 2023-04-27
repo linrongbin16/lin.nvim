@@ -72,10 +72,6 @@ require("fzf-lua").setup({
             theme = "ansi",
         },
     },
-    manpages = { previewer = "man_native" },
-    helptags = { previewer = "help_native" },
-    tags = { previewer = BAT_PREVIEW and "bat" or "builtin" },
-    btags = { previewer = BAT_PREVIEW and "bat" or "builtin" },
     files = {
         previewer = BAT_PREVIEW and "bat" or "builtin",
         cmd = fzf_const.FILES_CMD,

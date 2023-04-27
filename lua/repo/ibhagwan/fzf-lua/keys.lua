@@ -9,7 +9,7 @@ local M = {
         keymap.exec(function()
             require("fzf-lua").files()
         end),
-        { desc = "Search files(FzfLua)" }
+        { desc = "Search files (FzfLua)" }
     ),
     keymap.map_lazy(
         "n",
@@ -19,7 +19,7 @@ local M = {
                 cmd = fzf_const.FILES_CMD .. " -u", -- --unrestricted
             })
         end),
-        { desc = "Unrestricted search files(FzfLua)" }
+        { desc = "Unrestricted search files (FzfLua)" }
     ),
     -- search buffer
     keymap.map_lazy(
@@ -28,7 +28,7 @@ local M = {
         keymap.exec(function()
             require("fzf-lua").buffers()
         end),
-        { desc = "Search buffers(FzfLua)" }
+        { desc = "Search buffers (FzfLua)" }
     ),
     -- live grep
     keymap.map_lazy(
@@ -37,7 +37,7 @@ local M = {
         keymap.exec(function()
             require("fzf-lua").live_grep()
         end),
-        { desc = "Live grep(FzfLua)" }
+        { desc = "Live grep (FzfLua)" }
     ),
     keymap.map_lazy(
         "n",
@@ -47,7 +47,7 @@ local M = {
                 cmd = fzf_const.GREP_CMD .. " -uu", -- --unrestricted --hidden
             })
         end),
-        { desc = "Unrestricted live grep(FzfLua)" }
+        { desc = "Unrestricted live grep (FzfLua)" }
     ),
     keymap.map_lazy(
         "n",
@@ -58,7 +58,7 @@ local M = {
                 rg_glob = true,
             })
         end),
-        { desc = "Live grep with '--' glob(FzfLua)" }
+        { desc = "Live grep with '--' glob (FzfLua)" }
     ),
     keymap.map_lazy(
         "n",
@@ -69,7 +69,7 @@ local M = {
                 rg_glob = true,
             })
         end),
-        { desc = "Unrestricted live grep with '--' glob(FzfLua)" }
+        { desc = "Unrestricted live grep with '--' glob (FzfLua)" }
     ),
     -- search word
     keymap.map_lazy(
@@ -78,7 +78,7 @@ local M = {
         keymap.exec(function()
             require("fzf-lua").grep_cword()
         end),
-        { desc = "Search word under cursor(FzfLua)" }
+        { desc = "Search word under cursor (FzfLua)" }
     ),
     keymap.map_lazy(
         "n",
@@ -88,7 +88,7 @@ local M = {
                 cmd = fzf_const.GREP_CMD .. " -uu",
             })
         end),
-        { desc = "Unrestricted search word under cursor(FzfLua)" }
+        { desc = "Unrestricted search word under cursor (FzfLua)" }
     ),
     -- search WORD
     keymap.map_lazy(
@@ -97,7 +97,7 @@ local M = {
         keymap.exec(function()
             require("fzf-lua").grep_cWORD()
         end),
-        { desc = "Search WORD under cursor(FzfLua)" }
+        { desc = "Search WORD under cursor (FzfLua)" }
     ),
     keymap.map_lazy(
         "n",
@@ -107,7 +107,7 @@ local M = {
                 cmd = fzf_const.GREP_CMD .. " -uu",
             })
         end),
-        { desc = "Unrestricted search WORD under cursor(FzfLua)" }
+        { desc = "Unrestricted search WORD under cursor (FzfLua)" }
     ),
     -- search git
     keymap.map_lazy(
@@ -116,7 +116,7 @@ local M = {
         keymap.exec(function()
             require("fzf-lua").git_commits()
         end),
-        { desc = "Search git commits(FzfLua)" }
+        { desc = "Search git commits (FzfLua)" }
     ),
     keymap.map_lazy(
         "n",
@@ -124,7 +124,7 @@ local M = {
         keymap.exec(function()
             require("fzf-lua").git_files()
         end),
-        { desc = "Search git files(FzfLua)" }
+        { desc = "Search git files (FzfLua)" }
     ),
     keymap.map_lazy(
         "n",
@@ -132,7 +132,7 @@ local M = {
         keymap.exec(function()
             require("fzf-lua").git_status()
         end),
-        { desc = "Search git status(FzfLua)" }
+        { desc = "Search git status (FzfLua)" }
     ),
 }
 
