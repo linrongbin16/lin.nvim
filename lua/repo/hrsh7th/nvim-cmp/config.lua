@@ -124,6 +124,29 @@ cmp.setup.filetype("gitcommit", {
     }),
 })
 
+--- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline({ "/", "?" }, {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = {
+        { name = "buffer" },
+    },
+})
+
+-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline(":", {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = cmp.config.sources({
+        { name = "async_path" },
+    }, {
+        {
+            name = "cmdline",
+            option = {
+                ignore_cmds = { "Man", "!", "tag" },
+            },
+        },
+    }),
+})
+
 -- Work with nvim-autopairs
 local autopairs_cmp = require("nvim-autopairs.completion.cmp")
 cmp.event:on("confirm_done", autopairs_cmp.on_confirm_done())

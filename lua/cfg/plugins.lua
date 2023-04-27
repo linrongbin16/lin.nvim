@@ -448,13 +448,14 @@ local M = {
     -- Auto-complete engine
     {
         "hrsh7th/nvim-cmp",
-        event = { VeryLazy, InsertEnter },
+        event = { VeryLazy, InsertEnter, CmdlineEnter },
         dependencies = {
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-buffer",
             "FelipeLema/cmp-async-path",
             "L3MON4D3/LuaSnip",
             "saadparwaiz1/cmp_luasnip",
+            "hrsh7th/cmp-cmdline",
         },
         config = lua_config("hrsh7th/nvim-cmp"),
     },
@@ -464,11 +465,11 @@ local M = {
     },
     {
         "hrsh7th/cmp-buffer",
-        event = { VeryLazy, InsertEnter },
+        event = { VeryLazy, InsertEnter, CmdlineEnter },
     },
     {
         "FelipeLema/cmp-async-path",
-        event = { VeryLazy, InsertEnter },
+        event = { VeryLazy, InsertEnter, CmdlineEnter },
     },
     {
         "L3MON4D3/LuaSnip",
@@ -479,6 +480,10 @@ local M = {
         "saadparwaiz1/cmp_luasnip",
         event = { VeryLazy, InsertEnter },
         dependencies = { "L3MON4D3/LuaSnip" },
+    },
+    {
+        "hrsh7th/cmp-cmdline",
+        event = { VeryLazy, InsertEnter, CmdlineEnter },
     },
     {
         "DNLHC/glance.nvim",
