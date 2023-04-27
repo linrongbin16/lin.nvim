@@ -387,6 +387,7 @@ local M = {
         dependencies = {
             "nvim-telescope/telescope-fzf-native.nvim",
             "nvim-telescope/telescope-live-grep-args.nvim",
+            "debugloop/telescope-undo.nvim",
         },
         config = lua_config("nvim-telescope/telescope.nvim"),
         keys = lua_keys("nvim-telescope/telescope.nvim"),
@@ -398,6 +399,10 @@ local M = {
     },
     {
         "nvim-telescope/telescope-live-grep-args.nvim",
+        lazy = true,
+    },
+    {
+        "debugloop/telescope-undo.nvim",
         lazy = true,
     },
 
