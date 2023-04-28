@@ -610,6 +610,23 @@ local M = {
         config = lua_config("akinsho/toggleterm.nvim"),
         keys = lua_keys("akinsho/toggleterm.nvim"),
     },
+    -- Generate documents
+    {
+        "kkoomen/vim-doge",
+        cmd = { "DogeGenerate" },
+        build = require("cfg.const").os.is_macos
+                and "npm i --no-save && npm run build:binary:unix"
+            or ":call doge#install()",
+        init = vim_init("kkoomen/vim-doge"),
+        keys = lua_keys("kkoomen/vim-doge"),
+    },
+    -- Undo tree
+    {
+        "mbbill/undotree",
+        event = { VeryLazy, CmdlineEnter },
+        init = lua_init("mbbill/undotree"),
+        keys = lua_keys("mbbill/undotree"),
+    },
 }
 
 -- Check if `user_plugins` exist
