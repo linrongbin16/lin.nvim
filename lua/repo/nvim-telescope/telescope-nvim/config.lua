@@ -73,10 +73,24 @@ require("telescope").setup({
                 and require("telescope.previewers").vimgrep.new
             or require("telescope.previewers").vim_buffer_vimgrep.new,
     },
+    pickers = {
+        buffers = {
+            -- close buffer key mappings
+            mappings = {
+                n = {
+                    ["<C-x>"] = require("telescope.actions").delete_buffer,
+                    ["dd"] = require("telescope.actions").delete_buffer,
+                },
+                i = {
+                    ["<C-x>"] = require("telescope.actions").delete_buffer,
+                },
+            },
+        },
+    },
     extensions = {
         fzf = {
             fuzzy = true,
-            override_generic_sorter = true, -- don't fuzzy on live_grep/grep_string
+            override_generic_sorter = true,
             override_file_sorter = true,
             case_mode = "ignore_case",
         },
@@ -91,7 +105,6 @@ require("telescope").setup({
                 },
             },
         },
-        undo = {},
     },
 })
 
