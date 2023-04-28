@@ -38,6 +38,15 @@ local M = {
         end),
         { desc = "Unrestricted search files" }
     ),
+    -- search buffers
+    keymap.map_lazy(
+        "n",
+        "<space>b",
+        keymap.exec(function()
+            require("telescope.builtin").buffers()
+        end),
+        { desc = "Search buffers" }
+    ),
     -- live grep
     keymap.map_lazy(
         "n",
@@ -129,14 +138,6 @@ local M = {
         { desc = "Search document diagnostics" }
     ),
     -- search vim
-    keymap.map_lazy(
-        "n",
-        "<space>bf",
-        keymap.exec(function()
-            require("telescope.builtin").buffers()
-        end),
-        { desc = "Search buffers" }
-    ),
     keymap.map_lazy(
         "n",
         "<space>cm",

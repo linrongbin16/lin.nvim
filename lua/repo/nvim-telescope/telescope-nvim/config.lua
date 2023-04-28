@@ -1,7 +1,7 @@
 local const = require("cfg.const")
-local IS_WIN = const.os.is_windows
-local NO_BAT = vim.fn.executable("bat") <= 0
-local NO_LESS = vim.fn.executable("less") <= 0
+local BAT_PREVIEWER = not const.os.is_windows
+    and vim.fn.executable("bat") > 0
+    and vim.fn.executable("less") > 0
 
 require("telescope").setup({
     defaults = {
@@ -66,17 +66,17 @@ require("telescope").setup({
                 ["<M-q>"] = false, --actions.send_selected_to_qflist + actions.open_qflist,,
             },
         },
-        file_previewer = (IS_WIN or NO_BAT or NO_LESS) and require(
-            "telescope.previewers"
-        ).vim_buffer_cat.new or require("telescope.previewers").cat.new,
-        grep_previewer = (IS_WIN or NO_BAT or NO_LESS) and require(
-            "telescope.previewers"
-        ).vim_buffer_vimgrep.new or require("telescope.previewers").vimgrep.new,
+        file_previewer = BAT_PREVIEWER
+                and require("telescope.previewers").cat.new
+            or require("telescope.previewers").vim_buffer_cat.new,
+        grep_previewer = BAT_PREVIEWER
+                and require("telescope.previewers").vimgrep.new
+            or require("telescope.previewers").vim_buffer_vimgrep.new,
     },
     extensions = {
         fzf = {
             fuzzy = true,
-            override_generic_sorter = false, -- don't fuzzy on live_grep/grep_string
+            override_generic_sorter = true, -- don't fuzzy on live_grep/grep_string
             override_file_sorter = true,
             case_mode = "ignore_case",
         },
