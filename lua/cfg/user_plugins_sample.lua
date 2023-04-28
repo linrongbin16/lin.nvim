@@ -55,27 +55,4 @@ return {
         "quangnguyen30192/cmp-nvim-tags",
         event = { VeryLazy, InsertEnter, CmdlineEnter },
     },
-    -- Generate documents
-    {
-        "kkoomen/vim-doge",
-        cmd = { "DogeGenerate" },
-        build = require("cfg.const").os.is_macos
-                and "npm i --no-save && npm run build:binary:unix"
-            or ":call doge#install()",
-        init = vim_init("kkoomen/vim-doge"),
-        keys = lua_keys("kkoomen/vim-doge"),
-    },
-    -- Undo tree
-    {
-        "mbbill/undotree",
-        event = { VeryLazy, CmdlineEnter },
-        init = lua_init("mbbill/undotree"),
-        keys = lua_keys("mbbill/undotree"),
-    },
-    -- Buffer manager
-    {
-        "j-morano/buffer_manager.nvim",
-        config = lua_config("j-morano/buffer_manager.nvim"),
-        keys = lua_keys("j-morano/buffer_manager.nvim"),
-    },
 }
