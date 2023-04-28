@@ -39,7 +39,7 @@ local VimEnter = "VimEnter"
 local InsertEnter = "InsertEnter"
 
 return {
-    -- github copilot
+    -- Copilot
     {
         "zbirenbaum/copilot-cmp",
         event = { VeryLazy, InsertEnter, CmdlineEnter },
@@ -50,38 +50,10 @@ return {
         event = { VeryLazy, InsertEnter, CmdlineEnter },
         config = lua_config("zbirenbaum/copilot.lua"),
     },
-    -- tags
+    -- Cmp tags source
     {
         "quangnguyen30192/cmp-nvim-tags",
         event = { VeryLazy, InsertEnter, CmdlineEnter },
-    },
-    -- structure outlines based on tags
-    {
-        "liuchengxu/vista.vim",
-        cmd = { "Vista" },
-        dependencies = { "ludovicchabant/vim-gutentags" },
-        keys = lua_keys("liuchengxu/vista.vim"),
-    },
-    -- buffer manager
-    {
-        "j-morano/buffer_manager.nvim",
-        config = lua_config("j-morano/buffer_manager.nvim"),
-        keys = lua_keys("j-morano/buffer_manager.nvim"),
-    },
-    -- url viewer
-    {
-        "axieax/urlview.nvim",
-        cmd = { "UrlView" },
-        config = lua_config("axieax/urlview.nvim"),
-        keys = lua_keys("axieax/urlview.nvim"),
-    },
-    -- terminal
-    {
-        "akinsho/toggleterm.nvim",
-        version = "*",
-        event = { VeryLazy, CmdlineEnter },
-        config = lua_config("akinsho/toggleterm.nvim"),
-        keys = lua_keys("akinsho/toggleterm.nvim"),
     },
     -- Generate documents
     {
@@ -92,5 +64,17 @@ return {
             or ":call doge#install()",
         init = vim_init("kkoomen/vim-doge"),
         keys = lua_keys("kkoomen/vim-doge"),
+    },
+    -- Undo tree
+    {
+        "mbbill/undotree",
+        event = { VeryLazy, CmdlineEnter },
+        keys = lua_keys("mbbill/undotree"),
+    },
+    -- Buffer manager
+    {
+        "j-morano/buffer_manager.nvim",
+        config = lua_config("j-morano/buffer_manager.nvim"),
+        keys = lua_keys("j-morano/buffer_manager.nvim"),
     },
 }

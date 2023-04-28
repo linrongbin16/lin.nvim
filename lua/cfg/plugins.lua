@@ -587,6 +587,29 @@ local M = {
         event = { VeryLazy, BufRead, BufNewFile },
         config = lua_config("kylechui/nvim-surround"),
     },
+    -- Structure outlines based on tags
+    {
+        "liuchengxu/vista.vim",
+        cmd = { "Vista" },
+        dependencies = { "ludovicchabant/vim-gutentags" },
+        init = lua_init("liuchengxu/vista.vim"),
+        keys = lua_keys("liuchengxu/vista.vim"),
+    },
+    -- Url viewer
+    {
+        "axieax/urlview.nvim",
+        cmd = { "UrlView" },
+        config = lua_config("axieax/urlview.nvim"),
+        keys = lua_keys("axieax/urlview.nvim"),
+    },
+    -- Terminal
+    {
+        "akinsho/toggleterm.nvim",
+        version = "*",
+        event = { VeryLazy, CmdlineEnter },
+        config = lua_config("akinsho/toggleterm.nvim"),
+        keys = lua_keys("akinsho/toggleterm.nvim"),
+    },
 }
 
 -- Check if `user_plugins` exist
