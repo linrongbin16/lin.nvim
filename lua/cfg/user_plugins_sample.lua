@@ -69,6 +69,7 @@ return {
     {
         "mbbill/undotree",
         event = { VeryLazy, CmdlineEnter },
+        init = lua_init("mbbill/undotree"),
         keys = lua_keys("mbbill/undotree"),
     },
     -- Buffer manager
