@@ -82,7 +82,7 @@ require("neo-tree").setup({
         },
     },
     window = {
-        width = editor_width(0.25, 25, 80),
+        width = editor_width(0.2, 25, 80),
         mappings = {
             -- open node
             ["l"] = "open",
