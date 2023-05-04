@@ -1,5 +1,5 @@
 local const = require("cfg.const")
-local big_layout = require("cfg.const").ui.layout.big
+local layout = require("cfg.const").ui.layout
 
 local lazypath = vim.fn.stdpath("config") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -19,8 +19,8 @@ local opts = {
     ui = {
         border = const.ui.border,
         size = {
-            width = big_layout.width,
-            height = big_layout.height,
+            width = layout.width,
+            height = layout.height,
         },
     },
 }
