@@ -41,8 +41,10 @@ require("telescope").setup({
         dynamic_preview_title = true,
         mappings = {
             i = {
+                -- preview
                 ["<C-l>"] = require("telescope.actions.layout").toggle_preview,
 
+                -- open in split/vsplit/tab
                 ["<C-w>s"] = require("telescope.actions").select_horizontal,
                 ["<C-x>"] = false, -- select_horizontal,
                 ["<C-w>v"] = require("telescope.actions").select_vertical,
@@ -58,8 +60,10 @@ require("telescope").setup({
                 ["<C-w>"] = false, -- { "<c-s-w>", type = "command" },
             },
             n = {
+                -- preview
                 ["<C-l>"] = require("telescope.actions.layout").toggle_preview,
 
+                -- open in split/vsplit/tab
                 ["<C-w>s"] = require("telescope.actions").select_horizontal,
                 ["<C-x>"] = false, -- select_horizontal,
                 ["<C-w>v"] = require("telescope.actions").select_vertical,
@@ -71,6 +75,11 @@ require("telescope").setup({
                 ["<S-Tab>"] = false, -- actions.toggle_selection + actions.move_selection_better,
                 ["<C-q>"] = false, -- actions.send_to_qflist + actions.open_qflist,
                 ["<M-q>"] = false, --actions.send_selected_to_qflist + actions.open_qflist,,
+
+                -- quit
+                ["<ESC>"] = require("telescope.actions").close,
+                ["q"] = require("telescope.actions").close,
+                ["Q"] = require("telescope.actions").close,
             },
         },
         file_previewer = BAT_PREVIEWER
@@ -82,13 +91,14 @@ require("telescope").setup({
     },
     pickers = {
         buffers = {
-            -- close buffer key mappings
             mappings = {
                 n = {
+                    -- delete buffer
                     ["<C-x>"] = require("telescope.actions").delete_buffer,
                     ["dd"] = require("telescope.actions").delete_buffer,
                 },
                 i = {
+                    -- delete buffer
                     ["<C-x>"] = require("telescope.actions").delete_buffer,
                 },
             },
