@@ -78,6 +78,8 @@ require("telescope").setup({
 
                 -- quit
                 ["<ESC>"] = require("telescope.actions").close,
+                ["<C-c>"] = require("telescope.actions").close,
+                ["<C-[>"] = require("telescope.actions").close,
                 ["q"] = require("telescope.actions").close,
                 ["Q"] = require("telescope.actions").close,
             },
