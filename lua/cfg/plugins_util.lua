@@ -1,5 +1,3 @@
--- ---- Users Plugins ----
-
 local function lua_config(repo)
     return function()
         local config_path = "repo." .. repo:gsub("%.", "-") .. ".config"
@@ -31,28 +29,12 @@ local function vim_init(repo)
     end
 end
 
-local VeryLazy = "VeryLazy"
-local BufRead = "BufRead"
-local BufNewFile = "BufNewFile"
-local CmdlineEnter = "CmdlineEnter"
-local VimEnter = "VimEnter"
-local InsertEnter = "InsertEnter"
-
-return {
-    -- Copilot
-    {
-        "zbirenbaum/copilot-cmp",
-        event = { VeryLazy, InsertEnter, CmdlineEnter },
-        config = lua_config("zbirenbaum/copilot-cmp"),
-    },
-    {
-        "zbirenbaum/copilot.lua",
-        event = { VeryLazy, InsertEnter, CmdlineEnter },
-        config = lua_config("zbirenbaum/copilot.lua"),
-    },
-    -- Cmp tags source
-    {
-        "quangnguyen30192/cmp-nvim-tags",
-        event = { VeryLazy, InsertEnter, CmdlineEnter },
-    },
+local M = {
+    lua_keys = lua_keys,
+    lua_config = lua_config,
+    lua_init = lua_init,
+    vim_init = vim_init,
+    vim_config = vim_config,
 }
+
+return M

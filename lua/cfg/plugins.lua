@@ -1,35 +1,10 @@
 -- ---- Plugins ----
 
-local function lua_config(repo)
-    return function()
-        local config_path = "repo." .. repo:gsub("%.", "-") .. ".config"
-        require(config_path)
-    end
-end
-
-local function lua_keys(repo)
-    local keys_path = "repo." .. repo:gsub("%.", "-") .. ".keys"
-    return require(keys_path)
-end
-
-local function lua_init(repo)
-    return function()
-        local init_path = "repo." .. repo:gsub("%.", "-") .. ".init"
-        require(init_path)
-    end
-end
-
-local function vim_config(repo)
-    return function()
-        vim.cmd("source $HOME/.nvim/repo/" .. repo .. "/config.vim")
-    end
-end
-
-local function vim_init(repo)
-    return function()
-        vim.cmd("source $HOME/.nvim/repo/" .. repo .. "/init.vim")
-    end
-end
+local lua_keys = require("cfg.plugins_util").lua_keys
+local lua_init = require("cfg.plugins_util").lua_init
+local lua_config = require("cfg.plugins_util").lua_config
+local vim_init = require("cfg.plugins_util").vim_init
+local vim_config = require("cfg.plugins_util").vim_config
 
 local VeryLazy = "VeryLazy"
 local BufRead = "BufRead"
@@ -450,14 +425,8 @@ local M = {
     },
 }
 
--- Add colorscheme plugins
-local colorscheme_plugins = require("cfg.plugins.color")
-for _, plugin in ipairs(colorscheme_plugins) do
-    table.insert(M, plugin)
-end
-
 -- Add user plugins
-local found_user_plugins, user_plugins = pcall(require, "cfg.plugins.user")
+local found_user_plugins, user_plugins = pcall(require, "cfg.user_plugins")
 if found_user_plugins then
     for _, plugin in ipairs(user_plugins) do
         table.insert(M, plugin)
