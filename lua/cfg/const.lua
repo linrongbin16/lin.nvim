@@ -23,7 +23,7 @@ local M = {
         },
     },
     ui = {
-        border = "rounded", -- border options: single,double,rounded,solid,shadow
+        border = "single", -- border options: single,double,rounded,solid,shadow
         layout = {
             big = {
                 width = editor_width(0.9, 40, nil),

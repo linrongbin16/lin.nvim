@@ -217,7 +217,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         -- switch header/source for c/c++
         map(
             "n",
-            "<leader>cs",
+            "<leader>sw",
             ":ClangdSwitchSourceHeader<CR>",
             { silent = false, desc = "Switch between c/c++ header and source" }
         )
