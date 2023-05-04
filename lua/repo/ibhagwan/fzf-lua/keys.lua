@@ -142,6 +142,55 @@ local M = {
         end),
         { desc = "Search git status (FzfLua)" }
     ),
+    -- search vim
+    keymap.map_lazy(
+        "n",
+        "<space>cm",
+        keymap.exec(function()
+            require("fzf-lua").commands()
+        end),
+        { desc = "Search vim commands (FzfLua)" }
+    ),
+    keymap.map_lazy(
+        "n",
+        "<space>tg",
+        keymap.exec(function()
+            require("fzf-lua").tags()
+        end),
+        { desc = "Search vim tags (Fzf)" }
+    ),
+    keymap.map_lazy(
+        "n",
+        "<space>ch",
+        keymap.exec(function()
+            require("fzf-lua").command_history()
+        end),
+        { desc = "Search vim command history (Fzf)" }
+    ),
+    keymap.map_lazy(
+        "n",
+        "<space>sh",
+        keymap.exec(function()
+            require("fzf-lua").search_history()
+        end),
+        { desc = "Search vim search history (Fzf)" }
+    ),
+    keymap.map_lazy(
+        "n",
+        "<space>mk",
+        keymap.exec(function()
+            require("fzf-lua").marks()
+        end),
+        { desc = "Search vim marks (Fzf)" }
+    ),
+    keymap.map_lazy(
+        "n",
+        "<space>km",
+        keymap.exec(function()
+            require("fzf-lua").keymaps()
+        end),
+        { desc = "Search vim keymaps (Fzf)" }
+    ),
 }
 
 return M

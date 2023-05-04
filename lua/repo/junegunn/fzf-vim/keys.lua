@@ -66,6 +66,43 @@ local M = {
         keymap.exec("FzfGFiles?"),
         { desc = "Search git status (Fzf)" }
     ),
+    -- search vim
+    keymap.map_lazy(
+        "n",
+        "<space>cm",
+        keymap.exec("FzfCommands"),
+        { desc = "Search vim commands (Fzf)" }
+    ),
+    keymap.map_lazy(
+        "n",
+        "<space>tg",
+        keymap.exec("FzfTags"),
+        { desc = "Search vim tags (Fzf)" }
+    ),
+    keymap.map_lazy(
+        "n",
+        "<space>ch",
+        keymap.exec("FzfHistory:"),
+        { desc = "Search vim command history (Fzf)" }
+    ),
+    keymap.map_lazy(
+        "n",
+        "<space>sh",
+        keymap.exec("FzfHistory/"),
+        { desc = "Search vim search history (Fzf)" }
+    ),
+    keymap.map_lazy(
+        "n",
+        "<space>mk",
+        keymap.exec("FzfMarks"),
+        { desc = "Search vim marks (Fzf)" }
+    ),
+    keymap.map_lazy(
+        "n",
+        "<space>km",
+        keymap.exec("FzfMaps"),
+        { desc = "Search vim keymaps (Fzf)" }
+    ),
 }
 
 return M
