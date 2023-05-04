@@ -189,7 +189,7 @@ local M = {
         dependencies = { "junegunn/fzf" },
         init = vim_init("junegunn/fzf.vim"),
         config = vim_config("junegunn/fzf.vim"),
-        keys = const.os.is_windows and lua_keys("junegunn/fzf.vim"),
+        keys = lua_keys("junegunn/fzf.vim"),
     } or {
         "ibhagwan/fzf-lua",
         cmd = { "FzfLua" },
