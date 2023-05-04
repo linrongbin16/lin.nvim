@@ -8,8 +8,8 @@ require("bufferline").setup({
         -- numbers = "ordinal",
         close_command = "Bdelete! %d", -- Bdelete: https://github.com/moll/vim-bbye
         right_mouse_command = "Bdelete! %d",
-        max_name_length = width_on_editor(0.2, 25, 40),
-        max_prefix_length = width_on_editor(0.15, 15, 25),
+        max_name_length = width_on_editor(0.167, 20, 40),
+        max_prefix_length = width_on_editor(0.1, 15, 20),
         diagnostics = false,
         -- separator_style = "slant",
         hover = {
