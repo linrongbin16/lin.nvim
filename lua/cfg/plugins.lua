@@ -451,7 +451,7 @@ local M = {
 }
 
 -- Add colorscheme plugins
-local colorscheme_plugins = require("cfg.plugins.colorscheme_plugins")
+local colorscheme_plugins = require("cfg.colorscheme_plugins")
 for _, plugin in ipairs(colorscheme_plugins) do
     table.insert(M, plugin)
 end
