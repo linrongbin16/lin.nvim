@@ -450,12 +450,6 @@ local M = {
     },
 }
 
--- Add colorscheme plugins
-local colorscheme_plugins = require("cfg.colorscheme_plugins")
-for _, plugin in ipairs(colorscheme_plugins) do
-    table.insert(M, plugin)
-end
-
 -- Add user plugins
 local found_user_plugins, user_plugins = pcall(require, "cfg.user_plugins")
 if found_user_plugins then
