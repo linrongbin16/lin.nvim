@@ -4,7 +4,7 @@ require("toggleterm").setup({
     direction = "float",
     float_opts = {
         border = const.ui.border,
-        width = const.ui.layout.big.width,
-        height = const.ui.layout.big.height,
+        width = const.ui.layout.width,
+        height = const.ui.layout.height,
     },
 })

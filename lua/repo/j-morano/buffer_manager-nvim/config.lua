@@ -1,4 +1,4 @@
-local big_layout = require("cfg.const").ui.layout.big
+local layout = require("cfg.const").ui.layout
 
 require("buffer_manager").setup({
     select_menu_item_commands = {
@@ -15,6 +15,6 @@ require("buffer_manager").setup({
             command = "split",
         },
     },
-    width = big_layout.width,
-    height = big_layout.height,
+    width = layout.width,
+    height = layout.height,
 })
