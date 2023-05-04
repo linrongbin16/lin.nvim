@@ -3,20 +3,27 @@ local BAT_PREVIEWER = not const.os.is_windows
     and vim.fn.executable("bat") > 0
     and vim.fn.executable("less") > 0
 
+local LAYOUT_CONFIG = {
+    FILE = {
+        height = 0.9,
+        width = 0.9,
+        preview_width = 0.45,
+    },
+    CENTER = {
+        height = 0.7,
+        width = 0.7,
+        preview_cutoff = 80,
+    },
+}
+
 require("telescope").setup({
     defaults = {
         scroll_strategy = "limit",
         layout_config = {
-            horizontal = {
-                height = 0.9,
-                width = 0.9,
-                preview_width = 0.45,
-            },
-            vertical = {
-                height = 0.9,
-                width = 0.9,
-                preview_width = 0.45,
-            },
+            horizontal = LAYOUT_CONFIG.FILE,
+            vertical = LAYOUT_CONFIG.FILE,
+            center = LAYOUT_CONFIG.CENTER,
+            cursor = LAYOUT_CONFIG.FILE,
         },
         vimgrep_arguments = {
             "rg",
