@@ -1,15 +1,16 @@
 local const = require("cfg.const")
 local fzf_actions = require("fzf-lua.actions")
 local fzf_const = require("repo.ibhagwan.fzf-lua.const")
+local HAS_BAT = not const.os.is_windows and vim.fn.executable("bat") > 0
+local PREVIEWER = HAS_BAT and "bat" or "builtin"
 
 require("fzf-lua").setup({
     winopts = {
-        height = 0.8,
+        height = 0.85,
         width = 0.9,
         border = const.ui.border,
         preview = {
-            default = "bat",
-            border = const.ui.border,
+            default = PREVIEWER,
             horizontal = "right:45%",
         },
     },
@@ -70,16 +71,9 @@ require("fzf-lua").setup({
             args = "--style=numbers,changes,header --color always",
             theme = "ansi",
         },
-        builtin = {
-            treesitter = { enable = false },
-        },
     },
-    manpages = { previewer = "man_native" },
-    helptags = { previewer = "help_native" },
-    tags = { previewer = "bat" },
-    btags = { previewer = "bat" },
     files = {
-        previewer = "bat",
+        previewer = PREVIEWER,
         cmd = fzf_const.FILES_CMD,
     },
     grep = {
