@@ -150,9 +150,10 @@ local config = {
     },
     sections = {
         lualine_a = { "mode" },
-        lualine_b = { "branch", GitDiff },
+        lualine_b = { "filename" },
         lualine_c = {
-            "filename",
+            "branch",
+            GitDiff,
             {
                 "diagnostics",
                 symbols = {
