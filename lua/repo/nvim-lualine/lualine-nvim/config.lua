@@ -187,8 +187,6 @@ local config = {
         lualine_b = {},
         lualine_c = { Modifiable },
         lualine_x = { Location },
-        lualine_c = {},
-        lualine_x = {},
         lualine_y = {},
         lualine_z = {},
     },
