@@ -223,15 +223,6 @@ local M = {
         keys = lua_keys("ibhagwan/fzf-lua"),
     },
 
-    -- ---- TAGS ----
-
-    -- Tags generator
-    {
-        "ludovicchabant/vim-gutentags",
-        event = { VeryLazy, BufRead, BufNewFile },
-        init = vim_init("ludovicchabant/vim-gutentags"),
-    },
-
     -- ---- LSP ----
 
     -- Lsp server management
@@ -404,11 +395,10 @@ local M = {
         event = { VeryLazy, BufRead, BufNewFile },
         config = lua_config("kylechui/nvim-surround"),
     },
-    -- Structure outlines based on tags
+    -- Structure outlines based on ctags
     {
         "liuchengxu/vista.vim",
         cmd = { "Vista" },
-        dependencies = { "ludovicchabant/vim-gutentags" },
         init = lua_init("liuchengxu/vista.vim"),
         keys = lua_keys("liuchengxu/vista.vim"),
     },
