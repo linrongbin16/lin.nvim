@@ -25,7 +25,13 @@ return {
         event = { VeryLazy, InsertEnter, CmdlineEnter },
         config = lua_config("zbirenbaum/copilot.lua"),
     },
-    -- Cmp tags source
+    -- Tags collector
+    {
+        "ludovicchabant/vim-gutentags",
+        event = { VeryLazy, BufRead, BufNewFile },
+        init = vim_init("ludovicchabant/vim-gutentags"),
+    },
+    -- Tags source for nvim-cmp
     {
         "quangnguyen30192/cmp-nvim-tags",
         event = { VeryLazy, InsertEnter, CmdlineEnter },
