@@ -40,7 +40,7 @@ local M = {
                 rg_glob = true,
             })
         end),
-        { desc = "Live grep with `--` --iglob support (FzfLua)" }
+        { desc = "Live grep with `--iglob` support (FzfLua)" }
     ),
     keymap.map_lazy(
         "n",
@@ -51,11 +51,11 @@ local M = {
                 rg_glob = true,
             })
         end),
-        { desc = "Unrestricted live grep with `--` --iglob support (FzfLua)" }
+        { desc = "Unrestricted live grep with `--iglob` support (FzfLua)" }
     ),
     keymap.map_lazy(
         "n",
-        "<space>nl",
+        "<space>r",
         keymap.exec(function()
             require("fzf-lua").live_grep()
         end),
@@ -63,7 +63,7 @@ local M = {
     ),
     keymap.map_lazy(
         "n",
-        "<space>unl",
+        "<space>ur",
         keymap.exec(function()
             require("fzf-lua").live_grep({
                 cmd = fzf_const.GREP_CMD .. " -uu", -- --unrestricted --hidden
