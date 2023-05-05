@@ -142,6 +142,23 @@ local M = {
         end),
         { desc = "Search git status (FzfLua)" }
     ),
+    -- search diagnostics
+    keymap.map_lazy(
+        "n",
+        "<space>dd",
+        keymap.exec(function()
+            require("fzf-lua").lsp_document_diagnostics()
+        end),
+        { desc = "Search document diagnostics (FzfLua)" }
+    ),
+    keymap.map_lazy(
+        "n",
+        "<space>dw",
+        keymap.exec(function()
+            require("fzf-lua").lsp_workspace_diagnostics()
+        end),
+        { desc = "Search workspace diagnostics (FzfLua)" }
+    ),
     -- search vim
     keymap.map_lazy(
         "n",
