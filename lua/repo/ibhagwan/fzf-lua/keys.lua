@@ -174,7 +174,7 @@ local M = {
         keymap.exec(function()
             require("fzf-lua").tags()
         end),
-        { desc = "Search vim tags (Fzf)" }
+        { desc = "Search vim tags (FzfLua)" }
     ),
     keymap.map_lazy(
         "n",
@@ -182,7 +182,7 @@ local M = {
         keymap.exec(function()
             require("fzf-lua").command_history()
         end),
-        { desc = "Search vim command history (Fzf)" }
+        { desc = "Search vim command history (FzfLua)" }
     ),
     keymap.map_lazy(
         "n",
@@ -190,7 +190,7 @@ local M = {
         keymap.exec(function()
             require("fzf-lua").search_history()
         end),
-        { desc = "Search vim search history (Fzf)" }
+        { desc = "Search vim search history (FzfLua)" }
     ),
     keymap.map_lazy(
         "n",
@@ -198,7 +198,7 @@ local M = {
         keymap.exec(function()
             require("fzf-lua").marks()
         end),
-        { desc = "Search vim marks (Fzf)" }
+        { desc = "Search vim marks (FzfLua)" }
     ),
     keymap.map_lazy(
         "n",
@@ -206,7 +206,14 @@ local M = {
         keymap.exec(function()
             require("fzf-lua").keymaps()
         end),
-        { desc = "Search vim keymaps (Fzf)" }
+        { desc = "Search vim keymaps (FzfLua)" }
+    ),
+    -- yanky
+    keymap.map_lazy(
+        "n",
+        "<space>yh",
+        keymap.exec("YankyRingHistory"),
+        { desc = "Search yanky ring history (FzfLua)" }
     ),
 }
 
