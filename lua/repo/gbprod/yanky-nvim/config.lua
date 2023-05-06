@@ -1,5 +1,5 @@
 require("yanky").setup({
     highlight = {
-        timer = 300,
+        timer = 200,
     },
 })
