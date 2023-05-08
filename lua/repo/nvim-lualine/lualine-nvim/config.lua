@@ -69,7 +69,8 @@ local function Ctags()
         return ""
     end
     local stats = vim.fn["gutentags#statusline"]()
-    return (stats == nil or stats == "") and "" or stats
+    return (stats == nil or stats == "") and ""
+        or string.format("♨ %s", stats)
 end
 
 local function LspSign()
@@ -187,8 +188,6 @@ local config = {
         lualine_b = {},
         lualine_c = { Modifiable },
         lualine_x = { Location },
-        lualine_c = {},
-        lualine_x = {},
         lualine_y = {},
         lualine_z = {},
     },
