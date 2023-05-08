@@ -69,7 +69,8 @@ local function Ctags()
         return ""
     end
     local stats = vim.fn["gutentags#statusline"]()
-    return (stats == nil or stats == "") and "" or stats
+    return (stats == nil or stats == "") and ""
+        or string.format("♨ %s", stats)
 end
 
 local function LspSign()
