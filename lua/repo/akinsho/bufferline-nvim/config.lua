@@ -1,6 +1,6 @@
-local width_on_editor = require("cfg.ui").editor_width
-local MAX_NAME_LENGTH = width_on_editor(0.167, 15, 40)
-local MAX_PREFIX_LENGTH = width_on_editor(0.1, 10, 20)
+local editor_width = require("cfg.ui").editor_width
+local MAX_NAME_LENGTH = editor_width(0.167, 15, 40)
+local MAX_PREFIX_LENGTH = editor_width(0.1, 10, 20)
 
 require("bufferline").setup({
     options = {
