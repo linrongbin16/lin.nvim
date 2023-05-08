@@ -36,4 +36,10 @@ return {
         "quangnguyen30192/cmp-nvim-tags",
         event = { VeryLazy, InsertEnter, CmdlineEnter },
     },
+    -- Yank Improve
+    {
+        "gbprod/yanky.nvim",
+        config = lua_config("gbprod/yanky.nvim"),
+        keys = lua_keys("gbprod/yanky.nvim"),
+    },
 }
