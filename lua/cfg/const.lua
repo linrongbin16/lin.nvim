@@ -25,8 +25,8 @@ local M = {
     ui = {
         border = "single", -- border options: single,double,rounded,solid,shadow
         layout = {
-            width = editor_width(0.9, 40, nil),
-            height = editor_height(0.8, 35, nil),
+            width = editor_width(0.9, 20, nil),
+            height = editor_height(0.8, 15, nil),
         },
     },
     perf = {
