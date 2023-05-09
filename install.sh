@@ -25,8 +25,8 @@ source $DEPS_HOME/util.sh
 
 rust_dependency() {
     message "install rustc/cargo"
-    install_or_skip "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y" "rustc"
     install_or_skip "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y" "cargo"
+    . "$HOME/.cargo/env"
     message 'install modern rust commands with cargo'
     install_or_skip "cargo install fd-find" "fd"
     install_or_skip "cargo install ripgrep" "rg"
