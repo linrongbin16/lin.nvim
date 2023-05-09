@@ -86,7 +86,7 @@ set tags+=./tags;,tags
 
 """ file auto read/write/load
 set autoread autowrite noswapfile confirm
-autocmd FocusGained,BufEnter,TermClose,TermLeave * checktime
+autocmd FocusGained,BufEnter * checktime
 
 """ encodings
 set fileencoding=utf-8
