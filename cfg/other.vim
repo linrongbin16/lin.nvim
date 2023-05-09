@@ -41,4 +41,7 @@ augroup optimization_augroup
     autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f) > luaeval("require('cfg.const').perf.file.maxsize") | syntax clear | setlocal eventignore+=FileType | setlocal undolevels=-1 | endif
 augroup END
 
-""" ---- Add more settings here ----
+""" ---- User settings ----
+if filereadable(expand('~/.nvim/cfg/user.vim'))
+    source $HOME/.nvim/cfg/user.vim
+endif
