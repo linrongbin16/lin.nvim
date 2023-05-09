@@ -31,7 +31,6 @@ rust_dependency() {
     install_or_skip "cargo install fd-find" "fd"
     install_or_skip "cargo install ripgrep" "rg"
     install_or_skip "cargo install --locked bat" "bat"
-    install_or_skip "cargo install git-delta" "delta"
 }
 
 pip3_dependency() {
