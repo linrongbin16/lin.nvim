@@ -1,9 +1,7 @@
 local const = require("cfg.const")
 local fzf_actions = require("fzf-lua.actions")
 local fzf_const = require("repo.ibhagwan.fzf-lua.const")
-local fzf_previewer = (not const.os.is_windows and vim.fn.executable("bat") > 0)
-        and "bat"
-    or "builtin"
+local fzf_previewer = vim.fn.executable("bat") > 0 and "bat" or "builtin"
 
 require("fzf-lua").setup({
     winopts = {
