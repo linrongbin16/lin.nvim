@@ -10,7 +10,7 @@ require("fzf-lua").setup({
         border = const.ui.border,
         preview = {
             default = fzf_previewer,
-            horizontal = "right:45%",
+            horizontal = "right:50%",
         },
     },
     keymap = {
