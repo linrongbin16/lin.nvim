@@ -1,9 +1,11 @@
 local glance = require("glance")
 local actions = glance.actions
+local editor_height = require("cfg.ui").editor_height
 
 glance.setup({
+    height = editor_height(0.99, 3, 18),
     border = {
-        enable = true,
+        enable = false,
     },
     mappings = {
         list = {
