@@ -6,7 +6,8 @@ local LAYOUT_CONFIG = {
     FILE = {
         height = 0.9,
         width = 0.9,
-        preview_width = 0.45,
+        preview_width = 0.5,
+        prompt_position = "top",
     },
     CENTER = {
         height = 0.7,
@@ -18,7 +19,13 @@ local LAYOUT_CONFIG = {
 require("telescope").setup({
     defaults = {
         scroll_strategy = "limit",
+        sorting_strategy = "ascending",
         layout_config = {
+            bottom_pane = {
+                height = 25,
+                preview_cutoff = 120,
+                prompt_position = "top",
+            },
             horizontal = LAYOUT_CONFIG.FILE,
             vertical = LAYOUT_CONFIG.FILE,
             center = LAYOUT_CONFIG.CENTER,
