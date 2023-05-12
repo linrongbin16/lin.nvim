@@ -12,7 +12,14 @@ local setup_handler = {
         { name = "copilot" }, -- github copilot
         { name = "buffer" },
         { name = "async_path" },
-        { name = "tags" }, -- tags
+        {
+            name = "tags",
+            option = {
+                -- performant for super big codebase
+                exact_match = true,
+                current_buffer_only = true,
+            },
+        }, -- tags
     }),
     sorting = {
         priority_weight = 2,
