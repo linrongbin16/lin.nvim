@@ -40,7 +40,7 @@ local M = {
                 rg_glob = true,
             })
         end),
-        { desc = "Live grep with `--` --iglob support (FzfLua)" }
+        { desc = "Live grep with `--iglob` support (FzfLua)" }
     ),
     keymap.map_lazy(
         "n",
@@ -51,11 +51,11 @@ local M = {
                 rg_glob = true,
             })
         end),
-        { desc = "Unrestricted live grep with `--` --iglob support (FzfLua)" }
+        { desc = "Unrestricted live grep with `--iglob` support (FzfLua)" }
     ),
     keymap.map_lazy(
         "n",
-        "<space>nl",
+        "<space>r",
         keymap.exec(function()
             require("fzf-lua").live_grep()
         end),
@@ -63,7 +63,7 @@ local M = {
     ),
     keymap.map_lazy(
         "n",
-        "<space>unl",
+        "<space>ur",
         keymap.exec(function()
             require("fzf-lua").live_grep({
                 cmd = fzf_const.GREP_CMD .. " -uu", -- --unrestricted --hidden
@@ -142,6 +142,23 @@ local M = {
         end),
         { desc = "Search git status (FzfLua)" }
     ),
+    -- search diagnostics
+    keymap.map_lazy(
+        "n",
+        "<space>dd",
+        keymap.exec(function()
+            require("fzf-lua").lsp_document_diagnostics()
+        end),
+        { desc = "Search document diagnostics (FzfLua)" }
+    ),
+    keymap.map_lazy(
+        "n",
+        "<space>dw",
+        keymap.exec(function()
+            require("fzf-lua").lsp_workspace_diagnostics()
+        end),
+        { desc = "Search workspace diagnostics (FzfLua)" }
+    ),
     -- search vim
     keymap.map_lazy(
         "n",
@@ -157,7 +174,7 @@ local M = {
         keymap.exec(function()
             require("fzf-lua").tags()
         end),
-        { desc = "Search vim tags (Fzf)" }
+        { desc = "Search vim tags (FzfLua)" }
     ),
     keymap.map_lazy(
         "n",
@@ -165,7 +182,7 @@ local M = {
         keymap.exec(function()
             require("fzf-lua").command_history()
         end),
-        { desc = "Search vim command history (Fzf)" }
+        { desc = "Search vim command history (FzfLua)" }
     ),
     keymap.map_lazy(
         "n",
@@ -173,7 +190,7 @@ local M = {
         keymap.exec(function()
             require("fzf-lua").search_history()
         end),
-        { desc = "Search vim search history (Fzf)" }
+        { desc = "Search vim search history (FzfLua)" }
     ),
     keymap.map_lazy(
         "n",
@@ -181,7 +198,7 @@ local M = {
         keymap.exec(function()
             require("fzf-lua").marks()
         end),
-        { desc = "Search vim marks (Fzf)" }
+        { desc = "Search vim marks (FzfLua)" }
     ),
     keymap.map_lazy(
         "n",
@@ -189,7 +206,14 @@ local M = {
         keymap.exec(function()
             require("fzf-lua").keymaps()
         end),
-        { desc = "Search vim keymaps (Fzf)" }
+        { desc = "Search vim keymaps (FzfLua)" }
+    ),
+    -- yanky
+    keymap.map_lazy(
+        "n",
+        "<space>yh",
+        keymap.exec("YankyRingHistory"),
+        { desc = "Search yanky ring history (FzfLua)" }
     ),
 }
 

@@ -1,8 +1,7 @@
 local const = require("cfg.const")
 local fzf_actions = require("fzf-lua.actions")
 local fzf_const = require("repo.ibhagwan.fzf-lua.const")
-local HAS_BAT = not const.os.is_windows and vim.fn.executable("bat") > 0
-local PREVIEWER = HAS_BAT and "bat" or "builtin"
+local fzf_previewer = vim.fn.executable("bat") > 0 and "bat" or "builtin"
 
 require("fzf-lua").setup({
     winopts = {
@@ -10,8 +9,8 @@ require("fzf-lua").setup({
         width = 0.9,
         border = const.ui.border,
         preview = {
-            default = PREVIEWER,
-            horizontal = "right:45%",
+            default = fzf_previewer,
+            horizontal = "right:50%",
         },
     },
     keymap = {
@@ -73,10 +72,12 @@ require("fzf-lua").setup({
         },
     },
     files = {
-        previewer = PREVIEWER,
+        previewer = fzf_previewer,
         cmd = fzf_const.FILES_CMD,
     },
     grep = {
         cmd = fzf_const.GREP_CMD,
     },
+    global_git_icons = false,
+    global_file_icons = false,
 })
