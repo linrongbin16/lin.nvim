@@ -82,7 +82,11 @@ if !isdirectory(g:gutentags_cache_dir)
     silent! call mkdir(g:gutentags_cache_dir, 'p', 0700)
 endif
 
-let g:gutentags_ctags_extra_args = ['--fields=+ailmnzS', '--extras=+q']
-let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
-let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
-let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
+let g:gutentags_ctags_extra_args = [
+            \ '--fields=+ailmnzS',
+            \ '--extras=+q',
+            \ '--c++-kinds=+px',
+            \ '--c-kinds=+px',
+            \ '--output-format=e-ctags',
+            \ '--recurse=no',
+            \ ]
