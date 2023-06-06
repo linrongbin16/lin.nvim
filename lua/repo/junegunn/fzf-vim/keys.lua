@@ -68,7 +68,7 @@ local M = {
     ),
     keymap.map_lazy(
         "n",
-        "<space>uw",
+        "<space>uW",
         keymap.exec("FzfUnrestrictedCapitalizedCWORD"),
         { desc = "Unrestricted search WORD under cursor" }
     ),
