@@ -102,9 +102,7 @@ command! -bang -nargs=? -complete=dir FzfUnrestrictedCWordFiles
             \   )
             \ )
 
-command! -bang -nargs=? -complete=dir FzfGBranches
-            \ call fzf#run(
-            \   fzf#vim#with_preview(
-            \     fzf#wrap({ 'source': "git branch -a ".shellescape(<q-args>) }, <bang>0)
-            \   )
-            \ )
+command! -bang -nargs=0 FzfGBranches
+            \ call fzf#vim#grep(
+            \ "git branch -a", 1,
+            \ fzf#vim#with_preview({'options': ['--prompt', '*Branches> ']}), <bang>0)
