@@ -9,7 +9,7 @@ if isdirectory(s:fzf_bin)
 endif
 
 function! s:lin_fzf_live_grep(query, fullscreen)
-    let command_fmt = 'lin_fzf_live_grep.py %s'
+    let command_fmt = 'fzf_live_grep.py %s'
     let initial_command = printf(command_fmt, shellescape(a:query))
     let reload_command = printf(command_fmt, '{q}')
     let spec = {'options': ['--disabled', '--query', a:query, '--bind', 'change:reload:'.reload_command, '--prompt', 'LiveGrep> ']}
@@ -20,7 +20,7 @@ endfunction
 command! -bang -nargs=* FzfLiveGrep call s:lin_fzf_live_grep(<q-args>, <bang>0)
 
 function! s:lin_fzf_unrestricted_live_grep(query, fullscreen)
-    let command_fmt = 'lin_fzf_unrestricted_live_grep.py %s'
+    let command_fmt = 'fzf_unrestricted_live_grep.py %s'
     let initial_command = printf(command_fmt, shellescape(a:query))
     let reload_command = printf(command_fmt, '{q}')
     let spec = {'options': ['--disabled', '--query', a:query, '--bind', 'change:reload:'.reload_command, '--prompt', 'LiveGrep> ']}
