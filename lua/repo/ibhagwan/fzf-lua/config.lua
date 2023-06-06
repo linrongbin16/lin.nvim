@@ -5,8 +5,8 @@ local fzf_previewer = vim.fn.executable("bat") > 0 and "bat" or "builtin"
 
 require("fzf-lua").setup({
     winopts = {
-        height = 0.85,
-        width = 0.9,
+        height = 0.9,
+        width = 0.95,
         border = const.ui.border,
         preview = {
             default = fzf_previewer,
@@ -73,10 +73,10 @@ require("fzf-lua").setup({
     },
     files = {
         previewer = fzf_previewer,
-        cmd = fzf_const.FILES_CMD,
+        cmd = fzf_const.FD_COMMAND,
     },
     grep = {
-        cmd = fzf_const.GREP_CMD,
+        cmd = fzf_const.RG_COMMAND,
     },
     global_git_icons = false,
     global_file_icons = false,

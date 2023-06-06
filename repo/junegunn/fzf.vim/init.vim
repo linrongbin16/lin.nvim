@@ -1,12 +1,8 @@
-" --color=never --type f --type symlink --follow --ignore-case
+" `fd --color=never --type f --type symlink --follow --ignore-case`
 if executable('fd')
     let $FZF_DEFAULT_COMMAND = 'fd -cnever -tf -tl -L -i'
 elseif executable('fdfind')
     let $FZF_DEFAULT_COMMAND = 'fdfind -cnever -tf -tl -L -i'
-else
-    echohl ErrorMsg
-    echo 'Error: `fd` or `fdfind` not found!'
-    echohl None
 endif
 let $FZF_DEFAULT_OPTS = '--ansi --info=inline --height=100% --layout=reverse'
 
@@ -15,15 +11,15 @@ let $BAT_THEME='ansi'
 let $BAT_STYLE='numbers,changes,header'
 
 " ui
-let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.85 } }
+let g:fzf_layout = { 'window': { 'width': 0.95, 'height': 0.9 } }
 let g:fzf_preview_window = ['right,50%', 'ctrl-l']
 
 " command prefix
 let g:fzf_command_prefix = 'Fzf'
 
 " action
-" let g:fzf_action = {
-"             \ 'ctrl-s': 'split',
-"             \ 'ctrl-v': 'vsplit',
-"             \ 'ctrl-t': 'tab split',
-"             \ }
+let g:fzf_action = {
+            \ 'ctrl-s': '',
+            \ 'ctrl-v': '',
+            \ 'ctrl-t': '',
+            \ }
