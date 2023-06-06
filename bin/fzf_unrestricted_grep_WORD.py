@@ -13,7 +13,7 @@ while i < len(args):
         a = arg.strip()
         if len(a) <= 0:
             continue
-        query.append(a)
+        query.append(a.upper())
     i += 1
 
 # print(f"args:{args}, query:{query}, iglob:{iglob}")
