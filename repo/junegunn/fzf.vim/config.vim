@@ -64,12 +64,12 @@ command! -bang -nargs=0 FzfUnrestrictedCWord
             \ s:rg_command." -w -uu ".shellescape(expand('<cword>'))." || true", 1,
             \ fzf#vim#with_preview({'options': ['--prompt', '*word> ']}), <bang>0)
 
-command! -bang -nargs=0 FzfCWORD
+command! -bang -nargs=0 FzfCapitalizedCWORD
             \ call fzf#vim#grep(
             \ s:rg_command." -w ".toupper(shellescape(expand('<cword>')))." || true", 1,
             \ fzf#vim#with_preview({'options': ['--prompt', '*WORD> ']}), <bang>0)
 
-command! -bang -nargs=0 FzfUnrestrictedCWORD
+command! -bang -nargs=0 FzfUnrestrictedCapitalizedCWORD
             \ call fzf#vim#grep(
             \ s:rg_command." -w -uu ".toupper(shellescape(expand('<cword>')))." || true", 1,
             \ fzf#vim#with_preview({'options': ['--prompt', '*WORD> ']}), <bang>0)
@@ -88,6 +88,7 @@ command! -bang -nargs=? -complete=dir FzfUnrestrictedFiles
             \   )
             \ )
 
+" deprecated
 command! -bang -nargs=? -complete=dir FzfCWordFiles
             \ call fzf#run(
             \   fzf#vim#with_preview(
@@ -95,6 +96,7 @@ command! -bang -nargs=? -complete=dir FzfCWordFiles
             \   )
             \ )
 
+" deprecated
 command! -bang -nargs=? -complete=dir FzfUnrestrictedCWordFiles
             \ call fzf#run(
             \   fzf#vim#with_preview(

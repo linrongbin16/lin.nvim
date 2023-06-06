@@ -37,7 +37,9 @@ if len(query) > 0:
     for q in query:
         rg_command += f" {q}"
 else:
-    if not IS_WINDOWS:
+    if IS_WINDOWS:
+        rg_command += " \"\""
+    else:
         rg_command += " ''"
 
 # print(f"[fzf_live_grep] rg_command:{rg_command}")

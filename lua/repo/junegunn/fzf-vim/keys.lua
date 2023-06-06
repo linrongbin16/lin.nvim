@@ -63,13 +63,13 @@ local M = {
     keymap.map_lazy(
         "n",
         "<space>W",
-        keymap.exec("FzfCWORD"),
+        keymap.exec("FzfCapitalizedCWORD"),
         { desc = "Search WORD under cursor" }
     ),
     keymap.map_lazy(
         "n",
         "<space>uw",
-        keymap.exec("FzfUnrestrictedCWORD"),
+        keymap.exec("FzfUnrestrictedCapitalizedCWORD"),
         { desc = "Unrestricted search WORD under cursor" }
     ),
     -- search git
