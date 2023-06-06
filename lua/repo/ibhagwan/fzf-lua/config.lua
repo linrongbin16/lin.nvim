@@ -5,8 +5,8 @@ local fzf_previewer = vim.fn.executable("bat") > 0 and "bat" or "builtin"
 
 require("fzf-lua").setup({
     winopts = {
-        height = 0.85,
-        width = 0.9,
+        height = 0.9,
+        width = 0.95,
         border = const.ui.border,
         preview = {
             default = fzf_previewer,
