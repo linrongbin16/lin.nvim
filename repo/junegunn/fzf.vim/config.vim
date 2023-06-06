@@ -57,22 +57,22 @@ command! -bang -nargs=* FzfUnrestrictedLiveGrepNoGlob call s:lin_fzf_unrestricte
 command! -bang -nargs=0 FzfCWord
             \ call fzf#vim#grep(
             \ s:rg_command." ".shellescape(expand('<cword>')), 1,
-            \ fzf#vim#with_preview(), <bang>0)
+            \ fzf#vim#with_preview({'options': ['--prompt', '*word> ']}), <bang>0)
 
 command! -bang -nargs=0 FzfUnrestrictedCWord
             \ call fzf#vim#grep(
             \ s:rg_command." -uu ".shellescape(expand('<cword>')), 1,
-            \ fzf#vim#with_preview(), <bang>0)
+            \ fzf#vim#with_preview({'options': ['--prompt', '*word> ']}), <bang>0)
 
 command! -bang -nargs=0 FzfCWORD
             \ call fzf#vim#grep(
             \ "fzf_grep_WORD.py ".shellescape(expand('<cword>')), 1,
-            \ fzf#vim#with_preview(), <bang>0)
+            \ fzf#vim#with_preview({'options': ['--prompt', '*WORD> ']}), <bang>0)
 
 command! -bang -nargs=0 FzfUnrestrictedCWORD
             \ call fzf#vim#grep(
             \ "fzf_unrestricted_grep_WORD.py ".shellescape(expand('<cword>')), 1,
-            \ fzf#vim#with_preview(), <bang>0)
+            \ fzf#vim#with_preview({'options': ['--prompt', '*WORD> ']}), <bang>0)
 
 if executable('fd')
     " `fd --color=never --type f --type symlink --follow --ignore-case`

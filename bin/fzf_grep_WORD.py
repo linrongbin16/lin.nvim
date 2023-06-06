@@ -16,7 +16,7 @@ while i < len(args):
         query.append(a.upper())
     i += 1
 
-# print(f"args:{args}, query:{query}, iglob:{iglob}")
+# print(f"args:{args}, query:{query}")
 rg_command = "rg --column -n --no-heading --color=always -S -w"
 
 if len(query) > 0:
