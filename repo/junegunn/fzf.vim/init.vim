@@ -1,12 +1,8 @@
-" --color=never --type f --type symlink --follow --ignore-case
-if executable('fd')
-    let $FZF_DEFAULT_COMMAND = 'fd -cnever -tf -tl -L -i'
-elseif executable('fdfind')
+" `fd --color=never --type f --type symlink --follow --ignore-case`
+if executable('fdfind')
     let $FZF_DEFAULT_COMMAND = 'fdfind -cnever -tf -tl -L -i'
-else
-    echohl ErrorMsg
-    echo 'Error: `fd` or `fdfind` not found!'
-    echohl None
+elseif executable('fd')
+    let $FZF_DEFAULT_COMMAND = 'fd -cnever -tf -tl -L -i'
 endif
 let $FZF_DEFAULT_OPTS = '--ansi --info=inline --height=100% --layout=reverse'
 

@@ -8,7 +8,7 @@ local M = {
     os = {
         name = OS,
         is_macos = OS == "Darwin",
-        is_windows = OS:match("Windows"),
+        is_windows = vim.fn.has("win32") > 0,
     },
     lsp = {
         diagnostics = {

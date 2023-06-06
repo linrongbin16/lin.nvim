@@ -73,10 +73,10 @@ require("fzf-lua").setup({
     },
     files = {
         previewer = fzf_previewer,
-        cmd = fzf_const.FILES_CMD,
+        cmd = fzf_const.FD_COMMAND,
     },
     grep = {
-        cmd = fzf_const.GREP_CMD,
+        cmd = fzf_const.RG_COMMAND,
     },
     global_git_icons = false,
     global_file_icons = false,

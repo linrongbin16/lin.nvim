@@ -178,31 +178,6 @@ local M = {
 
     -- ---- SEARCH ----
 
-    -- {
-    --     "nvim-telescope/telescope.nvim",
-    --     branch = "0.1.x",
-    --     cmd = { "Telescope" },
-    --     dependencies = {
-    --         "nvim-telescope/telescope-fzf-native.nvim",
-    --         "nvim-telescope/telescope-live-grep-args.nvim",
-    --         "debugloop/telescope-undo.nvim",
-    --     },
-    --     config = lua_config("nvim-telescope/telescope.nvim"),
-    --     keys = lua_keys("nvim-telescope/telescope.nvim"),
-    -- },
-    -- {
-    --     "nvim-telescope/telescope-fzf-native.nvim",
-    --     build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
-    --     lazy = true,
-    -- },
-    -- {
-    --     "nvim-telescope/telescope-live-grep-args.nvim",
-    --     lazy = true,
-    -- },
-    -- {
-    --     "debugloop/telescope-undo.nvim",
-    --     lazy = true,
-    -- },
     {
         "junegunn/fzf",
         event = { CmdlineEnter },

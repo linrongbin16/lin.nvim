@@ -1,11 +1,18 @@
-" --column --line-number --no-heading --color=always --smart-case
-let s:lin_rg = 'rg --column -n --no-heading --color=always -S'
+" `rg --column --line-number --no-heading --color=always --smart-case`
+let s:fzf_bin=expand('~/.nvim/bin')
+if isdirectory(s:fzf_bin)
+    if has('win32') || has('win64')
+        let $PATH .= ';' . s:fzf_bin
+    else
+        let $PATH .= ':' . s:fzf_bin
+    endif
+endif
 
 function! s:lin_fzf_live_grep(query, fullscreen)
-    let command_fmt = s:lin_rg.' %s || true'
+    let command_fmt = 'lin_fzf_live_grep.py %s'
     let initial_command = printf(command_fmt, shellescape(a:query))
     let reload_command = printf(command_fmt, '{q}')
-    let spec = {'options': ['--disabled', '--query', a:query, '--bind', 'change:reload:'.reload_command, '--prompt', '*Rg> ']}
+    let spec = {'options': ['--disabled', '--query', a:query, '--bind', 'change:reload:'.reload_command, '--prompt', 'LiveGrep> ']}
     let spec = fzf#vim#with_preview(spec)
     call fzf#vim#grep(initial_command, 1, spec, a:fullscreen)
 endfunction
@@ -13,10 +20,10 @@ endfunction
 command! -bang -nargs=* FzfLiveGrep call s:lin_fzf_live_grep(<q-args>, <bang>0)
 
 function! s:lin_fzf_unrestricted_live_grep(query, fullscreen)
-    let command_fmt = s:lin_rg.' -uu %s || true'
+    let command_fmt = 'lin_fzf_unrestricted_live_grep.py %s'
     let initial_command = printf(command_fmt, shellescape(a:query))
     let reload_command = printf(command_fmt, '{q}')
-    let spec = {'options': ['--disabled', '--query', a:query, '--bind', 'change:reload:'.reload_command, '--prompt', '*Rg> ']}
+    let spec = {'options': ['--disabled', '--query', a:query, '--bind', 'change:reload:'.reload_command, '--prompt', 'LiveGrep> ']}
     let spec = fzf#vim#with_preview(spec)
     call fzf#vim#grep(initial_command, 1, spec, a:fullscreen)
 endfunction
