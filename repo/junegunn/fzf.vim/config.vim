@@ -14,7 +14,15 @@ function! s:lin_fzf_live_grep(query, fullscreen)
     let command_fmt = 'fzf_live_grep.py %s'
     let initial_command = printf(command_fmt, shellescape(a:query))
     let reload_command = printf(command_fmt, '{q}')
-    let spec = {'options': ['--disabled', '--query', a:query, '--bind', 'change:reload:'.reload_command, '--prompt', '*Rg> ']}
+    let spec = {'options': [
+                \ '--disabled', '--delimiter=:', '--multi',
+                \ '--query', a:query,
+                \ '--bind', "ctrl-g:unbind(change,ctrl-g)+change-prompt(Rg(Fuzzy)> )+enable-search+clear-query+rebind(ctrl-r)",
+                \ '--bind', "ctrl-r:unbind(ctrl-r)+change-prompt(Rg(Regex)> )+disable-search+reload(fzf_live_grep.py {q})+rebind(change,ctrl-g)",
+                \ '--bind', 'change:reload:'.reload_command,
+                \ '--header', ':: <ctrl-g> to Fuzzy Search, <ctrl-r> to Regex Search',
+                \ '--prompt', 'Rg(Regex)> '
+                \ ]}
     let spec = fzf#vim#with_preview(spec)
     call fzf#vim#grep(initial_command, 1, spec, a:fullscreen)
 endfunction
@@ -25,7 +33,15 @@ function! s:lin_fzf_unrestricted_live_grep(query, fullscreen)
     let command_fmt = 'fzf_unrestricted_live_grep.py %s'
     let initial_command = printf(command_fmt, shellescape(a:query))
     let reload_command = printf(command_fmt, '{q}')
-    let spec = {'options': ['--disabled', '--query', a:query, '--bind', 'change:reload:'.reload_command, '--prompt', '*Rg> ']}
+    let spec = {'options': [
+                \ '--disabled', '--delimiter=:', '--multi',
+                \ '--query', a:query,
+                \ '--bind', "ctrl-g:unbind(change,ctrl-g)+change-prompt(Rg(Fuzzy)> )+enable-search+clear-query+rebind(ctrl-r)",
+                \ '--bind', "ctrl-r:unbind(ctrl-r)+change-prompt(Rg(Regex)> )+disable-search+reload(fzf_unrestricted_live_grep.py {q})+rebind(change,ctrl-g)",
+                \ '--bind', 'change:reload:'.reload_command,
+                \ '--header', ':: <ctrl-g> to Fuzzy Search, <ctrl-r> to Regex Search',
+                \ '--prompt', 'Rg(Regex)> '
+                \ ]}
     let spec = fzf#vim#with_preview(spec)
     call fzf#vim#grep(initial_command, 1, spec, a:fullscreen)
 endfunction
@@ -36,7 +52,15 @@ function! s:lin_fzf_live_grep_no_glob(query, fullscreen)
     let command_fmt = s:rg_command.' %s || true'
     let initial_command = printf(command_fmt, shellescape(a:query))
     let reload_command = printf(command_fmt, '{q}')
-    let spec = {'options': ['--disabled', '--query', a:query, '--bind', 'change:reload:'.reload_command, '--prompt', '*Rg> ']}
+    let spec = {'options': [
+                \ '--disabled', '--delimiter=:', '--multi',
+                \ '--query', a:query,
+                \ '--bind', "ctrl-g:unbind(change,ctrl-g)+change-prompt(Rg(Fuzzy)> )+enable-search+clear-query+rebind(ctrl-r)",
+                \ '--bind', "ctrl-r:unbind(ctrl-r)+change-prompt(Rg(Regex)> )+disable-search+reload(rg --column -n --no-heading --color=always -S {q} || true)+rebind(change,ctrl-g)",
+                \ '--bind', 'change:reload:'.reload_command,
+                \ '--header', ':: <ctrl-g> to Fuzzy Search, <ctrl-r> to Regex Search',
+                \ '--prompt', 'Rg(Fuzzy)> '
+                \ ]}
     let spec = fzf#vim#with_preview(spec)
     call fzf#vim#grep(initial_command, 1, spec, a:fullscreen)
 endfunction
@@ -47,7 +71,15 @@ function! s:lin_fzf_unrestricted_live_grep_no_glob(query, fullscreen)
     let command_fmt = s:rg_command.' -uu %s || true'
     let initial_command = printf(command_fmt, shellescape(a:query))
     let reload_command = printf(command_fmt, '{q}')
-    let spec = {'options': ['--disabled', '--query', a:query, '--bind', 'change:reload:'.reload_command, '--prompt', '*Rg> ']}
+    let spec = {'options': [
+                \ '--disabled', '--delimiter=:', '--multi',
+                \ '--query', a:query,
+                \ '--bind', "ctrl-g:unbind(change,ctrl-g)+change-prompt(Rg(Fuzzy)> )+enable-search+clear-query+rebind(ctrl-r)",
+                \ '--bind', "ctrl-r:unbind(ctrl-r)+change-prompt(Rg(Regex)> )+disable-search+reload(rg --column -n --no-heading --color=always -S -uu {q} || true)+rebind(change,ctrl-g)",
+                \ '--bind', 'change:reload:'.reload_command,
+                \ '--header', ':: <ctrl-g> to Fuzzy Search, <ctrl-r> to Regex Search',
+                \ '--prompt', 'Rg(Regex)> '
+                \ ]}
     let spec = fzf#vim#with_preview(spec)
     call fzf#vim#grep(initial_command, 1, spec, a:fullscreen)
 endfunction
