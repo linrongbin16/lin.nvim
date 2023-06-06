@@ -2,7 +2,9 @@
 
 import os
 import sys
+import platform
 
+IS_WINDOWS = platform.system().find('Windows') >= 0
 args = sys.argv
 query = []
 iglob = []
@@ -35,7 +37,8 @@ if len(query) > 0:
     for q in query:
         rg_command += f" {q}"
 else:
-    rg_command += " ''"
+    if not IS_WINDOWS:
+        rg_command += " ''"
 
-# print(f"rg_command:{rg_command}")
+# print(f"[fzf_live_grep] rg_command:{rg_command}")
 os.system(rg_command)
