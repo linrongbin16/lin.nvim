@@ -12,7 +12,7 @@ function! s:make_fzf_live_grep_options(query, reload_command, live_grep_command)
     return [
                 \ '--disabled', '--delimiter=:', '--multi',
                 \ '--query', a:query,
-                \ '--bind', 'ctrl-d:page-down,ctrl-u:page-up',
+                \ '--bind', 'ctrl-d:preview-page-down,ctrl-u:preview-page-up',
                 \ '--bind', 'ctrl-g:unbind(change,ctrl-g)+change-prompt(Rg> )+enable-search+change-header(:: <ctrl-r> to Regex Search)+rebind(ctrl-r)',
                 \ '--bind', 'ctrl-r:unbind(ctrl-r)+change-prompt(*Rg> )+disable-search+change-header(:: <ctrl-g> to Fuzzy Search)+reload('.a:live_grep_command.')+rebind(change,ctrl-g)',
                 \ '--bind', 'change:reload:'.a:reload_command,
@@ -121,7 +121,7 @@ command! -bang -nargs=0 FzfGBranches
             \ fzf#vim#with_preview({
             \   'options': [
             \       '--prompt', '*Branches> ',
-            \       '--bind', 'ctrl-d:page-down,ctrl-u:page-up',
+            \       '--bind', 'ctrl-d:preview-page-down,ctrl-u:preview-page-up',
             \       '--preview', "echo {} | rev | cut -d'*' -f1 | rev | git log --oneline --graph --date=short --color=always --pretty=\"format:%C(auto)%cd %h%d %s\"",
             \   ],
             \   'placeholder': "echo {} | rev | cut -d'*' -f1 | rev | git log --oneline --graph --date=short --color=always --pretty=\"format:%C(auto)%cd %h%d %s\"",

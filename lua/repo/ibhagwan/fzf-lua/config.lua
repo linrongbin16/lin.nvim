@@ -16,8 +16,8 @@ require("fzf-lua").setup({
     keymap = {
         builtin = {
             ["<C-l>"] = "toggle-preview",
-            ["<C-d>"] = "page-down",
-            ["<C-u>"] = "page-up",
+            ["<C-d>"] = "preview-page-down",
+            ["<C-u>"] = "preview-page-up",
 
             ["<F1>"] = false, -- "toggle-help",
             ["<F2>"] = false, --  "toggle-fullscreen",
@@ -32,8 +32,8 @@ require("fzf-lua").setup({
         fzf = {
             -- fzf '--bind=' options
             ["ctrl-l"] = "toggle-preview",
-            ["ctrl-d"] = "page-down",
-            ["ctrl-u"] = "page-up",
+            ["ctrl-d"] = "preview-page-down",
+            ["ctrl-u"] = "preview-page-up",
 
             ["ctrl-z"] = false, -- "abort",
             ["ctrl-f"] = false, -- "half-page-down",
