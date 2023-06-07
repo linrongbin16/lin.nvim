@@ -130,7 +130,7 @@ command! -bang -nargs=0 FzfGBranches
             \           '--prompt', 'Branches> ',
             \           '--bind', 'ctrl-d:preview-page-down,ctrl-u:preview-page-up',
             \           '--bind', 'ctrl-l:toggle-preview',
-            \           '--preview-window', 'nohidden:border:nowrap:right:50%',
+            \           '--preview-window', 'right:50%',
             \           '--preview', 'fzf_git_branches_preview.py {}',
             \       ]},
             \       <bang>0
