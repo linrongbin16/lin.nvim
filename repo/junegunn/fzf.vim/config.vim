@@ -11,7 +11,9 @@ endif
 function! s:make_fzf_live_grep_options(query, reload_command, live_grep_command)
     return [
                 \ '--disabled',
-                \ '--delimiter=:', '--multi',
+                \ '--print-query',
+                \ '--delimiter=:',
+                \ '--multi',
                 \ '--query', a:query,
                 \ '--bind', 'ctrl-d:preview-page-down,ctrl-u:preview-page-up',
                 \ '--bind', 'ctrl-g:unbind(change,ctrl-g)+change-prompt(Rg> )+enable-search+change-header(:: <ctrl-r> to Regex Search)+rebind(ctrl-r)',
@@ -121,11 +123,14 @@ command! -bang -nargs=0 FzfGBranches
             \   fzf#wrap({
             \       'source': 'git branch -a --color',
             \       'options': [
-            \           '--delimiter=:', '--multi',
+            \           '--no-multi',
+            \           '--print-query',
+            \           '--expect=ctrl-c,ctrl-q,esc',
+            \           '--delimiter=:',
             \           '--prompt', 'Branches> ',
             \           '--bind', 'ctrl-d:preview-page-down,ctrl-u:preview-page-up',
             \           '--bind', 'ctrl-l:toggle-preview',
-            \           '--preview-window', 'right,50%',
+            \           '--preview-window', 'nohidden:border:nowrap:right:50%',
             \           '--preview', 'fzf_git_branches_preview.py {}',
             \       ]},
             \       <bang>0
