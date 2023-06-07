@@ -10,7 +10,8 @@ endif
 
 function! s:make_fzf_live_grep_options(query, reload_command, live_grep_command)
     return [
-                \ '--disabled', '--delimiter=:', '--multi',
+                \ '--disabled',
+                \ '--delimiter=:', '--multi',
                 \ '--query', a:query,
                 \ '--bind', 'ctrl-d:preview-page-down,ctrl-u:preview-page-up',
                 \ '--bind', 'ctrl-g:unbind(change,ctrl-g)+change-prompt(Rg> )+enable-search+change-header(:: <ctrl-r> to Regex Search)+rebind(ctrl-r)',
@@ -116,13 +117,17 @@ command! -bang -nargs=? -complete=dir FzfUnrestrictedCWordFiles
             \ )
 
 command! -bang -nargs=0 FzfGBranches
-            \ call fzf#vim#grep(
-            \ "git branch -a", 1,
-            \ fzf#vim#with_preview({
-            \   'options': [
-            \       '--prompt', '*Branches> ',
-            \       '--bind', 'ctrl-d:preview-page-down,ctrl-u:preview-page-up',
-            \       '--preview', "echo {} | rev | cut -d'*' -f1 | rev | git log --oneline --graph --date=short --color=always --pretty=\"format:%C(auto)%cd %h%d %s\"",
-            \   ],
-            \   'placeholder': "echo {} | rev | cut -d'*' -f1 | rev | git log --oneline --graph --date=short --color=always --pretty=\"format:%C(auto)%cd %h%d %s\"",
-            \ }), <bang>0)
+            \ call fzf#run(
+            \   fzf#wrap({
+            \       'source': 'git branch -a --color',
+            \       'options': [
+            \           '--delimiter=:', '--multi',
+            \           '--prompt', 'Branches> ',
+            \           '--bind', 'ctrl-d:preview-page-down,ctrl-u:preview-page-up',
+            \           '--bind', 'ctrl-l:toggle-preview',
+            \           '--preview-window', 'right,50%',
+            \           '--preview', 'fzf_git_branches_preview.py {}',
+            \       ]},
+            \       <bang>0
+            \   )
+            \ )
