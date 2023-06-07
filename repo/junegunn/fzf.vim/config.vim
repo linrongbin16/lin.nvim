@@ -122,7 +122,6 @@ command! -bang -nargs=0 FzfGBranches
             \   'options': [
             \       '--prompt', '*Branches> ',
             \       '--bind', 'ctrl-d:preview-page-down,ctrl-u:preview-page-up',
-            \       '--preview', "echo {} | rev | cut -d'*' -f1 | rev | git log --oneline --graph --date=short --color=always --pretty=\"format:%C(auto)%cd %h%d %s\"",
             \   ],
-            \   'placeholder': "echo {} | rev | cut -d'*' -f1 | rev | git log --oneline --graph --date=short --color=always --pretty=\"format:%C(auto)%cd %h%d %s\"",
+            \   'placeholder': "echo {} | rev | cut -d'*' -f1 | rev | git log --oneline --graph --first-parent --abbrev-commit --color=always",
             \ }), <bang>0)
