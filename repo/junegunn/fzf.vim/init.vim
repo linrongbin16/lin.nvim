@@ -16,10 +16,3 @@ let g:fzf_preview_window = ['right,50%', 'ctrl-l']
 
 " command prefix
 let g:fzf_command_prefix = 'Fzf'
-
-" action
-let g:fzf_action = {
-            \ 'ctrl-s': '',
-            \ 'ctrl-v': '',
-            \ 'ctrl-t': '',
-            \ }
