@@ -2,27 +2,30 @@
 let s:rg_command='rg --column -n --no-heading --color=always -S'
 
 let s:fzf_bin=expand('~/.nvim/bin')
-if isdirectory(s:fzf_bin)
-    if has('win32') || has('win64')
-        let $PATH .= ';' . s:fzf_bin
-    else
-        let $PATH .= ':' . s:fzf_bin
-    endif
+if has('win32') || has('win64')
+    let $PATH .= ';' . s:fzf_bin
+else
+    let $PATH .= ':' . s:fzf_bin
 endif
+
+function! s:make_fzf_live_grep_options(query, reload_command, live_grep_command)
+    return [
+                \ '--disabled', '--delimiter=:', '--multi',
+                \ '--query', a:query,
+                \ '--bind', 'ctrl-d:preview-page-down,ctrl-u:preview-page-up',
+                \ '--bind', 'ctrl-g:unbind(change,ctrl-g)+change-prompt(Rg> )+enable-search+change-header(:: <ctrl-r> to Regex Search)+rebind(ctrl-r)',
+                \ '--bind', 'ctrl-r:unbind(ctrl-r)+change-prompt(*Rg> )+disable-search+change-header(:: <ctrl-g> to Fuzzy Search)+reload('.a:live_grep_command.')+rebind(change,ctrl-g)',
+                \ '--bind', 'change:reload:'.a:reload_command,
+                \ '--header', ':: <ctrl-g> to Fuzzy Search',
+                \ '--prompt', '*Rg> '
+                \ ]
+endfunction
 
 function! s:lin_fzf_live_grep(query, fullscreen)
     let command_fmt = 'fzf_live_grep.py %s'
     let initial_command = printf(command_fmt, shellescape(a:query))
     let reload_command = printf(command_fmt, '{q}')
-    let spec = {'options': [
-                \ '--disabled', '--delimiter=:', '--multi',
-                \ '--query', a:query,
-                \ '--bind', "ctrl-g:unbind(change,ctrl-g)+change-prompt(Rg(Fuzzy)> )+enable-search+clear-query+rebind(ctrl-r)",
-                \ '--bind', "ctrl-r:unbind(ctrl-r)+change-prompt(Rg(Regex)> )+disable-search+reload(fzf_live_grep.py {q})+rebind(change,ctrl-g)",
-                \ '--bind', 'change:reload:'.reload_command,
-                \ '--header', ':: <ctrl-g> to Fuzzy Search, <ctrl-r> to Regex Search',
-                \ '--prompt', 'Rg(Regex)> '
-                \ ]}
+    let spec = {'options': s:make_fzf_live_grep_options(a:query, reload_command, 'fzf_live_grep.py {q}')}
     let spec = fzf#vim#with_preview(spec)
     call fzf#vim#grep(initial_command, 1, spec, a:fullscreen)
 endfunction
@@ -33,15 +36,7 @@ function! s:lin_fzf_unrestricted_live_grep(query, fullscreen)
     let command_fmt = 'fzf_unrestricted_live_grep.py %s'
     let initial_command = printf(command_fmt, shellescape(a:query))
     let reload_command = printf(command_fmt, '{q}')
-    let spec = {'options': [
-                \ '--disabled', '--delimiter=:', '--multi',
-                \ '--query', a:query,
-                \ '--bind', "ctrl-g:unbind(change,ctrl-g)+change-prompt(Rg(Fuzzy)> )+enable-search+clear-query+rebind(ctrl-r)",
-                \ '--bind', "ctrl-r:unbind(ctrl-r)+change-prompt(Rg(Regex)> )+disable-search+reload(fzf_unrestricted_live_grep.py {q})+rebind(change,ctrl-g)",
-                \ '--bind', 'change:reload:'.reload_command,
-                \ '--header', ':: <ctrl-g> to Fuzzy Search, <ctrl-r> to Regex Search',
-                \ '--prompt', 'Rg(Regex)> '
-                \ ]}
+    let spec = {'options': s:make_fzf_live_grep_options(a:query, reload_command, 'fzf_unrestricted_live_grep.py {q}')}
     let spec = fzf#vim#with_preview(spec)
     call fzf#vim#grep(initial_command, 1, spec, a:fullscreen)
 endfunction
@@ -52,15 +47,7 @@ function! s:lin_fzf_live_grep_no_glob(query, fullscreen)
     let command_fmt = s:rg_command.' %s || true'
     let initial_command = printf(command_fmt, shellescape(a:query))
     let reload_command = printf(command_fmt, '{q}')
-    let spec = {'options': [
-                \ '--disabled', '--delimiter=:', '--multi',
-                \ '--query', a:query,
-                \ '--bind', "ctrl-g:unbind(change,ctrl-g)+change-prompt(Rg(Fuzzy)> )+enable-search+clear-query+rebind(ctrl-r)",
-                \ '--bind', "ctrl-r:unbind(ctrl-r)+change-prompt(Rg(Regex)> )+disable-search+reload(rg --column -n --no-heading --color=always -S {q} || true)+rebind(change,ctrl-g)",
-                \ '--bind', 'change:reload:'.reload_command,
-                \ '--header', ':: <ctrl-g> to Fuzzy Search, <ctrl-r> to Regex Search',
-                \ '--prompt', 'Rg(Fuzzy)> '
-                \ ]}
+    let spec = {'options': s:make_fzf_live_grep_options(a:query, reload_command, s:rg_command.' {q} || true')}
     let spec = fzf#vim#with_preview(spec)
     call fzf#vim#grep(initial_command, 1, spec, a:fullscreen)
 endfunction
@@ -71,15 +58,7 @@ function! s:lin_fzf_unrestricted_live_grep_no_glob(query, fullscreen)
     let command_fmt = s:rg_command.' -uu %s || true'
     let initial_command = printf(command_fmt, shellescape(a:query))
     let reload_command = printf(command_fmt, '{q}')
-    let spec = {'options': [
-                \ '--disabled', '--delimiter=:', '--multi',
-                \ '--query', a:query,
-                \ '--bind', "ctrl-g:unbind(change,ctrl-g)+change-prompt(Rg(Fuzzy)> )+enable-search+clear-query+rebind(ctrl-r)",
-                \ '--bind', "ctrl-r:unbind(ctrl-r)+change-prompt(Rg(Regex)> )+disable-search+reload(rg --column -n --no-heading --color=always -S -uu {q} || true)+rebind(change,ctrl-g)",
-                \ '--bind', 'change:reload:'.reload_command,
-                \ '--header', ':: <ctrl-g> to Fuzzy Search, <ctrl-r> to Regex Search',
-                \ '--prompt', 'Rg(Regex)> '
-                \ ]}
+    let spec = {'options': s:make_fzf_live_grep_options(a:query, reload_command, s:rg_command.' -uu {q} || true')}
     let spec = fzf#vim#with_preview(spec)
     call fzf#vim#grep(initial_command, 1, spec, a:fullscreen)
 endfunction
@@ -139,4 +118,11 @@ command! -bang -nargs=? -complete=dir FzfUnrestrictedCWordFiles
 command! -bang -nargs=0 FzfGBranches
             \ call fzf#vim#grep(
             \ "git branch -a", 1,
-            \ fzf#vim#with_preview({'options': ['--prompt', '*Branches> ']}), <bang>0)
+            \ fzf#vim#with_preview({
+            \   'options': [
+            \       '--prompt', '*Branches> ',
+            \       '--bind', 'ctrl-d:preview-page-down,ctrl-u:preview-page-up',
+            \       '--preview', "echo {} | rev | cut -d'*' -f1 | rev | git log --oneline --graph --date=short --color=always --pretty=\"format:%C(auto)%cd %h%d %s\"",
+            \   ],
+            \   'placeholder': "echo {} | rev | cut -d'*' -f1 | rev | git log --oneline --graph --date=short --color=always --pretty=\"format:%C(auto)%cd %h%d %s\"",
+            \ }), <bang>0)

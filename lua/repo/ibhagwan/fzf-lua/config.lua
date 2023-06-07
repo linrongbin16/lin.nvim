@@ -31,9 +31,9 @@ require("fzf-lua").setup({
         },
         fzf = {
             -- fzf '--bind=' options
-            ["ctrl-d"] = "half-page-down",
-            ["ctrl-u"] = "half-page-up", -- "unix-line-discard",
             ["ctrl-l"] = "toggle-preview",
+            ["ctrl-d"] = "preview-page-down",
+            ["ctrl-u"] = "preview-page-up",
 
             ["ctrl-z"] = false, -- "abort",
             ["ctrl-f"] = false, -- "half-page-down",
@@ -50,18 +50,18 @@ require("fzf-lua").setup({
     actions = {
         files = {
             ["default"] = fzf_actions.file_edit, -- fzf_actions.file_edit_or_qf,
-            ["ctrl-s"] = false, -- fzf_actions.file_split,
-            ["ctrl-v"] = false, -- fzf_actions.file_vsplit,
-            ["ctrl-t"] = false, -- fzf_actions.file_tabedit,
+            ["ctrl-s"] = fzf_actions.file_split,
+            ["ctrl-v"] = fzf_actions.file_vsplit,
+            ["ctrl-t"] = fzf_actions.file_tabedit,
 
             ["alt-q"] = false, -- fzf_actions.file_sel_to_qf,
             ["alt-l"] = false, -- fzf_actions.file_sel_to_ll,
         },
         buffers = {
             ["default"] = fzf_actions.buf_edit,
-            ["ctrl-s"] = false, -- fzf_actions.buf_split,
-            ["ctrl-v"] = false, -- fzf_actions.buf_vsplit,
-            ["ctrl-t"] = false, -- fzf_actions.buf_tabedit,
+            ["ctrl-s"] = fzf_actions.buf_split,
+            ["ctrl-v"] = fzf_actions.buf_vsplit,
+            ["ctrl-t"] = fzf_actions.buf_tabedit,
         },
     },
     previewers = {
