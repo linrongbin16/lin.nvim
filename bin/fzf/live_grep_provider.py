@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 
 import os
-import sys
 import platform
+import sys
 
-IS_WINDOWS = platform.system().find('Windows') >= 0
-
+IS_WINDOWS = platform.system().find("Windows") >= 0
 args = sys.argv
 query = []
 iglob = []
@@ -28,20 +27,15 @@ while i < len(args):
     i += 1
 
 # print(f"args:{args}, query:{query}, iglob:{iglob}")
-rg_command = "rg --column -n --no-heading --color=always -S -uu"
+rg_command = "rg --column -n --no-heading --color=always -S"
 
 if len(iglob) > 0:
     for ig in iglob:
-        rg_command += f" --iglob {ig}"
+        rg_command += f" {ig}"
 
 if len(query) > 0:
     for q in query:
         rg_command += f" {q}"
-else:
-    if IS_WINDOWS:
-        rg_command += " \"\""
-    else:
-        rg_command += " ''"
 
-# print(f"[fzf_unrestricted_live_grep] rg_command:{rg_command}")
+# print(f"[fzf_live_grep] rg_command:{rg_command}")
 os.system(rg_command)

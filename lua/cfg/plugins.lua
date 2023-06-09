@@ -191,6 +191,13 @@ local M = {
         config = vim_config("junegunn/fzf.vim"),
         keys = lua_keys("junegunn/fzf.vim"),
     },
+    -- {
+    --     "ibhagwan/fzf-lua",
+    --     cmd = { "FzfLua" },
+    --     dependencies = { "junegunn/fzf" },
+    --     config = lua_config("ibhagwan/fzf-lua"),
+    --     keys = lua_keys("ibhagwan/fzf-lua"),
+    -- },
 
     -- ---- LSP ----
 

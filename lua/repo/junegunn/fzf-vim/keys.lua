@@ -5,7 +5,7 @@ local M = {
     keymap.map_lazy(
         "n",
         "<space>f",
-        keymap.exec("FzfFiles"),
+        keymap.exec("FzfFiles2"),
         { desc = "Search files" }
     ),
     keymap.map_lazy(
@@ -18,7 +18,7 @@ local M = {
     keymap.map_lazy(
         "n",
         "<space>b",
-        keymap.exec("FzfBuffers"),
+        keymap.exec("FzfBuffers2"),
         { desc = "Search buffers" }
     ),
     -- live grep
@@ -34,29 +34,17 @@ local M = {
         keymap.exec("FzfUnrestrictedLiveGrep"),
         { desc = "Unrestricted live grep with `--iglob` support" }
     ),
-    keymap.map_lazy(
-        "n",
-        "<space>r",
-        keymap.exec("FzfLiveGrepNoGlob"),
-        { desc = "Live grep (without `--iglob` support)" }
-    ),
-    keymap.map_lazy(
-        "n",
-        "<space>ur",
-        keymap.exec("FzfUnrestrictedLiveGrepNoGlob"),
-        { desc = "Unrestricted live grep (without `--iglob` support)" }
-    ),
     -- search word
     keymap.map_lazy(
         "n",
         "<space>w",
-        keymap.exec("FzfCWord"),
+        keymap.exec("FzfWord"),
         { desc = "Search word under cursor" }
     ),
     keymap.map_lazy(
         "n",
         "<space>uw",
-        keymap.exec("FzfUnrestrictedCWord"),
+        keymap.exec("FzfUnrestrictedWord"),
         { desc = "Unrestricted search word under cursor" }
     ),
     -- search WORD
