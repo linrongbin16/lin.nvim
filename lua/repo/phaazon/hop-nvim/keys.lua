@@ -27,27 +27,27 @@ local M = {
     ),
     map_lazy(
         { "n", "x" },
-        "<leader>wd",
-        "<cmd>HopWordAC<cr>",
-        { desc = "Jump forward by word" }
-    ),
-    map_lazy(
-        { "n", "x" },
-        "<leader>wD",
-        "<cmd>HopWordBC<cr>",
-        { desc = "Jump backward by word" }
-    ),
-    map_lazy(
-        { "n", "x" },
-        "<leader>ln",
+        "<leader>j",
         "<cmd>HopLineAC<cr>",
-        { desc = "Jump forward by line" }
+        { desc = "Jump to below lines" }
     ),
     map_lazy(
         { "n", "x" },
-        "<leader>lN",
+        "<leader>k",
         "<cmd>HopLineBC<cr>",
-        { desc = "Jump backward by line" }
+        { desc = "Jump to above lines" }
+    ),
+    map_lazy(
+        { "n", "x" },
+        "<leader>h",
+        "<cmd>HopChar1CurrentLineBC<cr>",
+        { desc = "Jump to left" }
+    ),
+    map_lazy(
+        { "n", "x" },
+        "<leader>l",
+        "<cmd>HopChar1CurrentLineAC<cr>",
+        { desc = "Jump to right" }
     ),
 }
 
