@@ -18,25 +18,13 @@ let s:live_grep_provider='live_grep_provider.py'
 let s:unrestricted_live_grep_provider='unrestricted_live_grep_provider.py'
 let s:git_branches_previewer='git_branches_previewer.py'
 
+let s:bind_preview='ctrl-d:preview-page-down,ctrl-u:preview-page-up'
 let s:help_preview_page='<ctrl-u>/<ctrl-d> to Scroll Up/Down Preview'
 let s:help_fuzzy_search='<ctrl-g> to Fuzzy Search'
 let s:help_regex_search='<ctrl-r> to Regex Search'
-
-function! s:make_helper(messages)
-    let n=len(a:messages)
-    let helper=':: '
-    for i in range(1,n+1)
-        let m=a:messages[i]
-        let helper=helper.m
-        if i < n+1
-            let helper=helper.', '
-        endif
-    endfor
-    return helper
-endfunction
-
-let s:bind_preview_page='ctrl-d:preview-page-down,ctrl-u:preview-page-up'
-let s:header_preview_page=s:make_helper([s:help_preview_page])
+let s:header_regex_search_with_preview=':: '.s:help_regex_search.', '.s:help_preview_page
+let s:header_fuzzy_search_with_preview=':: '.s:help_fuzzy_search.', '.s:help_preview_page
+let s:header_preview=':: '.s:help_preview_page
 
 function! s:live_grep(query, provider, fullscreen)
     let command_fmt = a:provider.' %s || true'
@@ -45,11 +33,11 @@ function! s:live_grep(query, provider, fullscreen)
     let spec = {'options': [
                 \ '--disabled',
                 \ '--query', a:query,
-                \ '--bind', s:bind_preview_page,
-                \ '--bind', 'ctrl-g:unbind(change,ctrl-g)+change-prompt(Rg> )+enable-search+change-header('.s:make_helper([s:help_regex_search]).')+rebind(ctrl-r)',
-                \ '--bind', 'ctrl-r:unbind(ctrl-r)+change-prompt(*Rg> )+disable-search+change-header('.s:make_helper([s:help_fuzzy_search]).')+reload('.reload_command.')+rebind(change,ctrl-g)',
+                \ '--bind', s:bind_preview,
+                \ '--bind', 'ctrl-g:unbind(change,ctrl-g)+change-prompt(Rg> )+enable-search+change-header('.s:header_regex_search_with_preview.')+rebind(ctrl-r)',
+                \ '--bind', 'ctrl-r:unbind(ctrl-r)+change-prompt(*Rg> )+disable-search+change-header('.s:header_fuzzy_search_with_preview.')+reload('.reload_command.')+rebind(change,ctrl-g)',
                 \ '--bind', 'change:reload:'.reload_command,
-                \ '--header', s:make_helper([s:help_fuzzy_search, s:help_preview_page]),
+                \ '--header', s:header_fuzzy_search_with_preview,
                 \ '--prompt', '*Rg> '
                 \ ]}
     let spec = fzf#vim#with_preview(spec)
@@ -66,8 +54,8 @@ command! -bang -nargs=* FzfUnrestrictedLiveGrep call s:live_grep(<q-args>, s:unr
 
 function! s:buffers(query, fullscreen)
     let spec = {'options': [
-                \ '--bind', s:bind_preview_page,
-                \ '--header', s:header_preview_page,
+                \ '--bind', s:bind_preview,
+                \ '--header', s:header_preview,
                 \ ],
                 \ 'placeholder': '{1}'}
     let spec = fzf#vim#with_preview(spec)
@@ -88,10 +76,10 @@ function! s:word(query, provider, fullscreen, upper)
     let spec = {'options': [
                 \ '--disabled',
                 \ '--query', a:query,
-                \ '--bind', s:bind_preview_page,
+                \ '--bind', s:bind_preview,
                 \ '--bind', 'change:reload:'.reload_command,
                 \ '--prompt', prompt,
-                \ '--header', s:header_preview_page,
+                \ '--header', s:header_preview,
                 \ ]}
     let spec = fzf#vim#with_preview(spec)
     call fzf#vim#grep(initial_command, spec, a:fullscreen)
@@ -110,8 +98,8 @@ function! s:files(query, provider, fullscreen)
     let initial_command = printf(command_fmt, shellescape(a:query))
     let spec = { 'source': initial_command,
                 \ 'options': [
-                \ '--bind', s:bind_preview_page,
-                \ '--header', s:header_preview_page,
+                \ '--bind', s:bind_preview,
+                \ '--header', s:header_preview,
                 \ ]}
     let spec = fzf#vim#with_preview(spec)
     call fzf#vim#files(a:query, spec, a:fullscreen)
@@ -130,10 +118,10 @@ function! s:git_branches(query, provider, fullscreen)
     let initial_command = printf(command_fmt, shellescape(a:query))
     let spec = { 'source': initial_command,
                 \ 'options': [
-                \ '--bind', s:bind_preview_page,
+                \ '--bind', s:bind_preview,
                 \ '--prompt', 'GitBranches> ',
                 \ '--preview', 'git_branches_previewer.py {}',
-                \ '--header', s:header_preview_page,
+                \ '--header', s:header_preview,
                 \ ]}
     let spec = fzf#vim#with_preview(fzf#wrap(spec), a:fullscreen)
     call fzf#run(spec)
