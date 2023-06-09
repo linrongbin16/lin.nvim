@@ -1,8 +1,8 @@
-" `fd --color=never --type f --type symlink --follow --ignore-case`
+" `fd --color=never --type f --type symlink --follow`
 if executable('fd')
-    let $FZF_DEFAULT_COMMAND = 'fd -cnever -tf -tl -L -i'
+    let $FZF_DEFAULT_COMMAND = 'fd -cnever -tf -tl -L'
 elseif executable('fdfind')
-    let $FZF_DEFAULT_COMMAND = 'fdfind -cnever -tf -tl -L -i'
+    let $FZF_DEFAULT_COMMAND = 'fdfind -cnever -tf -tl -L'
 endif
 let $FZF_DEFAULT_OPTS = '--ansi --info=inline --height=100% --layout=reverse'
 

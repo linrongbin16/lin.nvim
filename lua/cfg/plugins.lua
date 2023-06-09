@@ -183,19 +183,13 @@ local M = {
         event = { CmdlineEnter },
         build = ":call fzf#install()",
     },
-    const.os.is_windows and {
+    {
         "junegunn/fzf.vim",
         event = { CmdlineEnter },
         dependencies = { "junegunn/fzf" },
         init = vim_init("junegunn/fzf.vim"),
         config = vim_config("junegunn/fzf.vim"),
         keys = lua_keys("junegunn/fzf.vim"),
-    } or {
-        "ibhagwan/fzf-lua",
-        cmd = { "FzfLua" },
-        dependencies = { "junegunn/fzf" },
-        config = lua_config("ibhagwan/fzf-lua"),
-        keys = lua_keys("ibhagwan/fzf-lua"),
     },
 
     -- ---- LSP ----
