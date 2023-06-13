@@ -30,13 +30,13 @@ local M = {
     -- search word
     keymap.map_lazy(
         "n",
-        "<space>wd",
+        "<space>w",
         keymap.exec("FzfxGrepWord"),
         { desc = "Grep word under cursor" }
     ),
     keymap.map_lazy(
         "n",
-        "<space>uwd",
+        "<space>uw",
         keymap.exec("FzfxUnrestrictedGrepWord"),
         { desc = "Unrestricted grep word under cursor" }
     ),
