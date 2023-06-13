@@ -1,64 +1,12 @@
 local keymap = require("cfg.keymap")
 
 local M = {
-    -- search files
-    keymap.map_lazy(
-        "n",
-        "<space>f",
-        keymap.exec("FzfFiles2"),
-        { desc = "Search files" }
-    ),
-    keymap.map_lazy(
-        "n",
-        "<space>uf",
-        keymap.exec("FzfUnrestrictedFiles"),
-        { desc = "Unrestricted search files" }
-    ),
     -- search buffer
     keymap.map_lazy(
         "n",
         "<space>b",
         keymap.exec("FzfBuffers2"),
         { desc = "Search buffers" }
-    ),
-    -- live grep
-    keymap.map_lazy(
-        "n",
-        "<space>l",
-        keymap.exec("FzfLiveGrep"),
-        { desc = "Live grep with `--iglob` support" }
-    ),
-    keymap.map_lazy(
-        "n",
-        "<space>ul",
-        keymap.exec("FzfUnrestrictedLiveGrep"),
-        { desc = "Unrestricted live grep with `--iglob` support" }
-    ),
-    -- search word
-    keymap.map_lazy(
-        "n",
-        "<space>w",
-        keymap.exec("FzfWord"),
-        { desc = "Search word under cursor" }
-    ),
-    keymap.map_lazy(
-        "n",
-        "<space>uw",
-        keymap.exec("FzfUnrestrictedWord"),
-        { desc = "Unrestricted search word under cursor" }
-    ),
-    -- search WORD
-    keymap.map_lazy(
-        "n",
-        "<space>W",
-        keymap.exec("FzfCapitalizedCWORD"),
-        { desc = "Search WORD under cursor" }
-    ),
-    keymap.map_lazy(
-        "n",
-        "<space>uW",
-        keymap.exec("FzfUnrestrictedCapitalizedCWORD"),
-        { desc = "Unrestricted search WORD under cursor" }
     ),
     -- search git
     keymap.map_lazy(
