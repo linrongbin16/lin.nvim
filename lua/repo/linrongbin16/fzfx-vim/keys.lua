@@ -14,19 +14,6 @@ local M = {
         keymap.exec("FzfxUnrestrictedFiles"),
         { desc = "Unrestricted find files" }
     ),
-    -- find files by word under cursor
-    keymap.map_lazy(
-        "n",
-        "<space>wf",
-        keymap.exec("FzfxFilesByWord"),
-        { desc = "Find files by word under cursor" }
-    ),
-    keymap.map_lazy(
-        "n",
-        "<space>uwf",
-        keymap.exec("FzfxUnrestrictedFilesByWord"),
-        { desc = "Unrestricted find files by word under cursor" }
-    ),
     -- live grep
     keymap.map_lazy(
         "n",
