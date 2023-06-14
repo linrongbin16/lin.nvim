@@ -11,3 +11,10 @@ let g:fzf_preview_window = ['right,50%', 'ctrl-l']
 
 " command prefix
 let g:fzf_command_prefix = 'Fzf'
+
+" action
+let g:fzf_action={
+            \ 'ctrl-t': 'tab split',
+            \ 'ctrl-s': 'split',
+            \ 'ctrl-v': 'vsplit',
+            \ }
