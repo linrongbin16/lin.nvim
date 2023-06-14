@@ -18,3 +18,6 @@ let g:fzf_action={
             \ 'ctrl-s': 'split',
             \ 'ctrl-v': 'vsplit',
             \ }
+
+" git log
+let g:fzf_commits_log_options='--graph --abbrev-commit --date=short --color=always --pretty='.shellescape('%C(auto)%cd %h%d %s')
