@@ -10,7 +10,6 @@ local vim_config = require("cfg.plugins_util").vim_config
 
 local VeryLazy = "VeryLazy"
 local BufRead = "BufRead"
-local BufNewFile = "BufNewFile"
 local CmdlineEnter = "CmdlineEnter"
 local VimEnter = "VimEnter"
 local InsertEnter = "InsertEnter"
@@ -183,19 +182,20 @@ local M = {
         event = { CmdlineEnter },
         build = ":call fzf#install()",
     },
-    const.os.is_windows and {
+    {
         "junegunn/fzf.vim",
         event = { CmdlineEnter },
         dependencies = { "junegunn/fzf" },
         init = vim_init("junegunn/fzf.vim"),
         config = vim_config("junegunn/fzf.vim"),
         keys = lua_keys("junegunn/fzf.vim"),
-    } or {
-        "ibhagwan/fzf-lua",
-        cmd = { "FzfLua" },
-        dependencies = { "junegunn/fzf" },
-        config = lua_config("ibhagwan/fzf-lua"),
-        keys = lua_keys("ibhagwan/fzf-lua"),
+    },
+    {
+        "linrongbin16/fzfx.vim",
+        event = { CmdlineEnter },
+        dependencies = { "junegunn/fzf", "junegunn/fzf.vim" },
+        init = vim_init("junegunn/fzf.vim"),
+        keys = lua_keys("linrongbin16/fzfx.vim"),
     },
 
     -- ---- LSP ----

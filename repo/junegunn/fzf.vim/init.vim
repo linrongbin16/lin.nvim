@@ -1,9 +1,4 @@
-" `fd --color=never --type f --type symlink --follow --ignore-case`
-if executable('fd')
-    let $FZF_DEFAULT_COMMAND = 'fd -cnever -tf -tl -L -i'
-elseif executable('fdfind')
-    let $FZF_DEFAULT_COMMAND = 'fdfind -cnever -tf -tl -L -i'
-endif
+" opts
 let $FZF_DEFAULT_OPTS = '--ansi --info=inline --height=100% --layout=reverse'
 
 " preview/bat
@@ -16,3 +11,10 @@ let g:fzf_preview_window = ['right,50%', 'ctrl-l']
 
 " command prefix
 let g:fzf_command_prefix = 'Fzf'
+
+" action
+let g:fzf_action={
+            \ 'ctrl-t': 'tab split',
+            \ 'ctrl-s': 'split',
+            \ 'ctrl-v': 'vsplit',
+            \ }
