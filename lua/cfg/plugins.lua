@@ -196,8 +196,6 @@ local M = {
         dependencies = { "junegunn/fzf", "junegunn/fzf.vim" },
         init = vim_init("junegunn/fzf.vim"),
         keys = lua_keys("linrongbin16/fzfx.vim"),
-        dev = true,
-        dir = "~/github/linrongbin16/fzfx.vim",
     },
 
     -- ---- LSP ----

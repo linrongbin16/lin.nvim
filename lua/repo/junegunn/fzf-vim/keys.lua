@@ -5,7 +5,7 @@ local M = {
     keymap.map_lazy(
         "n",
         "<space>b",
-        keymap.exec("FzfBuffers2"),
+        keymap.exec("FzfBuffers"),
         { desc = "Search buffers" }
     ),
     -- search git
