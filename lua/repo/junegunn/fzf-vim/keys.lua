@@ -17,12 +17,6 @@ local M = {
     ),
     keymap.map_lazy(
         "n",
-        "<space>gb",
-        keymap.exec("FzfGBranches"),
-        { desc = "Search git branches" }
-    ),
-    keymap.map_lazy(
-        "n",
         "<space>gc",
         keymap.exec("FzfCommits"),
         { desc = "Search git commits" }

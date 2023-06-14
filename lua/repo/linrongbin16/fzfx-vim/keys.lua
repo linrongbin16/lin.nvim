@@ -40,6 +40,13 @@ local M = {
         keymap.exec("FzfxUnrestrictedGrepWord"),
         { desc = "Unrestricted grep word under cursor" }
     ),
+    -- git
+    keymap.map_lazy(
+        "n",
+        "<space>gb",
+        keymap.exec("FzfxBranches"),
+        { desc = "Search git branches" }
+    ),
 }
 
 return M
