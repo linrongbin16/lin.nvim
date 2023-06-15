@@ -33,8 +33,6 @@ lua require('cfg.keymap').map('x', '<leader>y', ":w! $HOME/.nvim/.copypaste<CR>"
 lua require('cfg.keymap').map('n', '<leader>p', ":r $HOME/.nvim/.copypaste<CR>", {silent=false, desc="Paste from cache"})
 
 """ ---- Optimization ----
-" Rendering
-set ttyfast
 " Large file
 augroup optimization_augroup
     autocmd!
