@@ -9,6 +9,7 @@ local vim_init = require("cfg.plugins_util").vim_init
 local vim_config = require("cfg.plugins_util").vim_config
 
 local VeryLazy = "VeryLazy"
+local BufNewFile = "BufNewFile"
 local BufRead = "BufRead"
 local CmdlineEnter = "CmdlineEnter"
 local VimEnter = "VimEnter"
@@ -187,7 +188,6 @@ local M = {
         event = { CmdlineEnter },
         dependencies = { "junegunn/fzf" },
         init = vim_init("junegunn/fzf.vim"),
-        config = vim_config("junegunn/fzf.vim"),
         keys = lua_keys("junegunn/fzf.vim"),
     },
     {

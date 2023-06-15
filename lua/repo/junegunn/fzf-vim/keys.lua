@@ -1,25 +1,12 @@
 local keymap = require("cfg.keymap")
 
 local M = {
-    -- search buffer
-    keymap.map_lazy(
-        "n",
-        "<space>b",
-        keymap.exec("FzfBuffers"),
-        { desc = "Search buffers" }
-    ),
     -- search git
     keymap.map_lazy(
         "n",
         "<space>gf",
         keymap.exec("FzfGFiles"),
         { desc = "Search git files" }
-    ),
-    keymap.map_lazy(
-        "n",
-        "<space>gb",
-        keymap.exec("FzfGBranches"),
-        { desc = "Search git branches" }
     ),
     keymap.map_lazy(
         "n",

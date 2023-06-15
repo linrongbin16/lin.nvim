@@ -14,6 +14,13 @@ local M = {
         keymap.exec("FzfxUnrestrictedFiles"),
         { desc = "Unrestricted find files" }
     ),
+    -- search buffer
+    keymap.map_lazy(
+        "n",
+        "<space>b",
+        keymap.exec("FzfxBuffers"),
+        { desc = "Search buffers" }
+    ),
     -- live grep
     keymap.map_lazy(
         "n",
@@ -39,6 +46,13 @@ local M = {
         "<space>uw",
         keymap.exec("FzfxUnrestrictedGrepWord"),
         { desc = "Unrestricted grep word under cursor" }
+    ),
+    -- git
+    keymap.map_lazy(
+        "n",
+        "<space>gb",
+        keymap.exec("FzfxBranches"),
+        { desc = "Search git branches" }
     ),
 }
 
