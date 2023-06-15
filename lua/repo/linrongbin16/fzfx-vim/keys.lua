@@ -14,6 +14,13 @@ local M = {
         keymap.exec("FzfxUnrestrictedFiles"),
         { desc = "Unrestricted find files" }
     ),
+    -- search buffer
+    keymap.map_lazy(
+        "n",
+        "<space>b",
+        keymap.exec("FzfxBuffers"),
+        { desc = "Search buffers" }
+    ),
     -- live grep
     keymap.map_lazy(
         "n",
