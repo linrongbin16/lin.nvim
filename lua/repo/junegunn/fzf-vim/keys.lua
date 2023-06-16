@@ -16,6 +16,12 @@ local M = {
     ),
     keymap.map_lazy(
         "n",
+        "<space>gbc",
+        keymap.exec("FzfBCommits"),
+        { desc = "Search git buffer commits" }
+    ),
+    keymap.map_lazy(
+        "n",
         "<space>gs",
         keymap.exec("FzfGFiles?"),
         { desc = "Search git status" }
