@@ -50,7 +50,7 @@ local M = {
     -- git
     keymap.map_lazy(
         "n",
-        "<space>gb",
+        "<space>gbr",
         keymap.exec("FzfxBranches"),
         { desc = "Search git branches" }
     ),
