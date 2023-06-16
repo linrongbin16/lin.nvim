@@ -37,9 +37,6 @@
 -- end
 
 local function GitDiff()
-    if vim.g.loaded_gitgutter <= 0 then
-        return ""
-    end
     local changes = vim.fn["GitGutterGetHunkSummary"]()
     if changes == nil or #changes ~= 3 then
         return ""
@@ -50,6 +47,19 @@ local function GitDiff()
     for i = 1, 3 do
         if changes[i] > 0 then
             table.insert(msg, signs[i] .. changes[i])
+        end
+    end
+    return #msg > 0 and table.concat(msg, " ") or ""
+end
+
+local function GitStatus()
+    local branch = vim.b.gitsigns_head
+    local changes = vim.b.gitsigns_status
+    local msg = {}
+    if branch ~= nil and string.len(branch) > 0 then
+        table.insert(msg, " " .. branch)
+        if changes ~= nil and string.len(changes) then
+            table.insert(msg, changes)
         end
     end
     return #msg > 0 and table.concat(msg, " ") or ""
@@ -153,8 +163,9 @@ local config = {
         lualine_a = { "mode" },
         lualine_b = { "filename" },
         lualine_c = {
-            "branch",
-            GitDiff,
+            -- "branch",
+            -- GitDiff,
+            GitStatus,
             {
                 "diagnostics",
                 symbols = {

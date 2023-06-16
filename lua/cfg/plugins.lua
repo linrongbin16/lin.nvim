@@ -141,13 +141,23 @@ local M = {
     {
         "nvim-lualine/lualine.nvim",
         event = { VimEnter },
-        dependencies = { "linrongbin16/lsp-progress.nvim" },
+        dependencies = {
+            "linrongbin16/lsp-progress.nvim",
+            "lewis6991/gitsigns.nvim",
+        },
         config = lua_config("nvim-lualine/lualine.nvim"),
     },
     {
         "linrongbin16/lsp-progress.nvim",
         event = { VimEnter },
         config = lua_config("linrongbin16/lsp-progress.nvim"),
+    },
+    -- Git
+    {
+        "lewis6991/gitsigns.nvim",
+        event = { VeryLazy, BufRead, BufNewFile },
+        config = lua_config("lewis6991/gitsigns.nvim"),
+        keys = lua_keys("lewis6991/gitsigns.nvim"),
     },
     -- Winbar
     {
@@ -162,13 +172,6 @@ local M = {
         "SmiteshP/nvim-navic",
         lazy = true,
         init = lua_init("SmiteshP/nvim-navic"),
-    },
-    -- Git
-    {
-        "airblade/vim-gitgutter",
-        event = { VeryLazy, BufRead, BufNewFile },
-        init = lua_init("airblade/vim-gitgutter"),
-        keys = lua_keys("airblade/vim-gitgutter"),
     },
     {
         "stevearc/dressing.nvim",
@@ -327,12 +330,6 @@ local M = {
 
     -- ---- GIT ----
 
-    {
-        "f-person/git-blame.nvim",
-        event = { VeryLazy, CmdlineEnter },
-        init = lua_init("f-person/git-blame.nvim"),
-        keys = lua_keys("f-person/git-blame.nvim"),
-    },
     -- Open git link In browser
     {
         "linrongbin16/gitlinker.nvim",

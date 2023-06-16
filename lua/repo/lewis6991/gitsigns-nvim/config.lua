@@ -1,12 +1,4 @@
 require("gitsigns").setup({
-    signs = {
-        add = { text = "+" }, -- vim-gitgutter style signs
-        change = { text = "~" },
-        delete = { text = "_" },
-        topdelete = { text = "‾" },
-        changedelete = { text = "~_" },
-        untracked = { text = "┆" },
-    },
     current_line_blame_opts = {
         delay = 300,
     },
@@ -20,7 +12,7 @@ require("gitsigns").setup({
         end
 
         -- Navigation
-        map("n", "]h", function()
+        map("n", "]c", function()
             if vim.wo.diff then
                 return "]c"
             end
@@ -30,7 +22,7 @@ require("gitsigns").setup({
             return "<Ignore>"
         end, { expr = true })
 
-        map("n", "[h", function()
+        map("n", "[c", function()
             if vim.wo.diff then
                 return "[c"
             end
