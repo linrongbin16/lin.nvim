@@ -1,1 +1,3 @@
-require("gitlinker").setup()
+require("gitlinker").setup({
+    mapping = false,
+})
