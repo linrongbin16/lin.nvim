@@ -23,13 +23,13 @@ local M = {
     ),
     -- live grep
     keymap.map_lazy(
-        "n",
+        { "n", "x" },
         "<space>l",
         keymap.exec("FzfxLiveGrep"),
         { desc = "Live grep" }
     ),
     keymap.map_lazy(
-        "n",
+        { "n", "x" },
         "<space>ul",
         keymap.exec("FzfxUnrestrictedLiveGrep"),
         { desc = "Unrestricted live grep" }
