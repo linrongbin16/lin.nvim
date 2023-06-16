@@ -5,11 +5,6 @@ return {
         priority = 1000,
     },
     {
-        "ayu-theme/ayu-vim",
-        lazy = true,
-        priority = 1000,
-    },
-    {
         "bluz71/vim-moonfly-colors",
         lazy = true,
         priority = 1000,
