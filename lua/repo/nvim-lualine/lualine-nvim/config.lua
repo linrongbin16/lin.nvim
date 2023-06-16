@@ -37,6 +37,9 @@
 -- end
 
 local function GitDiff()
+    if vim.g.loaded_gitgutter <= 0 then
+        return ""
+    end
     local changes = vim.fn["GitGutterGetHunkSummary"]()
     if changes == nil or #changes ~= 3 then
         return ""
