@@ -2,7 +2,6 @@
 
 let s:colors=[
             \ 'deus',
-            \ 'ayu',
             \ 'moonfly',
             \ 'nightfly',
             \ 'catppuccin',
