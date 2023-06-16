@@ -312,11 +312,10 @@ local M = {
     -- ---- CURSOR MOTION ----
 
     {
-        "phaazon/hop.nvim",
-        branch = "v2",
+        "smoka7/hop.nvim",
         event = { VeryLazy, CmdlineEnter },
-        config = lua_config("phaazon/hop.nvim"),
-        keys = lua_keys("phaazon/hop.nvim"),
+        config = lua_config("smoka7/hop.nvim"),
+        keys = lua_keys("smoka7/hop.nvim"),
     },
     {
         "ggandor/leap.nvim",
