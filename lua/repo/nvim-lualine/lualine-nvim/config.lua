@@ -60,7 +60,7 @@ local function GitStatus()
     local changes = vim.b.gitsigns_status
     local msg = {}
     if branch ~= nil and string.len(branch) > 0 then
-        table.insert(msg, " " .. branch)
+        table.insert(msg, " " .. branch)
         if changes ~= nil and string.len(changes) then
             table.insert(msg, changes)
         end
