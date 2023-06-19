@@ -26,7 +26,7 @@ local M = {
         { "n", "x" },
         "<space>l",
         keymap.exec(function()
-            vim.cmd.normal("<ESC>")
+            vim.cmd('execute "normal \\<ESC>"')
             vim.cmd("FzfxLiveGrep")
         end),
         { desc = "Live grep" }
@@ -35,7 +35,7 @@ local M = {
         { "n", "x" },
         "<space>ul",
         keymap.exec(function()
-            vim.cmd.normal("<ESC>")
+            vim.cmd('execute "normal \\<ESC>"')
             vim.cmd("FzfxUnrestrictedLiveGrep")
         end),
         { desc = "Unrestricted live grep" }
