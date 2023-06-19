@@ -23,15 +23,39 @@ local M = {
     ),
     -- live grep
     keymap.map_lazy(
-        { "n", "x" },
+        "n",
         "<space>l",
         keymap.exec("FzfxLiveGrep"),
         { desc = "Live grep" }
     ),
     keymap.map_lazy(
-        { "n", "x" },
+        "n",
+        "<space>l",
+        keymap.exec("FzfxLiveGrep"),
+        { desc = "Live grep" }
+    ),
+    keymap.map_lazy(
+        "x",
+        "<space>l",
+        keymap.exec(function()
+            vim.cmd('execute "normal \\<ESC>"')
+            vim.cmd("FzfxLiveGrepVisual")
+        end),
+        { desc = "Live grep" }
+    ),
+    keymap.map_lazy(
+        "n",
         "<space>ul",
         keymap.exec("FzfxUnrestrictedLiveGrep"),
+        { desc = "Unrestricted live grep" }
+    ),
+    keymap.map_lazy(
+        "x",
+        "<space>ul",
+        keymap.exec(function()
+            vim.cmd('execute "normal \\<ESC>"')
+            vim.cmd("FzfxUnrestrictedLiveGrepVisual")
+        end),
         { desc = "Unrestricted live grep" }
     ),
     -- search word
