@@ -280,12 +280,7 @@ local M = {
     {
         "linrongbin16/lspformatter.nvim",
         event = { VeryLazy, BufRead, BufNewFile },
-        dependencies = "linrongbin16/logger.nvim",
         config = lua_config("linrongbin16/lspformatter.nvim"),
-    },
-    {
-        "linrongbin16/logger.nvim",
-        lazy = true,
     },
 
     -- ---- SPECIFIC LANGUAGE SUPPORT ----
