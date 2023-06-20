@@ -11,7 +11,7 @@ local M = {
     keymap.map_lazy(
         "n",
         "<space>uf",
-        keymap.exec("FzfxUnrestrictedFiles"),
+        keymap.exec("FzfxFilesU"),
         { desc = "Unrestricted find files" }
     ),
     -- search buffer
@@ -29,24 +29,18 @@ local M = {
         { desc = "Live grep" }
     ),
     keymap.map_lazy(
-        "n",
-        "<space>l",
-        keymap.exec("FzfxLiveGrep"),
-        { desc = "Live grep" }
-    ),
-    keymap.map_lazy(
         "x",
         "<space>l",
         keymap.exec(function()
             vim.cmd('execute "normal \\<ESC>"')
-            vim.cmd("FzfxLiveGrepVisual")
+            vim.cmd("FzfxLiveGrepV")
         end),
         { desc = "Live grep" }
     ),
     keymap.map_lazy(
         "n",
         "<space>ul",
-        keymap.exec("FzfxUnrestrictedLiveGrep"),
+        keymap.exec("FzfxLiveGrepU"),
         { desc = "Unrestricted live grep" }
     ),
     keymap.map_lazy(
@@ -54,22 +48,22 @@ local M = {
         "<space>ul",
         keymap.exec(function()
             vim.cmd('execute "normal \\<ESC>"')
-            vim.cmd("FzfxUnrestrictedLiveGrepVisual")
+            vim.cmd("FzfxLiveGrepUV")
         end),
         { desc = "Unrestricted live grep" }
     ),
     -- search word
     keymap.map_lazy(
         "n",
-        "<space>w",
-        keymap.exec("FzfxGrepWord"),
-        { desc = "Grep word under cursor" }
+        "<space>wl",
+        keymap.exec("FzfxLiveGrepW"),
+        { desc = "Live grep by cursor word" }
     ),
     keymap.map_lazy(
         "n",
-        "<space>uw",
-        keymap.exec("FzfxUnrestrictedGrepWord"),
-        { desc = "Unrestricted grep word under cursor" }
+        "<space>uwl",
+        keymap.exec("FzfxLiveGrepUW"),
+        { desc = "Unrestricted live grep by cursor word" }
     ),
     -- git
     keymap.map_lazy(
