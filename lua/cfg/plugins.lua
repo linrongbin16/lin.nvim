@@ -309,6 +309,7 @@ local M = {
     {
         "smoka7/hop.nvim",
         event = { VeryLazy, CmdlineEnter },
+        version = "*",
         config = lua_config("smoka7/hop.nvim"),
         keys = lua_keys("smoka7/hop.nvim"),
     },
