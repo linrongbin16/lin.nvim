@@ -9,10 +9,35 @@ local M = {
         { desc = "Find files" }
     ),
     keymap.map_lazy(
+        "x",
+        "<space>f",
+        keymap.exec("FzfxFilesV"),
+        { desc = "Find files" }
+    ),
+    keymap.map_lazy(
         "n",
         "<space>uf",
         keymap.exec("FzfxFilesU"),
         { desc = "Unrestricted find files" }
+    ),
+    keymap.map_lazy(
+        "x",
+        "<space>uf",
+        keymap.exec("FzfxFilesUV"),
+        { desc = "Unrestricted find files" }
+    ),
+    -- find files by cursor word
+    keymap.map_lazy(
+        "n",
+        "<space>wf",
+        keymap.exec("FzfxFilesW"),
+        { desc = "Find files by cursor word" }
+    ),
+    keymap.map_lazy(
+        "n",
+        "<space>uwf",
+        keymap.exec("FzfxFilesUW"),
+        { desc = "Unrestricted find files by cursor word" }
     ),
     -- search buffer
     keymap.map_lazy(
