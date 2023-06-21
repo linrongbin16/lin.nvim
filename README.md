@@ -18,7 +18,7 @@ lin.nvim is a highly configured [Neovim](https://neovim.io/) distribution integr
 
 ## Introduction
 
-Aim to be out-of-box, with IDE features, performant, lightweight and friendly to most Neovim users. Focus on and only on editing, no compiling/packaging/debugging.
+Aim to be out-of-box, IDE-like editing experience, performant, lightweight and friendly to most Neovim users. Focus on and only on editing, no compiling/packaging/debugging.
 
 [Get started](https://linrongbin16.github.io/lin.nvim.dev/#/) now!
 
