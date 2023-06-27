@@ -44,6 +44,21 @@ The ultra config to solve these issues:
 
 ## Features Browsing
 
+https://github.com/linrongbin16/lin.nvim/assets/6496887/c7308e7e-098a-43fa-85ef-e8aa943e96d9
+
+<p align="center"><em style="fontsize:50%">Auto-complete</em></p>
+
+<p align="center">
+  <img width="100%" alt="image" src="https://github.com/linrongbin16/lin.nvim/assets/6496887/899c0e25-6307-494a-9bcf-82028251a914">
+  </br>
+  <em style="fontsize:50%">Diagnostics</em>
+</p>
+
+https://github.com/linrongbin16/lin.nvim/assets/6496887/c2c69c4f-b642-4e41-80e9-4e4edefd7f76
+
+<p align="center"><em style="fontsize:50%">Global search on both files and text</em></p>
+
+
 ## Contribute
 
 Please open issue/PR for anything about lin.nvim.
