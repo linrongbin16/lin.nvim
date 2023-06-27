@@ -54,6 +54,11 @@ https://github.com/linrongbin16/lin.nvim/assets/6496887/c7308e7e-098a-43fa-85ef-
   <em style="fontsize:50%">Diagnostics</em>
 </p>
 
+https://github.com/linrongbin16/lin.nvim/assets/6496887/c2c69c4f-b642-4e41-80e9-4e4edefd7f76
+
+<p align="center"><em style="fontsize:50%">Global search</em></p>
+
+
 ## Contribute
 
 Please open issue/PR for anything about lin.nvim.
