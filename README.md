@@ -46,7 +46,7 @@ The ultra config to solve these issues:
 
 https://github.com/linrongbin16/lin.nvim/assets/6496887/dd957049-35ba-4aaf-aece-3be15dfdc471
 
-<em style="fontsize:50%">Auto-complete</em>
+<p align="center"><em style="fontsize:50%">Auto-complete</em></p>
 
 <p align="center">
   <img width="100%" alt="image" src="https://github.com/linrongbin16/lin.nvim/assets/6496887/899c0e25-6307-494a-9bcf-82028251a914">
