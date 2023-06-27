@@ -44,6 +44,18 @@ The ultra config to solve these issues:
 
 ## Features Browsing
 
+<p align="center">
+  https://github.com/linrongbin16/lin.nvim/assets/6496887/dd957049-35ba-4aaf-aece-3be15dfdc471
+  </br>
+  <em style="fontsize:50%">Diagnostics</em>
+</p>
+
+<p align="center">
+  <img width="100%" alt="image" src="https://github.com/linrongbin16/lin.nvim/assets/6496887/899c0e25-6307-494a-9bcf-82028251a914">
+  </br>
+  <em style="fontsize:50%">Diagnostics</em>
+</p>
+
 ## Contribute
 
 Please open issue/PR for anything about lin.nvim.
