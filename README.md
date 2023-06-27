@@ -14,6 +14,8 @@ lin.nvim is a highly configured [Neovim](https://neovim.io/) distribution integr
 </p>
 -->
 
+![image](https://github.com/linrongbin16/lin.nvim/assets/6496887/db296d82-b83a-4fe7-a05f-0e2263c43e9c)
+
 ![image](https://github.com/linrongbin16/lin.nvim/assets/6496887/309f2399-65e6-4036-bcca-484424f1ab10)
 
 ## Introduction
