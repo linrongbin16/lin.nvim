@@ -45,7 +45,7 @@ The ultra config to solve these issues:
 ## Features Browsing
 
 https://github.com/linrongbin16/lin.nvim/assets/6496887/dd957049-35ba-4aaf-aece-3be15dfdc471
-</br>
+
 <em style="fontsize:50%">Auto-complete</em>
 
 <p align="center">
