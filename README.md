@@ -44,7 +44,7 @@ The ultra config to solve these issues:
   [null-ls.nvim](https://github.com/jose-elias-alvarez/null-ls.nvim) and a bunch of language extensions are embeded.
 - Naive UI? - File explorer, git status, opened buffers,
   icons and most popular colorschemes integrated (again, just like vscode).
-- More effectively editing? - Most popular vim editing enhancement plugins
+- More efficient? - Most popular vim editing enhancement plugins
   embeded, and well cooperated for best user experience and performance.
 
 When maintaining this config, I always follow some [philosophy](https://github.com/linrongbin16/lin.nvim/wiki/Philosophy).
