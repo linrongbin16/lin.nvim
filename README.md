@@ -20,7 +20,7 @@ integrated with tons of utilities for development, inspired by [spf13-vim](https
 ## Table of Contents
 
 - [Introduction](#introduction)
-- [Features Browsing](#features-browsing)
+- [Features](#features)
 - [Get Started](#get-started)
   - [MacOS/Linux](#macoslinux)
   - [Windows](#windows)
@@ -51,7 +51,7 @@ The ultra config to solve these issues:
 
 When maintaining this config, I always follow some [philosophy](https://github.com/linrongbin16/lin.nvim/wiki/Philosophy).
 
-## Features Browsing
+## Features
 
 <details>
   <summary>Click to expand</summary>
