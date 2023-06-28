@@ -28,7 +28,7 @@ integrated with tons of utilities for development, inspired by [spf13-vim](https
 
 ## Introduction
 
-Aim to be out-of-box, IDE-like editing experience, performant, lightweight and
+Aim to be out-of-box, IDE-like editing experienced, performant, lightweight and
 friendly to most Neovim users. Focus on and only on editing, no compiling/packaging/debugging.
 
 The ultra config to solve these issues:
