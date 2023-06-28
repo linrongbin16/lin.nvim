@@ -21,10 +21,10 @@ integrated with tons of utilities for development, inspired by [spf13-vim](https
 
 - [Introduction](#introduction)
 - [Features](#features)
-- [Get Started](#get-started)
+- [Get started](#get-started)
   - [MacOS/Linux](#macoslinux)
   - [Windows](#windows)
-  - [User Guide](#user-guide)
+  - [User guide](#user-guide)
 
 ## Introduction
 
@@ -55,49 +55,45 @@ When maintaining this config, I always follow some [philosophy](https://github.c
   <summary>Click to expand</summary>
   </br>
 
+### Auto-complete
+
 https://github.com/linrongbin16/lin.nvim/assets/6496887/511b2012-5b2f-4e00-a28b-52dcf1a81000
 
-<p align="center"><em style="fontsize:50%">Auto-complete</em></p>
+### Diagnostics
 
-<p align="center">
-  <img width="100%" alt="image" src="https://github.com/linrongbin16/lin.nvim/assets/6496887/899c0e25-6307-494a-9bcf-82028251a914">
-  </br>
-  <em style="fontsize:50%">Diagnostics</em>
-</p>
+<img width="100%" alt="image" src="https://github.com/linrongbin16/lin.nvim/assets/6496887/899c0e25-6307-494a-9bcf-82028251a914">
+
+### Global search (on both files and text)
 
 https://github.com/linrongbin16/lin.nvim/assets/6496887/ac082f93-b60d-452a-a339-bad30a08bca0
 
-<p align="center"><em style="fontsize:50%">Global search on both files and text</em></p>
+### Outline structure and undotree
 
 https://github.com/linrongbin16/lin.nvim/assets/6496887/0adf8628-ccba-4082-a4ca-12490fce26b1
 
-<p align="center"><em style="fontsize:50%">Outline structure and undotree</em></p>
+### Float terminal
 
 https://github.com/linrongbin16/lin.nvim/assets/6496887/ac1a98da-a56f-4396-a938-0c447f57f358
 
-<p align="center"><em style="fontsize:50%">Float terminal</em></p>
+### Tabline/buffers
 
 https://github.com/linrongbin16/lin.nvim/assets/6496887/7fbbb203-7591-4dc6-97b8-eaa21b2172ec
 
-<p align="center"><em style="fontsize:50%">Buffers</em></p>
+### Highlight words
 
 https://github.com/linrongbin16/lin.nvim/assets/6496887/30d12964-ac78-41e8-bb56-2f6f00ae6831
 
-<p align="center"><em style="fontsize:50%">Highlight words</em></p>
+### CSS color
 
-<p align="center">
-  <img width="100%" alt="image" src="https://github.com/linrongbin16/lin.nvim/assets/6496887/e0df23f8-efe1-44ca-b442-7c177f06cfad">
-  </br>
-  <em style="fontsize:50%">CSS color</em>
-</p>
+<img width="100%" alt="image" src="https://github.com/linrongbin16/lin.nvim/assets/6496887/e0df23f8-efe1-44ca-b442-7c177f06cfad">
+
+### Cursor motion
 
 https://github.com/linrongbin16/lin.nvim/assets/6496887/abfc287c-3cda-463d-b329-cff82c9131a5
 
-<p align="center"><em style="fontsize:50%">Cursor motion</em></p>
+### Markdown preview
 
 https://github.com/linrongbin16/lin.nvim/assets/6496887/bbad07d8-7971-4f5d-8977-c71a40a51097
-
-<p align="center"><em style="fontsize:50%">Markdown preview</em></p>
 
 </details>
 
@@ -119,7 +115,7 @@ For more details, please check out [MacOS/Linux installation](https://github.com
 
 Please check out [Windows installation](https://github.com/linrongbin16/lin.nvim/wiki/Install,-Upgrade-&-Uninstall#windows).
 
-### User Guide
+### User guide
 
 Please check out [user guide](https://github.com/linrongbin16/lin.nvim/wiki/User-Guide).
 
