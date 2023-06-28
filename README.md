@@ -62,7 +62,7 @@ And that's all of it.
 
 ### For Windows
 
-Please check out [Installation - Windows](https://linrongbin16.github.io/lin.nvim.dev/#/installation/windows).
+Please check out [Windows installation](https://github.com/linrongbin16/lin.nvim/wiki/Install,-Upgrade-&-Uninstall#windows).
 
 ### User Guide
 
