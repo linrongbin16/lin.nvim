@@ -55,6 +55,7 @@ When maintaining this config, I always follow some [philosophy](https://github.c
 
 <details>
   <summary>Click to expand</summary>
+  </br>
 
 https://github.com/linrongbin16/lin.nvim/assets/6496887/511b2012-5b2f-4e00-a28b-52dcf1a81000
 
