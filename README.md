@@ -66,6 +66,10 @@ https://github.com/linrongbin16/lin.nvim/assets/6496887/172bdf8e-4f25-4160-a510-
 
 <p align="center"><em style="fontsize:50%">Float terminal</em></p>
 
+https://github.com/linrongbin16/lin.nvim/assets/6496887/0da7e9ee-1d6d-4474-bccd-8a148f3b8be1
+
+<p align="center"><em style="fontsize:50%">Buffers</em></p>
+
 ## Contribute
 
 Please open issue/PR for anything about lin.nvim.
