@@ -66,7 +66,7 @@ Please check out [Windows installation](https://github.com/linrongbin16/lin.nvim
 
 ### User Guide
 
-Please check out [user guide](https://linrongbin16.github.io/lin.nvim.dev/#/user-guide/term) for more document.
+Please check out [user guide](https://github.com/linrongbin16/lin.nvim/wiki/User-Guide) for more document.
 
 ## Features Browsing
 
