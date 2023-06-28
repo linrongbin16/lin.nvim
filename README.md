@@ -62,6 +62,10 @@ https://github.com/linrongbin16/lin.nvim/assets/6496887/9733d20a-44fb-4b8b-a4fa-
 
 <p align="center"><em style="fontsize:50%">Outline structure and undo tree</em></p>
 
+https://github.com/linrongbin16/lin.nvim/assets/6496887/172bdf8e-4f25-4160-a510-1d8aa62d6144
+
+<p align="center"><em style="fontsize:50%">Float terminal</em></p>
+
 ## Contribute
 
 Please open issue/PR for anything about lin.nvim.
