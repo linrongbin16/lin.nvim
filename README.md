@@ -70,7 +70,7 @@ https://github.com/linrongbin16/lin.nvim/assets/6496887/7fbbb203-7591-4dc6-97b8-
 
 <p align="center"><em style="fontsize:50%">Buffers</em></p>
 
-https://github.com/linrongbin16/lin.nvim/assets/6496887/01475119-d575-40de-892e-be5bc77bd912
+https://github.com/linrongbin16/lin.nvim/assets/6496887/30d12964-ac78-41e8-bb56-2f6f00ae6831
 
 <p align="center"><em style="fontsize:50%">Highlight words</em></p>
 
