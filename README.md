@@ -58,9 +58,9 @@ https://github.com/linrongbin16/lin.nvim/assets/6496887/ac082f93-b60d-452a-a339-
 
 <p align="center"><em style="fontsize:50%">Global search on both files and text</em></p>
 
-https://github.com/linrongbin16/lin.nvim/assets/6496887/9733d20a-44fb-4b8b-a4fa-a4c56c4d02a1
+https://github.com/linrongbin16/lin.nvim/assets/6496887/0adf8628-ccba-4082-a4ca-12490fce26b1
 
-<p align="center"><em style="fontsize:50%">Outline structure and undo tree</em></p>
+<p align="center"><em style="fontsize:50%">Outline structure and undotree</em></p>
 
 https://github.com/linrongbin16/lin.nvim/assets/6496887/172bdf8e-4f25-4160-a510-1d8aa62d6144
 
