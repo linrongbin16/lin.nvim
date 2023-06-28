@@ -84,6 +84,10 @@ https://github.com/linrongbin16/lin.nvim/assets/6496887/abfc287c-3cda-463d-b329-
 
 <p align="center"><em style="fontsize:50%">Cursor motion</em></p>
 
+https://github.com/linrongbin16/lin.nvim/assets/6496887/bbad07d8-7971-4f5d-8977-c71a40a51097
+
+<p align="center"><em style="fontsize:50%">Markdown preview</em></p>
+
 ## Contribute
 
 Please open issue/PR for anything about lin.nvim.
