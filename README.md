@@ -113,6 +113,8 @@ And that's all of it.
 
 > Note: macOS use `brew` as package installer, please install [Xcode](https://developer.apple.com/xcode/) and [homebrew](https://brew.sh/) as pre-requirements.
 
+For more details, please check out [MacOS/Linux installation](https://github.com/linrongbin16/lin.nvim/wiki/Install,-Upgrade-&-Uninstall#macoslinux).
+
 ### Windows
 
 Please check out [Windows installation](https://github.com/linrongbin16/lin.nvim/wiki/Install,-Upgrade-&-Uninstall#windows).
