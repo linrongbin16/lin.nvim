@@ -37,16 +37,14 @@ The ultra config to solve these issues:
   command (not on Windows for now), same behaviors on all platforms.
 - Time-costing configurations? All configs follow community best practice, vim
   trandition and most popular editors (just like [vscode](https://code.visualstudio.com/)).
-- Lack of IDE-like editing features (auto-complete, diagnostics, auto-format,
+- Lack of IDE-like features (auto-complete, diagnostics, code-format,
   lint)? [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig),
   [nvim-cmp](https://github.com/hrsh7th/nvim-cmp),
   [mason.nvim](https://github.com/williamboman/mason.nvim),
-  [null-ls.nvim](https://github.com/jose-elias-alvarez/null-ls.nvim),
-  [fzf.vim](https://github.com/junegunn/fzf.vim) and a bunch of language plugins
-  and extensions are embeded.
-- Naive UI (lack of IDE-like UI)? - File explorer, git status, opened buffers,
+  [null-ls.nvim](https://github.com/jose-elias-alvarez/null-ls.nvim) and a bunch of language extensions are embeded.
+- Naive UI? - File explorer, git status, opened buffers,
   icons and most popular colorschemes integrated (again, just like vscode).
-- How to use in the vim way? - Most popular vim editing enhancement plugins
+- More effectively editing? - Most popular vim editing enhancement plugins
   embeded, and well cooperated for best user experience and performance.
 
 When maintaining this config, I always follow some [philosophy](https://github.com/linrongbin16/lin.nvim/wiki/Philosophy).
