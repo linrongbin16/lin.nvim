@@ -119,7 +119,7 @@ Please check out [Windows installation](https://github.com/linrongbin16/lin.nvim
 
 ### User Guide
 
-For more details, please check out [user guide](https://github.com/linrongbin16/lin.nvim/wiki/User-Guide).
+Please check out [user guide](https://github.com/linrongbin16/lin.nvim/wiki/User-Guide).
 
 ## Contribute
 
