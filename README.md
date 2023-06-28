@@ -63,6 +63,10 @@ https://github.com/linrongbin16/lin.nvim/assets/6496887/511b2012-5b2f-4e00-a28b-
 
 <img width="100%" alt="image" src="https://github.com/linrongbin16/lin.nvim/assets/6496887/899c0e25-6307-494a-9bcf-82028251a914">
 
+### Symbol navigation
+
+https://github.com/linrongbin16/lin.nvim/assets/6496887/bc1b9e52-278b-44a7-ad0e-5840e540a53e
+
 ### Global search (on both files and text)
 
 https://github.com/linrongbin16/lin.nvim/assets/6496887/ac082f93-b60d-452a-a339-bad30a08bca0
