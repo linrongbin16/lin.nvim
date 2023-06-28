@@ -80,6 +80,10 @@ https://github.com/linrongbin16/lin.nvim/assets/6496887/30d12964-ac78-41e8-bb56-
   <em style="fontsize:50%">CSS color</em>
 </p>
 
+https://github.com/linrongbin16/lin.nvim/assets/6496887/abfc287c-3cda-463d-b329-cff82c9131a5
+
+<p align="center"><em style="fontsize:50%">Cursor motion</em></p>
+
 ## Contribute
 
 Please open issue/PR for anything about lin.nvim.
