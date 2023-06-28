@@ -46,6 +46,8 @@ The ultra config to solve these issues:
 - How to use in the vim way? - Most popular vim editing enhancement plugins
   embeded, and well cooperated for best user experience and performance.
 
+When maintaining this config, I always follow some [philosophy](https://github.com/linrongbin16/lin.nvim/wiki/Philosophy).
+
 ## Get started
 
 ### For MacOS/Linux
