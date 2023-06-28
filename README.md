@@ -20,8 +20,11 @@ integrated with tons of utilities for development, inspired by [spf13-vim](https
 ## Table of Contents
 
 - [Introduction](#introduction)
-- [Get Started](#get-started)
 - [Features Browsing](#features-browsing)
+- [Get Started](#get-started)
+  - [MacOS/Linux](#macoslinux)
+  - [Windows](#windows)
+  - [User Guide](#user-guide)
 
 ## Introduction
 
@@ -48,27 +51,11 @@ The ultra config to solve these issues:
 
 When maintaining this config, I always follow some [philosophy](https://github.com/linrongbin16/lin.nvim/wiki/Philosophy).
 
-## Get started
-
-### For MacOS/Linux
-
-```bash
-git clone https://github.com/linrongbin16/lin.nvim ~/.nvim && cd ~/.nvim && ./install.sh
-```
-
-And that's all of it.
-
-> Note: macOS use `brew` as package installer, please install [Xcode](https://developer.apple.com/xcode/) and [homebrew](https://brew.sh/) as pre-requirements.
-
-### For Windows
-
-Please check out [Installation - Windows](https://linrongbin16.github.io/lin.nvim.dev/#/installation/windows).
-
-### User Guide
-
-Please check out [user guide](https://linrongbin16.github.io/lin.nvim.dev/#/user-guide/term) for more document.
-
 ## Features Browsing
+
+<details>
+  <summary>Click to expand</summary>
+  </br>
 
 https://github.com/linrongbin16/lin.nvim/assets/6496887/511b2012-5b2f-4e00-a28b-52dcf1a81000
 
@@ -113,6 +100,28 @@ https://github.com/linrongbin16/lin.nvim/assets/6496887/abfc287c-3cda-463d-b329-
 https://github.com/linrongbin16/lin.nvim/assets/6496887/bbad07d8-7971-4f5d-8977-c71a40a51097
 
 <p align="center"><em style="fontsize:50%">Markdown preview</em></p>
+
+</details>
+
+## Get started
+
+### MacOS/Linux
+
+```bash
+git clone https://github.com/linrongbin16/lin.nvim ~/.nvim && cd ~/.nvim && ./install.sh
+```
+
+And that's all of it.
+
+> Note: macOS use `brew` as package installer, please install [Xcode](https://developer.apple.com/xcode/) and [homebrew](https://brew.sh/) as pre-requirements.
+
+### Windows
+
+Please check out [Windows installation](https://github.com/linrongbin16/lin.nvim/wiki/Install,-Upgrade-&-Uninstall#windows).
+
+### User Guide
+
+For more details, please check out [user guide](https://github.com/linrongbin16/lin.nvim/wiki/User-Guide).
 
 ## Contribute
 
