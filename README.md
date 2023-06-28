@@ -58,6 +58,17 @@ https://github.com/linrongbin16/lin.nvim/assets/6496887/c2c69c4f-b642-4e41-80e9-
 
 <p align="center"><em style="fontsize:50%">Global search on both files and text</em></p>
 
+https://github.com/linrongbin16/lin.nvim/assets/6496887/9733d20a-44fb-4b8b-a4fa-a4c56c4d02a1
+
+<p align="center"><em style="fontsize:50%">Outline structure and undo tree</em></p>
+
+https://github.com/linrongbin16/lin.nvim/assets/6496887/172bdf8e-4f25-4160-a510-1d8aa62d6144
+
+<p align="center"><em style="fontsize:50%">Float terminal</em></p>
+
+https://github.com/linrongbin16/lin.nvim/assets/6496887/0da7e9ee-1d6d-4474-bccd-8a148f3b8be1
+
+<p align="center"><em style="fontsize:50%">Buffers</em></p>
 
 ## Contribute
 
