@@ -74,6 +74,12 @@ https://github.com/linrongbin16/lin.nvim/assets/6496887/30d12964-ac78-41e8-bb56-
 
 <p align="center"><em style="fontsize:50%">Highlight words</em></p>
 
+<p align="center">
+  <img width="100%" alt="image" src="https://github.com/linrongbin16/lin.nvim/assets/6496887/e0df23f8-efe1-44ca-b442-7c177f06cfad">
+  </br>
+  <em style="fontsize:50%">CSS color</em>
+</p>
+
 ## Contribute
 
 Please open issue/PR for anything about lin.nvim.
