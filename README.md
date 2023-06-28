@@ -17,6 +17,10 @@ integrated with tons of utilities for development, inspired by [spf13-vim](https
 <!-- ![image](https://github.com/linrongbin16/lin.nvim/assets/6496887/db296d82-b83a-4fe7-a05f-0e2263c43e9c) -->
 <!-- ![image](https://github.com/linrongbin16/lin.nvim/assets/6496887/309f2399-65e6-4036-bcca-484424f1ab10) -->
 
+- [Introduction](#introduction)
+- [Get Started](#get-started)
+- [Features Browsing](#features-browsing)
+
 ## Introduction
 
 Aim to be out-of-box, IDE-like editing experience, performant, lightweight and
@@ -40,7 +44,25 @@ The ultra config to solve these issues:
 - How to use in the vim way? - Most popular vim editing enhancement plugins
   embeded, and well cooperated for best user experience and performance.
 
-[Get started](https://linrongbin16.github.io/lin.nvim.dev/#/) now!
+## Get started
+
+### For MacOS/Linux
+
+```bash
+git clone https://github.com/linrongbin16/lin.nvim ~/.nvim && cd ~/.nvim && ./install.sh
+```
+
+And that's all of it.
+
+> Note: macOS use `brew` as package installer, please install [Xcode](https://developer.apple.com/xcode/) and [homebrew](https://brew.sh/) as pre-requirements.
+
+### For Windows
+
+Please check out [Installation - Windows](https://linrongbin16.github.io/lin.nvim.dev/#/installation/windows).
+
+### User Guide
+
+Please check out [user guide](https://linrongbin16.github.io/lin.nvim.dev/#/user-guide/term) for more document.
 
 ## Features Browsing
 
