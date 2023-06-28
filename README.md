@@ -53,6 +53,9 @@ When maintaining this config, I always follow some [philosophy](https://github.c
 
 ## Features Browsing
 
+<details>
+  <summary>Click to expand</summary>
+
 https://github.com/linrongbin16/lin.nvim/assets/6496887/511b2012-5b2f-4e00-a28b-52dcf1a81000
 
 <p align="center"><em style="fontsize:50%">Auto-complete</em></p>
@@ -96,6 +99,8 @@ https://github.com/linrongbin16/lin.nvim/assets/6496887/abfc287c-3cda-463d-b329-
 https://github.com/linrongbin16/lin.nvim/assets/6496887/bbad07d8-7971-4f5d-8977-c71a40a51097
 
 <p align="center"><em style="fontsize:50%">Markdown preview</em></p>
+
+</details>
 
 ## Get started
 
