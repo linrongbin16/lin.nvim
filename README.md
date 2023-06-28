@@ -21,7 +21,7 @@ integrated with tons of utilities for development, inspired by [spf13-vim](https
 
 - [Introduction](#introduction)
 - [Get Started](#get-started)
-  - [MacOS/Linux](#macos-linux)
+  - [MacOS/Linux](#macoslinux)
   - [Windows](#windows)
   - [User Guide](#user-guide)
 - [Features Browsing](#features-browsing)
