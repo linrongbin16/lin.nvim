@@ -21,6 +21,9 @@ integrated with tons of utilities for development, inspired by [spf13-vim](https
 
 - [Introduction](#introduction)
 - [Get Started](#get-started)
+  - [MacOS/Linux](#macos-linux)
+  - [Windows](#windows)
+  - [User Guide](#user-guide)
 - [Features Browsing](#features-browsing)
 
 ## Introduction
@@ -50,7 +53,7 @@ When maintaining this config, I always follow some [philosophy](https://github.c
 
 ## Get started
 
-### For MacOS/Linux
+### MacOS/Linux
 
 ```bash
 git clone https://github.com/linrongbin16/lin.nvim ~/.nvim && cd ~/.nvim && ./install.sh
@@ -60,7 +63,7 @@ And that's all of it.
 
 > Note: macOS use `brew` as package installer, please install [Xcode](https://developer.apple.com/xcode/) and [homebrew](https://brew.sh/) as pre-requirements.
 
-### For Windows
+### Windows
 
 Please check out [Windows installation](https://github.com/linrongbin16/lin.nvim/wiki/Install,-Upgrade-&-Uninstall#windows).
 
