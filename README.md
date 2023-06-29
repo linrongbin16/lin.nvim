@@ -51,7 +51,7 @@ When maintaining this config, I always follow some [philosophy](https://github.c
 
 ## Features
 
-Please check out [Features](https://github.com/linrongbin16/lin.nvim/wiki/Features).
+Please check out [Features](https://github.com/linrongbin16/lin.nvim/wiki/Features) & [Colorschemes](https://github.com/linrongbin16/lin.nvim/wiki/Colorschemes).
 
 ## Get started
 
@@ -73,7 +73,7 @@ Please check out [Windows installation](https://github.com/linrongbin16/lin.nvim
 
 ### User guide
 
-Please check out [user guide](https://github.com/linrongbin16/lin.nvim/wiki/User-Guide).
+Please check out [User guide](https://github.com/linrongbin16/lin.nvim/wiki/User-Guide).
 
 ## Contribute
 
