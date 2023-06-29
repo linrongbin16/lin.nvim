@@ -51,55 +51,7 @@ When maintaining this config, I always follow some [philosophy](https://github.c
 
 ## Features
 
-<details>
-  <summary>Click to expand</summary>
-  </br>
-
-### Auto-complete
-
-https://github.com/linrongbin16/lin.nvim/assets/6496887/511b2012-5b2f-4e00-a28b-52dcf1a81000
-
-### Diagnostics
-
-<img width="100%" alt="image" src="https://github.com/linrongbin16/lin.nvim/assets/6496887/899c0e25-6307-494a-9bcf-82028251a914">
-
-### Symbol navigation
-
-https://github.com/linrongbin16/lin.nvim/assets/6496887/bc1b9e52-278b-44a7-ad0e-5840e540a53e
-
-### Global search (on both files and text)
-
-https://github.com/linrongbin16/lin.nvim/assets/6496887/ac082f93-b60d-452a-a339-bad30a08bca0
-
-### Outline structure and undotree
-
-https://github.com/linrongbin16/lin.nvim/assets/6496887/0adf8628-ccba-4082-a4ca-12490fce26b1
-
-### Float terminal
-
-https://github.com/linrongbin16/lin.nvim/assets/6496887/ac1a98da-a56f-4396-a938-0c447f57f358
-
-### Tabline/buffers
-
-https://github.com/linrongbin16/lin.nvim/assets/6496887/7fbbb203-7591-4dc6-97b8-eaa21b2172ec
-
-### Highlight words
-
-https://github.com/linrongbin16/lin.nvim/assets/6496887/30d12964-ac78-41e8-bb56-2f6f00ae6831
-
-### CSS color
-
-<img width="100%" alt="image" src="https://github.com/linrongbin16/lin.nvim/assets/6496887/e0df23f8-efe1-44ca-b442-7c177f06cfad">
-
-### Cursor motion
-
-https://github.com/linrongbin16/lin.nvim/assets/6496887/abfc287c-3cda-463d-b329-cff82c9131a5
-
-### Markdown preview
-
-https://github.com/linrongbin16/lin.nvim/assets/6496887/bbad07d8-7971-4f5d-8977-c71a40a51097
-
-</details>
+Please check out [Features](https://github.com/linrongbin16/lin.nvim/wiki/Features).
 
 ## Get started
 
