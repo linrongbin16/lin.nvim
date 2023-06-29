@@ -11,7 +11,10 @@ local M = {
     keymap.map_lazy(
         "x",
         "<space>f",
-        keymap.exec("FzfxFilesV"),
+        keymap.exec(function()
+            vim.cmd('execute "normal \\<ESC>"')
+            vim.cmd("FzfxFilesV")
+        end),
         { desc = "Find files" }
     ),
     keymap.map_lazy(
@@ -23,7 +26,10 @@ local M = {
     keymap.map_lazy(
         "x",
         "<space>uf",
-        keymap.exec("FzfxFilesUV"),
+        keymap.exec(function()
+            vim.cmd('execute "normal \\<ESC>"')
+            vim.cmd("FzfxFilesUV")
+        end),
         { desc = "Unrestricted find files" }
     ),
     -- find files by cursor word
