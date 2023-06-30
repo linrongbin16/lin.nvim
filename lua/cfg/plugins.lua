@@ -187,6 +187,7 @@ local M = {
     },
     {
         "rcarriga/nvim-notify",
+        config = lua_config("rcarriga/nvim-notify"),
         lazy = true,
     },
 
