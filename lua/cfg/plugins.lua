@@ -181,14 +181,8 @@ local M = {
         event = { VimEnter },
         dependencies = {
             "MunifTanjim/nui.nvim",
-            "rcarriga/nvim-notify",
         },
         config = lua_config("folke/noice.nvim"),
-    },
-    {
-        "rcarriga/nvim-notify",
-        config = lua_config("rcarriga/nvim-notify"),
-        lazy = true,
     },
 
     -- ---- SEARCH ----

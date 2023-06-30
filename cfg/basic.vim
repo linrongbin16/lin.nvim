@@ -62,7 +62,7 @@ set number norelativenumber signcolumn=yes
 set ruler noshowmode laststatus=3
 
 """ command line and message
-set wildmenu showcmd cmdheight=2 display+=lastline shortmess+=c
+set wildmenu showcmd cmdheight=1 display+=lastline shortmess+=c
 if has('patch-7.4.2109')
     set display+=truncate
 endif
