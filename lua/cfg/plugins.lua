@@ -175,9 +175,10 @@ local M = {
         event = { VeryLazy, BufRead, BufNewFile },
         config = lua_config("stevearc/dressing.nvim"),
     },
+    -- UI improved
     {
         "folke/noice.nvim",
-        event = VimEnter,
+        event = { VimEnter },
         dependencies = {
             "MunifTanjim/nui.nvim",
             "rcarriga/nvim-notify",
