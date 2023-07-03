@@ -4,6 +4,8 @@
 -- For automatic lsp server setup, please refer to:
 --  * [mason-lspconfig's Automatic server setup](https://github.com/williamboman/mason-lspconfig.nvim#automatic-server-setup-advanced-feature).
 
+-- Please copy this file to 'setup_handlers.lua' to enable it.
+
 local lspconfig = require("lspconfig")
 local lsp_setup_helper = require("builtin.utils.lsp_setup_helper")
 

@@ -4,6 +4,8 @@
 -- For full available lsp servers list, please refer to:
 --  * [mason-lspconfig Available LSP servers](https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers) for more LSP servers.
 
+-- Please copy this file to 'ensure_installed.lua' to enable it.
+
 local ensure_installed = {
     "clangd", -- c/c++
     "pyright", -- python

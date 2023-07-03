@@ -4,6 +4,8 @@
 -- For full null-ls sources list, please refer to:
 --      * [null-ls BUILTINS](https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md) and install them from mason.
 
+-- Please copy this file to 'ensure_installed.lua' to enable it.
+
 local ensure_installed = {
     "black", -- python formatter
     "isort",

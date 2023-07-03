@@ -1,3 +1,5 @@
+-- Please copy this file to 'setup_handler.lua' to enable it.
+
 local cmp = require("cmp")
 
 local setup_handler = {
