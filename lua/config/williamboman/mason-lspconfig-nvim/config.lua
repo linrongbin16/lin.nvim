@@ -1,21 +1,19 @@
 local lspconfig = require("lspconfig")
 local lsp_setup_helper = require("builtin.utils.lsp_setup_helper")
 
--- Check if `ensure_installed` exist
-local found_ensure_installed, ensure_installed =
-    pcall(require, "repo.williamboman.mason-lspconfig-nvim.ensure_installed")
+local ensure_installed_ok, ensure_installed =
+    pcall(require, "config.williamboman.mason-lspconfig-nvim.ensure_installed")
 
-if not found_ensure_installed then
+if not ensure_installed_ok then
     ensure_installed = {}
 end
 
 require("mason-lspconfig").setup({ ensure_installed = ensure_installed })
 
--- Check if `setup_handlers` exist
-local found_setup_handlers, setup_handlers =
-    pcall(require, "repo.williamboman.mason-lspconfig-nvim.setup_handlers")
+local setup_handlers_ok, setup_handlers =
+    pcall(require, "config.williamboman.mason-lspconfig-nvim.setup_handlers")
 
-if not found_setup_handlers then
+if not setup_handlers_ok then
     setup_handlers = {
         -- use default setup for all lsp servers
         function(server)

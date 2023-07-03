@@ -1,16 +1,14 @@
--- Check if `cfg.lsp.mason-null-ls.ensure_installed` exist
-local found_ensure_installed, ensure_installed =
+local ensure_installed_ok, ensure_installed =
     pcall(require, "config.jay-babu.mason-null-ls-nvim.ensure_installed")
 
-if not found_ensure_installed then
+if not ensure_installed_ok then
     ensure_installed = {}
 end
 
--- Check if `cfg.lsp.mason-null-ls.setup_handlers` exist
-local found_setup_handlers, setup_handlers =
+local setup_handlers_ok, setup_handlers =
     pcall(require, "config.jay-babu.mason-null-ls-nvim.setup_handlers")
 
-if not found_setup_handlers then
+if not setup_handlers_ok then
     setup_handlers = {}
 end
 

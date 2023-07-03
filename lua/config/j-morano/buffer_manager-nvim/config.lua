@@ -1,4 +1,4 @@
-local layout = require("cfg.const").ui.layout
+local layout = require("builtin.utils.constants").ui.layout
 
 require("buffer_manager").setup({
     select_menu_item_commands = {

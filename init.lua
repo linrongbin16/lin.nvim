@@ -1,7 +1,7 @@
-local loader = require("builtin.utils.loader")
-
 -- basic options
 vim.cmd("source $HOME/.nvim/lua/builtin/options.vim")
+-- lsp
+require("builtin.lsp")
 
 -- plugins
 require("config.folke.lazy-nvim.config")

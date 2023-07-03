@@ -1,10 +1,9 @@
 local lspconfig = require("lspconfig")
 
--- Check if `setup_handlers` exist
-local found_setup_handlers, setup_handlers =
-    pcall(require, "repo.neovim.nvim-lspconfig.setup_handlers")
+local setup_handlers_ok, setup_handlers =
+    pcall(require, "config.neovim.nvim-lspconfig.setup_handlers")
 
-if not found_setup_handlers then
+if not setup_handlers_ok then
     setup_handlers = {}
 end
 

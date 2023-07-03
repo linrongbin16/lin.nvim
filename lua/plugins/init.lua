@@ -403,24 +403,4 @@ local M = {
     },
 }
 
--- Add colorscheme plugins
-local color_plugins_ok, color_plugins = pcall(require, "plugins.colors")
-if color_plugins_ok then
-    for _, p in
-        ipairs(color_plugins --[[@as any[] ]])
-    do
-        table.insert(M, p)
-    end
-end
-
--- Add user plugins
-local user_plugins_ok, user_plugins = pcall(require, "plugins.users")
-if user_plugins_ok then
-    for _, p in
-        ipairs(user_plugins --[[@as any[] ]])
-    do
-        table.insert(M, p)
-    end
-end
-
 return M
