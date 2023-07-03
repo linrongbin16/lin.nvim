@@ -125,7 +125,7 @@ local function Location()
     return " %3l:%-2v"
 end
 
-local const = require("cfg.const")
+local constants = require("builtin.utils.constants")
 
 local config = {
     options = {
@@ -158,10 +158,10 @@ local config = {
             {
                 "diagnostics",
                 symbols = {
-                    error = const.lsp.diagnostics.signs["error"] .. " ",
-                    warn = const.lsp.diagnostics.signs["warning"] .. " ",
-                    info = const.lsp.diagnostics.signs["info"] .. " ",
-                    hint = const.lsp.diagnostics.signs["hint"] .. " ",
+                    error = constants.lsp.diagnostics.signs.error .. " ",
+                    warn = constants.lsp.diagnostics.signs.warning .. " ",
+                    info = constants.lsp.diagnostics.signs.info .. " ",
+                    hint = constants.lsp.diagnostics.signs.hint .. " ",
                 },
             },
             LspSign,

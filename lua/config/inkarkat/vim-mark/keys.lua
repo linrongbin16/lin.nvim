@@ -1,14 +1,14 @@
-local map_lazy = require("cfg.keymap").map_lazy
+local set_lazy_key = require("builtin.utils.keymap").set_lazy_key
 
 local M = {
     -- toggle cursor word in normal/visual mode
-    map_lazy(
+    set_lazy_key(
         "n",
         "<leader>hw",
         "<Plug>MarkSet",
         { desc = "Toggle highlight word" }
     ),
-    map_lazy(
+    set_lazy_key(
         "x",
         "<leader>hw",
         "<Plug>MarkIWhiteSet",
@@ -16,13 +16,13 @@ local M = {
     ),
 
     -- search next/previous word
-    map_lazy(
+    set_lazy_key(
         "n",
         "<leader>hn",
         "<Plug>MarkSearchNext",
         { desc = "Next highlight word" }
     ),
-    map_lazy(
+    set_lazy_key(
         "n",
         "<leader>hN",
         "<Plug>MarkSearchPrev",
@@ -30,7 +30,7 @@ local M = {
     ),
 
     -- clear all words
-    map_lazy(
+    set_lazy_key(
         "n",
         "<leader>hW",
         "<Plug>MarkAllClear",

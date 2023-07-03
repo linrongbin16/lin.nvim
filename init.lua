@@ -1,11 +1,11 @@
 local loader = require("builtin.utils.loader")
 
 -- basic options
-loader.load("lua/builtin/options.vim")
+vim.cmd("source $HOME/.nvim/lua/builtin/options.vim")
 
 -- plugins
-loader.load("config/folk/lazy-nvim/config.lua")
+require("config.folke.lazy-nvim.config")
 
 -- colorschemes and other things
-loader.load("lua/builtin/colors.vim")
-loader.load("lua/builtin/others.vim")
+vim.cmd("source $HOME/.nvim/lua/builtin/colors.vim")
+vim.cmd("source $HOME/.nvim/lua/builtin/others.vim")

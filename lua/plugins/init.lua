@@ -1,7 +1,5 @@
 -- ---- Plugins ----
 
-local loader = require("builtin.utils.loader")
-
 local lua_keys = require("builtin.utils.plugin").lua_keys
 local lua_init = require("builtin.utils.plugin").lua_init
 local lua_config = require("builtin.utils.plugin").lua_config
@@ -406,7 +404,7 @@ local M = {
 }
 
 -- Add colorscheme plugins
-local color_plugins_ok, color_plugins = loader.load("plugins.colors.lua")
+local color_plugins_ok, color_plugins = pcall(require, "plugins.colors")
 if color_plugins_ok then
     for _, p in
         ipairs(color_plugins --[[@as any[] ]])
@@ -416,7 +414,7 @@ if color_plugins_ok then
 end
 
 -- Add user plugins
-local user_plugins_ok, user_plugins = loader.load("plugins.users.lua")
+local user_plugins_ok, user_plugins = pcall(require, "plugins.users")
 if user_plugins_ok then
     for _, p in
         ipairs(user_plugins --[[@as any[] ]])

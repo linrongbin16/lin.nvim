@@ -1,5 +1,5 @@
 local lspconfig = require("lspconfig")
-local setup = require("cfg.lsp.setup")
+local lsp_setup_helper = require("builtin.utils.lsp_setup_helper")
 
 -- Check if `ensure_installed` exist
 local found_ensure_installed, ensure_installed =
@@ -19,7 +19,7 @@ if not found_setup_handlers then
     setup_handlers = {
         -- use default setup for all lsp servers
         function(server)
-            lspconfig[server].setup({ on_attach = setup.on_attach })
+            lspconfig[server].setup({ on_attach = lsp_setup_helper.on_attach })
         end,
     }
 end

@@ -1,8 +1,8 @@
-local keymap = require("cfg.keymap")
+local keymap = require("builtin.utils.keymap")
 
 local M = {
     -- go to the last buffer
-    keymap.map_lazy(
+    keymap.set_lazy_key(
         "n",
         "<leader>0",
         keymap.exec("lua require('bufferline').go_to_buffer(-1, true)"),
@@ -10,13 +10,13 @@ local M = {
     ),
 
     -- go to next/previous buffer
-    keymap.map_lazy(
+    keymap.set_lazy_key(
         "n",
         "]b",
         keymap.exec("BufferLineCycleNext"),
         { desc = "Go to next buffer" }
     ),
-    keymap.map_lazy(
+    keymap.set_lazy_key(
         "n",
         "[b",
         keymap.exec("BufferLineCyclePrev"),
@@ -24,13 +24,13 @@ local M = {
     ),
 
     -- move/re-order buffer to next/previous position
-    keymap.map_lazy(
+    keymap.set_lazy_key(
         "n",
         "<leader>.",
         keymap.exec("BufferLineMoveNext"),
         { desc = "Move buffer to next" }
     ),
-    keymap.map_lazy(
+    keymap.set_lazy_key(
         "n",
         "<leader>,",
         keymap.exec("BufferLineMovePrev"),
@@ -42,7 +42,7 @@ local M = {
 for i = 1, 9 do
     table.insert(
         M,
-        keymap.map_lazy(
+        keymap.set_lazy_key(
             "n",
             string.format("<leader>%d", i),
             keymap.exec(

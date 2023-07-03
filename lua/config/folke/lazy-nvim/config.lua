@@ -1,5 +1,5 @@
-local const = require("cfg.const")
-local layout = require("cfg.const").ui.layout
+local constants = require("builtin.utils.constants")
+local layout = require("builtin.utils.constants").ui.layout
 
 local lazypath = vim.fn.stdpath("config") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -17,7 +17,7 @@ vim.opt.rtp:prepend(lazypath)
 local opts = {
     root = vim.fn.stdpath("config") .. "/lazy",
     ui = {
-        border = const.ui.border,
+        border = constants.ui.border,
         size = {
             width = layout.width,
             height = layout.height,
@@ -25,9 +25,9 @@ local opts = {
     },
 }
 
-require("lazy").setup("cfg.plugins", opts)
+require("lazy").setup("plugins", opts)
 
-require("cfg.keymap").map(
+require("builtin.utils.keymap").set_key(
     "n",
     "<leader>lz",
     ":Lazy<CR>",

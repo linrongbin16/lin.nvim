@@ -1,3 +1,3 @@
-local editor_width = require("cfg.ui").editor_width
+local editor_layout = require("builtin.utils.layout").editor
 
-vim.g.vista_sidebar_width = editor_width(0.2, 10, 40)
+vim.g.vista_sidebar_width = editor_layout.width(0.2, 10, 40)

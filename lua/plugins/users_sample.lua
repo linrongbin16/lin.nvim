@@ -45,3 +45,5 @@
 --         keys = lua_keys("gbprod/yanky.nvim"),
 --     },
 -- }
+
+return {}

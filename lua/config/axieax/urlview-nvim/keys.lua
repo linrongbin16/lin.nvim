@@ -1,15 +1,15 @@
-local map_lazy = require("cfg.keymap").map_lazy
+local set_lazy_key = require("builtin.utils.keymap").set_lazy_key
 
 local M = {
-    map_lazy("n", "]u", nil, { desc = "Next url" }),
-    map_lazy("n", "[u", nil, { desc = "Previous url" }),
-    map_lazy(
+    set_lazy_key("n", "]u", nil, { desc = "Next url" }),
+    set_lazy_key("n", "[u", nil, { desc = "Previous url" }),
+    set_lazy_key(
         "n",
         "<leader>ub",
         "<cmd>UrlView<cr>",
         { desc = "View buffer urls" }
     ),
-    map_lazy(
+    set_lazy_key(
         "n",
         "<leader>up",
         "<cmd>UrlView lazy<cr>",
