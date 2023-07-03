@@ -1,31 +1,20 @@
-# runtime files
+# runtime
 .DS_Store
+/.copypaste
 
-# plugins
+# third-party
 /lazy-lock.json
 /mason
 /lazy
-
-# generated
-/get-colors-list.lua
-/dump-plugins.md
-/dump-lsp.md
-/.copypaste
-/.temp
-/.mypy_cache
-
-# universal-ctags
 /universal-ctags
 
-# project
-/.idea
-
-# custom
-/lua/repo/neovim/nvim-lspconfig/setup_handlers.lua
-/lua/repo/williamboman/mason-lspconfig-nvim/setup_handlers.lua
-/lua/repo/williamboman/mason-lspconfig-nvim/ensure_installed.lua
-/lua/repo/jay-babu/mason-null-ls-nvim/setup_handlers.lua
-/lua/repo/jay-babu/mason-null-ls-nvim/ensure_installed.lua
-/lua/repo/hrsh7th/nvim-cmp/setup_handler.lua
-/lua/cfg/user_plugins.lua
-/cfg/user.vim
+# user
+/lua/builtin/users.vim
+/lua/builtin/users.lua
+/lua/plugins/users.lua
+/lua/configs/neovim/nvim-lspconfig/setup_handlers.lua
+/lua/configs/williamboman/mason-lspconfig-nvim/setup_handlers.lua
+/lua/configs/williamboman/mason-lspconfig-nvim/ensure_installed.lua
+/lua/configs/jay-babu/mason-null-ls-nvim/setup_handlers.lua
+/lua/configs/jay-babu/mason-null-ls-nvim/ensure_installed.lua
+/lua/configs/hrsh7th/nvim-cmp/setup_handler.lua
