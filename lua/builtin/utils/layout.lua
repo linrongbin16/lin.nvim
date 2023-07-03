@@ -10,6 +10,7 @@ local editor = {
         end
         return result
     end,
+
     height = function(pct, min_h, max_h)
         local editor_h = vim.o.lines
         local result = math.floor(editor_h * pct)

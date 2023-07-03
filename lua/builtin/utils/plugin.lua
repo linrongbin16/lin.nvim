@@ -12,8 +12,10 @@ end
 
 local function vim_init(init)
     return function()
-        local init_path = "configs/" .. init:gsub("%.", "-") .. "/init.vim"
-        vim.cmd("source $HOME/.nvim/lua/" .. init_path)
+        local init_path = "$HOME/.nvim/lua/configs/"
+            .. init:gsub("%.", "-")
+            .. "/init.vim"
+        vim.cmd("source " .. init_path)
     end
 end
 
@@ -26,10 +28,10 @@ end
 
 local function vim_config(config)
     return function()
-        local config_path = "configs/"
+        local config_path = "$HOME/.nvim/lua/configs/"
             .. config:gsub("%.", "-")
             .. "/config.vim"
-        vim.cmd("source $HOME/.nvim/lua/" .. config_path)
+        vim.cmd("source " .. config_path)
     end
 end
 
