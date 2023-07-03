@@ -1,26 +1,14 @@
-# runtime files
+# runtime
 .DS_Store
+/.copypaste
 
-# plugins
+# third-party
 /lazy-lock.json
 /mason
 /lazy
-
-# generated
-/get-colors-list.lua
-/dump-plugins.md
-/dump-lsp.md
-/.copypaste
-/.temp
-/.mypy_cache
-
-# universal-ctags
 /universal-ctags
 
-# project
-/.idea
-
-# custom
+# user
 /lua/builtin/users.vim
 /lua/builtin/users.lua
 /lua/plugins/users.lua

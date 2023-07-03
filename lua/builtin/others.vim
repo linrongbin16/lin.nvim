@@ -43,3 +43,5 @@ augroup END
 if filereadable(expand('~/.nvim/lua/builtin/users.vim'))
     source $HOME/.nvim/lua/builtin/users.vim
 endif
+
+lua pcall(require, 'builtin.users')
