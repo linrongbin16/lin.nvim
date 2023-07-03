@@ -1,6 +1,5 @@
 -- basic options
 vim.cmd("source $HOME/.nvim/lua/builtin/options.vim")
--- lsp
 require("builtin.lsp")
 
 -- plugins
