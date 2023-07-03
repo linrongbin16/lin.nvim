@@ -21,14 +21,12 @@
 /.idea
 
 # custom
-/lua/repo/neovim/nvim-lspconfig/setup_handlers.lua
-/lua/repo/williamboman/mason-lspconfig-nvim/setup_handlers.lua
-/lua/repo/williamboman/mason-lspconfig-nvim/ensure_installed.lua
-/lua/repo/jay-babu/mason-null-ls-nvim/setup_handlers.lua
-/lua/repo/jay-babu/mason-null-ls-nvim/ensure_installed.lua
-/lua/repo/hrsh7th/nvim-cmp/setup_handler.lua
-/lua/cfg/user_plugins.lua
-/cfg/user.vim
 /lua/builtin/users.vim
 /lua/builtin/users.lua
 /lua/plugins/users.lua
+/lua/config/neovim/nvim-lspconfig/setup_handlers.lua
+/lua/config/williamboman/mason-lspconfig-nvim/setup_handlers.lua
+/lua/config/williamboman/mason-lspconfig-nvim/ensure_installed.lua
+/lua/config/jay-babu/mason-null-ls-nvim/setup_handlers.lua
+/lua/config/jay-babu/mason-null-ls-nvim/ensure_installed.lua
+/lua/config/hrsh7th/nvim-cmp/setup_handler.lua
