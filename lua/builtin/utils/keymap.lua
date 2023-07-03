@@ -1,4 +1,4 @@
--- ---- key map ----
+-- ---- Key Map ----
 
 local NON_EDIT_FTYPES = { "neo-tree", "NvimTree", "undotree", "vista", "diff" }
 

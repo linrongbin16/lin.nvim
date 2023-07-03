@@ -1,4 +1,4 @@
--- ---- lsp ----
+-- ---- LSP Options ----
 
 local constants = require("builtin.utils.constants")
 local set_key = require("builtin.utils.keymap").set_key

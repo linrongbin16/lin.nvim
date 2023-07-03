@@ -1,4 +1,4 @@
--- ---- Const ----
+-- ---- Constants ----
 
 local OS = vim.loop.os_uname().sysname
 local editor_layout = require("builtin.utils.layout").editor

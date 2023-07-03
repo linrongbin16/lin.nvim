@@ -1,6 +1,6 @@
-""" ---- basic options ----
+""" ---- Basic Options ----
 
-""" references:
+""" References:
 """ * https://github.com/tpope/vim-sensible
 """ * https://github.com/mhinz/vim-galore#tips-1
 
