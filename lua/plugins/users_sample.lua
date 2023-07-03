@@ -44,6 +44,21 @@
 --         config = lua_config("gbprod/yanky.nvim"),
 --         keys = lua_keys("gbprod/yanky.nvim"),
 --     },
+--     -- UI improved
+--     {
+--         "folke/noice.nvim",
+--         event = { VimEnter },
+--         dependencies = {
+--             "MunifTanjim/nui.nvim",
+--             "rcarriga/nvim-notify",
+--         },
+--         config = lua_config("folke/noice.nvim"),
+--     },
+--     {
+--         "rcarriga/nvim-notify",
+--         config = lua_config("rcarriga/nvim-notify"),
+--         lazy = true,
+--     },
 -- }
 
 return {}
