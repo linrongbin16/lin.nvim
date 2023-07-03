@@ -1,6 +1,8 @@
 local function load(path)
     if path:sub(-4) == ".lua" then
-        return pcall(require, path:sub(1, #path - 4):gsub("/", "%."))
+        local path2 = path:sub(1, #path - 4):gsub("/", "%.")
+        print("path2:" .. path2)
+        return pcall(require, path2)
     elseif path:sub(-4) == ".vim" then
         if path:sub(1, 1) ~= "/" and path:sub(1, 1) ~= "\\" then
             vim.cmd(string.format("source $HOME/.nvim/%s", path))

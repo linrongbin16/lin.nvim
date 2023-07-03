@@ -19,7 +19,7 @@ end
 
 local function vim_init(init)
     return function()
-        local init_path = "config/" .. init .. "/init.vim"
+        local init_path = "config/" .. init:gsub("%.", "-") .. "/init.vim"
         loader.load(init_path)
     end
 end
@@ -33,7 +33,7 @@ end
 
 local function vim_config(config)
     return function()
-        local config_path = "config/" .. config .. "/config.vim"
+        local config_path = "config/" .. config:gsub("%.", "-") .. "/config.vim"
         loader.load(config_path)
     end
 end
