@@ -230,7 +230,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         )
 
         -- (silently)detach lsp client when close buffer
-        vim.api.nvim_create_autocmd("BufDelete", {
+        vim.api.nvim_create_autocmd("LspBufDelete", {
             buffer = vim.api.nvim_get_current_buf(),
             callback = function(opts)
                 local bufnr = opts.buf
