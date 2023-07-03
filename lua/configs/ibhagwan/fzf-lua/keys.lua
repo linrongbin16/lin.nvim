@@ -1,5 +1,5 @@
 local keymap = require("builtin.utils.keymap")
-local fzf_const = require("config.ibhagwan.fzf-lua.const")
+local fzf_const = require("configs.ibhagwan.fzf-lua.const")
 
 local M = {
     -- search files

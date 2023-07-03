@@ -3,7 +3,7 @@ vim.cmd("source $HOME/.nvim/lua/builtin/options.vim")
 require("builtin.lsp")
 
 -- plugins
-require("config.folke.lazy-nvim.config")
+require("configs.folke.lazy-nvim.config")
 
 -- colorschemes and other things
 vim.cmd("source $HOME/.nvim/lua/builtin/colors.vim")

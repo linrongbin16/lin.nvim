@@ -105,7 +105,7 @@ local setup_handler = {
 }
 
 local user_setup_handler_ok, user_setup_handler =
-    pcall(require, "config.hrsh7th.nvim-cmp.setup_handler")
+    pcall(require, "configs.hrsh7th.nvim-cmp.setup_handler")
 
 if user_setup_handler_ok then
     setup_handler = vim.tbl_deep_extend(
