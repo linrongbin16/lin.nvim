@@ -1,14 +1,14 @@
-local keymap = require("cfg.keymap")
+local keymap = require("builtin.utils.keymap")
 
 local M = {
     -- find files
-    keymap.map_lazy(
+    keymap.set_lazy_key(
         "n",
         "<space>f",
         keymap.exec("FzfxFiles"),
         { desc = "Find files" }
     ),
-    keymap.map_lazy(
+    keymap.set_lazy_key(
         "x",
         "<space>f",
         keymap.exec(function()
@@ -17,13 +17,13 @@ local M = {
         end),
         { desc = "Find files" }
     ),
-    keymap.map_lazy(
+    keymap.set_lazy_key(
         "n",
         "<space>uf",
         keymap.exec("FzfxFilesU"),
         { desc = "Unrestricted find files" }
     ),
-    keymap.map_lazy(
+    keymap.set_lazy_key(
         "x",
         "<space>uf",
         keymap.exec(function()
@@ -33,33 +33,33 @@ local M = {
         { desc = "Unrestricted find files" }
     ),
     -- find files by cursor word
-    keymap.map_lazy(
+    keymap.set_lazy_key(
         "n",
         "<space>wf",
         keymap.exec("FzfxFilesW"),
         { desc = "Find files by cursor word" }
     ),
-    keymap.map_lazy(
+    keymap.set_lazy_key(
         "n",
         "<space>uwf",
         keymap.exec("FzfxFilesUW"),
         { desc = "Unrestricted find files by cursor word" }
     ),
     -- search buffer
-    keymap.map_lazy(
+    keymap.set_lazy_key(
         "n",
         "<space>b",
         keymap.exec("FzfxBuffers"),
         { desc = "Search buffers" }
     ),
     -- live grep
-    keymap.map_lazy(
+    keymap.set_lazy_key(
         "n",
         "<space>l",
         keymap.exec("FzfxLiveGrep"),
         { desc = "Live grep" }
     ),
-    keymap.map_lazy(
+    keymap.set_lazy_key(
         "x",
         "<space>l",
         keymap.exec(function()
@@ -68,13 +68,13 @@ local M = {
         end),
         { desc = "Live grep" }
     ),
-    keymap.map_lazy(
+    keymap.set_lazy_key(
         "n",
         "<space>ul",
         keymap.exec("FzfxLiveGrepU"),
         { desc = "Unrestricted live grep" }
     ),
-    keymap.map_lazy(
+    keymap.set_lazy_key(
         "x",
         "<space>ul",
         keymap.exec(function()
@@ -84,20 +84,20 @@ local M = {
         { desc = "Unrestricted live grep" }
     ),
     -- search word
-    keymap.map_lazy(
+    keymap.set_lazy_key(
         "n",
         "<space>wl",
         keymap.exec("FzfxLiveGrepW"),
         { desc = "Live grep by cursor word" }
     ),
-    keymap.map_lazy(
+    keymap.set_lazy_key(
         "n",
         "<space>uwl",
         keymap.exec("FzfxLiveGrepUW"),
         { desc = "Unrestricted live grep by cursor word" }
     ),
     -- git
-    keymap.map_lazy(
+    keymap.set_lazy_key(
         "n",
         "<space>gbr",
         keymap.exec("FzfxBranches"),

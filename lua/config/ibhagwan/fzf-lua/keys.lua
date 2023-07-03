@@ -1,9 +1,9 @@
-local keymap = require("cfg.keymap")
-local fzf_const = require("repo.ibhagwan.fzf-lua.const")
+local keymap = require("builtin.utils.keymap")
+local fzf_const = require("config.ibhagwan.fzf-lua.const")
 
 local M = {
     -- search files
-    keymap.map_lazy(
+    keymap.set_lazy_key(
         "n",
         "<space>f",
         keymap.exec(function()
@@ -11,7 +11,7 @@ local M = {
         end),
         { desc = "Search files" }
     ),
-    keymap.map_lazy(
+    keymap.set_lazy_key(
         "n",
         "<space>uf",
         keymap.exec(function()
@@ -22,7 +22,7 @@ local M = {
         { desc = "Unrestricted search files" }
     ),
     -- search buffer
-    keymap.map_lazy(
+    keymap.set_lazy_key(
         "n",
         "<space>b",
         keymap.exec(function()
@@ -31,7 +31,7 @@ local M = {
         { desc = "Search buffers" }
     ),
     -- live grep
-    keymap.map_lazy(
+    keymap.set_lazy_key(
         "n",
         "<space>l",
         keymap.exec(function()
@@ -42,7 +42,7 @@ local M = {
         end),
         { desc = "Live grep with `--iglob` support" }
     ),
-    keymap.map_lazy(
+    keymap.set_lazy_key(
         "n",
         "<space>ul",
         keymap.exec(function()
@@ -53,7 +53,7 @@ local M = {
         end),
         { desc = "Unrestricted live grep with `--iglob` support" }
     ),
-    keymap.map_lazy(
+    keymap.set_lazy_key(
         "n",
         "<space>r",
         keymap.exec(function()
@@ -61,7 +61,7 @@ local M = {
         end),
         { desc = "Live grep (without `--iglob` support)" }
     ),
-    keymap.map_lazy(
+    keymap.set_lazy_key(
         "n",
         "<space>ur",
         keymap.exec(function()
@@ -72,7 +72,7 @@ local M = {
         { desc = "Unrestricted live grep (without `--iglob` support)" }
     ),
     -- search word
-    keymap.map_lazy(
+    keymap.set_lazy_key(
         "n",
         "<space>w",
         keymap.exec(function()
@@ -80,7 +80,7 @@ local M = {
         end),
         { desc = "Search word under cursor" }
     ),
-    keymap.map_lazy(
+    keymap.set_lazy_key(
         "n",
         "<space>uw",
         keymap.exec(function()
@@ -91,7 +91,7 @@ local M = {
         { desc = "Unrestricted search word under cursor" }
     ),
     -- search WORD
-    keymap.map_lazy(
+    keymap.set_lazy_key(
         "n",
         "<space>W",
         keymap.exec(function()
@@ -99,7 +99,7 @@ local M = {
         end),
         { desc = "Search WORD under cursor" }
     ),
-    keymap.map_lazy(
+    keymap.set_lazy_key(
         "n",
         "<space>uW",
         keymap.exec(function()
@@ -110,7 +110,7 @@ local M = {
         { desc = "Unrestricted search WORD under cursor" }
     ),
     -- search git
-    keymap.map_lazy(
+    keymap.set_lazy_key(
         "n",
         "<space>gf",
         keymap.exec(function()
@@ -118,7 +118,7 @@ local M = {
         end),
         { desc = "Search git files" }
     ),
-    keymap.map_lazy(
+    keymap.set_lazy_key(
         "n",
         "<space>gb",
         keymap.exec(function()
@@ -126,7 +126,7 @@ local M = {
         end),
         { desc = "Search git branches" }
     ),
-    keymap.map_lazy(
+    keymap.set_lazy_key(
         "n",
         "<space>gc",
         keymap.exec(function()
@@ -134,7 +134,7 @@ local M = {
         end),
         { desc = "Search git commits" }
     ),
-    keymap.map_lazy(
+    keymap.set_lazy_key(
         "n",
         "<space>gs",
         keymap.exec(function()
@@ -143,7 +143,7 @@ local M = {
         { desc = "Search git status" }
     ),
     -- search diagnostics
-    keymap.map_lazy(
+    keymap.set_lazy_key(
         "n",
         "<space>dd",
         keymap.exec(function()
@@ -151,7 +151,7 @@ local M = {
         end),
         { desc = "Search document diagnostics" }
     ),
-    keymap.map_lazy(
+    keymap.set_lazy_key(
         "n",
         "<space>dw",
         keymap.exec(function()
@@ -160,7 +160,7 @@ local M = {
         { desc = "Search workspace diagnostics" }
     ),
     -- search vim
-    keymap.map_lazy(
+    keymap.set_lazy_key(
         "n",
         "<space>cm",
         keymap.exec(function()
@@ -168,7 +168,7 @@ local M = {
         end),
         { desc = "Search vim commands" }
     ),
-    keymap.map_lazy(
+    keymap.set_lazy_key(
         "n",
         "<space>tg",
         keymap.exec(function()
@@ -176,7 +176,7 @@ local M = {
         end),
         { desc = "Search vim tags" }
     ),
-    keymap.map_lazy(
+    keymap.set_lazy_key(
         "n",
         "<space>ch",
         keymap.exec(function()
@@ -184,7 +184,7 @@ local M = {
         end),
         { desc = "Search vim command history" }
     ),
-    keymap.map_lazy(
+    keymap.set_lazy_key(
         "n",
         "<space>sh",
         keymap.exec(function()
@@ -192,7 +192,7 @@ local M = {
         end),
         { desc = "Search vim search history" }
     ),
-    keymap.map_lazy(
+    keymap.set_lazy_key(
         "n",
         "<space>mk",
         keymap.exec(function()
@@ -200,7 +200,7 @@ local M = {
         end),
         { desc = "Search vim marks" }
     ),
-    keymap.map_lazy(
+    keymap.set_lazy_key(
         "n",
         "<space>km",
         keymap.exec(function()

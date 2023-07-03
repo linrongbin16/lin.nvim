@@ -1,13 +1,13 @@
-local map_lazy = require("cfg.keymap").map_lazy
+local set_lazy_key = require("builtin.utils.keymap").set_lazy_key
 
 local M = {
-    map_lazy(
+    set_lazy_key(
         { "n", "x" },
         "<leader>gl",
         '<cmd>lua require("gitlinker").link({action = require("gitlinker.actions").clipboard})<cr>',
         { desc = "Copy git link to clipboard" }
     ),
-    map_lazy(
+    set_lazy_key(
         { "n", "x" },
         "<leader>gL",
         '<cmd>lua require("gitlinker").link({action = require("gitlinker.actions").system})<cr>',

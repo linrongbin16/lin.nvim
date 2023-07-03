@@ -1,5 +1,5 @@
-local const = require("cfg.const")
-local BAT_PREVIEWER = not const.os.is_windows
+local constants = require("builtin.utils.constants")
+local BAT_PREVIEWER = not constants.os.is_windows
     and vim.fn.executable("bat") > 0
     and vim.fn.executable("less") > 0
 local LAYOUT_CONFIG = {

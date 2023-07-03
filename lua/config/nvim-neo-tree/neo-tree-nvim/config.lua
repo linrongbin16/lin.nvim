@@ -1,8 +1,8 @@
-local const = require("cfg.const")
-local editor_width = require("cfg.ui").editor_width
+local constants = require("builtin.utils.constants")
+local editor_layout = require("builtin.utils.layout").editor
 
 require("neo-tree").setup({
-    popup_border_style = const.ui.border,
+    popup_border_style = constants.ui.border,
     default_component_configs = {
         icon = {
             folder_closed = "", -- nf-custom-folder \ue5ff
@@ -82,7 +82,7 @@ require("neo-tree").setup({
         },
     },
     window = {
-        width = editor_width(0.2, 25, 80),
+        width = editor_layout.width(0.2, 25, 80),
         mappings = {
             -- open node
             ["l"] = "open",

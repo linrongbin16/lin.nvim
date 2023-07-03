@@ -390,7 +390,7 @@ local M = {
     {
         "kkoomen/vim-doge",
         cmd = { "DogeGenerate" },
-        build = require("cfg.const").os.is_macos
+        build = require("builtin.utils.constants").os.is_macos
                 and "npm i --no-save && npm run build:binary:unix"
             or ":call doge#install()",
         init = vim_init("kkoomen/vim-doge"),

@@ -1,4 +1,4 @@
-local const = require("cfg.const")
+local constants = require("builtin.utils.constants")
 local close_mappings =
     { ["<ESC>"] = "Close", ["<C-[>"] = "Close", ["<C-c>"] = "Close" }
 local window_transparency = 10
@@ -8,7 +8,7 @@ local window_min_width = { window_min_width_value, window_min_width_rate }
 
 require("dressing").setup({
     input = {
-        border = const.ui.border,
+        border = constants.ui.border,
         min_width = window_min_width,
         win_options = {
             winblend = window_transparency,
@@ -21,7 +21,7 @@ require("dressing").setup({
     select = {
         nui = {
             border = {
-                style = const.ui.border,
+                style = constants.ui.border,
             },
             win_options = {
                 winblend = window_transparency,
@@ -29,7 +29,7 @@ require("dressing").setup({
             min_width = window_min_width_value,
         },
         builtin = {
-            border = const.ui.border,
+            border = constants.ui.border,
             min_width = window_min_width,
             win_options = {
                 winblend = window_transparency,

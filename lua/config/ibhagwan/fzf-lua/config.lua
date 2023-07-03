@@ -1,15 +1,15 @@
-local const = require("cfg.const")
+local constants = require("builtin.utils.constants")
 local fzf_actions = require("fzf-lua.actions")
-local fzf_const = require("repo.ibhagwan.fzf-lua.const")
-local fzf_previewer = vim.fn.executable("bat") > 0 and "bat" or "builtin"
+local fzf_const = require("config.ibhagwan.fzf-lua.const")
+local FZF_PREVIEWER = vim.fn.executable("bat") > 0 and "bat" or "builtin"
 
 require("fzf-lua").setup({
     winopts = {
         height = 0.9,
         width = 0.95,
-        border = const.ui.border,
+        border = constants.ui.border,
         preview = {
-            default = fzf_previewer,
+            default = FZF_PREVIEWER,
             horizontal = "right:50%",
         },
     },
@@ -72,7 +72,7 @@ require("fzf-lua").setup({
         },
     },
     files = {
-        previewer = fzf_previewer,
+        previewer = FZF_PREVIEWER,
         cmd = fzf_const.FD_COMMAND,
     },
     grep = {

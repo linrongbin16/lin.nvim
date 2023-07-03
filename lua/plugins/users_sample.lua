@@ -2,11 +2,11 @@
 
 -- Please uncomment belows and rename this file to 'users.lua' to enable it.
 
--- local lua_keys = require("cfg.plugins_util").lua_keys
--- local lua_init = require("cfg.plugins_util").lua_init
--- local lua_config = require("cfg.plugins_util").lua_config
--- local vim_init = require("cfg.plugins_util").vim_init
--- local vim_config = require("cfg.plugins_util").vim_config
+-- local lua_keys = require("builtin.utils.plugins").lua_keys
+-- local lua_init = require("builtin.utils.plugins").lua_init
+-- local lua_config = require("builtin.utils.plugins").lua_config
+-- local vim_init = require("builtin.utils.plugins").vim_init
+-- local vim_config = require("builtin.utils.plugins").vim_config
 --
 -- local VeryLazy = "VeryLazy"
 -- local BufRead = "BufRead"

@@ -1,10 +1,10 @@
-local const = require("cfg.const")
+local constants = require("builtin.utils.constants")
 
 require("lspsaga").setup({
     lightbulb = {
         enable = false,
     },
     ui = {
-        border = const.ui.border,
+        border = constants.ui.border,
     },
 })

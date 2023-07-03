@@ -1,7 +1,7 @@
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
--- local const = require("cfg.const")
+local constants = require("builtin.utils.constants")
 
 -- Please see https://github.com/nvim-tree/nvim-tree.lua/wiki/Migrating-To-on_attach for assistance in migrating.
 local on_attach = function(bufnr)
@@ -84,18 +84,18 @@ require("nvim-tree").setup({
         enable = true,
         ignore = false,
     },
-    -- diagnostics = {
-    --     enable = true,
-    --     icons = {
-    --         hint = const.lsp.diagnostics.signs["hint"],
-    --         info = const.lsp.diagnostics.signs["info"],
-    --         warning = const.lsp.diagnostics.signs["warning"],
-    --         error = const.lsp.diagnostics.signs["error"],
-    --     },
-    -- },
-    -- modified = {
-    --     enable = true,
-    -- },
+    diagnostics = {
+        enable = true,
+        icons = {
+            hint = constants.lsp.diagnostics.signs.hint,
+            info = constants.lsp.diagnostics.signs.info,
+            warning = constants.lsp.diagnostics.signs.warning,
+            error = constants.lsp.diagnostics.signs.error,
+        },
+    },
+    modified = {
+        enable = true,
+    },
 })
 
 vim.api.nvim_create_augroup("nvim_tree_augroup", { clear = true })
@@ -126,14 +126,14 @@ vim.api.nvim_create_autocmd("FileType", {
     group = "nvim_tree_augroup",
     pattern = "NvimTree",
     callback = function(data)
-        local map = require("cfg.keymap").map
-        map(
+        local set_key = require("builtin.utils.keymap").set_key
+        set_key(
             "n",
             "<leader>.",
             "<cmd>NvimTreeResize +10<cr>",
             { buffer = true, desc = "Resize explorer bigger" }
         )
-        map(
+        set_key(
             "n",
             "<leader>,",
             "<cmd>NvimTreeResize -10<cr>",

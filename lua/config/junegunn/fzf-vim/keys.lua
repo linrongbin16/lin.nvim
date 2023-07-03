@@ -1,63 +1,63 @@
-local keymap = require("cfg.keymap")
+local keymap = require("builtin.utils.keymap")
 
 local M = {
     -- search git
-    keymap.map_lazy(
+    keymap.set_lazy_key(
         "n",
         "<space>gf",
         keymap.exec("FzfGFiles"),
         { desc = "Search git files" }
     ),
-    keymap.map_lazy(
+    keymap.set_lazy_key(
         "n",
         "<space>gc",
         keymap.exec("FzfCommits"),
         { desc = "Search git commits" }
     ),
-    keymap.map_lazy(
+    keymap.set_lazy_key(
         "n",
         "<space>gbc",
         keymap.exec("FzfBCommits"),
         { desc = "Search git buffer commits" }
     ),
-    keymap.map_lazy(
+    keymap.set_lazy_key(
         "n",
         "<space>gs",
         keymap.exec("FzfGFiles?"),
         { desc = "Search git status" }
     ),
     -- search vim
-    keymap.map_lazy(
+    keymap.set_lazy_key(
         "n",
         "<space>cm",
         keymap.exec("FzfCommands"),
         { desc = "Search vim commands" }
     ),
-    keymap.map_lazy(
+    keymap.set_lazy_key(
         "n",
         "<space>tg",
         keymap.exec("FzfTags"),
         { desc = "Search vim tags" }
     ),
-    keymap.map_lazy(
+    keymap.set_lazy_key(
         "n",
         "<space>ch",
         keymap.exec("FzfHistory:"),
         { desc = "Search vim command history" }
     ),
-    keymap.map_lazy(
+    keymap.set_lazy_key(
         "n",
         "<space>sh",
         keymap.exec("FzfHistory/"),
         { desc = "Search vim search history" }
     ),
-    keymap.map_lazy(
+    keymap.set_lazy_key(
         "n",
         "<space>mk",
         keymap.exec("FzfMarks"),
         { desc = "Search vim marks" }
     ),
-    keymap.map_lazy(
+    keymap.set_lazy_key(
         "n",
         "<space>km",
         keymap.exec("FzfMaps"),

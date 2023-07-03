@@ -24,19 +24,19 @@ if has('mac') && exists('$VIMRUNTIME/macmap.vim')
 endif
 
 " biscuits
-lua require('cfg.keymap').map('n', '<leader>ww', ':noa w<CR>', {silent=false, desc="Save file without formatting"})
-lua require('cfg.keymap').map('n', '<leader>qt', ':quit<CR>', {silent=false, desc=":quit"})
-lua require('cfg.keymap').map('n', '<leader>qT', ':quit!<CR>', {silent=false, desc=":quit!"})
-lua require('cfg.keymap').map('n', '<leader>qa', ':qall<CR>', {silent=false, desc=":qall"})
-lua require('cfg.keymap').map('n', '<leader>qA', ':qall!<CR>', {silent=false, desc=":qall!"})
-lua require('cfg.keymap').map('n', '<leader>zz', "@=((foldclosed(line('.')) < 0) ? 'zc':'zo')<CR>", {silent=false, desc="Toggle folding"})
-lua require('cfg.keymap').map('x', '<leader>y', ":w! $HOME/.nvim/.copypaste<CR>", {silent=false, desc="Copy visual-selected text to cache"})
-lua require('cfg.keymap').map('n', '<leader>p', ":r $HOME/.nvim/.copypaste<CR>", {silent=false, desc="Paste from cache"})
+lua require('builtin.utils.keymap').set_key('n', '<leader>ww', ':noa w<CR>', {silent=false, desc="Save file without formatting"})
+lua require('builtin.utils.keymap').set_key('n', '<leader>qt', ':quit<CR>', {silent=false, desc=":quit"})
+lua require('builtin.utils.keymap').set_key('n', '<leader>qT', ':quit!<CR>', {silent=false, desc=":quit!"})
+lua require('builtin.utils.keymap').set_key('n', '<leader>qa', ':qall<CR>', {silent=false, desc=":qall"})
+lua require('builtin.utils.keymap').set_key('n', '<leader>qA', ':qall!<CR>', {silent=false, desc=":qall!"})
+lua require('builtin.utils.keymap').set_key('n', '<leader>zz', "@=((foldclosed(line('.')) < 0) ? 'zc':'zo')<CR>", {silent=false, desc="Toggle folding"})
+lua require('builtin.utils.keymap').set_key('x', '<leader>y', ":w! $HOME/.nvim/.copypaste<CR>", {silent=false, desc="Copy visual-selected text to cache"})
+lua require('builtin.utils.keymap').set_key('n', '<leader>p', ":r $HOME/.nvim/.copypaste<CR>", {silent=false, desc="Paste from cache"})
 
 " optimization
 augroup optimization_augroup
     autocmd!
-    autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f) > luaeval("require('cfg.const').perf.file.maxsize") | syntax clear | setlocal eventignore+=FileType | setlocal undolevels=-1 | endif
+    autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f) > luaeval("require('builtin.utils.constants').perf.file.maxsize") | syntax clear | setlocal eventignore+=FileType | setlocal undolevels=-1 | endif
 augroup END
 
 " user options
