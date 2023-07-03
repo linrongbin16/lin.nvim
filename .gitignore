@@ -12,9 +12,9 @@
 /lua/builtin/users.vim
 /lua/builtin/users.lua
 /lua/plugins/users.lua
-/lua/config/neovim/nvim-lspconfig/setup_handlers.lua
-/lua/config/williamboman/mason-lspconfig-nvim/setup_handlers.lua
-/lua/config/williamboman/mason-lspconfig-nvim/ensure_installed.lua
-/lua/config/jay-babu/mason-null-ls-nvim/setup_handlers.lua
-/lua/config/jay-babu/mason-null-ls-nvim/ensure_installed.lua
-/lua/config/hrsh7th/nvim-cmp/setup_handler.lua
+/lua/configs/neovim/nvim-lspconfig/setup_handlers.lua
+/lua/configs/williamboman/mason-lspconfig-nvim/setup_handlers.lua
+/lua/configs/williamboman/mason-lspconfig-nvim/ensure_installed.lua
+/lua/configs/jay-babu/mason-null-ls-nvim/setup_handlers.lua
+/lua/configs/jay-babu/mason-null-ls-nvim/ensure_installed.lua
+/lua/configs/hrsh7th/nvim-cmp/setup_handler.lua
