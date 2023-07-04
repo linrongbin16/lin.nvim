@@ -79,7 +79,7 @@ cd $env:USERPROFILE\.nvim
 
 ### User guide
 
-Please check out [User guide](https://github.com/linrongbin16/lin.nvim/wiki/User-Guide).
+Please check out [User Guide](https://github.com/linrongbin16/lin.nvim/wiki/User-Guide).
 
 ## Contribute
 
