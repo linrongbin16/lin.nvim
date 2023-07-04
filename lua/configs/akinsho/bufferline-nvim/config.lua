@@ -4,10 +4,10 @@ local MAX_PREFIX_LENGTH = editor_layout.width(0.1, 10, 15)
 
 require("bufferline").setup({
     options = {
-        numbers = function(opts)
-            return string.format("%s.%s", opts.ordinal, opts.lower(opts.id))
-        end,
-        -- numbers = "ordinal",
+        -- numbers = function(opts)
+        --     return string.format("%s.%s", opts.ordinal, opts.lower(opts.id))
+        -- end,
+        numbers = "ordinal",
         close_command = "Bdelete! %d", -- Bdelete: https://github.com/moll/vim-bbye
         right_mouse_command = "Bdelete! %d",
         name_formatter = function(buf)
