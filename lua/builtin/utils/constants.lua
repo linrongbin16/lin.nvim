@@ -24,8 +24,8 @@ local M = {
         -- border options: single,double,rounded,solid,shadow
         border = "rounded",
         layout = {
-            width = editor_layout.width(0.9, 10, nil),
-            height = editor_layout.height(0.8, 5, nil),
+            width = editor_layout.width(0.95, 10, nil),
+            height = editor_layout.height(0.85, 5, nil),
         },
     },
     -- performance
