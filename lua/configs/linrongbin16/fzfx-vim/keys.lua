@@ -45,6 +45,12 @@ local M = {
         keymap.exec("FzfxFilesUW"),
         { desc = "Unrestricted find files by cursor word" }
     ),
+    keymap.set_lazy_key(
+        "n",
+        "<space>rf",
+        keymap.exec("FzfxResumeFiles"),
+        { desc = "Resume last files search" }
+    ),
     -- search buffer
     keymap.set_lazy_key(
         "n",
@@ -95,6 +101,12 @@ local M = {
         "<space>uwl",
         keymap.exec("FzfxLiveGrepUW"),
         { desc = "Unrestricted live grep by cursor word" }
+    ),
+    keymap.set_lazy_key(
+        "n",
+        "<space>rl",
+        keymap.exec("FzfxResumeLiveGrep"),
+        { desc = "Resume last live grep" }
     ),
     -- git
     keymap.set_lazy_key(

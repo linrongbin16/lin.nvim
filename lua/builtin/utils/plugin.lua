@@ -1,10 +1,17 @@
 local function lua_keys(keys)
     local keys_path = "configs/" .. keys:gsub("%.", "-") .. "/keys"
-    local ok, keys_module = pcall(require, keys_path)
-    if not ok then
+    local keys_list_ok, keys_list = pcall(require, keys_path)
+    if not keys_list_ok then
         error("Error! Lua module '" .. keys_path .. "' not found!")
     end
-    return keys_module
+    local user_keys_path = "configs/" .. keys:gsub("%.", "-") .. "/user_keys"
+    local user_keys_list_ok, user_keys_list = pcall(require, user_keys_path)
+    if user_keys_list_ok then
+        for _, k in ipairs(user_keys_list) do
+            table.insert(keys_list, k)
+        end
+    end
+    return keys_list
 end
 
 local function lua_init(init)
