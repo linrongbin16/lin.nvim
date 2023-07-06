@@ -7,10 +7,12 @@ message "install dependencies with apt"
 sudo apt-get update
 
 if ! type nvim >/dev/null 2>&1; then
-    message "install 'nvim' from ppa:neovim-ppa/unstable"
-    sudo add-apt-repository -y ppa:neovim-ppa/unstable
-    sudo apt-get update
-    sudo apt-get install -y neovim
+    message "install 'nvim'(appimage) from github.com"
+    sudo apt-get install -y fuse
+    wget https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
+    sudo mkdir -p /usr/local/bin
+    chmod u+x nvim.appimage
+    sudo mv nvim.appimage /usr/local/bin/nvim
 else
     skip_message 'nvim'
 fi
