@@ -20,12 +20,11 @@ local M = {
         "folke/lsp-colors.nvim",
     },
     {
-        "nvim-lua/plenary.nvim",
-        lazy = true,
-    },
-    {
         "neovim/nvim-lspconfig",
         config = lua_config("neovim/nvim-lspconfig"),
+    },
+    {
+        "nvim-lua/plenary.nvim",
         lazy = true,
     },
     {
