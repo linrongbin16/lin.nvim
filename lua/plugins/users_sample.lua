@@ -75,6 +75,7 @@
 --     -- Ranger file manager
 --     {
 --         "kevinhwang91/rnvimr",
+--         init = lua_init("kevinhwang91/rnvimr"),
 --         keys = lua_keys("kevinhwang91/rnvimr"),
 --     },
 -- }
