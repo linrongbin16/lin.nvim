@@ -17,7 +17,6 @@ let s:colors=[
             \ 'tender',
             \ 'zenburn',
             \ 'seoul256',
-            \ 'hybrid_reverse',
             \ 'solarized8',
             \ 'xcode',
             \ 'material',
