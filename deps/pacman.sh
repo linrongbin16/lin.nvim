@@ -20,7 +20,7 @@ install_or_skip "yes | sudo pacman -S pkg-config" "pkg-config"
 install_or_skip "yes | sudo pacman -S cmake" "cmake"
 install_or_skip "yes | sudo pacman -S xsel" "xsel"
 install_or_skip "yes | sudo pacman -S xclip" "xclip"
-install_or_skip "yes | sudo pacman -S wl-clipboard" "wl-copy"
+# install_or_skip "yes | sudo pacman -S wl-clipboard" "wl-copy"
 
 # Python3
 install_or_skip "yes | sudo pacman -S python python-pip" "python3"
