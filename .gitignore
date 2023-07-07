@@ -9,8 +9,11 @@
 /universal-ctags
 
 # user
-users.vim
 users.lua
+users_preload.vim
+users_preload.lua
+users_postload.vim
+users_postload.lua
 ensure_installed.lua
 setup_handlers.lua
 setup_handler.lua

@@ -38,10 +38,3 @@ augroup optimization_augroup
     autocmd!
     autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f) > luaeval("require('builtin.utils.constants').perf.file.maxsize") | syntax clear | setlocal eventignore+=FileType | setlocal undolevels=-1 | endif
 augroup END
-
-" user options
-if filereadable(expand('~/.nvim/lua/builtin/users.vim'))
-    source $HOME/.nvim/lua/builtin/users.vim
-endif
-
-lua pcall(require, 'builtin.users')

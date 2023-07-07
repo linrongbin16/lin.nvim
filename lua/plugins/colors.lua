@@ -84,11 +84,6 @@ return {
         priority = 1000,
     },
     {
-        "kristijanhusak/vim-hybrid-material",
-        lazy = true,
-        priority = 1000,
-    },
-    {
         "lifepillar/vim-solarized8",
         lazy = true,
         priority = 1000,

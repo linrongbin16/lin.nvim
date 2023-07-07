@@ -6,7 +6,7 @@ local function lua_keys(keys)
     end
     local user_keys_path = "configs/" .. keys:gsub("%.", "-") .. "/user_keys"
     local user_keys_list_ok, user_keys_list = pcall(require, user_keys_path)
-    if user_keys_list_ok then
+    if user_keys_list_ok and type(user_keys_list) == "table" then
         for _, k in ipairs(user_keys_list) do
             table.insert(keys_list, k)
         end
