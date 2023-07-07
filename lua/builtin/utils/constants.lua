@@ -21,8 +21,9 @@ local M = {
         },
     },
     ui = {
-        -- border options: single,double,rounded,solid,shadow
+        -- options: single,double,rounded,solid,shadow
         border = "rounded",
+        winblend = 10,
         layout = {
             width = editor_layout.width(0.95, 10, nil),
             height = editor_layout.height(0.85, 5, nil),

@@ -6,5 +6,6 @@ require("toggleterm").setup({
         border = constants.ui.border,
         width = constants.ui.layout.width,
         height = constants.ui.layout.height,
+        winblend = constants.ui.winblend,
     },
 })
