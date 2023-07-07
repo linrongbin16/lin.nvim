@@ -4,7 +4,7 @@ local M = {
     keymap.set_lazy_key(
         "n",
         "<leader>lg",
-        keymap.exec("LazyGit"),
+        "<cmd>LazyGit<cr>",
         { desc = "Open lazygit in terminal" }
     ),
 }
