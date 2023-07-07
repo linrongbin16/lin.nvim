@@ -2,7 +2,7 @@ local editor_layout = require("builtin.utils.layout").editor
 local constants = require("builtin.utils.constants")
 
 -- winblend
-vim.g.rnvimr_shadow_winblend = 90
+vim.g.rnvimr_shadow_winblend = constants.ui.winblend
 
 -- layout
 vim.g.rnvimr_layout = {
