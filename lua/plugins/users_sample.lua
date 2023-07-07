@@ -72,6 +72,11 @@
 --         config = lua_config("lmburns/lf.nvim"),
 --         keys = lua_keys("lmburns/lf.nvim"),
 --     },
+--     -- Ranger file manager
+--     {
+--         "kevinhwang91/rnvimr",
+--         keys = lua_keys("kevinhwang91/rnvimr"),
+--     },
 -- }
 
 return {}
