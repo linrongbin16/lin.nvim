@@ -59,6 +59,19 @@
 --         config = lua_config("rcarriga/nvim-notify"),
 --         lazy = true,
 --     },
+--     -- Lazygit
+--     {
+--         "kdheepak/lazygit.nvim",
+--         dependencies = { "akinsho/toggleterm.nvim" },
+--         init = lua_init("kdheepak/lazygit.nvim"),
+--         keys = lua_keys("kdheepak/lazygit.nvim"),
+--     },
+--     -- Lf file manager
+--     {
+--         "lmburns/lf.nvim",
+--         config = lua_config("lmburns/lf.nvim"),
+--         keys = lua_keys("lmburns/lf.nvim"),
+--     },
 -- }
 
 return {}

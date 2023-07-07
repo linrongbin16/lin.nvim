@@ -4,7 +4,7 @@ local M = {
     keymap.set_lazy_key(
         "n",
         "<leader>lf",
-        keymap.exec("Lf"),
+        "<cmd>Lf<cr>",
         { desc = "Open lf file manager in terminal" }
     ),
 }
