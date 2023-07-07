@@ -30,7 +30,7 @@ install_or_skip "sudo apt-get install -y pkg-config" "pkg-config"
 install_or_skip "sudo apt-get install -y cmake" "cmake"
 install_or_skip "sudo apt-get install -y xsel" "xsel"
 install_or_skip "sudo apt-get install -y xclip" "xclip"
-install_or_skip "sudo apt-get install -y wl-clipboard" "wl-copy"
+# install_or_skip "sudo apt-get install -y wl-clipboard" "wl-copy"
 
 # locale
 sudo locale-gen en_US
