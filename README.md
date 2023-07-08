@@ -72,6 +72,10 @@ For more details, please check out [MacOS/Linux installation](https://github.com
 After installing some [third-party dependencies for Windows](https://github.com/linrongbin16/lin.nvim/wiki/Install,-Upgrade-&-Uninstall#windows), run PowerShell command:
 
 ```powershell
+# scoop
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+irm get.scoop.sh | iex
+
 git clone https://github.com/linrongbin16/lin.nvim $env:USERPROFILE\.nvim
 cd $env:USERPROFILE\.nvim
 .\install.ps1
