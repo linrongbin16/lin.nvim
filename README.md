@@ -24,7 +24,7 @@ integrated with tons of utilities for development, inspired by [spf13-vim](https
 - [Get started](#get-started)
   - [MacOS/Linux](#macoslinux)
   - [Windows](#windows)
-  - [User guide](#user-guide)
+- [User guide](#user-guide)
 
 ## Introduction
 
@@ -78,7 +78,7 @@ For more details, please check out [MacOS/Linux installation](https://github.com
 
    ![image](https://github.com/linrongbin16/lin.nvim/assets/6496887/bca811b5-8b1a-42c0-9283-c38e75f2f06a)
 
-3. Install [Git for Windows Setup](https://git-scm.com/downloads).
+3. Install [Git for Windows](https://git-scm.com/downloads).
 
 4. run PowerShell command:
 
@@ -96,7 +96,7 @@ For more details, please check out [MacOS/Linux installation](https://github.com
 
 For more details, please check out [Windows installation](https://github.com/linrongbin16/lin.nvim/wiki/Install,-Upgrade-&-Uninstall#windows).
 
-### User guide
+## User guide
 
 Please check out [User Guide](https://github.com/linrongbin16/lin.nvim/wiki/User-Guide).
 
