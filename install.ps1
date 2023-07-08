@@ -4,15 +4,17 @@
 $NVIM_HOME = "$env:USERPROFILE\.nvim"
 $APPDATA_LOCAL_HOME = "$env:USERPROFILE\AppData\Local"
 $APPDATA_LOCAL_NVIM_HOME = "$APPDATA_LOCAL_HOME\nvim"
-$DEPS_HOME = "$NVIM_HOME\deps"
-
-$OPT_WITH_OPT = $False
 
 # utils
 
 function Message([string]$content)
 {
     Write-Host "[lin.nvim] - $content"
+}
+
+function SkipMessage([string]$target)
+{
+    Message "'${target}' already exist, skip..."
 }
 
 function ErrorMessage([string] $content)
@@ -24,7 +26,7 @@ function InstallOrSkip([string]$command, [string]$target)
 {
     if (Get-Command -Name $target -ErrorAction SilentlyContinue)
     {
-        Message "'${target}' already exist, skip..."
+        SkipMessage $target
     } else
     {
         Message "install '${target}' with command: '${command}'"
@@ -50,84 +52,92 @@ function TryBackup([string]$src)
     }
 }
 
-# function UnknownOptionError()
-# {
-#     ErrorMessage "unknown option, please try --help for more information."
-#     exit 1
-# }
-#
-# function TryDelete([string]$src) {
-#     if ((TestReparsePoint $src) -or (Test-Path $src)) {
-#         (Get-Item $src).Delete()
-#         Message "delete '$src'"
-#     }
-# }
-
 # dependency
+
+function CoreDependency()
+{
+    scoop bucket add extras
+    scoop install mingw
+    InstallOrSkip -command "scoop install neovim" -target "nvim"
+
+    InstallOrSkip -command "scoop install which" -target "which"
+    InstallOrSkip -command "scoop install gawk" -target "awk"
+    InstallOrSkip -command "scoop install sed" -target "sed"
+
+    InstallOrSkip -command "scoop install llvm" -target "clang"
+    InstallOrSkip -command "scoop install llvm" -target "clang++"
+    InstallOrSkip -command "scoop install make" -target "make"
+    InstallOrSkip -command "scoop install cmake" -target "cmake"
+
+    InstallOrSkip -command "scoop install git" -target "git"
+    InstallOrSkip -command "scoop install curl" -target "curl"
+    InstallOrSkip -command "scoop install wget" -target "wget"
+
+    InstallOrSkip -command "scoop install 7zip" -target "7z"
+    InstallOrSkip -command "scoop install gzip" -target "gzip"
+    InstallOrSkip -command "scoop install unzip" -target "unzip"
+    InstallOrSkip -command "scoop install unrar" -target "unrar"
+
+    # ctags
+    InstallOrSkip -command "scoop install universal-ctags" -target "ctags"
+}
 
 function RustDependency()
 {
-    message 'install modern rust commands with cargo'
+    message 'install rust and modern commands'
+    # rust
+    InstallOrSkip -command "scoop install rustup" -target "cargo"
+    # cargo
     InstallOrSkip -command "cargo install ripgrep" -target "rg"
     InstallOrSkip -command "cargo install fd-find" -target "fd"
     InstallOrSkip -command "cargo install --locked bat" -target "bat"
 }
 
-function Pip3Dependency()
+function PythonDependency()
 {
-    Message "install python packages with pip3"
-    # Run as administrator
+    Message "install python3 and pip3 packages"
+    # python
+    InstallOrSkip -command "scoop install python" -target "python3"
+    # pip
     Start-Process powershell "python3 -m pip install pynvim" -Verb RunAs -Wait
 }
 
-function NpmDependency()
+function NodejsDependency()
 {
-    Message "install node packages with npm"
-    # Run as administrator
+    Message "install node and npm packages"
+    # nodejs
+    InstallOrSkip -command "scoop install nodejs-lts" -target "node"
+    # npm
     Start-Process powershell "npm install -g neovim" -Verb RunAs -Wait
+}
+
+function GuiFontDependency()
+{
+    Message "install patched font 'Hack-NF'"
+    scoop bucket add nerd-fonts
+    scoop install Hack-NF
+    scoop install Hack-NF-Mono
+    Message "please set 'Hack NFM' (or 'Hack Nerd Font Mono') as your terminal font"
 }
 
 function NvimConfig()
 {
-    Message "install $APPDATA_LOCAL_HOME\nvim\init.vim for neovim on windows"
+    Message "install $APPDATA_LOCAL_HOME\nvim for neovim on windows"
     TryBackup $APPDATA_LOCAL_NVIM_HOME
     cmd /c mklink $APPDATA_LOCAL_NVIM_HOME $NVIM_HOME /D
     cmd /c nvim -E -c "Lazy! sync" -c "qall!" /wait
 }
 
-
-# function ShowHelp()
-# {
-#     Get-Content -Path "$DEPS_HOME\help.txt" | Write-Host
-# }
-
-# check arguments
-# $argsLength = $args.Length
-# for ($i = 0; $i -lt $argsLength; $i++)
-# {
-#     $a = $args[ $i ];
-#     if ($a.StartsWith("-h") -or $a.StartsWith("--help"))
-#     {
-#         ShowHelp
-#         exit 0
-#     }
-#     elseif ($a.StartsWith('--with-lsp'))
-#     {
-#         $OPT_WITH_OPT=$True
-#     }
-#     else
-#     {
-#         UnknownOptionError
-#     }
-# }
-
-Message "install for windows"
+Message "install for Windows"
 
 # dependency
-Message "install dependencies for windows"
+Message "install dependencies for Windows"
+
+CoreDependency
 RustDependency
-Pip3Dependency
-NpmDependency
+PythonDependency
+NodejsDependency
+GuiFontDependency
 NvimConfig
 
-Message "install for windows - done"
+Message "install for Windows - done"

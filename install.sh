@@ -8,8 +8,6 @@ CONFIG_NVIM_HOME=$HOME/.config/nvim
 DEPS_HOME=$NVIM_HOME/deps
 OS="$(uname -s)"
 
-OPT_WITH_LSP=0
-
 source $DEPS_HOME/util.sh
 
 # dependency
@@ -83,35 +81,6 @@ nvim_config() {
     ln -s $NVIM_HOME $CONFIG_NVIM_HOME
     nvim -E -c "Lazy! sync" -c "qall!"
 }
-
-# parse options
-# show_help() {
-#     cat $DEPS_HOME/help.txt
-# }
-#
-# unknown_option_error() {
-#     error_message "unknown option, please try --help for more information."
-#     exit 1
-# }
-
-# check arguments
-# args_length=$#
-# args=("$@")
-# for ((i = 0; i < args_length; i++)); do
-#     a="${args[i]}"
-#     case "$a" in
-#     -h | --help)
-#         show_help
-#         exit 0
-#         ;;
-#     --with-lsp)
-#         OPT_WITH_LSP=1
-#         ;;
-#     *)
-#         unknown_option_error
-#         ;;
-#     esac
-# done
 
 message "install for $OS"
 
