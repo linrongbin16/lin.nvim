@@ -58,6 +58,7 @@ function CoreDependency()
 {
     scoop bucket add extras
     scoop install mingw
+    scoop install uutils-coreutils
     InstallOrSkip -command "scoop install neovim" -target "nvim"
 
     InstallOrSkip -command "scoop install which" -target "which"
@@ -93,13 +94,30 @@ function RustDependency()
     InstallOrSkip -command "cargo install --locked bat" -target "bat"
 }
 
+function GoDependency()
+{
+    message 'install go and modern commands'
+    # go
+    InstallOrSkip -command "scoop install go" -target "go"
+    # commands
+    InstallOrSkip -command "go install github.com/jesseduffield/lazygit@latest" -target "lazygit"
+}
+
 function PythonDependency()
 {
     Message "install python3 and pip3 packages"
     # python
     InstallOrSkip -command "scoop install python" -target "python3"
     # pip
-    Start-Process powershell "python3 -m pip install pynvim" -Verb RunAs -Wait
+    # Start-Process powershell "python3 -m pip install pynvim" -Verb RunAs -Wait
+    python3 -m pip install pipx --user --upgrade
+    python3 -m pipx ensurepath
+    $env:Path=(
+        [System.Environment]::GetEnvironmentVariable("Path","Machine"),
+        [System.Environment]::GetEnvironmentVariable("Path","User")
+    ) -match '.' -join ';'
+    pipx install trash-cli
+    pipx upgrade trash-cli
 }
 
 function NodejsDependency()
@@ -108,7 +126,7 @@ function NodejsDependency()
     # nodejs
     InstallOrSkip -command "scoop install nodejs-lts" -target "node"
     # npm
-    Start-Process powershell "npm install -g neovim" -Verb RunAs -Wait
+    # Start-Process powershell "npm install -g neovim" -Verb RunAs -Wait
 }
 
 function GuiFontDependency()
@@ -135,6 +153,7 @@ Message "install dependencies for Windows"
 
 CoreDependency
 RustDependency
+GoDependency
 PythonDependency
 NodejsDependency
 GuiFontDependency

@@ -63,6 +63,13 @@ local M = {
         keymap.exec("FzfMaps"),
         { desc = "Search vim keymaps" }
     ),
+    -- yanky
+    keymap.set_lazy_key(
+        "n",
+        "<space>yh",
+        keymap.exec("YankyRingHistory"),
+        { desc = "Search yanky history" }
+    ),
 }
 
 return M

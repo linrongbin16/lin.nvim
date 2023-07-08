@@ -33,7 +33,7 @@ set cindent smartindent autoindent
 set expandtab smarttab tabstop=4 softtabstop=4 shiftwidth=4
 
 """ clipboard with system
-set clipboard^=unnamed,unnamedplus
+set clipboard^=unnamedplus
 
 """ shorter keycode timeout, better response
 set ttimeout ttimeoutlen=200
@@ -88,6 +88,9 @@ set tags+=./tags;,tags
 """ file auto read/write/load
 set autoread autowrite noswapfile confirm
 autocmd FocusGained,BufEnter * checktime
+if exists('##TermEnter') && exists('##TermLeave')
+    autocmd TermEnter,TermLeave * checktime
+endif
 
 """ encodings
 set fileencoding=utf-8
@@ -128,17 +131,3 @@ set foldenable foldlevel=100 foldnestmax=100 foldmethod=indent
 """ disable GUI menu
 set guioptions-=T
 set guioptions-=m
-
-""" maximize GUI window
-if has('gui_running')
-    set lines=9999
-    set columns=9999
-endif
-if has('win32') || has('win64')
-    autocmd GUIEnter * simalt ~x
-endif
-
-""" disable macvim GUI key mappings
-if has('gui_macvim')
-    let macvim_skip_cmd_opt_movement = 1
-endif

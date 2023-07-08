@@ -12,17 +12,16 @@ source $DEPS_HOME/util.sh
 
 # dependency
 
-# vim-hexokinase has been replaced with nvim-colorizer.lua, so golang is no longer needed as a dependency.
-# golang_dependency() {
-# 	# https://github.com/kerolloz/go-installer
-# 	install_or_skip "bash <(curl -sL https://git.io/go-installer)" "go"
-# 	if [ -d $HOME/.go/bin ]; then
-# 		export PATH=$HOME/.go/bin:$PATH
-# 	fi
-# }
+golang_dependency() {
+    message "install go and modern commands"
+    # https://github.com/kerolloz/go-installer
+    install_or_skip "bash <(curl -sL https://git.io/go-installer)" "go"
+    export PATH=$HOME/.go/bin:$PATH
+    install_or_skip "go install github.com/jesseduffield/lazygit@latest" "lazygit"
+}
 
 rust_dependency() {
-    message "install rustc/cargo"
+    message "install rust and modern commands"
     install_or_skip "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y" "cargo"
     . "$HOME/.cargo/env"
     message 'install modern rust commands with cargo'
@@ -33,7 +32,11 @@ rust_dependency() {
 
 pip3_dependency() {
     message "install python packages with pip3"
-    sudo python3 -m pip install pynvim
+    # sudo python3 -m pip install pynvim
+    python3 -m pip install pipx --user --upgrade
+    python3 -m pipx ensurepath
+    pipx install trash-cli
+    pipx upgrade trash-cli
 }
 
 npm_dependency() {
@@ -117,8 +120,9 @@ Darwin)
 esac
 
 rust_dependency
+golang_dependency
 pip3_dependency
-npm_dependency
+# npm_dependency
 guifont_dependency
 nvim_config
 
