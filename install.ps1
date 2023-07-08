@@ -56,7 +56,6 @@ function TryBackup([string]$src)
 
 function CoreDependency()
 {
-    scoop bucket add main
     scoop bucket add extras
     scoop install mingw
     InstallOrSkip -command "scoop install neovim" -target "nvim"
