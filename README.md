@@ -69,7 +69,18 @@ For more details, please check out [MacOS/Linux installation](https://github.com
 
 ### Windows
 
-After installing some [third-party dependencies for Windows](https://github.com/linrongbin16/lin.nvim/wiki/Install,-Upgrade-&-Uninstall#windows), run PowerShell command:
+1. Enable [Windows developer mode](https://learn.microsoft.com/en-us/windows/apps/get-started/enable-your-device-for-development#activate-developer-mode) for Windows.
+
+2. Install [Visual Studio](https://www.visualstudio.com/) with MSVC components:
+
+   - .NET Desktop Development
+   - Desktop development with C++
+
+   ![image](https://github.com/linrongbin16/lin.nvim/assets/6496887/bca811b5-8b1a-42c0-9283-c38e75f2f06a)
+
+3. Install [Git for Windows Setup](https://git-scm.com/downloads).
+
+4. run PowerShell command:
 
 ```powershell
 # scoop
@@ -80,6 +91,8 @@ git clone https://github.com/linrongbin16/lin.nvim $env:USERPROFILE\.nvim
 cd $env:USERPROFILE\.nvim
 .\install.ps1
 ```
+
+For more details, please check out [Manually Install all Windows Dependencies](https://github.com/linrongbin16/lin.nvim/wiki/Manually-Install-All-Windows-Dependencies).
 
 ### User guide
 
