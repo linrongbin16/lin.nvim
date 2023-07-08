@@ -169,6 +169,11 @@ local M = {
     {
         "stevearc/dressing.nvim",
         event = { VeryLazy, BufRead, BufNewFile },
+        dependencies = {
+            "junegunn/fzf",
+            "junegunn/fzf.vim",
+            "linrongbin16/fzfx.vim",
+        },
         config = lua_config("stevearc/dressing.nvim"),
     },
 
@@ -331,6 +336,12 @@ local M = {
         config = lua_config("linrongbin16/gitlinker.nvim"),
         keys = lua_keys("linrongbin16/gitlinker.nvim"),
     },
+    -- Lazygit
+    {
+        "kdheepak/lazygit.nvim",
+        init = lua_init("kdheepak/lazygit.nvim"),
+        keys = lua_keys("kdheepak/lazygit.nvim"),
+    },
 
     -- ---- ENHANCEMENT ----
 
@@ -399,6 +410,12 @@ local M = {
         event = { VeryLazy, CmdlineEnter },
         init = lua_init("mbbill/undotree"),
         keys = lua_keys("mbbill/undotree"),
+    },
+    -- Yank
+    {
+        "gbprod/yanky.nvim",
+        config = lua_config("gbprod/yanky.nvim"),
+        keys = lua_keys("gbprod/yanky.nvim"),
     },
 }
 

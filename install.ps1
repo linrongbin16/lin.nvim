@@ -94,6 +94,15 @@ function RustDependency()
     InstallOrSkip -command "cargo install --locked bat" -target "bat"
 }
 
+function GoDependency()
+{
+    message 'install go and modern commands'
+    # go
+    InstallOrSkip -command "scoop install go" -target "go"
+    # commands
+    InstallOrSkip -command "go install github.com/jesseduffield/lazygit@latest" -target "lazygit"
+}
+
 function PythonDependency()
 {
     Message "install python3 and pip3 packages"
@@ -144,6 +153,7 @@ Message "install dependencies for Windows"
 
 CoreDependency
 RustDependency
+GoDependency
 PythonDependency
 NodejsDependency
 GuiFontDependency
