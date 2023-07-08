@@ -35,6 +35,7 @@ pip3_dependency() {
     # sudo python3 -m pip install pynvim
     python3 -m pip install pipx --user --upgrade
     python3 -m pipx ensurepath
+    export PATH="$PATH:$HOME/.local/bin"
     pipx install trash-cli
     pipx upgrade trash-cli
 }
