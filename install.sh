@@ -33,7 +33,11 @@ rust_dependency() {
 
 pip3_dependency() {
     message "install python packages with pip3"
-    sudo python3 -m pip install pynvim
+    # sudo python3 -m pip install pynvim
+    python3 -m pip install pipx --user --upgrade
+    python3 -m pipx ensurepath
+    pipx install trash-cli
+    pipx upgrade trash-cli
 }
 
 npm_dependency() {
@@ -118,7 +122,7 @@ esac
 
 rust_dependency
 pip3_dependency
-npm_dependency
+# npm_dependency
 guifont_dependency
 nvim_config
 
