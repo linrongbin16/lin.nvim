@@ -63,7 +63,7 @@ git clone https://github.com/linrongbin16/lin.nvim ~/.nvim && cd ~/.nvim && ./in
 
 And that's all of it.
 
-> Note: macOS use `brew` as package installer, please install [Xcode](https://developer.apple.com/xcode/) and [homebrew](https://brew.sh/) as pre-requirements.
+> Note: macOS use `brew` as package manager, please install [Xcode](https://developer.apple.com/xcode/) and [homebrew](https://brew.sh/) as pre-requirements.
 
 For more details, please check out [MacOS/Linux installation](https://github.com/linrongbin16/lin.nvim/wiki/Install,-Upgrade-&-Uninstall#macoslinux).
 
@@ -82,17 +82,19 @@ For more details, please check out [MacOS/Linux installation](https://github.com
 
 4. run PowerShell command:
 
-```powershell
-# scoop
-Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
-irm get.scoop.sh | iex
+   ```powershell
+   # scoop
+   Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+   irm get.scoop.sh | iex
 
-git clone https://github.com/linrongbin16/lin.nvim $env:USERPROFILE\.nvim
-cd $env:USERPROFILE\.nvim
-.\install.ps1
-```
+   git clone https://github.com/linrongbin16/lin.nvim $env:USERPROFILE\.nvim
+   cd $env:USERPROFILE\.nvim
+   .\install.ps1
+   ```
 
-For more details, please check out [Manually Install all Windows Dependencies](https://github.com/linrongbin16/lin.nvim/wiki/Manually-Install-All-Windows-Dependencies).
+   > Note: Windowd use [scoop](https://scoop.sh/) as package manager.
+
+For more details, please check out [Windows installation](https://github.com/linrongbin16/lin.nvim/wiki/Install,-Upgrade-&-Uninstall#windows).
 
 ### User guide
 
