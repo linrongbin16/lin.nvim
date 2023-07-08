@@ -30,11 +30,15 @@ lua require('builtin.utils.keymap').set_key('n', '<leader>qT', ':quit!<CR>', {si
 lua require('builtin.utils.keymap').set_key('n', '<leader>qa', ':qall<CR>', {silent=false, desc=":qall"})
 lua require('builtin.utils.keymap').set_key('n', '<leader>qA', ':qall!<CR>', {silent=false, desc=":qall!"})
 lua require('builtin.utils.keymap').set_key('n', '<leader>zz', "@=((foldclosed(line('.')) < 0) ? 'zc':'zo')<CR>", {silent=false, desc="Toggle folding"})
-lua require('builtin.utils.keymap').set_key('x', '<leader>y', ":w! $HOME/.nvim/.copypaste<CR>", {silent=false, desc="Copy visual-selected text to cache"})
-lua require('builtin.utils.keymap').set_key('n', '<leader>p', ":r $HOME/.nvim/.copypaste<CR>", {silent=false, desc="Paste from cache"})
+lua require('builtin.utils.keymap').set_key('x', '<leader>yy', ":w! $HOME/.nvim/.copypaste<CR>", {silent=false, desc="Copy visual selected to cache"})
+lua require('builtin.utils.keymap').set_key('n', '<leader>pp', ":r $HOME/.nvim/.copypaste<CR>", {silent=false, desc="Paste from cache"})
 
 " optimization
 augroup optimization_augroup
     autocmd!
     autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f) > luaeval("require('builtin.utils.constants').perf.file.maxsize") | syntax clear | setlocal eventignore+=FileType | setlocal undolevels=-1 | endif
 augroup END
+
+" transparent
+lua vim.o.winblend = require('builtin.utils.constants').ui.winblend
+lua vim.o.pumblend = require('builtin.utils.constants').ui.pumblend
