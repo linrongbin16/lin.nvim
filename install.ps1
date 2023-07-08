@@ -111,6 +111,15 @@ function NodejsDependency()
     Start-Process powershell "npm install -g neovim" -Verb RunAs -Wait
 }
 
+function GuiFontDependency()
+{
+    Message "install patched font 'Hack-NF'"
+    scoop bucket add nerd-fonts
+    scoop install Hack-NF
+    scoop install Hack-NF-Mono
+    Message "please set 'Hack NFM' (or 'Hack Nerd Font Mono') as your terminal font"
+}
+
 function NvimConfig()
 {
     Message "install $APPDATA_LOCAL_HOME\nvim for neovim on windows"
@@ -128,6 +137,7 @@ CoreDependency
 RustDependency
 PythonDependency
 NodejsDependency
+GuiFontDependency
 NvimConfig
 
 Message "install for Windows - done"
