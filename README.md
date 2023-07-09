@@ -63,9 +63,7 @@ git clone https://github.com/linrongbin16/lin.nvim ~/.nvim && cd ~/.nvim && ./in
 
 And that's all of it.
 
-> Note: macOS use `brew` as package manager, please install [Xcode](https://developer.apple.com/xcode/) and [homebrew](https://brew.sh/) as pre-requirements.
-
-For more details, please check out [MacOS/Linux installation](https://github.com/linrongbin16/lin.nvim/wiki/Install,-Upgrade-&-Uninstall#macoslinux).
+> Note: for macOS please install [Xcode](https://developer.apple.com/xcode/) as pre-requirements.
 
 ### Windows
 
@@ -78,9 +76,7 @@ For more details, please check out [MacOS/Linux installation](https://github.com
 
    ![image](https://github.com/linrongbin16/lin.nvim/assets/6496887/bca811b5-8b1a-42c0-9283-c38e75f2f06a)
 
-3. Install [Git for Windows](https://git-scm.com/downloads).
-
-4. run PowerShell command:
+3. run PowerShell command:
 
    ```powershell
    # scoop
@@ -92,9 +88,9 @@ For more details, please check out [MacOS/Linux installation](https://github.com
    .\install.ps1
    ```
 
-   > Note: Windowd use [scoop](https://scoop.sh/) as package manager.
+### Support Platforms & Third-Party Dependencies
 
-For more details, please check out [Windows installation](https://github.com/linrongbin16/lin.nvim/wiki/Install,-Upgrade-&-Uninstall#windows).
+For more details, please check out [Support Platforms & Third-Party Dependencies](https://github.com/linrongbin16/lin.nvim/wiki/Install,-Upgrade-&-Uninstall#support-platforms).
 
 ## User guide
 
