@@ -125,8 +125,8 @@ function NodejsDependency()
     # nodejs
     InstallOrSkip -command "scoop install nodejs-lts" -target "node"
     # npm
-    Start-Process powershell "npm install -g neovim" -Verb RunAs -Wait
-    InstallOrSkip -command "Start-Process powershell 'npm install -g trash-cli' -Verb RunAs -Wait" -target "trash"
+    npm install -g neovim
+    InstallOrSkip -command "npm install -g trash-cli" -target "trash"
 }
 
 function GuiFontDependency()
