@@ -1,5 +1,40 @@
 # lin.nvim : Lin Rongbin's Neovim Distribution
 
+<div align="left">
+<p>
+    <a href="https://github.com/neovim/neovim/releases/tag/stable">
+      <img src="https://img.shields.io/badge/Neovim-0.9.1-blueviolet.svg?style=flat-square&logo=Neovim&logoColor=green" alt="Neovim minimum version"/>
+    </a>
+    <a>
+      <img alt="Linux" src="https://img.shields.io/badge/Linux-%23.svg?style=flat-square&logo=linux&color=FCC624&logoColor=black" />
+    </a>
+    <a>
+      <img alt="macOS" src="https://img.shields.io/badge/macOS-%23.svg?style=flat-square&logo=apple&color=000000&logoColor=white" />
+    </a>
+    <a>
+      <img alt="Windows" src="https://img.shields.io/badge/Windows-%23.svg?style=flat-square&logo=windows&color=0078D6&logoColor=white" />
+    </a>
+    <a href="https://github.com/linrongbin16/lin.nvim/search?l=lua">
+      <img src="https://img.shields.io/github/languages/top/linrongbin16/lin.nvim" alt="Top languages"/>
+    </a>
+    <a>
+      <img src="https://img.shields.io/github/repo-size/linrongbin16/lin.nvim?style=flat-square" />
+    </a>
+    <a href="https://github.com/linrongbin16/lin.nvim/blob/main/LICENSE">
+      <img src="https://img.shields.io/github/license/linrongbin16/lin.nvim?style=flat-square&logo=GNU&label=License" alt="License"/>
+    </a>
+    <a href="https://github.com/linrongbin16/lin.nvim/graphs/commit-activity">
+      <img src="https://img.shields.io/github/commit-activity/m/linrongbin16/lin.nvim?style=flat-square" />
+    </a>
+    <a href="https://github.com/linrongbin16/lin.nvim/commits/main">
+      <img alt="Latest release" src="https://img.shields.io/github/last-commit/linrongbin16/lin.nvim/main" />
+    </a>
+    <a href="https://github.com/linrongbin16/lin.nvim/graphs/contributors">
+      <img src="https://img.shields.io/github/contributors/linrongbin16/lin.nvim?style=flat-square" />
+    </a>
+</p>
+</div>
+
 > Leave Vim behind, this is the next generation of [lin.vim](https://github.com/linrongbin16/lin.vim).
 
 lin.nvim is a highly configured [Neovim](https://neovim.io/) distribution
