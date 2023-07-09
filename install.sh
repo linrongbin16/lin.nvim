@@ -41,7 +41,7 @@ pip3_dependency() {
 npm_dependency() {
     message "install node packages with npm"
     sudo npm install -g neovim
-    sudo npm install -g trash-cli
+    install_or_skip "sudo npm install -g trash-cli" "trash"
 }
 
 nerdfont_latest_release_tag() {
