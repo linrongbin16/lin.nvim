@@ -139,7 +139,9 @@ require("neo-tree").setup({
             ["e"] = "none",
 
             -- delete
-            ["d"] = constants.os.is_windows and "delete" or trash_bin,
+            ["d"] = (constants.os.is_windows and vim.fn.executable("trash"))
+                    and "delete"
+                or trash_bin,
             ["D"] = "delete",
         },
     },
