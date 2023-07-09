@@ -109,7 +109,7 @@ function PythonDependency()
     # python
     InstallOrSkip -command "scoop install python" -target "python3"
     # pip
-    python3 -m pip install pynvim --user --upgrade
+    # python3 -m pip install pynvim --user --upgrade
     # InstallOrSkip -command "python3 -m pip install pipx --user && python3 -m pipx ensurepath" -target "pipx"
     # $env:Path=(
     #     [System.Environment]::GetEnvironmentVariable("Path","Machine"),

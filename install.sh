@@ -15,7 +15,7 @@ source $DEPS_HOME/util.sh
 golang_dependency() {
     message "install go and modern commands"
     # https://github.com/kerolloz/go-installer
-    install_or_skip "bash <(curl -sL https://git.io/go-installer)" "go"
+    install_or_skip "if [ -d go-installer ]; then git clone --depth=1 https://github.com/kerolloz/go-installer.git && ./go-installer/go.sh; fi" "go"
     export PATH=$HOME/.go/bin:$PATH
     install_or_skip "go install github.com/jesseduffield/lazygit@latest" "lazygit"
 }
@@ -32,7 +32,7 @@ rust_dependency() {
 
 pip3_dependency() {
     message "install python packages with pip3"
-    python3 -m pip install pynvim --user --upgrade
+    # python3 -m pip install pynvim --user --upgrade
     # install_or_skip "python3 -m pip install pipx --user && python3 -m pipx ensurepath" "pipx"
     # export PATH="$PATH:$HOME/.local/bin"
     # install_or_skip "pipx install trash-cli" "trash-put"
@@ -122,7 +122,7 @@ esac
 rust_dependency
 golang_dependency
 pip3_dependency
-# npm_dependency
+npm_dependency
 guifont_dependency
 nvim_config
 

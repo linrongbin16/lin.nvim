@@ -7,6 +7,7 @@
 /mason
 /lazy
 /universal-ctags
+/go-installer
 
 # user
 users.lua
