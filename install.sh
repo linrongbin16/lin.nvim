@@ -33,11 +33,9 @@ rust_dependency() {
 pip3_dependency() {
     message "install python packages with pip3"
     # sudo python3 -m pip install pynvim
-    python3 -m pip install pipx --user --upgrade
-    python3 -m pipx ensurepath
+    install_or_skip "python3 -m pip install pipx --user && python3 -m pipx ensurepath" "pipx"
     export PATH="$PATH:$HOME/.local/bin"
-    pipx install trash-cli
-    pipx upgrade trash-cli
+    install_or_skip "pipx install trash-cli" "trash-put"
 }
 
 npm_dependency() {
