@@ -138,7 +138,6 @@ require("neo-tree").setup({
                     require("neo-tree.sources.manager").refresh(state.name)
                 end)
             end,
-            ["D"] = "delete",
         },
     },
     filesystem = {
@@ -157,7 +156,7 @@ require("neo-tree").setup({
                 ["<C-]>"] = "set_root",
                 ["[c"] = "prev_git_modified",
                 ["]c"] = "next_git_modified",
-                ["D"] = "none",
+                ["D"] = "delete",
             },
         },
     },
