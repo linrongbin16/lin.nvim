@@ -32,15 +32,16 @@ rust_dependency() {
 
 pip3_dependency() {
     message "install python packages with pip3"
-    # sudo python3 -m pip install pynvim
-    install_or_skip "python3 -m pip install pipx --user && python3 -m pipx ensurepath" "pipx"
-    export PATH="$PATH:$HOME/.local/bin"
-    install_or_skip "pipx install trash-cli" "trash-put"
+    python3 -m pip install pynvim --user --upgrade
+    # install_or_skip "python3 -m pip install pipx --user && python3 -m pipx ensurepath" "pipx"
+    # export PATH="$PATH:$HOME/.local/bin"
+    # install_or_skip "pipx install trash-cli" "trash-put"
 }
 
 npm_dependency() {
     message "install node packages with npm"
     sudo npm install -g neovim
+    sudo npm install -g trash-cli
 }
 
 nerdfont_latest_release_tag() {

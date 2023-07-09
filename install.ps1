@@ -109,12 +109,12 @@ function PythonDependency()
     # python
     InstallOrSkip -command "scoop install python" -target "python3"
     # pip
-    # Start-Process powershell "python3 -m pip install pynvim" -Verb RunAs -Wait
-    InstallOrSkip -command "python3 -m pip install pipx --user && python3 -m pipx ensurepath" -target "pipx"
-    $env:Path=(
-        [System.Environment]::GetEnvironmentVariable("Path","Machine"),
-        [System.Environment]::GetEnvironmentVariable("Path","User")
-    ) -match '.' -join ';'
+    python3 -m pip install pynvim --user --upgrade
+    # InstallOrSkip -command "python3 -m pip install pipx --user && python3 -m pipx ensurepath" -target "pipx"
+    # $env:Path=(
+    #     [System.Environment]::GetEnvironmentVariable("Path","Machine"),
+    #     [System.Environment]::GetEnvironmentVariable("Path","User")
+    # ) -match '.' -join ';'
     # pipx install trash-cli
     # pipx upgrade trash-cli
 }
@@ -125,7 +125,8 @@ function NodejsDependency()
     # nodejs
     InstallOrSkip -command "scoop install nodejs-lts" -target "node"
     # npm
-    # Start-Process powershell "npm install -g neovim" -Verb RunAs -Wait
+    Start-Process powershell "npm install -g neovim" -Verb RunAs -Wait
+    Start-Process powershell "npm install -g trash-cli" -Verb RunAs -Wait
 }
 
 function GuiFontDependency()
