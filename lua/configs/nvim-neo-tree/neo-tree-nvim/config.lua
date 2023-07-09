@@ -122,6 +122,22 @@ require("neo-tree").setup({
             ["E"] = "expand_all_nodes",
             ["z"] = "none",
             ["e"] = "none",
+
+            -- delete
+            ["d"] = function(state)
+                local inputs = require("neo-tree.ui.inputs")
+                local path = state.tree:get_node().path
+                local msg = "Are you sure you want to move '"
+                    .. vim.fn.fnamemodify(vim.fn.fnameescape(path), ":~:.")
+                    .. "' to trash bin?"
+                inputs.confirm(msg, function(confirmed)
+                    if not confirmed then
+                        return
+                    end
+                    vim.fn.system({ "trash", vim.fn.fnameescape(path) })
+                    require("neo-tree.sources.manager").refresh(state.name)
+                end)
+            end,
         },
     },
     filesystem = {
@@ -140,6 +156,7 @@ require("neo-tree").setup({
                 ["<C-]>"] = "set_root",
                 ["[c"] = "prev_git_modified",
                 ["]c"] = "next_git_modified",
+                ["D"] = "delete",
             },
         },
     },
