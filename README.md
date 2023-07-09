@@ -123,9 +123,7 @@ And that's all of it.
    .\install.ps1
    ```
 
-### Support Platforms & Third-Party Dependencies
-
-For more details, please check out [Support Platforms & Third-Party Dependencies](https://github.com/linrongbin16/lin.nvim/wiki/Install,-Upgrade-&-Uninstall#support-platforms).
+For more details, please check out [Installation](https://github.com/linrongbin16/lin.nvim/wiki/Install,-Upgrade-&-Uninstall).
 
 ## User guide
 
