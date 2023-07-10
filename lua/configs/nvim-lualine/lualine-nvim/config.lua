@@ -144,8 +144,8 @@ local config = {
             right = "",
         },
         section_separators = {
-            left = "",
-            right = "",
+            left = "",
+            right = "",
         },
         disabled_filetypes = {},
     },
