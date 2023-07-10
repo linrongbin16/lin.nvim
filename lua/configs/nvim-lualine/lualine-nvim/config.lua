@@ -57,7 +57,10 @@ local function LspStatus()
 end
 
 local function MatchUp()
-    if vim.g.loaded_matchup > 0 then
+    if
+        vim.g.loaded_matchup > 0
+        and vim.g.matchup_matchparen_offscreen["method"] == "status_manual"
+    then
         local status = vim.fn["MatchupStatusOffscreen"]()
         if status ~= nil and string.len(status) > 0 then
             return "Δ " .. status
@@ -122,13 +125,13 @@ local config = {
                     hint = constants.lsp.diagnostics.signs.hint .. " ",
                 },
             },
+            LspIcon,
             LspStatus,
             Ctags,
         },
         lualine_x = {
             MatchUp,
             Search,
-            LspIcon,
             "filetype",
             {
                 "fileformat",

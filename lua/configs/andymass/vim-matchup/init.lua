@@ -1,7 +1,7 @@
 -- Disable matchit
 vim.g.loaded_matchit = 1
--- vim.g.matchup_matchparen_offscreen = { method = "popup" }
-vim.g.matchup_matchparen_offscreen = { method = "status_manual" }
+vim.g.matchup_matchparen_offscreen = { method = "popup" }
+-- vim.g.matchup_matchparen_offscreen = { method = "status_manual" }
 
 -- defer to better performance
 vim.g.matchup_matchparen_deferred = 1
