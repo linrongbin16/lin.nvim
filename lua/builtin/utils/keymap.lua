@@ -1,9 +1,10 @@
 -- ---- Key Map ----
 
-local NON_EDIT_FTYPES = { "neo-tree", "NvimTree", "undotree", "vista", "diff" }
+local NON_EDITABLE_FIELTYPES =
+    { "neo-tree", "NvimTree", "undotree", "vista", "diff", "CHADTree" }
 
 local function non_editable(ft)
-    for _, value in ipairs(NON_EDIT_FTYPES) do
+    for _, value in ipairs(NON_EDITABLE_FIELTYPES) do
         if value == ft then
             return true
         end

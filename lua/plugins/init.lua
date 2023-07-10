@@ -373,11 +373,17 @@ local M = {
         config = lua_config("kylechui/nvim-surround"),
     },
     -- Structure outlines based on ctags
+    -- {
+    --     "liuchengxu/vista.vim",
+    --     cmd = { "Vista" },
+    --     init = lua_init("liuchengxu/vista.vim"),
+    --     keys = lua_keys("liuchengxu/vista.vim"),
+    -- },
     {
-        "liuchengxu/vista.vim",
-        cmd = { "Vista" },
-        init = lua_init("liuchengxu/vista.vim"),
-        keys = lua_keys("liuchengxu/vista.vim"),
+        "stevearc/aerial.nvim",
+        event = { VeryLazy, CmdlineEnter },
+        config = lua_config("stevearc/aerial.nvim"),
+        keys = lua_keys("stevearc/aerial.nvim"),
     },
     -- Url viewer
     {
