@@ -40,8 +40,7 @@ end
 
 local function LspIcon()
     local active_clients_count = #vim.lsp.get_active_clients()
-    return active_clients_count > 0 and (" LSP:" .. active_clients_count)
-        or ""
+    return active_clients_count > 0 and " LSP" or ""
     -- return require("lsp-progress").progress({
     --     format = function(messages)
     --         return #messages > 0 and " LSP" or ""
