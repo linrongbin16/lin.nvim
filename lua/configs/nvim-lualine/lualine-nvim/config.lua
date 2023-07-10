@@ -25,11 +25,6 @@ local function GitDiff()
     return #msg > 0 and table.concat(msg, " ") or ""
 end
 
--- local function Modifiable()
---     return (vim.bo.modifiable == false or vim.bo.readonly == true) and "[RO]"
---         or ""
--- end
-
 -- local function CursorHex()
 --     return "0x%04B"
 -- end
@@ -121,10 +116,6 @@ local config = {
         },
         lualine_c = {
             "filename",
-            MatchUpOrLspStatus,
-        },
-        lualine_x = {
-            Search,
             {
                 "diagnostics",
                 symbols = {
@@ -134,6 +125,10 @@ local config = {
                     hint = constants.lsp.diagnostics.signs.hint .. " ",
                 },
             },
+            MatchUpOrLspStatus,
+        },
+        lualine_x = {
+            Search,
             LspIcon,
             "filetype",
             {
