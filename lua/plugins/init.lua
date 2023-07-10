@@ -373,12 +373,6 @@ local M = {
         config = lua_config("kylechui/nvim-surround"),
     },
     -- Structure outlines based on ctags
-    -- {
-    --     "liuchengxu/vista.vim",
-    --     cmd = { "Vista" },
-    --     init = lua_init("liuchengxu/vista.vim"),
-    --     keys = lua_keys("liuchengxu/vista.vim"),
-    -- },
     {
         "stevearc/aerial.nvim",
         event = { VeryLazy, CmdlineEnter },
@@ -401,15 +395,6 @@ local M = {
         keys = lua_keys("akinsho/toggleterm.nvim"),
     },
     -- Generate documents
-    -- {
-    --     "kkoomen/vim-doge",
-    --     cmd = { "DogeGenerate" },
-    --     build = require("builtin.utils.constants").os.is_macos
-    --             and "npm i --no-save && npm run build:binary:unix"
-    --         or ":call doge#install()",
-    --     init = vim_init("kkoomen/vim-doge"),
-    --     keys = lua_keys("kkoomen/vim-doge"),
-    -- },
     {
         "danymat/neogen",
         dependencies = { "L3MON4D3/LuaSnip" },
