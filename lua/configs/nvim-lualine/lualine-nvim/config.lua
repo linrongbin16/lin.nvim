@@ -39,34 +39,32 @@ local function Ctags()
 end
 
 local function LspIcon()
+    local active_clients_count = #vim.lsp.get_active_clients()
+    return active_clients_count > 0 and (" LSP:" .. active_clients_count)
+        or ""
+    -- return require("lsp-progress").progress({
+    --     format = function(messages)
+    --         return #messages > 0 and " LSP" or ""
+    --     end,
+    -- })
+end
+
+local function LspStatus()
     return require("lsp-progress").progress({
         format = function(messages)
-            return " LSP"
+            return #messages > 0 and table.concat(messages, " ") or ""
         end,
     })
 end
 
-local function MatchUpOrLspStatus()
+local function MatchUp()
     if vim.g.loaded_matchup > 0 then
         local status = vim.fn["MatchupStatusOffscreen"]()
         if status ~= nil and string.len(status) > 0 then
             return "Δ " .. status
         end
     end
-    local builder = {}
-    local lsp = require("lsp-progress").progress({
-        format = function(messages)
-            return #messages > 0 and table.concat(messages, " ") or ""
-        end,
-    })
-    if lsp ~= nil and string.len(lsp) > 0 then
-        table.insert(builder, lsp)
-    end
-    local tags = Ctags()
-    if tags ~= nil and string.len(tags) > 0 then
-        table.insert(builder, tags)
-    end
-    return #builder > 0 and table.concat(builder, " ") or ""
+    return ""
 end
 
 local function Search()
@@ -125,9 +123,11 @@ local config = {
                     hint = constants.lsp.diagnostics.signs.hint .. " ",
                 },
             },
-            MatchUpOrLspStatus,
+            LspStatus,
+            Ctags,
         },
         lualine_x = {
+            MatchUp,
             Search,
             LspIcon,
             "filetype",
