@@ -122,13 +122,13 @@ local config = {
                     hint = constants.lsp.diagnostics.signs.hint .. " ",
                 },
             },
+            LspIcon,
             LspStatus,
             Ctags,
         },
         lualine_x = {
             MatchUp,
             Search,
-            LspIcon,
             "filetype",
             {
                 "fileformat",

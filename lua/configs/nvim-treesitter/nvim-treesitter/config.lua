@@ -2,6 +2,9 @@ local constants = require("builtin.utils.constants")
 
 require("nvim-treesitter.configs").setup({
     auto_install = false,
+    matchup = {
+        enable = true,
+    },
     highlight = {
         enable = true,
         -- disable for super large file
