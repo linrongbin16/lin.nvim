@@ -395,14 +395,21 @@ local M = {
         keys = lua_keys("akinsho/toggleterm.nvim"),
     },
     -- Generate documents
+    -- {
+    --     "kkoomen/vim-doge",
+    --     cmd = { "DogeGenerate" },
+    --     build = require("builtin.utils.constants").os.is_macos
+    --             and "npm i --no-save && npm run build:binary:unix"
+    --         or ":call doge#install()",
+    --     init = vim_init("kkoomen/vim-doge"),
+    --     keys = lua_keys("kkoomen/vim-doge"),
+    -- },
     {
-        "kkoomen/vim-doge",
-        cmd = { "DogeGenerate" },
-        build = require("builtin.utils.constants").os.is_macos
-                and "npm i --no-save && npm run build:binary:unix"
-            or ":call doge#install()",
-        init = vim_init("kkoomen/vim-doge"),
-        keys = lua_keys("kkoomen/vim-doge"),
+        "danymat/neogen",
+        dependencies = { "L3MON4D3/LuaSnip" },
+        cmd = { "Neogen" },
+        config = lua_config("danymat/neogen"),
+        keys = lua_keys("danymat/neogen"),
     },
     -- Undo tree
     {
