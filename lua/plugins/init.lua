@@ -321,8 +321,14 @@ local M = {
         config = lua_config("ggandor/leap.nvim"),
     },
 
-    -- ---- GIT ----
+    -- ---- GIT INTEGRATION ----
 
+    -- Lazygit
+    {
+        "kdheepak/lazygit.nvim",
+        init = lua_init("kdheepak/lazygit.nvim"),
+        keys = lua_keys("kdheepak/lazygit.nvim"),
+    },
     {
         "f-person/git-blame.nvim",
         event = { VeryLazy, CmdlineEnter },
@@ -335,12 +341,6 @@ local M = {
         lazy = true,
         config = lua_config("linrongbin16/gitlinker.nvim"),
         keys = lua_keys("linrongbin16/gitlinker.nvim"),
-    },
-    -- Lazygit
-    {
-        "kdheepak/lazygit.nvim",
-        init = lua_init("kdheepak/lazygit.nvim"),
-        keys = lua_keys("kdheepak/lazygit.nvim"),
     },
 
     -- ---- ENHANCEMENT ----
@@ -374,10 +374,10 @@ local M = {
     },
     -- Structure outlines based on ctags
     {
-        "liuchengxu/vista.vim",
-        cmd = { "Vista" },
-        init = lua_init("liuchengxu/vista.vim"),
-        keys = lua_keys("liuchengxu/vista.vim"),
+        "stevearc/aerial.nvim",
+        event = { VeryLazy, CmdlineEnter },
+        config = lua_config("stevearc/aerial.nvim"),
+        keys = lua_keys("stevearc/aerial.nvim"),
     },
     -- Url viewer
     {
@@ -396,13 +396,11 @@ local M = {
     },
     -- Generate documents
     {
-        "kkoomen/vim-doge",
-        cmd = { "DogeGenerate" },
-        build = require("builtin.utils.constants").os.is_macos
-                and "npm i --no-save && npm run build:binary:unix"
-            or ":call doge#install()",
-        init = vim_init("kkoomen/vim-doge"),
-        keys = lua_keys("kkoomen/vim-doge"),
+        "danymat/neogen",
+        dependencies = { "L3MON4D3/LuaSnip" },
+        cmd = { "Neogen" },
+        config = lua_config("danymat/neogen"),
+        keys = lua_keys("danymat/neogen"),
     },
     -- Undo tree
     {

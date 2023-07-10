@@ -16,6 +16,10 @@
 -- local InsertEnter = "InsertEnter"
 --
 -- return {
+--     -- slim
+--     {
+--         "slim-template/vim-slim",
+--     },
 --     -- Copilot
 --     {
 --         "zbirenbaum/copilot-cmp",
@@ -26,17 +30,6 @@
 --         "zbirenbaum/copilot.lua",
 --         event = { VeryLazy, InsertEnter, CmdlineEnter },
 --         config = lua_config("zbirenbaum/copilot.lua"),
---     },
---     -- Tags collector
---     {
---         "ludovicchabant/vim-gutentags",
---         event = { VeryLazy, BufRead, BufNewFile },
---         init = vim_init("ludovicchabant/vim-gutentags"),
---     },
---     -- Tags source for nvim-cmp
---     {
---         "quangnguyen30192/cmp-nvim-tags",
---         event = { VeryLazy, InsertEnter, CmdlineEnter },
 --     },
 --     -- UI improved
 --     {
@@ -52,19 +45,6 @@
 --         "rcarriga/nvim-notify",
 --         config = lua_config("rcarriga/nvim-notify"),
 --         lazy = true,
---     },
---     -- Lf file manager
---     {
---         "lmburns/lf.nvim",
---         dependencies = { "akinsho/toggleterm.nvim" },
---         config = lua_config("lmburns/lf.nvim"),
---         keys = lua_keys("lmburns/lf.nvim"),
---     },
---     -- Ranger file manager
---     {
---         "kevinhwang91/rnvimr",
---         init = lua_init("kevinhwang91/rnvimr"),
---         keys = lua_keys("kevinhwang91/rnvimr"),
 --     },
 -- }
 
