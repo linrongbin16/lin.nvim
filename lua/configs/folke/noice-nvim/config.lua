@@ -2,6 +2,9 @@
 vim.opt.shortmess:append("sWAq")
 
 require("noice").setup({
+    cmdline = {
+        view = "cmdline",
+    },
     lsp = {
         -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
         override = {
@@ -9,7 +12,6 @@ require("noice").setup({
             ["vim.lsp.util.stylize_markdown"] = true,
             ["cmp.entry.get_documentation"] = true,
         },
-        progress = { enabled = false },
     },
     -- you can enable a preset for easier configuration
     presets = {

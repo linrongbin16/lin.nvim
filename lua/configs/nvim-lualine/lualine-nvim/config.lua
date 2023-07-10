@@ -1,33 +1,3 @@
--- local function GitStatus()
---     local branch = vim.fn["gitbranch#name"]()
---     if branch == nil or branch == "" then
---         return ""
---     end
---     local changes = vim.fn["GitGutterGetHunkSummary"]()
---     if changes == nil or #changes ~= 3 then
---         return string.format(" %s", branch)
---     else
---         local added = changes[1]
---         local modified = changes[2]
---         local removed = changes[3]
---         local msg = {}
---         if added > 0 then
---             table.insert(msg, string.format("+%d", added))
---         end
---         if modified > 0 then
---             table.insert(msg, string.format("~%d", modified))
---         end
---         if removed > 0 then
---             table.insert(msg, string.format("-%d", removed))
---         end
---         if #msg > 0 then
---             return string.format(" %s %s", branch, table.concat(msg, " "))
---         else
---             return string.format(" %s", branch)
---         end
---     end
--- end
-
 -- local function Rtrim(s)
 --     local n = #s
 --     while n > 0 and s:find("^%s", n) do
@@ -55,11 +25,6 @@ local function GitDiff()
     return #msg > 0 and table.concat(msg, " ") or ""
 end
 
-local function Modifiable()
-    return (vim.bo.modifiable == false or vim.bo.readonly == true) and "[RO]"
-        or ""
-end
-
 -- local function CursorHex()
 --     return "0x%04B"
 -- end
@@ -73,7 +38,7 @@ local function Ctags()
         or string.format("♨ %s", stats)
 end
 
-local function LspSign()
+local function LspIcon()
     return require("lsp-progress").progress({
         format = function(messages)
             return " LSP"
@@ -127,34 +92,30 @@ end
 
 local constants = require("builtin.utils.constants")
 
+local empty_component_separators = { left = "", right = "" }
+
+-- style-1: A > B > C ---- X < Y < Z
+local angle_component_separators = { left = "", right = "" }
+local angle_section_separators = { left = "", right = "" }
+
+-- style-2: A \ B \ C ---- X / Y / Z
+local slash_component_separators = { left = "", right = "" } -- nf-ple-backslash_separator \ue0b9, nf-ple-forwardslash_separator \ue0bb
+local slash_section_separators = { left = "", right = "" }
+
 local config = {
     options = {
         icons_enabled = true,
-        -- theme = 'auto',
-
-        -- style-1: A > B > C ---- X < Y < Z
-        -- component_separators = {'', ''},
-        -- section_separators = {'', ''},
-
-        -- style-2: A \ B \ C ---- X / Y / Z
-        component_separators = {
-            -- left = "", -- nf-ple-backslash_separator \ue0b9
-            -- right = "", -- nf-ple-forwardslash_separator \ue0bb
-            left = "",
-            right = "",
-        },
-        section_separators = {
-            left = "",
-            right = "",
-        },
-        disabled_filetypes = {},
+        component_separators = empty_component_separators,
+        section_separators = angle_section_separators,
     },
     sections = {
         lualine_a = { "mode" },
-        lualine_b = { "filename" },
-        lualine_c = {
+        lualine_b = {
             "branch",
             GitDiff,
+        },
+        lualine_c = {
+            "filename",
             {
                 "diagnostics",
                 symbols = {
@@ -164,11 +125,11 @@ local config = {
                     hint = constants.lsp.diagnostics.signs.hint .. " ",
                 },
             },
-            LspSign,
             MatchUpOrLspStatus,
         },
         lualine_x = {
             Search,
+            LspIcon,
             "filetype",
             {
                 "fileformat",
