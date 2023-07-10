@@ -25,10 +25,10 @@ local function GitDiff()
     return #msg > 0 and table.concat(msg, " ") or ""
 end
 
-local function Modifiable()
-    return (vim.bo.modifiable == false or vim.bo.readonly == true) and "[RO]"
-        or ""
-end
+-- local function Modifiable()
+--     return (vim.bo.modifiable == false or vim.bo.readonly == true) and "[RO]"
+--         or ""
+-- end
 
 -- local function CursorHex()
 --     return "0x%04B"
@@ -115,10 +115,12 @@ local config = {
     },
     sections = {
         lualine_a = { "mode" },
-        lualine_b = { "filename" },
-        lualine_c = {
+        lualine_b = {
             "branch",
             GitDiff,
+        },
+        lualine_c = {
+            "filename",
             {
                 "diagnostics",
                 symbols = {
