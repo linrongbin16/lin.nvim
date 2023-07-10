@@ -43,7 +43,7 @@ local function Ctags()
         or string.format("♨ %s", stats)
 end
 
-local function LspSign()
+local function LspIcon()
     return require("lsp-progress").progress({
         format = function(messages)
             return " LSP"
@@ -121,6 +121,10 @@ local config = {
         },
         lualine_c = {
             "filename",
+            MatchUpOrLspStatus,
+        },
+        lualine_x = {
+            Search,
             {
                 "diagnostics",
                 symbols = {
@@ -130,11 +134,7 @@ local config = {
                     hint = constants.lsp.diagnostics.signs.hint .. " ",
                 },
             },
-            LspSign,
-            MatchUpOrLspStatus,
-        },
-        lualine_x = {
-            Search,
+            LspIcon,
             "filetype",
             {
                 "fileformat",
