@@ -97,27 +97,21 @@ end
 
 local constants = require("builtin.utils.constants")
 
+local empty_component_separators = { left = "", right = "" }
+
+-- style-1: A > B > C ---- X < Y < Z
+local angle_component_separators = { left = "", right = "" }
+local angle_section_separators = { left = "", right = "" }
+
+-- style-2: A \ B \ C ---- X / Y / Z
+local slash_component_separators = { left = "", right = "" } -- nf-ple-backslash_separator \ue0b9, nf-ple-forwardslash_separator \ue0bb
+local slash_section_separators = { left = "", right = "" }
+
 local config = {
     options = {
         icons_enabled = true,
-        -- theme = 'auto',
-
-        -- style-1: A > B > C ---- X < Y < Z
-        -- component_separators = {'', ''},
-        -- section_separators = {'', ''},
-
-        -- style-2: A \ B \ C ---- X / Y / Z
-        component_separators = {
-            -- left = "", -- nf-ple-backslash_separator \ue0b9
-            -- right = "", -- nf-ple-forwardslash_separator \ue0bb
-            left = "",
-            right = "",
-        },
-        section_separators = {
-            left = "",
-            right = "",
-        },
-        disabled_filetypes = {},
+        component_separators = empty_component_separators,
+        section_separators = angle_section_separators,
     },
     sections = {
         lualine_a = { "mode" },
