@@ -321,8 +321,14 @@ local M = {
         config = lua_config("ggandor/leap.nvim"),
     },
 
-    -- ---- GIT ----
+    -- ---- GIT INTEGRATION ----
 
+    -- Lazygit
+    {
+        "kdheepak/lazygit.nvim",
+        init = lua_init("kdheepak/lazygit.nvim"),
+        keys = lua_keys("kdheepak/lazygit.nvim"),
+    },
     {
         "f-person/git-blame.nvim",
         event = { VeryLazy, CmdlineEnter },
@@ -335,12 +341,6 @@ local M = {
         lazy = true,
         config = lua_config("linrongbin16/gitlinker.nvim"),
         keys = lua_keys("linrongbin16/gitlinker.nvim"),
-    },
-    -- Lazygit
-    {
-        "kdheepak/lazygit.nvim",
-        init = lua_init("kdheepak/lazygit.nvim"),
-        keys = lua_keys("kdheepak/lazygit.nvim"),
     },
 
     -- ---- ENHANCEMENT ----
