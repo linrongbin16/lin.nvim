@@ -4,37 +4,36 @@ local M = {
     -- toggle cursor word in normal/visual mode
     set_lazy_key(
         "n",
-        "<leader>hw",
+        "<leader>mk",
         "<Plug>MarkSet",
-        { desc = "Toggle highlight word" }
+        { desc = "Toggle highlighting mark" }
     ),
     set_lazy_key(
         "x",
-        "<leader>hw",
+        "<leader>mk",
         "<Plug>MarkIWhiteSet",
-        { desc = "Toggle highlight word" }
+        { desc = "Toggle highlighting mark" }
+    ),
+    -- clear all words
+    set_lazy_key(
+        "n",
+        "<leader>mK",
+        "<Plug>MarkAllClear",
+        { desc = "Clear all highlighting marks" }
     ),
 
     -- search next/previous word
     set_lazy_key(
         "n",
-        "<leader>hn",
+        "<leader>mn",
         "<Plug>MarkSearchNext",
-        { desc = "Next highlight word" }
+        { desc = "Next highlighting mark" }
     ),
     set_lazy_key(
         "n",
-        "<leader>hN",
+        "<leader>mN",
         "<Plug>MarkSearchPrev",
-        { desc = "Previous highlight word" }
-    ),
-
-    -- clear all words
-    set_lazy_key(
-        "n",
-        "<leader>hW",
-        "<Plug>MarkAllClear",
-        { desc = "Clear all highlight words" }
+        { desc = "Previous highlighting mark" }
     ),
 }
 
