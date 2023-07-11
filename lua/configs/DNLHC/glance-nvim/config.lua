@@ -1,9 +1,9 @@
 local glance = require("glance")
 local actions = glance.actions
-local editor_layout = require("builtin.utils.layout").editor
+local layout = require("builtin.utils.layout")
 
 glance.setup({
-    height = editor_layout.height(0.99, 3, 18),
+    height = layout.editor.height(0.99, 7, 18),
     border = {
         enable = false,
     },

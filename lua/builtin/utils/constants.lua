@@ -1,7 +1,6 @@
 -- ---- Constants ----
 
 local OS = vim.loop.os_uname().sysname
-local editor_layout = require("builtin.utils.layout").editor
 
 local M = {
     os = {
@@ -26,8 +25,11 @@ local M = {
         winblend = 15,
         pumblend = 15,
         layout = {
-            width = editor_layout.width(0.95, 10, nil),
-            height = editor_layout.height(0.85, 5, nil),
+            width = 0.95,
+            height = 0.85,
+            fixed_width = 165,
+            fixed_height = 35,
+            fixed_gap = 7,
         },
     },
     -- performance

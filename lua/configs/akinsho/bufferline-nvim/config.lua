@@ -1,6 +1,4 @@
-local editor_layout = require("builtin.utils.layout").editor
-local MAX_NAME_LENGTH = editor_layout.width(0.334, 15, 80)
-local MAX_PREFIX_LENGTH = editor_layout.width(0.1, 10, 15)
+local layout = require("builtin.utils.layout")
 
 require("bufferline").setup({
     options = {
@@ -11,18 +9,19 @@ require("bufferline").setup({
         close_command = "Bdelete! %d", -- Bdelete: https://github.com/moll/vim-bbye
         right_mouse_command = "Bdelete! %d",
         name_formatter = function(buf)
+            local max_name_len = layout.editor.width(0.334, 60, nil)
             local name = buf.name
             local len = name ~= nil and string.len(name) or 0
-            if len > MAX_NAME_LENGTH then
-                local half = math.floor(MAX_NAME_LENGTH / 2) - 1
+            if len > max_name_len then
+                local half = math.floor(max_name_len / 2) - 1
                 local left = string.sub(name, 1, half)
                 local right = string.sub(name, len - half, len)
                 name = left .. "…" .. right
             end
             return name
         end,
-        max_name_length = MAX_NAME_LENGTH,
-        max_prefix_length = MAX_PREFIX_LENGTH,
+        max_name_length = layout.editor.width(0.334, 60, nil),
+        max_prefix_length = layout.editor.width(0.1, 10, 15),
         diagnostics = false,
         -- separator_style = "slant",
         hover = {

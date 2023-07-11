@@ -1,5 +1,4 @@
 local constants = require("builtin.utils.constants")
-local layout = require("builtin.utils.constants").ui.layout
 
 local lazypath = vim.fn.stdpath("config") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -18,10 +17,6 @@ local opts = {
     root = vim.fn.stdpath("config") .. "/lazy",
     ui = {
         border = constants.ui.border,
-        size = {
-            width = layout.width,
-            height = layout.height,
-        },
     },
 }
 
