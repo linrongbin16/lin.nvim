@@ -1,4 +1,4 @@
-local layout = require("builtin.utils.constants").ui.layout
+local constants = require("builtin.utils.constants")
 
 require("buffer_manager").setup({
     select_menu_item_commands = {
@@ -15,6 +15,6 @@ require("buffer_manager").setup({
             command = "split",
         },
     },
-    width = layout.width,
-    height = layout.height,
+    width = constants.ui.layout.scale,
+    height = constants.ui.layout.scale,
 })

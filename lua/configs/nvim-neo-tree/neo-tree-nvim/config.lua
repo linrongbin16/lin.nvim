@@ -1,5 +1,5 @@
 local constants = require("builtin.utils.constants")
-local editor_layout = require("builtin.utils.layout").editor
+local layout = require("builtin.utils.layout")
 
 require("neo-tree").setup({
     popup_border_style = constants.ui.border,
@@ -108,7 +108,7 @@ require("neo-tree").setup({
         },
     },
     window = {
-        width = editor_layout.width(0.2, 25, 80),
+        width = layout.editor.width(0.2, 40, 60),
         mappings = {
             -- open node
             ["l"] = "open",
