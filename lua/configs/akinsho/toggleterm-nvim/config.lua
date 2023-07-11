@@ -5,8 +5,12 @@ require("toggleterm").setup({
     direction = "float",
     float_opts = {
         border = constants.ui.border,
-        width = layout.editor.width(constants.ui.layout.width, 5, nil),
-        height = layout.editor.height(constants.ui.layout.height, 5, nil),
+        width = function()
+            return layout.editor.width(constants.ui.layout.scale, 5, nil)
+        end,
+        height = function()
+            layout.editor.height(constants.ui.layout.scale, 5, nil)
+        end,
         winblend = constants.ui.winblend,
     },
 })

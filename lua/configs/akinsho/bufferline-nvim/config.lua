@@ -21,7 +21,7 @@ require("bufferline").setup({
             return name
         end,
         max_name_length = layout.editor.width(0.334, 60, nil),
-        max_prefix_length = layout.editor.width(0.1, 10, 15),
+        max_prefix_length = layout.editor.width(0.1, 15, 18),
         diagnostics = false,
         -- separator_style = "slant",
         hover = {

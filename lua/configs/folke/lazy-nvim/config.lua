@@ -16,6 +16,10 @@ vim.opt.rtp:prepend(lazypath)
 local opts = {
     root = vim.fn.stdpath("config") .. "/lazy",
     ui = {
+        size = {
+            width = constants.ui.layout.scale,
+            height = constants.ui.layout.scale,
+        },
         border = constants.ui.border,
     },
 }

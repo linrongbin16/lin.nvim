@@ -25,11 +25,9 @@ local M = {
         winblend = 15,
         pumblend = 15,
         layout = {
-            width = 0.95,
-            height = 0.85,
-            fixed_width = 165,
-            fixed_height = 35,
-            fixed_gap = 7,
+            -- width = 0.8,
+            -- height = 0.8,
+            scale = 0.8,
         },
     },
     -- performance
