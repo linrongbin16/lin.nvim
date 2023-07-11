@@ -6,7 +6,7 @@ local editor_layout = require("builtin.utils.layout").editor
 local M = {
     os = {
         name = OS,
-        is_macos = OS == "Darwin",
+        is_macos = vim.fn.has("mac") > 0,
         is_windows = vim.fn.has("win32") > 0 or vim.fn.has("win64") > 0,
     },
     lsp = {

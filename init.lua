@@ -13,14 +13,14 @@ then
 end
 
 -- basic options
-vim.cmd("source $HOME/.nvim/lua/builtin/options.vim")
+require("builtin.options")
 
 -- plugins
 require("configs.folke.lazy-nvim.config")
 
 -- other options
-vim.cmd("source $HOME/.nvim/lua/builtin/colors.vim")
-vim.cmd("source $HOME/.nvim/lua/builtin/others.vim")
+require("builtin.colors")
+require("builtin.others")
 
 -- postload user options
 if
