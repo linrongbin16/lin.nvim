@@ -132,12 +132,13 @@ set foldenable foldlevel=100 foldnestmax=100 foldmethod=indent
 set guioptions-=T
 set guioptions-=m
 
-
 """ maximize GUI window
-if !has('nvim') && has('gui_running')
-    set lines=999
-    set columns=999
-endif
-if !has('nvim') && (has('win32') || has('win64'))
-    autocmd GUIEnter * simalt ~x
+if !has('nvim')
+    if has('gui_running')
+        set lines=999
+        set columns=999
+    endif
+    if has('win32') || has('win64')
+        autocmd GUIEnter * simalt ~x
+    endif
 endif
