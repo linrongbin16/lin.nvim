@@ -3,8 +3,7 @@
 # debug
 # set -x
 
-NVIM_HOME=$HOME/.nvim
-CONFIG_NVIM_HOME=$HOME/.config/nvim
+NVIM_HOME=$HOME/.config/nvim
 DEPS_HOME=$NVIM_HOME/deps
 OS="$(uname -s)"
 
@@ -79,9 +78,9 @@ guifont_dependency() {
 
 nvim_config() {
     message "install ~/.config/nvim/init.vim for neovim"
-    try_backup $CONFIG_NVIM_HOME
     mkdir -p $HOME/.config
-    ln -s $NVIM_HOME $CONFIG_NVIM_HOME
+    try_backup $HOME/.nvim
+    ln -s $NVIM_HOME $HOME/.nvim
     nvim -E -c "Lazy! sync" -c "qall!"
 }
 
@@ -91,27 +90,27 @@ message "install for $OS"
 case "$OS" in
 Linux)
     if [ -f "/etc/arch-release" ] || [ -f "/etc/artix-release" ]; then
-        $DEPS_HOME/pacman.sh
+        $DEPS_HOME/pacman.sh $DEPS_HOME
     elif [ -f "/etc/fedora-release" ] || [ -f "/etc/redhat-release" ]; then
-        $DEPS_HOME/dnf.sh
+        $DEPS_HOME/dnf.sh $DEPS_HOME
     elif [ -f "/etc/gentoo-release" ]; then
-        $DEPS_HOME/emerge.sh
+        $DEPS_HOME/emerge.sh $DEPS_HOME
     else
         # assume apt
-        $DEPS_HOME/apt.sh
+        $DEPS_HOME/apt.sh $DEPS_HOME
     fi
     ;;
 FreeBSD)
-    $DEPS_HOME/pkg.sh
+    $DEPS_HOME/pkg.sh $DEPS_HOME
     ;;
 NetBSD)
-    $DEPS_HOME/pkgin.sh
+    $DEPS_HOME/pkgin.sh $DEPS_HOME
     ;;
 OpenBSD)
-    $DEPS_HOME/pkg_add.sh
+    $DEPS_HOME/pkg_add.sh $DEPS_HOME
     ;;
 Darwin)
-    $DEPS_HOME/brew.sh
+    $DEPS_HOME/brew.sh $DEPS_HOME
     ;;
 *)
     message "$OS is not supported, exit..."

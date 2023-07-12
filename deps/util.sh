@@ -39,11 +39,11 @@ install_or_skip() {
 }
 
 install_universal_ctags() {
-    local nvim_home=$HOME/.nvim
-    local ctags_home=$nvim_home/universal-ctags
+    local neovim_home=$HOME/.config/nvim
+    local ctags_home=$neovim_home/universal-ctags
 
     message "install universal-ctags from source"
-    cd $nvim_home
+    cd $neovim_home
     git clone https://github.com/universal-ctags/ctags.git $ctags_home
     cd $ctags_home
     ./autogen.sh

@@ -94,7 +94,7 @@ Please check out [Features](https://github.com/linrongbin16/lin.nvim/wiki/Featur
 ### MacOS/Linux
 
 ```bash
-git clone https://github.com/linrongbin16/lin.nvim ~/.nvim && cd ~/.nvim && ./install.sh
+git clone https://github.com/linrongbin16/lin.nvim ~/.config/nvim && cd ~/.config/nvim && ./install.sh
 ```
 
 And that's all of it.
@@ -119,8 +119,8 @@ And that's all of it.
    Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
    irm get.scoop.sh | iex
 
-   git clone https://github.com/linrongbin16/lin.nvim $env:USERPROFILE\.nvim
-   cd $env:USERPROFILE\.nvim
+   git clone https://github.com/linrongbin16/lin.nvim $env:LOCALAPPDATA\nvim
+   cd $env:LOCALAPPDATA\nvim
    .\install.ps1
    ```
 
@@ -136,9 +136,9 @@ Patched GUI font is mandatory for icons, the most popular patched fonts are
 Even `install.sh` (`install.ps1`) already installed the
 [Hack Nerd Font](https://github.com/ryanoasis/nerd-fonts/tree/c173f661a0ed03bc537d31a79670bc03b586251d/patched-fonts/Hack),
 you still need to manually config it in your terminal, e.g.
-[gnome-terminal](https://help.gnome.org/users/gnome-terminal/stable/) under
-Ubuntu Linux, [item2](https://iterm2.com/) under MacOS,
-[Windows Terminal](https://github.com/microsoft/terminal) under Windows 10,
+[gnome-terminal](https://help.gnome.org/users/gnome-terminal/stable/) (Ubuntu),
+[item2](https://iterm2.com/) (MacOS),
+[Windows Terminal](https://github.com/microsoft/terminal) (Windows 10),
 [kitty](https://sw.kovidgoyal.net/kitty/),
 [alacritty](https://github.com/alacritty/alacritty),
 [wezterm](https://wezfurlong.org/wezterm/), etc.

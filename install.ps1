@@ -1,9 +1,7 @@
 # Debug
 # Set-PSDebug -Trace 1
 
-$NVIM_HOME = "$env:USERPROFILE\.nvim"
-$APPDATA_LOCAL_HOME = "$env:USERPROFILE\AppData\Local"
-$APPDATA_LOCAL_NVIM_HOME = "$APPDATA_LOCAL_HOME\nvim"
+$NVIM_HOME = "$env:LOCALAPPDATA\nvim"
 
 # utils
 
@@ -65,8 +63,6 @@ function CoreDependency()
     InstallOrSkip -command "scoop install gawk" -target "awk"
     InstallOrSkip -command "scoop install sed" -target "sed"
 
-    InstallOrSkip -command "scoop install llvm" -target "clang"
-    InstallOrSkip -command "scoop install llvm" -target "clang++"
     InstallOrSkip -command "scoop install make" -target "make"
     InstallOrSkip -command "scoop install cmake" -target "cmake"
 
@@ -140,16 +136,16 @@ function GuiFontDependency()
 
 function NvimConfig()
 {
-    Message "install $APPDATA_LOCAL_HOME\nvim for neovim on windows"
-    TryBackup $APPDATA_LOCAL_NVIM_HOME
-    cmd /c mklink $APPDATA_LOCAL_NVIM_HOME $NVIM_HOME /D
+    Message "install $NVIM_HOME for neovim on windows"
+    TryBackup $env:USERPROFILE\.nvim
+    Start-Process powershell "cmd /c mklink $env:USERPROFILE\.nvim $NVIM_HOME /D" -Verb RunAs -Wait
     cmd /c nvim -E -c "Lazy! sync" -c "qall!" /wait
 }
 
 Message "install for Windows"
 
 # dependency
-Message "install dependencies for Windows"
+Message "install dependencies with scoop"
 
 CoreDependency
 RustDependency
