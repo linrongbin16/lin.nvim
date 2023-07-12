@@ -60,6 +60,7 @@ integrated with tons of utilities for development, inspired by [spf13-vim](https
   - [MacOS/Linux](#macoslinux)
   - [Windows](#windows)
 - [User guide](#user-guide)
+  - [Patched GUI Font](#patched-gui-font)
 
 ## Introduction
 
@@ -127,11 +128,28 @@ For more details, please check out [Installation](https://github.com/linrongbin1
 
 ## User guide
 
-Please check out [User Guide](https://github.com/linrongbin16/lin.nvim/wiki/User-Guide).
+### Patched GUI Font
+
+Patched GUI font is mandatory for icons, the most popular patched fonts are
+[nerd fonts](https://www.nerdfonts.com/) and [patched fonts for powerline](https://github.com/powerline/fonts).
+
+Even `install.sh` (`install.ps1`) already installed the
+[Hack Nerd Font](https://github.com/ryanoasis/nerd-fonts/tree/c173f661a0ed03bc537d31a79670bc03b586251d/patched-fonts/Hack),
+you still need to manually config it in your terminal, e.g.
+[gnome-terminal](https://help.gnome.org/users/gnome-terminal/stable/) under
+Ubuntu Linux, [item2](https://iterm2.com/) under MacOS,
+[Windows Terminal](https://github.com/microsoft/terminal) under Windows 10,
+[kitty](https://sw.kovidgoyal.net/kitty/),
+[alacritty](https://github.com/alacritty/alacritty),
+[wezterm](https://wezfurlong.org/wezterm/), etc.
+
+Please check out
+[User Guide](https://github.com/linrongbin16/lin.nvim/wiki/User-Guide) for full
+features, key mappings and customizations.
 
 ## Contribute
 
-Please open issue/PR for anything about lin.nvim.
+Please open [issue](https://github.com/linrongbin16/lin.nvim/issues)/[PR](https://github.com/linrongbin16/lin.nvim/pulls) for anything about lin.nvim.
 
 Like lin.nvim? Consider
 
