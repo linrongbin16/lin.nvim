@@ -63,8 +63,6 @@ function CoreDependency()
     InstallOrSkip -command "scoop install gawk" -target "awk"
     InstallOrSkip -command "scoop install sed" -target "sed"
 
-    InstallOrSkip -command "scoop install llvm" -target "clang"
-    InstallOrSkip -command "scoop install llvm" -target "clang++"
     InstallOrSkip -command "scoop install make" -target "make"
     InstallOrSkip -command "scoop install cmake" -target "cmake"
 
@@ -147,7 +145,7 @@ function NvimConfig()
 Message "install for Windows"
 
 # dependency
-Message "install dependencies for Windows"
+Message "install dependencies with scoop"
 
 CoreDependency
 RustDependency
