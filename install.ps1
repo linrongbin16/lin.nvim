@@ -1,9 +1,8 @@
 # Debug
 # Set-PSDebug -Trace 1
 
-$NVIM_HOME = "$env:USERPROFILE\.nvim"
-$APPDATA_LOCAL_HOME = "$env:USERPROFILE\AppData\Local"
-$APPDATA_LOCAL_NVIM_HOME = "$APPDATA_LOCAL_HOME\nvim"
+$LOCALAPPDATA = "$env:USERPROFILE\AppData\Local"
+$NVIM_HOME = "$LOCALAPPDATA\nvim"
 
 # utils
 
@@ -140,9 +139,10 @@ function GuiFontDependency()
 
 function NvimConfig()
 {
-    Message "install $APPDATA_LOCAL_HOME\nvim for neovim on windows"
-    TryBackup $APPDATA_LOCAL_NVIM_HOME
-    cmd /c mklink $APPDATA_LOCAL_NVIM_HOME $NVIM_HOME /D
+    Message "install $NVIM_HOME for neovim on windows"
+    TryBackup $NVIM_HOME
+    TryBackup $env:USERPROFILE\.nvim
+    cmd /c mklink $NVIM_HOME $env:USERPROFILE\.nvim /D
     cmd /c nvim -E -c "Lazy! sync" -c "qall!" /wait
 }
 

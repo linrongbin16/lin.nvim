@@ -1,7 +1,7 @@
 #!/bin/bash
 
-DEPS_HOME=~/.nvim/deps
-source $DEPS_HOME/util.sh
+DEPS_HOME="$1"
+source "$DEPS_HOME/util.sh"
 
 if ! type clang >/dev/null 2>&1; then
     xcode-select --install

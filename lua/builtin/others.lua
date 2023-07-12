@@ -68,13 +68,13 @@ set_key(
 set_key(
     "x",
     "<leader>yy",
-    ":w! $HOME/.nvim/.copypaste<CR>",
+    ":w! " .. vim.fn.stdpath("config") .. "/.copypaste<CR>",
     { silent = false, desc = "Copy visual selected to cache" }
 )
 set_key(
     "n",
     "<leader>pp",
-    ":r $HOME/.nvim/.copypaste<CR>",
+    ":r " .. vim.fn.stdpath("config") .. "/.copypaste<CR>",
     { silent = false, desc = "Paste from cache" }
 )
 

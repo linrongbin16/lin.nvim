@@ -27,7 +27,8 @@ end
 
 local function vim_init(init)
     return function()
-        local init_path = "$HOME/.nvim/lua/configs/"
+        local init_path = vim.fn.stdpath("config")
+            .. "/lua/configs/"
             .. init:gsub("%.", "-")
             .. "/init.vim"
         if not vim.fn.filereadable(vim.fn.expand(init_path)) then
@@ -50,7 +51,8 @@ end
 
 local function vim_config(config)
     return function()
-        local config_path = "$HOME/.nvim/lua/configs/"
+        local config_path = vim.fn.stdpath("config")
+            .. "/lua/configs/"
             .. config:gsub("%.", "-")
             .. "/config.vim"
         if not vim.fn.filereadable(vim.fn.expand(config_path)) then
