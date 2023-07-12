@@ -1,0 +1,1 @@
+" Please copy this file to 'preinit.vim' to enable it.
