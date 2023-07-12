@@ -139,7 +139,6 @@ function GuiFontDependency()
 function NvimConfig()
 {
     Message "install $NVIM_HOME for neovim on windows"
-    TryBackup $NVIM_HOME
     TryBackup $env:USERPROFILE\.nvim
     cmd /c mklink $NVIM_HOME $env:USERPROFILE\.nvim /D
     cmd /c nvim -E -c "Lazy! sync" -c "qall!" /wait
