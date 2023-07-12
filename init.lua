@@ -13,7 +13,7 @@ then
 end
 
 -- basic options
-require("builtin.options")
+vim.cmd([[source $HOME/.nvim/lua/builtin/options.vim]])
 
 -- plugins
 require("configs.folke.lazy-nvim.config")
