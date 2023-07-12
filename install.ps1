@@ -1,8 +1,7 @@
 # Debug
 # Set-PSDebug -Trace 1
 
-$LOCALAPPDATA = "$env:USERPROFILE\AppData\Local"
-$NVIM_HOME = "$LOCALAPPDATA\nvim"
+$NVIM_HOME = "$env:LOCALAPPDATA\nvim"
 
 # utils
 
