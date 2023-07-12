@@ -138,7 +138,7 @@ function NvimConfig()
 {
     Message "install $NVIM_HOME for neovim on windows"
     TryBackup $env:USERPROFILE\.nvim
-    cmd /c mklink $NVIM_HOME $env:USERPROFILE\.nvim /D
+    Start-Process powershell "cmd /c mklink $env:USERPROFILE\.nvim $NVIM_HOME /D" -Verb RunAs -Wait
     cmd /c nvim -E -c "Lazy! sync" -c "qall!" /wait
 }
 
