@@ -37,18 +37,6 @@ local M = {
         "<cmd>HopLineBC<cr>",
         { desc = "Jump to above lines" }
     ),
-    set_lazy_key(
-        { "n", "x" },
-        "<leader>h",
-        "<cmd>HopChar1CurrentLineBC<cr>",
-        { desc = "Jump to left" }
-    ),
-    set_lazy_key(
-        { "n", "x" },
-        "<leader>l",
-        "<cmd>HopChar1CurrentLineAC<cr>",
-        { desc = "Jump to right" }
-    ),
 }
 
 return M
