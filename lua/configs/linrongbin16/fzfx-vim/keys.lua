@@ -11,10 +11,7 @@ local M = {
     keymap.set_lazy_key(
         "x",
         "<space>f",
-        keymap.exec(function()
-            vim.cmd('execute "normal \\<ESC>"')
-            vim.cmd("FzfxFilesV")
-        end),
+        keymap.exec("FzfxFilesV"),
         { desc = "Find files" }
     ),
     keymap.set_lazy_key(
@@ -26,10 +23,7 @@ local M = {
     keymap.set_lazy_key(
         "x",
         "<space>uf",
-        keymap.exec(function()
-            vim.cmd('execute "normal \\<ESC>"')
-            vim.cmd("FzfxFilesUV")
-        end),
+        keymap.exec("FzfxFilesUV"),
         { desc = "Unrestricted find files" }
     ),
     -- find files by cursor word
@@ -68,10 +62,7 @@ local M = {
     keymap.set_lazy_key(
         "x",
         "<space>l",
-        keymap.exec(function()
-            vim.cmd('execute "normal \\<ESC>"')
-            vim.cmd("FzfxLiveGrepV")
-        end),
+        keymap.exec("FzfxLiveGrepV"),
         { desc = "Live grep" }
     ),
     keymap.set_lazy_key(
@@ -83,10 +74,7 @@ local M = {
     keymap.set_lazy_key(
         "x",
         "<space>ul",
-        keymap.exec(function()
-            vim.cmd('execute "normal \\<ESC>"')
-            vim.cmd("FzfxLiveGrepUV")
-        end),
+        keymap.exec("FzfxLiveGrepUV"),
         { desc = "Unrestricted live grep" }
     ),
     -- search word
