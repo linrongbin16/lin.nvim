@@ -1,6 +1,21 @@
 local constants = require("builtin.utils.constants")
 local layout = require("builtin.utils.layout")
 
+local function trash_bin(state)
+    local inputs = require("neo-tree.ui.inputs")
+    local path = state.tree:get_node().path
+    local msg = "Are you sure you want to move '"
+        .. vim.fn.fnamemodify(vim.fn.fnameescape(path), ":~:.")
+        .. "' to trash bin?"
+    inputs.confirm(msg, function(confirmed)
+        if not confirmed then
+            return
+        end
+        vim.fn.system({ "trash", vim.fn.fnameescape(path) })
+        require("neo-tree.sources.manager").refresh(state.name)
+    end)
+end
+
 require("neo-tree").setup({
     popup_border_style = constants.ui.border,
     default_component_configs = {
@@ -150,20 +165,7 @@ require("neo-tree").setup({
             ["e"] = "none",
 
             -- delete
-            ["d"] = function(state)
-                local inputs = require("neo-tree.ui.inputs")
-                local path = state.tree:get_node().path
-                local msg = "Are you sure you want to move '"
-                    .. vim.fn.fnamemodify(vim.fn.fnameescape(path), ":~:.")
-                    .. "' to trash bin?"
-                inputs.confirm(msg, function(confirmed)
-                    if not confirmed then
-                        return
-                    end
-                    vim.fn.system({ "trash", vim.fn.fnameescape(path) })
-                    require("neo-tree.sources.manager").refresh(state.name)
-                end)
-            end,
+            ["d"] = vim.fn.executable("trash") > 0 and trash_bin or "delete",
         },
     },
     filesystem = {
