@@ -1,7 +1,7 @@
 " ======== Init ========
 
 " pre init
-if filereadable(expand(stdpath('config').'/preinit.vim'))
+if filereadable(stdpath('config').'/preinit.vim')
     execute 'source '.stdpath('config').'/preinit.vim'
 endif
 lua pcall(require, 'preinit')
@@ -17,7 +17,7 @@ lua require("builtin.colors")
 lua require("builtin.others")
 
 " post init
-if filereadable(expand(stdpath('config').'/postinit.vim'))
+if filereadable(stdpath('config').'/postinit.vim')
     execute 'source '.stdpath('config').'/postinit.vim'
 endif
 lua pcall(require, 'postinit')
