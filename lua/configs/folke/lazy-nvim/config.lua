@@ -24,6 +24,13 @@ local opts = {
     },
 }
 
+local user_plugins_ok, _ = pcall(require, "user_plugins")
+if user_plugins_ok then
+    require("lazy").setup("user_plugins", opts)
+else
+    require("lazy").setup("plugins", opts)
+end
+
 require("lazy").setup("plugins", opts)
 
 require("builtin.utils.keymap").set_key(
