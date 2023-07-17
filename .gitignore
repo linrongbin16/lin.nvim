@@ -9,13 +9,21 @@
 /universal-ctags
 /go-installer
 
-# user
+# global hooks
 preinit.vim
 preinit.lua
 postinit.vim
 postinit.lua
-users.lua
+
+# plugin hooks
+/lua/plugins/users.lua
+user_plugins.lua
+user_plugins_blacklist.lua
+user_keys.lua
+
+# lsp hooks
 ensure_installed.lua
 setup_handlers.lua
+
+# nvim-cmp hooks
 setup_handler.lua
-user_keys.lua
