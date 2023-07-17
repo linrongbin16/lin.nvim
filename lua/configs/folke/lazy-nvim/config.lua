@@ -33,8 +33,8 @@ if user_plugins_blacklist_ok then
     else
         opts.defaults = {
             cond = function(plugin)
-                print("plugin:" .. vim.inspect(plugin))
-                return true
+                local uri = plugin[1]
+                return not user_plugins_blacklist[uri]
             end,
         }
     end
