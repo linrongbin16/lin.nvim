@@ -19,11 +19,16 @@ postinit.lua
 /lua/plugins/users.lua
 user_plugins.lua
 user_plugins_blacklist.lua
+user_init.lua
+user_init.vim
+user_config.lua
+user_config.vim
 user_keys.lua
 
 # lsp hooks
 ensure_installed.lua
 setup_handlers.lua
+neoconf.json
 
 # nvim-cmp hooks
 setup_handler.lua
