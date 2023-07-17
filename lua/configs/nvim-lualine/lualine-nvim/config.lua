@@ -156,9 +156,8 @@ local config = {
 require("lualine").setup(config)
 
 -- listen to lsp-progress event and refresh
-vim.cmd([[
-augroup lualine_augroup
-    autocmd!
-    autocmd User LspProgressStatusUpdated lua require("lualine").refresh()
-augroup END
-]])
+vim.api.nvim_create_augroup("lualine_augroup", { clear = true })
+vim.api.nvim_create_autocmd("User LspProgressStatusUpdated", {
+    group = "lualine_augroup",
+    callback = require("lualine").refresh,
+})
