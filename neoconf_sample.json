@@ -1,3 +1,13 @@
 // Please copy this file to 'neoconf.json' to enable it.
-
-{}
+{
+    "jsonls": {
+        "settings": {
+            "json": {
+                "format.enable": false,
+                "schemas": "require('schemastore').json.schemas()",
+                "validate.enable": true
+            }
+        }
+    },
+    "lua_ls.settings.Lua.format.enable": false
+}
