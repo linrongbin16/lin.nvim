@@ -20,6 +20,18 @@ local M = {
         "folke/lsp-colors.nvim",
     },
     {
+        "folke/neoconf.nvim",
+        dependencies = { "b0o/SchemaStore.nvim", "folke/neodev.nvim" },
+    },
+    {
+        "b0o/SchemaStore.nvim",
+        lazy = true,
+    },
+    {
+        "folke/neodev.nvim",
+        lazy = true,
+    },
+    {
         "neovim/nvim-lspconfig",
         config = lua_config("neovim/nvim-lspconfig"),
     },
@@ -102,7 +114,7 @@ local M = {
     {
         "nvim-neo-tree/neo-tree.nvim",
         event = { VimEnter },
-        branch = "v2.x",
+        branch = "v3.x",
         dependencies = {
             "MunifTanjim/nui.nvim",
         },

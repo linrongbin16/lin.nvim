@@ -245,6 +245,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end,
 })
 
+-- neodev, neoconf
+require("neodev").setup()
+require("neoconf").setup()
+
 -- user setup handlers
 local lspconfig = require("lspconfig")
 
