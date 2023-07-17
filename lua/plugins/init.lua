@@ -114,7 +114,7 @@ local M = {
     {
         "nvim-neo-tree/neo-tree.nvim",
         event = { VimEnter },
-        branch = "v2.x",
+        branch = "v3.x",
         dependencies = {
             "MunifTanjim/nui.nvim",
         },

@@ -20,10 +20,10 @@ require("neo-tree").setup({
     popup_border_style = constants.ui.border,
     default_component_configs = {
         icon = {
-            folder_closed = "", -- nf-custom-folder \ue5ff
-            folder_open = "", -- nf-custom-folder_open \ue5fe
-            folder_empty = "", -- nf-cod-folder \uea83
-            folder_empty_open = "", -- nf-cod-folder_opened \ueaf7
+            -- folder_closed = "", -- nf-custom-folder \ue5ff
+            -- folder_open = "", -- nf-custom-folder_open \ue5fe
+            -- folder_empty = "", -- nf-cod-folder \uea83
+            -- folder_empty_open = "", -- nf-cod-folder_opened \ueaf7
             default = "", -- nf-fa-file_text_o \uf0f6
         },
         git_status = {
@@ -32,39 +32,12 @@ require("neo-tree").setup({
                 modified = "", -- : nf-fa-circle \uf111, : nf-oct-diff_modified \uf459
                 deleted = "", -- : nf-oct-diff_removed \uf458, : nf-fa-minus \uf068, : nf-fa-times \uf00d(conflict with diagnostic error)
                 renamed = "", -- : nf-fa-arrow_right \uf061, : nf-oct-diff_renamed \uf45a
-                -- Status type
                 untracked = "", -- nf-fa-star \uf005
                 ignored = "", -- nf-fa-circle_thin \uf1db
                 unstaged = "✗", -- unicode: &#x2717;
                 staged = "✓", -- unicode: &#x2713;
                 conflict = "", -- nf-dev-git_merge \ue727
             },
-        },
-    },
-    document_symbols = {
-        kinds = {
-            File = { icon = "󰈙", hl = "Tag" },
-            Namespace = { icon = "󰌗", hl = "Include" },
-            Package = { icon = "󰏖", hl = "Label" },
-            Class = { icon = "󰌗", hl = "Include" },
-            Property = { icon = "󰆧", hl = "@property" },
-            Enum = { icon = "󰒻", hl = "@number" },
-            Function = { icon = "󰊕", hl = "Function" },
-            String = { icon = "󰀬", hl = "String" },
-            Number = { icon = "󰎠", hl = "Number" },
-            Array = { icon = "󰅪", hl = "Type" },
-            Object = { icon = "󰅩", hl = "Type" },
-            Key = { icon = "󰌋", hl = "" },
-            Struct = { icon = "󰌗", hl = "Type" },
-            Operator = { icon = "󰆕", hl = "Operator" },
-            TypeParameter = { icon = "󰊄", hl = "Type" },
-            StaticMethod = { icon = "󰠄 ", hl = "Function" },
-        },
-    },
-    source_selector = {
-        sources = {
-            { source = "filesystem", display_name = " 󰉓 Files " },
-            { source = "git_status", display_name = " 󰊢 Git " },
         },
     },
     renderers = {
@@ -172,8 +145,10 @@ require("neo-tree").setup({
         filtered_items = {
             visible = true,
         },
-        follow_current_file = true,
-        use_libuv_file_watcher = true,
+        follow_current_file = {
+            enable = true,
+            leave_dirs_open = true,
+        },
         window = {
             mappings = {
                 ["f"] = "fuzzy_finder",
