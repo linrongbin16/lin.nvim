@@ -1,5 +1,3 @@
--- ["d"] = vim.fn.executable("trash") > 0 and trash_bin or "delete",
-
 local constants = require("builtin.utils.constants")
 
 require("oil").setup({
