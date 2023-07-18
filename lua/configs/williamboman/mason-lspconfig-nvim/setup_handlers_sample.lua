@@ -17,6 +17,18 @@ local setup_handlers = {
     end,
 
     -- Custom setup.
+    jsonls = function()
+        lspconfig["jsonls"].setup({
+            settings = {
+                json = {
+                    schemas = require("schemastore").json.schemas(),
+                    validate = { enable = true },
+                },
+            },
+            on_attach = lsp_setup_helper.on_attach,
+        })
+    end,
+
     -- Please uncomment below lines to enable them.
 
     -- tsserver = function()

@@ -18,8 +18,11 @@
     },
     "lspconfig": {
         "lua_ls": {
-            "Lua.format.enable": false, // we use stylua to format
+            "Lua.format.enable": false, // use stylua formatter
             "Lua.completion.callSnippet": "Replace"
+        },
+        "jsonls": {
+            "json.format.enable": false // use prettier formatter
         }
     }
 }
