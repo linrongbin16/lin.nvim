@@ -27,23 +27,6 @@ local M = {
     {
         "folke/lsp-colors.nvim",
     },
-    {
-        "b0o/SchemaStore.nvim",
-        lazy = true,
-    },
-    {
-        "folke/neodev.nvim",
-        lazy = true,
-    },
-    {
-        "folke/neoconf.nvim",
-        dependencies = { "b0o/SchemaStore.nvim", "folke/neodev.nvim" },
-    },
-    {
-        "neovim/nvim-lspconfig",
-        dependencies = { "folke/neoconf.nvim" },
-        config = lua_config("neovim/nvim-lspconfig"),
-    },
 
     -- ---- HIGHLIGHT ----
 
@@ -213,11 +196,33 @@ local M = {
 
     -- ---- LSP ----
 
+    -- Lsp configuration
+    {
+        "b0o/SchemaStore.nvim",
+        lazy = true,
+    },
+    {
+        "folke/neodev.nvim",
+        lazy = true,
+    },
+    {
+        "folke/neoconf.nvim",
+        cmd = { "Neoconf" },
+        event = { VeryLazy, BufRead, BufNewFile },
+        dependencies = { "b0o/SchemaStore.nvim", "folke/neodev.nvim" },
+    },
+    {
+        "neovim/nvim-lspconfig",
+        event = { VeryLazy, BufRead, BufNewFile, CmdlineEnter },
+        dependencies = { "folke/neoconf.nvim" },
+        config = lua_config("neovim/nvim-lspconfig"),
+    },
     -- Lsp server management
     {
         "williamboman/mason.nvim",
         event = { VeryLazy, BufRead, BufNewFile, CmdlineEnter },
         build = ":MasonUpdate",
+        dependencies = { "neovim/nvim-lspconfig" },
         config = lua_config("williamboman/mason.nvim"),
         keys = lua_keys("williamboman/mason.nvim"),
     },
@@ -230,6 +235,7 @@ local M = {
     {
         "jose-elias-alvarez/null-ls.nvim",
         event = { VeryLazy, BufRead, BufNewFile, CmdlineEnter },
+        dependencies = { "neovim/nvim-lspconfig" },
         config = lua_config("jose-elias-alvarez/null-ls.nvim"),
     },
     {
@@ -277,6 +283,7 @@ local M = {
         "hrsh7th/nvim-cmp",
         event = { VeryLazy, InsertEnter, CmdlineEnter },
         dependencies = {
+            "neovim/nvim-lspconfig",
             "onsails/lspkind.nvim",
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-buffer",
@@ -291,12 +298,14 @@ local M = {
     {
         "DNLHC/glance.nvim",
         cmd = { "Glance" },
+        dependencies = { "neovim/nvim-lspconfig" },
         config = lua_config("DNLHC/glance.nvim"),
     },
     -- Format on save
     {
         "linrongbin16/lspformatter.nvim",
         event = { VeryLazy, BufRead, BufNewFile },
+        dependencies = { "neovim/nvim-lspconfig" },
         config = lua_config("linrongbin16/lspformatter.nvim"),
     },
 
@@ -350,6 +359,7 @@ local M = {
     {
         "windwp/nvim-autopairs",
         event = { VeryLazy, InsertEnter },
+        dependencies = { "nvim-treesitter/nvim-treesitter" },
         config = lua_config("windwp/nvim-autopairs"),
     },
     {
@@ -391,7 +401,8 @@ local M = {
     -- Structure outlines
     {
         "liuchengxu/vista.vim",
-        event = { VeryLazy, CmdlineEnter },
+        cmd = { "Vista" },
+        event = { VeryLazy },
         init = lua_init("liuchengxu/vista.vim"),
         keys = lua_keys("liuchengxu/vista.vim"),
     },
