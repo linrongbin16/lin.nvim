@@ -139,6 +139,26 @@ function NvimConfig()
     Message "install $NVIM_HOME for neovim on windows"
     TryBackup $env:USERPROFILE\.nvim
     Start-Process powershell "cmd /c mklink $env:USERPROFILE\.nvim $NVIM_HOME /D" -Verb RunAs -Wait
+    # lsp management
+    $MasonLspconfigHome = "$NVIM_HOME\lua\configs\williamboman\mason-lspconfig-nvim"
+    $MasonLspconfigEnsureInstalled = "$MasonLspconfigHome\ensure_installed.lua"
+    if (-not(TestReparsePoint $MasonLspconfigEnsureInstalled) -and -not(Test-Path $MasonLspconfigEnsureInstalled)) {
+        Copy-Item -Path "$MasonLspconfigHome\ensure_installed_sample.lua" -Destination "$MasonLspconfigEnsureInstalled"
+    }
+    $MasonLspconfigSetupHandlers = "$MasonLspconfigHome\setup_handlers.lua"
+    if (-not(TestReparsePoint $MasonLspconfigSetupHandlers) -and -not(Test-Path $MasonLspconfigSetupHandlers)) {
+        Copy-Item -Path "$MasonLspconfigHome\setup_handlers_sample.lua" -Destination "$MasonLspconfigSetupHandlers"
+    }
+    $MasonNulllsHome = "$NVIM_HOME\lua\configs\jay-babu\mason-null-ls-nvim"
+    $MasonNulllsEnsureInstalled = "$MasonNulllsHome\ensure_installed.lua"
+    if (-not(TestReparsePoint $MasonNulllsEnsureInstalled) -and -not(Test-Path $MasonNulllsEnsureInstalled)) {
+        Copy-Item -Path "$MasonNulllsHome\ensure_installed_sample.lua" -Destination "$MasonNulllsEnsureInstalled"
+    }
+    $MasonNulllsSetupHandlers = "$MasonNulllsHome\setup_handlers.lua"
+    if (-not(TestReparsePoint $MasonNulllsSetupHandlers) -and -not(Test-Path $MasonNulllsSetupHandlers)) {
+        Copy-Item -Path "$MasonNulllsHome\setup_handlers_sample.lua" -Destination "$MasonNulllsSetupHandlers"
+    }
+    # install plugins on first start
     cmd /c nvim -E -c "Lazy! sync" -c "qall!" /wait
 }
 
