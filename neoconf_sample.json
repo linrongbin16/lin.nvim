@@ -15,7 +15,7 @@
   },
   "lspconfig": {
     "lua_ls": {
-      "Lua.format.enable": false,
+      "Lua.format.enable": false, // we use stylua to format
       "Lua.completion.callSnippet": "Replace"
     }
   }
