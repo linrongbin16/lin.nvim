@@ -3,6 +3,8 @@
 # debug
 # set -x
 
+set -e
+
 NVIM_HOME=$HOME/.config/nvim
 DEPS_HOME=$NVIM_HOME/deps
 OS="$(uname -s)"
@@ -84,24 +86,24 @@ nvim_config() {
     # lsp management
     local mason_lspconfig_home="$NVIM_HOME/lua/configs/williamboman/mason-lspconfig-nvim"
     local mason_lspconfig_ensure_installed="$mason_lspconfig_home/ensure_installed.lua"
-    if [ ! -f $mason_lspconfig_ensure_installed ] then
+    if [ ! -f $mason_lspconfig_ensure_installed ]; then
         cp $mason_lspconfig_home/ensure_installed_sample.lua $mason_lspconfig_ensure_installed
     fi
     local mason_lspconfig_setup_handlers="$mason_lspconfig_home/setup_handlers.lua"
-    if [ ! -f $mason_lspconfig_setup_handlers ] then
+    if [ ! -f $mason_lspconfig_setup_handlers ]; then
         cp $mason_lspconfig_home/setup_handlers_sample.lua $mason_lspconfig_setup_handlers
     fi
     local mason_null_ls_home="$NVIM_HOME/lua/configs/jay-babu/mason-null-ls-nvim"
     local mason_null_ls_ensure_installed="$mason_null_ls_home/ensure_installed.lua"
-    if [ ! -f $mason_null_ls_ensure_installed ] then
+    if [ ! -f $mason_null_ls_ensure_installed ]; then
         cp $mason_null_ls_home/ensure_installed_sample.lua $mason_null_ls_ensure_installed
     fi
     local mason_null_ls_setup_handlers="$mason_null_ls_home/setup_handlers.lua"
-    if [ ! -f $mason_null_ls_setup_handlers ] then
+    if [ ! -f $mason_null_ls_setup_handlers ]; then
         cp $mason_null_ls_home/setup_handlers_sample.lua $mason_null_ls_setup_handlers
     fi
     local neoconf="$NVIM_HOME/neoconf.json"
-    if [ ! -f $neoconf ] then
+    if [ ! -f $neoconf ]; then
         cp $NVIM_HOME/neoconf_sample.json $neoconf
     fi
     # install plugins on first start
