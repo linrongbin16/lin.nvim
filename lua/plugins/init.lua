@@ -17,11 +17,15 @@ local M = {
     -- ---- INFRASTRUCTURE ----
 
     {
-        "folke/lsp-colors.nvim",
+        "nvim-lua/plenary.nvim",
+        lazy = true,
     },
     {
-        "folke/neoconf.nvim",
-        dependencies = { "b0o/SchemaStore.nvim", "folke/neodev.nvim" },
+        "nvim-tree/nvim-web-devicons",
+        lazy = true,
+    },
+    {
+        "folke/lsp-colors.nvim",
     },
     {
         "b0o/SchemaStore.nvim",
@@ -32,37 +36,35 @@ local M = {
         lazy = true,
     },
     {
+        "folke/neoconf.nvim",
+        dependencies = { "b0o/SchemaStore.nvim", "folke/neodev.nvim" },
+    },
+    {
         "neovim/nvim-lspconfig",
+        dependencies = { "folke/neoconf.nvim" },
         config = lua_config("neovim/nvim-lspconfig"),
-    },
-    {
-        "nvim-lua/plenary.nvim",
-        lazy = true,
-    },
-    {
-        "nvim-tree/nvim-web-devicons",
-        lazy = true,
     },
 
     -- ---- HIGHLIGHT ----
 
     {
         "nvim-treesitter/nvim-treesitter",
+        event = { VeryLazy, BufRead, BufNewFile, CmdlineEnter },
         build = function()
             require("nvim-treesitter.install").update({ with_sync = true })
         end,
-        event = { VeryLazy, BufRead, BufNewFile, CmdlineEnter },
         config = lua_config("nvim-treesitter/nvim-treesitter"),
     },
     {
         "nvim-treesitter/nvim-treesitter-context",
-        dependencies = { "nvim-treesitter/nvim-treesitter" },
         event = { VeryLazy, BufRead, BufNewFile },
+        dependencies = { "nvim-treesitter/nvim-treesitter" },
         config = lua_config("nvim-treesitter/nvim-treesitter-context"),
     },
     {
         "RRethy/vim-illuminate",
         event = { VeryLazy, BufRead, BufNewFile },
+        dependencies = { "nvim-treesitter/nvim-treesitter" },
         config = lua_config("RRethy/vim-illuminate"),
     },
     {
@@ -73,18 +75,19 @@ local M = {
     {
         "andymass/vim-matchup",
         event = { VeryLazy, BufRead, BufNewFile },
+        dependencies = { "nvim-treesitter/nvim-treesitter" },
         init = lua_init("andymass/vim-matchup"),
-    },
-    {
-        "inkarkat/vim-mark",
-        dependencies = { "inkarkat/vim-ingo-library" },
-        event = { CmdlineEnter },
-        init = lua_init("inkarkat/vim-mark"),
-        keys = lua_keys("inkarkat/vim-mark"),
     },
     {
         "inkarkat/vim-ingo-library",
         lazy = true,
+    },
+    {
+        "inkarkat/vim-mark",
+        event = { CmdlineEnter },
+        dependencies = { "inkarkat/vim-ingo-library" },
+        init = lua_init("inkarkat/vim-mark"),
+        keys = lua_keys("inkarkat/vim-mark"),
     },
     {
         "haya14busa/is.vim",
@@ -112,21 +115,23 @@ local M = {
     --     init = lua_init("ms-jpq/chadtree"),
     -- },
     {
-        "nvim-neo-tree/neo-tree.nvim",
-        event = { VimEnter },
-        branch = "v3.x",
-        dependencies = {
-            "MunifTanjim/nui.nvim",
-        },
-        init = lua_init("nvim-neo-tree/neo-tree.nvim"),
-        config = lua_config("nvim-neo-tree/neo-tree.nvim"),
-        keys = lua_keys("nvim-neo-tree/neo-tree.nvim"),
-    },
-    {
         "MunifTanjim/nui.nvim",
         lazy = true,
     },
+    {
+        "nvim-neo-tree/neo-tree.nvim",
+        event = { VimEnter },
+        dependencies = { "MunifTanjim/nui.nvim" },
+        branch = "v3.x",
+        config = lua_config("nvim-neo-tree/neo-tree.nvim"),
+        keys = lua_keys("nvim-neo-tree/neo-tree.nvim"),
+    },
     -- Tabline
+    {
+        "moll/vim-bbye",
+        cmd = { "Bdelete", "Bwipeout" },
+        keys = lua_keys("moll/vim-bbye"),
+    },
     {
         "akinsho/bufferline.nvim",
         version = "v3.*",
@@ -135,11 +140,6 @@ local M = {
         config = lua_config("akinsho/bufferline.nvim"),
         keys = lua_keys("akinsho/bufferline.nvim"),
     },
-    {
-        "moll/vim-bbye",
-        cmd = { "Bdelete", "Bwipeout" },
-        keys = lua_keys("moll/vim-bbye"),
-    },
     -- Indentline
     {
         "lukas-reineke/indent-blankline.nvim",
@@ -147,17 +147,22 @@ local M = {
     },
     -- Statusline
     {
+        "linrongbin16/lsp-progress.nvim",
+        event = { VimEnter },
+        config = lua_config("linrongbin16/lsp-progress.nvim"),
+    },
+    {
         "nvim-lualine/lualine.nvim",
         event = { VimEnter },
         dependencies = { "linrongbin16/lsp-progress.nvim" },
         config = lua_config("nvim-lualine/lualine.nvim"),
     },
-    {
-        "linrongbin16/lsp-progress.nvim",
-        event = { VimEnter },
-        config = lua_config("linrongbin16/lsp-progress.nvim"),
-    },
     -- Winbar
+    {
+        "SmiteshP/nvim-navic",
+        lazy = true,
+        init = lua_init("SmiteshP/nvim-navic"),
+    },
     {
         "utilyre/barbecue.nvim",
         name = "barbecue",
@@ -166,11 +171,6 @@ local M = {
         dependencies = { "SmiteshP/nvim-navic" },
         config = lua_config("utilyre/barbecue.nvim"),
     },
-    {
-        "SmiteshP/nvim-navic",
-        lazy = true,
-        init = lua_init("SmiteshP/nvim-navic"),
-    },
     -- Git
     {
         "airblade/vim-gitgutter",
@@ -178,6 +178,7 @@ local M = {
         init = lua_init("airblade/vim-gitgutter"),
         keys = lua_keys("airblade/vim-gitgutter"),
     },
+    -- UI improvement
     {
         "stevearc/dressing.nvim",
         event = { VeryLazy, BufRead, BufNewFile },
@@ -207,7 +208,6 @@ local M = {
         "linrongbin16/fzfx.vim",
         event = { CmdlineEnter },
         dependencies = { "junegunn/fzf", "junegunn/fzf.vim" },
-        init = vim_init("junegunn/fzf.vim"),
         keys = lua_keys("linrongbin16/fzfx.vim"),
     },
 
@@ -216,24 +216,25 @@ local M = {
     -- Lsp server management
     {
         "williamboman/mason.nvim",
-        event = { VeryLazy, BufRead, BufNewFile },
+        event = { VeryLazy, BufRead, BufNewFile, CmdlineEnter },
+        build = ":MasonUpdate",
         config = lua_config("williamboman/mason.nvim"),
         keys = lua_keys("williamboman/mason.nvim"),
     },
     {
         "williamboman/mason-lspconfig.nvim",
-        event = { VeryLazy, BufRead, BufNewFile },
+        event = { VeryLazy, BufRead, BufNewFile, CmdlineEnter },
         dependencies = { "williamboman/mason.nvim" },
         config = lua_config("williamboman/mason-lspconfig.nvim"),
     },
     {
         "jose-elias-alvarez/null-ls.nvim",
-        event = { VeryLazy, BufRead, BufNewFile },
+        event = { VeryLazy, BufRead, BufNewFile, CmdlineEnter },
         config = lua_config("jose-elias-alvarez/null-ls.nvim"),
     },
     {
         "jay-babu/mason-null-ls.nvim",
-        event = { VeryLazy, BufRead, BufNewFile },
+        event = { VeryLazy, BufRead, BufNewFile, CmdlineEnter },
         dependencies = {
             "williamboman/mason.nvim",
             "williamboman/mason-lspconfig.nvim",
@@ -243,17 +244,8 @@ local M = {
     },
     -- Auto-complete engine
     {
-        "hrsh7th/nvim-cmp",
-        event = { VeryLazy, InsertEnter, CmdlineEnter },
-        dependencies = {
-            "hrsh7th/cmp-nvim-lsp",
-            "hrsh7th/cmp-buffer",
-            "FelipeLema/cmp-async-path",
-            "L3MON4D3/LuaSnip",
-            "saadparwaiz1/cmp_luasnip",
-            "hrsh7th/cmp-cmdline",
-        },
-        config = lua_config("hrsh7th/nvim-cmp"),
+        "onsails/lspkind.nvim",
+        lazy = true,
     },
     {
         "hrsh7th/cmp-nvim-lsp",
@@ -282,14 +274,26 @@ local M = {
         event = { VeryLazy, InsertEnter, CmdlineEnter },
     },
     {
+        "hrsh7th/nvim-cmp",
+        event = { VeryLazy, InsertEnter, CmdlineEnter },
+        dependencies = {
+            "onsails/lspkind.nvim",
+            "hrsh7th/cmp-nvim-lsp",
+            "hrsh7th/cmp-buffer",
+            "FelipeLema/cmp-async-path",
+            "L3MON4D3/LuaSnip",
+            "saadparwaiz1/cmp_luasnip",
+            "hrsh7th/cmp-cmdline",
+        },
+        config = lua_config("hrsh7th/nvim-cmp"),
+    },
+    -- Symbol navigation
+    {
         "DNLHC/glance.nvim",
         cmd = { "Glance" },
         config = lua_config("DNLHC/glance.nvim"),
     },
-    {
-        "onsails/lspkind.nvim",
-        lazy = true,
-    },
+    -- Format on save
     {
         "linrongbin16/lspformatter.nvim",
         event = { VeryLazy, BufRead, BufNewFile },
@@ -317,22 +321,6 @@ local M = {
         keys = lua_keys("folke/which-key.nvim"),
     },
 
-    -- ---- CURSOR MOTION ----
-
-    {
-        "smoka7/hop.nvim",
-        event = { VeryLazy, CmdlineEnter },
-        version = "*",
-        config = lua_config("smoka7/hop.nvim"),
-        keys = lua_keys("smoka7/hop.nvim"),
-    },
-    {
-        "ggandor/leap.nvim",
-        event = { VeryLazy, BufRead, BufNewFile },
-        dependencies = { "tpope/vim-repeat" },
-        config = lua_config("ggandor/leap.nvim"),
-    },
-
     -- ---- GIT INTEGRATION ----
 
     -- Lazygit
@@ -341,13 +329,14 @@ local M = {
         init = lua_init("kdheepak/lazygit.nvim"),
         keys = lua_keys("kdheepak/lazygit.nvim"),
     },
+    -- Blame
     {
         "f-person/git-blame.nvim",
         event = { VeryLazy, CmdlineEnter },
         init = lua_init("f-person/git-blame.nvim"),
         keys = lua_keys("f-person/git-blame.nvim"),
     },
-    -- Open git link In browser
+    -- Permlink
     {
         "linrongbin16/gitlinker.nvim",
         lazy = true,
@@ -367,29 +356,44 @@ local M = {
         "alvan/vim-closetag",
         init = vim_init("alvan/vim-closetag"),
     },
+    -- Repeat
+    {
+        "tpope/vim-repeat",
+        event = { VeryLazy, BufRead, BufNewFile },
+    },
     -- Comment
     {
         "numToStr/Comment.nvim",
         event = { VeryLazy, BufRead, BufNewFile },
         config = lua_config("numToStr/Comment.nvim"),
     },
-    -- Other
+    -- Cursor motion
     {
-        "tpope/vim-repeat",
-        event = { VeryLazy, BufRead, BufNewFile },
+        "smoka7/hop.nvim",
+        event = { VeryLazy, BufRead, BufNewFile, CmdlineEnter },
+        version = "*",
+        config = lua_config("smoka7/hop.nvim"),
+        keys = lua_keys("smoka7/hop.nvim"),
     },
+    {
+        "ggandor/leap.nvim",
+        event = { VeryLazy, BufRead, BufNewFile },
+        dependencies = { "tpope/vim-repeat" },
+        config = lua_config("ggandor/leap.nvim"),
+    },
+    -- Surround
     {
         "kylechui/nvim-surround",
         version = "*",
         event = { VeryLazy, BufRead, BufNewFile },
         config = lua_config("kylechui/nvim-surround"),
     },
-    -- Structure outlines based on ctags
+    -- Structure outlines
     {
-        "stevearc/aerial.nvim",
+        "liuchengxu/vista.vim",
         event = { VeryLazy, CmdlineEnter },
-        config = lua_config("stevearc/aerial.nvim"),
-        keys = lua_keys("stevearc/aerial.nvim"),
+        config = lua_config("liuchengxu/vista.vim"),
+        keys = lua_keys("liuchengxu/vista.vim"),
     },
     -- Url viewer
     {
@@ -409,8 +413,8 @@ local M = {
     -- Generate documents
     {
         "danymat/neogen",
-        dependencies = { "L3MON4D3/LuaSnip" },
         cmd = { "Neogen" },
+        dependencies = { "L3MON4D3/LuaSnip" },
         config = lua_config("danymat/neogen"),
         keys = lua_keys("danymat/neogen"),
     },
