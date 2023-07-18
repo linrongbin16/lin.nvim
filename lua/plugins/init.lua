@@ -392,7 +392,7 @@ local M = {
     {
         "liuchengxu/vista.vim",
         event = { VeryLazy, CmdlineEnter },
-        config = lua_config("liuchengxu/vista.vim"),
+        init = lua_init("liuchengxu/vista.vim"),
         keys = lua_keys("liuchengxu/vista.vim"),
     },
     -- Url viewer
