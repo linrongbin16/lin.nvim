@@ -20,14 +20,6 @@ end
 -- random colorscheme
 vim.cmd([[SwitchColor]])
 
--- ctrl/cmd-?
-if vim.fn.exists("$VIMRUNTIME/mswin.vim") > 0 then
-    vim.cmd([[source $VIMRUNTIME/mswin.vim]])
-end
-if constants.os.is_macos and vim.fn.exists("$VIMRUNTIME/macmap.vim") > 0 then
-    vim.cmd([[source $VIMRUNTIME/macmap.vim]])
-end
-
 -- biscuits
 set_key(
     { "n", "x" },
