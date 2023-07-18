@@ -158,6 +158,10 @@ function NvimConfig()
     if (-not(TestReparsePoint $MasonNulllsSetupHandlers) -and -not(Test-Path $MasonNulllsSetupHandlers)) {
         Copy-Item -Path "$MasonNulllsHome\setup_handlers_sample.lua" -Destination "$MasonNulllsSetupHandlers"
     }
+    $Neoconf = "$NVIM_HOME\neoconf.json"
+    if (-not(TestReparsePoint $Neoconf) -and -not(Test-Path $Neoconf)) {
+        Copy-Item -Path "$NVIM_HOME\neoconf_sample.json" -Destination "$Neoconf"
+    }
     # install plugins on first start
     cmd /c nvim -E -c "Lazy! sync" -c "qall!" /wait
 }
