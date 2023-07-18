@@ -146,7 +146,7 @@ require("neo-tree").setup({
             visible = true,
         },
         follow_current_file = {
-            enable = true,
+            enabled = true,
             leave_dirs_open = true,
         },
         window = {
