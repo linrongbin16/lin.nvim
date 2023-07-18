@@ -52,6 +52,14 @@
 --         config = lua_config("stevearc/oil.nvim"),
 --         keys = lua_keys("stevearc/oil.nvim"),
 --     },
+--     -- Auto save
+--     {
+--         "Pocco81/auto-save.nvim",
+--         cmd = { "ASToggle" },
+--         event = { VeryLazy, BufRead, BufNewFile },
+--         config = lua_config("Pocco81/auto-save.nvim"),
+--         keys = lua_keys("Pocco81/auto-save.nvim"),
+--     },
 -- }
 
 return {}
