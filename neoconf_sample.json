@@ -15,6 +15,7 @@
   },
   "lspconfig": {
     "lua_ls": {
+      "Lua.format.enable": false,
       "Lua.completion.callSnippet": "Replace"
     }
   }
