@@ -46,6 +46,12 @@
 --         config = lua_config("rcarriga/nvim-notify"),
 --         lazy = true,
 --     },
+--     -- Oil file manager
+--     {
+--         "stevearc/oil.nvim",
+--         config = lua_config("stevearc/oil.nvim"),
+--         keys = lua_keys("stevearc/oil.nvim"),
+--     },
 -- }
 
 return {}
