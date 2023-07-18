@@ -32,9 +32,6 @@ require("oil").setup({
     },
     float = {
         border = constants.ui.border,
-        win_options = {
-            winblend = constants.ui.winblend,
-        },
     },
     preview = {
         border = constants.ui.border,
