@@ -8,7 +8,7 @@
 local null_ls = require("null-ls")
 
 local setup_handlers = {
-    -- custom setup
+    -- Custom setup.
     stylua = function(source, methods)
         null_ls.register(null_ls.builtins.formatting.stylua)
     end,
