@@ -8,7 +8,7 @@ local vim_config = require("builtin.utils.plugin").vim_config
 
 local VeryLazy = "VeryLazy"
 local BufNewFile = "BufNewFile"
-local BufRead = "BufRead"
+local BufReadPre = "BufReadPre"
 local CmdlineEnter = "CmdlineEnter"
 local VimEnter = "VimEnter"
 local InsertEnter = "InsertEnter"
@@ -27,12 +27,29 @@ local M = {
     {
         "folke/lsp-colors.nvim",
     },
+    {
+        "b0o/SchemaStore.nvim",
+        lazy = true,
+    },
+    {
+        "folke/neodev.nvim",
+        lazy = true,
+    },
+    {
+        "folke/neoconf.nvim",
+        dependencies = { "b0o/SchemaStore.nvim", "folke/neodev.nvim" },
+    },
+    {
+        "neovim/nvim-lspconfig",
+        dependencies = { "folke/neoconf.nvim" },
+        config = lua_config("neovim/nvim-lspconfig"),
+    },
 
     -- ---- HIGHLIGHT ----
 
     {
         "nvim-treesitter/nvim-treesitter",
-        event = { VeryLazy, BufRead, BufNewFile, CmdlineEnter },
+        event = { VeryLazy, BufReadPre, BufNewFile, CmdlineEnter },
         build = function()
             require("nvim-treesitter.install").update({ with_sync = true })
         end,
@@ -40,24 +57,24 @@ local M = {
     },
     {
         "nvim-treesitter/nvim-treesitter-context",
-        event = { VeryLazy, BufRead, BufNewFile },
+        event = { VeryLazy, BufReadPre, BufNewFile },
         dependencies = { "nvim-treesitter/nvim-treesitter" },
         config = lua_config("nvim-treesitter/nvim-treesitter-context"),
     },
     {
         "RRethy/vim-illuminate",
-        event = { VeryLazy, BufRead, BufNewFile },
+        event = { VeryLazy, BufReadPre, BufNewFile },
         dependencies = { "nvim-treesitter/nvim-treesitter" },
         config = lua_config("RRethy/vim-illuminate"),
     },
     {
         "NvChad/nvim-colorizer.lua",
-        event = { VeryLazy, BufRead, BufNewFile },
+        event = { VeryLazy, BufReadPre, BufNewFile },
         config = lua_config("NvChad/nvim-colorizer.lua"),
     },
     {
         "andymass/vim-matchup",
-        event = { VeryLazy, BufRead, BufNewFile },
+        event = { VeryLazy, BufReadPre, BufNewFile },
         dependencies = { "nvim-treesitter/nvim-treesitter" },
         init = lua_init("andymass/vim-matchup"),
     },
@@ -74,7 +91,7 @@ local M = {
     },
     {
         "haya14busa/is.vim",
-        event = { VeryLazy, BufRead, BufNewFile, CmdlineEnter },
+        event = { VeryLazy, BufReadPre, BufNewFile, CmdlineEnter },
     },
     {
         "markonm/traces.vim",
@@ -118,7 +135,7 @@ local M = {
     {
         "akinsho/bufferline.nvim",
         version = "v3.*",
-        event = { VeryLazy, BufRead, BufNewFile },
+        event = { VeryLazy, BufReadPre, BufNewFile },
         dependencies = { "moll/vim-bbye" },
         config = lua_config("akinsho/bufferline.nvim"),
         keys = lua_keys("akinsho/bufferline.nvim"),
@@ -126,7 +143,7 @@ local M = {
     -- Indentline
     {
         "lukas-reineke/indent-blankline.nvim",
-        event = { VeryLazy, BufRead, BufNewFile },
+        event = { VeryLazy, BufReadPre, BufNewFile },
     },
     -- Statusline
     {
@@ -150,21 +167,21 @@ local M = {
         "utilyre/barbecue.nvim",
         name = "barbecue",
         version = "*",
-        event = { VeryLazy, BufRead, BufNewFile },
+        event = { VeryLazy, BufReadPre, BufNewFile },
         dependencies = { "SmiteshP/nvim-navic" },
         config = lua_config("utilyre/barbecue.nvim"),
     },
     -- Git
     {
         "airblade/vim-gitgutter",
-        event = { VeryLazy, BufRead, BufNewFile },
+        event = { VeryLazy, BufReadPre, BufNewFile },
         init = lua_init("airblade/vim-gitgutter"),
         keys = lua_keys("airblade/vim-gitgutter"),
     },
     -- UI improvement
     {
         "stevearc/dressing.nvim",
-        event = { VeryLazy, BufRead, BufNewFile },
+        event = { VeryLazy, BufReadPre, BufNewFile },
         dependencies = {
             "junegunn/fzf",
             "junegunn/fzf.vim",
@@ -195,32 +212,10 @@ local M = {
     },
 
     -- ---- LSP ----
-
-    -- Lsp configuration
-    {
-        "b0o/SchemaStore.nvim",
-        lazy = true,
-    },
-    {
-        "folke/neodev.nvim",
-        lazy = true,
-    },
-    {
-        "folke/neoconf.nvim",
-        cmd = { "Neoconf" },
-        event = { VeryLazy, BufRead, BufNewFile },
-        dependencies = { "b0o/SchemaStore.nvim", "folke/neodev.nvim" },
-    },
-    {
-        "neovim/nvim-lspconfig",
-        event = { VeryLazy, BufRead, BufNewFile, CmdlineEnter },
-        dependencies = { "folke/neoconf.nvim" },
-        config = lua_config("neovim/nvim-lspconfig"),
-    },
     -- Lsp server management
     {
         "williamboman/mason.nvim",
-        event = { VeryLazy, BufRead, BufNewFile, CmdlineEnter },
+        event = { VeryLazy, BufReadPre, BufNewFile, CmdlineEnter },
         build = ":MasonUpdate",
         dependencies = { "neovim/nvim-lspconfig" },
         config = lua_config("williamboman/mason.nvim"),
@@ -228,19 +223,19 @@ local M = {
     },
     {
         "williamboman/mason-lspconfig.nvim",
-        event = { VeryLazy, BufRead, BufNewFile, CmdlineEnter },
+        event = { VeryLazy, BufReadPre, BufNewFile, CmdlineEnter },
         dependencies = { "williamboman/mason.nvim" },
         config = lua_config("williamboman/mason-lspconfig.nvim"),
     },
     {
         "jose-elias-alvarez/null-ls.nvim",
-        event = { VeryLazy, BufRead, BufNewFile, CmdlineEnter },
+        event = { VeryLazy, BufReadPre, BufNewFile, CmdlineEnter },
         dependencies = { "neovim/nvim-lspconfig" },
         config = lua_config("jose-elias-alvarez/null-ls.nvim"),
     },
     {
         "jay-babu/mason-null-ls.nvim",
-        event = { VeryLazy, BufRead, BufNewFile, CmdlineEnter },
+        event = { VeryLazy, BufReadPre, BufNewFile, CmdlineEnter },
         dependencies = {
             "williamboman/mason.nvim",
             "williamboman/mason-lspconfig.nvim",
@@ -304,7 +299,7 @@ local M = {
     -- Format on save
     {
         "linrongbin16/lspformatter.nvim",
-        event = { VeryLazy, BufRead, BufNewFile },
+        event = { VeryLazy, BufReadPre, BufNewFile },
         dependencies = { "neovim/nvim-lspconfig" },
         config = lua_config("linrongbin16/lspformatter.nvim"),
     },
@@ -371,18 +366,18 @@ local M = {
     -- Repeat
     {
         "tpope/vim-repeat",
-        event = { VeryLazy, BufRead, BufNewFile },
+        event = { VeryLazy, BufReadPre, BufNewFile },
     },
     -- Comment
     {
         "numToStr/Comment.nvim",
-        event = { VeryLazy, BufRead, BufNewFile },
+        event = { VeryLazy, BufReadPre, BufNewFile },
         config = lua_config("numToStr/Comment.nvim"),
     },
     -- Cursor motion
     {
         "smoka7/hop.nvim",
-        event = { VeryLazy, BufRead, BufNewFile, CmdlineEnter },
+        event = { VeryLazy, BufReadPre, BufNewFile, CmdlineEnter },
         version = "*",
         config = lua_config("smoka7/hop.nvim"),
         keys = lua_keys("smoka7/hop.nvim"),
@@ -391,7 +386,7 @@ local M = {
     {
         "kylechui/nvim-surround",
         version = "*",
-        event = { VeryLazy, BufRead, BufNewFile },
+        event = { VeryLazy, BufReadPre, BufNewFile },
         config = lua_config("kylechui/nvim-surround"),
     },
     -- Structure outlines

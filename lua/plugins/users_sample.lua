@@ -9,7 +9,7 @@
 -- local vim_config = require("builtin.utils.plugin").vim_config
 --
 -- local VeryLazy = "VeryLazy"
--- local BufRead = "BufRead"
+-- local BufReadPre = "BufReadPre"
 -- local BufNewFile = "BufNewFile"
 -- local CmdlineEnter = "CmdlineEnter"
 -- local VimEnter = "VimEnter"
@@ -19,13 +19,13 @@
 --     -- Cursor motion
 --     {
 --         "ggandor/leap.nvim",
---         event = { VeryLazy, BufRead, BufNewFile },
+--         event = { VeryLazy, BufReadPre, BufNewFile },
 --         dependencies = { "tpope/vim-repeat" },
 --         config = lua_config("ggandor/leap.nvim"),
 --     },
 --     {
 --         "folke/flash.nvim",
---         event = { VeryLazy, BufRead, BufNewFile },
+--         event = { VeryLazy, BufReadPre, BufNewFile },
 --         config = lua_config("folke/flash.nvim"),
 --         keys = lua_keys("folke/flash.nvim"),
 --     },
@@ -69,7 +69,7 @@
 --     {
 --         "Pocco81/auto-save.nvim",
 --         cmd = { "ASToggle" },
---         event = { VeryLazy, BufRead, BufNewFile },
+--         event = { VeryLazy, BufReadPre, BufNewFile },
 --         config = lua_config("Pocco81/auto-save.nvim"),
 --         keys = lua_keys("Pocco81/auto-save.nvim"),
 --     },
