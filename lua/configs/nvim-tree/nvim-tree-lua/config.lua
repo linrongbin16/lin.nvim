@@ -23,10 +23,8 @@ local on_attach = function(bufnr)
 
     -- Custom key mappings
     --
-    -- l => open
+    -- l => open file/directory
     -- h => close directory
-    -- ]d => next diagnostic
-    -- [d => prev diagnostic
     vim.keymap.set("n", "l", api.node.open.edit, opts("Open"))
     vim.keymap.set(
         "n",
@@ -34,18 +32,26 @@ local on_attach = function(bufnr)
         api.node.navigate.parent_close,
         opts("Close Directory")
     )
+    -- ]d => next diagnostic
+    -- [d => prev diagnostic
     vim.keymap.set(
         "n",
         "]d",
         api.node.navigate.diagnostics.next,
-        opts("Next Diagnostic")
+        opts("Next Diagnostic Item")
     )
     vim.keymap.set(
         "n",
         "[d",
         api.node.navigate.diagnostics.prev,
-        opts("Prev Diagnostic")
+        opts("Prev Diagnostic Item")
     )
+    -- d => trash
+    -- D => delete
+    if vim.fn.executable("trash") > 0 then
+        vim.keymap.set("n", "d", api.fs.trash, opts("Trash"))
+    end
+    vim.keymap.set("n", "D", api.fs.remove, opts("Delete"))
 end
 
 require("nvim-tree").setup({
@@ -62,9 +68,6 @@ require("nvim-tree").setup({
             webdev_colors = true,
             git_placement = "after",
             modified_placement = "before",
-            glyphs = {
-                default = "", -- nf-fa-file_text_o \uf0f6
-            },
         },
     },
     update_focused_file = {
@@ -76,6 +79,10 @@ require("nvim-tree").setup({
     },
     diagnostics = {
         enable = true,
+        severity = {
+            min = vim.diagnostic.severity.WARN,
+            max = vim.diagnostic.severity.ERROR,
+        },
         icons = {
             hint = constants.diagnostic.sign.hint,
             info = constants.diagnostic.sign.info,
@@ -85,6 +92,9 @@ require("nvim-tree").setup({
     },
     modified = {
         enable = true,
+    },
+    trash = {
+        cmd = "trash",
     },
 })
 
