@@ -3,8 +3,6 @@
 # debug
 # set -x
 
-set -e
-
 NVIM_HOME=$HOME/.config/nvim
 DEPS_HOME=$NVIM_HOME/deps
 OS="$(uname -s)"
@@ -16,12 +14,11 @@ source $DEPS_HOME/util.sh
 golang_dependency() {
     message "install go and modern commands"
     # https://github.com/canha/golang-tools-install-script
-    if [ -d golang-tools-install-script ]; then
-        rm -rf golang-tools-install-script
-    fi
     cd $NVIM_HOME
-    git clone --depth=1 https://github.com/canha/golang-tools-install-script
-    cd golang-tools-install-script && bash ./goinstall.sh
+    if [ ! -d golang-tools-install-script ]; then
+        git clone --depth=1 https://github.com/canha/golang-tools-install-script
+    fi
+    install_or_skip "cd golang-tools-install-script && bash ./goinstall.sh" "go"
     cd $NVIM_HOME
     export PATH="$HOME/go/bin:$HOME/.go/bin:$PATH"
     install_or_skip "go install github.com/jesseduffield/lazygit@latest" "lazygit"

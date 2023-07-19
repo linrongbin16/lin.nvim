@@ -44,10 +44,9 @@ install_universal_ctags() {
 
     message "install universal-ctags from source"
     cd $neovim_home
-    if [ -d $ctags_home ]; then
-        rm -rf $ctags_home
+    if [ ! -d $ctags_home ]; then
+        git clone https://github.com/universal-ctags/ctags.git $ctags_home
     fi
-    git clone https://github.com/universal-ctags/ctags.git $ctags_home
     cd $ctags_home
     ./autogen.sh
     ./configure
