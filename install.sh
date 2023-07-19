@@ -15,9 +15,15 @@ source $DEPS_HOME/util.sh
 
 golang_dependency() {
     message "install go and modern commands"
-    # https://github.com/kerolloz/go-installer
-    install_or_skip "if [ -d go-installer ]; then git clone --depth=1 https://github.com/kerolloz/go-installer.git && ./go-installer/go.sh; fi" "go"
-    export PATH=$HOME/.go/bin:$PATH
+    # https://github.com/canha/golang-tools-install-script
+    if [ -d golang-tools-install-script ]; then
+        rm -rf golang-tools-install-script
+    fi
+    cd $NVIM_HOME
+    git clone --depth=1 https://github.com/canha/golang-tools-install-script
+    cd golang-tools-install-script && bash ./goinstall.sh
+    cd $NVIM_HOME
+    export PATH="$HOME/go/bin:$HOME/.go/bin:$PATH"
     install_or_skip "go install github.com/jesseduffield/lazygit@latest" "lazygit"
 }
 
