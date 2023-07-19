@@ -61,7 +61,7 @@ local function switch_color(option)
     end
 end
 
---- Switch to next color
+-- switch to next color
 vim.api.nvim_create_user_command("SwitchColor", switch_color, {
     bang = true,
     nargs = "?",
