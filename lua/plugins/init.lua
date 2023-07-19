@@ -363,8 +363,10 @@ local M = {
         config = lua_config("windwp/nvim-autopairs"),
     },
     {
-        "alvan/vim-closetag",
-        init = vim_init("alvan/vim-closetag"),
+        "windwp/nvim-ts-autotag",
+        event = { VeryLazy, InsertEnter },
+        dependencies = { "nvim-treesitter/nvim-treesitter" },
+        config = lua_config("windwp/nvim-ts-autotag"),
     },
     -- Repeat
     {
