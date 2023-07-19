@@ -5,7 +5,7 @@ local M = {
         "n",
         "<leader>nt",
         ":NvimTreeFindFileToggle<CR>",
-        { silent = false, desc = "Toggle file explorer" }
+        { silent = false, desc = "Toggle nvim-tree file explorer" }
     ),
 }
 
