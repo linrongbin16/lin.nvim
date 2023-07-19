@@ -103,18 +103,10 @@ null-ls: require("null-ls.health").check()
 
 - OK vint: the command "vint" is executable.
 - OK black: the command "black" is executable.
-- OK buf_lint: the command "buf" is executable.
-- OK buf_format: the command "buf" is executable.
 - OK prettier: the command "prettier" is executable.
-- OK rubyfmt: the command "rubyfmt" is executable.
 - OK markdownlint: the command "markdownlint" is executable.
 - OK markdownlint: the command "markdownlint" is executable.
 - OK stylua: the command "stylua" is executable.
-- OK isort: the command "isort" is executable.
-- OK jsonlint: the command "jsonlint" is executable.
-- OK shfmt: the command "shfmt" is executable.
-- OK buildifier: the command "buildifier" is executable.
-- OK buildifier: the command "buildifier" is executable.
 
 ==============================================================================
 nvim: require("nvim.health").check()
@@ -158,7 +150,6 @@ OS Info:
 
 Parser/Features         H L F I J
   - c                   ✓ ✓ ✓ ✓ ✓
-  - graphql             ✓ . . ✓ ✓
   - html                ✓ ✓ ✓ ✓ ✓
   - java                ✓ ✓ ✓ ✓ ✓
   - javascript          ✓ ✓ ✓ ✓ ✓
@@ -192,61 +183,6 @@ Python 3 provider (optional) ~
 - Python version: 3.11.4
 - pynvim version: 0.4.3
 - OK Latest pynvim is installed.
-
-Python virtualenv ~
-- OK no $VIRTUAL_ENV
-
-Ruby provider (optional) ~
-- Ruby: ruby 2.7.7p221 (2022-11-24 revision 168ec2b1e5) [arm64-darwin22]
-- WARNING `neovim-ruby-host` not found.
-  - ADVICE:
-    - Run `gem install neovim` to ensure the neovim RubyGem is installed.
-    - Run `gem environment` to ensure the gem bin directory is in $PATH.
-    - If you are using rvm/rbenv/chruby, try "rehashing".
-    - See :help |g:ruby_host_prog| for non-standard gem installations.
-    - You may disable this provider (and warning) by adding `let g:loaded_ruby_provider = 0` to your init.vim
-
-Node.js provider (optional) ~
-- Node.js: v16.20.0
-- Nvim node.js host: /Users/rlin/.nvm/versions/node/v16.20.0/lib/node_modules/neovim/bin/cli.js
-- OK Latest "neovim" npm/yarn/pnpm package is installed: 4.10.1
-
-Perl provider (optional) ~
-- WARNING "Neovim::Ext" cpan module is not installed
-  - ADVICE:
-    - See :help |provider-perl| for more information.
-    - You may disable this provider (and warning) by adding `let g:loaded_perl_provider = 0` to your init.vim
-
-==============================================================================
-vim.lsp: require("vim.lsp.health").check()
-
-- LSP log level : WARN
-- Log path: /Users/rlin/.local/state/nvim/lsp.log
-- Log size: 78228 KB
-
-vim.lsp: Active Clients ~
-- No active clients
-
-==============================================================================
-vim.treesitter: require("vim.treesitter.health").check()
-
-- Nvim runtime ABI version: 14
-- OK Parser: graphql    ABI: 13, path: /Users/rlin/.config/nvim/lazy/nvim-treesitter/parser/graphql.so
-- OK Parser: html       ABI: 14, path: /Users/rlin/.config/nvim/lazy/nvim-treesitter/parser/html.so
-- OK Parser: java       ABI: 14, path: /Users/rlin/.config/nvim/lazy/nvim-treesitter/parser/java.so
-- OK Parser: javascript ABI: 14, path: /Users/rlin/.config/nvim/lazy/nvim-treesitter/parser/javascript.so
-- OK Parser: json       ABI: 14, path: /Users/rlin/.config/nvim/lazy/nvim-treesitter/parser/json.so
-- OK Parser: kotlin     ABI: 14, path: /Users/rlin/.config/nvim/lazy/nvim-treesitter/parser/kotlin.so
-- OK Parser: markdown   ABI: 14, path: /Users/rlin/.config/nvim/lazy/nvim-treesitter/parser/markdown.so
-- OK Parser: markdown_inline ABI: 14, path: /Users/rlin/.config/nvim/lazy/nvim-treesitter/parser/markdown_inline.so
-- OK Parser: scala      ABI: 14, path: /Users/rlin/.config/nvim/lazy/nvim-treesitter/parser/scala.so
-- OK Parser: tsx        ABI: 14, path: /Users/rlin/.config/nvim/lazy/nvim-treesitter/parser/tsx.so
-- OK Parser: typescript ABI: 14, path: /Users/rlin/.config/nvim/lazy/nvim-treesitter/parser/typescript.so
-- OK Parser: c          ABI: 13, path: /opt/homebrew/Cellar/neovim/0.9.1/lib/nvim/parser/c.so
-- OK Parser: lua        ABI: 14, path: /opt/homebrew/Cellar/neovim/0.9.1/lib/nvim/parser/lua.so
-- OK Parser: query      ABI: 14, path: /opt/homebrew/Cellar/neovim/0.9.1/lib/nvim/parser/query.so
-- OK Parser: vim        ABI: 14, path: /opt/homebrew/Cellar/neovim/0.9.1/lib/nvim/parser/vim.so
-- OK Parser: vimdoc     ABI: 14, path: /opt/homebrew/Cellar/neovim/0.9.1/lib/nvim/parser/vimdoc.so
 ```
 
 # Screenshot
