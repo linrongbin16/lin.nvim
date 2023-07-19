@@ -16,6 +16,13 @@
 -- local InsertEnter = "InsertEnter"
 --
 -- return {
+--     -- Cursor motion
+--     {
+--         "ggandor/leap.nvim",
+--         event = { VeryLazy, BufRead, BufNewFile },
+--         dependencies = { "tpope/vim-repeat" },
+--         config = lua_config("ggandor/leap.nvim"),
+--     },
 --     -- slim
 --     {
 --         "slim-template/vim-slim",

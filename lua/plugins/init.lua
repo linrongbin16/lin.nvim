@@ -363,8 +363,10 @@ local M = {
         config = lua_config("windwp/nvim-autopairs"),
     },
     {
-        "alvan/vim-closetag",
-        init = vim_init("alvan/vim-closetag"),
+        "windwp/nvim-ts-autotag",
+        event = { VeryLazy, InsertEnter },
+        dependencies = { "nvim-treesitter/nvim-treesitter" },
+        config = lua_config("windwp/nvim-ts-autotag"),
     },
     -- Repeat
     {
@@ -384,12 +386,6 @@ local M = {
         version = "*",
         config = lua_config("smoka7/hop.nvim"),
         keys = lua_keys("smoka7/hop.nvim"),
-    },
-    {
-        "ggandor/leap.nvim",
-        event = { VeryLazy, BufRead, BufNewFile },
-        dependencies = { "tpope/vim-repeat" },
-        config = lua_config("ggandor/leap.nvim"),
     },
     -- Surround
     {

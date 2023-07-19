@@ -1,8 +1,16 @@
 local constants = require("builtin.utils.constants")
 
 require("nvim-treesitter.configs").setup({
+    ensure_installed = {
+        "html",
+        "javascript",
+        "typescript",
+    },
     auto_install = false,
-    matchup = {
+    matchup = { -- for vim-matchup
+        enable = true,
+    },
+    autotag = { -- for nvim-ts-autotag
         enable = true,
     },
     highlight = {

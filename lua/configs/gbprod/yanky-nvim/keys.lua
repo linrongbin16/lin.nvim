@@ -33,6 +33,13 @@ local M = {
         "<Plug>(YankyYank)",
         { desc = "Yank (yanky)" }
     ),
+    -- history
+    keymap.set_lazy_key(
+        "n",
+        "<leader>yh",
+        keymap.exec("YankyRingHistory"),
+        { desc = "Yank ring history" }
+    ),
 }
 
 return M
