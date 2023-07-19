@@ -87,10 +87,10 @@ require("nvim-tree").setup({
     diagnostics = {
         enable = true,
         icons = {
-            hint = constants.lsp.diagnostics.signs.hint,
-            info = constants.lsp.diagnostics.signs.info,
-            warning = constants.lsp.diagnostics.signs.warning,
-            error = constants.lsp.diagnostics.signs.error,
+            hint = constants.diagnostic.sign.hint,
+            info = constants.diagnostic.sign.info,
+            warning = constants.diagnostic.sign.warning,
+            error = constants.diagnostic.sign.error,
         },
     },
     modified = {

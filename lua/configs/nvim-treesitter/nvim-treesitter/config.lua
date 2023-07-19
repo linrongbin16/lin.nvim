@@ -5,6 +5,7 @@ require("nvim-treesitter.configs").setup({
         "html",
         "javascript",
         "typescript",
+        "tsx",
     },
     auto_install = false,
     matchup = { -- for vim-matchup
@@ -12,6 +13,22 @@ require("nvim-treesitter.configs").setup({
     },
     autotag = { -- for nvim-ts-autotag
         enable = true,
+        filetypes = {
+            "html",
+            "xml",
+            "javascript",
+            "typescript",
+            "javascriptreact",
+            "typescriptreact",
+            "jsx",
+            "tsx",
+            "svelte",
+            "vue",
+            "rescript",
+            "css",
+            "php",
+            "markdown",
+        },
     },
     highlight = {
         enable = true,
