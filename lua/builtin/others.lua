@@ -1,6 +1,8 @@
 -- ---- Other Options ----
 
+--- @type LuaModule
 local constants = require("builtin.utils.constants")
+--- @type BuiltinKeymapSetkey
 local set_key = require("builtin.utils.keymap").set_key
 
 -- GUI font
@@ -9,7 +11,7 @@ if constants.os.is_windows then
     vim.o.guifont = "Hack NFM:h10"
 else
     if constants.os.is_macos then
-        -- macOS
+        -- MacOS
         vim.o.guifont = "Hack Nerd Font Mono:h13"
     else
         -- Linux
