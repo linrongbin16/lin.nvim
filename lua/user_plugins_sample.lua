@@ -10,7 +10,7 @@ local vim_config = require("builtin.utils.plugin").vim_config
 
 local VeryLazy = "VeryLazy"
 local BufNewFile = "BufNewFile"
-local BufRead = "BufRead"
+local BufReadPre = "BufReadPre"
 local CmdlineEnter = "CmdlineEnter"
 local VimEnter = "VimEnter"
 local InsertEnter = "InsertEnter"

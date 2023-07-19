@@ -2,6 +2,7 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
 local constants = require("builtin.utils.constants")
+local layout = require("builtin.utils.layout")
 
 -- Please see https://github.com/nvim-tree/nvim-tree.lua/wiki/Migrating-To-on_attach for assistance in migrating.
 local on_attach = function(bufnr)
@@ -22,10 +23,8 @@ local on_attach = function(bufnr)
 
     -- Custom key mappings
     --
-    -- l => open
+    -- l => open file/directory
     -- h => close directory
-    -- ]d => next diagnostic
-    -- [d => prev diagnostic
     vim.keymap.set("n", "l", api.node.open.edit, opts("Open"))
     vim.keymap.set(
         "n",
@@ -33,6 +32,32 @@ local on_attach = function(bufnr)
         api.node.navigate.parent_close,
         opts("Close Directory")
     )
+
+    -- . => cd to folder
+    vim.keymap.set("n", ".", api.tree.change_root_to_node, opts("CD"))
+    -- <BS> => go to upper folder
+    vim.keymap.set("n", "<BS>", api.tree.change_root_to_parent, opts("Up"))
+
+    -- open in new tab/split/vsplit
+    vim.keymap.set("n", "<C-w>t", api.node.open.tab, opts("Open: New Tab"))
+    vim.keymap.del("n", "<C-t>", { buffer = bufnr })
+    vim.keymap.set(
+        "n",
+        "<C-w>v",
+        api.node.open.vertical,
+        opts("Open: Vertical Split")
+    )
+    vim.keymap.del("n", "<C-v>", { buffer = bufnr })
+    vim.keymap.set(
+        "n",
+        "<C-w>s",
+        api.node.open.horizontal,
+        opts("Open: Horizontal Split")
+    )
+    vim.keymap.del("n", "<C-x>", { buffer = bufnr })
+
+    -- ]d => next diagnostic
+    -- [d => prev diagnostic
     vim.keymap.set(
         "n",
         "]d",
@@ -45,23 +70,22 @@ local on_attach = function(bufnr)
         api.node.navigate.diagnostics.prev,
         opts("Prev Diagnostic")
     )
-end
 
-local function get_view_width()
-    local rate = 0.25
-    local min_w = 25
-    local max_w = 80
-    local editor_w = vim.o.columns
-    local tree_w = math.floor(editor_w * rate)
-    tree_w = vim.fn.min({ max_w, tree_w })
-    tree_w = vim.fn.max({ min_w, tree_w })
-    return tree_w
+    -- d => trash
+    -- D => delete
+    if vim.fn.executable("trash") > 0 then
+        vim.keymap.set("n", "d", api.fs.trash, opts("Trash"))
+    end
+    vim.keymap.set("n", "D", api.fs.remove, opts("Delete"))
+
+    -- <C-l> => preview
+    vim.keymap.set("n", "<C-l>", api.node.open.preview, opts("Open Preview"))
 end
 
 require("nvim-tree").setup({
     on_attach = on_attach,
     view = {
-        width = get_view_width(),
+        width = layout.editor.width(0.2, 40, 60),
     },
     renderer = {
         highlight_git = true,
@@ -72,9 +96,6 @@ require("nvim-tree").setup({
             webdev_colors = true,
             git_placement = "after",
             modified_placement = "before",
-            glyphs = {
-                default = "", -- nf-fa-file_text_o \uf0f6
-            },
         },
     },
     update_focused_file = {
@@ -86,6 +107,10 @@ require("nvim-tree").setup({
     },
     diagnostics = {
         enable = true,
+        severity = {
+            min = vim.diagnostic.severity.WARN,
+            max = vim.diagnostic.severity.ERROR,
+        },
         icons = {
             hint = constants.diagnostic.sign.hint,
             info = constants.diagnostic.sign.info,
@@ -95,6 +120,9 @@ require("nvim-tree").setup({
     },
     modified = {
         enable = true,
+    },
+    trash = {
+        cmd = "trash",
     },
 })
 
