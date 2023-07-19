@@ -77,6 +77,9 @@ local on_attach = function(bufnr)
         vim.keymap.set("n", "d", api.fs.trash, opts("Trash"))
     end
     vim.keymap.set("n", "D", api.fs.remove, opts("Delete"))
+
+    -- <C-l> => preview
+    vim.keymap.set("n", "<C-l>", api.node.open.preview, opts("Open Preview"))
 end
 
 require("nvim-tree").setup({
