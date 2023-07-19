@@ -24,10 +24,10 @@ local function define_diagnostic_sign(opts)
 end
 
 local diagnostic_signs = {
-    DiagnosticSignError = constants.lsp.diagnostics.signs.error,
-    DiagnosticSignWarn = constants.lsp.diagnostics.signs.warning,
-    DiagnosticSignInfo = constants.lsp.diagnostics.signs.info,
-    DiagnosticSignHint = constants.lsp.diagnostics.signs.hint,
+    DiagnosticSignError = constants.diagnostic.sign.error,
+    DiagnosticSignWarn = constants.diagnostic.sign.warning,
+    DiagnosticSignInfo = constants.diagnostic.sign.info,
+    DiagnosticSignHint = constants.diagnostic.sign.hint,
 }
 
 for name, icon in pairs(diagnostic_signs) do

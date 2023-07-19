@@ -119,10 +119,10 @@ local config = {
             {
                 "diagnostics",
                 symbols = {
-                    error = constants.lsp.diagnostics.signs.error .. " ",
-                    warn = constants.lsp.diagnostics.signs.warning .. " ",
-                    info = constants.lsp.diagnostics.signs.info .. " ",
-                    hint = constants.lsp.diagnostics.signs.hint .. " ",
+                    error = constants.diagnostic.sign.error .. " ",
+                    warn = constants.diagnostic.sign.warning .. " ",
+                    info = constants.diagnostic.sign.info .. " ",
+                    hint = constants.diagnostic.sign.hint .. " ",
                 },
             },
             LspIcon,
