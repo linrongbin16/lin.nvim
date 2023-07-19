@@ -1,5 +1,6 @@
 -- ---- Colorschemes ----
 
+--- @type string[]
 local colornames = {
     "deus",
     "moonfly",
@@ -44,8 +45,8 @@ local colornames = {
 
 math.randomseed(os.clock() * 100000000000)
 
---- Switch to next color
---- @param option table<string, any>
+--- @param option VimUserCommandOption
+--- @return nil
 local function switch_color(option)
     if type(option.args) == "string" and string.len(option.args) > 0 then
         vim.cmd.colorscheme(option.args)
@@ -60,6 +61,7 @@ local function switch_color(option)
     end
 end
 
+--- Switch to next color
 vim.api.nvim_create_user_command("SwitchColor", switch_color, {
     bang = true,
     nargs = "?",

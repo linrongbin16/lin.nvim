@@ -3,7 +3,7 @@
 --- @type string
 local OS = vim.loop.os_uname().sysname
 
---- @type table<string, any>
+--- @type LuaModule
 local M = {
     --- @type table<string, any>
     diagnostic = {

@@ -1,5 +1,8 @@
+--- @type LuaModule
 local message = require("builtin.utils.message")
 
+--- @param keys string
+--- @return LazyKeySpec[]
 local function lua_keys(keys)
     local user_path = "configs/" .. keys:gsub("%.", "-") .. "/user_keys"
     local user_ok, user_keys = pcall(require, user_path)
@@ -14,8 +17,10 @@ local function lua_keys(keys)
     return keys_list
 end
 
+--- @param init string
+--- @return LazyInitSpec
 local function lua_init(init)
-    return function()
+    local function wrap()
         local user_path = "configs/" .. init:gsub("%.", "-") .. "/user_init"
         local user_ok, user_module = pcall(require, user_path)
         if user_ok then
@@ -28,10 +33,13 @@ local function lua_init(init)
         end
         return init_module
     end
+    return wrap
 end
 
+--- @param init string
+--- @return LazyInitSpec
 local function vim_init(init)
-    return function()
+    local function wrap()
         local user_path = vim.fn.stdpath("config")
             .. "/lua/configs/"
             .. init:gsub("%.", "-")
@@ -49,10 +57,13 @@ local function vim_init(init)
         end
         vim.cmd([[source ]] .. init_path)
     end
+    return wrap
 end
 
+--- @param config string
+--- @return LazyConfigSpec
 local function lua_config(config)
-    return function()
+    local function wrap()
         local user_path = "configs/" .. config:gsub("%.", "-") .. "/user_config"
         local user_ok, user_module = pcall(require, user_path)
         if user_ok then
@@ -65,10 +76,13 @@ local function lua_config(config)
         end
         return config_module
     end
+    return wrap
 end
 
+--- @param config string
+--- @return LazyConfigSpec
 local function vim_config(config)
-    return function()
+    local function wrap()
         local user_path = vim.fn.stdpath("config")
             .. "/lua/configs/"
             .. config:gsub("%.", "-")
@@ -86,8 +100,10 @@ local function vim_config(config)
         end
         vim.cmd("source " .. config_path)
     end
+    return wrap
 end
 
+--- @type LuaModule
 local M = {
     lua_keys = lua_keys,
     lua_init = lua_init,

@@ -1,18 +1,5 @@
 -- ---- Key Map ----
 
---- please checkout:
----   - https://neovim.io/doc/user/lua.html#vim.keymap.set()
----   - https://neovim.io/doc/user/map.html#%3Amap-arguments
----
---- @alias VimKeymapLhs string
---- @alias VimKeymapRhsFunction fun():nil
---- @alias VimKeymapRhs string|VimKeymapRhsFunction
---- @alias VimKeymapOptsKey "buffer"|"nowait"|"silent"|"script"|"expr"|"noremap"
---- @alias VimKeymapOptsValue boolean
---- @alias VimKeymapOpts table<VimKeymapOptsKey, VimKeymapOptsValue>
-
---- @alias LazyKeySpec table
-
 --- @type string[]
 local NON_EDITABLE_FIELTYPES = {
     ["neo-tree"] = true,
@@ -110,13 +97,14 @@ end
 local function set_lazy_key(mode, lhs, rhs, opts)
     opts = make_opts(rhs, opts)
     --- @type LazyKeySpec
-    local key_spec --[[@as LazyKeySpec]] = { lhs, rhs, mode = mode }
+    local key_spec = { lhs, rhs, mode = mode }
     for k, v in pairs(opts) do
         key_spec[k] = v
     end
     return key_spec
 end
 
+--- @type LuaModule
 local M = {
     exec = exec,
     set_key = set_key,

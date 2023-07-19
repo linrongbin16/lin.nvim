@@ -1,3 +1,6 @@
+--- @param client any
+--- @param bufnr any
+--- @return nil
 local function on_attach(client, bufnr)
     -- attach navic to work with multiple tabs
     if client.server_capabilities["documentSymbolProvider"] then
@@ -9,6 +12,7 @@ local function on_attach(client, bufnr)
     vim.bo.tagfunc = nil
 end
 
+--- @type LuaModule
 local M = {
     on_attach = on_attach,
 }
