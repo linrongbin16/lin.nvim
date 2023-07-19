@@ -23,6 +23,12 @@
 --         dependencies = { "tpope/vim-repeat" },
 --         config = lua_config("ggandor/leap.nvim"),
 --     },
+--     {
+--         "folke/flash.nvim",
+--         event = { VeryLazy, BufRead, BufNewFile },
+--         config = lua_config("folke/flash.nvim"),
+--         keys = lua_keys("folke/flash.nvim"),
+--     },
 --     -- slim
 --     {
 --         "slim-template/vim-slim",
