@@ -32,20 +32,45 @@ local on_attach = function(bufnr)
         api.node.navigate.parent_close,
         opts("Close Directory")
     )
+
+    -- . => cd to folder
+    vim.keymap.set("n", ".", api.tree.change_root_to_node, opts("CD"))
+    -- <BS> => go to upper folder
+    vim.keymap.set("n", "<BS>", api.tree.change_root_to_parent, opts("Up"))
+
+    -- open in new tab/split/vsplit
+    vim.keymap.set("n", "<C-w>t", api.node.open.tab, opts("Open: New Tab"))
+    vim.keymap.del("n", "<C-t>", { buffer = bufnr })
+    vim.keymap.set(
+        "n",
+        "<C-w>v",
+        api.node.open.vertical,
+        opts("Open: Vertical Split")
+    )
+    vim.keymap.del("n", "<C-v>", { buffer = bufnr })
+    vim.keymap.set(
+        "n",
+        "<C-w>s",
+        api.node.open.horizontal,
+        opts("Open: Horizontal Split")
+    )
+    vim.keymap.del("n", "<C-x>", { buffer = bufnr })
+
     -- ]d => next diagnostic
     -- [d => prev diagnostic
     vim.keymap.set(
         "n",
         "]d",
         api.node.navigate.diagnostics.next,
-        opts("Next Diagnostic Item")
+        opts("Next Diagnostic")
     )
     vim.keymap.set(
         "n",
         "[d",
         api.node.navigate.diagnostics.prev,
-        opts("Prev Diagnostic Item")
+        opts("Prev Diagnostic")
     )
+
     -- d => trash
     -- D => delete
     if vim.fn.executable("trash") > 0 then
