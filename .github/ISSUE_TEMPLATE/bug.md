@@ -1,6 +1,6 @@
 ---
 name: Bug
-about: Bug summary
+about: Report bug for this project
 title: ''
 labels: bug
 assignees: linrongbin16
@@ -9,11 +9,12 @@ assignees: linrongbin16
 
 # Description
 
-Please describe the bug.
+Please describe the bug here.
 
 # Platform
 
-- OS : Windows 10 x86_64, MacOS M1 MAX silicon chip, Ubuntu 22.04 LTS x86_64 (Linux), etc.
+- OS : Windows 10, MacOS 13.4.2, Ubuntu 22.04 LTS (Linux), etc.
+- Architecture: x86_64, apple m1 silicon chip arm64
 - Neovim: v0.9.1 (latest stable).
 
 # `:checkhealth`
