@@ -6,7 +6,13 @@ let $BAT_THEME='ansi'
 let $BAT_STYLE='numbers,changes,header'
 
 " ui
-let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9 } }
+let g:fzf_layout =
+            \ {
+            \   'window': {
+            \       'width': luaeval("require('builtin.utils.constants').ui.layout.large.scale"),
+            \       'height': luaeval("require('builtin.utils.constants').ui.layout.large.scale")
+            \   }
+            \ }
 let g:fzf_preview_window = ['right,50%', 'ctrl-l']
 
 " command prefix

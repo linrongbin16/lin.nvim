@@ -18,8 +18,8 @@ local opts = {
     root = vim.fn.stdpath("config") .. "/lazy",
     ui = {
         size = {
-            width = constants.ui.layout.scale,
-            height = constants.ui.layout.scale,
+            width = constants.ui.layout.middle.scale,
+            height = constants.ui.layout.middle.scale,
         },
         border = constants.ui.border,
     },
@@ -30,8 +30,8 @@ local user_plugins_blacklist_ok, user_plugins_blacklist =
 if user_plugins_blacklist_ok then
     if type(user_plugins_blacklist) == "table" then
         opts.defaults = {
-            cond = function(plugin)
-                local uri = plugin[1]
+            cond = function(plugin_spec)
+                local uri = plugin_spec[1]
                 return not user_plugins_blacklist[uri]
             end,
         }

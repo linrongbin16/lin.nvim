@@ -15,7 +15,8 @@ let g:lin_nvim_options = {
             \   'winblend': 15,
             \   'pumblend': 15,
             \   'layout': {
-            \       'scale': 0.8,
+            \       'middle': { 'scale': 0.85 },
+            \       'large': { 'scale': 0.9 },
             \   },
             \ },
             \ 'perf': {

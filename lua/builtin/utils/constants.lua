@@ -31,8 +31,16 @@ local M = {
         pumblend = 15,
         --- @type table<string, any>
         layout = {
-            --- @type integer
-            scale = 0.8,
+            --- @type table<string, number>
+            middle = {
+                --- @type number
+                scale = 0.85,
+            },
+            --- @type table<string, number>
+            large = {
+                --- @type number
+                scale = 0.9,
+            },
         },
     },
     --- @type table<string, any>
