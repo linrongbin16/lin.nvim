@@ -22,19 +22,13 @@ local setup_handlers = {
     -- Please uncomment below lines to enable them.
 
     -- tsserver = function()
-    --     lspconfig["tsserver"].setup({
-    --         on_attach = lsp_setup_helper.on_attach,
-    --     })
+    --     lspconfig["tsserver"].setup({})
     -- end,
     -- clangd = function()
-    --     require("clangd_extensions").setup({
-    --         on_attach = lsp_setup_helper.on_attach,
-    --     })
+    --     require("clangd_extensions").setup({})
     -- end,
     -- ["rust_analyzer"] = function()
-    --     require("rust-tools").setup({
-    --         on_attach = lsp_setup_helper.on_attach,
-    --     })
+    --     require("rust-tools").setup({})
     -- end,
 }
 
