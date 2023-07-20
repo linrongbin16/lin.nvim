@@ -24,15 +24,4 @@ let g:lin_nvim_options = {
             \       'maxsize': 1024 * 1024 * 5,
             \   },
             \ },
-            \ 'plugin': {
-            \   'lazy': {
-            \       'root': stdpath('config').'/lazy',
-            \       'install': {
-            \           'missing': v:true,
-            \       },
-            \       'checker': {
-            \           'enabled': v:true,
-            \       }
-            \   }
-            \ }
             \ }
