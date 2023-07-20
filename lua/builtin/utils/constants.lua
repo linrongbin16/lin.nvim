@@ -58,6 +58,9 @@ local M = {
             install = {
                 missing = true,
             },
+            checker = {
+                enabled = true,
+            },
         },
     },
 }

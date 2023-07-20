@@ -26,6 +26,9 @@ local opts = {
         },
         border = constants.ui.border,
     },
+    checker = {
+        enabled = constants.plugin.lazy.checker.enabled,
+    },
 }
 
 local user_plugins_blacklist_ok, user_plugins_blacklist =
