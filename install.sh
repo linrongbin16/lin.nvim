@@ -78,6 +78,7 @@ guifont_dependency() {
             unzip -o $font_file
             message "install hack($font_version) nerd font from github - done"
         fi
+        sudo fc-cache -fv
     fi
 }
 
