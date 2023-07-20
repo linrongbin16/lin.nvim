@@ -104,6 +104,7 @@ require("nvim-tree").setup({
     git = {
         enable = true,
         ignore = false,
+        timeout = 5000,
     },
     diagnostics = {
         enable = true,
