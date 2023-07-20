@@ -15,11 +15,14 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local opts = {
-    root = vim.fn.stdpath("config") .. "/lazy",
+    root = constants.plugin.lazy.root,
+    install = {
+        missing = constants.plugin.lazy.install.missing,
+    },
     ui = {
         size = {
-            width = constants.ui.layout.scale,
-            height = constants.ui.layout.scale,
+            width = constants.ui.layout.middle.scale,
+            height = constants.ui.layout.middle.scale,
         },
         border = constants.ui.border,
     },
@@ -29,12 +32,12 @@ local user_plugins_blacklist_ok, user_plugins_blacklist =
     pcall(require, "user_plugins_blacklist")
 if user_plugins_blacklist_ok then
     if type(user_plugins_blacklist) == "table" then
-        opts.defaults = {
-            cond = function(plugin)
-                local uri = plugin[1]
+        opts.defaults = vim.tbl_deep_extend("force", opts.defaults or {}, {
+            cond = function(plugin_spec)
+                local uri = plugin_spec[1]
                 return not user_plugins_blacklist[uri]
             end,
-        }
+        })
     else
         message.warn("Error loading 'user_plugins_blacklist' lua module!")
     end

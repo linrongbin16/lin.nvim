@@ -15,6 +15,6 @@ require("buffer_manager").setup({
             command = "split",
         },
     },
-    width = constants.ui.layout.scale,
-    height = constants.ui.layout.scale,
+    width = constants.ui.layout.middle.scale,
+    height = constants.ui.layout.middle.scale,
 })

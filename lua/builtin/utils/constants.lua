@@ -31,8 +31,16 @@ local M = {
         pumblend = 15,
         --- @type table<string, any>
         layout = {
-            --- @type integer
-            scale = 0.8,
+            --- @type table<string, number>
+            middle = {
+                --- @type number
+                scale = 0.8,
+            },
+            --- @type table<string, number>
+            large = {
+                --- @type number
+                scale = 0.9,
+            },
         },
     },
     --- @type table<string, any>
@@ -41,6 +49,15 @@ local M = {
         file = {
             --- @type integer
             maxsize = 1024 * 1024 * 5, -- 5MB
+        },
+    },
+    --- @type table<string, any>
+    plugin = {
+        lazy = {
+            root = vim.fn.stdpath("config") .. "/lazy",
+            install = {
+                missing = true,
+            },
         },
     },
 }
