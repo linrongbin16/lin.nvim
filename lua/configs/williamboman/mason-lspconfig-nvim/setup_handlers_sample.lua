@@ -6,14 +6,11 @@
 --  * [mason-lspconfig's Automatic server setup](https://github.com/williamboman/mason-lspconfig.nvim#automatic-server-setup-advanced-feature).
 
 local lspconfig = require("lspconfig")
-local lsp_setup_helper = require("builtin.utils.lsp_setup_helper")
 
 local setup_handlers = {
     -- Default setup.
     function(server)
-        lspconfig[server].setup({
-            on_attach = lsp_setup_helper.on_attach,
-        })
+        lspconfig[server].setup({})
     end,
 
     -- Custom setup.
@@ -25,26 +22,19 @@ local setup_handlers = {
                     validate = { enable = true },
                 },
             },
-            on_attach = lsp_setup_helper.on_attach,
         })
     end,
 
     -- Please uncomment below lines to enable them.
-
+    --
     -- tsserver = function()
-    --     lspconfig["tsserver"].setup({
-    --         on_attach = lsp_setup_helper.on_attach,
-    --     })
+    --     lspconfig["tsserver"].setup({})
     -- end,
     -- clangd = function()
-    --     require("clangd_extensions").setup({
-    --         on_attach = lsp_setup_helper.on_attach,
-    --     })
+    --     require("clangd_extensions").setup({})
     -- end,
     -- ["rust_analyzer"] = function()
-    --     require("rust-tools").setup({
-    --         on_attach = lsp_setup_helper.on_attach,
-    --     })
+    --     require("rust-tools").setup({})
     -- end,
 }
 

@@ -3,10 +3,8 @@
 
 -- Please copy this file to 'setup_handlers.lua' to enable it.
 
-local lsp_setup_helper = require("builtin.utils.lsp_setup_helper")
-
 local setup_handlers = {
-    ["flow"] = { on_attach = lsp_setup_helper.on_attach },
+    ["flow"] = {},
 }
 
 return setup_handlers

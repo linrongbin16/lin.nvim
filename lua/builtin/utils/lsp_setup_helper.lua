@@ -8,7 +8,7 @@ local function on_attach(client, bufnr)
     -- end
 
     -- async code format
-    require("lspformatter").on_attach(client, bufnr)
+    -- require("lspformatter").on_attach(client, bufnr)
     -- disable tagfunc to fix workspace/symbol not support error
     vim.bo.tagfunc = nil
 end
