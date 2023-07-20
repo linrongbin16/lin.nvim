@@ -8,12 +8,6 @@
 local lspconfig = require("lspconfig")
 
 local setup_handlers = {
-    -- Default setup.
-    function(server)
-        lspconfig[server].setup({})
-    end,
-
-    -- Custom setup.
     jsonls = function()
         lspconfig["jsonls"].setup({
             settings = {
@@ -26,15 +20,21 @@ local setup_handlers = {
     end,
 
     -- Please uncomment below lines to enable them.
-    --
+
     -- tsserver = function()
-    --     lspconfig["tsserver"].setup({})
+    --     lspconfig["tsserver"].setup({
+    --         on_attach = lsp_setup_helper.on_attach,
+    --     })
     -- end,
     -- clangd = function()
-    --     require("clangd_extensions").setup({})
+    --     require("clangd_extensions").setup({
+    --         on_attach = lsp_setup_helper.on_attach,
+    --     })
     -- end,
     -- ["rust_analyzer"] = function()
-    --     require("rust-tools").setup({})
+    --     require("rust-tools").setup({
+    --         on_attach = lsp_setup_helper.on_attach,
+    --     })
     -- end,
 }
 
