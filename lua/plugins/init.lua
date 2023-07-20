@@ -27,6 +27,18 @@ local M = {
     {
         "folke/lsp-colors.nvim",
     },
+    {
+        "b0o/SchemaStore.nvim",
+        lazy = true,
+    },
+    {
+        "folke/neodev.nvim",
+        lazy = true,
+    },
+    {
+        "folke/neoconf.nvim",
+        dependencies = { "b0o/SchemaStore.nvim", "folke/neodev.nvim" },
+    },
 
     -- ---- HIGHLIGHT ----
 
@@ -195,20 +207,7 @@ local M = {
     },
 
     -- ---- LSP ----
-    -- Lsp configuration
-    {
-        "b0o/SchemaStore.nvim",
-        lazy = true,
-    },
-    {
-        "folke/neodev.nvim",
-        lazy = true,
-    },
-    {
-        "folke/neoconf.nvim",
-        event = { VeryLazy, BufReadPre, BufNewFile, CmdlineEnter },
-        dependencies = { "b0o/SchemaStore.nvim", "folke/neodev.nvim" },
-    },
+    -- Lsp config
     {
         "neovim/nvim-lspconfig",
         event = { VeryLazy, BufReadPre, BufNewFile, CmdlineEnter },
