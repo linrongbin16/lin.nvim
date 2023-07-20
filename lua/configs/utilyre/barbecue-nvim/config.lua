@@ -1,12 +1,9 @@
 require("barbecue").setup({
     -- attach_navic = false, -- prevent auto attach, do it manually
     symbols = {
-        ---entry separator
-        ---@type string
         separator = "", -- nf-oct-chevron_right \uf460
-        -- separator = "",  -- nf-cod-chevron_right \ueab6
     },
-    -- better performance
+    -- performance
     create_autocmd = false,
     show_modified = true,
 })
