@@ -1,5 +1,5 @@
 require("barbecue").setup({
-    attach_navic = false, -- prevent auto attach, do it manually
+    -- attach_navic = false, -- prevent auto attach, do it manually
     symbols = {
         ---entry separator
         ---@type string
@@ -13,14 +13,13 @@ require("barbecue").setup({
 
 vim.api.nvim_create_augroup("barbecue_augroup", { clear = true })
 vim.api.nvim_create_autocmd({
+    "WinScrolled",
+    "WinResized",
     "BufWinEnter",
     "CursorHold",
     "InsertLeave",
-
     -- include these if you have set `show_modified` to `true`
-    "BufWritePost",
-    "TextChanged",
-    "TextChangedI",
+    "BufModifiedSet",
 }, {
     group = "barbecue_augroup",
     callback = function(data)
