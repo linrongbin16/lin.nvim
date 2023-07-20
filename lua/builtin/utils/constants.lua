@@ -34,7 +34,7 @@ local M = {
             --- @type table<string, number>
             middle = {
                 --- @type number
-                scale = 0.8,
+                scale = 0.85,
             },
             --- @type table<string, number>
             large = {
