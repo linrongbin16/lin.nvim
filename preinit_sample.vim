@@ -29,6 +29,9 @@ let g:lin_nvim_options = {
             \       'root': stdpath('config').'/lazy',
             \       'install': {
             \           'missing': v:true,
+            \       },
+            \       'checker': {
+            \           'enabled': v:true,
             \       }
             \   }
             \ }
