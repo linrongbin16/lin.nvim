@@ -51,18 +51,6 @@ local M = {
             maxsize = 1024 * 1024 * 5, -- 5MB
         },
     },
-    --- @type table<string, any>
-    plugin = {
-        lazy = {
-            root = vim.fn.stdpath("config") .. "/lazy",
-            install = {
-                missing = true,
-            },
-            checker = {
-                enabled = true,
-            },
-        },
-    },
 }
 
 M = vim.tbl_deep_extend("force", M, vim.g.lin_nvim_options or {})
