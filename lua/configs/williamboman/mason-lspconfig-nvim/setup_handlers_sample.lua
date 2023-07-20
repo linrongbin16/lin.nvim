@@ -6,17 +6,8 @@
 --  * [mason-lspconfig's Automatic server setup](https://github.com/williamboman/mason-lspconfig.nvim#automatic-server-setup-advanced-feature).
 
 local lspconfig = require("lspconfig")
-local lsp_setup_helper = require("builtin.utils.lsp_setup_helper")
 
 local setup_handlers = {
-    -- Default setup.
-    function(server)
-        lspconfig[server].setup({
-            on_attach = lsp_setup_helper.on_attach,
-        })
-    end,
-
-    -- Custom setup.
     jsonls = function()
         lspconfig["jsonls"].setup({
             settings = {
@@ -25,7 +16,6 @@ local setup_handlers = {
                     validate = { enable = true },
                 },
             },
-            on_attach = lsp_setup_helper.on_attach,
         })
     end,
 

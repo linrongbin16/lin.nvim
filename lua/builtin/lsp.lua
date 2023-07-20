@@ -66,9 +66,9 @@ local function diagnostic_goto(next, severity)
     end
 end
 
-vim.api.nvim_create_augroup("lsp_attach_augroup", { clear = true })
+vim.api.nvim_create_augroup("builtin_lsp_augroup", { clear = true })
 vim.api.nvim_create_autocmd("LspAttach", {
-    group = "lsp_attach_augroup",
+    group = "builtin_lsp_augroup",
     callback = function()
         -- lsp key mappings
         -- navigation
@@ -254,5 +254,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
                 end
             end,
         })
+
+        -- disable tagfunc to fix workspace/symbol not support error
+        vim.bo.tagfunc = nil
     end,
 })
