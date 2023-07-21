@@ -1,39 +1,16 @@
 # lin.nvim : Lin Rongbin's Neovim Distribution
 
-<div align="left">
-<p>
-    <a href="https://github.com/neovim/neovim/releases/tag/stable">
-      <img src="https://img.shields.io/badge/Neovim-0.9.1-blueviolet.svg?style=flat-square&logo=Neovim&logoColor=green" alt="Neovim minimum version"/>
-    </a>
-    <a>
-      <img alt="Linux" src="https://img.shields.io/badge/Linux-%23.svg?style=flat-square&logo=linux&color=FCC624&logoColor=black" />
-    </a>
-    <a>
-      <img alt="macOS" src="https://img.shields.io/badge/macOS-%23.svg?style=flat-square&logo=apple&color=000000&logoColor=white" />
-    </a>
-    <a>
-      <img alt="Windows" src="https://img.shields.io/badge/Windows-%23.svg?style=flat-square&logo=windows&color=0078D6&logoColor=white" />
-    </a>
-    <a href="https://github.com/linrongbin16/lin.nvim/search?l=lua">
-      <img src="https://img.shields.io/github/languages/top/linrongbin16/lin.nvim" alt="Top languages"/>
-    </a>
-    <a>
-      <img src="https://img.shields.io/github/repo-size/linrongbin16/lin.nvim?style=flat-square" />
-    </a>
-    <a href="https://github.com/linrongbin16/lin.nvim/blob/main/LICENSE">
-      <img src="https://img.shields.io/github/license/linrongbin16/lin.nvim?style=flat-square&logo=GNU&label=License" alt="License"/>
-    </a>
-    <a href="https://github.com/linrongbin16/lin.nvim/graphs/commit-activity">
-      <img src="https://img.shields.io/github/commit-activity/m/linrongbin16/lin.nvim?style=flat-square" />
-    </a>
-    <a href="https://github.com/linrongbin16/lin.nvim/commits/main">
-      <img alt="Latest release" src="https://img.shields.io/github/last-commit/linrongbin16/lin.nvim/main" />
-    </a>
-    <a href="https://github.com/linrongbin16/lin.nvim/graphs/contributors">
-      <img src="https://img.shields.io/github/contributors/linrongbin16/lin.nvim?style=flat-square" />
-    </a>
-</p>
-</div>
+[![Neovim-v0.9.1](https://img.shields.io/badge/Neovim-v0.9.1-blueviolet.svg?style=flat-square&logo=Neovim&logoColor=green)](https://github.com/neovim/neovim/releases/tag/stable)
+[![License](https://img.shields.io/github/license/linrongbin16/lin.nvim?style=flat-square&logo=GNU)](https://github.com/linrongbin16/lin.nvim/blob/main/LICENSE)
+![Linux](https://img.shields.io/badge/Linux-%23.svg?style=flat-square&logo=linux&color=FCC624&logoColor=black)
+![macOS](https://img.shields.io/badge/macOS-%23.svg?style=flat-square&logo=apple&color=000000&logoColor=white)
+![Windows](https://img.shields.io/badge/Windows-%23.svg?style=flat-square&logo=windows&color=0078D6&logoColor=white)
+
+[![Top Language](https://img.shields.io/github/languages/top/linrongbin16/lin.nvim?style=flat-square)](https://github.com/linrongbin16/lin.nvim/search?l=lua)
+![Repo Size](https://img.shields.io/github/repo-size/linrongbin16/lin.nvim?style=flat-square&)
+[![Commit Activity](https://img.shields.io/github/commit-activity/m/linrongbin16/lin.nvim?style=flat-square)](https://github.com/linrongbin16/lin.nvim/graphs/commit-activity)
+[![Last Commit](https://img.shields.io/github/last-commit/linrongbin16/lin.nvim/main)](https://github.com/linrongbin16/lin.nvim/commits/main)
+[![Contributors](https://img.shields.io/github/contributors/linrongbin16/lin.nvim?style=flat-square)](https://github.com/linrongbin16/lin.nvim/graphs/contributors)
 
 > Leave Vim behind, this is the next generation of [lin.vim](https://github.com/linrongbin16/lin.vim).
 
