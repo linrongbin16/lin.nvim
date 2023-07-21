@@ -301,6 +301,9 @@ local M = {
     -- Diagnostic
     {
         "folke/trouble.nvim",
+        cmd = { "Trouble", "TroubleClose", "TroubleToggle", "TroubleRefresh" },
+        config = lua_config("folke/trouble.nvim"),
+        keys = lua_keys("folke/trouble.nvim"),
     },
 
     -- ---- SPECIFIC LANGUAGE SUPPORT ----
