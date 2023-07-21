@@ -74,7 +74,7 @@ local on_attach = function(bufnr)
     -- d => trash
     -- D => delete
     local function trash_put()
-        local node = require("nvim-tree.api").tree.get_node_under_cursor()
+        local node = api.tree.get_node_under_cursor()
         local function trash_impl(on_exit, on_stderr)
             local j =
                 vim.fn.jobstart("trash" .. ' "' .. node.absolute_path .. '"', {
