@@ -186,12 +186,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
         -- diagnostic
         set_key(
             "n",
-            "<Leader>ds",
-            "<cmd>lua vim.diagnostic.open_float()<cr>",
-            map_desc("Show diagnostic under cursor")
-        )
-        set_key(
-            "n",
             "]d",
             diagnostic_goto(true),
             map_desc("Next diagnostic item")

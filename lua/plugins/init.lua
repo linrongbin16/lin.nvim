@@ -39,6 +39,11 @@ local M = {
         "folke/neoconf.nvim",
         dependencies = { "b0o/SchemaStore.nvim", "folke/neodev.nvim" },
     },
+    {
+        "neovim/nvim-lspconfig",
+        dependencies = { "folke/neoconf.nvim" },
+        config = lua_config("neovim/nvim-lspconfig"),
+    },
 
     -- ---- HIGHLIGHT ----
 
@@ -207,39 +212,29 @@ local M = {
     },
 
     -- ---- LSP ----
-    -- Lsp config
-    {
-        "neovim/nvim-lspconfig",
-        event = { VeryLazy, BufReadPre, BufNewFile, CmdlineEnter },
-        dependencies = { "folke/neoconf.nvim" },
-        config = lua_config("neovim/nvim-lspconfig"),
-    },
     -- Lsp server management
     {
         "williamboman/mason.nvim",
         event = { VeryLazy, BufReadPre, BufNewFile, CmdlineEnter },
         build = ":MasonUpdate",
-        dependencies = { "neovim/nvim-lspconfig" },
         config = lua_config("williamboman/mason.nvim"),
         keys = lua_keys("williamboman/mason.nvim"),
     },
     {
         "williamboman/mason-lspconfig.nvim",
         event = { VeryLazy, BufReadPre, BufNewFile, CmdlineEnter },
-        dependencies = { "neovim/nvim-lspconfig", "williamboman/mason.nvim" },
+        dependencies = { "williamboman/mason.nvim" },
         config = lua_config("williamboman/mason-lspconfig.nvim"),
     },
     {
         "jose-elias-alvarez/null-ls.nvim",
         event = { VeryLazy, BufReadPre, BufNewFile, CmdlineEnter },
-        dependencies = { "neovim/nvim-lspconfig" },
         config = lua_config("jose-elias-alvarez/null-ls.nvim"),
     },
     {
         "jay-babu/mason-null-ls.nvim",
         event = { VeryLazy, BufReadPre, BufNewFile, CmdlineEnter },
         dependencies = {
-            "neovim/nvim-lspconfig",
             "williamboman/mason.nvim",
             "williamboman/mason-lspconfig.nvim",
             "jose-elias-alvarez/null-ls.nvim",
@@ -281,7 +276,6 @@ local M = {
         "hrsh7th/nvim-cmp",
         event = { VeryLazy, InsertEnter, CmdlineEnter },
         dependencies = {
-            "neovim/nvim-lspconfig",
             "onsails/lspkind.nvim",
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-buffer",
@@ -296,15 +290,20 @@ local M = {
     {
         "DNLHC/glance.nvim",
         cmd = { "Glance" },
-        dependencies = { "neovim/nvim-lspconfig" },
         config = lua_config("DNLHC/glance.nvim"),
     },
     -- Format on save
     {
         "linrongbin16/lspformatter.nvim",
         event = { VeryLazy, BufReadPre, BufNewFile },
-        dependencies = { "neovim/nvim-lspconfig" },
         config = lua_config("linrongbin16/lspformatter.nvim"),
+    },
+    -- Diagnostic
+    {
+        "folke/trouble.nvim",
+        cmd = { "Trouble", "TroubleClose", "TroubleToggle", "TroubleRefresh" },
+        config = lua_config("folke/trouble.nvim"),
+        keys = lua_keys("folke/trouble.nvim"),
     },
 
     -- ---- SPECIFIC LANGUAGE SUPPORT ----
