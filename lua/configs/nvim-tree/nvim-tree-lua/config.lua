@@ -81,7 +81,7 @@ local on_attach = function(bufnr)
                     on_exit = on_exit,
                     on_stderr = on_stderr,
                 })
-            vim.fn.jobwait(j)
+            vim.fn.jobwait({ j })
         end
 
         local err_msg = ""
