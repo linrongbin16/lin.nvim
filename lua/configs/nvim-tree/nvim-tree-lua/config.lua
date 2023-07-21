@@ -115,7 +115,12 @@ local on_attach = function(bufnr)
     end
 
     if vim.fn.executable("trash") > 0 then
-        vim.keymap.set("n", "d", trash_put, opts("Trash Put"))
+        vim.keymap.set(
+            "n",
+            "d",
+            constants.os.is_windows and trash_put or api.fs.trash,
+            opts("Trash Put")
+        )
     end
     vim.keymap.set("n", "D", api.fs.remove, opts("Delete"))
 
