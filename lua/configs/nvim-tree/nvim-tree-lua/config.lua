@@ -119,7 +119,7 @@ local on_attach = function(bufnr)
             "n",
             "d",
             constants.os.is_windows and trash_put or api.fs.trash,
-            opts("Trash Put")
+            opts("Trash")
         )
     end
     vim.keymap.set("n", "D", api.fs.remove, opts("Delete"))
