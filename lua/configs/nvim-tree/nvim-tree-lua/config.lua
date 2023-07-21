@@ -73,8 +73,49 @@ local on_attach = function(bufnr)
 
     -- d => trash
     -- D => delete
+    local function trash_put()
+        local node = require("nvim-tree.api").tree.get_node_under_cursor()
+        local function trash_impl(on_exit, on_stderr)
+            local j =
+                vim.fn.jobstart("trash" .. ' "' .. node.absolute_path .. '"', {
+                    on_exit = on_exit,
+                    on_stderr = on_stderr,
+                })
+            vim.fn.jobwait(j)
+        end
+
+        local err_msg = ""
+        local function on_trash_error(_, data)
+            if type(data) == "table" then
+                err_msg = err_msg .. table.concat(data, " ")
+            end
+        end
+        local function on_trash_exit(_, rc)
+            if rc ~= 0 then
+                require("nvim-tree.notify").warn(
+                    "trash failed: " .. err_msg .. ""
+                )
+            end
+        end
+
+        local prompt_select = "Trash " .. node.name .. " ?"
+        local prompt_input = prompt_select .. " y/n: "
+        require("nvim-tree.lib").prompt(
+            prompt_input,
+            prompt_select,
+            { "y", "n" },
+            { "Yes", "No" },
+            function(item_short)
+                require("nvim-tree.utils").clear_prompt()
+                if item_short == "y" then
+                    trash_impl(on_trash_exit, on_trash_error)
+                end
+            end
+        )
+    end
+
     if vim.fn.executable("trash") > 0 then
-        vim.keymap.set("n", "d", api.fs.trash, opts("Trash"))
+        vim.keymap.set("n", "d", trash_put, opts("Trash Put"))
     end
     vim.keymap.set("n", "D", api.fs.remove, opts("Delete"))
 
