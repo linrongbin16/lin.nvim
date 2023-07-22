@@ -35,7 +35,7 @@ local user_setup_handlers_module =
 local user_setup_handlers_ok, user_setup_handlers =
     pcall(require, user_setup_handlers_module)
 
-if not user_setup_handlers_ok then
+if user_setup_handlers_ok then
     if type(user_setup_handlers) == "table" then
         for name, handler in pairs(user_setup_handlers) do
             setup_handlers[name] = handler
