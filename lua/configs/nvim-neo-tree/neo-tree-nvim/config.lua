@@ -96,7 +96,11 @@ require("neo-tree").setup({
         },
     },
     window = {
-        width = layout.editor.width(0.2, 40, 60),
+        width = layout.editor.width(
+            constants.ui.layout.sidebar.scale,
+            constants.ui.layout.sidebar.min,
+            constants.ui.layout.sidebar.max
+        ),
         mappings = {
             -- open node
             ["l"] = "open",
