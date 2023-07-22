@@ -131,7 +131,11 @@ end
 require("nvim-tree").setup({
     on_attach = on_attach,
     view = {
-        width = layout.editor.width(0.2, 40, 60),
+        width = layout.editor.width(
+            constants.ui.layout.sidebar.scale,
+            constants.ui.layout.sidebar.min,
+            constants.ui.layout.sidebar.max
+        ),
     },
     renderer = {
         highlight_git = true,

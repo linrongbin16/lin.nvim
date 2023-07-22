@@ -41,6 +41,15 @@ local M = {
                 --- @type number
                 scale = 0.9,
             },
+            --- @type table<string, number>
+            sidebar = {
+                --- @type number
+                scale = 0.2,
+                --- @type number
+                min = 20,
+                --- @type number
+                max = 60,
+            },
         },
     },
     --- @type table<string, any>
