@@ -1,6 +1,3 @@
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-
 local constants = require("builtin.utils.constants")
 local layout = require("builtin.utils.layout")
 
