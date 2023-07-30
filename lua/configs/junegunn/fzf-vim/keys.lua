@@ -29,12 +29,6 @@ local M = {
     -- search vim
     keymap.set_lazy_key(
         "n",
-        "<space>cm",
-        keymap.exec("FzfCommands"),
-        { desc = "Search vim commands" }
-    ),
-    keymap.set_lazy_key(
-        "n",
         "<space>tg",
         keymap.exec("FzfTags"),
         { desc = "Search vim tags" }

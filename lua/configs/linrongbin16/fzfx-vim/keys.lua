@@ -103,6 +103,13 @@ local M = {
         keymap.exec("FzfxBranches"),
         { desc = "Search git branches" }
     ),
+    -- vim
+    keymap.set_lazy_key(
+        "n",
+        "<space>cm",
+        keymap.exec("FzfxCommands"),
+        { desc = "Search vim commands" }
+    ),
 }
 
 return M
