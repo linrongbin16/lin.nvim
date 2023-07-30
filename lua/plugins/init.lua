@@ -182,31 +182,28 @@ local M = {
     {
         "stevearc/dressing.nvim",
         event = { VeryLazy, BufReadPre, BufNewFile },
-        dependencies = {
-            "junegunn/fzf",
-            "junegunn/fzf.vim",
-        },
         config = lua_config("stevearc/dressing.nvim"),
     },
 
     -- ---- SEARCH ----
 
     {
-        "junegunn/fzf",
-        event = { VeryLazy, VimEnter },
-        build = ":call fzf#install()",
-    },
-    {
-        "junegunn/fzf.vim",
-        event = { VeryLazy, VimEnter },
-        dependencies = { "junegunn/fzf" },
-        init = vim_init("junegunn/fzf.vim"),
-        keys = lua_keys("junegunn/fzf.vim"),
-    },
-    {
         "linrongbin16/fzfx.nvim",
-        event = { VeryLazy, VimEnter },
-        dependencies = { "junegunn/fzf", "junegunn/fzf.vim" },
+        dependencies = {
+            {
+                "junegunn/fzf",
+                build = ":call fzf#install()",
+                dev = true,
+                dir = "~/github/junegunn/fzf",
+            },
+            {
+                "junegunn/fzf.vim",
+                init = vim_init("junegunn/fzf.vim"),
+                keys = lua_keys("junegunn/fzf.vim"),
+                dev = true,
+                dir = "~/github/junegunn/fzf.vim",
+            },
+        },
         init = vim_init("junegunn/fzf.vim"),
         config = lua_config("linrongbin16/fzfx.nvim"),
         keys = lua_keys("linrongbin16/fzfx.nvim"),
