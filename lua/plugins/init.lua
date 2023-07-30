@@ -189,15 +189,18 @@ local M = {
 
     {
         "linrongbin16/fzfx.nvim",
+        event = { VeryLazy, VimEnter },
         dependencies = {
             {
                 "junegunn/fzf",
+                event = { VeryLazy, VimEnter },
                 build = ":call fzf#install()",
                 dev = true,
                 dir = "~/github/junegunn/fzf",
             },
             {
                 "junegunn/fzf.vim",
+                event = { VeryLazy, VimEnter },
                 init = vim_init("junegunn/fzf.vim"),
                 keys = lua_keys("junegunn/fzf.vim"),
                 dev = true,
