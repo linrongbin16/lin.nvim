@@ -20,10 +20,10 @@ require("neo-tree").setup({
     popup_border_style = constants.ui.border,
     default_component_configs = {
         icon = {
-            -- folder_closed = "", -- nf-custom-folder \ue5ff
-            -- folder_open = "", -- nf-custom-folder_open \ue5fe
-            -- folder_empty = "", -- nf-cod-folder \uea83
-            -- folder_empty_open = "", -- nf-cod-folder_opened \ueaf7
+            folder_closed = "", -- nf-custom-folder \ue5ff
+            folder_open = "", -- nf-custom-folder_open \ue5fe
+            folder_empty = "", -- nf-cod-folder \uea83
+            folder_empty_open = "", -- nf-cod-folder_opened \ueaf7
             default = "", -- nf-fa-file_text_o \uf0f6
         },
         git_status = {
