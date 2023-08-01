@@ -101,12 +101,12 @@ local M = {
     -- ---- UI ----
 
     -- File explorer
-    {
-        "nvim-tree/nvim-tree.lua",
-        event = { VimEnter },
-        config = lua_config("nvim-tree/nvim-tree.lua"),
-        keys = lua_keys("nvim-tree/nvim-tree.lua"),
-    },
+    -- {
+    --     "nvim-tree/nvim-tree.lua",
+    --     event = { VimEnter },
+    --     config = lua_config("nvim-tree/nvim-tree.lua"),
+    --     keys = lua_keys("nvim-tree/nvim-tree.lua"),
+    -- },
     -- {
     --     "ms-jpq/chadtree",
     --     event = { VimEnter },
@@ -114,18 +114,18 @@ local M = {
     --     build = "python3 -m chadtree deps",
     --     init = lua_init("ms-jpq/chadtree"),
     -- },
-    -- {
-    --     "MunifTanjim/nui.nvim",
-    --     lazy = true,
-    -- },
-    -- {
-    --     "nvim-neo-tree/neo-tree.nvim",
-    --     event = { VimEnter },
-    --     dependencies = { "MunifTanjim/nui.nvim" },
-    --     branch = "v3.x",
-    --     config = lua_config("nvim-neo-tree/neo-tree.nvim"),
-    --     keys = lua_keys("nvim-neo-tree/neo-tree.nvim"),
-    -- },
+    {
+        "MunifTanjim/nui.nvim",
+        lazy = true,
+    },
+    {
+        "nvim-neo-tree/neo-tree.nvim",
+        event = { VimEnter },
+        dependencies = { "MunifTanjim/nui.nvim" },
+        branch = "v3.x",
+        config = lua_config("nvim-neo-tree/neo-tree.nvim"),
+        keys = lua_keys("nvim-neo-tree/neo-tree.nvim"),
+    },
     -- Tabline
     {
         "moll/vim-bbye",
