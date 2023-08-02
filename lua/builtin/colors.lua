@@ -3,10 +3,10 @@
 --- @type string[]
 local colornames = {
     -- "deus",
-    "moonfly",
+    -- "moonfly",
     -- "nightfly",
     -- "catppuccin",
-    -- "challenger_deep",
+    "challenger_deep",
     -- "iceberg",
     -- "dracula",
     -- "palenight",
