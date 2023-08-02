@@ -56,12 +56,6 @@ local M = {
         config = lua_config("nvim-treesitter/nvim-treesitter"),
     },
     {
-        "nvim-treesitter/nvim-treesitter-context",
-        event = { VeryLazy, BufReadPre, BufNewFile },
-        dependencies = { "nvim-treesitter/nvim-treesitter" },
-        config = lua_config("nvim-treesitter/nvim-treesitter-context"),
-    },
-    {
         "RRethy/vim-illuminate",
         event = { VeryLazy, BufReadPre, BufNewFile },
         dependencies = { "nvim-treesitter/nvim-treesitter" },
