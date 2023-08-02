@@ -16,6 +16,13 @@
 -- local InsertEnter = "InsertEnter"
 --
 -- return {
+--     -- Context
+--     {
+--         "nvim-treesitter/nvim-treesitter-context",
+--         event = { VeryLazy, BufReadPre, BufNewFile },
+--         dependencies = { "nvim-treesitter/nvim-treesitter" },
+--         config = lua_config("nvim-treesitter/nvim-treesitter-context"),
+--     },
 --     -- Cursor motion
 --     {
 --         "ggandor/leap.nvim",
