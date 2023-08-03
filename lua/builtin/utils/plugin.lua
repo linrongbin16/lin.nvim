@@ -12,7 +12,13 @@ local function lua_keys(keys)
     local keys_path = "configs/" .. keys:gsub("%.", "-") .. "/keys"
     local keys_list_ok, keys_list = pcall(require, keys_path)
     if not keys_list_ok then
-        message.err("Failed to load lua module '" .. keys_path .. "'!")
+        message.err(
+            string.format(
+                "Failed to load lua module '%s'! %s",
+                keys_path,
+                vim.inspect(keys_list)
+            )
+        )
     end
     return keys_list
 end
@@ -29,7 +35,13 @@ local function lua_init(init)
         local init_path = "configs/" .. init:gsub("%.", "-") .. "/init"
         local ok, init_module = pcall(require, init_path)
         if not ok then
-            message.err("Failed to load lua module '" .. init_path .. "'!")
+            message.err(
+                string.format(
+                    "Failed to load lua module '%s'! %s",
+                    init_path,
+                    vim.inspect(init_module)
+                )
+            )
         end
         return init_module
     end
@@ -72,7 +84,13 @@ local function lua_config(config)
         local config_path = "configs/" .. config:gsub("%.", "-") .. "/config"
         local ok, config_module = pcall(require, config_path)
         if not ok then
-            message.err("Failed to load lua module '" .. config_path .. "'!")
+            message.err(
+                string.format(
+                    "Failed to load lua module '%s'! %s",
+                    config_path,
+                    vim.inspect(config_module)
+                )
+            )
         end
         return config_module
     end
