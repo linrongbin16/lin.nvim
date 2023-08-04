@@ -423,12 +423,6 @@ local M = {
         init = lua_init("mbbill/undotree"),
         keys = lua_keys("mbbill/undotree"),
     },
-    -- Yank
-    {
-        "gbprod/yanky.nvim",
-        config = lua_config("gbprod/yanky.nvim"),
-        keys = lua_keys("gbprod/yanky.nvim"),
-    },
 }
 
 return M
