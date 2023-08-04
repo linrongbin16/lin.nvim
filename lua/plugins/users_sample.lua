@@ -23,6 +23,13 @@
 --         dependencies = { "nvim-treesitter/nvim-treesitter" },
 --         config = lua_config("nvim-treesitter/nvim-treesitter-context"),
 --     },
+--     -- Yank
+--     {
+--         "gbprod/yanky.nvim",
+--         config = lua_config("gbprod/yanky.nvim"),
+--         keys = lua_keys("gbprod/yanky.nvim"),
+--     },
+--
 --     -- Cursor motion
 --     {
 --         "ggandor/leap.nvim",
