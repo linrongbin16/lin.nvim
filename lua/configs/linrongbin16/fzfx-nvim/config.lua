@@ -1,7 +1,7 @@
 require("fzfx").setup({
     debug = {
-        enable = true,
+        enable = false,
         file_log = true,
-        console_log = false,
+        console_log = true,
     },
 })
