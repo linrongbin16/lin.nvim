@@ -3,7 +3,7 @@ let $FZF_DEFAULT_OPTS = '--ansi --info=inline --height=100% --layout=reverse'
 
 " preview/bat
 let $BAT_THEME='ansi'
-let $BAT_STYLE='numbers,changes,header'
+let $BAT_STYLE='numbers,changes'
 
 " ui
 let g:fzf_layout =
