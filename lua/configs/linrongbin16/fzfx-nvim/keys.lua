@@ -99,8 +99,8 @@ local M = {
     -- git
     keymap.set_lazy_key(
         "n",
-        "<space>gbr",
-        keymap.exec("FzfxBranches"),
+        "<space>br",
+        keymap.exec("FzfxGBranches"),
         { desc = "Search git branches" }
     ),
     -- vim
