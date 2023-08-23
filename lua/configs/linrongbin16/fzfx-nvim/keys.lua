@@ -41,6 +41,18 @@ local M = {
     ),
     keymap.set_lazy_key(
         "n",
+        "<space>pf",
+        keymap.exec("FzfxFilesP"),
+        { desc = "Find files by yank text" }
+    ),
+    keymap.set_lazy_key(
+        "n",
+        "<space>upf",
+        keymap.exec("FzfxFilesUP"),
+        { desc = "Unrestricted find files by yank text" }
+    ),
+    keymap.set_lazy_key(
+        "n",
         "<space>rf",
         keymap.exec("FzfxResumeFiles"),
         { desc = "Resume last files search" }
@@ -92,6 +104,18 @@ local M = {
     ),
     keymap.set_lazy_key(
         "n",
+        "<space>pl",
+        keymap.exec("FzfxLiveGrepP"),
+        { desc = "Live grep by yank text" }
+    ),
+    keymap.set_lazy_key(
+        "n",
+        "<space>upl",
+        keymap.exec("FzfxLiveGrepUP"),
+        { desc = "Unrestricted live grep by yank text" }
+    ),
+    keymap.set_lazy_key(
+        "n",
         "<space>rl",
         keymap.exec("FzfxResumeLiveGrep"),
         { desc = "Resume last live grep" }
@@ -102,6 +126,12 @@ local M = {
         "<space>br",
         keymap.exec("FzfxGBranches"),
         { desc = "Search git branches" }
+    ),
+    keymap.set_lazy_key(
+        "n",
+        "<space>gc",
+        keymap.exec("FzfxGCommits"),
+        { desc = "Search git commits" }
     ),
     -- vim
     keymap.set_lazy_key(
