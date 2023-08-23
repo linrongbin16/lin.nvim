@@ -123,6 +123,12 @@ local M = {
     -- git
     keymap.set_lazy_key(
         "n",
+        "<space>gf",
+        keymap.exec("FzfxGFiles"),
+        { desc = "Search git files" }
+    ),
+    keymap.set_lazy_key(
+        "n",
         "<space>br",
         keymap.exec("FzfxGBranches"),
         { desc = "Search git branches" }

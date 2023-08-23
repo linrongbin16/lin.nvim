@@ -4,24 +4,6 @@ local M = {
     -- search git
     keymap.set_lazy_key(
         "n",
-        "<space>gf",
-        keymap.exec("FzfGFiles"),
-        { desc = "Search git files" }
-    ),
-    keymap.set_lazy_key(
-        "n",
-        "<space>gc",
-        keymap.exec("FzfCommits"),
-        { desc = "Search git commits" }
-    ),
-    keymap.set_lazy_key(
-        "n",
-        "<space>gbc",
-        keymap.exec("FzfBCommits"),
-        { desc = "Search git buffer commits" }
-    ),
-    keymap.set_lazy_key(
-        "n",
         "<space>gs",
         keymap.exec("FzfGFiles?"),
         { desc = "Search git status" }
