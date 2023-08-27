@@ -60,7 +60,7 @@ set cursorline nocursorcolumn wrap
 set number norelativenumber signcolumn=yes
 
 """ status line
-set ruler noshowmode laststatus=3
+set ruler noshowmode laststatus=3 cmdheight=2
 
 """ command line and message
 set wildmenu showcmd display+=lastline shortmess+=c cmdheight=2
