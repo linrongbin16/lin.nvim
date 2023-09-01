@@ -182,30 +182,18 @@ local M = {
     -- ---- SEARCH ----
 
     {
+        "junegunn/fzf",
+        event = { VeryLazy, VimEnter },
+        build = ":call fzf#install()",
+    },
+    {
         "linrongbin16/fzfx.nvim",
         event = { VeryLazy, VimEnter },
-        dependencies = {
-            {
-                "junegunn/fzf",
-                event = { VeryLazy, VimEnter },
-                build = ":call fzf#install()",
-                dev = true,
-                dir = "~/github/junegunn/fzf",
-            },
-            {
-                "junegunn/fzf.vim",
-                event = { VeryLazy, VimEnter },
-                init = vim_init("junegunn/fzf.vim"),
-                keys = lua_keys("junegunn/fzf.vim"),
-                dev = true,
-                dir = "~/github/junegunn/fzf.vim",
-            },
-        },
-        init = vim_init("junegunn/fzf.vim"),
+        dependencies = { "junegunn/fzf" },
         config = lua_config("linrongbin16/fzfx.nvim"),
         keys = lua_keys("linrongbin16/fzfx.nvim"),
-        dev = true,
-        dir = "~/github/linrongbin16/fzfx.nvim",
+        -- dev = true,
+        -- dir = "~/github/linrongbin16/fzfx.nvim",
     },
 
     -- ---- LSP ----
