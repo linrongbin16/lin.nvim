@@ -183,12 +183,12 @@ local M = {
 
     {
         "junegunn/fzf",
-        event = { VeryLazy, VimEnter },
+        event = { CmdlineEnter },
         build = ":call fzf#install()",
     },
     {
         "linrongbin16/fzfx.nvim",
-        event = { VeryLazy, VimEnter },
+        event = { CmdlineEnter },
         dependencies = { "junegunn/fzf" },
         config = lua_config("linrongbin16/fzfx.nvim"),
         keys = lua_keys("linrongbin16/fzfx.nvim"),
