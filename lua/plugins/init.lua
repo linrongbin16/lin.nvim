@@ -176,10 +176,7 @@ local M = {
     {
         "stevearc/dressing.nvim",
         event = { VeryLazy, BufReadPre, BufNewFile },
-        dependencies = {
-            "junegunn/fzf",
-            "linrongbin16/fzfx.nvim",
-        },
+        dependencies = { "junegunn/fzf" },
         config = lua_config("stevearc/dressing.nvim"),
     },
 
