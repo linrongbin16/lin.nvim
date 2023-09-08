@@ -72,66 +72,61 @@ vim.api.nvim_create_autocmd("LspAttach", {
     callback = function()
         -- lsp key mappings
         -- navigation
-        if vim.fn.exists(":Glance") > 0 then
-            if vim.fn.exists(":FzfxLspDefinitions") > 0 then
-                set_key(
-                    "n",
-                    "gd",
-                    "<CMD>FzfxLspDefinitions<CR>",
-                    map_desc("Go to definitions")
-                )
-            else
-                set_key(
-                    "n",
-                    "gd",
-                    "<CMD>Glance definitions<CR>",
-                    map_desc("Go to definitions")
-                )
-            end
-            set_key(
-                "n",
-                "gt",
-                "<CMD>Glance type_definitions<CR>",
-                map_desc("Go to type definitions")
-            )
-            set_key(
-                "n",
-                "gi",
-                "<CMD>Glance implementations<CR>",
-                map_desc("Go to implementations")
-            )
-            set_key(
-                "n",
-                "gr",
-                "<CMD>Glance references<CR>",
-                map_desc("Go to references")
-            )
+
+        -- definitions
+        local definition_cmd = nil
+        if vim.fn.exists(":FzfxLspDefinitions") > 0 then
+            definition_cmd = "<CMD>FzfxLspDefinitions<CR>"
+        elseif vim.fn.exists(":Glance") > 0 then
+            definition_cmd = "<CMD>Glance definitions<CR>"
         else
-            set_key(
-                "n",
-                "gd",
-                "<cmd>lua vim.lsp.buf.definition()<cr>",
-                map_desc("Go to definitions")
-            )
-            set_key(
-                "n",
-                "gt",
-                "<cmd>lua vim.lsp.buf.type_definition()<cr>",
-                map_desc("Go to type definitions")
-            )
-            set_key(
-                "n",
-                "gi",
-                "<cmd>lua vim.lsp.buf.implementation()<cr>",
-                map_desc("Go to implementations")
-            )
-            set_key(
-                "n",
-                "gr",
-                "<cmd>lua vim.lsp.buf.references()<cr>",
-                map_desc("Go to references")
-            )
+            definition_cmd = "<cmd>lua vim.lsp.buf.definition()<cr>"
         end
+        set_key("n", "gd", definition_cmd, map_desc("Go to lsp definitions"))
+
+        -- type definitions
+        local type_definition_cmd = nil
+        if vim.fn.exists(":FzfxLspTypeDefinitions") > 0 then
+            type_definition_cmd = "<CMD>FzfxLspTypeDefinitions<CR>"
+        elseif vim.fn.exists(":Glance") > 0 then
+            type_definition_cmd = "<CMD>Glance type_definitions<CR>"
+        else
+            type_definition_cmd = "<cmd>lua vim.lsp.buf.type_definition()<cr>"
+        end
+        set_key(
+            "n",
+            "gt",
+            type_definition_cmd,
+            map_desc("Go to lsp type definitions")
+        )
+
+        -- implementations
+        local implementation_cmd = nil
+        if vim.fn.exists(":FzfxLspImplementations") > 0 then
+            implementation_cmd = "<CMD>FzfxLspImplementations<CR>"
+        elseif vim.fn.exists(":Glance") > 0 then
+            implementation_cmd = "<CMD>Glance implementations<CR>"
+        else
+            implementation_cmd = "<cmd>lua vim.lsp.buf.implementation()<cr>"
+        end
+        set_key(
+            "n",
+            "gi",
+            implementation_cmd,
+            map_desc("Go to lsp implementations")
+        )
+
+        -- references
+        local reference_cmd = nil
+        if vim.fn.exists(":FzfxLspReferences") > 0 then
+            reference_cmd = "<CMD>FzfxLspReferences<CR>"
+        elseif vim.fn.exists(":Glance") > 0 then
+            reference_cmd = "<CMD>Glance references<CR>"
+        else
+            reference_cmd = "<cmd>lua vim.lsp.buf.references()<cr>"
+        end
+        set_key("n", "gr", reference_cmd, map_desc("Go to lsp references"))
+
         set_key(
             "n",
             "gD",

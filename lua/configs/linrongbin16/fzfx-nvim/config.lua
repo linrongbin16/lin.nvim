@@ -2,7 +2,7 @@ local constants = require("builtin.utils.constants")
 
 require("fzfx").setup({
     debug = {
-        enable = false,
+        enable = true,
         file_log = true,
     },
     popup = {
