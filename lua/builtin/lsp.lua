@@ -73,12 +73,21 @@ vim.api.nvim_create_autocmd("LspAttach", {
         -- lsp key mappings
         -- navigation
         if vim.fn.exists(":Glance") > 0 then
-            set_key(
-                "n",
-                "gd",
-                "<CMD>Glance definitions<CR>",
-                map_desc("Go to definitions")
-            )
+            if vim.fn.exists(":FzfxLspDefinitions") > 0 then
+                set_key(
+                    "n",
+                    "gd",
+                    "<CMD>FzfxLspDefinitions<CR>",
+                    map_desc("Go to definitions")
+                )
+            else
+                set_key(
+                    "n",
+                    "gd",
+                    "<CMD>Glance definitions<CR>",
+                    map_desc("Go to definitions")
+                )
+            end
             set_key(
                 "n",
                 "gt",
