@@ -190,6 +190,7 @@ local M = {
     {
         "linrongbin16/fzfx.nvim",
         event = { CmdlineEnter },
+        cmd = { "FzfxLspDefinitions" },
         dependencies = { "junegunn/fzf" },
         config = lua_config("linrongbin16/fzfx.nvim"),
         keys = lua_keys("linrongbin16/fzfx.nvim"),
