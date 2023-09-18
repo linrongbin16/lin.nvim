@@ -296,12 +296,6 @@ local M = {
         cmd = { "Glance" },
         config = lua_config("DNLHC/glance.nvim"),
     },
-    -- Format on save
-    {
-        "linrongbin16/lspformatter.nvim",
-        event = { VeryLazy, BufReadPre, BufNewFile },
-        config = lua_config("linrongbin16/lspformatter.nvim"),
-    },
     -- Diagnostic
     {
         "folke/trouble.nvim",
