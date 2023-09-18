@@ -251,16 +251,6 @@ local M = {
         },
         config = lua_config("mfussenegger/nvim-lint"),
     },
-    {
-        "rshkarin/mason-nvim-lint",
-        event = { VeryLazy, BufReadPre, BufNewFile, CmdlineEnter },
-        dependencies = {
-            "williamboman/mason.nvim",
-            "williamboman/mason-lspconfig.nvim",
-            "mfussenegger/nvim-lint",
-        },
-        config = lua_config("rshkarin/mason-nvim-lint"),
-    },
     -- Auto-complete engine
     {
         "onsails/lspkind.nvim",

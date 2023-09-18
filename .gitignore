@@ -28,6 +28,8 @@ user_keys.lua
 # lsp hooks
 ensure_installed.lua
 setup_handlers.lua
+/lua/configs/stevearc/conform-nvim/formatters_by_ft.lua
+/lua/configs/mfussenegger/nvim-lint/linters_by_ft.lua
 neoconf.json
 
 # nvim-cmp hooks
