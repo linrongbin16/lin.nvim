@@ -5,7 +5,7 @@
 local eslint = { "eslint_d", "eslint" }
 
 local linters_by_ft = {
-    lua = { "luacheck" },
+    lua = { "selene", "luacheck" },
     markdown = { "markdownlint" },
     python = { "ruff", "mypy", "pylint" },
     javascript = { eslint },
