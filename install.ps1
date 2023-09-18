@@ -154,6 +154,11 @@ function NvimConfig()
     if (-not(TestReparsePoint $ConformFormattersByFt) -and -not(Test-Path $ConformFormattersByFt)) {
         Copy-Item -Path "$ConformHome\formatters_by_ft_sample.lua" -Destination "$ConformFormattersByFt"
     }
+    $NvimLintHome="$NVIM_HOME\lua\configs\mfussenegger\nvim-lint"
+    $NvimLintLintersByFt="$NvimLintHome\linters_by_ft.lua"
+    if (-not(TestReparsePoint $NvimLintLintersByFt) -and -not(Test-Path $NvimLintLintersByFt)) {
+        Copy-Item -Path "$NvimLintHome\linters_by_ft_sample.lua" -Destination "$NvimLintLintersByFt"
+    }
     $Neoconf = "$NVIM_HOME\neoconf.json"
     if (-not(TestReparsePoint $Neoconf) -and -not(Test-Path $Neoconf)) {
         Copy-Item -Path "$NVIM_HOME\neoconf_sample.json" -Destination "$Neoconf"
