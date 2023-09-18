@@ -97,14 +97,10 @@ nvim_config() {
     if [ ! -f $mason_lspconfig_setup_handlers ]; then
         cp $mason_lspconfig_home/setup_handlers_sample.lua $mason_lspconfig_setup_handlers
     fi
-    local mason_null_ls_home="$NVIM_HOME/lua/configs/jay-babu/mason-null-ls-nvim"
-    local mason_null_ls_ensure_installed="$mason_null_ls_home/ensure_installed.lua"
-    if [ ! -f $mason_null_ls_ensure_installed ]; then
-        cp $mason_null_ls_home/ensure_installed_sample.lua $mason_null_ls_ensure_installed
-    fi
-    local mason_null_ls_setup_handlers="$mason_null_ls_home/setup_handlers.lua"
-    if [ ! -f $mason_null_ls_setup_handlers ]; then
-        cp $mason_null_ls_home/setup_handlers_sample.lua $mason_null_ls_setup_handlers
+    local conform_home="$NVIM_HOME/lua/configs/stevearc/conform-nvim"
+    local conform_formatters_by_ft="$conform_home/formatters_by_ft.lua"
+    if [ ! -f $conform_formatters_by_ft ]; then
+        cp $conform_home/formatters_by_ft_sample.lua $conform_formatters_by_ft
     fi
     local neoconf="$NVIM_HOME/neoconf.json"
     if [ ! -f $neoconf ]; then
