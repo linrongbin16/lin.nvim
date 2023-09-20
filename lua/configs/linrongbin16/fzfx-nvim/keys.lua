@@ -85,6 +85,19 @@ local M = {
         keymap.exec("FzfxGCommits"),
         { desc = "Search git commits" }
     ),
+    -- diagnostics
+    keymap.set_lazy_key(
+        "n",
+        "<space>dg",
+        keymap.exec("FzfxLspDiagnostics"),
+        { desc = "Search lsp diagnostics" }
+    ),
+    keymap.set_lazy_key(
+        "x",
+        "<space>dg",
+        keymap.exec("FzfxLspDiagnosticsV"),
+        { desc = "Search lsp diagnostics" }
+    ),
 }
 
 return M
