@@ -84,6 +84,11 @@ return {
         priority = 1000,
     },
     {
+        "ku1ik/vim-monokai",
+        lazy = true,
+        priority = 1000,
+    },
+    {
         "lifepillar/vim-solarized8",
         lazy = true,
         priority = 1000,
@@ -100,6 +105,11 @@ return {
     },
     {
         "mhartington/oceanic-next",
+        lazy = true,
+        priority = 1000,
+    },
+    {
+        "mofiqul/vscode.nvim",
         lazy = true,
         priority = 1000,
     },
@@ -182,11 +192,6 @@ return {
     },
     {
         "shaunsingh/nord.nvim",
-        lazy = true,
-        priority = 1000,
-    },
-    {
-        "sickill/vim-monokai",
         lazy = true,
         priority = 1000,
     },
