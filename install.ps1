@@ -74,6 +74,7 @@ function CoreDependency()
     InstallOrSkip -command "scoop install gzip" -target "gzip"
     InstallOrSkip -command "scoop install unzip" -target "unzip"
     InstallOrSkip -command "scoop install unrar" -target "unrar"
+    InstallOrSkip -command "scoop install llvm" -target "clang"
 
     # ctags
     InstallOrSkip -command "scoop install universal-ctags" -target "ctags"
