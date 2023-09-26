@@ -5,13 +5,13 @@
 local eslint = { "eslint_d", "eslint" }
 
 local linters_by_ft = {
-    lua = { "selene", "luacheck" },
-    markdown = { "markdownlint" },
-    python = { "ruff", "mypy", "pylint" },
-    javascript = { eslint },
-    javascriptreact = { eslint },
-    typescript = { eslint },
-    typescriptreact = { eslint },
+    -- lua = { "selene", "luacheck" },
+    -- markdown = { "markdownlint" },
+    -- python = { "ruff", "mypy", "pylint" },
+    -- javascript = { eslint },
+    -- javascriptreact = { eslint },
+    -- typescript = { eslint },
+    -- typescriptreact = { eslint },
 }
 
 return linters_by_ft
