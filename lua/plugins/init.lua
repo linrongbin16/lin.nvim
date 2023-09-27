@@ -184,12 +184,12 @@ local M = {
 
     {
         "junegunn/fzf",
-        event = { CmdlineEnter },
+        event = { VeryLazy, CmdlineEnter },
         build = ":call fzf#install()",
     },
     {
         "linrongbin16/fzfx.nvim",
-        event = { CmdlineEnter },
+        event = { VeryLazy, CmdlineEnter },
         cmd = {
             "FzfxLspDefinitions",
             "FzfxLspTypeDefinitions",
