@@ -98,6 +98,13 @@ local M = {
         keymap.exec("FzfxLspDiagnosticsV"),
         { desc = "Search lsp diagnostics" }
     ),
+    -- file explorer
+    keymap.set_lazy_key(
+        "n",
+        "<space>xp",
+        keymap.exec("FzfxFileExplorer"),
+        { desc = "File Explorer" }
+    ),
 }
 
 return M
