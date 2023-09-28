@@ -84,10 +84,6 @@ local M = {
         keys = lua_keys("inkarkat/vim-mark"),
     },
     {
-        "haya14busa/is.vim",
-        event = { VeryLazy, BufReadPre, BufNewFile, CmdlineEnter },
-    },
-    {
         "markonm/traces.vim",
         event = { CmdlineEnter },
     },
