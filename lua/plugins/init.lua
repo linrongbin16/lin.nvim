@@ -90,20 +90,6 @@ local M = {
 
     -- ---- UI ----
 
-    -- File explorer
-    -- {
-    --     "nvim-tree/nvim-tree.lua",
-    --     event = { VimEnter },
-    --     config = lua_config("nvim-tree/nvim-tree.lua"),
-    --     keys = lua_keys("nvim-tree/nvim-tree.lua"),
-    -- },
-    -- {
-    --     "ms-jpq/chadtree",
-    --     event = { VimEnter },
-    --     branch = "chad",
-    --     build = "python3 -m chadtree deps",
-    --     init = lua_init("ms-jpq/chadtree"),
-    -- },
     {
         "MunifTanjim/nui.nvim",
         lazy = true,
