@@ -110,7 +110,7 @@ Even `install.sh` (`install.ps1`) already installed the
 you still need to manually config it in your terminal, e.g.
 [gnome-terminal](https://help.gnome.org/users/gnome-terminal/stable/) (Ubuntu),
 [item2](https://iterm2.com/) (MacOS),
-[Windows Terminal](https://github.com/microsoft/terminal) (Windows 10),
+[Windows Terminal](https://github.com/microsoft/terminal) (Windows),
 [kitty](https://sw.kovidgoyal.net/kitty/),
 [alacritty](https://github.com/alacritty/alacritty),
 [wezterm](https://wezfurlong.org/wezterm/), etc.
