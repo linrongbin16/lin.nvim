@@ -120,6 +120,7 @@ local M = {
     {
         "lukas-reineke/indent-blankline.nvim",
         event = { VeryLazy, BufReadPre, BufNewFile },
+        config = lua_config("lukas-reineke/indent-blankline.nvim"),
     },
     -- Statusline
     {
