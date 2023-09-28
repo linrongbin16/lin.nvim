@@ -84,30 +84,12 @@ local M = {
         keys = lua_keys("inkarkat/vim-mark"),
     },
     {
-        "haya14busa/is.vim",
-        event = { VeryLazy, BufReadPre, BufNewFile, CmdlineEnter },
-    },
-    {
         "markonm/traces.vim",
         event = { CmdlineEnter },
     },
 
     -- ---- UI ----
 
-    -- File explorer
-    -- {
-    --     "nvim-tree/nvim-tree.lua",
-    --     event = { VimEnter },
-    --     config = lua_config("nvim-tree/nvim-tree.lua"),
-    --     keys = lua_keys("nvim-tree/nvim-tree.lua"),
-    -- },
-    -- {
-    --     "ms-jpq/chadtree",
-    --     event = { VimEnter },
-    --     branch = "chad",
-    --     build = "python3 -m chadtree deps",
-    --     init = lua_init("ms-jpq/chadtree"),
-    -- },
     {
         "MunifTanjim/nui.nvim",
         lazy = true,
