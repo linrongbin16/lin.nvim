@@ -1,12 +1,15 @@
 # lin.nvim : Lin Rongbin's Neovim Distribution
 
-[![Neovim-v0.9.1](https://img.shields.io/badge/Neovim-v0.9.1-blueviolet.svg?style=flat-square&logo=Neovim&logoColor=green)](https://github.com/neovim/neovim/releases/tag/stable)
-[![License](https://img.shields.io/github/license/linrongbin16/lin.nvim?style=flat-square&logo=GNU)](https://github.com/linrongbin16/lin.nvim/blob/main/LICENSE)
-![Linux](https://img.shields.io/badge/Linux-%23.svg?style=flat-square&logo=linux&color=FCC624&logoColor=black)
-![macOS](https://img.shields.io/badge/macOS-%23.svg?style=flat-square&logo=apple&color=000000&logoColor=white)
-![Windows](https://img.shields.io/badge/Windows-%23.svg?style=flat-square&logo=windows&color=0078D6&logoColor=white)
+<p align="center">
+<a href="https://github.com/neovim/neovim/releases/tag/stable"><img alt="Neovim-stable" src="https://img.shields.io/badge/Neovim-stable-blueviolet.svg?style=flat-square&logo=Neovim&logoColor=green" /></a>
+<a href="https://github.com/linrongbin16/lin.nvim/search?l=lua"><img alt="Top Language" src="https://img.shields.io/github/languages/top/linrongbin16/lin.nvim?label=Lua&logo=lua&logoColor=darkblue" /></a>
+<a href="https://github.com/linrongbin16/lin.nvim/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/github/license/linrongbin16/lin.nvim?logo=GNU&label=License" /></a>
+<a href="https://github.com/linrongbin16/lin.nvim/actions/workflows/ci.yml"><img alt="ci.yml" src="https://img.shields.io/github/actions/workflow/status/linrongbin16/lin.nvim/ci.yml?logo=GitHub&label=Luacheck" /></a>
+</p>
 
-[![Top Language](https://img.shields.io/github/languages/top/linrongbin16/lin.nvim?style=flat-square)](https://github.com/linrongbin16/lin.nvim/search?l=lua)
+[![Neovim-stable](https://img.shields.io/badge/Neovim-stable-blueviolet.svg?style=flat-square&logo=Neovim&logoColor=green)](https://github.com/neovim/neovim/releases/tag/stable)
+[![License](https://img.shields.io/github/license/linrongbin16/lin.nvim?style=flat-square&logo=GNU)](https://github.com/linrongbin16/lin.nvim/blob/main/LICENSE)
+
 ![Repo Size](https://img.shields.io/github/repo-size/linrongbin16/lin.nvim?style=flat-square&)
 [![Commit Activity](https://img.shields.io/github/commit-activity/m/linrongbin16/lin.nvim?style=flat-square)](https://github.com/linrongbin16/lin.nvim/graphs/commit-activity)
 [![Last Commit](https://img.shields.io/github/last-commit/linrongbin16/lin.nvim/main)](https://github.com/linrongbin16/lin.nvim/commits/main)
