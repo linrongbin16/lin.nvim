@@ -7,14 +7,6 @@
 <a href="https://github.com/linrongbin16/lin.nvim/actions/workflows/ci.yml"><img alt="ci.yml" src="https://img.shields.io/github/actions/workflow/status/linrongbin16/lin.nvim/ci.yml?logo=GitHub&label=Luacheck" /></a>
 </p>
 
-[![Neovim-stable](https://img.shields.io/badge/Neovim-stable-blueviolet.svg?style=flat-square&logo=Neovim&logoColor=green)](https://github.com/neovim/neovim/releases/tag/stable)
-[![License](https://img.shields.io/github/license/linrongbin16/lin.nvim?style=flat-square&logo=GNU)](https://github.com/linrongbin16/lin.nvim/blob/main/LICENSE)
-
-![Repo Size](https://img.shields.io/github/repo-size/linrongbin16/lin.nvim?style=flat-square&)
-[![Commit Activity](https://img.shields.io/github/commit-activity/m/linrongbin16/lin.nvim?style=flat-square)](https://github.com/linrongbin16/lin.nvim/graphs/commit-activity)
-[![Last Commit](https://img.shields.io/github/last-commit/linrongbin16/lin.nvim/main)](https://github.com/linrongbin16/lin.nvim/commits/main)
-[![Contributors](https://img.shields.io/github/contributors/linrongbin16/lin.nvim?style=flat-square)](https://github.com/linrongbin16/lin.nvim/graphs/contributors)
-
 > Leave Vim behind, this is the next generation of [lin.vim](https://github.com/linrongbin16/lin.vim).
 
 lin.nvim is a highly configured [Neovim](https://neovim.io/) distribution
