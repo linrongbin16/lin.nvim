@@ -75,6 +75,7 @@ function CoreDependency()
     InstallOrSkip -command "scoop install unzip" -target "unzip"
     InstallOrSkip -command "scoop install unrar" -target "unrar"
     InstallOrSkip -command "scoop install llvm" -target "clang"
+    InstallOrSkip -command "scoop install luarocks" -target "luarocks"
 
     # ctags
     InstallOrSkip -command "scoop install universal-ctags" -target "ctags"
@@ -144,25 +145,30 @@ function NvimConfig()
     # lsp management
     $MasonLspconfigHome = "$NVIM_HOME\lua\configs\williamboman\mason-lspconfig-nvim"
     $MasonLspconfigEnsureInstalled = "$MasonLspconfigHome\ensure_installed.lua"
-    if (-not(TestReparsePoint $MasonLspconfigEnsureInstalled) -and -not(Test-Path $MasonLspconfigEnsureInstalled)) {
+    if (-not(TestReparsePoint $MasonLspconfigEnsureInstalled) -and -not(Test-Path $MasonLspconfigEnsureInstalled))
+    {
         Copy-Item -Path "$MasonLspconfigHome\ensure_installed_sample.lua" -Destination "$MasonLspconfigEnsureInstalled"
     }
     $MasonLspconfigSetupHandlers = "$MasonLspconfigHome\setup_handlers.lua"
-    if (-not(TestReparsePoint $MasonLspconfigSetupHandlers) -and -not(Test-Path $MasonLspconfigSetupHandlers)) {
+    if (-not(TestReparsePoint $MasonLspconfigSetupHandlers) -and -not(Test-Path $MasonLspconfigSetupHandlers))
+    {
         Copy-Item -Path "$MasonLspconfigHome\setup_handlers_sample.lua" -Destination "$MasonLspconfigSetupHandlers"
     }
     $ConformHome = "$NVIM_HOME\lua\configs\stevearc\conform-nvim"
     $ConformFormattersByFt = "$ConformHome\formatters_by_ft.lua"
-    if (-not(TestReparsePoint $ConformFormattersByFt) -and -not(Test-Path $ConformFormattersByFt)) {
+    if (-not(TestReparsePoint $ConformFormattersByFt) -and -not(Test-Path $ConformFormattersByFt))
+    {
         Copy-Item -Path "$ConformHome\formatters_by_ft_sample.lua" -Destination "$ConformFormattersByFt"
     }
     $NvimLintHome="$NVIM_HOME\lua\configs\mfussenegger\nvim-lint"
     $NvimLintLintersByFt="$NvimLintHome\linters_by_ft.lua"
-    if (-not(TestReparsePoint $NvimLintLintersByFt) -and -not(Test-Path $NvimLintLintersByFt)) {
+    if (-not(TestReparsePoint $NvimLintLintersByFt) -and -not(Test-Path $NvimLintLintersByFt))
+    {
         Copy-Item -Path "$NvimLintHome\linters_by_ft_sample.lua" -Destination "$NvimLintLintersByFt"
     }
     $Neoconf = "$NVIM_HOME\neoconf.json"
-    if (-not(TestReparsePoint $Neoconf) -and -not(Test-Path $Neoconf)) {
+    if (-not(TestReparsePoint $Neoconf) -and -not(Test-Path $Neoconf))
+    {
         Copy-Item -Path "$NVIM_HOME\neoconf_sample.json" -Destination "$Neoconf"
     }
     # install plugins on first start
