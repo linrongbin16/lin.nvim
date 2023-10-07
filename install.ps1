@@ -99,7 +99,7 @@ function GoDependency()
     # go
     InstallOrSkip -command "scoop install go" -target "go"
     # commands
-    InstallOrSkip -command "go install github.com/jesseduffield/lazygit@latest" -target "lazygit"
+    InstallOrSkip -command "scoop install extras/lazygit" -target "lazygit"
 }
 
 function PythonDependency()
