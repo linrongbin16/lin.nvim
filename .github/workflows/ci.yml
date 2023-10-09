@@ -31,3 +31,24 @@ jobs:
         uses: lunarmodules/luacheck@v1
         with:
           args: lua --config .luacheckrc
+  release:
+    name: Release
+    if: ${{ github.ref == 'refs/heads/main' }}
+    needs:
+      - typecheck
+      - luacheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: google-github-actions/release-please-action@v3
+        id: release
+        with:
+          release-type: simple
+          package-name: fzfx.nvim
+      - uses: actions/checkout@v4
+      - uses: rickstaa/action-create-tag@v1
+        if: ${{ steps.release.outputs.release_created }}
+        with:
+          tag: stable
+          message: "Current stable release: ${{ steps.release.outputs.tag_name }}"
+          tag_exists_error: false
+          force_push_tag: true
