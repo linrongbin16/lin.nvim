@@ -109,7 +109,7 @@ return {
         priority = 1000,
     },
     {
-        "mofiqul/vscode.nvim",
+        "Mofiqul/vscode.nvim",
         lazy = true,
         priority = 1000,
     },
@@ -160,6 +160,11 @@ return {
         priority = 1000,
     },
     {
+        "rigellute/rigel",
+        lazy = true,
+        priority = 1000,
+    },
+    {
         "romainl/apprentice",
         lazy = true,
         priority = 1000,
@@ -187,6 +192,11 @@ return {
     },
     {
         "sainnhe/sonokai",
+        lazy = true,
+        priority = 1000,
+    },
+    {
+        "savq/melange-nvim",
         lazy = true,
         priority = 1000,
     },
