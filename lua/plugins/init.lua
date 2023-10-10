@@ -237,7 +237,7 @@ local M = {
     {
         "L3MON4D3/LuaSnip",
         event = { VeryLazy, InsertEnter },
-        version = "1.*",
+        version = "v2.*",
     },
     {
         "saadparwaiz1/cmp_luasnip",
