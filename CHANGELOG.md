@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.1](https://github.com/linrongbin16/lin.nvim/compare/v0.2.0...v0.2.1) (2023-10-10)
+
+
+### Performance Improvements
+
+* **LuaSnip:** upgrade to v2.* and disable submodules ([#268](https://github.com/linrongbin16/lin.nvim/issues/268)) ([fdd2cf1](https://github.com/linrongbin16/lin.nvim/commit/fdd2cf1c7c75d32b5fd81bbd3125dac86a816a0d))
+
 ## [0.2.0](https://github.com/linrongbin16/lin.nvim/compare/v0.1.1...v0.2.0) (2023-10-09)
 
 
