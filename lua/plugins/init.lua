@@ -238,6 +238,7 @@ local M = {
         "L3MON4D3/LuaSnip",
         event = { VeryLazy, InsertEnter },
         version = "v2.*",
+        submodules = false,
     },
     {
         "saadparwaiz1/cmp_luasnip",
