@@ -1,29 +1,26 @@
 // Please copy this file to 'neoconf.json' to enable it.
 {
-    "neodev": {
-        "library": {
-            "enabled": true,
-            "plugins": [
-                "nvim-lspconfig",
-                "lsp"
-            ]
-        }
-    },
-    "neoconf": {
-        "plugins": {
-            "lua_ls": {
-                "enabled": true
-            }
-        }
-    },
-    "lspconfig": {
-        "lua_ls": {
-            "Lua.format.enable": false, // use stylua formatter
-            "Lua.completion.callSnippet": "Replace",
-            "Lua.workspace.checkThirdParty": false
-        },
-        "jsonls": {
-            "json.format.enable": false // use prettier formatter
-        }
+  "neodev": {
+    "library": {
+      "enabled": true,
+      "plugins": ["nvim-lspconfig", "lsp"]
     }
+  },
+  "neoconf": {
+    "plugins": {
+      "lua_ls": {
+        "enabled": true
+      }
+    }
+  },
+  "lspconfig": {
+    "lua_ls": {
+      "Lua.format.enable": false, // use stylua formatter
+      "Lua.completion.callSnippet": "Replace",
+      "Lua.workspace.checkThirdParty": false
+    },
+    "jsonls": {
+      "json.format.enable": false // use prettier formatter
+    }
+  }
 }
