@@ -33,4 +33,4 @@
 /neoconf.json
 
 # nvim-cmp hooks
-setup_handler.lua
+/lua/configs/hrsh7th/nvim-cmp/setup_handler.lua
