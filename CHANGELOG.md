@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.0](https://github.com/linrongbin16/lin.nvim/compare/v0.2.1...v0.3.0) (2023-10-12)
+
+
+### Features
+
+* **none-ls.nvim:** migrate diagnostics from nvim-lint to none-ls.nvim ([#270](https://github.com/linrongbin16/lin.nvim/issues/270)) ([a7fa8f0](https://github.com/linrongbin16/lin.nvim/commit/a7fa8f01096345a0ca6433291d28682674955574))
+
 ## [0.2.1](https://github.com/linrongbin16/lin.nvim/compare/v0.2.0...v0.2.1) (2023-10-10)
 
 
