@@ -117,12 +117,12 @@ nvim_config() {
         cp $conform_home/formatters_by_ft_sample.lua $conform_formatters_by_ft
     fi
 
-    # nvim-lint
-    local nvim_lint_home="$NVIM_HOME/lua/configs/mfussenegger/nvim-lint"
-    local nvim_lint_linters_by_ft="$nvim_lint_home/linters_by_ft.lua"
-    if [ ! -f $nvim_lint_linters_by_ft ]; then
-        cp $nvim_lint_home/linters_by_ft_sample.lua $nvim_lint_linters_by_ft
-    fi
+    # # nvim-lint
+    # local nvim_lint_home="$NVIM_HOME/lua/configs/mfussenegger/nvim-lint"
+    # local nvim_lint_linters_by_ft="$nvim_lint_home/linters_by_ft.lua"
+    # if [ ! -f $nvim_lint_linters_by_ft ]; then
+    #     cp $nvim_lint_home/linters_by_ft_sample.lua $nvim_lint_linters_by_ft
+    # fi
 
     # neoconf
     local neoconf="$NVIM_HOME/neoconf.json"
