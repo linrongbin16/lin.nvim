@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.1](https://github.com/linrongbin16/lin.nvim/compare/v0.3.0...v0.3.1) (2023-10-12)
+
+
+### Bug Fixes
+
+* **conform.nvim:** code format via conform.nvim ([#272](https://github.com/linrongbin16/lin.nvim/issues/272)) ([a0c1848](https://github.com/linrongbin16/lin.nvim/commit/a0c184813400adadc31a08208c23caa30b9649ce))
+
 ## [0.3.0](https://github.com/linrongbin16/lin.nvim/compare/v0.2.1...v0.3.0) (2023-10-12)
 
 
