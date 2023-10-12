@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.2](https://github.com/linrongbin16/lin.nvim/compare/v0.3.1...v0.3.2) (2023-10-12)
+
+
+### Bug Fixes
+
+* **markdown-preview.nvim:** discard changes after build ([#274](https://github.com/linrongbin16/lin.nvim/issues/274)) ([dceedf7](https://github.com/linrongbin16/lin.nvim/commit/dceedf78ffb04c782c35796380692e18ede6bc36))
+
 ## [0.3.1](https://github.com/linrongbin16/lin.nvim/compare/v0.3.0...v0.3.1) (2023-10-12)
 
 
