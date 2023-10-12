@@ -22,12 +22,14 @@ end
 
 require("conform").setup({
     formatters_by_ft = formatters_by_ft,
-    format_on_save = {
-        -- These options will be passed to conform.format()
-        timeout_ms = 2000,
-        lsp_fallback = true,
-        async = true,
-    },
+
+    -- format_on_save = {
+    --     -- These options will be passed to conform.format()
+    --     timeout_ms = 2000,
+    --     lsp_fallback = true,
+    --     async = true,
+    -- },
+
     format_after_save = {
         lsp_fallback = true,
         async = true,

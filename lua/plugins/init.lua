@@ -207,6 +207,7 @@ local M = {
             "williamboman/mason-lspconfig.nvim",
         },
         config = lua_config("stevearc/conform.nvim"),
+        keys = lua_keys("stevearc/conform.nvim"),
     },
     -- {
     --     "mfussenegger/nvim-lint",

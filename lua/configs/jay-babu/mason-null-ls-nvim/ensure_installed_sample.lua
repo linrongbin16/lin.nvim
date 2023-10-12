@@ -6,9 +6,8 @@
 --  * [null-ls BUILTINS](https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md) and install them from mason.
 
 local ensure_installed = {
-    "stylua", -- lua formatter
-    "prettier", -- js,ts,json,html,css,etc formatter
-    "eslint", -- js,ts,json,html,css,etc diagnostic
+    "jsonlint", -- json
+    "markdownlint", -- markdown
 }
 
 return ensure_installed
