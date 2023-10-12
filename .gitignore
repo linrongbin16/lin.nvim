@@ -9,7 +9,7 @@
 /universal-ctags
 /golang-tools-install-script
 
-# global hooks
+# hooks
 /preinit.vim
 /postinit.vim
 /lua/preinit.lua
@@ -17,13 +17,13 @@
 
 # plugin hooks
 /lua/plugins/users.lua
-user_plugins.lua
-user_plugins_blacklist.lua
-user_init.lua
-user_init.vim
-user_config.lua
-user_config.vim
-user_keys.lua
+/lua/user_plugins.lua
+/lua/user_plugins_blacklist.lua
+/lua/configs/**/user_init.lua
+/lua/configs/**/user_init.vim
+/lua/configs/**/user_config.lua
+/lua/configs/**/user_config.vim
+/lua/configs/**/user_keys.lua
 
 # lsp hooks
 ensure_installed.lua
