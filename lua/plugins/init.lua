@@ -299,7 +299,7 @@ local M = {
     -- Markdown
     {
         "iamcco/markdown-preview.nvim",
-        build = "cd app && npm install",
+        build = "cd app && npm install && git checkout .",
         ft = { "markdown" },
         init = lua_init("iamcco/markdown-preview.nvim"),
         keys = lua_keys("iamcco/markdown-preview.nvim"),
