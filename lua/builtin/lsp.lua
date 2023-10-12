@@ -168,12 +168,15 @@ vim.api.nvim_create_autocmd("LspAttach", {
             "<cmd>lua vim.lsp.buf.rename()<cr>",
             map_desc("Rename symbol")
         )
-        set_key(
-            { "n", "x" },
-            "<Leader>cf",
-            "<cmd>lua vim.lsp.buf.format({async=false})<cr>",
-            map_desc("Code format")
-        )
+        -- don't format via lsp.
+        -- use conform.nvim, see: /lua/configs/stevearc/conform-nvim/keys.lua.
+        --
+        -- set_key(
+        --     { "n", "x" },
+        --     "<Leader>cf",
+        --     "<cmd>lua vim.lsp.buf.format({async=false})<cr>",
+        --     map_desc("Code format")
+        -- )
         set_key(
             "n",
             "<Leader>ca",
