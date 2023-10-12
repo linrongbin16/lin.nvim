@@ -208,15 +208,31 @@ local M = {
         },
         config = lua_config("stevearc/conform.nvim"),
     },
+    -- {
+    --     "mfussenegger/nvim-lint",
+    --     event = { VeryLazy, BufReadPre, BufNewFile, CmdlineEnter },
+    --     dependencies = {
+    --         "williamboman/mason.nvim",
+    --         "williamboman/mason-lspconfig.nvim",
+    --     },
+    --     config = lua_config("mfussenegger/nvim-lint"),
+    -- },
     {
-        "mfussenegger/nvim-lint",
+        "nvimtools/none-ls.nvim",
+        event = { VeryLazy, BufReadPre, BufNewFile, CmdlineEnter },
+        config = lua_config("jose-elias-alvarez/null-ls.nvim"),
+    },
+    {
+        "jay-babu/mason-null-ls.nvim",
         event = { VeryLazy, BufReadPre, BufNewFile, CmdlineEnter },
         dependencies = {
             "williamboman/mason.nvim",
             "williamboman/mason-lspconfig.nvim",
+            "nvimtools/none-ls.nvim",
         },
-        config = lua_config("mfussenegger/nvim-lint"),
+        config = lua_config("jay-babu/mason-null-ls.nvim"),
     },
+
     -- Auto-complete engine
     {
         "onsails/lspkind.nvim",

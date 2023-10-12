@@ -142,7 +142,8 @@ function NvimConfig()
     Message "install $NVIM_HOME for neovim on windows"
     TryBackup $env:USERPROFILE\.nvim
     Start-Process powershell "cmd /c mklink $env:USERPROFILE\.nvim $NVIM_HOME /D" -Verb RunAs -Wait
-    # lsp management
+
+    # mason-lspconfig.nvim
     $MasonLspconfigHome = "$NVIM_HOME\lua\configs\williamboman\mason-lspconfig-nvim"
     $MasonLspconfigEnsureInstalled = "$MasonLspconfigHome\ensure_installed.lua"
     if (-not(TestReparsePoint $MasonLspconfigEnsureInstalled) -and -not(Test-Path $MasonLspconfigEnsureInstalled))
@@ -154,23 +155,43 @@ function NvimConfig()
     {
         Copy-Item -Path "$MasonLspconfigHome\setup_handlers_sample.lua" -Destination "$MasonLspconfigSetupHandlers"
     }
+
+    # mason-null-ls.nvim
+    $MasonNulllsHome = "$NVIM_HOME\lua\configs\jay-babu\mason-null-ls-nvim"
+    $MasonNulllsEnsureInstalled = "$MasonNulllsHome\ensure_installed.lua"
+    if (-not(TestReparsePoint $MasonNulllsEnsureInstalled) -and -not(Test-Path $MasonNulllsEnsureInstalled))
+    {
+        Copy-Item -Path "$MasonNulllsHome\ensure_installed_sample.lua" -Destination "$MasonNulllsEnsureInstalled"
+    }
+    $MasonNulllsSetupHandlers = "$MasonNulllsHome\setup_handlers.lua"
+    if (-not(TestReparsePoint $MasonNulllsSetupHandlers) -and -not(Test-Path $MasonNulllsSetupHandlers))
+    {
+        Copy-Item -Path "$MasonNulllsHome\setup_handlers_sample.lua" -Destination "$MasonNulllsSetupHandlers"
+    }
+
+    # conform.nvim
     $ConformHome = "$NVIM_HOME\lua\configs\stevearc\conform-nvim"
     $ConformFormattersByFt = "$ConformHome\formatters_by_ft.lua"
     if (-not(TestReparsePoint $ConformFormattersByFt) -and -not(Test-Path $ConformFormattersByFt))
     {
         Copy-Item -Path "$ConformHome\formatters_by_ft_sample.lua" -Destination "$ConformFormattersByFt"
     }
+
+    # nvim-lint
     $NvimLintHome="$NVIM_HOME\lua\configs\mfussenegger\nvim-lint"
     $NvimLintLintersByFt="$NvimLintHome\linters_by_ft.lua"
     if (-not(TestReparsePoint $NvimLintLintersByFt) -and -not(Test-Path $NvimLintLintersByFt))
     {
         Copy-Item -Path "$NvimLintHome\linters_by_ft_sample.lua" -Destination "$NvimLintLintersByFt"
     }
+
+    # neoconf
     $Neoconf = "$NVIM_HOME\neoconf.json"
     if (-not(TestReparsePoint $Neoconf) -and -not(Test-Path $Neoconf))
     {
         Copy-Item -Path "$NVIM_HOME\neoconf_sample.json" -Destination "$Neoconf"
     }
+
     # install plugins on first start
     cmd /c nvim -E -c "Lazy! sync" -c "qall!" /wait
 }
