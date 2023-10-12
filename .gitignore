@@ -10,9 +10,9 @@
 /golang-tools-install-script
 
 # global hooks
-preinit.vim
+/preinit.vim
 preinit.lua
-postinit.vim
+/postinit.vim
 postinit.lua
 
 # plugin hooks
