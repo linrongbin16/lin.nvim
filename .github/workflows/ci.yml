@@ -1,6 +1,8 @@
 name: CI
 on:
-  pull_request: ~
+  pull_request:
+    branches:
+      - main
   push:
     branches:
       - main
@@ -8,25 +10,29 @@ concurrency:
   group: ${{ github.ref }}
   cancel-in-progress: true
 jobs:
-  typecheck:
-    name: Type check
+  pr_conventional_commit:
+    name: PR Conventional Commit
+    if: ${{ github.ref != 'refs/heads/main' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Neovim Typecheck linter
-        uses: stevearc/nvim-typecheck-action@v1
+      - uses: ytanikin/PRConventionalCommits@1.1.0
         with:
-          path: lua
-          level: Information
-          configpath: ".luarc.json"
-          neodev-version: stable
+          task_types: '["feat","fix","docs","test","ci","refactor","perf","chore","revert"]'
   luacheck:
     name: Lua check
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: LuaLs Annotation Typecheck
+        uses: stevearc/nvim-typecheck-action@v1
+        with:
+          path: lua
+          level: Information
+          configpath: ".luarc.json"
+          neodev-version: stable
       - name: Luacheck linter
         uses: lunarmodules/luacheck@v1
         with:
@@ -35,7 +41,6 @@ jobs:
     name: Release
     if: ${{ github.ref == 'refs/heads/main' }}
     needs:
-      - typecheck
       - luacheck
     runs-on: ubuntu-latest
     steps:

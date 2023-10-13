@@ -23,6 +23,7 @@ local formatters_by_ft = {
     typescriptreact = { "biome", prettier },
     xhtml = { prettier },
     xml = { prettier },
+    rust = { "rustfmt" },
 }
 
 return formatters_by_ft
