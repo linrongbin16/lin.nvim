@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.4.0](https://github.com/linrongbin16/lin.nvim/compare/v0.3.1...v0.4.0) (2023-10-13)
+
+
+### Features
+
+* **hlchunk.nvim:** migrate from 'indent-blankline.nvim' to 'hlchunk.nvim' ([5699b2e](https://github.com/linrongbin16/lin.nvim/commit/5699b2e0948cfbf11df83f799a00017845ace911))
+
+
+### Bug Fixes
+
+* **markdown-preview.nvim:** discard changes after build ([#274](https://github.com/linrongbin16/lin.nvim/issues/274)) ([dceedf7](https://github.com/linrongbin16/lin.nvim/commit/dceedf78ffb04c782c35796380692e18ede6bc36))
+
 ## [0.3.1](https://github.com/linrongbin16/lin.nvim/compare/v0.3.0...v0.3.1) (2023-10-12)
 
 
