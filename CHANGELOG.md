@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.1](https://github.com/linrongbin16/lin.nvim/compare/v0.4.0...v0.4.1) (2023-10-14)
+
+
+### Performance Improvements
+
+* **indent-blankline.nvim:** revert back from 'hlchunk.nvim' to 'indent-blankline.nvim' ([#280](https://github.com/linrongbin16/lin.nvim/issues/280)) ([7547426](https://github.com/linrongbin16/lin.nvim/commit/7547426a0662fdd89f7a09540a34c6a1d245dfb6))
+
 ## [0.4.0](https://github.com/linrongbin16/lin.nvim/compare/v0.3.1...v0.4.0) (2023-10-13)
 
 
