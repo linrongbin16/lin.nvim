@@ -117,16 +117,16 @@ local M = {
         keys = lua_keys("akinsho/bufferline.nvim"),
     },
     -- Indentline
-    -- {
-    --     "lukas-reineke/indent-blankline.nvim",
-    --     event = { VeryLazy, BufReadPre, BufNewFile },
-    --     config = lua_config("lukas-reineke/indent-blankline.nvim"),
-    -- },
     {
-        "shellRaining/hlchunk.nvim",
+        "lukas-reineke/indent-blankline.nvim",
         event = { VeryLazy, BufReadPre, BufNewFile },
-        config = lua_config("shellRaining/hlchunk.nvim"),
+        config = lua_config("lukas-reineke/indent-blankline.nvim"),
     },
+    -- {
+    --     "shellRaining/hlchunk.nvim",
+    --     event = { VeryLazy, BufReadPre, BufNewFile },
+    --     config = lua_config("shellRaining/hlchunk.nvim"),
+    -- },
     -- Statusline
     {
         "linrongbin16/lsp-progress.nvim",
