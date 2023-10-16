@@ -1,30 +1,9 @@
 return {
     {
-        "ajmwagar/vim-deus",
-        lazy = true,
-        priority = 1000,
-    },
-    {
-        "bluz71/vim-moonfly-colors",
-        lazy = true,
-        priority = 1000,
-    },
-    {
-        "bluz71/vim-nightfly-colors",
-        lazy = true,
-        priority = 1000,
-    },
-    {
         "catppuccin/nvim",
         lazy = true,
         priority = 1000,
         name = "catppuccin",
-    },
-    {
-        "challenger-deep-theme/vim",
-        lazy = true,
-        priority = 1000,
-        name = "challenger-deep-theme",
     },
     {
         "cocopon/iceberg.vim",
@@ -38,11 +17,6 @@ return {
         name = "dracula",
     },
     {
-        "drewtempelmeyer/palenight.vim",
-        lazy = true,
-        priority = 1000,
-    },
-    {
         "EdenEast/nightfox.nvim",
         lazy = true,
         priority = 1000,
@@ -53,23 +27,7 @@ return {
         priority = 1000,
     },
     {
-        "embark-theme/vim",
-        lazy = true,
-        priority = 1000,
-        name = "embark-theme",
-    },
-    {
-        "fenetikm/falcon",
-        lazy = true,
-        priority = 1000,
-    },
-    {
         "folke/tokyonight.nvim",
-        lazy = true,
-        priority = 1000,
-    },
-    {
-        "jacoborus/tender.vim",
         lazy = true,
         priority = 1000,
     },
@@ -94,22 +52,12 @@ return {
         priority = 1000,
     },
     {
-        "lunacookies/vim-colors-xcode",
-        lazy = true,
-        priority = 1000,
-    },
-    {
         "marko-cerovac/material.nvim",
         lazy = true,
         priority = 1000,
     },
     {
         "mhartington/oceanic-next",
-        lazy = true,
-        priority = 1000,
-    },
-    {
-        "Mofiqul/vscode.nvim",
         lazy = true,
         priority = 1000,
     },
@@ -124,19 +72,10 @@ return {
         priority = 1000,
     },
     {
-        "nyoom-engineering/oxocarbon.nvim",
+        "nordtheme/vim",
         lazy = true,
         priority = 1000,
-    },
-    {
-        "pineapplegiant/spaceduck",
-        lazy = true,
-        priority = 1000,
-    },
-    {
-        "preservim/vim-colors-pencil",
-        lazy = true,
-        priority = 1000,
+        name = "nordtheme",
     },
     {
         "projekt0n/github-nvim-theme",
@@ -145,22 +84,7 @@ return {
         branch = "0.0.x",
     },
     {
-        "rakr/vim-one",
-        lazy = true,
-        priority = 1000,
-    },
-    {
-        "raphamorim/lucario",
-        lazy = true,
-        priority = 1000,
-    },
-    {
         "rebelot/kanagawa.nvim",
-        lazy = true,
-        priority = 1000,
-    },
-    {
-        "rigellute/rigel",
         lazy = true,
         priority = 1000,
     },
@@ -176,11 +100,6 @@ return {
         name = "rose-pine",
     },
     {
-        "sainnhe/edge",
-        lazy = true,
-        priority = 1000,
-    },
-    {
         "sainnhe/everforest",
         lazy = true,
         priority = 1000,
@@ -192,21 +111,6 @@ return {
     },
     {
         "sainnhe/sonokai",
-        lazy = true,
-        priority = 1000,
-    },
-    {
-        "savq/melange-nvim",
-        lazy = true,
-        priority = 1000,
-    },
-    {
-        "shaunsingh/nord.nvim",
-        lazy = true,
-        priority = 1000,
-    },
-    {
-        "srcery-colors/srcery-vim",
         lazy = true,
         priority = 1000,
     },
