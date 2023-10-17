@@ -130,14 +130,17 @@ local M = {
     -- },
     -- Statusline
     {
-        "linrongbin16/lsp-progress.nvim",
+        dir = "~/github/linrongbin16/lsp-progress.nvim",
+        dev = true,
         event = { UIEnter },
         config = lua_config("linrongbin16/lsp-progress.nvim"),
     },
     {
         "nvim-lualine/lualine.nvim",
         event = { UIEnter },
-        dependencies = { "linrongbin16/lsp-progress.nvim" },
+        dependencies = {
+            dir = "~/github/linrongbin16/lsp-progress.nvim",
+        },
         config = lua_config("nvim-lualine/lualine.nvim"),
     },
     -- Winbar
@@ -177,7 +180,8 @@ local M = {
         build = ":call fzf#install()",
     },
     {
-        "linrongbin16/fzfx.nvim",
+        dir = "~/github/linrongbin16/fzfx.nvim",
+        dev = true,
         event = { CmdlineEnter },
         cmd = {
             "FzfxLspDefinitions",
@@ -338,7 +342,8 @@ local M = {
     },
     -- Permlink
     {
-        "linrongbin16/gitlinker.nvim",
+        dir = "~/github/linrongbin16/gitlinker.nvim",
+        dev = true,
         lazy = true,
         config = lua_config("linrongbin16/gitlinker.nvim"),
         keys = lua_keys("linrongbin16/gitlinker.nvim"),
