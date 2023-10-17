@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.4.1](https://github.com/linrongbin16/lin.nvim/compare/v0.4.0...v0.4.1) (2023-10-17)
+
+
+### Bug Fixes
+
+* **colors:** remove '0.0.x' branch for 'github-nvim-theme' ([980fa5d](https://github.com/linrongbin16/lin.nvim/commit/980fa5d5bea5d4deb0ccd70137eca3ec6d3c8fac))
+
+
+### Performance Improvements
+
+* **colorschemes:** higher the popular bar to 800 stars ([#282](https://github.com/linrongbin16/lin.nvim/issues/282)) ([565861e](https://github.com/linrongbin16/lin.nvim/commit/565861ef7199853cde0bca5a5c9e8a2174fa1bc2))
+* **indent-blankline.nvim:** revert back from 'hlchunk.nvim' to 'indent-blankline.nvim' ([#280](https://github.com/linrongbin16/lin.nvim/issues/280)) ([7547426](https://github.com/linrongbin16/lin.nvim/commit/7547426a0662fdd89f7a09540a34c6a1d245dfb6))
+
 ## [0.4.0](https://github.com/linrongbin16/lin.nvim/compare/v0.3.1...v0.4.0) (2023-10-13)
 
 
