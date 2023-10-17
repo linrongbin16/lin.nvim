@@ -12,6 +12,7 @@ local BufReadPre = "BufReadPre"
 local CmdlineEnter = "CmdlineEnter"
 local VimEnter = "VimEnter"
 local InsertEnter = "InsertEnter"
+local UIEnter = "UIEnter"
 
 local M = {
     -- ---- INFRASTRUCTURE ----
@@ -96,7 +97,7 @@ local M = {
     },
     {
         "nvim-neo-tree/neo-tree.nvim",
-        event = { VimEnter },
+        event = { UIEnter },
         dependencies = { "MunifTanjim/nui.nvim" },
         branch = "v3.x",
         config = lua_config("nvim-neo-tree/neo-tree.nvim"),
@@ -111,7 +112,7 @@ local M = {
     {
         "akinsho/bufferline.nvim",
         version = "v3.*",
-        event = { VeryLazy, BufReadPre, BufNewFile },
+        event = { UIEnter },
         dependencies = { "moll/vim-bbye" },
         config = lua_config("akinsho/bufferline.nvim"),
         keys = lua_keys("akinsho/bufferline.nvim"),
@@ -130,12 +131,12 @@ local M = {
     -- Statusline
     {
         "linrongbin16/lsp-progress.nvim",
-        event = { VimEnter },
+        event = { UIEnter },
         config = lua_config("linrongbin16/lsp-progress.nvim"),
     },
     {
         "nvim-lualine/lualine.nvim",
-        event = { VimEnter },
+        event = { UIEnter },
         dependencies = { "linrongbin16/lsp-progress.nvim" },
         config = lua_config("nvim-lualine/lualine.nvim"),
     },
@@ -163,7 +164,7 @@ local M = {
     -- UI improvement
     {
         "stevearc/dressing.nvim",
-        event = { VeryLazy, BufReadPre, BufNewFile },
+        event = { UIEnter },
         dependencies = { "junegunn/fzf" },
         config = lua_config("stevearc/dressing.nvim"),
     },
@@ -250,7 +251,7 @@ local M = {
     },
     {
         "hrsh7th/cmp-buffer",
-        event = { VeryLazy, InsertEnter, CmdlineEnter },
+        event = { VeryLazy, InsertEnter },
     },
     {
         "FelipeLema/cmp-async-path",
@@ -269,7 +270,7 @@ local M = {
     },
     {
         "hrsh7th/cmp-cmdline",
-        event = { VeryLazy, InsertEnter, CmdlineEnter },
+        event = { VeryLazy, CmdlineEnter },
     },
     {
         "hrsh7th/nvim-cmp",
@@ -398,29 +399,6 @@ local M = {
         cmd = { "UrlView" },
         config = lua_config("axieax/urlview.nvim"),
         keys = lua_keys("axieax/urlview.nvim"),
-    },
-    -- Terminal
-    {
-        "akinsho/toggleterm.nvim",
-        version = "*",
-        event = { VeryLazy, CmdlineEnter },
-        config = lua_config("akinsho/toggleterm.nvim"),
-        keys = lua_keys("akinsho/toggleterm.nvim"),
-    },
-    -- Generate documents
-    {
-        "danymat/neogen",
-        cmd = { "Neogen" },
-        dependencies = { "L3MON4D3/LuaSnip" },
-        config = lua_config("danymat/neogen"),
-        keys = lua_keys("danymat/neogen"),
-    },
-    -- Undo tree
-    {
-        "mbbill/undotree",
-        event = { VeryLazy, CmdlineEnter },
-        init = lua_init("mbbill/undotree"),
-        keys = lua_keys("mbbill/undotree"),
     },
 }
 
