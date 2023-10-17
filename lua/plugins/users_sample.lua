@@ -88,6 +88,28 @@
 --         config = lua_config("Pocco81/auto-save.nvim"),
 --         keys = lua_keys("Pocco81/auto-save.nvim"),
 --     },
+--     Terminal({
+--         "akinsho/toggleterm.nvim",
+--         version = "*",
+--         event = { VeryLazy, CmdlineEnter },
+--         config = lua_config("akinsho/toggleterm.nvim"),
+--         keys = lua_keys("akinsho/toggleterm.nvim"),
+--     }),
+--     -- Generate documents
+--     {
+--         "danymat/neogen",
+--         cmd = { "Neogen" },
+--         dependencies = { "L3MON4D3/LuaSnip" },
+--         config = lua_config("danymat/neogen"),
+--         keys = lua_keys("danymat/neogen"),
+--     },
+--     -- Undo tree
+--     {
+--         "mbbill/undotree",
+--         event = { VeryLazy, CmdlineEnter },
+--         init = lua_init("mbbill/undotree"),
+--         keys = lua_keys("mbbill/undotree"),
+--     },
 -- }
 
 return {}
