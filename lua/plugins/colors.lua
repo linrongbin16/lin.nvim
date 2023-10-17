@@ -81,7 +81,6 @@ return {
         "projekt0n/github-nvim-theme",
         lazy = true,
         priority = 1000,
-        branch = "0.0.x",
     },
     {
         "rebelot/kanagawa.nvim",
