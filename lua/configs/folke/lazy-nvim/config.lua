@@ -23,6 +23,9 @@ local opts = {
         },
         border = constants.ui.border,
     },
+    dev = {
+        path = "~/github/linrongbin16",
+    },
 }
 
 local user_plugins_blacklist_ok, user_plugins_blacklist =

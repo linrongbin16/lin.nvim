@@ -130,7 +130,7 @@ local M = {
     -- },
     -- Statusline
     {
-        dir = "~/github/linrongbin16/lsp-progress.nvim",
+        "linrongbin16/lsp-progress.nvim",
         dev = true,
         lazy = true,
         event = { UIEnter },
@@ -140,7 +140,8 @@ local M = {
         "nvim-lualine/lualine.nvim",
         event = { UIEnter },
         dependencies = {
-            dir = "~/github/linrongbin16/lsp-progress.nvim",
+            "linrongbin16/lsp-progress.nvim",
+            dev = true,
         },
         config = lua_config("nvim-lualine/lualine.nvim"),
     },
@@ -181,7 +182,7 @@ local M = {
         build = ":call fzf#install()",
     },
     {
-        dir = "~/github/linrongbin16/fzfx.nvim",
+        "linrongbin16/fzfx.nvim",
         dev = true,
         event = { CmdlineEnter },
         cmd = {
@@ -343,7 +344,7 @@ local M = {
     },
     -- Permlink
     {
-        dir = "~/github/linrongbin16/gitlinker.nvim",
+        "linrongbin16/gitlinker.nvim",
         dev = true,
         lazy = true,
         config = lua_config("linrongbin16/gitlinker.nvim"),
