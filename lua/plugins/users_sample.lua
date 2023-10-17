@@ -14,6 +14,7 @@
 -- local CmdlineEnter = "CmdlineEnter"
 -- local VimEnter = "VimEnter"
 -- local InsertEnter = "InsertEnter"
+-- local UIEnter = "UIEnter"
 --
 -- return {
 --     -- Context
