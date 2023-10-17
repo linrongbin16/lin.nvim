@@ -377,6 +377,14 @@ local M = {
         event = { VeryLazy, BufReadPre, BufNewFile },
         config = lua_config("numToStr/Comment.nvim"),
     },
+    -- Cursor motion
+    {
+        "smoka7/hop.nvim",
+        event = { VeryLazy, BufReadPre, BufNewFile, CmdlineEnter },
+        version = "*",
+        config = lua_config("smoka7/hop.nvim"),
+        keys = lua_keys("smoka7/hop.nvim"),
+    },
     -- Surround
     {
         "kylechui/nvim-surround",
