@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.4.1](https://github.com/linrongbin16/lin.nvim/compare/v0.4.0...v0.4.1) (2023-10-17)
+
+
+### Bug Fixes
+
+* **colors:** remove '0.0.x' branch for 'github-nvim-theme' ([980fa5d](https://github.com/linrongbin16/lin.nvim/commit/980fa5d5bea5d4deb0ccd70137eca3ec6d3c8fac))
+
+
+### Performance Improvements
+
+* **colorschemes:** higher the popular bar to 800 stars ([#282](https://github.com/linrongbin16/lin.nvim/issues/282)) ([565861e](https://github.com/linrongbin16/lin.nvim/commit/565861ef7199853cde0bca5a5c9e8a2174fa1bc2))
+* **indent-blankline.nvim:** revert back from 'hlchunk.nvim' to 'indent-blankline.nvim' ([#280](https://github.com/linrongbin16/lin.nvim/issues/280)) ([7547426](https://github.com/linrongbin16/lin.nvim/commit/7547426a0662fdd89f7a09540a34c6a1d245dfb6))
+* **plugins:** add 'UIEnter' for lazy event ([#285](https://github.com/linrongbin16/lin.nvim/issues/285)) ([df002b4](https://github.com/linrongbin16/lin.nvim/commit/df002b4461249ae99b51e76161b4728f07a82d39))
+* **plugins:** lazy load 'lsp-progress.nvim' ([#287](https://github.com/linrongbin16/lin.nvim/issues/287)) ([cfc0bb4](https://github.com/linrongbin16/lin.nvim/commit/cfc0bb40215dd5e706cf275d56a8120568abf332))
+
 ## [0.4.0](https://github.com/linrongbin16/lin.nvim/compare/v0.3.1...v0.4.0) (2023-10-13)
 
 
