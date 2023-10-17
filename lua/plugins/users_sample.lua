@@ -33,6 +33,13 @@
 --
 --     -- Cursor motion
 --     {
+--         "smoka7/hop.nvim",
+--         event = { VeryLazy, BufReadPre, BufNewFile, CmdlineEnter },
+--         version = "*",
+--         config = lua_config("smoka7/hop.nvim"),
+--         keys = lua_keys("smoka7/hop.nvim"),
+--     },
+--     {
 --         "ggandor/leap.nvim",
 --         event = { VeryLazy, BufReadPre, BufNewFile },
 --         dependencies = { "tpope/vim-repeat" },
@@ -88,13 +95,14 @@
 --         config = lua_config("Pocco81/auto-save.nvim"),
 --         keys = lua_keys("Pocco81/auto-save.nvim"),
 --     },
---     Terminal({
+--     -- Terminal
+--     {
 --         "akinsho/toggleterm.nvim",
 --         version = "*",
 --         event = { VeryLazy, CmdlineEnter },
 --         config = lua_config("akinsho/toggleterm.nvim"),
 --         keys = lua_keys("akinsho/toggleterm.nvim"),
---     }),
+--     },
 --     -- Generate documents
 --     {
 --         "danymat/neogen",
