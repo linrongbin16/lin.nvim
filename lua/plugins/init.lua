@@ -131,6 +131,7 @@ local M = {
     -- Statusline
     {
         "linrongbin16/lsp-progress.nvim",
+        lazy = true,
         event = { UIEnter },
         config = lua_config("linrongbin16/lsp-progress.nvim"),
     },
