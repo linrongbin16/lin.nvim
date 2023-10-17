@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.3](https://github.com/linrongbin16/lin.nvim/compare/v0.4.2...v0.4.3) (2023-10-17)
+
+
+### Performance Improvements
+
+* **configs:** remove deadcode ([#293](https://github.com/linrongbin16/lin.nvim/issues/293)) ([fdf0cf6](https://github.com/linrongbin16/lin.nvim/commit/fdf0cf672eb257b60428e8790dec1ea3cdc2b98b))
+
 ## [0.4.2](https://github.com/linrongbin16/lin.nvim/compare/v0.4.1...v0.4.2) (2023-10-17)
 
 
