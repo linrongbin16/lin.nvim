@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.2](https://github.com/linrongbin16/lin.nvim/compare/v0.4.1...v0.4.2) (2023-10-17)
+
+
+### Performance Improvements
+
+* **plugins:** move 'hop.nvim' to user plugins ([#289](https://github.com/linrongbin16/lin.nvim/issues/289)) ([37491dd](https://github.com/linrongbin16/lin.nvim/commit/37491dd6f914041b7345f19dfdf08af08c2cb3b1))
+
 ## [0.4.1](https://github.com/linrongbin16/lin.nvim/compare/v0.4.0...v0.4.1) (2023-10-17)
 
 
