@@ -1,6 +1,10 @@
 local constants = require("builtin.utils.constants")
 
 require("fzfx").setup({
+    debug = {
+        enable = true,
+        file_log = true,
+    },
     env = {
         nvim = "nvim",
     },
