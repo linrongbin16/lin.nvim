@@ -334,7 +334,7 @@ local M = {
     {
         "f-person/git-blame.nvim",
         event = { VeryLazy, CmdlineEnter },
-        init = lua_init("f-person/git-blame.nvim"),
+        config = lua_config("f-person/git-blame.nvim"),
         keys = lua_keys("f-person/git-blame.nvim"),
     },
     -- Permlink
