@@ -85,6 +85,13 @@ local M = {
         keymap.exec("FzfxGCommits"),
         { desc = "Search git commits" }
     ),
+    -- vim commands
+    keymap.set_lazy_key(
+        "n",
+        "<space>cm",
+        keymap.exec("FzfxCommands"),
+        { desc = "Search vim commands" }
+    ),
     -- diagnostics
     keymap.set_lazy_key(
         "n",
