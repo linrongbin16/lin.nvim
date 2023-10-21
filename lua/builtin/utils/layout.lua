@@ -1,4 +1,3 @@
---- @type table<BuiltinLayoutEditorKey, BuiltinLayoutEditorValue>
 local editor = {
     width = function(pct, min_w, max_w)
         local editor_w = vim.o.columns

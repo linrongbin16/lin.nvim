@@ -1,7 +1,7 @@
 local message = require("builtin.utils.message")
 
 --- @param keys string
---- @return LazyKeySpec[]
+--- @return table[]
 local function lua_keys(keys)
     local user_path = "configs/" .. keys:gsub("%.", "-") .. "/user_keys"
     local user_ok, user_keys = pcall(require, user_path)
@@ -23,7 +23,6 @@ local function lua_keys(keys)
 end
 
 --- @param init string
---- @return LazyInitSpec
 local function lua_init(init)
     local function wrap()
         local user_path = "configs/" .. init:gsub("%.", "-") .. "/user_init"
@@ -48,7 +47,6 @@ local function lua_init(init)
 end
 
 --- @param init string
---- @return LazyInitSpec
 local function vim_init(init)
     local function wrap()
         local user_path = vim.fn.stdpath("config")
@@ -72,7 +70,6 @@ local function vim_init(init)
 end
 
 --- @param config string
---- @return LazyConfigSpec
 local function lua_config(config)
     local function wrap()
         local user_path = "configs/" .. config:gsub("%.", "-") .. "/user_config"
@@ -97,7 +94,6 @@ local function lua_config(config)
 end
 
 --- @param config string
---- @return LazyConfigSpec
 local function vim_config(config)
     local function wrap()
         local user_path = vim.fn.stdpath("config")
