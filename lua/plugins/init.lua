@@ -311,7 +311,14 @@ local M = {
     -- Markdown
     {
         "iamcco/markdown-preview.nvim",
-        build = "cd app && npm install && git checkout .",
+        build = function()
+            vim.fn["mkdp#util#install"]()
+        end,
+        cmd = {
+            "MarkdownPreviewToggle",
+            "MarkdownPreview",
+            "MarkdownPreviewStop",
+        },
         ft = { "markdown" },
         init = lua_init("iamcco/markdown-preview.nvim"),
         keys = lua_keys("iamcco/markdown-preview.nvim"),

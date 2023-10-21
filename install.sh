@@ -32,6 +32,7 @@ rust_dependency() {
     install_or_skip "cargo install fd-find" "fd"
     install_or_skip "cargo install ripgrep" "rg"
     install_or_skip "cargo install --locked bat" "bat"
+    install_or_skip "cargo install eza" "eza"
 }
 
 pip3_dependency() {
@@ -87,6 +88,13 @@ nvim_config() {
     mkdir -p $HOME/.config
     try_backup $HOME/.nvim
     ln -s $NVIM_HOME $HOME/.nvim
+
+    # nvim-treesitter
+    local nvim_treesitter_home="$NVIM_HOME/lua/configs/nvim-treesitter/nvim-treesitter"
+    local nvim_treesitter_ensure_installed="$nvim_treesitter_home/ensure_installed.lua"
+    if [ ! -f $nvim_treesitter_ensure_installed ]; then
+        cp $nvim_treesitter_home/ensure_installed_sample.lua $nvim_treesitter_ensure_installed
+    fi
 
     # mason-lspconfig.nvim
     local mason_lspconfig_home="$NVIM_HOME/lua/configs/williamboman/mason-lspconfig-nvim"

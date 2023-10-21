@@ -29,8 +29,7 @@ local colornames = {
 
 math.randomseed(os.clock() * 100000000000)
 
---- @param option VimUserCommandOption
---- @return nil
+--- @param option table<any, any>
 local function switch_color(option)
     if type(option.args) == "string" and string.len(option.args) > 0 then
         vim.cmd.colorscheme(option.args)
