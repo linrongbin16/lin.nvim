@@ -1,8 +1,6 @@
 -- ---- LSP ----
 
---- @type LuaModule
 local constants = require("builtin.utils.constants")
---- @type BuiltinKeymapSetkey
 local set_key = require("builtin.utils.keymap").set_key
 
 -- diagnostics

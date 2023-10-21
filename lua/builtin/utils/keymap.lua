@@ -104,7 +104,6 @@ local function set_lazy_key(mode, lhs, rhs, opts)
     return key_spec
 end
 
---- @type LuaModule
 local M = {
     exec = exec,
     set_key = set_key,

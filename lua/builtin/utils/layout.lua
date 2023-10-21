@@ -25,7 +25,6 @@ local editor = {
     end,
 }
 
---- @type LuaModule
 local M = {
     editor = editor,
 }

@@ -14,7 +14,6 @@ local function err(msg)
     error("[lin.nvim] Error! " .. msg)
 end
 
---- @type LuaModule
 local M = {
     warn = warn,
     err = err,

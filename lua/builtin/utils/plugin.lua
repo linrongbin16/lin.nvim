@@ -1,4 +1,3 @@
---- @type LuaModule
 local message = require("builtin.utils.message")
 
 --- @param keys string
@@ -121,7 +120,6 @@ local function vim_config(config)
     return wrap
 end
 
---- @type LuaModule
 local M = {
     lua_keys = lua_keys,
     lua_init = lua_init,
