@@ -1,8 +1,6 @@
 -- ---- LSP ----
 
---- @type LuaModule
 local constants = require("builtin.utils.constants")
---- @type BuiltinKeymapSetkey
 local set_key = require("builtin.utils.keymap").set_key
 
 -- diagnostics
@@ -17,8 +15,7 @@ vim.diagnostic.config({
     },
 })
 
---- @param opts VimSignOpts
---- @return nil
+--- @param opts table<any, any>
 local function define_diagnostic_sign(opts)
     vim.fn.sign_define(opts.name, {
         texthl = opts.name,
@@ -27,7 +24,6 @@ local function define_diagnostic_sign(opts)
     })
 end
 
---- @type table<VimSignOptsValue, VimSignOptsValue>
 local diagnostic_signs = {
     DiagnosticSignError = constants.diagnostic.sign.error,
     DiagnosticSignWarn = constants.diagnostic.sign.warning,
@@ -50,7 +46,7 @@ vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
 
 -- key mapping
 --- @param value string
---- @return VimKeymapOpts
+--- @return table<any, any>
 local function map_desc(value)
     return { buffer = true, desc = value }
 end

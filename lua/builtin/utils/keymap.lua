@@ -17,11 +17,10 @@ local function invalid_window()
         and NON_EDITABLE_FIELTYPES[buf_filetype] == true
 end
 
---- @param cmd VimKeymapRhs
---- @return VimKeymapRhs
+--- @param cmd string|function
+--- @return string|function
 local function exec(cmd)
-    --- @param o VimKeymapRhs
-    --- @return nil
+    --- @param o string|function
     local function exec_impl(o)
         if type(o) == "string" then
             -- vim command
@@ -55,18 +54,16 @@ local function exec(cmd)
     return wrap
 end
 
---- @type VimKeymapOpts
-local DEFAULT_OPTS = {
-    silent = true,
-    noremap = true,
-    -- buffer = false,
-}
-
---- @param rhs VimKeymapRhs
---- @param opts VimKeymapOpts
---- @return VimKeymapOpts
+--- @param rhs string|function|nil
+--- @param opts table<any, any>
+--- @return table<any, any>
 local function make_opts(rhs, opts)
-    opts = vim.tbl_deep_extend("force", DEFAULT_OPTS, opts or {})
+    local default_opts = {
+        silent = true,
+        noremap = true,
+        -- buffer = false,
+    }
+    opts = vim.tbl_deep_extend("force", vim.deepcopy(default_opts), opts or {})
     -- forcibly set `noremap=false` for <Plug>
     if
         type(rhs) == "string"
@@ -79,24 +76,21 @@ local function make_opts(rhs, opts)
 end
 
 --- @param mode string|string[]
---- @param lhs VimKeymapLhs
---- @param rhs VimKeymapRhs
---- @param opts VimKeymapOpts
+--- @param lhs string
+--- @param rhs string|function
+--- @param opts table<any, any>
 --- @return nil
 local function set_key(mode, lhs, rhs, opts)
-    --- @type VimKeymapOpts
     opts = make_opts(rhs, opts)
     vim.keymap.set(mode, lhs, rhs, opts)
 end
 
 --- @param mode string|string[]
---- @param lhs VimKeymapLhs
---- @param rhs VimKeymapRhs
---- @param opts VimKeymapOpts
---- @return LazyKeySpec
+--- @param lhs string
+--- @param rhs string|function|nil
+--- @param opts table<any, any>
 local function set_lazy_key(mode, lhs, rhs, opts)
     opts = make_opts(rhs, opts)
-    --- @type LazyKeySpec
     local key_spec = { lhs, rhs, mode = mode }
     for k, v in pairs(opts) do
         key_spec[k] = v
@@ -104,7 +98,6 @@ local function set_lazy_key(mode, lhs, rhs, opts)
     return key_spec
 end
 
---- @type LuaModule
 local M = {
     exec = exec,
     set_key = set_key,
