@@ -54,7 +54,7 @@ local function exec(cmd)
     return wrap
 end
 
---- @param rhs string|function
+--- @param rhs string|function|nil
 --- @param opts table<any, any>
 --- @return table<any, any>
 local function make_opts(rhs, opts)
@@ -87,7 +87,7 @@ end
 
 --- @param mode string|string[]
 --- @param lhs string
---- @param rhs string|function
+--- @param rhs string|function|nil
 --- @param opts table<any, any>
 local function set_lazy_key(mode, lhs, rhs, opts)
     opts = make_opts(rhs, opts)
