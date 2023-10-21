@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.5.0](https://github.com/linrongbin16/lin.nvim/compare/v0.4.2...v0.5.0) (2023-10-21)
+
+
+### Features
+
+* **fzfx.nvim:** add '&lt;space&gt;cm' for vim commands ([#297](https://github.com/linrongbin16/lin.nvim/issues/297)) ([5984ed0](https://github.com/linrongbin16/lin.nvim/commit/5984ed0cb4d839dd81b9a99d80ea4860f238e0e6))
+
+
+### Bug Fixes
+
+* **git-blame.nvim:** migrate 'init.lua' to 'config.lua' to enable the options ([#296](https://github.com/linrongbin16/lin.nvim/issues/296)) ([4f101fb](https://github.com/linrongbin16/lin.nvim/commit/4f101fb63cd4ea244f48549641937ab9941c1775))
+* **markdown-preview.nvim:** fix build ([#298](https://github.com/linrongbin16/lin.nvim/issues/298)) ([84a01b3](https://github.com/linrongbin16/lin.nvim/commit/84a01b320a9268d795b79de5bc2498eb594a3a45))
+
+
+### Performance Improvements
+
+* **configs:** remove deadcode ([#293](https://github.com/linrongbin16/lin.nvim/issues/293)) ([fdf0cf6](https://github.com/linrongbin16/lin.nvim/commit/fdf0cf672eb257b60428e8790dec1ea3cdc2b98b))
+
 ## [0.4.2](https://github.com/linrongbin16/lin.nvim/compare/v0.4.1...v0.4.2) (2023-10-17)
 
 
