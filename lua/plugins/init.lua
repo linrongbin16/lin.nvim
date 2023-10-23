@@ -29,20 +29,10 @@ local M = {
         "folke/lsp-colors.nvim",
     },
     {
-        "b0o/SchemaStore.nvim",
-        lazy = true,
-    },
-    {
-        "folke/neodev.nvim",
-        lazy = true,
-    },
-    {
         "folke/neoconf.nvim",
-        dependencies = { "b0o/SchemaStore.nvim", "folke/neodev.nvim" },
     },
     {
         "neovim/nvim-lspconfig",
-        dependencies = { "folke/neoconf.nvim" },
         config = lua_config("neovim/nvim-lspconfig"),
     },
 
@@ -201,9 +191,17 @@ local M = {
         keys = lua_keys("williamboman/mason.nvim"),
     },
     {
+        "b0o/SchemaStore.nvim",
+        ft = { "json", "jsonc" },
+        lazy = true,
+    },
+    {
         "williamboman/mason-lspconfig.nvim",
         event = { VeryLazy, BufReadPre, BufNewFile, CmdlineEnter },
-        dependencies = { "williamboman/mason.nvim" },
+        dependencies = {
+            "williamboman/mason.nvim",
+            "b0o/SchemaStore.nvim",
+        },
         config = lua_config("williamboman/mason-lspconfig.nvim"),
     },
     {
@@ -239,6 +237,10 @@ local M = {
             "nvimtools/none-ls.nvim",
         },
         config = lua_config("jay-babu/mason-null-ls.nvim"),
+    },
+    {
+        "folke/neodev.nvim",
+        ft = { "lua" },
     },
 
     -- Auto-complete engine
