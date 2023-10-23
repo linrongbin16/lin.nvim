@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/linrongbin16/lin.nvim/compare/v1.0.0...v1.0.1) (2023-10-23)
+
+
+### Bug Fixes
+
+* **conform.nvim:** same json formatters for 'jsonc' ([#309](https://github.com/linrongbin16/lin.nvim/issues/309)) ([95269f4](https://github.com/linrongbin16/lin.nvim/commit/95269f41abf509a7e98ceea19368331a97987f9a))
+
 ## [1.0.0](https://github.com/linrongbin16/lin.nvim/compare/v0.5.0...v1.0.0) (2023-10-23)
 
 
