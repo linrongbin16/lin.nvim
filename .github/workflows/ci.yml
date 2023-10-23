@@ -26,12 +26,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Stylua
-        uses: JohnnyMorganz/stylua-action@v3
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          version: latest
-          args: --config-path .stylua.toml --color always --check .
       - name: LuaLs Typecheck
         uses: stevearc/nvim-typecheck-action@v1
         with:
@@ -43,6 +37,17 @@ jobs:
         uses: lunarmodules/luacheck@v1
         with:
           args: lua --config .luacheckrc
+      - name: Stylua
+        uses: JohnnyMorganz/stylua-action@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          version: latest
+          args: --config-path .stylua.toml --color always --check .
+      - name: Format with stylua
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        if: ${{ github.ref != 'refs/heads/main' }}
+        with:
+          commit_message: "chore(pr): format with stylua"
   release:
     name: Release
     if: ${{ github.ref == 'refs/heads/main' }}
