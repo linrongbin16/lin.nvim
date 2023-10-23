@@ -18,5 +18,25 @@
       "Lua.completion.callSnippet": "Replace",
       "Lua.workspace.checkThirdParty": false
     }
+  },
+  "linopts": {
+    "diagnostics": {
+      "signs": {
+        "error": "",
+        "warning": "",
+        "info": "",
+        "hint": "",
+        "ok": ""
+      }
+    },
+    "floatwin": {
+      "border": "rounded",
+      "scale": 0.85,
+      "winblend": 15,
+      "pumblend": 15
+    },
+    "perf": {
+      "maxfilesize": 5242880 // 5 * 1024 * 1024
+    }
   }
 }
