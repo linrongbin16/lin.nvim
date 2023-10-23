@@ -44,7 +44,7 @@ This ultra config solves below issues:
 - Duplicate installation on different OS and machines? All done by one-line
   command (not on Windows for now), same behaviors on all platforms.
 - Time-costing configurations? All configs follow community best practice, vim
-  trandition and most popular editors (just like [vscode](https://code.visualstudio.com/)).
+  tradition and most popular editors (just like [vscode](https://code.visualstudio.com/)).
 - Lack of IDE-like features (auto-complete, diagnostics, code-format,
   lint)? [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig),
   [nvim-cmp](https://github.com/hrsh7th/nvim-cmp),
