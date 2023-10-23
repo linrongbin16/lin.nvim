@@ -100,22 +100,7 @@ For more details, please check out [Installation](https://github.com/linrongbin1
 
 ### Patched GUI Font
 
-Patched GUI font is mandatory for icons, the most popular patched fonts are
-[nerd fonts](https://www.nerdfonts.com/) and [patched fonts for powerline](https://github.com/powerline/fonts).
-
-Even `install.sh` (`install.ps1`) already installed the
-[Hack Nerd Font](https://github.com/ryanoasis/nerd-fonts/tree/c173f661a0ed03bc537d31a79670bc03b586251d/patched-fonts/Hack),
-you still need to manually config it in your terminal, e.g.
-[gnome-terminal](https://help.gnome.org/users/gnome-terminal/stable/) (Ubuntu),
-[item2](https://iterm2.com/) (MacOS),
-[Windows Terminal](https://github.com/microsoft/terminal) (Windows),
-[kitty](https://sw.kovidgoyal.net/kitty/),
-[alacritty](https://github.com/alacritty/alacritty),
-[wezterm](https://wezfurlong.org/wezterm/), etc.
-y for icons, the most popular patched fonts are
-[nerd fonts](https://www.nerdfonts.com/) and [patched fonts for powerline](https://github.com/powerline/fonts).
-
-Even `install.sh` (`install.ps1`) already installed the
+Patched GUI font is mandatory for icons, even `install.sh` (`install.ps1`) already installed the
 [Hack Nerd Font](https://github.com/ryanoasis/nerd-fonts/tree/c173f661a0ed03bc537d31a79670bc03b586251d/patched-fonts/Hack),
 you still need to manually config it in your terminal, e.g.
 [gnome-terminal](https://help.gnome.org/users/gnome-terminal/stable/) (Ubuntu),
