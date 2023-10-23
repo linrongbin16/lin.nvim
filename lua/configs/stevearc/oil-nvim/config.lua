@@ -1,4 +1,4 @@
-local constants = require("builtin.utils.constants")
+local neoconf = require("neoconf")
 
 require("oil").setup({
     columns = {
@@ -31,12 +31,12 @@ require("oil").setup({
         show_hidden = true,
     },
     float = {
-        border = constants.ui.border,
+        border = neoconf.get("linopts.ui.floatwin.border"),
     },
     preview = {
-        border = constants.ui.border,
+        border = neoconf.get("linopts.ui.floatwin.border"),
     },
     progress = {
-        border = constants.ui.border,
+        border = neoconf.get("linopts.ui.floatwin.border"),
     },
 })

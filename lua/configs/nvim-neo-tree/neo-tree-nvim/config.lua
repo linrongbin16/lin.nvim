@@ -1,5 +1,4 @@
 local neoconf = require("neoconf")
-local constants = require("builtin.utils.constants")
 local layout = require("builtin.utils.layout")
 
 local function trash_bin(state)
@@ -97,7 +96,11 @@ require("neo-tree").setup({
         },
     },
     window = {
-        width = layout.editor.width(0.2, 20, 60),
+        width = layout.editor.width(
+            neoconf.get("linopts.ui.sidebar.scale"),
+            neoconf.get("linopts.ui.sidebar.min"),
+            neoconf.get("linopts.ui.sidebar.max")
+        ),
         mappings = {
             -- open node
             ["l"] = "open",

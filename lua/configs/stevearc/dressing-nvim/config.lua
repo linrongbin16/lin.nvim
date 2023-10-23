@@ -1,4 +1,4 @@
-local constants = require("builtin.utils.constants")
+local neoconf = require("neoconf")
 local close_mappings =
     { ["<ESC>"] = "Close", ["<C-[>"] = "Close", ["<C-c>"] = "Close" }
 local window_min_width_value = 50
@@ -7,10 +7,10 @@ local window_min_width = { window_min_width_value, window_min_width_rate }
 
 require("dressing").setup({
     input = {
-        border = constants.ui.border,
+        border = neoconf.get("linopts.ui.floatwin.border"),
         min_width = window_min_width,
         win_options = {
-            winblend = constants.ui.winblend,
+            winblend = neoconf.get("linopts.ui.blend.winblend"),
         },
         mappings = {
             n = close_mappings,
@@ -20,18 +20,18 @@ require("dressing").setup({
     select = {
         nui = {
             border = {
-                style = constants.ui.border,
+                style = neoconf.get("linopts.ui.floatwin.border"),
             },
             win_options = {
-                winblend = constants.ui.winblend,
+                winblend = neoconf.get("linopts.ui.blend.winblend"),
             },
             min_width = window_min_width_value,
         },
         builtin = {
-            border = constants.ui.border,
+            border = neoconf.get("linopts.ui.floatwin.border"),
             min_width = window_min_width,
             win_options = {
-                winblend = constants.ui.winblend,
+                winblend = neoconf.get("linopts.ui.blend.winblend"),
             },
             mappings = close_mappings,
         },
