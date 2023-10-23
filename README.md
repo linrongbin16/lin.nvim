@@ -31,31 +31,31 @@ integrated with tons of utilities for development, inspired by [spf13-vim](https
 - [Get started](#get-started)
   - [MacOS/Linux](#macoslinux)
   - [Windows](#windows)
-- [User guide](#user-guide)
   - [Patched GUI Font](#patched-gui-font)
+- [User guide](#user-guide)
 
 ## Introduction
 
 Aim to be out-of-box, IDE-like editing experienced, performant, lightweight and
 friendly to most Neovim users. Focus on and only on editing, no compiling/packaging/debugging.
 
-The ultra config to solve these issues:
+This ultra config solves below issues:
 
 - Duplicate installation on different OS and machines? All done by one-line
   command (not on Windows for now), same behaviors on all platforms.
 - Time-costing configurations? All configs follow community best practice, vim
-  trandition and most popular editors (just like [vscode](https://code.visualstudio.com/)).
+  tradition and most popular editors (just like [vscode](https://code.visualstudio.com/)).
 - Lack of IDE-like features (auto-complete, diagnostics, code-format,
   lint)? [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig),
   [nvim-cmp](https://github.com/hrsh7th/nvim-cmp),
   [mason.nvim](https://github.com/williamboman/mason.nvim),
   [null-ls.nvim](https://github.com/jose-elias-alvarez/null-ls.nvim) and a bunch of language extensions are embeded.
-- Naive UI? - File explorer, git status, opened buffers,
+- Naive UI? File explorer, git status, opened buffers,
   icons and most popular colorschemes integrated (again, just like vscode).
-- More efficient? - Most popular editing improving plugins
+- More efficient editing? Most popular editing improving plugins
   embeded, and well cooperated for best user experience and performance.
 
-When maintaining this config, I always follow some [philosophy](https://github.com/linrongbin16/lin.nvim/wiki/Philosophy).
+When maintaining this config, I always follow the [philosophy](https://github.com/linrongbin16/lin.nvim/wiki/Philosophy).
 
 ## Features
 
@@ -98,12 +98,9 @@ And that's all of it.
 
 For more details, please check out [Installation](https://github.com/linrongbin16/lin.nvim/wiki/Install,-Upgrade-&-Uninstall).
 
-## User guide
-
 ### Patched GUI Font
 
-Patched GUI font is mandatory for icons, the most popular patched fonts are
-[nerd fonts](https://www.nerdfonts.com/) and [patched fonts for powerline](https://github.com/powerline/fonts).
+Patched GUI font is mandatory for icons.
 
 Even `install.sh` (`install.ps1`) already installed the
 [Hack Nerd Font](https://github.com/ryanoasis/nerd-fonts/tree/c173f661a0ed03bc537d31a79670bc03b586251d/patched-fonts/Hack),
@@ -114,6 +111,8 @@ you still need to manually config it in your terminal, e.g.
 [kitty](https://sw.kovidgoyal.net/kitty/),
 [alacritty](https://github.com/alacritty/alacritty),
 [wezterm](https://wezfurlong.org/wezterm/), etc.
+
+## User guide
 
 Please check out
 [User Guide](https://github.com/linrongbin16/lin.nvim/wiki/User-Guide) for full
