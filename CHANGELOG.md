@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.1](https://github.com/linrongbin16/lin.nvim/compare/v0.5.0...v0.5.1) (2023-10-23)
+
+
+### Performance Improvements
+
+* **neoconf:** lazy load neodev/SchemaStore, move out of neoconf's dependency ([#302](https://github.com/linrongbin16/lin.nvim/issues/302)) ([3410b41](https://github.com/linrongbin16/lin.nvim/commit/3410b41f74c2aa745b702f20aca7df718b67f862))
+
 ## [0.5.0](https://github.com/linrongbin16/lin.nvim/compare/v0.4.2...v0.5.0) (2023-10-21)
 
 
