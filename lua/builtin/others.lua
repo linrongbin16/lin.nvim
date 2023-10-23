@@ -1,14 +1,14 @@
 -- ---- Other Options ----
 
-local constants = require("builtin.utils.constants")
+local neoconf = require("neoconf")
 local set_key = require("builtin.utils.keymap").set_key
 
 -- GUI font
-if constants.os.is_windows then
+if vim.fn.has("win32") > 0 or vim.fn.has("win64") > 0 then
     -- Windows
     vim.o.guifont = "Hack NFM:h10"
 else
-    if constants.os.is_macos then
+    if vim.fn.has("mac") > 0 then
         -- MacOS
         vim.o.guifont = "Hack Nerd Font Mono:h13"
     else
@@ -76,7 +76,7 @@ vim.api.nvim_create_autocmd("BufReadPre", {
     group = "large_file_performance_augroup",
     callback = function()
         local f = vim.fn.expand("<afile>")
-        if vim.fn.getfsize(f) > constants.perf.file.maxsize then
+        if vim.fn.getfsize(f) > neoconf.get("linopts.perf.maxfilesize") then
             vim.cmd([[
                 syntax clear
                 setlocal eventignore+=FileType
@@ -87,5 +87,5 @@ vim.api.nvim_create_autocmd("BufReadPre", {
 })
 
 -- transparent
-vim.o.winblend = constants.ui.winblend
-vim.o.pumblend = constants.ui.pumblend
+vim.o.winblend = neoconf.get("linopts.floatwin.winblend")
+vim.o.pumblend = neoconf.get("linopts.floatwin.pumblend")
