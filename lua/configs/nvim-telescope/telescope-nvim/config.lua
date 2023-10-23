@@ -1,5 +1,5 @@
-local constants = require("builtin.utils.constants")
-local BAT_PREVIEWER = not constants.os.is_windows
+local IS_WINDOWS = vim.fn.has("win32") > 0 or vim.fn.has("win64") > 0
+local BAT_PREVIEWER = not IS_WINDOWS
     and vim.fn.executable("bat") > 0
     and vim.fn.executable("less") > 0
 local LAYOUT_CONFIG = {

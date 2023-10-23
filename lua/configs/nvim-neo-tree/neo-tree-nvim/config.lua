@@ -1,3 +1,4 @@
+local neoconf = require("neoconf")
 local constants = require("builtin.utils.constants")
 local layout = require("builtin.utils.layout")
 
@@ -17,7 +18,7 @@ local function trash_bin(state)
 end
 
 require("neo-tree").setup({
-    popup_border_style = constants.ui.border,
+    popup_border_style = neoconf.get("linopts.ui.floatwin.border"),
     default_component_configs = {
         icon = {
             folder_closed = "", -- nf-custom-folder \ue5ff
@@ -96,11 +97,7 @@ require("neo-tree").setup({
         },
     },
     window = {
-        width = layout.editor.width(
-            constants.ui.layout.sidebar.scale,
-            constants.ui.layout.sidebar.min,
-            constants.ui.layout.sidebar.max
-        ),
+        width = layout.editor.width(0.2, 20, 60),
         mappings = {
             -- open node
             ["l"] = "open",

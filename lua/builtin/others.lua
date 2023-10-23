@@ -87,5 +87,5 @@ vim.api.nvim_create_autocmd("BufReadPre", {
 })
 
 -- transparent
-vim.o.winblend = neoconf.get("linopts.floatwin.winblend")
-vim.o.pumblend = neoconf.get("linopts.floatwin.pumblend")
+vim.o.winblend = neoconf.get("linopts.ui.blend.winblend")
+vim.o.pumblend = neoconf.get("linopts.ui.blend.pumblend")

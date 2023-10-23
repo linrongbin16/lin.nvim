@@ -8,7 +8,7 @@ vim.diagnostic.config({
     virtual_text = false,
     severity_sort = true,
     float = {
-        border = neoconf.get("linopts.floatwin.border"),
+        border = neoconf.get("linopts.ui.floatwin.border"),
         source = "always",
         header = "",
         prefix = "",
@@ -38,12 +38,12 @@ end
 -- hover/signatureHelp
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
     vim.lsp.handlers.hover,
-    { border = neoconf.get("linopts.floatwin.border") }
+    { border = neoconf.get("linopts.ui.floatwin.border") }
 )
 
 vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
     vim.lsp.handlers.signature_help,
-    { border = neoconf.get("linopts.floatwin.border") }
+    { border = neoconf.get("linopts.ui.floatwin.border") }
 )
 
 -- key mapping

@@ -29,11 +29,20 @@
         "ok": ""
       }
     },
-    "floatwin": {
-      "border": "rounded",
-      "scale": 0.85,
-      "winblend": 15,
-      "pumblend": 15
+    "ui": {
+      "blend": {
+        "winblend": 15,
+        "pumblend": 15
+      },
+      "floatwin": {
+        "border": "rounded",
+        "scale": 0.85
+      },
+      "sidebar": {
+        "scale": 0.2,
+        "min": 20,
+        "max": 60
+      }
     },
     "perf": {
       "maxfilesize": 5242880 // 5 * 1024 * 1024
