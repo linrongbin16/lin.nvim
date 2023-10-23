@@ -1,47 +1,57 @@
 local message = require("builtin.utils.message")
 
+--- @param user_module_path string
+--- @param builtin_module_path string
+--- @return any
+local function load_lua_module(user_module_path, builtin_module_path)
+    local user_ok, user_module = pcall(require, user_module_path)
+    if user_ok then
+        return user_module
+    end
+    local builtin_ok, builtin_module_or_err =
+        pcall(require, builtin_module_path)
+    message.ensure(
+        builtin_ok,
+        "failed to load lua module %s! %s",
+        vim.inspect(builtin_module_path),
+        vim.inspect(builtin_module_or_err)
+    )
+    return builtin_module_or_err
+end
+
+--- @param user_script_path string
+--- @param builtin_script_path string
+local function load_vim_script(user_script_path, builtin_script_path)
+    if
+        type(user_script_path) == "string"
+        and vim.fn.filereadable(user_script_path) > 0
+    then
+        vim.cmd(string.format([[source %s]], user_script_path))
+        return
+    end
+    message.ensure(
+        type(builtin_script_path) == "string"
+            and vim.fn.filereadable(builtin_script_path) > 0,
+        "failed to load vimscript '%s'!",
+        builtin_script_path
+    )
+    vim.cmd(string.format([[source %s]], builtin_script_path))
+end
+
 --- @param keys string
 --- @return table[]
 local function lua_keys(keys)
     local user_path = "configs/" .. keys:gsub("%.", "-") .. "/user_keys"
-    local user_ok, user_keys = pcall(require, user_path)
-    if user_ok then
-        return user_keys
-    end
-    local keys_path = "configs/" .. keys:gsub("%.", "-") .. "/keys"
-    local keys_list_ok, keys_list = pcall(require, keys_path)
-    if not keys_list_ok then
-        message.err(
-            string.format(
-                "Failed to load lua module '%s'! %s",
-                keys_path,
-                vim.inspect(keys_list)
-            )
-        )
-    end
-    return keys_list
+    local builtin_path = "configs/" .. keys:gsub("%.", "-") .. "/keys"
+    return load_lua_module(user_path, builtin_path)
 end
 
 --- @param init string
 local function lua_init(init)
     local function wrap()
         local user_path = "configs/" .. init:gsub("%.", "-") .. "/user_init"
-        local user_ok, user_module = pcall(require, user_path)
-        if user_ok then
-            return user_module
-        end
-        local init_path = "configs/" .. init:gsub("%.", "-") .. "/init"
-        local ok, init_module = pcall(require, init_path)
-        if not ok then
-            message.err(
-                string.format(
-                    "Failed to load lua module '%s'! %s",
-                    init_path,
-                    vim.inspect(init_module)
-                )
-            )
-        end
-        return init_module
+        local builtin_path = "configs/" .. init:gsub("%.", "-") .. "/init"
+        return load_lua_module(user_path, builtin_path)
     end
     return wrap
 end
@@ -53,18 +63,11 @@ local function vim_init(init)
             .. "/lua/configs/"
             .. init:gsub("%.", "-")
             .. "/user_init.vim"
-        if vim.fn.filereadable(user_path) > 0 then
-            vim.cmd([[source ]] .. user_path)
-            return
-        end
-        local init_path = vim.fn.stdpath("config")
+        local builtin_path = vim.fn.stdpath("config")
             .. "/lua/configs/"
             .. init:gsub("%.", "-")
             .. "/init.vim"
-        if vim.fn.filereadable(init_path) <= 0 then
-            message.err("Failed to load vimscript '" .. init_path .. "'!")
-        end
-        vim.cmd([[source ]] .. init_path)
+        load_vim_script(user_path, builtin_path)
     end
     return wrap
 end
@@ -73,22 +76,8 @@ end
 local function lua_config(config)
     local function wrap()
         local user_path = "configs/" .. config:gsub("%.", "-") .. "/user_config"
-        local user_ok, user_module = pcall(require, user_path)
-        if user_ok then
-            return user_module
-        end
-        local config_path = "configs/" .. config:gsub("%.", "-") .. "/config"
-        local ok, config_module = pcall(require, config_path)
-        if not ok then
-            message.err(
-                string.format(
-                    "Failed to load lua module '%s'! %s",
-                    config_path,
-                    vim.inspect(config_module)
-                )
-            )
-        end
-        return config_module
+        local builtin_path = "configs/" .. config:gsub("%.", "-") .. "/config"
+        return load_lua_module(user_path, builtin_path)
     end
     return wrap
 end
@@ -100,18 +89,11 @@ local function vim_config(config)
             .. "/lua/configs/"
             .. config:gsub("%.", "-")
             .. "/user_config.vim"
-        if vim.fn.filereadable(user_path) > 0 then
-            vim.cmd([[source ]] .. user_path)
-            return
-        end
-        local config_path = vim.fn.stdpath("config")
+        local builtin_path = vim.fn.stdpath("config")
             .. "/lua/configs/"
             .. config:gsub("%.", "-")
             .. "/config.vim"
-        if vim.fn.filereadable(config_path) <= 0 then
-            message.err("Failed to load vimscript '" .. config_path .. "'!")
-        end
-        vim.cmd("source " .. config_path)
+        load_vim_script(user_path, builtin_path)
     end
     return wrap
 end
