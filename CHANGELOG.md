@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/linrongbin16/lin.nvim/compare/v1.0.1...v1.1.0) (2023-10-23)
+
+
+### Features
+
+* **install:** install latest git for apt ([#316](https://github.com/linrongbin16/lin.nvim/issues/316)) ([ba4f045](https://github.com/linrongbin16/lin.nvim/commit/ba4f045b4f69ae2c23b9104e71cc042db2edcfa3))
+
 ## [1.0.1](https://github.com/linrongbin16/lin.nvim/compare/v1.0.0...v1.0.1) (2023-10-23)
 
 
