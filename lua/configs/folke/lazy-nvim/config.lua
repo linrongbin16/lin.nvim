@@ -28,14 +28,13 @@ local opts = {
     },
 }
 
-local user_plugins_blacklist_ok, user_plugins_blacklist =
-    pcall(require, "user_plugins_blacklist")
-if user_plugins_blacklist_ok then
-    if type(user_plugins_blacklist) == "table" then
+local ok, plugins_blacklist = pcall(require, "plugins_blacklist")
+if ok then
+    if type(plugins_blacklist) == "table" then
         opts.defaults = {
             cond = function(plugin_spec)
                 local uri = plugin_spec[1]
-                return not user_plugins_blacklist[uri]
+                return not plugins_blacklist[uri]
             end,
         }
     else
@@ -43,8 +42,7 @@ if user_plugins_blacklist_ok then
     end
 end
 
-local user_plugins_ok, _ = pcall(require, "user_plugins")
-require("lazy").setup(user_plugins_ok and "user_plugins" or "plugins", opts)
+require("lazy").setup("plugins", opts)
 
 require("builtin.utils.keymap").set_key(
     "n",
