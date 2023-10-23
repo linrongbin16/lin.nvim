@@ -42,7 +42,12 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           version: latest
-          args: --config-path .stylua.toml --color always --check .
+          args: --config-path .stylua.toml --color always
+      - name: Format with stylua
+        if: ${{ github.ref != 'refs/heads/main' }}
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "chore(pr): format with stylua"
   release:
     name: Release
     if: ${{ github.ref == 'refs/heads/main' }}
