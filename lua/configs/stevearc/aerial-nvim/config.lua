@@ -1,13 +1,13 @@
-local constants = require("builtin.utils.constants")
+local neoconf = require("neoconf")
 
 require("aerial").setup({
     layout = {
         max_width = {
-            constants.ui.layout.sidebar.max,
-            constants.ui.layout.sidebar.scale,
+            neoconf.get("linopts.ui.sidebar.max"),
+            neoconf.get("linopts.ui.sidebar.scale"),
         },
         width = nil,
-        min_width = constants.ui.layout.sidebar.min,
+        min_width = neoconf.get("linopts.ui.sidebar.min"),
     },
     keymaps = {
         ["<C-w>v"] = "actions.jump_vsplit",

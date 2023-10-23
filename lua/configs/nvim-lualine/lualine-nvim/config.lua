@@ -85,7 +85,7 @@ local function Location()
     return " %3l:%-2v"
 end
 
-local constants = require("builtin.utils.constants")
+local neoconf = require("neoconf")
 
 local empty_component_separators = { left = "", right = "" }
 
@@ -114,10 +114,12 @@ local config = {
             {
                 "diagnostics",
                 symbols = {
-                    error = constants.diagnostic.sign.error .. " ",
-                    warn = constants.diagnostic.sign.warning .. " ",
-                    info = constants.diagnostic.sign.info .. " ",
-                    hint = constants.diagnostic.sign.hint .. " ",
+                    error = neoconf.get("linopts.diagnostics.signs.error")
+                        .. " ",
+                    warn = neoconf.get("linopts.diagnostics.signs.warning")
+                        .. " ",
+                    info = neoconf.get("linopts.diagnostics.signs.info") .. " ",
+                    hint = neoconf.get("linopts.diagnostics.signs.hint") .. " ",
                 },
             },
             LspIcon,

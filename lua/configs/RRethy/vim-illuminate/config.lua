@@ -1,10 +1,10 @@
-local constants = require("builtin.utils.constants")
+local neoconf = require("neoconf")
 
 require("illuminate").configure({
     -- delay: delay in milliseconds
     delay = 500,
     -- disable cursor word for big file
-    large_file_cutoff = constants.perf.file.maxsize,
+    large_file_cutoff = neoconf.get("linopts.perf.maxfilesize"),
 })
 
 -- highlight style

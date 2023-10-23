@@ -1,4 +1,4 @@
-local constants = require("builtin.utils.constants")
+local neoconf = require("neoconf")
 local message = require("builtin.utils.message")
 
 local ensure_installed = {
@@ -56,10 +56,10 @@ require("nvim-treesitter.configs").setup({
         enable = true,
         -- disable for super large file
         disable = function(lang, buf)
-            local max_filesize = constants.perf.file.maxsize
+            local maxfilesize = neoconf.get("linopts.perf.maxfilesize")
             local ok, stats =
                 pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-            if ok and stats and stats.size > max_filesize then
+            if ok and stats and stats.size > maxfilesize then
                 return true
             end
         end,

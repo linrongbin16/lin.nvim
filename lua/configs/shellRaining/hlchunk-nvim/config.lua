@@ -1,4 +1,4 @@
-local constants = require("builtin.utils.constants")
+local neoconf = require("neoconf")
 
 ---@return string?
 local function hlcode(name)
@@ -43,7 +43,7 @@ require("hlchunk").setup({
             { fg = HL },
             { fg = ERRHL },
         },
-        max_file_size = constants.perf.file.maxsize,
+        max_file_size = neoconf.get("linopts.perf.maxfilesize"),
     },
     line_num = {
         enable = true,
