@@ -30,6 +30,7 @@ local M = {
     },
     {
         "folke/neoconf.nvim",
+        priority = 1000,
     },
     {
         "neovim/nvim-lspconfig",
