@@ -36,24 +36,24 @@ integrated with tons of utilities for development, inspired by [spf13-vim](https
 
 ## Introduction
 
-Aim to be out-of-box, IDE-like editing experienced, performant, lightweight and
-friendly to most Neovim users. Focus on and only on editing, no compiling/packaging/debugging.
-
-This ultra config solves these issues:
-
-- Duplicate installation on different OS and machines - all done by one-line
+- Duplicate installation on different OS and machines? All done by one-line
   command (not on Windows for now), same behaviors on all platforms.
-- Time-costing configurations - all configs follow community best practice, vim
+- Time-costing configurations? All configs follow community best practice, vim
   trandition and most popular editors (just like [vscode](https://code.visualstudio.com/)).
 - Lack of IDE-like features (auto-complete, diagnostics, code-format,
-  lint) - [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig),
+  lint)? [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig),
   [nvim-cmp](https://github.com/hrsh7th/nvim-cmp),
   [mason.nvim](https://github.com/williamboman/mason.nvim),
   [null-ls.nvim](https://github.com/jose-elias-alvarez/null-ls.nvim) and a bunch of language extensions are embeded.
-- Naive UI - File explorer, git status, opened buffers,
+- Naive UI? File explorer, git status, opened buffers,
   icons and most popular colorschemes integrated (again, just like vscode).
-- More efficient editing - Most popular editing improving plugins
+- More efficient editing? Most popular editing improving plugins
   embeded, and well cooperated for best user experience and performance.
+
+This ultra config solves all above issues.
+
+Aim to be out-of-box, IDE-like editing experienced, performant, lightweight and
+friendly to most Neovim users. Focus on and only on editing, no compiling/packaging/debugging.
 
 When maintaining this config, I always follow the [philosophy](https://github.com/linrongbin16/lin.nvim/wiki/Philosophy).
 
