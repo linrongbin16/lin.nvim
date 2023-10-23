@@ -36,6 +36,11 @@ integrated with tons of utilities for development, inspired by [spf13-vim](https
 
 ## Introduction
 
+Aim to be out-of-box, IDE-like editing experienced, performant, lightweight and
+friendly to most Neovim users. Focus on and only on editing, no compiling/packaging/debugging.
+
+This ultra config solves below issues:
+
 - Duplicate installation on different OS and machines? All done by one-line
   command (not on Windows for now), same behaviors on all platforms.
 - Time-costing configurations? All configs follow community best practice, vim
@@ -49,11 +54,6 @@ integrated with tons of utilities for development, inspired by [spf13-vim](https
   icons and most popular colorschemes integrated (again, just like vscode).
 - More efficient editing? Most popular editing improving plugins
   embeded, and well cooperated for best user experience and performance.
-
-This ultra config solves all above issues.
-
-Aim to be out-of-box, IDE-like editing experienced, performant, lightweight and
-friendly to most Neovim users. Focus on and only on editing, no compiling/packaging/debugging.
 
 When maintaining this config, I always follow the [philosophy](https://github.com/linrongbin16/lin.nvim/wiki/Philosophy).
 
