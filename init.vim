@@ -8,12 +8,12 @@ lua pcall(require, 'preinit')
 
 " options
 execute 'source '.stdpath('config').'/lua/builtin/options.vim'
-lua require("builtin.lsp")
 
 " plugins
 lua require("configs.folke.lazy-nvim.config")
 
 " others
+lua require("builtin.lsp")
 lua require("builtin.colors")
 lua require("builtin.others")
 

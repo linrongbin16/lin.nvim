@@ -1,6 +1,6 @@
 -- ---- LSP ----
 
-local constants = require("builtin.utils.constants")
+local neoconf = require("neoconf")
 local set_key = require("builtin.utils.keymap").set_key
 
 -- diagnostics
@@ -8,7 +8,7 @@ vim.diagnostic.config({
     virtual_text = false,
     severity_sort = true,
     float = {
-        border = constants.ui.border,
+        border = neoconf.get("linopts.floatwin.border"),
         source = "always",
         header = "",
         prefix = "",
@@ -25,10 +25,10 @@ local function define_diagnostic_sign(opts)
 end
 
 local diagnostic_signs = {
-    DiagnosticSignError = constants.diagnostic.sign.error,
-    DiagnosticSignWarn = constants.diagnostic.sign.warning,
-    DiagnosticSignInfo = constants.diagnostic.sign.info,
-    DiagnosticSignHint = constants.diagnostic.sign.hint,
+    DiagnosticSignError = neoconf.get("linopts.diagnostics.signs.error"),
+    DiagnosticSignWarn = neoconf.get("linopts.diagnostics.signs.warning"),
+    DiagnosticSignInfo = neoconf.get("linopts.diagnostics.signs.info"),
+    DiagnosticSignHint = neoconf.get("linopts.diagnostics.signs.hint"),
 }
 
 for name, icon in pairs(diagnostic_signs) do
@@ -36,12 +36,14 @@ for name, icon in pairs(diagnostic_signs) do
 end
 
 -- hover/signatureHelp
-vim.lsp.handlers["textDocument/hover"] =
-    vim.lsp.with(vim.lsp.handlers.hover, { border = constants.ui.border })
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+    vim.lsp.handlers.hover,
+    { border = neoconf.get("linopts.floatwin.border") }
+)
 
 vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
     vim.lsp.handlers.signature_help,
-    { border = constants.ui.border }
+    { border = neoconf.get("linopts.floatwin.border") }
 )
 
 -- key mapping
