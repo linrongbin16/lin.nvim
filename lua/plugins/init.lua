@@ -165,7 +165,9 @@ local M = {
     {
         "junegunn/fzf",
         event = { CmdlineEnter },
-        build = ":call fzf#install()",
+        build = function()
+            vim.fn["fzf#install"]()
+        end,
     },
     {
         "linrongbin16/fzfx.nvim",
