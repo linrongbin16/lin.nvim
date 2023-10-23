@@ -15,6 +15,7 @@ local formatters_by_ft = {
     javascript = { "biome", prettier },
     javascriptreact = { "biome", prettier },
     json = { "biome", prettier },
+    jsonc = { "biome", prettier },
     lua = { "stylua" },
     markdown = { prettier },
     python = { "ruff", { "isort", "black" } },
