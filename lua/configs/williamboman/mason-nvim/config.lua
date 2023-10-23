@@ -1,11 +1,11 @@
-local constants = require("builtin.utils.constants")
+local neoconf = require("neoconf")
 
 require("mason").setup({
     install_root_dir = vim.fn.stdpath("config") .. "/mason",
     ui = {
-        border = constants.ui.border,
-        width = constants.ui.layout.middle.scale,
-        height = constants.ui.layout.middle.scale,
+        border = neoconf.get("linopts.ui.floatwin.border"),
+        width = neoconf.get("linopts.ui.floatwin.scale"),
+        height = neoconf.get("linopts.ui.floatwin.scale"),
         icons = {
             package_installed = "✓",
             package_pending = "➜",

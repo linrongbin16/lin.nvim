@@ -1,4 +1,4 @@
-local constants = require("builtin.utils.constants")
+local neoconf = require("neoconf")
 
 require("fzfx").setup({
     env = {
@@ -6,8 +6,8 @@ require("fzfx").setup({
     },
     popup = {
         win_opts = {
-            height = constants.ui.layout.middle.scale,
-            width = constants.ui.layout.middle.scale,
+            height = neoconf.get("linopts.ui.floatwin.scale"),
+            width = neoconf.get("linopts.ui.floatwin.scale"),
         },
     },
 })
