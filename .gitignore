@@ -17,8 +17,7 @@
 
 # plugin hooks
 /lua/plugins/users.lua
-/lua/user_plugins.lua
-/lua/user_plugins_blacklist.lua
+/lua/plugins_blacklist.lua
 /lua/configs/**/user_init.lua
 /lua/configs/**/user_init.vim
 /lua/configs/**/user_config.lua
