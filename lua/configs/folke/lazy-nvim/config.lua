@@ -1,4 +1,3 @@
-local neoconf = require("neoconf")
 local message = require("builtin.utils.message")
 
 local lazypath = vim.fn.stdpath("config") .. "/lazy/lazy.nvim"
@@ -18,10 +17,10 @@ local opts = {
     root = vim.fn.stdpath("config") .. "/lazy",
     ui = {
         size = {
-            width = neoconf.get("linopts.ui.floatwin.scale"),
-            height = neoconf.get("linopts.ui.floatwin.scale"),
+            width = 0.85,
+            height = 0.85,
         },
-        border = neoconf.get("linopts.ui.floatwin.border"),
+        border = "rounded",
     },
 }
 
