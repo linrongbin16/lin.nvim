@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.0.0](https://github.com/linrongbin16/lin.nvim/compare/v0.5.0...v1.0.0) (2023-10-23)
+
+
+### ⚠ BREAKING CHANGES
+
+* **lazy.nvim:** remove 'user_plugins' module, rename 'user_plugins_blacklist' to 'plugins_blacklist' ([#304](https://github.com/linrongbin16/lin.nvim/issues/304))
+
+### break
+
+* **lazy.nvim:** remove 'user_plugins' module, rename 'user_plugins_blacklist' to 'plugins_blacklist' ([#304](https://github.com/linrongbin16/lin.nvim/issues/304)) ([160d7b4](https://github.com/linrongbin16/lin.nvim/commit/160d7b4df1c0680865dfafd9931aa6ef5d9c9542))
+
+
+### Performance Improvements
+
+* **builtin:** rewrite message with vim.api.nvim_echo API ([#306](https://github.com/linrongbin16/lin.nvim/issues/306)) ([a742675](https://github.com/linrongbin16/lin.nvim/commit/a742675ec4f80420bae4f03b0bb1dc66ec66c590))
+* **neoconf:** lazy load neodev/SchemaStore, move out of neoconf's dependency ([#302](https://github.com/linrongbin16/lin.nvim/issues/302)) ([3410b41](https://github.com/linrongbin16/lin.nvim/commit/3410b41f74c2aa745b702f20aca7df718b67f862))
+
 ## [0.5.0](https://github.com/linrongbin16/lin.nvim/compare/v0.4.2...v0.5.0) (2023-10-21)
 
 
