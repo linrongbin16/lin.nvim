@@ -15,12 +15,8 @@
   },
   "lspconfig": {
     "lua_ls": {
-      "Lua.format.enable": false, // use stylua formatter
       "Lua.completion.callSnippet": "Replace",
       "Lua.workspace.checkThirdParty": false
-    },
-    "jsonls": {
-      "json.format.enable": false // use prettier formatter
     }
   }
 }
