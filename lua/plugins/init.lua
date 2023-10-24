@@ -324,12 +324,6 @@ local M = {
 
     -- ---- GIT INTEGRATION ----
 
-    -- Lazygit
-    {
-        "kdheepak/lazygit.nvim",
-        init = lua_init("kdheepak/lazygit.nvim"),
-        keys = lua_keys("kdheepak/lazygit.nvim"),
-    },
     -- Blame
     {
         "f-person/git-blame.nvim",

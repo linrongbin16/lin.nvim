@@ -190,7 +190,7 @@ Darwin)
 esac
 
 rust_dependency
-golang_dependency
+# golang_dependency
 pip3_dependency
 npm_dependency
 nerdfont_dependency

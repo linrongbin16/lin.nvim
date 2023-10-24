@@ -24,6 +24,12 @@
 --         dependencies = { "nvim-treesitter/nvim-treesitter" },
 --         config = lua_config("nvim-treesitter/nvim-treesitter-context"),
 --     },
+--     -- Lazygit
+--     {
+--         "kdheepak/lazygit.nvim",
+--         init = lua_init("kdheepak/lazygit.nvim"),
+--         keys = lua_keys("kdheepak/lazygit.nvim"),
+--     },
 --     -- Yank
 --     {
 --         "gbprod/yanky.nvim",

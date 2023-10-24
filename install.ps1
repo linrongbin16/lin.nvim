@@ -220,7 +220,7 @@ Message "install dependencies with scoop"
 
 CoreDependency
 RustDependency
-GoDependency
+# GoDependency
 PythonDependency
 NodejsDependency
 NerdFontDependency
