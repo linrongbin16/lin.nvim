@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.2.0](https://github.com/linrongbin16/lin.nvim/compare/v1.1.0...v1.2.0) (2023-10-24)
+
+
+### Features
+
+* **mason-lspconfig.nvim:** set chirdThirdParty=false for lua ls ([#324](https://github.com/linrongbin16/lin.nvim/issues/324)) ([0196772](https://github.com/linrongbin16/lin.nvim/commit/019677226f75dcd918e3513e0f17adea64df0c01))
+
+
+### Bug Fixes
+
+* **install:** do not install git if exists ([398cb0d](https://github.com/linrongbin16/lin.nvim/commit/398cb0d40eeb651b28998107aff635ba8175614d))
+* **install:** fix legacy installer ([#322](https://github.com/linrongbin16/lin.nvim/issues/322)) ([c601326](https://github.com/linrongbin16/lin.nvim/commit/c6013260c2d779b887e4da81265353ddd9b2a426))
+
+
+### Performance Improvements
+
+* **lualine.nvim:** remove deadcode ([#320](https://github.com/linrongbin16/lin.nvim/issues/320)) ([4f06922](https://github.com/linrongbin16/lin.nvim/commit/4f0692281fe9f682a0488f0410ea83c432c07531))
+
 ## [1.1.0](https://github.com/linrongbin16/lin.nvim/compare/v1.0.1...v1.1.0) (2023-10-24)
 
 
