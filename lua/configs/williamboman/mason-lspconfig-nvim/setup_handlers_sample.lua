@@ -18,6 +18,17 @@ local setup_handlers = {
             },
         })
     end,
+    lua_ls = function()
+        lspconfig["lua_ls"].setup({
+            settings = {
+                Lua = {
+                    workspace = {
+                        checkThirdParty = false,
+                    },
+                },
+            },
+        })
+    end,
 
     -- Please uncomment below lines to enable them.
 
