@@ -6,6 +6,9 @@ source "$DEPS_HOME/util.sh"
 message "install dependencies with apt"
 sudo apt-add-repository ppa:git-core/ppa
 sudo apt-get update
+sudo locale-gen en_US
+sudo locale-gen en_US.UTF-8
+sudo update-locale
 
 if ! type nvim >/dev/null 2>&1; then
     message "install 'nvim'(appimage) from github.com"
@@ -40,11 +43,6 @@ install_or_skip "sudo apt-get install -y luarocks" "luarocks"
 
 install_or_skip "sudo apt-get install -y xsel" "xsel"
 install_or_skip "sudo apt-get install -y xclip" "xclip"
-
-# locale
-sudo locale-gen en_US
-sudo locale-gen en_US.UTF-8
-sudo update-locale
 
 # python3
 install_or_skip "sudo apt-get install -y python3 python3-dev python3-venv python3-pip python3-docutils" "python3"
