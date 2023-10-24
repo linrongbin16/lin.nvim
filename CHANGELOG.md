@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.1](https://github.com/linrongbin16/lin.nvim/compare/v1.1.0...v1.1.1) (2023-10-24)
+
+
+### Bug Fixes
+
+* **install:** do not install git if exists ([398cb0d](https://github.com/linrongbin16/lin.nvim/commit/398cb0d40eeb651b28998107aff635ba8175614d))
+
+
+### Performance Improvements
+
+* **lualine.nvim:** remove deadcode ([#320](https://github.com/linrongbin16/lin.nvim/issues/320)) ([4f06922](https://github.com/linrongbin16/lin.nvim/commit/4f0692281fe9f682a0488f0410ea83c432c07531))
+
 ## [1.1.0](https://github.com/linrongbin16/lin.nvim/compare/v1.0.1...v1.1.0) (2023-10-24)
 
 
