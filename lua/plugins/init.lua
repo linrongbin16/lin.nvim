@@ -29,10 +29,8 @@ local M = {
         "folke/lsp-colors.nvim",
     },
     {
-        "folke/neoconf.nvim",
-    },
-    {
         "neovim/nvim-lspconfig",
+        dependencies = { "folke/neodev.nvim" }, -- neodev must be setup before nvim-lspconfig
         config = lua_config("neovim/nvim-lspconfig"),
     },
 
@@ -102,7 +100,7 @@ local M = {
     {
         "akinsho/bufferline.nvim",
         version = "v3.*",
-        event = { UIEnter },
+        event = { VeryLazy, BufReadPre, BufNewFile },
         dependencies = { "moll/vim-bbye" },
         config = lua_config("akinsho/bufferline.nvim"),
         keys = lua_keys("akinsho/bufferline.nvim"),
@@ -122,7 +120,6 @@ local M = {
     {
         "linrongbin16/lsp-progress.nvim",
         lazy = true,
-        event = { UIEnter },
         config = lua_config("linrongbin16/lsp-progress.nvim"),
     },
     {
@@ -193,17 +190,9 @@ local M = {
         keys = lua_keys("williamboman/mason.nvim"),
     },
     {
-        "b0o/SchemaStore.nvim",
-        ft = { "json", "jsonc" },
-        lazy = true,
-    },
-    {
         "williamboman/mason-lspconfig.nvim",
         event = { VeryLazy, BufReadPre, BufNewFile, CmdlineEnter },
-        dependencies = {
-            "williamboman/mason.nvim",
-            "b0o/SchemaStore.nvim",
-        },
+        dependencies = { "williamboman/mason.nvim" },
         config = lua_config("williamboman/mason-lspconfig.nvim"),
     },
     {
@@ -241,8 +230,8 @@ local M = {
         config = lua_config("jay-babu/mason-null-ls.nvim"),
     },
     {
-        "folke/neodev.nvim",
-        ft = { "lua" },
+        "b0o/SchemaStore.nvim",
+        lazy = true,
     },
 
     -- Auto-complete engine
