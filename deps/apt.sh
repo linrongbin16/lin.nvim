@@ -4,6 +4,7 @@ DEPS_HOME="$1"
 source "$DEPS_HOME/util.sh"
 
 message "install dependencies with apt"
+sudo apt-add-repository ppa:git-core/ppa
 sudo apt-get update
 
 if ! type nvim >/dev/null 2>&1; then
@@ -19,25 +20,26 @@ fi
 
 install_or_skip "sudo apt-get install -y build-essential" "gcc"
 install_or_skip "sudo apt-get install -y build-essential" "make"
-# install latest git from ppa
-sudo apt-add-repository ppa:git-core/ppa
-sudo apt-get update
-install_or_skip "sudo apt-get install -y git" "git"
-install_or_skip "sudo apt-get install -y curl" "curl"
-install_or_skip "sudo apt-get install -y wget" "wget"
-install_or_skip "sudo apt-get install -y unzip" "unzip"
-install_or_skip "sudo apt-get install -y unrar" "unrar"
-install_or_skip "sudo apt-get install -y p7zip" "7z"
-install_or_skip "sudo apt-get install -y gzip" "gzip"
 install_or_skip "sudo apt-get install -y autoconf" "autoconf"
 install_or_skip "sudo apt-get install -y automake" "automake"
 install_or_skip "sudo apt-get install -y pkg-config" "pkg-config"
 install_or_skip "sudo apt-get install -y cmake" "cmake"
+
+install_or_skip "sudo apt-get install -y git" "git"
+install_or_skip "sudo apt-get install -y curl" "curl"
+install_or_skip "sudo apt-get install -y wget" "wget"
+
+install_or_skip "sudo apt-get install -y p7zip" "7z"
+install_or_skip "sudo apt-get install -y gzip" "gzip"
+install_or_skip "sudo apt-get install -y unzip" "unzip"
+install_or_skip "sudo apt-get install -y unrar" "unrar"
+install_or_skip "sudo apt-get install -y atool" "atool"
+
 install_or_skip "sudo apt-get install -y luajit" "luajit"
 install_or_skip "sudo apt-get install -y luarocks" "luarocks"
+
 install_or_skip "sudo apt-get install -y xsel" "xsel"
 install_or_skip "sudo apt-get install -y xclip" "xclip"
-# install_or_skip "sudo apt-get install -y wl-clipboard" "wl-copy"
 
 # locale
 sudo locale-gen en_US
@@ -51,7 +53,13 @@ install_or_skip "sudo apt-get install -y python3 python3-dev python3-venv python
 # nodejs
 if ! type "node" >/dev/null; then
     message "install nodejs from deb.nodesource.com"
-    curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+    # see: https://github.com/nodesource/distributions
+    sudo apt-get install -y ca-certificates gnupg
+    sudo mkdir -p /etc/apt/keyrings
+    curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
+    NODE_MAJOR=20
+    echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
+    sudo apt-get update
     sudo apt-get install -y nodejs
 else
     skip_message 'node'
