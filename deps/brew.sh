@@ -39,9 +39,5 @@ install_or_skip "brew install python3" "python3"
 # nodejs
 install_or_skip "brew install node" "node"
 
-# go
-install_or_skip "brew install go" "go"
-install_or_skip "brew install lazygit" "lazygit"
-
 # ctags
 install_or_skip "brew install universal-ctags" "ctags"
