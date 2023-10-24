@@ -13,7 +13,7 @@ source $DEPS_HOME/util.sh
 
 golang_dependency() {
     message "install go and modern commands"
-    # https://github.com/canha/golang-tools-install-script
+    # see: https://github.com/canha/golang-tools-install-script
     cd $NVIM_HOME
     if [ ! -d golang-tools-install-script ]; then
         git clone --depth=1 https://github.com/canha/golang-tools-install-script
@@ -28,7 +28,6 @@ rust_dependency() {
     message "install rust and modern commands"
     install_or_skip "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y" "cargo"
     . "$HOME/.cargo/env"
-    message 'install modern rust commands with cargo'
     install_or_skip "cargo install fd-find" "fd"
     install_or_skip "cargo install ripgrep" "rg"
     install_or_skip "cargo install --locked bat" "bat"
@@ -37,7 +36,7 @@ rust_dependency() {
 
 pip3_dependency() {
     message "install python packages with pip3"
-    # python3 -m pip install pynvim --user --upgrade
+    python3 -m pip install pynvim --user --upgrade
     # install_or_skip "python3 -m pip install pipx --user && python3 -m pipx ensurepath" "pipx"
     # export PATH="$PATH:$HOME/.local/bin"
     # install_or_skip "pipx install trash-cli" "trash-put"
@@ -56,31 +55,38 @@ nerdfont_latest_release_tag() {
     curl -f -L $uri | grep "href=\"/$org/$repo/releases/tag" | grep -Eo 'href="/[a-zA-Z0-9#~.*,/!?=+&_%:-]*"' | head -n 1 | cut -d '"' -f2 | cut -d "/" -f6
 }
 
-guifont_dependency() {
+install_nerdfont() {
     if [ "$OS" == "Darwin" ]; then
-        message "install hack nerd font with brew"
+        local font_name=$2
+        message "install $font_name nerd fonts with brew"
         brew tap homebrew/cask-fonts
-        brew install --cask font-hack-nerd-font
+        brew install --cask $font_name
     else
         mkdir -p ~/.local/share/fonts && cd ~/.local/share/fonts
         local org="ryanoasis"
         local repo="nerd-fonts"
-        local font_file=Hack.zip
+        local font_file=$1
         local font_version=$(nerdfont_latest_release_tag $org $repo)
         local font_url="https://github.com/$org/$repo/releases/download/$font_version/$font_file"
-        message "install hack($font_version) nerd font from github"
+        message "install $font_file($font_version) nerd fonts from github"
         if [ -f $font_file ]; then
-            rm $font_file
+            rm -rf $font_file
         fi
         curl -L $font_url -o $font_file
         if [ $? -ne 0 ]; then
             message "failed to download $font_file, skip..."
         else
             unzip -o $font_file
-            message "install hack($font_version) nerd font from github - done"
+            message "install $font_file($font_version) nerd font from github - done"
         fi
-        sudo fc-cache -fv
+        sudo fc-cache -f -v
     fi
+}
+
+nerdfont_dependency() {
+    install_nerdfont "Hack.zip" "font-hack-nerd-font"
+    # install_nerdfont "FiraCode.zip" "font-fira-code-nerd-font"
+    message "please set 'Hack NFM' (or 'Hack Nerd Font Mono') as your terminal font"
 }
 
 nvim_config() {
@@ -94,6 +100,13 @@ nvim_config() {
     local nvim_treesitter_ensure_installed="$nvim_treesitter_home/ensure_installed.lua"
     if [ ! -f $nvim_treesitter_ensure_installed ]; then
         cp $nvim_treesitter_home/ensure_installed_sample.lua $nvim_treesitter_ensure_installed
+    fi
+
+    # nvim-lspconfig
+    local nvim_lspconfig_home="$NVIM_HOME/lua/configs/neovim/nvim-lspconfig"
+    local nvim_lspconfig_setup_handlers="$nvim_lspconfig_home/setup_handlers.lua"
+    if [ ! -f $nvim_lspconfig_setup_handlers ]; then
+        cp $nvim_lspconfig_home/setup_handlers_sample.lua $nvim_lspconfig_setup_handlers
     fi
 
     # mason-lspconfig.nvim
@@ -180,7 +193,7 @@ rust_dependency
 golang_dependency
 pip3_dependency
 npm_dependency
-guifont_dependency
+nerdfont_dependency
 nvim_config
 
 message "install for $OS - done"

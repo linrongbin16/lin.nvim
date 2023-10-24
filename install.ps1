@@ -57,24 +57,32 @@ function CoreDependency()
     scoop bucket add extras
     scoop install mingw
     scoop install uutils-coreutils
+
+    # neovim
     InstallOrSkip -command "scoop install neovim" -target "nvim"
 
+    # shell
     InstallOrSkip -command "scoop install which" -target "which"
     InstallOrSkip -command "scoop install gawk" -target "awk"
     InstallOrSkip -command "scoop install sed" -target "sed"
 
+    # c++ toolchain
+    InstallOrSkip -command "scoop install llvm" -target "clang"
     InstallOrSkip -command "scoop install make" -target "make"
     InstallOrSkip -command "scoop install cmake" -target "cmake"
 
+    # download tools
     InstallOrSkip -command "scoop install git" -target "git"
     InstallOrSkip -command "scoop install curl" -target "curl"
     InstallOrSkip -command "scoop install wget" -target "wget"
 
+    # compress tools
     InstallOrSkip -command "scoop install 7zip" -target "7z"
     InstallOrSkip -command "scoop install gzip" -target "gzip"
     InstallOrSkip -command "scoop install unzip" -target "unzip"
     InstallOrSkip -command "scoop install unrar" -target "unrar"
-    InstallOrSkip -command "scoop install llvm" -target "clang"
+
+    # luarocks
     InstallOrSkip -command "scoop install luarocks" -target "luarocks"
 
     # ctags
@@ -84,9 +92,9 @@ function CoreDependency()
 function RustDependency()
 {
     message 'install rust and modern commands'
-    # rust
+    # rustc/cargo
     InstallOrSkip -command "scoop install rustup" -target "cargo"
-    # cargo
+    # modern commands
     InstallOrSkip -command "cargo install ripgrep" -target "rg"
     InstallOrSkip -command "cargo install fd-find" -target "fd"
     InstallOrSkip -command "cargo install --locked bat" -target "bat"
@@ -107,15 +115,8 @@ function PythonDependency()
     Message "install python3 and pip3 packages"
     # python
     InstallOrSkip -command "scoop install python" -target "python3"
-    # pip
-    # python3 -m pip install pynvim --user --upgrade
-    # InstallOrSkip -command "python3 -m pip install pipx --user && python3 -m pipx ensurepath" -target "pipx"
-    # $env:Path=(
-    #     [System.Environment]::GetEnvironmentVariable("Path","Machine"),
-    #     [System.Environment]::GetEnvironmentVariable("Path","User")
-    # ) -match '.' -join ';'
-    # pipx install trash-cli
-    # pipx upgrade trash-cli
+    InstallOrSkip -command "scoop install python" -target "pip3"
+    python3 -m pip install pynvim --user --upgrade
 }
 
 function NodejsDependency()
@@ -128,9 +129,9 @@ function NodejsDependency()
     InstallOrSkip -command "npm install -g trash-cli" -target "trash"
 }
 
-function GuiFontDependency()
+function NerdFontDependency()
 {
-    Message "install patched font 'Hack-NF'"
+    Message "install 'Hack' nerd font"
     scoop bucket add nerd-fonts
     scoop install Hack-NF
     scoop install Hack-NF-Mono
@@ -149,6 +150,14 @@ function NvimConfig()
     if (-not(TestReparsePoint $NvimTreesitterEnsureInstalled) -and -not(Test-Path $NvimTreesitterEnsureInstalled))
     {
         Copy-Item -Path "$NvimTreesitterHome\ensure_installed_sample.lua" -Destination "$NvimTreesitterEnsureInstalled"
+    }
+
+    # nvim-lspconfig
+    $NvimLspconfigHome = "$NVIM_HOME\lua\configs\neovim\nvim-lspconfig"
+    $NvimLspconfigSetupHandlers = "$NvimLspconfigHome\setup_handlers.lua"
+    if (-not(TestReparsePoint $NvimLspconfigSetupHandlers) -and -not(Test-Path $NvimLspconfigSetupHandlers))
+    {
+        Copy-Item -Path "$NvimLspconfigHome\setup_handlers_sample.lua" -Destination "$NvimLspconfigSetupHandlers"
     }
 
     # mason-lspconfig.nvim
@@ -214,7 +223,7 @@ RustDependency
 GoDependency
 PythonDependency
 NodejsDependency
-GuiFontDependency
+NerdFontDependency
 NvimConfig
 
 Message "install for Windows - done"
