@@ -10,6 +10,7 @@ sudo locale-gen en_US
 sudo locale-gen en_US.UTF-8
 sudo update-locale
 
+# neovim
 if ! type nvim >/dev/null 2>&1; then
     message "install 'nvim'(appimage) from github.com"
     sudo apt-get install -y fuse
@@ -21,6 +22,7 @@ else
     skip_message 'nvim'
 fi
 
+# c++ toolchain
 install_or_skip "sudo apt-get install -y build-essential" "gcc"
 install_or_skip "sudo apt-get install -y build-essential" "make"
 install_or_skip "sudo apt-get install -y autoconf" "autoconf"
@@ -28,19 +30,22 @@ install_or_skip "sudo apt-get install -y automake" "automake"
 install_or_skip "sudo apt-get install -y pkg-config" "pkg-config"
 install_or_skip "sudo apt-get install -y cmake" "cmake"
 
+# download tools
 install_or_skip "sudo apt-get install -y git" "git"
 install_or_skip "sudo apt-get install -y curl" "curl"
 install_or_skip "sudo apt-get install -y wget" "wget"
 
+# compress tools
 install_or_skip "sudo apt-get install -y p7zip" "7z"
 install_or_skip "sudo apt-get install -y gzip" "gzip"
 install_or_skip "sudo apt-get install -y unzip" "unzip"
 install_or_skip "sudo apt-get install -y unrar" "unrar"
-install_or_skip "sudo apt-get install -y atool" "atool"
 
+# luarocks
 install_or_skip "sudo apt-get install -y luajit" "luajit"
 install_or_skip "sudo apt-get install -y luarocks" "luarocks"
 
+# copy/paste tools
 install_or_skip "sudo apt-get install -y xsel" "xsel"
 install_or_skip "sudo apt-get install -y xclip" "xclip"
 

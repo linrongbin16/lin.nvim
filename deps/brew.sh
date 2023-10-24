@@ -12,16 +12,25 @@ fi
 message "install dependencies with brew"
 brew update
 
+# neovim
 install_or_skip "brew install neovim" "nvim"
+
+# c++ toolchain
+install_or_skip "brew install cmake" "cmake"
+install_or_skip "brew install pkg-config" "pkg-config"
+
+# download tools
 install_or_skip "brew install git" "git"
 install_or_skip "brew install curl" "curl"
 install_or_skip "brew install wget" "wget"
-install_or_skip "brew install unzip" "unzip"
-install_or_skip "brew install unrar" "unrar"
+
+# compress tools
 install_or_skip "brew install gzip" "gzip"
 install_or_skip "brew install p7zip" "7z"
-install_or_skip "brew install cmake" "cmake"
-install_or_skip "brew install pkg-config" "pkg-config"
+install_or_skip "brew install unzip" "unzip"
+install_or_skip "brew install unrar" "unrar"
+
+# luarocks
 install_or_skip "brew install luarocks" "luarocks"
 
 # python3
