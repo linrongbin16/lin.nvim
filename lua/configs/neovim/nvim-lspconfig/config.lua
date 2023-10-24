@@ -1,7 +1,3 @@
--- neodev, neoconf
-require("neodev").setup()
-require("neoconf").setup()
-
 -- user setup handlers
 local lspconfig = require("lspconfig")
 
