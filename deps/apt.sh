@@ -19,11 +19,10 @@ fi
 
 install_or_skip "sudo apt-get install -y build-essential" "gcc"
 install_or_skip "sudo apt-get install -y build-essential" "make"
-# install_or_skip "sudo apt-get install -y git" "git"
 # install latest git from ppa
 sudo apt-add-repository ppa:git-core/ppa
 sudo apt-get update
-sudo apt-get install git
+install_or_skip "sudo apt-get install -y git" "git"
 install_or_skip "sudo apt-get install -y curl" "curl"
 install_or_skip "sudo apt-get install -y wget" "wget"
 install_or_skip "sudo apt-get install -y unzip" "unzip"
