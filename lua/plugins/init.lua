@@ -30,6 +30,7 @@ local M = {
     },
     {
         "neovim/nvim-lspconfig",
+        dependencies = { "folke/neodev.nvim" }, -- neodev must be setup before nvim-lspconfig
         config = lua_config("neovim/nvim-lspconfig"),
     },
 
@@ -231,10 +232,6 @@ local M = {
             "nvimtools/none-ls.nvim",
         },
         config = lua_config("jay-babu/mason-null-ls.nvim"),
-    },
-    {
-        "folke/neodev.nvim",
-        ft = { "lua" },
     },
     {
         "b0o/SchemaStore.nvim",

@@ -1,3 +1,6 @@
+-- setup neodev before nvim-lspconfig
+require("neodev").setup()
+
 -- user setup handlers
 local lspconfig = require("lspconfig")
 
