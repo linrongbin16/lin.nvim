@@ -1,23 +1,12 @@
 local function GitDiff()
     if vim.g.loaded_gitgutter <= 0 then
-        -- return { added = 0, modified = 0, removed = 0 }
         return {}
     end
     local changes = vim.fn["GitGutterGetHunkSummary"]()
     if changes == nil or #changes ~= 3 then
-        -- return { added = 0, modified = 0, removed = 0 }
         return {}
     end
     return { added = changes[1], modified = changes[2], removed = changes[3] }
-    -- -- added, modified, removed
-    -- local signs = { "+", "~", "-" }
-    -- local msg = {}
-    -- for i = 1, 3 do
-    --     if changes[i] > 0 then
-    --         table.insert(msg, signs[i] .. changes[i])
-    --     end
-    -- end
-    -- return #msg > 0 and table.concat(msg, " ") or ""
 end
 
 local function Search()
@@ -50,7 +39,7 @@ local angle_component_separators = { left = "", right = "" }
 local angle_section_separators = { left = "", right = "" }
 
 -- style-2: A \ B \ C ---- X / Y / Z
-local slash_component_separators = { left = "", right = "" } -- nf-ple-backslash_separator \ue0b9, nf-ple-forwardslash_separator \ue0bb
+local slash_component_separators = { left = "", right = "" }
 local slash_section_separators = { left = "", right = "" }
 
 local config = {
@@ -65,7 +54,7 @@ local config = {
             "branch",
             {
                 "diff",
-                source = GitDiff, -- A function that works as a data source for diff.
+                source = GitDiff,
             },
         },
         lualine_c = {
@@ -80,7 +69,6 @@ local config = {
                 },
             },
             require("lsp-progress").progress,
-            -- Ctags,
         },
         lualine_x = {
             Search,
