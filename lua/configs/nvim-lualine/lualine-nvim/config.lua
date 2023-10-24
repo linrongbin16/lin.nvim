@@ -46,7 +46,7 @@ local config = {
     options = {
         icons_enabled = true,
         component_separators = empty_component_separators,
-        section_separators = slash_section_separators,
+        section_separators = angle_section_separators,
     },
     sections = {
         lualine_a = { "mode" },
