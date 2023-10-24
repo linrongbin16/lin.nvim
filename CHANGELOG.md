@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.0](https://github.com/linrongbin16/lin.nvim/compare/v1.0.1...v1.1.0) (2023-10-24)
+
+
+### Features
+
+* **install:** install latest git for apt ([#316](https://github.com/linrongbin16/lin.nvim/issues/316)) ([ba4f045](https://github.com/linrongbin16/lin.nvim/commit/ba4f045b4f69ae2c23b9104e71cc042db2edcfa3))
+
+
+### Performance Improvements
+
+* **neoconf.nvim:** remove 'neoconf.nvim', optimize 'neodev.nvim' loading ([#318](https://github.com/linrongbin16/lin.nvim/issues/318)) ([fa1854b](https://github.com/linrongbin16/lin.nvim/commit/fa1854b3eef0e2de841e310e95642cd82c7c101e))
+
 ## [1.0.1](https://github.com/linrongbin16/lin.nvim/compare/v1.0.0...v1.0.1) (2023-10-23)
 
 
