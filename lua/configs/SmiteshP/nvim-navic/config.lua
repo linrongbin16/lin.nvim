@@ -5,7 +5,6 @@ require("nvim-navic").setup({
             "flow",
             "tsserver",
             "eslint",
-            "prettier",
             "html",
             "css-lsp",
             "cssmodules_ls",
