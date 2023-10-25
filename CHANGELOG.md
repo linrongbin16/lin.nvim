@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.1](https://github.com/linrongbin16/lin.nvim/compare/v2.0.0...v2.0.1) (2023-10-25)
+
+
+### Performance Improvements
+
+* **conform.nvim:** use prettier instead of prettierd ([#328](https://github.com/linrongbin16/lin.nvim/issues/328)) ([b8b2edb](https://github.com/linrongbin16/lin.nvim/commit/b8b2edba56fd8cd3d9da24b3ed5cc110715db8ad))
+
 ## [2.0.0](https://github.com/linrongbin16/lin.nvim/compare/v1.1.0...v2.0.0) (2023-10-24)
 
 
