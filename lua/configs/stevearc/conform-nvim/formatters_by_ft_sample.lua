@@ -3,27 +3,25 @@
 -- Configure formatters by filetypes.
 -- This module will be passed to `require("conform").setup({ formatters_by_ft = ... })`.
 
-local prettier = { "prettierd", "prettier" }
-
 local formatters_by_ft = {
     bash = { "shfmt" },
     c = { "clang_format" },
-    css = { prettier },
+    css = { "prettier" },
     cpp = { "clang_format" },
     cmake = { "cmake_format" },
-    html = { prettier },
-    javascript = { "biome", prettier },
-    javascriptreact = { "biome", prettier },
-    json = { "biome", prettier },
-    jsonc = { "biome", prettier },
+    html = { "prettier" },
+    javascript = { "biome", "prettier" },
+    javascriptreact = { "biome", "prettier" },
+    json = { "biome", "prettier" },
+    jsonc = { "biome", "prettier" },
     lua = { "stylua" },
-    markdown = { prettier },
+    markdown = { "prettier" },
     python = { "ruff", { "isort", "black" } },
     sh = { "shfmt" },
-    typescript = { "biome", prettier },
-    typescriptreact = { "biome", prettier },
-    xhtml = { prettier },
-    xml = { prettier },
+    typescript = { "biome", "prettier" },
+    typescriptreact = { "biome", "prettier" },
+    xhtml = { "prettier" },
+    xml = { "prettier" },
     rust = { "rustfmt" },
 }
 
