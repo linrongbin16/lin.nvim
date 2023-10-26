@@ -1,5 +1,18 @@
 # Changelog
 
+## [2.0.1](https://github.com/linrongbin16/lin.nvim/compare/v2.0.0...v2.0.1) (2023-10-26)
+
+
+### Bug Fixes
+
+* **lualine.nvim:** fix gitgutter component NPE ([#330](https://github.com/linrongbin16/lin.nvim/issues/330)) ([dc7e915](https://github.com/linrongbin16/lin.nvim/commit/dc7e915add5753f8bb65de48ca2a9fff119e17ab))
+* **plugins:** add vim-gitgutter as lualine dependency ([#332](https://github.com/linrongbin16/lin.nvim/issues/332)) ([74f44be](https://github.com/linrongbin16/lin.nvim/commit/74f44be0b8ca2005ee2c6c25f896e7505ec6a2e9))
+
+
+### Performance Improvements
+
+* **conform.nvim:** use prettier instead of prettierd ([#328](https://github.com/linrongbin16/lin.nvim/issues/328)) ([b8b2edb](https://github.com/linrongbin16/lin.nvim/commit/b8b2edba56fd8cd3d9da24b3ed5cc110715db8ad))
+
 ## [2.0.0](https://github.com/linrongbin16/lin.nvim/compare/v1.1.0...v2.0.0) (2023-10-24)
 
 
