@@ -116,6 +116,13 @@ local M = {
     --     event = { VeryLazy, BufReadPre, BufNewFile },
     --     config = lua_config("shellRaining/hlchunk.nvim"),
     -- },
+    -- Git
+    {
+        "airblade/vim-gitgutter",
+        event = { VeryLazy, BufReadPre, BufNewFile },
+        init = lua_init("airblade/vim-gitgutter"),
+        keys = lua_keys("airblade/vim-gitgutter"),
+    },
     -- Statusline
     {
         "linrongbin16/lsp-progress.nvim",
@@ -125,7 +132,10 @@ local M = {
     {
         "nvim-lualine/lualine.nvim",
         event = { UIEnter },
-        dependencies = { "linrongbin16/lsp-progress.nvim" },
+        dependencies = {
+            "linrongbin16/lsp-progress.nvim",
+            "airblade/vim-gitgutter",
+        },
         config = lua_config("nvim-lualine/lualine.nvim"),
     },
     -- Winbar
@@ -141,13 +151,6 @@ local M = {
         event = { VeryLazy, BufReadPre, BufNewFile },
         dependencies = { "SmiteshP/nvim-navic" },
         config = lua_config("utilyre/barbecue.nvim"),
-    },
-    -- Git
-    {
-        "airblade/vim-gitgutter",
-        event = { VeryLazy, BufReadPre, BufNewFile },
-        init = lua_init("airblade/vim-gitgutter"),
-        keys = lua_keys("airblade/vim-gitgutter"),
     },
     -- UI improvement
     {
