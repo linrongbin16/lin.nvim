@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.0](https://github.com/linrongbin16/lin.nvim/compare/v2.0.1...v2.1.0) (2023-10-27)
+
+
+### Features
+
+* **stickybuf.nvim:** stick to non-editable buffer ([#334](https://github.com/linrongbin16/lin.nvim/issues/334)) ([5558286](https://github.com/linrongbin16/lin.nvim/commit/55582869341ac5a2c061419aedd14794e030d5a3))
+
 ## [2.0.1](https://github.com/linrongbin16/lin.nvim/compare/v2.0.0...v2.0.1) (2023-10-26)
 
 
