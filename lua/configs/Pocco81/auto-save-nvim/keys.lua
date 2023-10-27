@@ -1,10 +1,10 @@
-local keymap = require("builtin.utils.keymap")
+local set_lazy_key = require("builtin.utils.keymap").set_lazy_key
 
 local M = {
-    keymap.set_lazy_key(
+    set_lazy_key(
         "n",
         "<leader>as",
-        keymap.exec("ASToggle"),
+        "<cmd>ASToggle<cr>",
         { desc = "Toggle auto-save" }
     ),
 }
