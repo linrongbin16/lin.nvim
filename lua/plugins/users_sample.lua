@@ -117,6 +117,11 @@
 --         init = lua_init("mbbill/undotree"),
 --         keys = lua_keys("mbbill/undotree"),
 --     },
+--     {
+--         "nvim-pack/nvim-spectre",
+--         cmd = { "Spectre" },
+--         config = lua_config("nvim-pack/nvim-spectre"),
+--     },
 -- }
 
 return {}
