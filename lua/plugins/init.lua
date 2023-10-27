@@ -159,6 +159,11 @@ local M = {
         dependencies = { "junegunn/fzf" },
         config = lua_config("stevearc/dressing.nvim"),
     },
+    {
+        "stevearc/stickybuf.nvim",
+        event = { UIEnter },
+        config = lua_config("stevearc/stickybuf.nvim"),
+    },
 
     -- ---- SEARCH ----
 

@@ -1,16 +1,16 @@
-local keymap = require("builtin.utils.keymap")
+local set_lazy_key = require("builtin.utils.keymap").set_lazy_key
 
 local M = {
-    keymap.set_lazy_key(
+    set_lazy_key(
         "n",
         "<leader>bd",
-        keymap.exec("Bdelete"),
+        "<cmd>Bdelete<cr>",
         { desc = "Close buffer" }
     ),
-    keymap.set_lazy_key(
+    set_lazy_key(
         "n",
         "<leader>bD",
-        keymap.exec("Bdelete!"),
+        "<cmd>Bdelete!<cr>",
         { desc = "Close buffer forcibly!" }
     ),
 }
