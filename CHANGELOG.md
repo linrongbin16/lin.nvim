@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.1.0](https://github.com/linrongbin16/lin.nvim/compare/v2.0.1...v2.1.0) (2023-10-27)
+
+
+### Features
+
+* **nvim-spectre:** search and replace solution ([#336](https://github.com/linrongbin16/lin.nvim/issues/336)) ([e8159cf](https://github.com/linrongbin16/lin.nvim/commit/e8159cf6fa23746a3e30dfbe1bc267acc51acb9a))
+* **stickybuf.nvim:** stick to non-editable buffer ([#334](https://github.com/linrongbin16/lin.nvim/issues/334)) ([5558286](https://github.com/linrongbin16/lin.nvim/commit/55582869341ac5a2c061419aedd14794e030d5a3))
+
 ## [2.0.1](https://github.com/linrongbin16/lin.nvim/compare/v2.0.0...v2.0.1) (2023-10-26)
 
 
