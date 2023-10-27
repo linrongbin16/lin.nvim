@@ -162,7 +162,7 @@ local M = {
     {
         "stevearc/stickybuf.nvim",
         event = { UIEnter },
-        config = lua_config("stickybuf.nvim"),
+        config = lua_config("stevearc/stickybuf.nvim"),
     },
 
     -- ---- SEARCH ----

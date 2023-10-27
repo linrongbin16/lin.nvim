@@ -5,111 +5,111 @@ local M = {
     keymap.set_lazy_key(
         "n",
         "<space>f",
-        keymap.exec("FzfxFiles"),
+        "<cmd>FzfxFiles<cr>",
         { desc = "Find files" }
     ),
     keymap.set_lazy_key(
         "x",
         "<space>f",
-        keymap.exec("FzfxFilesV"),
+        "<cmd>FzfxFilesV<cr>",
         { desc = "Find files" }
     ),
     -- find files by cursor word
     keymap.set_lazy_key(
         "n",
         "<space>wf",
-        keymap.exec("FzfxFilesW"),
+        "<cmd>FzfxFilesW<cr>",
         { desc = "Find files by cursor word" }
     ),
     keymap.set_lazy_key(
         "n",
         "<space>pf",
-        keymap.exec("FzfxFilesP"),
+        "<cmd>FzfxFilesP<cr>",
         { desc = "Find files by yank text" }
     ),
     -- search buffer
     keymap.set_lazy_key(
         "n",
         "<space>bf",
-        keymap.exec("FzfxBuffers"),
+        "<cmd>FzfxBuffers<cr>",
         { desc = "Search buffers" }
     ),
     keymap.set_lazy_key(
         "x",
         "<space>bf",
-        keymap.exec("FzfxBuffersV"),
+        "<cmd>FzfxBuffersV<cr>",
         { desc = "Search buffers" }
     ),
     -- live grep
     keymap.set_lazy_key(
         "n",
         "<space>l",
-        keymap.exec("FzfxLiveGrep"),
+        "<cmd>FzfxLiveGrep<cr>",
         { desc = "Live grep" }
     ),
     keymap.set_lazy_key(
         "x",
         "<space>l",
-        keymap.exec("FzfxLiveGrepV"),
+        "<cmd>FzfxLiveGrepV<cr>",
         { desc = "Live grep" }
     ),
     -- search word
     keymap.set_lazy_key(
         "n",
         "<space>wl",
-        keymap.exec("FzfxLiveGrepW"),
+        "<cmd>FzfxLiveGrepW<cr>",
         { desc = "Live grep by cursor word" }
     ),
     keymap.set_lazy_key(
         "n",
         "<space>pl",
-        keymap.exec("FzfxLiveGrepP"),
+        "<cmd>FzfxLiveGrepP<cr>",
         { desc = "Live grep by yank text" }
     ),
     -- git
     keymap.set_lazy_key(
         "n",
         "<space>gf",
-        keymap.exec("FzfxGFiles"),
+        "<cmd>FzfxGFiles<cr>",
         { desc = "Search git files" }
     ),
     keymap.set_lazy_key(
         "n",
         "<space>br",
-        keymap.exec("FzfxGBranches"),
+        "<cmd>FzfxGBranches<cr>",
         { desc = "Search git branches" }
     ),
     keymap.set_lazy_key(
         "n",
         "<space>gc",
-        keymap.exec("FzfxGCommits"),
+        "<cmd>FzfxGCommits<cr>",
         { desc = "Search git commits" }
     ),
     -- vim commands
     keymap.set_lazy_key(
         "n",
         "<space>cm",
-        keymap.exec("FzfxCommands"),
+        "<cmd>FzfxCommands<cr>",
         { desc = "Search vim commands" }
     ),
     -- diagnostics
     keymap.set_lazy_key(
         "n",
         "<space>dg",
-        keymap.exec("FzfxLspDiagnostics"),
+        "<cmd>FzfxLspDiagnostics<cr>",
         { desc = "Search lsp diagnostics" }
     ),
     keymap.set_lazy_key(
         "x",
         "<space>dg",
-        keymap.exec("FzfxLspDiagnosticsV"),
+        "<cmd>FzfxLspDiagnosticsV<cr>",
         { desc = "Search lsp diagnostics" }
     ),
     -- file explorer
     keymap.set_lazy_key(
         "n",
         "<space>xp",
-        keymap.exec("FzfxFileExplorer"),
+        "<cmd>FzfxFileExplorer<cr>",
         { desc = "File Explorer" }
     ),
 }
