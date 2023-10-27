@@ -1,10 +1,10 @@
-local keymap = require("builtin.utils.keymap")
+local set_lazy_key = require("builtin.utils.keymap").set_lazy_key
 
 local M = {
-    keymap.set_lazy_key(
+    set_lazy_key(
         "n",
         "<leader>tb",
-        keymap.exec("TroubleToggle"),
+        "<cmd>TroubleToggle<cr>",
         { desc = "Toggle trouble (diagnostics)" }
     ),
 }
