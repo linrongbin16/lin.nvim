@@ -75,7 +75,7 @@ local M = {
     ),
     set_lazy_key(
         "n",
-        "<space>br",
+        "<space>gb",
         "<cmd>FzfxGBranches<cr>",
         { desc = "Search git branches" }
     ),
