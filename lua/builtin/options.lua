@@ -100,7 +100,7 @@ vim.api.nvim_create_autocmd(
     {
         pattern = "*",
         callback = function()
-            vim.cmd([[checktime]])
+            vim.cmd.checktime()
         end,
     }
 )
