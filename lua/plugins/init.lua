@@ -99,7 +99,7 @@ local M = {
     },
     {
         "akinsho/bufferline.nvim",
-        version = "v3.*",
+        version = "*",
         event = { VeryLazy, BufReadPre, BufNewFile },
         dependencies = { "moll/vim-bbye" },
         config = lua_config("akinsho/bufferline.nvim"),
