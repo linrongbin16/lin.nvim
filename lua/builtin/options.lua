@@ -142,6 +142,3 @@ vim.opt.foldenable = true
 vim.opt.foldlevel = 100
 vim.opt.foldnestmax = 100
 vim.opt.foldmethod = "indent"
-
--- disable GUI menu
-vim.opt.guioptions:remove("Tm")
