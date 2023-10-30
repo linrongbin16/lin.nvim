@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.1](https://github.com/linrongbin16/lin.nvim/compare/v2.1.0...v2.1.1) (2023-10-30)
+
+
+### Bug Fixes
+
+* **fzfx.nvim+bufferline.nvim:** fix FzfxGBranches keys and bufferline version ([#338](https://github.com/linrongbin16/lin.nvim/issues/338)) ([1053e4e](https://github.com/linrongbin16/lin.nvim/commit/1053e4ed793b6934bca0866b795063010abc3aaa))
+
 ## [2.1.0](https://github.com/linrongbin16/lin.nvim/compare/v2.0.1...v2.1.0) (2023-10-27)
 
 
