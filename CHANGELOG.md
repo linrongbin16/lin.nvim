@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.2](https://github.com/linrongbin16/lin.nvim/compare/v2.1.1...v2.1.2) (2023-10-30)
+
+
+### Performance Improvements
+
+* **init:** use init.lua ([#340](https://github.com/linrongbin16/lin.nvim/issues/340)) ([63f80fe](https://github.com/linrongbin16/lin.nvim/commit/63f80fe361170d1265f30e8e86a482c2c013bff5))
+
 ## [2.1.1](https://github.com/linrongbin16/lin.nvim/compare/v2.1.0...v2.1.1) (2023-10-30)
 
 
