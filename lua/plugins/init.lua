@@ -218,15 +218,6 @@ local M = {
         config = lua_config("stevearc/conform.nvim"),
         keys = lua_keys("stevearc/conform.nvim"),
     },
-    -- {
-    --     "mfussenegger/nvim-lint",
-    --     event = { VeryLazy, BufReadPre, BufNewFile, CmdlineEnter },
-    --     dependencies = {
-    --         "williamboman/mason.nvim",
-    --         "williamboman/mason-lspconfig.nvim",
-    --     },
-    --     config = lua_config("mfussenegger/nvim-lint"),
-    -- },
     {
         "nvimtools/none-ls.nvim",
         event = { VeryLazy, BufReadPre, BufNewFile, CmdlineEnter },
