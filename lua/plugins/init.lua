@@ -29,6 +29,11 @@ local M = {
         "folke/lsp-colors.nvim",
     },
     {
+        "folke/neodev.nvim",
+        ft = { "lua" },
+        config = lua_config("folke/neodev.nvim"),
+    },
+    {
         "neovim/nvim-lspconfig",
         dependencies = { "folke/neodev.nvim" }, -- neodev must be setup before nvim-lspconfig
         config = lua_config("neovim/nvim-lspconfig"),
