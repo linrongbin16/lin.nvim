@@ -75,6 +75,12 @@ local M = {
     ),
     set_lazy_key(
         "n",
+        "<space>gs",
+        "<cmd>FzfxGStatus<cr>",
+        { desc = "Search changed git files (status)" }
+    ),
+    set_lazy_key(
+        "n",
         "<space>gb",
         "<cmd>FzfxGBranches<cr>",
         { desc = "Search git branches" }

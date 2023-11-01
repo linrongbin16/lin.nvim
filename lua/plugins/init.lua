@@ -29,6 +29,11 @@ local M = {
         "folke/lsp-colors.nvim",
     },
     {
+        "folke/neodev.nvim",
+        ft = { "lua" },
+        config = lua_config("folke/neodev.nvim"),
+    },
+    {
         "neovim/nvim-lspconfig",
         dependencies = { "folke/neodev.nvim" }, -- neodev must be setup before nvim-lspconfig
         config = lua_config("neovim/nvim-lspconfig"),
@@ -213,15 +218,6 @@ local M = {
         config = lua_config("stevearc/conform.nvim"),
         keys = lua_keys("stevearc/conform.nvim"),
     },
-    -- {
-    --     "mfussenegger/nvim-lint",
-    --     event = { VeryLazy, BufReadPre, BufNewFile, CmdlineEnter },
-    --     dependencies = {
-    --         "williamboman/mason.nvim",
-    --         "williamboman/mason-lspconfig.nvim",
-    --     },
-    --     config = lua_config("mfussenegger/nvim-lint"),
-    -- },
     {
         "nvimtools/none-ls.nvim",
         event = { VeryLazy, BufReadPre, BufNewFile, CmdlineEnter },
