@@ -94,7 +94,7 @@ vim.opt.tags:append("./tags;,tags")
 vim.opt.autoread = true
 vim.opt.autowrite = true
 vim.opt.swapfile = false
-vim.opt.confirm = true
+vim.opt.confirm = false
 vim.api.nvim_create_autocmd(
     { "FocusGained", "BufEnter", "TermEnter", "TermLeave" },
     {
