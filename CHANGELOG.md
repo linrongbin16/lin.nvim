@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.1](https://github.com/linrongbin16/lin.nvim/compare/v2.2.0...v2.2.1) (2023-11-01)
+
+
+### Performance Improvements
+
+* **options:** set confirm=false ([#348](https://github.com/linrongbin16/lin.nvim/issues/348)) ([d682c09](https://github.com/linrongbin16/lin.nvim/commit/d682c0911ab372e29b50b8e2c3f1ccb03c882279))
+
 ## [2.2.0](https://github.com/linrongbin16/lin.nvim/compare/v2.1.2...v2.2.0) (2023-11-01)
 
 
