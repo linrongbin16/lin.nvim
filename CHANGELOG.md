@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.0](https://github.com/linrongbin16/lin.nvim/compare/v2.1.2...v2.2.0) (2023-11-01)
+
+
+### Features
+
+* **fzfx.nvim:** map '&lt;space&gt;gs' for FzfxGStatus & other performance improvements ([#344](https://github.com/linrongbin16/lin.nvim/issues/344)) ([9c0b7a5](https://github.com/linrongbin16/lin.nvim/commit/9c0b7a57e942412969241475fdc1179282f2c8e7))
+
 ## [2.1.2](https://github.com/linrongbin16/lin.nvim/compare/v2.1.1...v2.1.2) (2023-10-30)
 
 
