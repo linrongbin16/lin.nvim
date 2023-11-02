@@ -145,12 +145,6 @@ nvim_config() {
     #     cp $nvim_lint_home/linters_by_ft_sample.lua $nvim_lint_linters_by_ft
     # fi
 
-    # neoconf
-    local neoconf="$NVIM_HOME/neoconf.json"
-    if [ ! -f $neoconf ]; then
-        cp $NVIM_HOME/neoconf_sample.json $neoconf
-    fi
-
     # install plugins on first start
     nvim -E -c "Lazy! sync" -c "qall!"
 }
