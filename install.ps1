@@ -202,13 +202,6 @@ function NvimConfig()
     #     Copy-Item -Path "$NvimLintHome\linters_by_ft_sample.lua" -Destination "$NvimLintLintersByFt"
     # }
 
-    # neoconf
-    $Neoconf = "$NVIM_HOME\neoconf.json"
-    if (-not(TestReparsePoint $Neoconf) -and -not(Test-Path $Neoconf))
-    {
-        Copy-Item -Path "$NVIM_HOME\neoconf_sample.json" -Destination "$Neoconf"
-    }
-
     # install plugins on first start
     cmd /c nvim -E -c "Lazy! sync" -c "qall!" /wait
 }
