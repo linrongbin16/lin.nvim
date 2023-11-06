@@ -24,7 +24,7 @@ require("neo-tree").setup({
             folder_open = "", -- nf-custom-folder_open \ue5fe
             folder_empty = "", -- nf-cod-folder \uea83
             folder_empty_open = "", -- nf-cod-folder_opened \ueaf7
-            default = "", -- nf-fa-file_text_o \uf0f6
+            default = "", -- : nf-fa-file_text_o \uf0f6, : nf-fa-file_o \uf016
         },
         git_status = {
             symbols = {
