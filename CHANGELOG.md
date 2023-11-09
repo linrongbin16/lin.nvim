@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.2.2](https://github.com/linrongbin16/lin.nvim/compare/v2.2.1...v2.2.2) (2023-11-09)
+
+
+### Bug Fixes
+
+* **options:** remove deprecated 'termencoding' ([#358](https://github.com/linrongbin16/lin.nvim/issues/358)) ([a76c8f2](https://github.com/linrongbin16/lin.nvim/commit/a76c8f2448b4acfae00bc27ac01293c366ec1038))
+
+
+### Performance Improvements
+
+* **neo-tree.nvim:** use empty icon for default file ([#356](https://github.com/linrongbin16/lin.nvim/issues/356)) ([8bfdd64](https://github.com/linrongbin16/lin.nvim/commit/8bfdd644e009b17b67919612542621ebbb44f1ec))
+
 ## [2.2.1](https://github.com/linrongbin16/lin.nvim/compare/v2.2.0...v2.2.1) (2023-11-02)
 
 
