@@ -111,7 +111,7 @@ vim.opt.fileencodings:append(
     "ucs-bom,utf-8,cp936,gb18030,gbk,big5,euc-jp,euc-kr,default,latin1"
 )
 vim.opt.encoding = "utf-8"
-vim.opt.termencoding = "utf-8"
+-- vim.opt.termencoding = "utf-8"
 -- set fileformat=unix
 -- set fileformats=unix,dos,mac
 
