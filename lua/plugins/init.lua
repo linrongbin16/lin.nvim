@@ -64,7 +64,7 @@ local M = {
         "nvim-treesitter/nvim-treesitter-context",
         event = { VeryLazy, BufReadPre, BufNewFile },
         dependencies = { "nvim-treesitter/nvim-treesitter" },
-        init = lua_init("nvim-treesitter/nvim-treesitter-context"),
+        config = lua_config("nvim-treesitter/nvim-treesitter-context"),
     },
     {
         "andymass/vim-matchup",
