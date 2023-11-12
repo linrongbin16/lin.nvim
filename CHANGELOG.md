@@ -1,5 +1,22 @@
 # Changelog
 
+## [2.3.0](https://github.com/linrongbin16/lin.nvim/compare/v2.2.1...v2.3.0) (2023-11-12)
+
+
+### Features
+
+* **nvim-treesitter-context:** add 'nvim-treesitter-context' for better context view ([#360](https://github.com/linrongbin16/lin.nvim/issues/360)) ([793f01e](https://github.com/linrongbin16/lin.nvim/commit/793f01e9346948af471cf2ffcc850384e63cbafd))
+
+
+### Bug Fixes
+
+* **options:** remove deprecated 'termencoding' ([#358](https://github.com/linrongbin16/lin.nvim/issues/358)) ([a76c8f2](https://github.com/linrongbin16/lin.nvim/commit/a76c8f2448b4acfae00bc27ac01293c366ec1038))
+
+
+### Performance Improvements
+
+* **neo-tree.nvim:** use empty icon for default file ([#356](https://github.com/linrongbin16/lin.nvim/issues/356)) ([8bfdd64](https://github.com/linrongbin16/lin.nvim/commit/8bfdd644e009b17b67919612542621ebbb44f1ec))
+
 ## [2.2.1](https://github.com/linrongbin16/lin.nvim/compare/v2.2.0...v2.2.1) (2023-11-02)
 
 
