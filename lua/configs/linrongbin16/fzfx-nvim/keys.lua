@@ -14,7 +14,6 @@ local M = {
         "<cmd>FzfxFilesV<cr>",
         { desc = "Find files" }
     ),
-    -- find files by cursor word
     set_lazy_key(
         "n",
         "<space>wf",
@@ -26,6 +25,12 @@ local M = {
         "<space>pf",
         "<cmd>FzfxFilesP<cr>",
         { desc = "Find files by yank text" }
+    ),
+    set_lazy_key(
+        "n",
+        "<space>rf",
+        "<cmd>FzfxFilesR<cr>",
+        { desc = "Find files by resume last" }
     ),
     -- search buffer
     set_lazy_key(
@@ -53,7 +58,6 @@ local M = {
         "<cmd>FzfxLiveGrepV<cr>",
         { desc = "Live grep" }
     ),
-    -- search word
     set_lazy_key(
         "n",
         "<space>wl",
@@ -65,6 +69,12 @@ local M = {
         "<space>pl",
         "<cmd>FzfxLiveGrepP<cr>",
         { desc = "Live grep by yank text" }
+    ),
+    set_lazy_key(
+        "n",
+        "<space>rl",
+        "<cmd>FzfxLiveGrepR<cr>",
+        { desc = "Live grep by resume last" }
     ),
     -- git
     set_lazy_key(
