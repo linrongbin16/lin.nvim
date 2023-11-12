@@ -1,4 +1,5 @@
 require("treesitter-context").setup({
-    -- separator = "┄", -- U+2504: https://symbl.cc/en/2504/
+    max_lines = 1,
     min_window_height = 30,
+    trim_scope = "inner",
 })

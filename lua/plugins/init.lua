@@ -61,6 +61,12 @@ local M = {
         config = lua_config("NvChad/nvim-colorizer.lua"),
     },
     {
+        "nvim-treesitter/nvim-treesitter-context",
+        event = { VeryLazy, BufReadPre, BufNewFile },
+        dependencies = { "nvim-treesitter/nvim-treesitter" },
+        config = lua_config("nvim-treesitter/nvim-treesitter-context"),
+    },
+    {
         "andymass/vim-matchup",
         event = { VeryLazy, BufReadPre, BufNewFile },
         dependencies = { "nvim-treesitter/nvim-treesitter" },
