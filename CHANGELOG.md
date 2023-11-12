@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.4.0](https://github.com/linrongbin16/lin.nvim/compare/v2.3.0...v2.4.0) (2023-11-12)
+
+
+### Features
+
+* **fzfx.nvim:** add resume last search keys for files/live_grep ([#362](https://github.com/linrongbin16/lin.nvim/issues/362)) ([bfedda4](https://github.com/linrongbin16/lin.nvim/commit/bfedda4187eda050684e1f6de903173e105db2ca))
+
 ## [2.3.0](https://github.com/linrongbin16/lin.nvim/compare/v2.2.1...v2.3.0) (2023-11-12)
 
 
