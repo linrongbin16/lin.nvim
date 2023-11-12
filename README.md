@@ -1,10 +1,9 @@
 # lin.nvim : Lin Rongbin's Neovim Distribution
 
 <p align="center">
-<a href="https://github.com/neovim/neovim/releases/tag/stable"><img alt="Neovim-stable" src="https://img.shields.io/badge/Neovim-stable-blueviolet.svg?style=flat-square&logo=Neovim&logoColor=green" /></a>
-<a href="https://github.com/linrongbin16/lin.nvim/search?l=lua"><img alt="Top Language" src="https://img.shields.io/github/languages/top/linrongbin16/lin.nvim?style=flat-square&label=Lua&logo=lua&logoColor=darkblue" /></a>
-<a href="https://github.com/linrongbin16/lin.nvim/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/github/license/linrongbin16/lin.nvim?style=flat-square&logo=GNU&label=License" /></a>
-<a href="https://github.com/linrongbin16/lin.nvim/actions/workflows/ci.yml"><img alt="ci.yml" src="https://img.shields.io/github/actions/workflow/status/linrongbin16/lin.nvim/ci.yml?style=flat-square&logo=GitHub&label=Luacheck" /></a>
+<a href="https://github.com/neovim/neovim/releases/tag/stable"><img alt="Neovim-stable" src="https://img.shields.io/badge/Neovim-stable-57A143?logo=neovim&logoColor=57A143" /></a>
+<a href="https://github.com/linrongbin16/lin.nvim/search?l=lua"><img alt="Language" src="https://img.shields.io/github/languages/top/linrongbin16/lin.nvim?label=Lua&logo=lua&logoColor=fff&labelColor=2C2D72" /></a>
+<a href="https://github.com/linrongbin16/lin.nvim/actions/workflows/ci.yml"><img alt="ci.yml" src="https://img.shields.io/github/actions/workflow/status/linrongbin16/lin.nvim/ci.yml?label=GitHub%20CI&labelColor=181717&logo=github&logoColor=fff" /></a>
 </p>
 
 > Leave Vim behind, this is the next generation of [lin.vim](https://github.com/linrongbin16/lin.vim).
