@@ -1,12 +1,11 @@
 local function GitDiff()
-    if vim.g.loaded_gitgutter == nil or vim.g.loaded_gitgutter <= 0 then
-        return {}
-    end
-    local changes = vim.fn["GitGutterGetHunkSummary"]()
-    if changes == nil or #changes ~= 3 then
-        return {}
-    end
-    return { added = changes[1], modified = changes[2], removed = changes[3] }
+    ---@diagnostic disable-next-line: undefined-field
+    local data = vim.b.gitsigns_status_dict or {}
+    return {
+        added = data.added,
+        modified = data.changed,
+        removed = data.removed,
+    }
 end
 
 local function Search()

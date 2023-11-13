@@ -137,8 +137,7 @@ local M = {
     {
         "lewis6991/gitsigns.nvim",
         event = { VeryLazy, BufReadPre, BufNewFile },
-        init = lua_init("lewis6991/gitsigns.nvim"),
-        keys = lua_keys("lewis6991/gitsigns.nvim"),
+        config = lua_config("lewis6991/gitsigns.nvim"),
     },
     -- Statusline
     {
@@ -151,7 +150,7 @@ local M = {
         event = { UIEnter },
         dependencies = {
             "linrongbin16/lsp-progress.nvim",
-            "airblade/vim-gitgutter",
+            "lewis6991/gitsigns.nvim",
         },
         config = lua_config("nvim-lualine/lualine.nvim"),
     },
