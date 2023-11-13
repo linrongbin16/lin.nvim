@@ -1,3 +1,9 @@
+local function GitBranch()
+    ---@diagnostic disable-next-line: undefined-field
+    local data = vim.b.gitsigns_status_dict or {}
+    return data.head and string.format(" %s", data.head) or ""
+end
+
 local function GitDiff()
     ---@diagnostic disable-next-line: undefined-field
     local data = vim.b.gitsigns_status_dict or {}
@@ -50,7 +56,8 @@ local config = {
     sections = {
         lualine_a = { "mode" },
         lualine_b = {
-            "branch",
+            GitBranch,
+            -- "branch",
             {
                 "diff",
                 source = GitDiff,
