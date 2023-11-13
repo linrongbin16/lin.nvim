@@ -128,11 +128,17 @@ local M = {
     --     config = lua_config("shellRaining/hlchunk.nvim"),
     -- },
     -- Git
+    -- {
+    --     "airblade/vim-gitgutter",
+    --     event = { VeryLazy, BufReadPre, BufNewFile },
+    --     init = lua_init("airblade/vim-gitgutter"),
+    --     keys = lua_keys("airblade/vim-gitgutter"),
+    -- },
     {
-        "airblade/vim-gitgutter",
+        "lewis6991/gitsigns.nvim",
         event = { VeryLazy, BufReadPre, BufNewFile },
-        init = lua_init("airblade/vim-gitgutter"),
-        keys = lua_keys("airblade/vim-gitgutter"),
+        init = lua_init("lewis6991/gitsigns.nvim"),
+        keys = lua_keys("lewis6991/gitsigns.nvim"),
     },
     -- Statusline
     {

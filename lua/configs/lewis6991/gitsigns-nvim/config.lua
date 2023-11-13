@@ -19,8 +19,8 @@ require("gitsigns").setup({
             vim.keymap.set(mode, l, r, opts)
         end
 
-        -- Navigation
-        map("n", "]h", function()
+        -- next hunk
+        map("n", "]c", function()
             if vim.wo.diff then
                 return "]c"
             end
@@ -30,7 +30,8 @@ require("gitsigns").setup({
             return "<Ignore>"
         end, { expr = true })
 
-        map("n", "[h", function()
+        -- previous hunk
+        map("n", "[c", function()
             if vim.wo.diff then
                 return "[c"
             end
