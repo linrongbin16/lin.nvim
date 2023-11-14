@@ -77,6 +77,31 @@ local M = {
         { desc = "Live grep by resume last" }
     ),
     -- git
+    set_lazy_key("n", "<space>gr", "<cmd>FzfxGGrep<cr>", { desc = "Git grep" }),
+    set_lazy_key(
+        "x",
+        "<space>gr",
+        "<cmd>FzfxGGrepV<cr>",
+        { desc = "Git grep" }
+    ),
+    set_lazy_key(
+        "n",
+        "<space>wgr",
+        "<cmd>FzfxGGrepW<cr>",
+        { desc = "Git grep by cursor word" }
+    ),
+    set_lazy_key(
+        "n",
+        "<space>pgr",
+        "<cmd>FzfxGGrepP<cr>",
+        { desc = "Git grep by yank text" }
+    ),
+    set_lazy_key(
+        "n",
+        "<space>rgr",
+        "<cmd>FzfxGGrepR<cr>",
+        { desc = "Git grep by resume last" }
+    ),
     set_lazy_key(
         "n",
         "<space>gf",
