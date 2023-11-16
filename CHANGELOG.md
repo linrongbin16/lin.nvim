@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.5.1](https://github.com/linrongbin16/lin.nvim/compare/v2.5.0...v2.5.1) (2023-11-16)
+
+
+### Performance Improvements
+
+* **gitlinker.nvim:** shorten highlight duration to 200ms ([#367](https://github.com/linrongbin16/lin.nvim/issues/367)) ([f2499dc](https://github.com/linrongbin16/lin.nvim/commit/f2499dc5be447434d7032a651863dffcc58822ac))
+
 ## [2.5.0](https://github.com/linrongbin16/lin.nvim/compare/v2.4.0...v2.5.0) (2023-11-16)
 
 
