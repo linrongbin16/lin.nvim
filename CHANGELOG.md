@@ -1,5 +1,18 @@
 # Changelog
 
+## [2.5.0](https://github.com/linrongbin16/lin.nvim/compare/v2.4.0...v2.5.0) (2023-11-16)
+
+
+### Features
+
+* **fzfx.nvim:** add '&lt;space&gt;gr' for git grep ([e346414](https://github.com/linrongbin16/lin.nvim/commit/e346414f045654dd9dbaafadc681666e835f28c2))
+* **fzfx.nvim:** add '&lt;space&gt;gr' for git grep ([#365](https://github.com/linrongbin16/lin.nvim/issues/365)) ([e346414](https://github.com/linrongbin16/lin.nvim/commit/e346414f045654dd9dbaafadc681666e835f28c2))
+
+
+### Bug Fixes
+
+* **ci:** fix release package name ([e346414](https://github.com/linrongbin16/lin.nvim/commit/e346414f045654dd9dbaafadc681666e835f28c2))
+
 ## [2.4.0](https://github.com/linrongbin16/lin.nvim/compare/v2.3.0...v2.4.0) (2023-11-12)
 
 
