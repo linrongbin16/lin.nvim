@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.5.2](https://github.com/linrongbin16/lin.nvim/compare/v2.5.1...v2.5.2) (2023-11-17)
+
+
+### Bug Fixes
+
+* **gitlinker.nvim:** setup for 'GitLink' command ([#370](https://github.com/linrongbin16/lin.nvim/issues/370)) ([41d1bb0](https://github.com/linrongbin16/lin.nvim/commit/41d1bb02a5354f47332e2b1cafe8fa9e55ff2322))
+
 ## [2.5.1](https://github.com/linrongbin16/lin.nvim/compare/v2.5.0...v2.5.1) (2023-11-16)
 
 
