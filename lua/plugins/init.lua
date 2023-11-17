@@ -344,6 +344,7 @@ local M = {
     -- Permlink
     {
         "linrongbin16/gitlinker.nvim",
+        cmd = { "GitLink" },
         lazy = true,
         config = lua_config("linrongbin16/gitlinker.nvim"),
         keys = lua_keys("linrongbin16/gitlinker.nvim"),
