@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.7.0](https://github.com/linrongbin16/lin.nvim/compare/v2.6.0...v2.7.0) (2023-11-21)
+
+
+### Features
+
+* **colorbox.nvim:** enable more variants ([#374](https://github.com/linrongbin16/lin.nvim/issues/374)) ([4bdc53d](https://github.com/linrongbin16/lin.nvim/commit/4bdc53d380066c51933d9e0729d56598ecd57cd6))
+
 ## [2.6.0](https://github.com/linrongbin16/lin.nvim/compare/v2.5.1...v2.6.0) (2023-11-21)
 
 
