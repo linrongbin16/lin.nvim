@@ -30,6 +30,7 @@ local M = {
     },
     {
         "linrongbin16/colorbox.nvim",
+        priority = 1000,
         config = lua_config("linrongbin16/colorbox.nvim"),
         build = function()
             require("colorbox").update()
