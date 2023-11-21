@@ -15,7 +15,6 @@ require("builtin.lsp")
 require("configs.folke.lazy-nvim.config")
 
 -- others
-require("builtin.colors")
 require("builtin.others")
 
 -- post init

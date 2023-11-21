@@ -17,9 +17,6 @@ else
     end
 end
 
--- random colorscheme
-vim.cmd([[SwitchColor]])
-
 -- biscuits
 set_key(
     { "n", "x" },

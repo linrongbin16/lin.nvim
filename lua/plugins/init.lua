@@ -29,6 +29,14 @@ local M = {
         "folke/lsp-colors.nvim",
     },
     {
+        "linrongbin16/colorbox.nvim",
+        priority = 1000,
+        config = lua_config("linrongbin16/colorbox.nvim"),
+        build = function()
+            require("colorbox").update()
+        end,
+    },
+    {
         "folke/neodev.nvim",
         ft = { "lua" },
         config = lua_config("folke/neodev.nvim"),
