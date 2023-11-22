@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.7.1](https://github.com/linrongbin16/lin.nvim/compare/v2.7.0...v2.7.1) (2023-11-22)
+
+
+### Performance Improvements
+
+* **options:** set `hidden=true` ([#376](https://github.com/linrongbin16/lin.nvim/issues/376)) ([b6bbef4](https://github.com/linrongbin16/lin.nvim/commit/b6bbef4774287aa9251a9f6cec140c2dd53bbb7e))
+
 ## [2.7.0](https://github.com/linrongbin16/lin.nvim/compare/v2.6.0...v2.7.0) (2023-11-21)
 
 
