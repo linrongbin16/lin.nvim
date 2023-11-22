@@ -120,7 +120,7 @@ vim.opt.history = 1000
 -- tabs
 vim.opt.tabpagemax = 100
 -- buffers
-vim.opt.hidden = false
+vim.opt.hidden = true
 
 -- disable save options in session and view files
 vim.opt.sessionoptions:remove("options")
