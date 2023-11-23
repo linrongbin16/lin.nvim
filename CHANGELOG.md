@@ -1,5 +1,24 @@
 # Changelog
 
+## [2.8.0](https://github.com/linrongbin16/lin.nvim/compare/v2.7.1...v2.8.0) (2023-11-23)
+
+
+### Features
+
+* **github-preview.nvim:** add 'github-preview.nvim' for preview markdown ([#380](https://github.com/linrongbin16/lin.nvim/issues/380)) ([acdbe87](https://github.com/linrongbin16/lin.nvim/commit/acdbe87943f01d1f61c36f31fbd5a89f305f7b4b))
+* **helpful.vim:** add 'helpful.vim' to user plugins list ([acdbe87](https://github.com/linrongbin16/lin.nvim/commit/acdbe87943f01d1f61c36f31fbd5a89f305f7b4b))
+* **nvim-spectre:** add 'nvim-spectre' for search and replace ([acdbe87](https://github.com/linrongbin16/lin.nvim/commit/acdbe87943f01d1f61c36f31fbd5a89f305f7b4b))
+
+
+### Bug Fixes
+
+* **nvim-treesitter-context:** remove 'nvim-treesitter-context' from user plugins list since it's already been added into embed plugins ([acdbe87](https://github.com/linrongbin16/lin.nvim/commit/acdbe87943f01d1f61c36f31fbd5a89f305f7b4b))
+
+
+### Performance Improvements
+
+* **nvim-treesitter-context:** use 'outer' trim scope ([#378](https://github.com/linrongbin16/lin.nvim/issues/378)) ([7231995](https://github.com/linrongbin16/lin.nvim/commit/72319955ce923995b8303e44545f4f3f33024665))
+
 ## [2.7.1](https://github.com/linrongbin16/lin.nvim/compare/v2.7.0...v2.7.1) (2023-11-22)
 
 
