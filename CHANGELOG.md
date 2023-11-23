@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.7.2](https://github.com/linrongbin16/lin.nvim/compare/v2.7.1...v2.7.2) (2023-11-23)
+
+
+### Performance Improvements
+
+* **nvim-treesitter-context:** use 'outer' trim scope ([#378](https://github.com/linrongbin16/lin.nvim/issues/378)) ([7231995](https://github.com/linrongbin16/lin.nvim/commit/72319955ce923995b8303e44545f4f3f33024665))
+
 ## [2.7.1](https://github.com/linrongbin16/lin.nvim/compare/v2.7.0...v2.7.1) (2023-11-22)
 
 
