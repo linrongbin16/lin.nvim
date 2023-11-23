@@ -11,7 +11,8 @@ local setup_handler = {
         { name = "nvim_lsp" },
         { name = "luasnip" },
     }, {
-        { name = "copilot" }, -- github copilot
+        { name = "copilot" }, -- copilot
+        { name = "codeium" }, -- codeium
         { name = "buffer" },
         { name = "async_path" },
         {

@@ -17,13 +17,6 @@
 -- local UIEnter = "UIEnter"
 --
 -- return {
---     -- Context
---     {
---         "nvim-treesitter/nvim-treesitter-context",
---         event = { VeryLazy, BufReadPre, BufNewFile },
---         dependencies = { "nvim-treesitter/nvim-treesitter" },
---         config = lua_config("nvim-treesitter/nvim-treesitter-context"),
---     },
 --     -- Lazygit
 --     {
 --         "kdheepak/lazygit.nvim",
@@ -64,6 +57,12 @@
 --         "zbirenbaum/copilot.lua",
 --         event = { VeryLazy, InsertEnter, CmdlineEnter },
 --         config = lua_config("zbirenbaum/copilot.lua"),
+--     },
+--     -- Codeium
+--     {
+--         "Exafunction/codeium.vim",
+--         event = { VeryLazy, BufReadPre, BufNewFile, CmdlineEnter },
+--         init = lua_init("Exafunction/codeium.vim"),
 --     },
 --     -- UI improved
 --     {
@@ -117,10 +116,17 @@
 --         init = lua_init("mbbill/undotree"),
 --         keys = lua_keys("mbbill/undotree"),
 --     },
+--     -- Better markdown previewer for github
 --     {
---         "nvim-pack/nvim-spectre",
---         cmd = { "Spectre" },
---         config = lua_config("nvim-pack/nvim-spectre"),
+--         "wallpants/github-preview.nvim",
+--         cmd = { "GithubPreviewToggle" },
+--         keys = lua_keys("wallpants/github-preview.nvim"),
+--         config = lua_config("wallpants/github-preview.nvim"),
+--     },
+--     -- Vim/Neovim api version helper
+--     {
+--         "tweekmonster/helpful.vim",
+--         cmd = { "HelpfulVersion" },
 --     },
 -- }
 
