@@ -186,6 +186,7 @@ local M = {
 
     -- ---- SEARCH ----
 
+    -- Fuzzy search
     {
         "junegunn/fzf",
         event = { CmdlineEnter },
@@ -205,6 +206,12 @@ local M = {
         dependencies = { "junegunn/fzf" },
         config = lua_config("linrongbin16/fzfx.nvim"),
         keys = lua_keys("linrongbin16/fzfx.nvim"),
+    },
+    -- Search and replace
+    {
+        "nvim-pack/nvim-spectre",
+        cmd = { "Spectre" },
+        config = lua_config("nvim-pack/nvim-spectre"),
     },
 
     -- ---- LSP ----
