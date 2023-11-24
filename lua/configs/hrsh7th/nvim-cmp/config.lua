@@ -13,6 +13,20 @@ lsp_defaults.capabilities = vim.tbl_deep_extend(
 local cmp = require("cmp")
 local luasnip = require("luasnip")
 local select_opts = { behavior = cmp.SelectBehavior.Select }
+
+local accept = cmp.mapping(function(fallback)
+    local col = vim.fn.col(".") - 1
+    if cmp.visible() then
+        cmp.confirm({ select = true })
+    elseif vim.fn.exists("b:_codeium_completions") ~= 0 then
+        vim.api.nvim_input(vim.fn["codeium#Accept"]())
+    elseif col == 0 or vim.fn.getline("."):sub(col, col):match("%s") then
+        fallback()
+    else
+        cmp.complete()
+    end
+end, { "i", "s" })
+
 local setup_handler = {
     -- performance = {
     -- debounce = 50,
@@ -67,26 +81,8 @@ local setup_handler = {
         ["<C-d>"] = cmp.mapping.scroll_docs(4),
         ["<C-Space>"] = cmp.mapping.complete(),
         ["<C-e>"] = cmp.mapping.abort(),
-        ["<CR>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-                cmp.confirm({ select = true })
-            else
-                -- If you use vim-endwise, this fallback will behave the same as vim-endwise.
-                fallback()
-            end
-        end, { "i", "s" }),
-        ["<Tab>"] = cmp.mapping(function(fallback)
-            local col = vim.fn.col(".") - 1
-            if cmp.visible() then
-                cmp.confirm({ select = true })
-            elseif
-                col == 0 or vim.fn.getline("."):sub(col, col):match("%s")
-            then
-                fallback()
-            else
-                cmp.complete()
-            end
-        end, { "i", "s" }),
+        ["<CR>"] = accept,
+        ["<Tab>"] = accept,
         ["<C-f>"] = cmp.mapping(function(fallback)
             if luasnip.jumpable(1) then
                 luasnip.jump(1)
