@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.9.0](https://github.com/linrongbin16/lin.nvim/compare/v2.8.0...v2.9.0) (2023-11-24)
+
+
+### Features
+
+* **todo-comments.nvim:** add 'todo-comments.nvim' to user plugins list ([#383](https://github.com/linrongbin16/lin.nvim/issues/383)) ([77ac811](https://github.com/linrongbin16/lin.nvim/commit/77ac811f0c7e9dc96ba9f7f8f61f21c838601d01))
+
 ## [2.8.0](https://github.com/linrongbin16/lin.nvim/compare/v2.7.1...v2.8.0) (2023-11-23)
 
 
