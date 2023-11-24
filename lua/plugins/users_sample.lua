@@ -128,6 +128,12 @@
 --         "tweekmonster/helpful.vim",
 --         cmd = { "HelpfulVersion" },
 --     },
+--     -- Todo comments
+--     {
+--         "folke/todo-comments.nvim",
+--         event = { VeryLazy, BufReadPre, BufNewFile },
+--         config = lua_config("folke/todo-comments.nvim"),
+--     },
 -- }
 
 return {}
