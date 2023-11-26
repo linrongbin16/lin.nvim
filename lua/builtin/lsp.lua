@@ -234,23 +234,23 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
         -- (silently) detach lsp client when close buffer
         -- for better lsp performance
-        vim.api.nvim_create_autocmd("BufDelete", {
-            buffer = vim.api.nvim_get_current_buf(),
-            callback = function(opts)
-                local bufnr = opts.buf
-                local clients = vim.lsp.get_active_clients({ bufnr = bufnr })
-                for client_id, _ in pairs(clients) do
-                    -- quietly without warning
-                    vim.cmd(
-                        string.format(
-                            "silent lua vim.lsp.buf_detach_client(%d,%d)",
-                            bufnr,
-                            client_id
-                        )
-                    )
-                end
-            end,
-        })
+        -- vim.api.nvim_create_autocmd("BufDelete", {
+        --     buffer = vim.api.nvim_get_current_buf(),
+        --     callback = function(opts)
+        --         local bufnr = opts.buf
+        --         local clients = vim.lsp.get_active_clients({ bufnr = bufnr })
+        --         for client_id, _ in pairs(clients) do
+        --             -- quietly without warning
+        --             vim.cmd(
+        --                 string.format(
+        --                     "silent lua vim.lsp.buf_detach_client(%d,%d)",
+        --                     bufnr,
+        --                     client_id
+        --                 )
+        --             )
+        --         end
+        --     end,
+        -- })
 
         -- disable tagfunc to fix workspace/symbol not support error
         vim.bo.tagfunc = nil
