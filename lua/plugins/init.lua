@@ -255,6 +255,11 @@ local M = {
         config = lua_config("jay-babu/mason-null-ls.nvim"),
     },
     {
+        "Zeioth/garbage-day.nvim",
+        event = { VeryLazy },
+        config = lua_config("Zeioth/garbage-day.nvim"),
+    },
+    {
         "b0o/SchemaStore.nvim",
         lazy = true,
     },
