@@ -61,7 +61,7 @@ local M = {
     },
 }
 
-M = vim.tbl_deep_extend("force", M, vim.g.lin_nvim_options or {})
+M = vim.tbl_deep_extend("force", M, vim.g.lin_nvim_options or {}) --[[@as table]]
 
 M.os = {
     --- @type string
