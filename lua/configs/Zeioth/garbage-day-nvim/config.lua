@@ -1,3 +1,3 @@
 require("garbage-day").setup({
-    grace_period = 3 * 60,
+    grace_period = 10 * 60,
 })
