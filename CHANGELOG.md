@@ -1,5 +1,18 @@
 # Changelog
 
+## [2.10.0](https://github.com/linrongbin16/lin.nvim/compare/v2.9.0...v2.10.0) (2023-11-27)
+
+
+### Features
+
+* **garbage-day.nvim:** add 'garbage-day.nvim' for lsp garbage collection ([#387](https://github.com/linrongbin16/lin.nvim/issues/387)) ([30d3c94](https://github.com/linrongbin16/lin.nvim/commit/30d3c947526de848a1a4fa7a431997be42532148))
+* **stickybuf.nvim:** auto close 'No Name' buffer ([#388](https://github.com/linrongbin16/lin.nvim/issues/388)) ([85b080d](https://github.com/linrongbin16/lin.nvim/commit/85b080da71454e3bd143d22fdea734d3a879241e))
+
+
+### Performance Improvements
+
+* **colorbox.nvim:** set 'filter=primary' to only enable primary colors ([#385](https://github.com/linrongbin16/lin.nvim/issues/385)) ([4adb04a](https://github.com/linrongbin16/lin.nvim/commit/4adb04a2be728894c4f4c1b959c8aa9ff40a7d20))
+
 ## [2.9.0](https://github.com/linrongbin16/lin.nvim/compare/v2.8.0...v2.9.0) (2023-11-24)
 
 
