@@ -85,8 +85,8 @@ function CoreDependency()
     # luarocks
     InstallOrSkip -command "scoop install luarocks" -target "luarocks"
 
-    # ctags
-    InstallOrSkip -command "scoop install universal-ctags" -target "ctags"
+    # # ctags
+    # InstallOrSkip -command "scoop install universal-ctags" -target "ctags"
 }
 
 function RustDependency()
