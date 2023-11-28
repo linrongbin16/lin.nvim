@@ -414,13 +414,11 @@ local M = {
     -- Structure outlines
     {
         "stevearc/aerial.nvim",
-        cmd = { "AerialToggle", "AerialOpen", "AerialOpenAll", "AerialInfo" },
-        event = { VeryLazy },
-        dependencies = {
-            "nvim-treesitter/nvim-treesitter",
-            "nvim-tree/nvim-web-devicons",
-        },
+        cmd = { "AerialToggle" },
+        event = { VeryLazy, CmdlineEnter },
+        dependencies = { "nvim-treesitter/nvim-treesitter" },
         keys = lua_keys("stevearc/aerial.nvim"),
+        config = lua_config("stevearc/aerial.nvim"),
     },
     -- Url viewer
     {

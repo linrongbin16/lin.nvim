@@ -1,4 +1,5 @@
 local constants = require("builtin.utils.constants")
+local layout = require("builtin.utils.layout")
 
 require("aerial").setup({
     layout = {
@@ -6,7 +7,11 @@ require("aerial").setup({
             constants.ui.layout.sidebar.max,
             constants.ui.layout.sidebar.scale,
         },
-        width = nil,
+        width = layout.editor.width(
+            constants.ui.layout.sidebar.scale,
+            constants.ui.layout.sidebar.min,
+            constants.ui.layout.sidebar.max
+        ),
         min_width = constants.ui.layout.sidebar.min,
     },
     keymaps = {
