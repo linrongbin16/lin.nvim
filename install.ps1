@@ -85,8 +85,8 @@ function CoreDependency()
     # luarocks
     InstallOrSkip -command "scoop install luarocks" -target "luarocks"
 
-    # ctags
-    InstallOrSkip -command "scoop install universal-ctags" -target "ctags"
+    # # ctags
+    # InstallOrSkip -command "scoop install universal-ctags" -target "ctags"
 }
 
 function RustDependency()
@@ -99,15 +99,6 @@ function RustDependency()
     InstallOrSkip -command "cargo install fd-find" -target "fd"
     InstallOrSkip -command "cargo install --locked bat" -target "bat"
     InstallOrSkip -command "cargo install eza" -target "eza"
-}
-
-function GoDependency()
-{
-    message 'install go and modern commands'
-    # go
-    InstallOrSkip -command "scoop install go" -target "go"
-    # commands
-    InstallOrSkip -command "scoop install extras/lazygit" -target "lazygit"
 }
 
 function PythonDependency()
@@ -213,7 +204,6 @@ Message "install dependencies with scoop"
 
 CoreDependency
 RustDependency
-# GoDependency
 PythonDependency
 NodejsDependency
 NerdFontDependency

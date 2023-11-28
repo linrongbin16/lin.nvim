@@ -39,5 +39,5 @@ install_or_skip "brew install python3" "python3"
 # nodejs
 install_or_skip "brew install node" "node"
 
-# ctags
-install_or_skip "brew install universal-ctags" "ctags"
+# # ctags
+# install_or_skip "brew install universal-ctags" "ctags"
