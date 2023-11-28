@@ -11,19 +11,6 @@ source $DEPS_HOME/util.sh
 
 # dependency
 
-golang_dependency() {
-    message "install go and modern commands"
-    # see: https://github.com/canha/golang-tools-install-script
-    cd $NVIM_HOME
-    if [ ! -d golang-tools-install-script ]; then
-        git clone --depth=1 https://github.com/canha/golang-tools-install-script
-    fi
-    install_or_skip "cd golang-tools-install-script && bash ./goinstall.sh" "go"
-    cd $NVIM_HOME
-    export PATH="$HOME/go/bin:$HOME/.go/bin:$PATH"
-    install_or_skip "go install github.com/jesseduffield/lazygit@latest" "lazygit"
-}
-
 rust_dependency() {
     message "install rust and modern commands"
     install_or_skip "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y" "cargo"
@@ -184,7 +171,6 @@ Darwin)
 esac
 
 rust_dependency
-# golang_dependency
 pip3_dependency
 npm_dependency
 nerdfont_dependency

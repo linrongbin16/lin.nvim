@@ -101,15 +101,6 @@ function RustDependency()
     InstallOrSkip -command "cargo install eza" -target "eza"
 }
 
-function GoDependency()
-{
-    message 'install go and modern commands'
-    # go
-    InstallOrSkip -command "scoop install go" -target "go"
-    # commands
-    InstallOrSkip -command "scoop install extras/lazygit" -target "lazygit"
-}
-
 function PythonDependency()
 {
     Message "install python3 and pip3 packages"
@@ -213,7 +204,6 @@ Message "install dependencies with scoop"
 
 CoreDependency
 RustDependency
-# GoDependency
 PythonDependency
 NodejsDependency
 NerdFontDependency
