@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.11.0](https://github.com/linrongbin16/lin.nvim/compare/v2.10.0...v2.11.0) (2023-11-28)
+
+
+### Features
+
+* **aerial.nvim:** migrate 'vista.vim' to 'aerial.nvim' ([#389](https://github.com/linrongbin16/lin.nvim/issues/389)) ([51f1b7c](https://github.com/linrongbin16/lin.nvim/commit/51f1b7cf121c631c46a59571dac62735fbfabeaa))
+
+
+### Performance Improvements
+
+* **install:** remove 'ctags' from dependency ([51f1b7c](https://github.com/linrongbin16/lin.nvim/commit/51f1b7cf121c631c46a59571dac62735fbfabeaa))
+
 ## [2.10.0](https://github.com/linrongbin16/lin.nvim/compare/v2.9.0...v2.10.0) (2023-11-27)
 
 
