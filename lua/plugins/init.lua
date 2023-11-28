@@ -413,11 +413,14 @@ local M = {
     },
     -- Structure outlines
     {
-        "liuchengxu/vista.vim",
-        cmd = { "Vista" },
+        "stevearc/aerial.nvim",
+        cmd = { "AerialToggle", "AerialOpen", "AerialOpenAll", "AerialInfo" },
         event = { VeryLazy },
-        init = lua_init("liuchengxu/vista.vim"),
-        keys = lua_keys("liuchengxu/vista.vim"),
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter",
+            "nvim-tree/nvim-web-devicons",
+        },
+        keys = lua_keys("stevearc/aerial.nvim"),
     },
     -- Url viewer
     {
