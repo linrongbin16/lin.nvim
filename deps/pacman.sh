@@ -42,5 +42,5 @@ install_or_skip "yes | sudo pacman -S python python-pip" "pip3"
 # node
 install_or_skip "yes | sudo pacman -S nodejs npm" "node"
 
-# ctags
-install_or_skip "yes | sudo pacman -S ctags" "ctags"
+# # ctags
+# install_or_skip "yes | sudo pacman -S ctags" "ctags"

@@ -38,18 +38,18 @@ install_or_skip() {
     fi
 }
 
-install_universal_ctags() {
-    local nvim_home=$HOME/.config/nvim
-    local ctags_home=$nvim_home/universal-ctags
-
-    message "install universal-ctags from source"
-    cd $nvim_home
-    if [ ! -d $ctags_home ]; then
-        git clone https://github.com/universal-ctags/ctags.git $ctags_home
-    fi
-    cd $ctags_home
-    ./autogen.sh
-    ./configure
-    make
-    sudo make install
-}
+# install_universal_ctags() {
+#     local nvim_home=$HOME/.config/nvim
+#     local ctags_home=$nvim_home/universal-ctags
+#
+#     message "install universal-ctags from source"
+#     cd $nvim_home
+#     if [ ! -d $ctags_home ]; then
+#         git clone https://github.com/universal-ctags/ctags.git $ctags_home
+#     fi
+#     cd $ctags_home
+#     ./autogen.sh
+#     ./configure
+#     make
+#     sudo make install
+# }
