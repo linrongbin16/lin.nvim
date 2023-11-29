@@ -21,7 +21,12 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
                     end
                 end
             end
-            if bufs_count > del_count + 1 and del_bufnr ~= nil then
+            if
+                bufs_count > 0
+                and del_count > 0
+                and bufs_count > del_count + 1
+                and del_bufnr ~= nil
+            then
                 vim.api.nvim_buf_delete(del_bufnr, {})
             end
         end)
