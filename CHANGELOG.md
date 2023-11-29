@@ -1,5 +1,18 @@
 # Changelog
 
+## [2.11.1](https://github.com/linrongbin16/lin.nvim/compare/v2.11.0...v2.11.1) (2023-11-29)
+
+
+### Bug Fixes
+
+* **stickybuf.nvim:** fix auto close 'No Name' buffer ([#394](https://github.com/linrongbin16/lin.nvim/issues/394)) ([b239e15](https://github.com/linrongbin16/lin.nvim/commit/b239e157b2f1865d64a735a8f80feb5ee1c2b31d))
+* **stickybuf.nvim:** fix auto-close 'No Name' buffer ([#393](https://github.com/linrongbin16/lin.nvim/issues/393)) ([4532e19](https://github.com/linrongbin16/lin.nvim/commit/4532e19e29e5fa67f1d36a883223fb37a006d510))
+
+
+### Performance Improvements
+
+* **lualine.nvim:** improve style ([#391](https://github.com/linrongbin16/lin.nvim/issues/391)) ([8f19e4f](https://github.com/linrongbin16/lin.nvim/commit/8f19e4f848ecf8c060fac5ed05c2524260bcf41d))
+
 ## [2.11.0](https://github.com/linrongbin16/lin.nvim/compare/v2.10.0...v2.11.0) (2023-11-28)
 
 
