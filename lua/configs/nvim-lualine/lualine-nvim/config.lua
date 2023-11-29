@@ -46,10 +46,25 @@ local config = {
     options = {
         icons_enabled = true,
         component_separators = empty_component_separators,
-        section_separators = angle_section_separators,
+        section_separators = slash_section_separators,
     },
     sections = {
-        lualine_a = { "mode" },
+        lualine_a = {
+            {
+                "mode",
+                fmt = function(m)
+                    if constants.os.is_windows then
+                        return string.format(" %s", m)
+                    elseif constants.os.is_macos then
+                        return string.format(" %s", m)
+                    elseif constants.os.is_bsd then
+                        return string.format(" %s", m)
+                    else
+                        return string.format(" %s", m)
+                    end
+                end,
+            },
+        },
         lualine_b = {
             "branch",
             {
@@ -59,6 +74,10 @@ local config = {
         },
         lualine_c = {
             "filename",
+            require("lsp-progress").progress,
+        },
+        lualine_x = {
+            Search,
             {
                 "diagnostics",
                 symbols = {
@@ -68,10 +87,6 @@ local config = {
                     hint = constants.diagnostic.sign.hint .. " ",
                 },
             },
-            require("lsp-progress").progress,
-        },
-        lualine_x = {
-            Search,
             "filetype",
             {
                 "fileformat",
