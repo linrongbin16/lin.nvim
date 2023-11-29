@@ -7,8 +7,8 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
         vim.schedule(function()
             local bufnrs = vim.api.nvim_list_bufs()
             local bufs_count = 0
+            local del_bufnr = nil
             local del_count = 0
-            local del_bufs = {}
             if type(bufnrs) == "table" then
                 for _, bufnr in ipairs(bufnrs) do
                     local bufname = vim.api.nvim_buf_get_name(bufnr)
@@ -17,14 +17,12 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
                     end
                     if string.len(bufname) == 0 then
                         del_count = del_count + 1
-                        table.insert(del_bufs, bufnr)
+                        del_bufnr = bufnr
                     end
                 end
             end
-            if bufs_count > del_count + 1 then
-                for _, bufnr in ipairs(del_bufs) do
-                    vim.api.nvim_buf_delete(bufnr, {})
-                end
+            if bufs_count > del_count + 1 and del_bufnr ~= nil then
+                vim.api.nvim_buf_delete(del_bufnr, {})
             end
         end)
     end,
