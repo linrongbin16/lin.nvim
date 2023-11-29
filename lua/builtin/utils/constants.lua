@@ -64,12 +64,10 @@ local M = {
 M = vim.tbl_deep_extend("force", M, vim.g.lin_nvim_options or {}) --[[@as table]]
 
 M.os = {
-    --- @type string
     name = OS,
-    --- @type boolean
     is_macos = vim.fn.has("mac") > 0,
-    --- @type boolean
     is_windows = vim.fn.has("win32") > 0 or vim.fn.has("win64") > 0,
+    is_bsd = vim.fn.has("bsd") > 0,
 }
 
 return M
