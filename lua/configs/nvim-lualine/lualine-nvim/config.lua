@@ -73,7 +73,7 @@ local config = {
             },
         },
         lualine_c = {
-            { "filename", path = 1 },
+            "filename",
             require("lsp-progress").progress,
         },
         lualine_x = {
