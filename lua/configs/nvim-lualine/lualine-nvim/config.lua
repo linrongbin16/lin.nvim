@@ -47,6 +47,11 @@ local config = {
         icons_enabled = true,
         component_separators = empty_component_separators,
         section_separators = slash_section_separators,
+        refresh = {
+            statusline = 1000,
+            tabline = 10000,
+            winbar = 10000,
+        },
     },
     sections = {
         lualine_a = {
