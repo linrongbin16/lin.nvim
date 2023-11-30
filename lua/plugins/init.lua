@@ -50,7 +50,10 @@ local M = {
     {
         "RRethy/vim-illuminate",
         event = { VeryLazy, BufReadPre, BufNewFile },
-        dependencies = { "nvim-treesitter/nvim-treesitter" },
+        dependencies = {
+            "neovim/nvim-lspconfig",
+            "nvim-treesitter/nvim-treesitter",
+        },
         config = lua_config("RRethy/vim-illuminate"),
     },
     {
@@ -141,10 +144,7 @@ local M = {
     {
         "nvim-lualine/lualine.nvim",
         event = { UIEnter },
-        dependencies = {
-            "linrongbin16/lsp-progress.nvim",
-            "airblade/vim-gitgutter",
-        },
+        dependencies = { "linrongbin16/lsp-progress.nvim" },
         config = lua_config("nvim-lualine/lualine.nvim"),
     },
     -- Winbar
