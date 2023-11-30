@@ -36,16 +36,6 @@ local M = {
             require("colorbox").update()
         end,
     },
-    {
-        "folke/neodev.nvim",
-        ft = { "lua" },
-        config = lua_config("folke/neodev.nvim"),
-    },
-    {
-        "neovim/nvim-lspconfig",
-        dependencies = { "folke/neodev.nvim" }, -- neodev must be setup before nvim-lspconfig
-        config = lua_config("neovim/nvim-lspconfig"),
-    },
 
     -- ---- HIGHLIGHT ----
 
@@ -60,7 +50,10 @@ local M = {
     {
         "RRethy/vim-illuminate",
         event = { VeryLazy, BufReadPre, BufNewFile },
-        dependencies = { "nvim-treesitter/nvim-treesitter" },
+        dependencies = {
+            "neovim/nvim-lspconfig",
+            "nvim-treesitter/nvim-treesitter",
+        },
         config = lua_config("RRethy/vim-illuminate"),
     },
     {
@@ -151,10 +144,7 @@ local M = {
     {
         "nvim-lualine/lualine.nvim",
         event = { UIEnter },
-        dependencies = {
-            "linrongbin16/lsp-progress.nvim",
-            "airblade/vim-gitgutter",
-        },
+        dependencies = { "linrongbin16/lsp-progress.nvim" },
         config = lua_config("nvim-lualine/lualine.nvim"),
     },
     -- Winbar
@@ -215,10 +205,24 @@ local M = {
     },
 
     -- ---- LSP ----
+    -- Infrastructure
+    {
+        "folke/neodev.nvim",
+        ft = { "lua" },
+        event = { VeryLazy, BufReadPre, BufNewFile, CmdlineEnter },
+        config = lua_config("folke/neodev.nvim"),
+    },
+    {
+        "neovim/nvim-lspconfig",
+        event = { VeryLazy, BufReadPre, BufNewFile, CmdlineEnter },
+        dependencies = { "folke/neodev.nvim" }, -- neodev must be setup before nvim-lspconfig
+        config = lua_config("neovim/nvim-lspconfig"),
+    },
     -- Lsp server management
     {
         "williamboman/mason.nvim",
         event = { VeryLazy, BufReadPre, BufNewFile, CmdlineEnter },
+        dependencies = { "neovim/nvim-lspconfig" },
         build = ":MasonUpdate",
         config = lua_config("williamboman/mason.nvim"),
         keys = lua_keys("williamboman/mason.nvim"),
@@ -226,13 +230,14 @@ local M = {
     {
         "williamboman/mason-lspconfig.nvim",
         event = { VeryLazy, BufReadPre, BufNewFile, CmdlineEnter },
-        dependencies = { "williamboman/mason.nvim" },
+        dependencies = { "neovim/nvim-lspconfig", "williamboman/mason.nvim" },
         config = lua_config("williamboman/mason-lspconfig.nvim"),
     },
     {
         "stevearc/conform.nvim",
         event = { VeryLazy, BufReadPre, BufNewFile, CmdlineEnter },
         dependencies = {
+            "neovim/nvim-lspconfig",
             "williamboman/mason.nvim",
             "williamboman/mason-lspconfig.nvim",
         },
@@ -242,12 +247,14 @@ local M = {
     {
         "nvimtools/none-ls.nvim",
         event = { VeryLazy, BufReadPre, BufNewFile, CmdlineEnter },
+        dependencies = { "neovim/nvim-lspconfig" },
         config = lua_config("jose-elias-alvarez/null-ls.nvim"),
     },
     {
         "jay-babu/mason-null-ls.nvim",
         event = { VeryLazy, BufReadPre, BufNewFile, CmdlineEnter },
         dependencies = {
+            "neovim/nvim-lspconfig",
             "williamboman/mason.nvim",
             "williamboman/mason-lspconfig.nvim",
             "nvimtools/none-ls.nvim",
@@ -257,6 +264,7 @@ local M = {
     {
         "Zeioth/garbage-day.nvim",
         event = { VeryLazy },
+        dependencies = { "neovim/nvim-lspconfig" },
         config = lua_config("Zeioth/garbage-day.nvim"),
     },
     {
@@ -300,6 +308,7 @@ local M = {
         "hrsh7th/nvim-cmp",
         event = { VeryLazy, InsertEnter, CmdlineEnter },
         dependencies = {
+            "neovim/nvim-lspconfig",
             "onsails/lspkind.nvim",
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-buffer",
@@ -319,7 +328,7 @@ local M = {
     -- Diagnostic
     {
         "folke/trouble.nvim",
-        cmd = { "Trouble", "TroubleClose", "TroubleToggle", "TroubleRefresh" },
+        cmd = { "Trouble", "TroubleToggle" },
         config = lua_config("folke/trouble.nvim"),
         keys = lua_keys("folke/trouble.nvim"),
     },
@@ -365,7 +374,6 @@ local M = {
     {
         "linrongbin16/gitlinker.nvim",
         cmd = { "GitLink" },
-        lazy = true,
         config = lua_config("linrongbin16/gitlinker.nvim"),
         keys = lua_keys("linrongbin16/gitlinker.nvim"),
     },
@@ -414,9 +422,12 @@ local M = {
     -- Structure outlines
     {
         "stevearc/aerial.nvim",
-        cmd = { "AerialToggle" },
-        event = { VeryLazy, CmdlineEnter },
-        dependencies = { "nvim-treesitter/nvim-treesitter" },
+        cmd = { "AerialToggle", "AerialOpen" },
+        event = { CmdlineEnter },
+        dependencies = {
+            "neovim/nvim-lspconfig",
+            "nvim-treesitter/nvim-treesitter",
+        },
         keys = lua_keys("stevearc/aerial.nvim"),
         config = lua_config("stevearc/aerial.nvim"),
     },
