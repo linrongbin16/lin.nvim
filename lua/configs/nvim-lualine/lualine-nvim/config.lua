@@ -47,23 +47,15 @@ local config = {
         icons_enabled = true,
         component_separators = empty_component_separators,
         section_separators = slash_section_separators,
+        refresh = {
+            statusline = 1000,
+            tabline = 10000,
+            winbar = 10000,
+        },
     },
     sections = {
         lualine_a = {
-            {
-                "mode",
-                fmt = function(m)
-                    if constants.os.is_windows then
-                        return string.format(" %s", m)
-                    elseif constants.os.is_macos then
-                        return string.format(" %s", m)
-                    elseif constants.os.is_bsd then
-                        return string.format(" %s", m)
-                    else
-                        return string.format(" %s", m)
-                    end
-                end,
-            },
+            "mode",
         },
         lualine_b = {
             "branch",
@@ -115,5 +107,9 @@ vim.api.nvim_create_augroup("lualine_augroup", { clear = true })
 vim.api.nvim_create_autocmd("User", {
     group = "lualine_augroup",
     pattern = "LspProgressStatusUpdated",
-    callback = require("lualine").refresh,
+    callback = function()
+        require("lualine").refresh({
+            place = { "statusline" },
+        })
+    end,
 })
