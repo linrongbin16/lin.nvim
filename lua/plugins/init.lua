@@ -36,16 +36,6 @@ local M = {
             require("colorbox").update()
         end,
     },
-    {
-        "folke/neodev.nvim",
-        ft = { "lua" },
-        config = lua_config("folke/neodev.nvim"),
-    },
-    {
-        "neovim/nvim-lspconfig",
-        dependencies = { "folke/neodev.nvim" }, -- neodev must be setup before nvim-lspconfig
-        config = lua_config("neovim/nvim-lspconfig"),
-    },
 
     -- ---- HIGHLIGHT ----
 
@@ -215,6 +205,19 @@ local M = {
     },
 
     -- ---- LSP ----
+    -- Infrastructure
+    {
+        "folke/neodev.nvim",
+        ft = { "lua" },
+        event = { VeryLazy, BufReadPre, BufNewFile, CmdlineEnter },
+        config = lua_config("folke/neodev.nvim"),
+    },
+    {
+        "neovim/nvim-lspconfig",
+        event = { VeryLazy, BufReadPre, BufNewFile, CmdlineEnter },
+        dependencies = { "folke/neodev.nvim" }, -- neodev must be setup before nvim-lspconfig
+        config = lua_config("neovim/nvim-lspconfig"),
+    },
     -- Lsp server management
     {
         "williamboman/mason.nvim",
