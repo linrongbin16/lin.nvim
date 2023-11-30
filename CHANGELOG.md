@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.12.1](https://github.com/linrongbin16/lin.nvim/compare/v2.12.0...v2.12.1) (2023-11-30)
+
+
+### Performance Improvements
+
+* **nvim-lspconfig:** lazy load 'nvim-lspconfig' ([#398](https://github.com/linrongbin16/lin.nvim/issues/398)) ([f965d82](https://github.com/linrongbin16/lin.nvim/commit/f965d8200f1a574718bdc7b1b8f53be3fb9f6ecf))
+
 ## [2.12.0](https://github.com/linrongbin16/lin.nvim/compare/v2.11.1...v2.12.0) (2023-11-30)
 
 
