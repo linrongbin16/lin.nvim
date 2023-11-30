@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.13.0](https://github.com/linrongbin16/lin.nvim/compare/v2.12.1...v2.13.0) (2023-11-30)
+
+
+### Features
+
+* **neoconf.nvim:** add 'neoconf.nvim' for project-level lsp configurations ([#400](https://github.com/linrongbin16/lin.nvim/issues/400)) ([ba4c8d6](https://github.com/linrongbin16/lin.nvim/commit/ba4c8d692b5d573ca821da3bfb5ab05372d2cbc2))
+
 ## [2.12.1](https://github.com/linrongbin16/lin.nvim/compare/v2.12.0...v2.12.1) (2023-11-30)
 
 
