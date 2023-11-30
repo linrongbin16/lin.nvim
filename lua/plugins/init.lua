@@ -204,18 +204,29 @@ local M = {
         config = lua_config("nvim-pack/nvim-spectre"),
     },
 
+    -- ---- PROJECT ----
+
+    -- Project/local configuration
+    {
+        "folke/neoconf.nvim",
+        event = { VeryLazy, BufReadPre, BufNewFile, CmdlineEnter },
+        config = lua_config("folke/neoconf.nvim"),
+    },
+
     -- ---- LSP ----
-    -- Infrastructure
+
+    -- Lsp configuration
     {
         "folke/neodev.nvim",
         ft = { "lua" },
         event = { VeryLazy, BufReadPre, BufNewFile, CmdlineEnter },
+        dependencies = { "folke/neoconf.nvim" }, -- neoconf must be setup before neodev
         config = lua_config("folke/neodev.nvim"),
     },
     {
         "neovim/nvim-lspconfig",
         event = { VeryLazy, BufReadPre, BufNewFile, CmdlineEnter },
-        dependencies = { "folke/neodev.nvim" }, -- neodev must be setup before nvim-lspconfig
+        dependencies = { "folke/neoconf.nvim", "folke/neodev.nvim" }, -- neoconf, neodev must be setup before nvim-lspconfig
         config = lua_config("neovim/nvim-lspconfig"),
     },
     -- Lsp server management
@@ -261,18 +272,33 @@ local M = {
         },
         config = lua_config("jay-babu/mason-null-ls.nvim"),
     },
+    -- Json schema
+    {
+        "b0o/SchemaStore.nvim",
+        lazy = true,
+    },
+    -- Garbage server collection
     {
         "Zeioth/garbage-day.nvim",
         event = { VeryLazy },
         dependencies = { "neovim/nvim-lspconfig" },
         config = lua_config("Zeioth/garbage-day.nvim"),
     },
+    -- Symbol navigation
     {
-        "b0o/SchemaStore.nvim",
-        lazy = true,
+        "DNLHC/glance.nvim",
+        cmd = { "Glance" },
+        config = lua_config("DNLHC/glance.nvim"),
+    },
+    -- Diagnostic
+    {
+        "folke/trouble.nvim",
+        cmd = { "Trouble", "TroubleToggle" },
+        config = lua_config("folke/trouble.nvim"),
+        keys = lua_keys("folke/trouble.nvim"),
     },
 
-    -- Auto-complete engine
+    -- ---- AUTO-COMPLETE ----
     {
         "onsails/lspkind.nvim",
         lazy = true,
@@ -318,19 +344,6 @@ local M = {
             "hrsh7th/cmp-cmdline",
         },
         config = lua_config("hrsh7th/nvim-cmp"),
-    },
-    -- Symbol navigation
-    {
-        "DNLHC/glance.nvim",
-        cmd = { "Glance" },
-        config = lua_config("DNLHC/glance.nvim"),
-    },
-    -- Diagnostic
-    {
-        "folke/trouble.nvim",
-        cmd = { "Trouble", "TroubleToggle" },
-        config = lua_config("folke/trouble.nvim"),
-        keys = lua_keys("folke/trouble.nvim"),
     },
 
     -- ---- SPECIFIC LANGUAGE SUPPORT ----
