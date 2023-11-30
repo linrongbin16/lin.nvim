@@ -308,6 +308,7 @@ local M = {
         "hrsh7th/nvim-cmp",
         event = { VeryLazy, InsertEnter, CmdlineEnter },
         dependencies = {
+            "neovim/nvim-lspconfig",
             "onsails/lspkind.nvim",
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-buffer",
