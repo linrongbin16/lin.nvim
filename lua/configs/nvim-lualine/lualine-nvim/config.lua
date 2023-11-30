@@ -50,20 +50,7 @@ local config = {
     },
     sections = {
         lualine_a = {
-            {
-                "mode",
-                fmt = function(m)
-                    if constants.os.is_windows then
-                        return string.format(" %s", m)
-                    elseif constants.os.is_macos then
-                        return string.format(" %s", m)
-                    elseif constants.os.is_bsd then
-                        return string.format(" %s", m)
-                    else
-                        return string.format(" %s", m)
-                    end
-                end,
-            },
+            "mode",
         },
         lualine_b = {
             "branch",
