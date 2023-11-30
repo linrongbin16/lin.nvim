@@ -1,5 +1,18 @@
 # Changelog
 
+## [2.12.0](https://github.com/linrongbin16/lin.nvim/compare/v2.11.1...v2.12.0) (2023-11-30)
+
+
+### Features
+
+* **options:** enable 'exrc' for project-level nvim configs ([#395](https://github.com/linrongbin16/lin.nvim/issues/395)) ([96efa72](https://github.com/linrongbin16/lin.nvim/commit/96efa72327dc22f964967d1a901b71c987ef1840))
+
+
+### Performance Improvements
+
+* **lualine.nvim:** improve refresh performance ([#397](https://github.com/linrongbin16/lin.nvim/issues/397)) ([44c6fe6](https://github.com/linrongbin16/lin.nvim/commit/44c6fe60ef1ace1ec529304c8a8473e67631c6be))
+* **stickybuf.nvim:** improve delete 'No Name' buffer perf ([96efa72](https://github.com/linrongbin16/lin.nvim/commit/96efa72327dc22f964967d1a901b71c987ef1840))
+
 ## [2.11.1](https://github.com/linrongbin16/lin.nvim/compare/v2.11.0...v2.11.1) (2023-11-29)
 
 
