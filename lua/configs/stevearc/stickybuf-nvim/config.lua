@@ -9,6 +9,14 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
             local totals = 0
             local targets = 0
             local target_bufnr = nil
+
+            local function _got_target()
+                return totals > 0
+                    and targets > 0
+                    and totals > targets
+                    and target_bufnr ~= nil
+            end
+
             if type(bufnrs) == "table" then
                 for _, bn in ipairs(bufnrs) do
                     local bufname = vim.api.nvim_buf_get_name(bn)
@@ -19,14 +27,12 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
                         targets = targets + 1
                         target_bufnr = bn
                     end
+                    if _got_target() then
+                        break
+                    end
                 end
             end
-            if
-                totals > 0
-                and targets > 0
-                and totals > targets
-                and target_bufnr ~= nil
-            then
+            if _got_target() then
                 vim.api.nvim_buf_delete(target_bufnr, {})
             end
         end, 1000)
