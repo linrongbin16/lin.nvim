@@ -1,5 +1,22 @@
 # Changelog
 
+## [2.14.0](https://github.com/linrongbin16/lin.nvim/compare/v2.13.0...v2.14.0) (2023-12-02)
+
+
+### Features
+
+* **friendly-snippets:** add 'friendly-snippets' for 'LuaSnip' ([#402](https://github.com/linrongbin16/lin.nvim/issues/402)) ([cf753ad](https://github.com/linrongbin16/lin.nvim/commit/cf753ad6ecc1107207723eecfb4482a0d33aa2e7))
+
+
+### Bug Fixes
+
+* **codeium.nvim:** add 'codeium.nvim' instead of 'codeium.vim' ([cf753ad](https://github.com/linrongbin16/lin.nvim/commit/cf753ad6ecc1107207723eecfb4482a0d33aa2e7))
+
+
+### Performance Improvements
+
+* **nvim-cmp:** add 'lsp-kind' symbol for 'codeium.nvim' in 'nvim-cmp' ([cf753ad](https://github.com/linrongbin16/lin.nvim/commit/cf753ad6ecc1107207723eecfb4482a0d33aa2e7))
+
 ## [2.13.0](https://github.com/linrongbin16/lin.nvim/compare/v2.12.1...v2.13.0) (2023-11-30)
 
 
