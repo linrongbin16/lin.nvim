@@ -12,6 +12,7 @@ lsp_defaults.capabilities = vim.tbl_deep_extend(
 -- require('luasnip.loaders.from_vscode').lazy_load()
 local cmp = require("cmp")
 local luasnip = require("luasnip")
+require("luasnip.loaders.from_vscode").lazy_load()
 local select_opts = { behavior = cmp.SelectBehavior.Select }
 local setup_handler = {
     -- performance = {
@@ -52,6 +53,7 @@ local setup_handler = {
                 async_path = "[PATH]",
                 cmdline = "[CMD]",
                 copilot = "[COPILOT]",
+                codeium = "[CODEIUM]",
             },
             symbol_map = { Copilot = "" },
             maxwidth = 50,

@@ -316,8 +316,13 @@ local M = {
         event = { VeryLazy, InsertEnter, CmdlineEnter },
     },
     {
+        "rafamadriz/friendly-snippets",
+        lazy = true,
+    },
+    {
         "L3MON4D3/LuaSnip",
         event = { VeryLazy, InsertEnter },
+        dependencies = { "rafamadriz/friendly-snippets" },
         version = "v2.*",
         submodules = false,
     },
