@@ -60,9 +60,9 @@
 --     },
 --     -- Codeium
 --     {
---         "Exafunction/codeium.vim",
+--         "Exafunction/codeium.nvim",
 --         event = { VeryLazy, BufReadPre, BufNewFile, CmdlineEnter },
---         init = lua_init("Exafunction/codeium.vim"),
+--         config = lua_config("Exafunction/codeium.nvim"),
 --     },
 --     -- UI improved
 --     {

@@ -12,6 +12,7 @@ lsp_defaults.capabilities = vim.tbl_deep_extend(
 -- require('luasnip.loaders.from_vscode').lazy_load()
 local cmp = require("cmp")
 local luasnip = require("luasnip")
+require("luasnip.loaders.from_vscode").lazy_load()
 local select_opts = { behavior = cmp.SelectBehavior.Select }
 local setup_handler = {
     -- performance = {
@@ -43,19 +44,20 @@ local setup_handler = {
         -- fields = { "menu", "abbr", "kind" },
         format = require("lspkind").cmp_format({
             mode = "symbol",
-            menu = {
-                buffer = "[BUF]",
-                nvim_lsp = "[LSP]",
-                luasnip = "[SNIP]",
-                tags = "[TAGS]",
-                path = "[PATH]",
-                async_path = "[PATH]",
-                cmdline = "[CMD]",
-                copilot = "[COPILOT]",
-            },
-            symbol_map = { Copilot = "" },
+            symbol_map = { Copilot = "", Codeium = "" },
             maxwidth = 50,
             ellipsis_char = "…",
+            -- menu = {
+            --     buffer = "[BUF]",
+            --     nvim_lsp = "[LSP]",
+            --     luasnip = "[SNIP]",
+            --     tags = "[TAGS]",
+            --     path = "[PATH]",
+            --     async_path = "[PATH]",
+            --     cmdline = "[CMD]",
+            --     copilot = "[COPILOT]",
+            --     codeium = "[CODEIUM]",
+            -- },
         }),
     },
     mapping = cmp.mapping.preset.insert({
