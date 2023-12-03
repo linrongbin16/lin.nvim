@@ -70,7 +70,7 @@ git clone https://github.com/linrongbin16/lin.nvim ~/.config/nvim && cd ~/.confi
 
 And that's all of it.
 
-> Note: for macOS please install [Xcode](https://developer.apple.com/xcode/) as pre-requirements.
+> Note: for macOS please install [Xcode](https://developer.apple.com/xcode/) and [homebrew](https://brew.sh/) as pre-requirements.
 
 ### Windows
 
