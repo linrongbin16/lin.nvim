@@ -60,7 +60,9 @@ jobs:
     name: Release
     if: ${{ github.ref == 'refs/heads/main' }}
     needs:
+      - typecheck
       - luacheck
+      - stylua
     runs-on: ubuntu-latest
     steps:
       - uses: google-github-actions/release-please-action@v3
