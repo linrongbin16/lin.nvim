@@ -1,5 +1,18 @@
 # Changelog
 
+## [2.14.1](https://github.com/linrongbin16/lin.nvim/compare/v2.14.0...v2.14.1) (2023-12-06)
+
+
+### Bug Fixes
+
+* **nvim-cmp:** fix 'lspkind' menu for 'nvim-cmp ([#406](https://github.com/linrongbin16/lin.nvim/issues/406)) ([f328b25](https://github.com/linrongbin16/lin.nvim/commit/f328b25aaa22dfca65d56d5e6f90cd4fdb60cf8c))
+
+
+### Performance Improvements
+
+* **ci:** improve pipeline speed with multiple concurrent jobs ([935e060](https://github.com/linrongbin16/lin.nvim/commit/935e060a6351e249bd8aa41b53c8e3bb13c8aa30))
+* **lazy.nvim:** shorten 'git.timeout' to 60 ([#408](https://github.com/linrongbin16/lin.nvim/issues/408)) ([935e060](https://github.com/linrongbin16/lin.nvim/commit/935e060a6351e249bd8aa41b53c8e3bb13c8aa30))
+
 ## [2.14.0](https://github.com/linrongbin16/lin.nvim/compare/v2.13.0...v2.14.0) (2023-12-02)
 
 
