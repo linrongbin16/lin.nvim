@@ -20,8 +20,8 @@ jobs:
       - uses: ytanikin/PRConventionalCommits@1.1.0
         with:
           task_types: '["feat","fix","docs","test","ci","refactor","perf","chore","revert","break"]'
-  luacheck:
-    name: Lua check
+  typecheck:
+    name: Type check
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -33,26 +33,40 @@ jobs:
           level: Information
           configpath: ".luarc.json"
           neodev-version: stable
+  luacheck:
+    name: Lua check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
       - name: Luacheck
         uses: lunarmodules/luacheck@v1
         with:
           args: lua --config .luacheckrc
+  stylua:
+    name: Stylua
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
       - name: Stylua
         uses: JohnnyMorganz/stylua-action@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           version: latest
-          args: --config-path .stylua.toml --color always ./lua
-      - name: Format with stylua
+          args: --config-path .stylua.toml ./lua
+      - name: Auto commit
         if: ${{ github.ref != 'refs/heads/main' }}
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: "chore(pr): format with stylua"
+          commit_message: "chore(pr): auto-commit"
   release:
     name: Release
     if: ${{ github.ref == 'refs/heads/main' }}
     needs:
+      - typecheck
       - luacheck
+      - stylua
     runs-on: ubuntu-latest
     steps:
       - uses: google-github-actions/release-please-action@v3

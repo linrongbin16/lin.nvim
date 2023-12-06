@@ -16,6 +16,9 @@ vim.opt.rtp:prepend(lazypath)
 
 local opts = {
     root = vim.fn.stdpath("config") .. "/lazy",
+    git = {
+        timeout = 60,
+    },
     ui = {
         size = {
             width = constants.ui.layout.middle.scale,
