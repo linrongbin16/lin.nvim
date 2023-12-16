@@ -2,7 +2,7 @@
 
 <p align="center">
 <a href="https://github.com/neovim/neovim/releases/tag/stable"><img alt="Neovim-stable" src="https://img.shields.io/badge/Neovim-stable-57A143?logo=neovim&logoColor=57A143" /></a>
-<a href="https://github.com/linrongbin16/lin.nvim/search?l=lua"><img alt="Language" src="https://img.shields.io/github/languages/top/linrongbin16/lin.nvim?label=Lua&logo=lua&logoColor=fff&labelColor=2C2D72" /></a>
+<a href="https://github.com/linrongbin16/lin.nvim/search?l=lua"><img alt="Language" src="https://img.shields.io/github/languages/top/linrongbin16/lin.nvim?label=Lua&logo=lua&logoColor=fff&labelColor=2C2D72&color=blue" /></a>
 <a href="https://github.com/linrongbin16/lin.nvim/actions/workflows/ci.yml"><img alt="ci.yml" src="https://img.shields.io/github/actions/workflow/status/linrongbin16/lin.nvim/ci.yml?label=GitHub%20CI&labelColor=181717&logo=github&logoColor=fff" /></a>
 </p>
 
