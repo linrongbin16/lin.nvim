@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.14.2](https://github.com/linrongbin16/lin.nvim/compare/v2.14.1...v2.14.2) (2023-12-18)
+
+
+### Performance Improvements
+
+* **diagnostics:** migrate to v0.10 diagnostics config ([#412](https://github.com/linrongbin16/lin.nvim/issues/412)) ([06d09eb](https://github.com/linrongbin16/lin.nvim/commit/06d09eb2c4ad4399db7b102b652513a64831399e))
+
 ## [2.14.1](https://github.com/linrongbin16/lin.nvim/compare/v2.14.0...v2.14.1) (2023-12-06)
 
 
