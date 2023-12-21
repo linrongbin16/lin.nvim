@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.15.0](https://github.com/linrongbin16/lin.nvim/compare/v2.14.2...v2.15.0) (2023-12-21)
+
+
+### Features
+
+* **nvim-java:** add 'nvim-java' to user plugins list ([#415](https://github.com/linrongbin16/lin.nvim/issues/415)) ([e54695b](https://github.com/linrongbin16/lin.nvim/commit/e54695ba30cde03665823b9b25f181950c1681a5))
+
 ## [2.14.2](https://github.com/linrongbin16/lin.nvim/compare/v2.14.1...v2.14.2) (2023-12-18)
 
 
