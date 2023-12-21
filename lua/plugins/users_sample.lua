@@ -43,9 +43,21 @@
 --         config = lua_config("folke/flash.nvim"),
 --         keys = lua_keys("folke/flash.nvim"),
 --     },
---     -- slim
+--     -- Java
 --     {
---         "slim-template/vim-slim",
+--         "nvim-java/nvim-java",
+--         dependencies = {
+--             "nvim-java/lua-async-await",
+--             "nvim-java/nvim-java-core",
+--             "nvim-java/nvim-java-test",
+--             "nvim-java/nvim-java-dap",
+--             "MunifTanjim/nui.nvim",
+--             "neovim/nvim-lspconfig",
+--             "mfussenegger/nvim-dap",
+--             "williamboman/mason.nvim",
+--         },
+--         event = { VeryLazy, InsertEnter, CmdlineEnter },
+--         config = lua_config("nvim-java/nvim-java"),
 --     },
 --     -- Copilot
 --     {
