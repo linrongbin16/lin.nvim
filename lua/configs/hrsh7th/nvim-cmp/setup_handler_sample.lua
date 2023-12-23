@@ -5,7 +5,7 @@ local cmp = require("cmp")
 local setup_handler = {
     completion = {
         completeopt = "menu,menuone,noinsert",
-        keyword_length = 2,
+        keyword_length = 1,
     },
     sources = cmp.config.sources({
         { name = "nvim_lsp" },
