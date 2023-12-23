@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.15.1](https://github.com/linrongbin16/lin.nvim/compare/v2.15.0...v2.15.1) (2023-12-23)
+
+
+### Performance Improvements
+
+* **nvim-cmp:** set keyword length=1 ([#417](https://github.com/linrongbin16/lin.nvim/issues/417)) ([59990f5](https://github.com/linrongbin16/lin.nvim/commit/59990f5c7d4fbc49a27e9dcbc9dd502596fca529))
+
 ## [2.15.0](https://github.com/linrongbin16/lin.nvim/compare/v2.14.2...v2.15.0) (2023-12-21)
 
 
