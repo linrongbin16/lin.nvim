@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.15.2](https://github.com/linrongbin16/lin.nvim/compare/v2.15.1...v2.15.2) (2023-12-27)
+
+
+### Performance Improvements
+
+* **colorbox.nvim:** use default configs ([#419](https://github.com/linrongbin16/lin.nvim/issues/419)) ([339f294](https://github.com/linrongbin16/lin.nvim/commit/339f2946734ec663d2b76c8e57b41defb36737cb))
+
 ## [2.15.1](https://github.com/linrongbin16/lin.nvim/compare/v2.15.0...v2.15.1) (2023-12-23)
 
 
