@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.16.0](https://github.com/linrongbin16/lin.nvim/compare/v2.15.2...v2.16.0) (2023-12-28)
+
+
+### Features
+
+* **gentags.nvim:** add 'gentags.nvim' config ([#421](https://github.com/linrongbin16/lin.nvim/issues/421)) ([0684109](https://github.com/linrongbin16/lin.nvim/commit/06841098705251b2f479b818f326922dcb2333d7))
+
 ## [2.15.2](https://github.com/linrongbin16/lin.nvim/compare/v2.15.1...v2.15.2) (2023-12-27)
 
 
