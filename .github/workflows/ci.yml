@@ -79,7 +79,7 @@ jobs:
           echo $PWD
           echo 'ls'
           ls -lh
-          sudo bash./install.sh
+          sudo bash  ./install.sh
   release:
     name: Release
     if: ${{ github.ref == 'refs/heads/main' }}
