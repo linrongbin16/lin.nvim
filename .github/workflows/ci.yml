@@ -60,28 +60,33 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: "chore(pr): auto-commit"
-  unix_installer:
-    name: Unix Installer
+  ubuntu_installer:
+    name: Ubuntu Installer
     needs:
       - typecheck
       - luacheck
       - stylua
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [macos-latest, ubuntu-latest]
+    runs-on: ubuntu-latest
     steps:
-      - uses: Homebrew/actions/setup-homebrew@master
-        if: ${{ matrix.os == 'macos-latest'}}
       - name: Install lin.nvim
         shell: bash
         run: |
-          echo 'pwd'
-          echo $PWD
-          echo 'ls'
-          ls -lh
           set -x
           sudo sh -c 'git clone https://github.com/linrongbin16/lin.nvim ~/.config/nvim && cd ~/.config/nvim && bash -x  ./install.sh'
+  macos_installer:
+    name: MacOS Installer
+    needs:
+      - typecheck
+      - luacheck
+      - stylua
+    runs-on: macos-latest
+    steps:
+      - uses: Homebrew/actions/setup-homebrew@master
+      - name: Install lin.nvim
+        shell: bash
+        run: |
+          set -x
+          git clone https://github.com/linrongbin16/lin.nvim ~/.config/nvim && cd ~/.config/nvim && bash -x  ./install.sh
   release:
     name: Release
     if: ${{ github.ref == 'refs/heads/main' }}
@@ -89,7 +94,8 @@ jobs:
       - typecheck
       - luacheck
       - stylua
-      - unix_installer
+      - ubuntu_installer
+      - macos_installer
     runs-on: ubuntu-latest
     steps:
       - uses: google-github-actions/release-please-action@v3
