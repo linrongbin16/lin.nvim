@@ -71,6 +71,8 @@ jobs:
       matrix:
         os: [macos-latest, ubuntu-latest]
     steps:
+      - uses: Homebrew/actions/setup-homebrew@master
+        if: ${{ matrix.os == 'macos-latest'}}
       - name: Install lin.nvim
         shell: bash
         run: |
