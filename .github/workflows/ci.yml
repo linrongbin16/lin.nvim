@@ -60,6 +60,21 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: "chore(pr): auto-commit"
+  unix_installer:
+    name: Unix Installer
+    needs:
+      - typecheck
+      - luacheck
+      - stylua
+    runs-on: [ubuntu-latest, macos-latest]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install lin.nvim
+        shell: bash
+        run: |
+          echo 'pwd'
+          echo $PWD
+          sudo bash./install.sh
   release:
     name: Release
     if: ${{ github.ref == 'refs/heads/main' }}
