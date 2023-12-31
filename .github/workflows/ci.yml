@@ -71,7 +71,6 @@ jobs:
       matrix:
         os: [macos-latest, ubuntu-latest]
     steps:
-      - uses: actions/checkout@v4
       - name: Install lin.nvim
         shell: bash
         run: |
@@ -79,7 +78,7 @@ jobs:
           echo $PWD
           echo 'ls'
           ls -lh
-          sudo bash  ./install.sh
+          git clone https://github.com/linrongbin16/lin.nvim ~/.config/nvim && cd ~/.config/nvim && sudo bash  ./install.sh
   release:
     name: Release
     if: ${{ github.ref == 'refs/heads/main' }}
