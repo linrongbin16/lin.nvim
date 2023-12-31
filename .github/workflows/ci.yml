@@ -79,7 +79,8 @@ jobs:
           echo 'ls'
           ls -lh
           set -x
-          git clone https://github.com/linrongbin16/lin.nvim ~/.config/nvim && cd ~/.config/nvim && sudo bash -x  ./install.sh
+          su
+          git clone https://github.com/linrongbin16/lin.nvim ~/.config/nvim && cd ~/.config/nvim && bash -x  ./install.sh
   release:
     name: Release
     if: ${{ github.ref == 'refs/heads/main' }}
