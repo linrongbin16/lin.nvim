@@ -72,7 +72,7 @@ jobs:
         shell: bash
         run: |
           set -x
-          sudo sh -c 'git clone https://github.com/linrongbin16/lin.nvim ~/.config/nvim && cd ~/.config/nvim && bash -x  ./install.sh'
+          sudo sh -c 'git clone https://github.com/linrongbin16/lin.nvim ~/.config/nvim && cd ~/.config/nvim && bash -euxo pipefail  ./install.sh'
   macos_installer:
     name: MacOS Installer
     needs:
@@ -86,7 +86,7 @@ jobs:
         shell: bash
         run: |
           set -x
-          git clone https://github.com/linrongbin16/lin.nvim ~/.config/nvim && cd ~/.config/nvim && bash -x  ./install.sh
+          git clone https://github.com/linrongbin16/lin.nvim ~/.config/nvim && cd ~/.config/nvim && bash -euxo pipefail  ./install.sh
   release:
     name: Release
     if: ${{ github.ref == 'refs/heads/main' }}
