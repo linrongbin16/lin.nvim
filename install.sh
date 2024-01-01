@@ -345,8 +345,8 @@ pip3_dependency() {
 
 npm_dependency() {
     info "install node packages with npm"
-    sudo npm install -g neovim
-    install "sudo npm install -g trash-cli" "trash"
+    sudo npm install --silent -g neovim
+    install "sudo npm install --silent -g trash-cli" "trash"
 }
 
 nerdfont_latest_release_tag() {
@@ -459,7 +459,8 @@ Linux)
         install_dnf
         IS_DNF=1
     elif [ -f "/etc/gentoo-release" ]; then
-        # not implement
+        info "gentoo ($OS) is not supported, exit..."
+        exit 1
     else
         # assume apt
         install_apt
@@ -471,7 +472,8 @@ Darwin)
     IS_BREW=1
     ;;
 FreeBSD | NetBSD | OpenBSD)
-    # not implement
+    info "$OS is not supported, exit..."
+    exit 1
     ;;
 *)
     info "$OS is not supported, exit..."
