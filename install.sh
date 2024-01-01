@@ -50,8 +50,19 @@ install() {
     fi
 }
 
+install_func() {
+    local func="$1"
+    local target="$2"
+    if ! type "$target" >/dev/null 2>&1; then
+        info "install '$target' with function: '$func'"
+        func
+    else
+        skip_info $target
+    fi
+}
+
 install_ctags() {
-    message "install universal-ctags from source"
+    info "install universal-ctags from source"
     cd $NVIM_HOME
     if [ ! -d $CTAGS_HOME ]; then
         git clone https://github.com/universal-ctags/ctags.git $CTAGS_HOME
@@ -61,6 +72,95 @@ install_ctags() {
     ./configure
     make
     sudo make install
+}
+
+# apt
+
+install_nvim_apt() {
+    info "install 'nvim'(appimage) from github.com"
+    sudo apt-get -q -y install fuse
+    wget https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
+    sudo mkdir -p /usr/local/bin
+    chmod u+x nvim.appimage
+    sudo mv nvim.appimage /usr/local/bin/nvim
+}
+
+install_apt() {
+    info "install dependencies with apt"
+    sudo apt-add-repository ppa:git-core/ppa
+    sudo apt-get -q update
+    sudo locale-gen en_US
+    sudo locale-gen en_US.UTF-8
+    sudo update-locale
+
+    # neovim
+    if ! type nvim >/dev/null 2>&1; then
+        info "install 'nvim'(appimage) from github.com"
+        sudo apt-get -q -y install fuse
+        wget https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
+        sudo mkdir -p /usr/local/bin
+        chmod u+x nvim.appimage
+        sudo mv nvim.appimage /usr/local/bin/nvim
+    else
+        skip_info 'nvim'
+    fi
+
+    # c++ toolchain
+    install "sudo apt-get -q -y install build-essential" "gcc"
+    install "sudo apt-get -q -y install build-essential" "make"
+    install "sudo apt-get -q -y install autoconf" "autoconf"
+    install "sudo apt-get -q -y install automake" "automake"
+    install "sudo apt-get -q -y install pkg-config" "pkg-config"
+    install "sudo apt-get -q -y install cmake" "cmake"
+
+    # download tools
+    install "sudo apt-get -q -y install git" "git"
+    install "sudo apt-get -q -y install curl" "curl"
+    install "sudo apt-get -q -y install wget" "wget"
+
+    # compress tools
+    install "sudo apt-get -q -y install p7zip" "7z"
+    install "sudo apt-get -q -y install gzip" "gzip"
+    install "sudo apt-get -q -y install unzip" "unzip"
+    install "sudo apt-get -q -y install unrar" "unrar"
+
+    # luarocks
+    install "sudo apt-get -q -y install luajit" "luajit"
+    install "sudo apt-get -q -y install luarocks" "luarocks"
+
+    # copy/paste tools
+    install "sudo apt-get -q -y install xsel" "xsel"
+    install "sudo apt-get -q -y install xclip" "xclip"
+
+    # python3
+    install "sudo apt-get -q -y install python3 python3-dev python3-venv python3-pip python3-docutils" "python3"
+    install "sudo apt-get -q -y install python3 python3-dev python3-venv python3-pip python3-docutils" "pip3"
+
+    # nodejs
+    if ! type "node" >/dev/null; then
+        # see: https://github.com/nodesource/distributions
+        info "install nodejs from deb.nodesource.com"
+        sudo apt-get -q -y install ca-certificates gnupg
+        sudo mkdir -p /etc/apt/keyrings
+        curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
+        NODE_MAJOR=20
+        echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
+        sudo apt-get -q update
+        sudo apt-get -q -y install nodejs
+    else
+        skip_info 'node'
+    fi
+
+    # ctags
+    if ! type "ctags" >/dev/null 2>&1; then
+        sudo apt-get -y install libseccomp-dev
+        sudo apt-get -y install libjansson-dev
+        sudo apt-get -y install libyaml-dev
+        sudo apt-get -y install libxml2-dev
+        install_ctags
+    else
+        skip_info 'ctags'
+    fi
 }
 
 # dependency
@@ -78,9 +178,9 @@ rust_dependency() {
 pip3_dependency() {
     info "install python packages with pip3"
     python3 -m pip install pynvim --user --upgrade
-    # install_or_skip "python3 -m pip install pipx --user && python3 -m pipx ensurepath" "pipx"
+    # install "python3 -m pip install pipx --user && python3 -m pipx ensurepath" "pipx"
     # export PATH="$PATH:$HOME/.local/bin"
-    # install_or_skip "pipx install trash-cli" "trash-put"
+    # install "pipx install trash-cli" "trash-put"
 }
 
 npm_dependency() {
