@@ -72,8 +72,8 @@ install_ctags() {
     cd $CTAGS_HOME
     ./autogen.sh
     ./configure
-    make
-    sudo make install
+    make -s
+    sudo make -s install
 }
 
 # }
