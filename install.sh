@@ -148,8 +148,8 @@ install_apt() {
     install "sudo apt-get -q -y install xclip" "xclip"
 
     # python3
-    install "sudo apt-get -q -y install python3 python3-dev python3-venv python3-pip python3-docutils" "python3"
-    install "sudo apt-get -q -y install python3 python3-dev python3-venv python3-pip python3-docutils" "pip3"
+    install "sudo apt-get -q -y install python3 python3-dev python3-venv python3-pip python3-docutils python3-pynvim" "python3"
+    install "sudo apt-get -q -y install python3 python3-dev python3-venv python3-pip python3-docutils python3-pynvim" "pip3"
 
     # nodejs
     install_func "install_apt_node" "node"
@@ -214,8 +214,10 @@ rust_dependency() {
 }
 
 pip3_dependency() {
-    info "install python packages with pip3"
-    python3 -m pip install pynvim --user --upgrade
+    if [ $IS_APT -eq 0 ]; then
+        info "install python packages with pip3"
+        python3 -m pip install pynvim --user --upgrade
+    end
     # install "python3 -m pip install pipx --user && python3 -m pipx ensurepath" "pipx"
     # export PATH="$PATH:$HOME/.local/bin"
     # install "pipx install trash-cli" "trash-put"
@@ -231,7 +233,7 @@ nerdfont_latest_release_tag() {
     local org="$1"
     local repo="$2"
     local uri="https://github.com/$org/$repo/releases/latest"
-    curl -f -L $uri | grep "href=\"/$org/$repo/releases/tag" | grep -Eo 'href="/[a-zA-Z0-9#~.*,/!?=+&_%:-]*"' | head -n 1 | cut -d '"' -f2 | cut -d "/" -f6
+    curl -s -f -L $uri | grep "href=\"/$org/$repo/releases/tag" | grep -Eo 'href="/[a-zA-Z0-9#~.*,/!?=+&_%:-]*"' | head -n 1 | cut -d '"' -f2 | cut -d "/" -f6
 }
 
 install_nerdfont() {
@@ -327,6 +329,8 @@ nvim_config() {
 
 info "install for $OS"
 
+IS_APT=0
+
 # dependency
 case "$OS" in
 Linux)
@@ -339,6 +343,7 @@ Linux)
     else
         # assume apt
         install_apt
+        IS_APT=1
     fi
     ;;
 FreeBSD)
