@@ -204,6 +204,12 @@ install_brew() {
 
     # ctags
     install "brew install universal-ctags" "ctags"
+
+    # rust commands
+    install "brew install fd" "fd"
+    install "brew install ripgrep" "rg"
+    install "brew install bat" "bat"
+    install "brew install eza" "eza"
 }
 
 # dependency
