@@ -99,7 +99,6 @@ jobs:
       - luacheck
       - stylua
       - ubuntu_installer
-      - windows_installer
       - macos_installer
     runs-on: ubuntu-latest
     steps:
