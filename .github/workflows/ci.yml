@@ -73,8 +73,8 @@ jobs:
         run: |
           set -x
           echo '${{ steps.extract_branch.outputs.branch }}'
-          echo ${{ steps.extract_branch.outputs.branch }}
-          git clone --single-branch --branch ${{ steps.extract_branch.outputs.branch }} --depth=1 https://github.com/linrongbin16/lin.nvim /root/.config/nvim && cd /root/.config/nvim && sudo bash -euxo pipefail  ./install.sh
+          export BRANCH_NAME=${{ steps.extract_branch.outputs.branch }}
+          sudo sh -c "git clone --single-branch --branch $BRANCH_NAME --depth=1 https://github.com/linrongbin16/lin.nvim ~/.config/nvim && cd ~/.config/nvim && sudo bash -euxo pipefail  ./install.sh"
   windows_installer:
     name: Windows Installer
     runs-on: windows-latest
