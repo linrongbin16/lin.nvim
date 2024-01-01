@@ -11,6 +11,7 @@ OS="$(uname -s)"
 source $DEPS_HOME/util.sh
 
 IS_APT=0
+IS_DNF=0
 IS_BREW=0
 
 # utils {
@@ -408,9 +409,10 @@ Linux)
     if [ -f "/etc/arch-release" ] || [ -f "/etc/artix-release" ]; then
         $DEPS_HOME/pacman.sh $DEPS_HOME
     elif [ -f "/etc/fedora-release" ] || [ -f "/etc/redhat-release" ]; then
-        $DEPS_HOME/dnf.sh $DEPS_HOME
+        install_dnf
+        IS_DNF=1
     elif [ -f "/etc/gentoo-release" ]; then
-        $DEPS_HOME/emerge.sh $DEPS_HOME
+        # not implement
     else
         # assume apt
         install_apt
