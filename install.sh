@@ -151,9 +151,6 @@ install_apt() {
     install_func "install_apt_node" "node"
 
     # ctags
-    install_func "install_apt_node" "node"
-
-    # ctags
     install_func "install_apt_ctags" "ctags"
 }
 
