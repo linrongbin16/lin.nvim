@@ -387,7 +387,7 @@ install_nerdfont() {
 nerdfont_dependency() {
     install_nerdfont "Hack.zip" "font-hack-nerd-font"
     # install_nerdfont "FiraCode.zip" "font-fira-code-nerd-font"
-    info "please set 'Hack NFM' (or 'Hack Nerd Font Mono') for your terminal font"
+    info "please set 'Hack NFM' (or 'Hack Nerd Font Mono') as your terminal font"
 }
 
 nvim_config() {
