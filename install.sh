@@ -161,10 +161,13 @@ install_apt() {
 # brew
 
 install_brew() {
-    install "xcode-select --install" "clang"
-    install '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"' "brew"
-
     info "install dependencies with brew"
+
+    install "xcode-select --install" "clang"
+    if ! type brew >/dev/null 2>&1; then
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+    fi
+
     brew update
 
     # neovim
@@ -194,8 +197,8 @@ install_brew() {
     # nodejs
     install "brew install node" "node"
 
-    # # ctags
-    # install "brew install universal-ctags" "ctags"
+    # ctags
+    install "brew install universal-ctags" "ctags"
 }
 
 # dependency
