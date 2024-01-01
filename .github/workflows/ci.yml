@@ -62,10 +62,6 @@ jobs:
           commit_message: "chore(pr): auto-commit"
   ubuntu_installer:
     name: Ubuntu Installer
-    needs:
-      - typecheck
-      - luacheck
-      - stylua
     runs-on: ubuntu-latest
     steps:
       - name: Install lin.nvim
@@ -75,10 +71,6 @@ jobs:
           sudo sh -c 'git clone https://github.com/linrongbin16/lin.nvim ~/.config/nvim && cd ~/.config/nvim && bash -euxo pipefail  ./install.sh'
   macos_installer:
     name: MacOS Installer
-    needs:
-      - typecheck
-      - luacheck
-      - stylua
     runs-on: macos-latest
     steps:
       - uses: Homebrew/actions/setup-homebrew@master
