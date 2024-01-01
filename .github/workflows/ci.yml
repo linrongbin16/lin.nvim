@@ -60,28 +60,20 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: "chore(pr): auto-commit"
-  git_branch:
-    name: Git branch
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Git branch
-        shell: bash
-        run: echo "$(git branch --show-current)" >> $GITHUB_OUTPUT
-        id: branch
   ubuntu_installer:
     name: Ubuntu Installer
     runs-on: ubuntu-latest
-    needs:
-      - git_branch
     steps:
+      - name: Get branch
+        shell: bash
+        run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+        id: extract_branch
       - name: Install lin.nvim
         shell: bash
         run: |
           set -x
-          echo 'GITHUB_OUTPUT'
-          echo $GITHUB_OUTPUT
+          echo '${{ steps.extract_branch.outputs.branch }}'
+          echo ${{ steps.extract_branch.outputs.branch }}
           sudo sh -c 'git clone https://github.com/linrongbin16/lin.nvim ~/.config/nvim && cd ~/.config/nvim && bash -euxo pipefail  ./install.sh'
   windows_installer:
     name: Windows Installer
@@ -103,12 +95,16 @@ jobs:
       - git_branch
     steps:
       - uses: Homebrew/actions/setup-homebrew@master
+      - name: Get branch
+        shell: bash
+        run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+        id: extract_branch
       - name: Install lin.nvim
         shell: bash
         run: |
           set -x
-          echo 'GITHUB_OUTPUT'
-          echo $GITHUB_OUTPUT
+          echo '${{ steps.extract_branch.outputs.branch }}'
+          echo ${{ steps.extract_branch.outputs.branch }}
           git clone https://github.com/linrongbin16/lin.nvim ~/.config/nvim && cd ~/.config/nvim && bash -euxo pipefail  ./install.sh
   release:
     name: Release
