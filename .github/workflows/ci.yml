@@ -87,8 +87,6 @@ jobs:
       - name: Install lin.nvim
         shell: pwsh
         run: |
-          echo 'git branch --show-current'
-          git branch --show-current
           Set-PSDebug -Trace 1
           Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
           irm get.scoop.sh | iex
@@ -103,8 +101,6 @@ jobs:
       - name: Install lin.nvim
         shell: bash
         run: |
-          echo 'git branch --show-current'
-          git branch --show-current
           set -x
           git clone https://github.com/linrongbin16/lin.nvim ~/.config/nvim && cd ~/.config/nvim && bash -euxo pipefail  ./install.sh
   release:
