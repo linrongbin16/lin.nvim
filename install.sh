@@ -7,10 +7,9 @@ NVIM_HOME=$HOME/.config/nvim
 CTAGS_HOME=$NVIM_HOME/universal-ctags
 OS="$(uname -s)"
 
-source $DEPS_HOME/util.sh
-
 IS_APT=0
 IS_DNF=0
+IS_PACMAN=0
 IS_BREW=0
 
 # utils {
@@ -454,7 +453,8 @@ info "install for $OS"
 case "$OS" in
 Linux)
     if [ -f "/etc/arch-release" ] || [ -f "/etc/artix-release" ]; then
-        $DEPS_HOME/pacman.sh $DEPS_HOME
+        install_pacman
+        IS_PACMAN=1
     elif [ -f "/etc/fedora-release" ] || [ -f "/etc/redhat-release" ]; then
         install_dnf
         IS_DNF=1
