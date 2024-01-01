@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.16.1](https://github.com/linrongbin16/lin.nvim/compare/v2.16.0...v2.16.1) (2024-01-01)
+
+
+### Performance Improvements
+
+* **installer:** add ci test for installer ([#423](https://github.com/linrongbin16/lin.nvim/issues/423)) ([2784ac4](https://github.com/linrongbin16/lin.nvim/commit/2784ac4bc2e7ff2ee142b6d745d0b907b812a659))
+
 ## [2.16.0](https://github.com/linrongbin16/lin.nvim/compare/v2.15.2...v2.16.0) (2023-12-28)
 
 
