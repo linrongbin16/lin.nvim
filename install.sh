@@ -13,7 +13,7 @@ source $DEPS_HOME/util.sh
 IS_APT=0
 IS_BREW=0
 
-# utils
+# utils {
 
 info() {
     local content="$*"
@@ -77,7 +77,9 @@ install_ctags() {
     sudo make install
 }
 
-# apt
+# }
+
+# apt: ubuntu/debian {
 
 install_apt_nvim() {
     info "install 'nvim'(appimage) from github.com"
@@ -161,7 +163,9 @@ install_apt() {
     install_func "install_apt_ctags" "ctags"
 }
 
-# brew
+# }
+
+# homebrew {
 
 install_brew() {
     info "install dependencies with brew"
@@ -211,6 +215,64 @@ install_brew() {
     install "brew install bat" "bat"
     install "brew install eza" "eza"
 }
+
+# }
+
+# dnf: fedora/centos {
+
+install_dnf_ctags() {
+    sudo dnf install -y libseccomp-devel
+    sudo dnf install -y jansson-devel
+    sudo dnf install -y libyaml-devel
+    sudo dnf install -y libxml2-devel
+    install_ctags
+}
+
+install_dnf() {
+    message "install dependencies with dnf"
+    sudo dnf check-update
+
+    # neovim
+    install "sudo dnf install -y neovim" "nvim"
+
+    # c++ toolchain
+    install "sudo dnf group install -y \"Development Tools\"" "gcc"
+    install "sudo dnf group install -y \"Development Tools\"" "make"
+    install "sudo dnf install -y autoconf" "autoconf"
+    install "sudo dnf install -y automake" "automake"
+    install "sudo dnf install -y pkg-config" "pkg-config"
+    install "sudo dnf install -y cmake" "cmake"
+
+    # download tools
+    install "sudo dnf install -y git" "git"
+    install "sudo dnf install -y curl" "curl"
+    install "sudo dnf install -y wget" "wget"
+
+    # compress tools
+    install "sudo dnf install -y gzip" "gzip"
+    install "sudo dnf install -y p7zip" "7z"
+    install "sudo dnf install -y unzip" "unzip"
+    install "sudo dnf install -y unrar" "unrar"
+
+    # luarocks
+    install "sudo dnf install -y luarocks" "luarocks"
+
+    # copy/paste tools
+    install "sudo dnf install -y xsel" "xsel"
+    install "sudo dnf install -y xclip" "xclip"
+
+    # python3
+    install "sudo dnf install -y python3 python3-devel python3-pip python3-docutils python3-pynvim" "python3"
+    install "sudo dnf install -y python3 python3-devel python3-pip python3-docutils python3-pynvim" "pip3"
+
+    # nodejs
+    install "sudo dnf install -y nodejs npm" "node"
+
+    # ctags
+    install_func "install_dnf_ctags" "ctags"
+}
+
+# }
 
 # dependency
 
