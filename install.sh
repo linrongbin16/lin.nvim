@@ -5,24 +5,78 @@
 
 NVIM_HOME=$HOME/.config/nvim
 DEPS_HOME=$NVIM_HOME/deps
+CTAGS_HOME=$NVIM_HOME/universal-ctags
 OS="$(uname -s)"
 
 source $DEPS_HOME/util.sh
 
+# utils
+
+info() {
+    local content="$*"
+    printf "[lin.nvim] - %s\n" "$content"
+}
+
+err() {
+    local content="$*"
+    info "error! $content"
+}
+
+skip_info() {
+    local old="$IFS"
+    IFS='/'
+    local target="'$*'"
+    info "$target already exist, skip..."
+    IFS=$old
+}
+
+backup() {
+    local src=$1
+    if [[ -f "$src" || -d "$src" ]]; then
+        local target=$src.$(date +"%Y-%m-%d.%H-%M-%S")
+        info "backup '$src' to '$target'"
+        mv $src $target
+    fi
+}
+
+install() {
+    local command="$1"
+    local target="$2"
+    if ! type "$target" >/dev/null 2>&1; then
+        info "install '$target' with command: '$command'"
+        eval "$command"
+    else
+        skip_info $target
+    fi
+}
+
+install_ctags() {
+    message "install universal-ctags from source"
+    cd $NVIM_HOME
+    if [ ! -d $CTAGS_HOME ]; then
+        git clone https://github.com/universal-ctags/ctags.git $CTAGS_HOME
+    fi
+    cd $CTAGS_HOME
+    ./autogen.sh
+    ./configure
+    make
+    sudo make install
+}
+
 # dependency
 
 rust_dependency() {
-    message "install rust and modern commands"
-    install_or_skip "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y" "cargo"
+    info "install rust and modern commands"
+    install "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y" "cargo"
     . "$HOME/.cargo/env"
-    install_or_skip "cargo install fd-find" "fd"
-    install_or_skip "cargo install ripgrep" "rg"
-    install_or_skip "cargo install --locked bat" "bat"
-    install_or_skip "cargo install eza" "eza"
+    install "cargo install fd-find" "fd"
+    install "cargo install ripgrep" "rg"
+    install "cargo install --locked bat" "bat"
+    install "cargo install eza" "eza"
 }
 
 pip3_dependency() {
-    message "install python packages with pip3"
+    info "install python packages with pip3"
     python3 -m pip install pynvim --user --upgrade
     # install_or_skip "python3 -m pip install pipx --user && python3 -m pipx ensurepath" "pipx"
     # export PATH="$PATH:$HOME/.local/bin"
@@ -30,9 +84,9 @@ pip3_dependency() {
 }
 
 npm_dependency() {
-    message "install node packages with npm"
+    info "install node packages with npm"
     sudo npm install -g neovim
-    install_or_skip "sudo npm install -g trash-cli" "trash"
+    install "sudo npm install -g trash-cli" "trash"
 }
 
 nerdfont_latest_release_tag() {
@@ -45,7 +99,7 @@ nerdfont_latest_release_tag() {
 install_nerdfont() {
     if [ "$OS" == "Darwin" ]; then
         local font_name=$2
-        message "install $font_name nerd fonts with brew"
+        info "install $font_name nerd fonts with brew"
         brew tap homebrew/cask-fonts
         brew install --cask $font_name
     else
@@ -55,16 +109,16 @@ install_nerdfont() {
         local font_file=$1
         local font_version=$(nerdfont_latest_release_tag $org $repo)
         local font_url="https://github.com/$org/$repo/releases/download/$font_version/$font_file"
-        message "install $font_file($font_version) nerd fonts from github"
+        info "install $font_file($font_version) nerd fonts from github"
         if [ -f $font_file ]; then
             rm -rf $font_file
         fi
         curl -L $font_url -o $font_file
         if [ $? -ne 0 ]; then
-            message "failed to download $font_file, skip..."
+            info "failed to download $font_file, skip..."
         else
             unzip -o $font_file
-            message "install $font_file($font_version) nerd font from github - done"
+            info "install $font_file($font_version) nerd font from github - done"
         fi
         sudo fc-cache -f -v
     fi
@@ -73,13 +127,13 @@ install_nerdfont() {
 nerdfont_dependency() {
     install_nerdfont "Hack.zip" "font-hack-nerd-font"
     # install_nerdfont "FiraCode.zip" "font-fira-code-nerd-font"
-    message "please set 'Hack NFM' (or 'Hack Nerd Font Mono') as your terminal font"
+    info "please set 'Hack NFM' (or 'Hack Nerd Font Mono') as your terminal font"
 }
 
 nvim_config() {
-    message "install ~/.config/nvim/init.vim for neovim"
+    info "install ~/.config/nvim/init.vim for neovim"
     mkdir -p $HOME/.config
-    try_backup $HOME/.nvim
+    backup $HOME/.nvim
     ln -s $NVIM_HOME $HOME/.nvim
 
     # nvim-treesitter
@@ -136,7 +190,7 @@ nvim_config() {
     nvim -E -c "Lazy! sync" -c "qall!"
 }
 
-message "install for $OS"
+info "install for $OS"
 
 # dependency
 case "$OS" in
@@ -165,7 +219,7 @@ Darwin)
     $DEPS_HOME/brew.sh $DEPS_HOME
     ;;
 *)
-    message "$OS is not supported, exit..."
+    info "$OS is not supported, exit..."
     exit 1
     ;;
 esac
@@ -176,4 +230,4 @@ npm_dependency
 nerdfont_dependency
 nvim_config
 
-message "install for $OS - done"
+info "install for $OS - done"
