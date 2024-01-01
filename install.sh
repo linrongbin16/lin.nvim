@@ -158,6 +158,46 @@ install_apt() {
     install_func "install_apt_ctags" "ctags"
 }
 
+# brew
+
+install_brew() {
+    install "xcode-select --install" "clang"
+    install '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"' "brew"
+
+    info "install dependencies with brew"
+    brew update
+
+    # neovim
+    install "brew install neovim" "nvim"
+
+    # c++ toolchain
+    install "brew install cmake" "cmake"
+    install "brew install pkg-config" "pkg-config"
+
+    # download tools
+    install "brew install git" "git"
+    install "brew install curl" "curl"
+    install "brew install wget" "wget"
+
+    # compress tools
+    install "brew install gzip" "gzip"
+    install "brew install p7zip" "7z"
+    install "brew install unzip" "unzip"
+    install "brew install unrar" "unrar"
+
+    # luarocks
+    install "brew install luarocks" "luarocks"
+
+    # python3
+    install "brew install python3" "python3"
+
+    # nodejs
+    install "brew install node" "node"
+
+    # # ctags
+    # install "brew install universal-ctags" "ctags"
+}
+
 # dependency
 
 rust_dependency() {
