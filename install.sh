@@ -55,7 +55,7 @@ install_func() {
     local target="$2"
     if ! type "$target" >/dev/null 2>&1; then
         info "install '$target' with function: '$func'"
-        func
+        eval "$func"
     else
         skip_info $target
     fi
@@ -76,13 +76,33 @@ install_ctags() {
 
 # apt
 
-install_nvim_apt() {
+install_apt_nvim() {
     info "install 'nvim'(appimage) from github.com"
     sudo apt-get -q -y install fuse
     wget https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
     sudo mkdir -p /usr/local/bin
     chmod u+x nvim.appimage
     sudo mv nvim.appimage /usr/local/bin/nvim
+}
+
+install_apt_node() {
+    # see: https://github.com/nodesource/distributions
+    info "install nodejs from deb.nodesource.com"
+    sudo apt-get -q -y install ca-certificates gnupg
+    sudo mkdir -p /etc/apt/keyrings
+    curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
+    NODE_MAJOR=20
+    echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
+    sudo apt-get -q update
+    sudo apt-get -q -y install nodejs
+}
+
+install_apt_ctags() {
+    sudo apt-get -q -y install libseccomp-dev
+    sudo apt-get -q -y install libjansson-dev
+    sudo apt-get -q -y install libyaml-dev
+    sudo apt-get -q -y install libxml2-dev
+    install_ctags
 }
 
 install_apt() {
@@ -94,16 +114,7 @@ install_apt() {
     sudo update-locale
 
     # neovim
-    if ! type nvim >/dev/null 2>&1; then
-        info "install 'nvim'(appimage) from github.com"
-        sudo apt-get -q -y install fuse
-        wget https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
-        sudo mkdir -p /usr/local/bin
-        chmod u+x nvim.appimage
-        sudo mv nvim.appimage /usr/local/bin/nvim
-    else
-        skip_info 'nvim'
-    fi
+    install_func "install_apt_nvim" "nvim"
 
     # c++ toolchain
     install "sudo apt-get -q -y install build-essential" "gcc"
@@ -137,30 +148,13 @@ install_apt() {
     install "sudo apt-get -q -y install python3 python3-dev python3-venv python3-pip python3-docutils" "pip3"
 
     # nodejs
-    if ! type "node" >/dev/null; then
-        # see: https://github.com/nodesource/distributions
-        info "install nodejs from deb.nodesource.com"
-        sudo apt-get -q -y install ca-certificates gnupg
-        sudo mkdir -p /etc/apt/keyrings
-        curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
-        NODE_MAJOR=20
-        echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
-        sudo apt-get -q update
-        sudo apt-get -q -y install nodejs
-    else
-        skip_info 'node'
-    fi
+    install_func "install_apt_node" "node"
 
     # ctags
-    if ! type "ctags" >/dev/null 2>&1; then
-        sudo apt-get -y install libseccomp-dev
-        sudo apt-get -y install libjansson-dev
-        sudo apt-get -y install libyaml-dev
-        sudo apt-get -y install libxml2-dev
-        install_ctags
-    else
-        skip_info 'ctags'
-    fi
+    install_func "install_apt_node" "node"
+
+    # ctags
+    install_func "install_apt_ctags" "ctags"
 }
 
 # dependency
