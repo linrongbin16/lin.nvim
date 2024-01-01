@@ -276,9 +276,6 @@ nvim_config() {
     # if [ ! -f $nvim_lint_linters_by_ft ]; then
     #     cp $nvim_lint_home/linters_by_ft_sample.lua $nvim_lint_linters_by_ft
     # fi
-
-    # install plugins on first start
-    nvim -E -c "Lazy! sync" -c "qall!"
 }
 
 info "install for $OS"
