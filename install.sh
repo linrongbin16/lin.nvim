@@ -11,6 +11,7 @@ OS="$(uname -s)"
 source $DEPS_HOME/util.sh
 
 IS_APT=0
+IS_BREW=0
 
 # utils
 
@@ -346,17 +347,12 @@ Linux)
         IS_APT=1
     fi
     ;;
-FreeBSD)
-    $DEPS_HOME/pkg.sh $DEPS_HOME
-    ;;
-NetBSD)
-    $DEPS_HOME/pkgin.sh $DEPS_HOME
-    ;;
-OpenBSD)
-    $DEPS_HOME/pkg_add.sh $DEPS_HOME
-    ;;
 Darwin)
-    $DEPS_HOME/brew.sh $DEPS_HOME
+    install_brew
+    IS_BREW=1
+    ;;
+FreeBSD | NetBSD | OpenBSD)
+    # not implement
     ;;
 *)
     info "$OS is not supported, exit..."
