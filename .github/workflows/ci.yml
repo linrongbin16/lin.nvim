@@ -67,6 +67,8 @@ jobs:
       - name: Install lin.nvim
         shell: bash
         run: |
+          echo 'GITHUB_REF_NAME'
+          echo $GITHUB_REF_NAME
           set -x
           sudo sh -c 'git clone https://github.com/linrongbin16/lin.nvim ~/.config/nvim && cd ~/.config/nvim && bash -euxo pipefail  ./install.sh'
   windows_installer:
@@ -76,6 +78,8 @@ jobs:
       - name: Install lin.nvim
         shell: pwsh
         run: |
+          echo '$env:GITHUB_REF_NAME'
+          echo $env:GITHUB_REF_NAME
           Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
           irm get.scoop.sh | iex
           git clone https://github.com/linrongbin16/lin.nvim $env:LOCALAPPDATA\nvim
@@ -89,6 +93,8 @@ jobs:
       - name: Install lin.nvim
         shell: bash
         run: |
+          echo 'GITHUB_REF_NAME'
+          echo $GITHUB_REF_NAME
           set -x
           git clone https://github.com/linrongbin16/lin.nvim ~/.config/nvim && cd ~/.config/nvim && bash -euxo pipefail  ./install.sh
   release:
