@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # debug
-# set -x
+set -x
 
 NVIM_HOME=$HOME/.config/nvim
 DEPS_HOME=$NVIM_HOME/deps
