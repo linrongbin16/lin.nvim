@@ -4,7 +4,6 @@
 # set -x
 
 NVIM_HOME=$HOME/.config/nvim
-DEPS_HOME=$NVIM_HOME/deps
 CTAGS_HOME=$NVIM_HOME/universal-ctags
 OS="$(uname -s)"
 
