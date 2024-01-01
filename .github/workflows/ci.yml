@@ -68,9 +68,8 @@ jobs:
         uses: actions/checkout@v4
       - name: Git branch
         shell: bash
-        run: |
-          echo 'git branch --show-current'
-          git branch --show-current
+        run: echo "$(git branch --show-current)" >> $GITHUB_OUTPUT
+        id: branch
   ubuntu_installer:
     name: Ubuntu Installer
     runs-on: ubuntu-latest
