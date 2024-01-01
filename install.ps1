@@ -192,9 +192,6 @@ function NvimConfig()
     # {
     #     Copy-Item -Path "$NvimLintHome\linters_by_ft_sample.lua" -Destination "$NvimLintLintersByFt"
     # }
-
-    # install plugins on first start
-    cmd /c nvim -E -c "Lazy! sync" -c "qall!" /wait
 }
 
 Message "install for Windows"
