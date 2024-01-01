@@ -204,11 +204,11 @@ install_nerdfont() {
         if [ -f $font_file ]; then
             rm -rf $font_file
         fi
-        curl -L $font_url -o $font_file
+        curl -s -L $font_url -o $font_file
         if [ $? -ne 0 ]; then
             info "failed to download $font_file, skip..."
         else
-            unzip -o $font_file
+            unzip -q -o $font_file
             info "install $font_file($font_version) nerd font from github - done"
         fi
         sudo fc-cache -f -v
