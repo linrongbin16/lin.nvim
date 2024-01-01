@@ -80,6 +80,7 @@ jobs:
         run: |
           echo '$env:GITHUB_REF_NAME'
           echo $env:GITHUB_REF_NAME
+          Set-PSDebug -Trace 1
           Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
           irm get.scoop.sh | iex
           git clone https://github.com/linrongbin16/lin.nvim $env:LOCALAPPDATA\nvim
