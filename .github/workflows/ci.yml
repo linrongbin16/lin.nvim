@@ -75,24 +75,6 @@ jobs:
           echo '${{ steps.extract_branch.outputs.branch }}'
           export BRANCH_NAME=${{ steps.extract_branch.outputs.branch }}
           sudo sh -c "git clone --single-branch --branch $BRANCH_NAME --depth=1 https://github.com/linrongbin16/lin.nvim ~/.config/nvim && cd ~/.config/nvim && sudo bash -euxo pipefail  ./install.sh"
-  windows_installer:
-    name: Windows Installer
-    runs-on: windows-latest
-    steps:
-      - name: Get branch
-        shell: pwsh
-        run: |
-          echo "$GITHUB_HEAD_REF" >> $GITHUB_OUTPUT
-        id: extract_branch
-      - name: Install lin.nvim
-        shell: pwsh
-        run: |
-          Set-PSDebug -Trace 1
-          Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
-          irm get.scoop.sh | iex
-          git clone --single-branch --branch ${{ steps.extract_branch.outputs.branch }} --depth=1 https://github.com/linrongbin16/lin.nvim $env:LOCALAPPDATA\nvim
-          cd $env:LOCALAPPDATA\nvim
-          .\install.ps1
   macos_installer:
     name: MacOS Installer
     runs-on: macos-latest
