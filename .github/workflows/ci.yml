@@ -69,6 +69,18 @@ jobs:
         run: |
           set -x
           sudo sh -c 'git clone https://github.com/linrongbin16/lin.nvim ~/.config/nvim && cd ~/.config/nvim && bash -euxo pipefail  ./install.sh'
+  windows_installer:
+    name: Windows Installer
+    runs-on: windows-latest
+    steps:
+      - name: Install lin.nvim
+        shell: pwsh
+        run: |
+          Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+          irm get.scoop.sh | iex
+          git clone https://github.com/linrongbin16/lin.nvim $env:LOCALAPPDATA\nvim
+          cd $env:LOCALAPPDATA\nvim
+          .\install.ps1
   macos_installer:
     name: MacOS Installer
     runs-on: macos-latest
