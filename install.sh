@@ -263,8 +263,8 @@ install_dnf() {
     install "sudo dnf install -y xclip" "xclip"
 
     # python3
-    install "sudo dnf install -y python3 python3-devel python3-pip python3-docutils python3-pynvim" "python3"
-    install "sudo dnf install -y python3 python3-devel python3-pip python3-docutils python3-pynvim" "pip3"
+    install "sudo dnf install -y python3 python3-devel python3-pip python3-docutils" "python3"
+    install "sudo dnf install -y python3 python3-devel python3-pip python3-docutils" "pip3"
 
     # nodejs
     install "sudo dnf install -y nodejs npm" "node"
