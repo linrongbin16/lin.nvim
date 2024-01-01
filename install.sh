@@ -166,7 +166,9 @@ install_apt() {
 install_brew() {
     info "install dependencies with brew"
 
-    install "xcode-select --install" "clang"
+    if ! type clang >/dev/null 2>&1; then
+        xcode-select --install
+    fi
     if ! type brew >/dev/null 2>&1; then
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
     fi
