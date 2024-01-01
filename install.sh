@@ -10,6 +10,8 @@ OS="$(uname -s)"
 
 source $DEPS_HOME/util.sh
 
+IS_APT=0
+
 # utils
 
 info() {
@@ -217,7 +219,7 @@ pip3_dependency() {
     if [ $IS_APT -eq 0 ]; then
         info "install python packages with pip3"
         python3 -m pip install pynvim --user --upgrade
-    end
+    fi
     # install "python3 -m pip install pipx --user && python3 -m pipx ensurepath" "pipx"
     # export PATH="$PATH:$HOME/.local/bin"
     # install "pipx install trash-cli" "trash-put"
@@ -328,8 +330,6 @@ nvim_config() {
 }
 
 info "install for $OS"
-
-IS_APT=0
 
 # dependency
 case "$OS" in
