@@ -60,6 +60,37 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: "chore(pr): auto-commit"
+  ubuntu_installer:
+    name: Ubuntu Installer
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get branch
+        shell: bash
+        run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+        id: extract_branch
+      - name: Install lin.nvim
+        shell: bash
+        run: |
+          set -x
+          echo '${{ steps.extract_branch.outputs.branch }}'
+          export BRANCH_NAME=${{ steps.extract_branch.outputs.branch }}
+          sudo sh -c "git clone --single-branch --branch $BRANCH_NAME --depth=1 https://github.com/linrongbin16/lin.nvim ~/.config/nvim && cd ~/.config/nvim && sudo bash -euxo pipefail  ./install.sh"
+  macos_installer:
+    name: MacOS Installer
+    runs-on: macos-latest
+    steps:
+      - uses: Homebrew/actions/setup-homebrew@master
+      - name: Get branch
+        shell: bash
+        run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+        id: extract_branch
+      - name: Install lin.nvim
+        shell: bash
+        run: |
+          set -x
+          echo '${{ steps.extract_branch.outputs.branch }}'
+          echo ${{ steps.extract_branch.outputs.branch }}
+          git clone --single-branch --branch ${{ steps.extract_branch.outputs.branch }} --depth=1 https://github.com/linrongbin16/lin.nvim ~/.config/nvim && cd ~/.config/nvim && bash -euxo pipefail  ./install.sh
   release:
     name: Release
     if: ${{ github.ref == 'refs/heads/main' }}
@@ -67,6 +98,8 @@ jobs:
       - typecheck
       - luacheck
       - stylua
+      - ubuntu_installer
+      - macos_installer
     runs-on: ubuntu-latest
     steps:
       - uses: google-github-actions/release-please-action@v3

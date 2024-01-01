@@ -5,29 +5,29 @@ $NVIM_HOME = "$env:LOCALAPPDATA\nvim"
 
 # utils
 
-function Message([string]$content)
+function Info([string]$content)
 {
     Write-Host "[lin.nvim] - $content"
 }
 
-function SkipMessage([string]$target)
+function Err([string] $content)
 {
-    Message "'${target}' already exist, skip..."
+    Info "error! $content"
 }
 
-function ErrorMessage([string] $content)
+function SkipInfo([string]$target)
 {
-    Message "error! $content"
+    Info "'${target}' already exist, skip..."
 }
 
-function InstallOrSkip([string]$command, [string]$target)
+function Install([string]$command, [string]$target)
 {
     if (Get-Command -Name $target -ErrorAction SilentlyContinue)
     {
-        SkipMessage $target
+        SkipInfo $target
     } else
     {
-        Message "install '${target}' with command: '${command}'"
+        Info "install '${target}' with command: '${command}'"
         Invoke-Expression $command
     }
 }
@@ -39,14 +39,14 @@ function TestReparsePoint([string]$path)
     return [bool]($file.Attributes -band [IO.FileAttributes]::ReparsePoint)
 }
 
-function TryBackup([string]$src)
+function Backup([string]$src)
 {
     if ((TestReparsePoint $src) -or (Test-Path $src))
     {
         $now = Get-Date -Format "yyyy-MM-dd.HH-mm-ss.fffffff"
         $dest = -join ($src, ".", $now)
         Rename-Item $src $dest
-        Message "backup '$src' to '$dest'"
+        Info "backup '$src' to '$dest'"
     }
 }
 
@@ -59,51 +59,57 @@ function CoreDependency()
     scoop install uutils-coreutils
 
     # neovim
-    InstallOrSkip -command "scoop install neovim" -target "nvim"
+    Install -command "scoop install neovim" -target "nvim"
 
     # shell
-    InstallOrSkip -command "scoop install which" -target "which"
-    InstallOrSkip -command "scoop install gawk" -target "awk"
-    InstallOrSkip -command "scoop install sed" -target "sed"
+    Install -command "scoop install which" -target "which"
+    Install -command "scoop install gawk" -target "awk"
+    Install -command "scoop install sed" -target "sed"
 
     # c++ toolchain
-    InstallOrSkip -command "scoop install llvm" -target "clang"
-    InstallOrSkip -command "scoop install make" -target "make"
-    InstallOrSkip -command "scoop install cmake" -target "cmake"
+    Install -command "scoop install llvm" -target "clang"
+    Install -command "scoop install make" -target "make"
+    Install -command "scoop install cmake" -target "cmake"
 
     # download tools
-    InstallOrSkip -command "scoop install git" -target "git"
-    InstallOrSkip -command "scoop install curl" -target "curl"
-    InstallOrSkip -command "scoop install wget" -target "wget"
+    Install -command "scoop install git" -target "git"
+    Install -command "scoop install curl" -target "curl"
+    Install -command "scoop install wget" -target "wget"
 
     # compress tools
-    InstallOrSkip -command "scoop install 7zip" -target "7z"
-    InstallOrSkip -command "scoop install gzip" -target "gzip"
-    InstallOrSkip -command "scoop install unzip" -target "unzip"
-    InstallOrSkip -command "scoop install unrar" -target "unrar"
+    Install -command "scoop install 7zip" -target "7z"
+    Install -command "scoop install gzip" -target "gzip"
+    Install -command "scoop install unzip" -target "unzip"
+    Install -command "scoop install unrar" -target "unrar"
 
     # luarocks
-    InstallOrSkip -command "scoop install luarocks" -target "luarocks"
+    Install -command "scoop install luarocks" -target "luarocks"
 
-    # # ctags
-    # InstallOrSkip -command "scoop install universal-ctags" -target "ctags"
+    # ctags
+    Install -command "scoop install universal-ctags" -target "ctags"
+
+    # rust commands
+    Install -command "scoop install fd" -target "fd"
+    Install -command "scoop install ripgrep" -target "rg"
+    Install -command "scoop install bat" -target "bat"
+    Install -command "scoop install eza" -target "eza"
 }
 
 function RustDependency()
 {
     message 'install rust and modern commands'
     # rustc/cargo
-    InstallOrSkip -command "scoop install rustup" -target "cargo"
+    Install -command "scoop install rustup" -target "cargo"
     # modern commands
-    InstallOrSkip -command "cargo install ripgrep" -target "rg"
-    InstallOrSkip -command "cargo install fd-find" -target "fd"
-    InstallOrSkip -command "cargo install --locked bat" -target "bat"
-    InstallOrSkip -command "cargo install eza" -target "eza"
+    Install -command "cargo install ripgrep" -target "rg"
+    Install -command "cargo install fd-find" -target "fd"
+    Install -command "cargo install --locked bat" -target "bat"
+    Install -command "cargo install eza" -target "eza"
 }
 
 function PythonDependency()
 {
-    Message "install python3 and pip3 packages"
+    Info "install python3 and pip3 packages"
     # python
     InstallOrSkip -command "scoop install python" -target "python3"
     InstallOrSkip -command "scoop install python" -target "pip3"
@@ -112,27 +118,27 @@ function PythonDependency()
 
 function NodejsDependency()
 {
-    Message "install node and npm packages"
+    Info "install node and npm packages"
     # nodejs
     InstallOrSkip -command "scoop install nodejs-lts" -target "node"
     # npm
-    npm install -g neovim
-    InstallOrSkip -command "npm install -g trash-cli" -target "trash"
+    npm install --silent -g neovim
+    InstallOrSkip -command "npm install --silent -g trash-cli" -target "trash"
 }
 
 function NerdFontDependency()
 {
-    Message "install 'Hack' nerd font"
+    Info "install 'Hack' nerd font"
     scoop bucket add nerd-fonts
     scoop install Hack-NF
     scoop install Hack-NF-Mono
-    Message "please set 'Hack NFM' (or 'Hack Nerd Font Mono') as your terminal font"
+    Info "please set 'Hack NFM' (or 'Hack Nerd Font Mono') as your terminal font"
 }
 
 function NvimConfig()
 {
-    Message "install $NVIM_HOME for neovim on windows"
-    TryBackup $env:USERPROFILE\.nvim
+    Info "install $NVIM_HOME for neovim on windows"
+    Backup $env:USERPROFILE\.nvim
     Start-Process powershell "cmd /c mklink $env:USERPROFILE\.nvim $NVIM_HOME /D" -Verb RunAs -Wait
 
     # nvim-treesitter
@@ -192,15 +198,12 @@ function NvimConfig()
     # {
     #     Copy-Item -Path "$NvimLintHome\linters_by_ft_sample.lua" -Destination "$NvimLintLintersByFt"
     # }
-
-    # install plugins on first start
-    cmd /c nvim -E -c "Lazy! sync" -c "qall!" /wait
 }
 
-Message "install for Windows"
+Info "install for Windows"
 
 # dependency
-Message "install dependencies with scoop"
+Info "install dependencies with scoop"
 
 CoreDependency
 RustDependency
@@ -209,4 +212,4 @@ NodejsDependency
 NerdFontDependency
 NvimConfig
 
-Message "install for Windows - done"
+Info "install for Windows - done"
