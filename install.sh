@@ -297,7 +297,7 @@ Linux)
         $DEPS_HOME/emerge.sh $DEPS_HOME
     else
         # assume apt
-        $DEPS_HOME/apt.sh $DEPS_HOME
+        install_apt
     fi
     ;;
 FreeBSD)
