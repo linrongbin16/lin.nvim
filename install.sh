@@ -105,10 +105,14 @@ install_apt_ctags() {
     install_ctags
 }
 
-install_apt() {
-    info "install dependencies with apt"
+install_apt_git() {
     sudo apt-add-repository ppa:git-core/ppa
     sudo apt-get -q update
+    sudo apt-get -q -y install git
+}
+
+install_apt() {
+    info "install dependencies with apt"
     sudo locale-gen en_US
     sudo locale-gen en_US.UTF-8
     sudo update-locale
@@ -125,7 +129,7 @@ install_apt() {
     install "sudo apt-get -q -y install cmake" "cmake"
 
     # download tools
-    install "sudo apt-get -q -y install git" "git"
+    install_func "install_apt_git" "git"
     install "sudo apt-get -q -y install curl" "curl"
     install "sudo apt-get -q -y install wget" "wget"
 
@@ -211,7 +215,7 @@ install_nerdfont() {
             unzip -q -o $font_file
             info "install $font_file($font_version) nerd font from github - done"
         fi
-        sudo fc-cache -f -v
+        sudo fc-cache -f
     fi
 }
 
