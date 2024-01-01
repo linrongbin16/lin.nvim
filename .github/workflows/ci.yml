@@ -60,6 +60,17 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: "chore(pr): auto-commit"
+  git_branche:
+    name: Git branch
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Git branch
+        shell: bash
+        run: |
+          echo 'git branch --show-current'
+          git branch --show-current
   ubuntu_installer:
     name: Ubuntu Installer
     runs-on: ubuntu-latest
@@ -67,8 +78,6 @@ jobs:
       - name: Install lin.nvim
         shell: bash
         run: |
-          echo 'git branch --show-current'
-          git branch --show-current
           set -x
           sudo sh -c 'git clone https://github.com/linrongbin16/lin.nvim ~/.config/nvim && cd ~/.config/nvim && bash -euxo pipefail  ./install.sh'
   windows_installer:
