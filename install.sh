@@ -141,7 +141,6 @@ install_apt() {
     install "sudo apt-get -q -y install p7zip" "7z"
     install "sudo apt-get -q -y install gzip" "gzip"
     install "sudo apt-get -q -y install unzip" "unzip"
-    install "sudo apt-get -q -y install unrar" "unrar"
 
     # luarocks
     install "sudo apt-get -q -y install luajit" "luajit"
@@ -194,7 +193,6 @@ install_brew() {
     install "brew install gzip" "gzip"
     install "brew install p7zip" "7z"
     install "brew install unzip" "unzip"
-    install "brew install unrar" "unrar"
 
     # luarocks
     install "brew install luarocks" "luarocks"
@@ -251,7 +249,6 @@ install_dnf() {
     install "sudo dnf install -y gzip" "gzip"
     install "sudo dnf install -y p7zip" "7z"
     install "sudo dnf install -y unzip" "unzip"
-    install "sudo dnf install -y unrar" "unrar"
 
     # luarocks
     install "sudo dnf install -y luarocks" "luarocks"
@@ -299,7 +296,6 @@ install_pacman() {
     install "yes | sudo pacman -S gzip" "gzip"
     install "yes | sudo pacman -S p7zip" "7z"
     install "yes | sudo pacman -S unzip" "unzip"
-    install "yes | sudo pacman -S unrar" "unrar"
 
     # luarocks
     install "yes | sudo pacman -S luarocks" "luarocks"
