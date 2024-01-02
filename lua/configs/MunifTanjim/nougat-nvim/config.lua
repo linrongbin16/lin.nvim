@@ -13,6 +13,7 @@ local nut = {
         filename = require("nougat.nut.buf.filename").create,
         filestatus = require("nougat.nut.buf.filestatus").create,
         filetype = require("nougat.nut.buf.filetype").create,
+        filetype_icon = require("nougat.nut.buf.filetype_icon").create,
         fileformat = require("nougat.nut.buf.fileformat").create,
         fileencoding = require("nougat.nut.buf.fileencoding").create,
     },
@@ -115,35 +116,21 @@ stl:add_item(nut.buf.diagnostic_count({
     },
 }))
 
--- file type
+-- file type icon
 stl:add_item(Item({
     hl = { bg = color.bg1 },
     sep_left = sep.left_lower_triangle_solid(true),
+    prefix = " ",
     suffix = " ",
-    type = "lua_expr",
-    content = function(ctx)
-        message.info("|nougat.filetype| ctx:%s", vim.inspect(ctx))
-        local hl_name = "LinNvimNougatFileTypeHighlight"
-        local ft =
-            vim.api.nvim_get_option_value("filetype", { buf = ctx.bufnr })
-        local ok, devicons = pcall(require, "nvim-web-devicons")
-        if not ok then
-            return ft or ""
-        end
-        local icon_text, icon_color = devicons.get_icon_color_by_filetype(ft)
-        message.info(
-            "|nougat.filetype| ctx:%s, icon_text:%s, icon_color:%s",
-            vim.inspect(ctx),
-            vim.inspect(icon_text),
-            vim.inspect(icon_color)
-        )
-        if type(icon_text) == "string" and type(icon_color) == "string" then
-            vim.api.nvim_set_hl(0, hl_name, { fg = icon_color })
-            return "%#" .. hl_name .. "#" .. icon_text .. "%*" .. ft
-        else
-            return ft or ""
-        end
-    end,
+    content = {
+        nut.buf.filetype_icon({
+            suffix = " ",
+            content = function(item, ctx)
+                return item:cache(ctx).c
+            end,
+        }),
+        nut.buf.filetype({}),
+    },
 }))
 
 -- file format
