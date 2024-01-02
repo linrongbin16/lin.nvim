@@ -1,5 +1,4 @@
 local constants = require("builtin.utils.constants")
-local message = require("builtin.utils.message")
 
 local nougat = require("nougat")
 local core = require("nougat.core")
@@ -67,7 +66,7 @@ stl:add_item(nut.git.status.create({
             sep_right = sep.right_upper_triangle_solid(true),
         }),
         nut.git.status.count("changed", {
-            hl = { bg = color.orange },
+            hl = { bg = color.yellow },
             prefix = "~",
             sep_right = sep.right_upper_triangle_solid(true),
         }),
@@ -123,12 +122,7 @@ stl:add_item(Item({
     prefix = " ",
     suffix = " ",
     content = {
-        nut.buf.filetype_icon({
-            suffix = " ",
-            content = function(item, ctx)
-                return item:cache(ctx).c
-            end,
-        }),
+        nut.buf.filetype_icon({ suffix = " " }),
         nut.buf.filetype({}),
     },
 }))
