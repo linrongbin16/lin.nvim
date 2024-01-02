@@ -1,3 +1,5 @@
+local constants = require("builtin.utils.constants")
+
 local nougat = require("nougat")
 local core = require("nougat.core")
 local Bar = require("nougat.bar")
@@ -72,12 +74,16 @@ stl:add_item(nut.git.status.create({
         }),
     },
 }))
-local filename = stl:add_item(nut.buf.filename({
+
+-- file name
+stl:add_item(nut.buf.filename({
     hl = { bg = color.bg3 },
     prefix = " ",
     suffix = " ",
 }))
-local filestatus = stl:add_item(nut.buf.filestatus({
+
+-- file status
+stl:add_item(nut.buf.filestatus({
     hl = { bg = color.bg3 },
     suffix = " ",
     sep_right = sep.right_lower_triangle_solid(true),
@@ -89,22 +95,24 @@ local filestatus = stl:add_item(nut.buf.filestatus({
     },
 }))
 
+-- spaces
 stl:add_item(nut.spacer())
-
 stl:add_item(nut.truncation_point())
 
+-- diagnostics
 stl:add_item(nut.buf.diagnostic_count({
     sep_left = sep.left_lower_triangle_solid(true),
     prefix = " ",
     suffix = " ",
     config = {
-        error = { prefix = " " },
-        warn = { prefix = " " },
-        info = { prefix = " " },
-        hint = { prefix = "󰌶 " },
+        error = { prefix = constants.diagnostic.sign.error .. " " },
+        warn = { prefix = constants.diagnostic.sign.warning .. " " },
+        info = { prefix = constants.diagnostic.sign.info .. " " },
+        hint = { prefix = constants.diagnostic.sign.hint .. " " },
     },
 }))
 
+-- file type
 stl:add_item(nut.buf.filetype({
     hl = { bg = color.bg1 },
     sep_left = sep.left_lower_triangle_solid(true),
@@ -112,6 +120,7 @@ stl:add_item(nut.buf.filetype({
     suffix = " ",
 }))
 
+-- locations
 stl:add_item(Item({
     hl = { bg = color.bg2, fg = color.blue },
     sep_left = sep.left_lower_triangle_solid(true),
@@ -124,6 +133,7 @@ stl:add_item(Item({
     suffix = " ",
 }))
 
+-- locations
 stl:add_item(Item({
     hl = { bg = color.blue, fg = color.bg },
     sep_left = sep.left_lower_triangle_solid(true),
@@ -133,4 +143,3 @@ stl:add_item(Item({
 }))
 
 nougat.set_statusline(stl)
-
