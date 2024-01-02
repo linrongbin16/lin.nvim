@@ -48,15 +48,54 @@ local stl = Bar("statusline")
 -- mode
 stl:add_item(mode)
 
--- git branch
-stl:add_item(nut.git.branch({
+local function git_branch()
+    if vim.g.loaded_gitbranch == nil or vim.g.loaded_gitbranch <= 0 then
+        return ""
+    end
+    local name = vim.fn["gitbranch#name"]()
+    return name or ""
+end
+
+local function git_diff()
+    if vim.g.loaded_gitgutter == nil or vim.g.loaded_gitgutter <= 0 then
+        return ""
+    end
+    local changes = vim.fn["GitGutterGetHunkSummary"]()
+    if changes == nil or #changes ~= 3 then
+        return ""
+    end
+    local symbols = { "+", "~", "-" }
+    local builder = {}
+    for i, c in ipairs(changes) do
+        if type(c) == "number" and c > 0 then
+            table.insert(builder, string.format("%s%d", symbols[i], c))
+        end
+    end
+    return table.concat(builder, " ")
+end
+
+-- git branch and status
+stl:add_item(Item({
     hl = { bg = color.magenta, fg = color.bg },
+    sep_right = sep.right_upper_triangle_solid(true),
     prefix = "  ",
     suffix = " ",
-    sep_right = sep.right_upper_triangle_solid(true),
+    type = "lua_expr",
+    content = function(ctx)
+        local branch = git_branch()
+        if string.len(branch) == 0 then
+            return ""
+        end
+        local changes = git_diff()
+        if string.len(changes) == 0 then
+            return branch
+        else
+            return branch .. " " .. changes
+        end
+    end,
 }))
 
--- git changes
+-- -- git changes
 stl:add_item(nut.git.status.create({
     hl = { fg = color.bg },
     content = {

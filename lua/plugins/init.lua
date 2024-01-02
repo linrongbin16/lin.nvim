@@ -150,7 +150,10 @@ local M = {
     {
         "MunifTanjim/nougat.nvim",
         event = { UIEnter },
-        dependencies = { "linrongbin16/lsp-progress.nvim" },
+        dependencies = {
+            "linrongbin16/lsp-progress.nvim",
+            "itchyny/vim-gitbranch",
+        },
         config = lua_config("MunifTanjim/nougat.nvim"),
     },
     -- Winbar
