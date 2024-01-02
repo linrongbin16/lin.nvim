@@ -39,13 +39,18 @@ local mode = nut.mode({
 })
 
 local stl = Bar("statusline")
+
+-- mode
 stl:add_item(mode)
+
+-- git
 stl:add_item(nut.git.branch({
     hl = { bg = color.magenta, fg = color.bg },
     prefix = "  ",
     suffix = " ",
     sep_right = sep.right_upper_triangle_solid(true),
 }))
+
 stl:add_item(nut.git.status.create({
     hl = { fg = color.bg },
     content = {
@@ -55,7 +60,7 @@ stl:add_item(nut.git.status.create({
             sep_right = sep.right_upper_triangle_solid(true),
         }),
         nut.git.status.count("changed", {
-            hl = { bg = color.blue },
+            hl = { bg = color.orange },
             prefix = "~",
             sep_right = sep.right_upper_triangle_solid(true),
         }),
@@ -82,8 +87,11 @@ local filestatus = stl:add_item(nut.buf.filestatus({
         sep = " ",
     },
 }))
+
 stl:add_item(nut.spacer())
+
 stl:add_item(nut.truncation_point())
+
 stl:add_item(nut.buf.diagnostic_count({
     sep_left = sep.left_lower_triangle_solid(true),
     prefix = " ",
@@ -95,12 +103,14 @@ stl:add_item(nut.buf.diagnostic_count({
         hint = { prefix = "󰌶 " },
     },
 }))
+
 stl:add_item(nut.buf.filetype({
     hl = { bg = color.bg1 },
     sep_left = sep.left_lower_triangle_solid(true),
     prefix = " ",
     suffix = " ",
 }))
+
 stl:add_item(Item({
     hl = { bg = color.bg2, fg = color.blue },
     sep_left = sep.left_lower_triangle_solid(true),
@@ -112,6 +122,7 @@ stl:add_item(Item({
     }),
     suffix = " ",
 }))
+
 stl:add_item(Item({
     hl = { bg = color.blue, fg = color.bg },
     sep_left = sep.left_lower_triangle_solid(true),
@@ -121,3 +132,4 @@ stl:add_item(Item({
 }))
 
 nougat.set_statusline(stl)
+
