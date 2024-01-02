@@ -115,7 +115,7 @@ stl:add_item(nut.buf.diagnostic_count({
 }))
 
 -- file type
-stl:add_item(nut.buf.filetype({
+stl:add_item(Item({
     hl = { bg = color.bg1 },
     sep_left = sep.left_lower_triangle_solid(true),
     prefix = " ",
@@ -123,7 +123,8 @@ stl:add_item(nut.buf.filetype({
     type = "lua_expr",
     content = function(ctx)
         message.info("|nougat.filetype| ctx:%s", vim.inspect(ctx))
-        local ft = vim.bo.filetype
+        local ft =
+            vim.api.nvim_get_option_value("filetype", { buf = ctx.bufnr })
         local ok, devicons = pcall(require, "nvim-web-devicons")
         if not ok then
             return ft or ""
@@ -136,7 +137,11 @@ stl:add_item(nut.buf.filetype({
             vim.inspect(icon_text),
             vim.inspect(icon_color)
         )
-        return icon_text .. " " .. ft
+        if type(icon_text) == "string" and type(icon_color) == "string" then
+            return icon_text .. " " .. ft
+        else
+            return ft or ""
+        end
     end,
 }))
 
