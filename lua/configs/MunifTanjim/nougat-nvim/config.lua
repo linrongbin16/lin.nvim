@@ -43,7 +43,7 @@ local stl = Bar("statusline")
 -- mode
 stl:add_item(mode)
 
--- git
+-- git branch
 stl:add_item(nut.git.branch({
     hl = { bg = color.magenta, fg = color.bg },
     prefix = "  ",
@@ -51,6 +51,7 @@ stl:add_item(nut.git.branch({
     sep_right = sep.right_upper_triangle_solid(true),
 }))
 
+-- git changes
 stl:add_item(nut.git.status.create({
     hl = { fg = color.bg },
     content = {
