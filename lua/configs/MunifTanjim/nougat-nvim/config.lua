@@ -115,7 +115,7 @@ stl:add_item(nut.buf.diagnostic_count({
     },
 }))
 
--- file type icon
+-- file type
 stl:add_item(Item({
     hl = { bg = color.bg1 },
     sep_left = sep.left_lower_triangle_solid(true),
