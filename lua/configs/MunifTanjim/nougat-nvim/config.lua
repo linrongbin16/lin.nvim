@@ -1,4 +1,5 @@
 local constants = require("builtin.utils.constants")
+local message = require("builtin.utils.message")
 
 local nougat = require("nougat")
 local core = require("nougat.core")
@@ -12,6 +13,7 @@ local nut = {
         filename = require("nougat.nut.buf.filename").create,
         filestatus = require("nougat.nut.buf.filestatus").create,
         filetype = require("nougat.nut.buf.filetype").create,
+        fileformat = require("nougat.nut.buf.fileformat").create,
     },
     git = {
         branch = require("nougat.nut.git.branch").create,
@@ -118,6 +120,29 @@ stl:add_item(nut.buf.filetype({
     sep_left = sep.left_lower_triangle_solid(true),
     prefix = " ",
     suffix = " ",
+    type = "lua_expr",
+    content = function(v, ctx)
+        local ok, devicons = pcall(require, "nvim-web-devicons")
+        if not ok then
+            return v
+        end
+        print(string.format(""))
+        local icon_text, icon_color = devicons.get_icon_color(filename, ext)
+    end,
+}))
+
+-- file format
+stl:add_item(nut.buf.fileformat({
+    hl = { bg = color.bg1 },
+    sep_left = sep.left_lower_triangle_solid(true),
+    suffix = " ",
+    config = {
+        text = {
+            unix = " LF", -- e712
+            dos = " CRLF", -- e70f
+            mac = " CR", -- e711
+        },
+    },
 }))
 
 -- locations

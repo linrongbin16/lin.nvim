@@ -4,7 +4,6 @@
 local function echo(hl, fmt, ...)
     local msg = string.format(fmt, ...)
     local lines = vim.split(msg, "\n", { plain = true })
-    local chunks = {}
     local prefix = ""
     if hl == "ErrorMsg" then
         prefix = "error! "
@@ -12,12 +11,15 @@ local function echo(hl, fmt, ...)
         prefix = "warning! "
     end
     for _, line in ipairs(lines) do
+        local chunks = {}
         table.insert(chunks, {
             string.format("[lin.nvim] %s%s", prefix, line),
             hl,
         })
+        vim.schedule(function()
+            vim.api.nvim_echo(chunks, false, {})
+        end)
     end
-    vim.api.nvim_echo(chunks, false, {})
 end
 
 --- @param fmt string
