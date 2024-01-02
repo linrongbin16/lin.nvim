@@ -123,6 +123,7 @@ stl:add_item(Item({
     type = "lua_expr",
     content = function(ctx)
         message.info("|nougat.filetype| ctx:%s", vim.inspect(ctx))
+        local hl_name = "LinNvimNougatFileTypeHighlight"
         local ft =
             vim.api.nvim_get_option_value("filetype", { buf = ctx.bufnr })
         local ok, devicons = pcall(require, "nvim-web-devicons")
@@ -137,7 +138,8 @@ stl:add_item(Item({
             vim.inspect(icon_color)
         )
         if type(icon_text) == "string" and type(icon_color) == "string" then
-            return "%" .. icon_color .. "#%" .. icon_text .. " " .. ft
+            vim.api.nvim_set_hl(0, hl_name, { fg = icon_color })
+            return "%#" .. hl_name .. "#" .. icon_text .. "%*" .. ft
         else
             return ft or ""
         end
