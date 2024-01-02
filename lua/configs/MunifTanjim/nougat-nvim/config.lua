@@ -14,6 +14,7 @@ local nut = {
         filestatus = require("nougat.nut.buf.filestatus").create,
         filetype = require("nougat.nut.buf.filetype").create,
         fileformat = require("nougat.nut.buf.fileformat").create,
+        fileencoding = require("nougat.nut.buf.fileencoding").create,
     },
     git = {
         branch = require("nougat.nut.git.branch").create,
@@ -118,7 +119,6 @@ stl:add_item(nut.buf.diagnostic_count({
 stl:add_item(Item({
     hl = { bg = color.bg1 },
     sep_left = sep.left_lower_triangle_solid(true),
-    prefix = " ",
     suffix = " ",
     type = "lua_expr",
     content = function(ctx)
@@ -136,8 +136,8 @@ stl:add_item(Item({
             vim.inspect(icon_text),
             vim.inspect(icon_color)
         )
-        if icon_text and icon_color then
-            return tostring(icon_text) .. " " .. ft
+        if type(icon_text) == "string" and type(icon_color) == "string" then
+            return "%" .. icon_color .. "#%" .. icon_text .. " " .. ft
         else
             return ft or ""
         end
@@ -156,6 +156,12 @@ stl:add_item(nut.buf.fileformat({
             mac = " CR", -- e711
         },
     },
+}))
+
+stl:add_item(nut.buf.fileencoding({
+    hl = { bg = color.bg1 },
+    sep_left = sep.left_lower_triangle_solid(true),
+    suffix = " ",
 }))
 
 -- locations
