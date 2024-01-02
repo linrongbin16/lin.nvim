@@ -129,16 +129,15 @@ stl:add_item(Item({
         if not ok then
             return ft or ""
         end
-        local icon_text, icon_color =
-            devicons.get_icon_cterm_color_by_filetype(ft)
+        local icon_text, icon_color = devicons.get_icon_color_by_filetype(ft)
         message.info(
             "|nougat.filetype| ctx:%s, icon_text:%s, icon_color:%s",
             vim.inspect(ctx),
             vim.inspect(icon_text),
             vim.inspect(icon_color)
         )
-        if type(icon_text) == "string" and type(icon_color) == "string" then
-            return icon_text .. " " .. ft
+        if icon_text and icon_color then
+            return tostring(icon_text) .. " " .. ft
         else
             return ft or ""
         end
