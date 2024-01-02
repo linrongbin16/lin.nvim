@@ -24,6 +24,12 @@ end
 
 --- @param fmt string
 --- @param ... any?
+local function info(fmt, ...)
+    echo("None", fmt, ...)
+end
+
+--- @param fmt string
+--- @param ... any?
 local function warn(fmt, ...)
     echo("WarningMsg", fmt, ...)
 end
@@ -51,6 +57,7 @@ local function ensure(cond, fmt, ...)
 end
 
 local M = {
+    info = info,
     warn = warn,
     err = err,
     throw = throw,

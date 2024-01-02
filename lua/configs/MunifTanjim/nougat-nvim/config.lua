@@ -121,13 +121,22 @@ stl:add_item(nut.buf.filetype({
     prefix = " ",
     suffix = " ",
     type = "lua_expr",
-    content = function(v, ctx)
+    content = function(ctx)
+        message.info("|nougat.filetype| ctx:%s", vim.inspect(ctx))
+        local ft = vim.bo.filetype
         local ok, devicons = pcall(require, "nvim-web-devicons")
         if not ok then
-            return v
+            return ft or ""
         end
-        print(string.format(""))
-        local icon_text, icon_color = devicons.get_icon_color(filename, ext)
+        local icon_text, icon_color =
+            devicons.get_icon_cterm_color_by_filetype(ft)
+        message.info(
+            "|nougat.filetype| ctx:%s, icon_text:%s, icon_color:%s",
+            vim.inspect(ctx),
+            vim.inspect(icon_text),
+            vim.inspect(icon_color)
+        )
+        return icon_text .. " " .. ft
     end,
 }))
 
