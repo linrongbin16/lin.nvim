@@ -37,16 +37,14 @@ local nut = {
 ---@type nougat.color
 local color = require("nougat.color").get()
 
-local mode = nut.mode({
-    prefix = " ",
-    suffix = " ",
-    sep_right = sep.right_lower_triangle_solid(true),
-})
-
 local stl = Bar("statusline")
 
 -- mode
-stl:add_item(mode)
+stl:add_item(nut.mode({
+    prefix = " ",
+    suffix = " ",
+    sep_right = sep.right_lower_triangle_solid(true),
+}))
 
 local function git_branch()
     if vim.g.loaded_gitbranch == nil or vim.g.loaded_gitbranch <= 0 then
