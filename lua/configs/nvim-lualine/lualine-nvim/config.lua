@@ -27,7 +27,7 @@ local function Search()
 end
 
 local function Location()
-    return " %3l:%-2v"
+    return " %l:%v"
 end
 
 local constants = require("builtin.utils.constants")
@@ -90,8 +90,8 @@ local config = {
             },
             "encoding",
         },
-        lualine_y = { "progress" },
-        lualine_z = { Location },
+        lualine_y = { Location },
+        lualine_z = { "progress" },
     },
     inactive_sections = {},
     tabline = {},
