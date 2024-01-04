@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.16.2](https://github.com/linrongbin16/lin.nvim/compare/v2.16.1...v2.16.2) (2024-01-04)
+
+
+### Bug Fixes
+
+* **fzfx.nvim:** upgrade fzfx key mappings ([#428](https://github.com/linrongbin16/lin.nvim/issues/428)) ([5f7df0b](https://github.com/linrongbin16/lin.nvim/commit/5f7df0ba99793c10ea29fc0bad38cc6f6cd5b072))
+
+
+### Performance Improvements
+
+* **lualine.nvim:** improve statusline stylish ([#426](https://github.com/linrongbin16/lin.nvim/issues/426)) ([105502c](https://github.com/linrongbin16/lin.nvim/commit/105502ce052852b6840e5134dd024b570597d6e9))
+
 ## [2.16.1](https://github.com/linrongbin16/lin.nvim/compare/v2.16.0...v2.16.1) (2024-01-01)
 
 
