@@ -1,12 +1,14 @@
-local function GitDiff()
-    if vim.g.loaded_gitgutter == nil or vim.g.loaded_gitgutter <= 0 then
-        return {}
-    end
-    local changes = vim.fn["GitGutterGetHunkSummary"]()
-    if changes == nil or #changes ~= 3 then
-        return {}
-    end
-    return { added = changes[1], modified = changes[2], removed = changes[3] }
+local function GitDiffCondition()
+    return vim.fn.exists("*GitGutterGetHunkSummary") > 0
+end
+
+local function GitDiffSource()
+    local changes = vim.fn.GitGutterGetHunkSummary() or {}
+    return {
+        added = changes[1] or 0,
+        modified = changes[2] or 0,
+        removed = changes[3] or 0,
+    }
 end
 
 local function Search()
@@ -17,7 +19,7 @@ local function Search()
     if not lastsearch or lastsearch == "" then
         return ""
     end
-    local searchcount = vim.fn.searchcount({ maxcount = 9999 })
+    local searchcount = vim.fn.searchcount({ maxcount = 100 })
     return lastsearch
         .. "("
         .. searchcount.current
@@ -48,7 +50,7 @@ local config = {
         component_separators = empty_component_separators,
         section_separators = slash_section_separators,
         refresh = {
-            statusline = 1000,
+            statusline = 3000,
             tabline = 10000,
             winbar = 10000,
         },
@@ -61,11 +63,11 @@ local config = {
             "branch",
             {
                 "diff",
-                source = GitDiff,
+                source = GitDiffSource,
             },
         },
         lualine_c = {
-            "filename",
+            { "filename", file_status = true, path = 1 },
             require("lsp-progress").progress,
         },
         lualine_x = {
@@ -106,7 +108,7 @@ require("lualine").setup(config)
 vim.api.nvim_create_augroup("lualine_augroup", { clear = true })
 vim.api.nvim_create_autocmd("User", {
     group = "lualine_augroup",
-    pattern = "LspProgressStatusUpdated",
+    pattern = { "LspProgressStatusUpdated", "GitGutter" },
     callback = function()
         require("lualine").refresh({
             place = { "statusline" },
