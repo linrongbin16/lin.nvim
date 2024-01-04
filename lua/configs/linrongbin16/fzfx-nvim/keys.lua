@@ -11,25 +11,25 @@ local M = {
     set_lazy_key(
         "x",
         "<space>f",
-        "<cmd>FzfxFilesV<cr>",
+        "<cmd>FzfxFiles visual<cr>",
         { desc = "Find files" }
     ),
     set_lazy_key(
         "n",
         "<space>wf",
-        "<cmd>FzfxFilesW<cr>",
+        "<cmd>FzfxFiles cword<cr>",
         { desc = "Find files by cursor word" }
     ),
     set_lazy_key(
         "n",
         "<space>pf",
-        "<cmd>FzfxFilesP<cr>",
+        "<cmd>FzfxFiles put<cr>",
         { desc = "Find files by yank text" }
     ),
     set_lazy_key(
         "n",
         "<space>rf",
-        "<cmd>FzfxFilesR<cr>",
+        "<cmd>FzfxFiles resume<cr>",
         { desc = "Find files by resume last" }
     ),
     -- search buffer
@@ -55,25 +55,25 @@ local M = {
     set_lazy_key(
         "x",
         "<space>l",
-        "<cmd>FzfxLiveGrepV<cr>",
+        "<cmd>FzfxLiveGrep visual<cr>",
         { desc = "Live grep" }
     ),
     set_lazy_key(
         "n",
         "<space>wl",
-        "<cmd>FzfxLiveGrepW<cr>",
+        "<cmd>FzfxLiveGrep cword<cr>",
         { desc = "Live grep by cursor word" }
     ),
     set_lazy_key(
         "n",
         "<space>pl",
-        "<cmd>FzfxLiveGrepP<cr>",
+        "<cmd>FzfxLiveGrep put<cr>",
         { desc = "Live grep by yank text" }
     ),
     set_lazy_key(
         "n",
         "<space>rl",
-        "<cmd>FzfxLiveGrepR<cr>",
+        "<cmd>FzfxLiveGrep resume<cr>",
         { desc = "Live grep by resume last" }
     ),
     -- git
@@ -86,25 +86,25 @@ local M = {
     set_lazy_key(
         "x",
         "<space>gr",
-        "<cmd>FzfxGLiveGrepV<cr>",
+        "<cmd>FzfxGLiveGrep visual<cr>",
         { desc = "Git grep" }
     ),
     set_lazy_key(
         "n",
         "<space>wgr",
-        "<cmd>FzfxGLiveGrepW<cr>",
+        "<cmd>FzfxGLiveGrep cword<cr>",
         { desc = "Git grep by cursor word" }
     ),
     set_lazy_key(
         "n",
         "<space>pgr",
-        "<cmd>FzfxGLiveGrepP<cr>",
+        "<cmd>FzfxGLiveGrep put<cr>",
         { desc = "Git grep by yank text" }
     ),
     set_lazy_key(
         "n",
         "<space>rgr",
-        "<cmd>FzfxGLiveGrepR<cr>",
+        "<cmd>FzfxGLiveGrep resume<cr>",
         { desc = "Git grep by resume last" }
     ),
     set_lazy_key(
@@ -148,7 +148,7 @@ local M = {
     set_lazy_key(
         "x",
         "<space>dg",
-        "<cmd>FzfxLspDiagnosticsV<cr>",
+        "<cmd>FzfxLspDiagnostics visual<cr>",
         { desc = "Search lsp diagnostics" }
     ),
     -- file explorer
