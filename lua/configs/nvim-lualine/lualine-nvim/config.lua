@@ -63,11 +63,13 @@ local config = {
             "branch",
             {
                 "diff",
+                cond = GitDiffCondition,
                 source = GitDiffSource,
+                padding = { left = 0, right = 1 },
             },
         },
         lualine_c = {
-            { "filename", file_status = true, path = 1 },
+            { "filename", file_status = true },
             require("lsp-progress").progress,
         },
         lualine_x = {
