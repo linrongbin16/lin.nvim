@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.16.3](https://github.com/linrongbin16/lin.nvim/compare/v2.16.2...v2.16.3) (2024-01-04)
+
+
+### Performance Improvements
+
+* **lualine.nvim:** improve column number width ([#429](https://github.com/linrongbin16/lin.nvim/issues/429)) ([9f0a0dc](https://github.com/linrongbin16/lin.nvim/commit/9f0a0dcfa80a5b5bdbfa617b189e31ba9523a005))
+
 ## [2.16.2](https://github.com/linrongbin16/lin.nvim/compare/v2.16.1...v2.16.2) (2024-01-04)
 
 
