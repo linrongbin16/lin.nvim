@@ -11,23 +11,6 @@ local function GitDiffSource()
     }
 end
 
-local function Search()
-    if vim.v.hlsearch == 0 then
-        return ""
-    end
-    local lastsearch = vim.fn.getreg("/")
-    if not lastsearch or lastsearch == "" then
-        return ""
-    end
-    local searchcount = vim.fn.searchcount({ maxcount = 100 })
-    return lastsearch
-        .. "("
-        .. searchcount.current
-        .. "/"
-        .. searchcount.total
-        .. ")"
-end
-
 local function Location()
     return " %l:%v"
 end
@@ -69,11 +52,11 @@ local config = {
             },
         },
         lualine_c = {
-            { "filename", file_status = true },
+            { "filename", file_status = true, path = 4 },
             require("lsp-progress").progress,
         },
         lualine_x = {
-            Search,
+            { "searchcount", maxcount = 100, timeout = 300 },
             {
                 "diagnostics",
                 symbols = {
