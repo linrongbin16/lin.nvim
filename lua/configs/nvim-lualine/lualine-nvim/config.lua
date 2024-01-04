@@ -12,7 +12,7 @@ local function GitDiffSource()
 end
 
 local function Location()
-    return " %l:%v"
+    return " %l:%-2v"
 end
 
 local constants = require("builtin.utils.constants")
