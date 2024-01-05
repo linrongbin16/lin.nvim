@@ -105,10 +105,10 @@ local config = {
                 color = function()
                     local mode = vim.o.termguicolors and "gui" or "cterm"
                     local code = vim.fn.synIDattr(
-                        vim.fn.synIDtrans(vim.fn.hlID("Function")),
+                        vim.fn.synIDtrans(vim.fn.hlID("Special")),
                         "fg",
                         mode
-                    ) --[[@as string]]
+                    )
                     return { fg = code, gui = "bold" }
                 end,
             },
