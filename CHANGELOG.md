@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.16.4](https://github.com/linrongbin16/lin.nvim/compare/v2.16.3...v2.16.4) (2024-01-05)
+
+
+### Performance Improvements
+
+* **lualine.nvim:** improve statusline stylish ([#431](https://github.com/linrongbin16/lin.nvim/issues/431)) ([c3d63df](https://github.com/linrongbin16/lin.nvim/commit/c3d63df2c23631de607d58d47768ec33728e5288))
+
 ## [2.16.3](https://github.com/linrongbin16/lin.nvim/compare/v2.16.2...v2.16.3) (2024-01-04)
 
 
