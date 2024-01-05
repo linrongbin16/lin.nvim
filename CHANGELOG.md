@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.16.5](https://github.com/linrongbin16/lin.nvim/compare/v2.16.4...v2.16.5) (2024-01-05)
+
+
+### Performance Improvements
+
+* **lualine.nvim:** remove scrollbar from statusline ([#433](https://github.com/linrongbin16/lin.nvim/issues/433)) ([016d3ae](https://github.com/linrongbin16/lin.nvim/commit/016d3aeef30086b0c56f0c73f04173265a18f16c))
+
 ## [2.16.4](https://github.com/linrongbin16/lin.nvim/compare/v2.16.3...v2.16.4) (2024-01-05)
 
 
