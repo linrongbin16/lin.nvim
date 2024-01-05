@@ -1,3 +1,15 @@
+local constants = require("builtin.utils.constants")
+
+local function OsName()
+    if constants.os.is_windows then
+        return ""
+    elseif constants.os.is_macos then
+        return ""
+    else
+        return "󰣠"
+    end
+end
+
 local function GitDiffCondition()
     return vim.fn.exists("*GitGutterGetHunkSummary") > 0
 end
@@ -15,7 +27,14 @@ local function Location()
     return " %l:%-2v"
 end
 
-local constants = require("builtin.utils.constants")
+local SCROLL_BAR = { "▁", "▂", "▃", "▄", "▅", "▆", "▇", "█" }
+
+local function ScrollBar()
+    local curr_line = vim.api.nvim_win_get_cursor(0)[1]
+    local lines = vim.api.nvim_buf_line_count(0)
+    local i = math.floor((curr_line - 1) / lines * #SCROLL_BAR) + 1
+    return string.rep(SCROLL_BAR[i], 2)
+end
 
 local empty_component_separators = { left = "", right = "" }
 
@@ -40,7 +59,8 @@ local config = {
     },
     sections = {
         lualine_a = {
-            "mode",
+            OsName,
+            { "mode", padding = { left = 0, right = 1 } },
         },
         lualine_b = {
             "branch",
@@ -78,13 +98,22 @@ local config = {
             "encoding",
         },
         lualine_y = { Location },
-        lualine_z = { "progress" },
+        lualine_z = {
+            "progress",
+            {
+                ScrollBar,
+                color = function()
+                    local mode = vim.o.termguicolors and "gui" or "cterm"
+                    local code = vim.fn.synIDattr(
+                        vim.fn.synIDtrans(vim.fn.hlID("Function")),
+                        "fg",
+                        mode
+                    ) --[[@as string]]
+                    return { fg = code, gui = "bold" }
+                end,
+            },
+        },
     },
-    inactive_sections = {},
-    tabline = {},
-    winbar = {},
-    inactive_winbar = {},
-    extensions = {},
 }
 
 require("lualine").setup(config)
