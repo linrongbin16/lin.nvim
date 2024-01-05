@@ -133,6 +133,7 @@ local config = {
             {
                 ScrollBar,
                 color = { fg = ScrollBarColor, gui = "bold" },
+                padding = { left = 0, right = 1 },
             },
         },
     },
