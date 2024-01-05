@@ -49,12 +49,12 @@ local function ScrollBar()
 end
 
 local ScrollBarColor = GetHl(
-    "LuaLineDiffAdd",
-    "GitSignsAdd",
-    "GitGutterAdd",
-    "DiffAdded",
-    "DiffAdd"
-) or "#90ee90"
+    "LuaLineDiffChange",
+    "GitSignsChange",
+    "GitGutterChange",
+    "DiffChanged",
+    "DiffChange"
+) or "#f0e130"
 
 local empty_component_separators = { left = "", right = "" }
 
