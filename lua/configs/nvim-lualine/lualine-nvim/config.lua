@@ -39,22 +39,22 @@ local function Location()
     return " %l:%-2v"
 end
 
-local SCROLL_BAR = { "▁", "▂", "▃", "▄", "▅", "▆", "▇", "█" }
-
-local function ScrollBar()
-    local curr_line = vim.api.nvim_win_get_cursor(0)[1]
-    local lines = vim.api.nvim_buf_line_count(0)
-    local i = math.floor((curr_line - 1) / lines * #SCROLL_BAR) + 1
-    return string.rep(SCROLL_BAR[i], 2)
-end
-
-local ScrollBarColor = GetHl(
-    "LuaLineDiffDelete",
-    "GitSignsDelete",
-    "GitGutterDelete",
-    "DiffRemoved",
-    "DiffDelete"
-) or "#ff0038"
+-- local SCROLL_BAR = { "▁", "▂", "▃", "▄", "▅", "▆", "▇", "█" }
+--
+-- local function ScrollBar()
+--     local curr_line = vim.api.nvim_win_get_cursor(0)[1]
+--     local lines = vim.api.nvim_buf_line_count(0)
+--     local i = math.floor((curr_line - 1) / lines * #SCROLL_BAR) + 1
+--     return string.rep(SCROLL_BAR[i], 2)
+-- end
+--
+-- local ScrollBarColor = GetHl(
+--     "LuaLineDiffDelete",
+--     "GitSignsDelete",
+--     "GitGutterDelete",
+--     "DiffRemoved",
+--     "DiffDelete"
+-- ) or "#ff0038"
 
 local empty_component_separators = { left = "", right = "" }
 
@@ -128,14 +128,7 @@ local config = {
             "encoding",
         },
         lualine_y = { Location },
-        lualine_z = {
-            "progress",
-            {
-                ScrollBar,
-                color = { fg = ScrollBarColor, gui = "bold" },
-                padding = { left = 0, right = 1 },
-            },
-        },
+        lualine_z = { "progress" },
     },
 }
 
