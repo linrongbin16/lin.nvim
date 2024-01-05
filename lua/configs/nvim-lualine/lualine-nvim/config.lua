@@ -49,12 +49,12 @@ local function ScrollBar()
 end
 
 local ScrollBarColor = GetHl(
-    "LuaLineDiffChange",
-    "GitSignsChange",
-    "GitGutterChange",
-    "DiffChanged",
-    "DiffChange"
-) or "#f0e130"
+    "LuaLineDiffDelete",
+    "GitSignsDelete",
+    "GitGutterDelete",
+    "DiffRemoved",
+    "DiffDelete"
+) or "#ff0038"
 
 local empty_component_separators = { left = "", right = "" }
 
@@ -92,7 +92,17 @@ local config = {
             },
         },
         lualine_c = {
-            { "filename", file_status = true, path = 4 },
+            {
+                "filename",
+                file_status = true,
+                path = 4,
+                symbols = {
+                    modified = "[]", -- Text to show when the file is modified.
+                    readonly = "[]", -- Text to show when the file is non-modifiable or readonly.
+                    unnamed = "[No Name]", -- Text to show for unnamed buffers.
+                    newfile = "[New]", -- Text to show for newly created file before first write
+                },
+            },
             require("lsp-progress").progress,
         },
         lualine_x = {
