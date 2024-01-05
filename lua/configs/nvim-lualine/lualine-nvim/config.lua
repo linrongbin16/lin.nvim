@@ -120,7 +120,10 @@ local config = {
         lualine_y = { Location },
         lualine_z = {
             "progress",
-            { ScrollBar, color = { fg = ScrollBarColor, gui = "bold" } },
+            {
+                ScrollBar,
+                color = { fg = ScrollBarColor, gui = "bold" },
+            },
         },
     },
 }
