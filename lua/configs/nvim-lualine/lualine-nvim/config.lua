@@ -1,5 +1,17 @@
 local constants = require("builtin.utils.constants")
 
+local function GetHl(...)
+    for _, name in ipairs({ ... }) do
+        if vim.fn.hlexists(name) > 0 then
+            local hl = vim.api.nvim_get_hl(0, { name = name, link = false })
+            if type(hl) == "table" and hl.fg ~= nil then
+                return tostring(hl.fg)
+            end
+        end
+    end
+    return nil
+end
+
 local function OsName()
     if constants.os.is_windows then
         return ""
@@ -35,6 +47,14 @@ local function ScrollBar()
     local i = math.floor((curr_line - 1) / lines * #SCROLL_BAR) + 1
     return string.rep(SCROLL_BAR[i], 2)
 end
+
+local ScrollBarColor = GetHl(
+    "LuaLineDiffAdd",
+    "GitSignsAdd",
+    "GitGutterAdd",
+    "DiffAdded",
+    "DiffAdd"
+) or "#90ee90"
 
 local empty_component_separators = { left = "", right = "" }
 
@@ -100,18 +120,7 @@ local config = {
         lualine_y = { Location },
         lualine_z = {
             "progress",
-            {
-                ScrollBar,
-                color = function()
-                    local mode = vim.o.termguicolors and "gui" or "cterm"
-                    local code = vim.fn.synIDattr(
-                        vim.fn.synIDtrans(vim.fn.hlID("Special")),
-                        "fg",
-                        mode
-                    )
-                    return { fg = code, gui = "bold" }
-                end,
-            },
+            { ScrollBar, color = { fg = ScrollBarColor, gui = "bold" } },
         },
     },
 }
