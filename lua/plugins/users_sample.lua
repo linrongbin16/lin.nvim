@@ -38,6 +38,12 @@
 --         config = lua_config("ggandor/leap.nvim"),
 --     },
 --     {
+--         "ggandor/flit.nvim",
+--         event = { VeryLazy, BufReadPre, BufNewFile },
+--         dependencies = { "ggandor/leap.nvim", "tpope/vim-repeat" },
+--         config = lua_config("ggandor/flit.nvim"),
+--     },
+--     {
 --         "folke/flash.nvim",
 --         event = { VeryLazy, BufReadPre, BufNewFile },
 --         config = lua_config("folke/flash.nvim"),
