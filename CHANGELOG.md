@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.17.0](https://github.com/linrongbin16/lin.nvim/compare/v2.16.5...v2.17.0) (2024-01-09)
+
+
+### Features
+
+* **flit.nvim:** add 'flit.nvim' to user plugins list ([#435](https://github.com/linrongbin16/lin.nvim/issues/435)) ([ce13741](https://github.com/linrongbin16/lin.nvim/commit/ce13741ca8fc87e9729b8ee5c05d2da8a56f9883))
+
 ## [2.16.5](https://github.com/linrongbin16/lin.nvim/compare/v2.16.4...v2.16.5) (2024-01-05)
 
 
