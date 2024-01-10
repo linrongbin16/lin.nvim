@@ -1,4 +1,3 @@
-local message = require("builtin.utils.message")
 local uv = vim.uv or vim.loop
 
 --- @param user_module_path string
