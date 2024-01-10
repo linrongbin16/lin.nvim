@@ -1,5 +1,22 @@
 # Changelog
 
+## [2.18.0](https://github.com/linrongbin16/lin.nvim/compare/v2.17.0...v2.18.0) (2024-01-10)
+
+
+### Features
+
+* **gentags.nvim:** add 'gentags.nvim' as tags generator ([#438](https://github.com/linrongbin16/lin.nvim/issues/438)) ([ec1fa69](https://github.com/linrongbin16/lin.nvim/commit/ec1fa69ac4a305d9e8e2e14ac503d1971b004eec))
+
+
+### Bug Fixes
+
+* **lint:** fix type check ([#439](https://github.com/linrongbin16/lin.nvim/issues/439)) ([cfdf42d](https://github.com/linrongbin16/lin.nvim/commit/cfdf42d48f53e25a82549bb15505094593b1d824))
+
+
+### Performance Improvements
+
+* **builtin:** simplify lua config loader ([#437](https://github.com/linrongbin16/lin.nvim/issues/437)) ([3285f15](https://github.com/linrongbin16/lin.nvim/commit/3285f15afab9622fd456911abf9b1281248f891a))
+
 ## [2.17.0](https://github.com/linrongbin16/lin.nvim/compare/v2.16.5...v2.17.0) (2024-01-09)
 
 
