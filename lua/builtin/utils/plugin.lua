@@ -1,4 +1,4 @@
-local message = require("builtin.utils.message")
+---@diagnostic disable:redundant-return-value
 local uv = vim.uv or vim.loop
 
 --- @param user_module_path string
@@ -7,9 +7,9 @@ local uv = vim.uv or vim.loop
 local function load_lua_module(user_module_path, builtin_module_path)
     local user_ok, user_module = pcall(require, user_module_path)
     if user_ok then
-        return user_module
+        return user_module --[[@as table]]
     end
-    return require(builtin_module_path)
+    return require(builtin_module_path) --[[@as table]]
 end
 
 --- @param user_script_path string
@@ -23,7 +23,7 @@ local function load_vim_script(user_script_path, builtin_script_path)
 end
 
 --- @param keys string
---- @return table[]
+--- @return any
 local function lua_keys(keys)
     local user_path = "configs/" .. keys:gsub("%.", "-") .. "/user_keys"
     local builtin_path = "configs/" .. keys:gsub("%.", "-") .. "/keys"
