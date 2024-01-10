@@ -2,13 +2,13 @@ local uv = vim.uv or vim.loop
 
 --- @param user_module_path string
 --- @param builtin_module_path string
---- @return any
+--- @return table
 local function load_lua_module(user_module_path, builtin_module_path)
     local user_ok, user_module = pcall(require, user_module_path)
     if user_ok then
-        return user_module
+        return user_module --[[@as table]]
     end
-    return require(builtin_module_path)
+    return require(builtin_module_path) --[[@as table]]
 end
 
 --- @param user_script_path string
