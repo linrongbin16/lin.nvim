@@ -1,3 +1,4 @@
+---@diagnostic disable:redundant-return-value
 local uv = vim.uv or vim.loop
 
 --- @param user_module_path string
