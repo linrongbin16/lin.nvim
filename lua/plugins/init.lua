@@ -344,6 +344,10 @@ local M = {
         event = { VeryLazy, CmdlineEnter },
     },
     {
+        "quangnguyen30192/cmp-nvim-tags",
+        event = { VeryLazy, InsertEnter, CmdlineEnter },
+    },
+    {
         "hrsh7th/nvim-cmp",
         event = { VeryLazy, InsertEnter, CmdlineEnter },
         dependencies = {
