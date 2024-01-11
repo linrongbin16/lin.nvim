@@ -4,37 +4,31 @@ local stdpath_config = vim.fn.stdpath("config")
 
 --- @param name string
 --- @param key string
---- @return string
-local function user_module_filepath(name, key)
-    local base = stdpath_config .. "/lua/configs/" .. name:gsub("%.", "-")
-    return base .. string.format("/user_%s.lua", key)
-end
-
---- @param name string
---- @param key string
---- @return string
-local function user_module(name, key)
-    local base = "configs." .. name:gsub("%.", "-")
-    return base .. string.format(".user_%s", key)
-end
-
---- @param name string
---- @param key string
---- @return string
-local function default_module(name, key)
-    local base = "configs." .. name:gsub("%.", "-")
-    return base .. "." .. key
-end
-
---- @param name string
---- @param key string
 --- @return any
 local function load_lua_module(name, key)
-    local user_path = user_module_filepath(name, key)
-    if uv.fs_stat(user_path) then
-        return require(user_module(name, key))
+    --- @return string
+    local function user_module_filepath()
+        local base = stdpath_config .. "/lua/configs/" .. name:gsub("%.", "-")
+        return base .. string.format("/user_%s.lua", key)
     end
-    return require(default_module(name, key))
+
+    --- @return string
+    local function user_module()
+        local base = "configs." .. name:gsub("%.", "-")
+        return base .. string.format(".user_%s", key)
+    end
+
+    --- @return string
+    local function default_module()
+        local base = "configs." .. name:gsub("%.", "-")
+        return base .. "." .. key
+    end
+
+    local user_path = user_module_filepath()
+    if uv.fs_stat(user_path) then
+        return require(user_module())
+    end
+    return require(default_module())
 end
 
 --- @param user_script_path string
