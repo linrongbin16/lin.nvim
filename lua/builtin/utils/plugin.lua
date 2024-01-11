@@ -15,19 +15,25 @@ local function load_lua_module(name, key)
     if uv.fs_stat(user_path) then
         local user_module = module_base .. string.format(".user_%s", key)
         return require(user_module)
+    else
+        local default_module = module_base .. "." .. key
+        return require(default_module)
     end
-
-    local default_module = module_base .. "." .. key
-    return require(default_module)
 end
 
---- @param user_script_path string
---- @param builtin_script_path string
-local function load_vim_script(user_script_path, builtin_script_path)
-    if uv.fs_stat(user_script_path or "") then
-        vim.cmd(string.format([[source %s]], user_script_path))
+--- @param name string
+--- @param key string
+local function load_vim_script(name, key)
+    local filepath_base = stdpath_config
+        .. "/lua/configs/"
+        .. name:gsub("%.", "-")
+    local user_path = filepath_base .. string.format("/user_%s.vim", key)
+
+    if uv.fs_stat(user_path) then
+        vim.cmd(string.format([[source %s]], user_path))
     else
-        vim.cmd(string.format([[source %s]], builtin_script_path))
+        local default_path = filepath_base .. string.format("/%s,vim", key)
+        vim.cmd(string.format([[source %s]], default_path))
     end
 end
 
@@ -45,18 +51,10 @@ local function lua_init(name)
     return wrap
 end
 
---- @param init string
-local function vim_init(init)
+--- @param name string
+local function vim_init(name)
     local function wrap()
-        local user_path = vim.fn.stdpath("config")
-            .. "/lua/configs/"
-            .. init:gsub("%.", "-")
-            .. "/user_init.vim"
-        local builtin_path = vim.fn.stdpath("config")
-            .. "/lua/configs/"
-            .. init:gsub("%.", "-")
-            .. "/init.vim"
-        load_vim_script(user_path, builtin_path)
+        load_vim_script(name, "init")
     end
     return wrap
 end
@@ -69,18 +67,10 @@ local function lua_config(name)
     return wrap
 end
 
---- @param config string
-local function vim_config(config)
+--- @param name string
+local function vim_config(name)
     local function wrap()
-        local user_path = vim.fn.stdpath("config")
-            .. "/lua/configs/"
-            .. config:gsub("%.", "-")
-            .. "/user_config.vim"
-        local builtin_path = vim.fn.stdpath("config")
-            .. "/lua/configs/"
-            .. config:gsub("%.", "-")
-            .. "/config.vim"
-        load_vim_script(user_path, builtin_path)
+        load_vim_script(name, "config")
     end
     return wrap
 end
