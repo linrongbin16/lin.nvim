@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.18.1](https://github.com/linrongbin16/lin.nvim/compare/v2.18.0...v2.18.1) (2024-01-11)
+
+
+### Performance Improvements
+
+* **init:** improve config loader speed ([#444](https://github.com/linrongbin16/lin.nvim/issues/444)) ([efb178d](https://github.com/linrongbin16/lin.nvim/commit/efb178d3caa51f859c47c79b925912502c99a9d1))
+* **plugins:** improve config loader performance ([#442](https://github.com/linrongbin16/lin.nvim/issues/442)) ([389e1de](https://github.com/linrongbin16/lin.nvim/commit/389e1dec2442b48ed7cadd97b1ab2a6468fab493))
+
 ## [2.18.0](https://github.com/linrongbin16/lin.nvim/compare/v2.17.0...v2.18.0) (2024-01-10)
 
 
