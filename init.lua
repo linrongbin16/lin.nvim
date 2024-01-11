@@ -1,11 +1,25 @@
 -- ======== Init ========
 
--- pre init
-local preinit_vim = string.format("%s/preinit.vim", vim.fn.stdpath("config"))
-if vim.fn.filereadable(preinit_vim) > 0 then
-    vim.fn.execute(string.format("source %s", preinit_vim), true)
+local uv = vim.uv or vim.loop
+local stdpath_config = vim.fn.stdpath("config")
+
+local function vimloader(handle)
+    local vimfile = stdpath_config .. string.format("/%s.vim", handle)
+    if uv.fs_stat(vimfile) then
+        vim.fn.execute(string.format("source %s", vimfile), true)
+    end
 end
-pcall(require, "preinit")
+
+local function lualoader(handle)
+    local luafile = stdpath_config .. string.format("/lua/%s.lua", handle)
+    if uv.fs_stat(luafile) then
+        require(handle)
+    end
+end
+
+-- preinit.vim and preinit.lua
+vimloader("preinit")
+lualoader("preinit")
 
 -- options
 require("builtin.options")
@@ -17,9 +31,6 @@ require("configs.folke.lazy-nvim.config")
 -- others
 require("builtin.others")
 
--- post init
-local postinit_vim = string.format("%s/postinit.vim", vim.fn.stdpath("config"))
-if vim.fn.filereadable(postinit_vim) > 0 then
-    vim.fn.execute(string.format("source %s", postinit_vim), true)
-end
-pcall(require, "postinit")
+-- postinit.vim and postinit.lua
+vimloader("postinit")
+lualoader("postinit")
