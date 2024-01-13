@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.18.2](https://github.com/linrongbin16/lin.nvim/compare/v2.18.1...v2.18.2) (2024-01-13)
+
+
+### Bug Fixes
+
+* **lualine.nvim:** only set 'path=4' for UNIX ([#445](https://github.com/linrongbin16/lin.nvim/issues/445)) ([314ddd0](https://github.com/linrongbin16/lin.nvim/commit/314ddd0a3f3e2526021ee59545a287da4b65d20a))
+
 ## [2.18.1](https://github.com/linrongbin16/lin.nvim/compare/v2.18.0...v2.18.1) (2024-01-11)
 
 
