@@ -141,13 +141,13 @@ function NvimConfig()
     Backup $env:USERPROFILE\.nvim
     Start-Process powershell "cmd /c mklink $env:USERPROFILE\.nvim $NVIM_HOME /D" -Verb RunAs -Wait
 
-    # nvim-treesitter
-    $NvimTreesitterHome = "$NVIM_HOME\lua\configs\nvim-treesitter\nvim-treesitter"
-    $NvimTreesitterEnsureInstalled = "$NvimTreesitterHome\ensure_installed.lua"
-    if (-not(TestReparsePoint $NvimTreesitterEnsureInstalled) -and -not(Test-Path $NvimTreesitterEnsureInstalled))
-    {
-        Copy-Item -Path "$NvimTreesitterHome\ensure_installed_sample.lua" -Destination "$NvimTreesitterEnsureInstalled"
-    }
+    # # nvim-treesitter
+    # $NvimTreesitterHome = "$NVIM_HOME\lua\configs\nvim-treesitter\nvim-treesitter"
+    # $NvimTreesitterEnsureInstalled = "$NvimTreesitterHome\ensure_installed.lua"
+    # if (-not(TestReparsePoint $NvimTreesitterEnsureInstalled) -and -not(Test-Path $NvimTreesitterEnsureInstalled))
+    # {
+    #     Copy-Item -Path "$NvimTreesitterHome\ensure_installed_sample.lua" -Destination "$NvimTreesitterEnsureInstalled"
+    # }
 
     # nvim-lspconfig
     $NvimLspconfigHome = "$NVIM_HOME\lua\configs\neovim\nvim-lspconfig"

@@ -392,12 +392,12 @@ nvim_config() {
     backup $HOME/.nvim
     ln -s $NVIM_HOME $HOME/.nvim
 
-    # nvim-treesitter
-    local nvim_treesitter_home="$NVIM_HOME/lua/configs/nvim-treesitter/nvim-treesitter"
-    local nvim_treesitter_ensure_installed="$nvim_treesitter_home/ensure_installed.lua"
-    if [ ! -f $nvim_treesitter_ensure_installed ]; then
-        cp $nvim_treesitter_home/ensure_installed_sample.lua $nvim_treesitter_ensure_installed
-    fi
+    # # nvim-treesitter
+    # local nvim_treesitter_home="$NVIM_HOME/lua/configs/nvim-treesitter/nvim-treesitter"
+    # local nvim_treesitter_ensure_installed="$nvim_treesitter_home/ensure_installed.lua"
+    # if [ ! -f $nvim_treesitter_ensure_installed ]; then
+    #     cp $nvim_treesitter_home/ensure_installed_sample.lua $nvim_treesitter_ensure_installed
+    # fi
 
     # nvim-lspconfig
     local nvim_lspconfig_home="$NVIM_HOME/lua/configs/neovim/nvim-lspconfig"
