@@ -11,47 +11,12 @@ local ensure_installed = {
     "tsx",
 }
 
-local user_ensure_installed_module =
-    "configs.nvim-treesitter.nvim-treesitter.ensure-installed"
-local user_ensure_installed_ok, user_ensure_installed =
-    pcall(require, user_ensure_installed_module)
-if user_ensure_installed_ok then
-    if type(user_ensure_installed) == "table" then
-        ensure_installed = user_ensure_installed
-    else
-        message.warn(
-            string.format(
-                "Error loading '%s' lua module!",
-                user_ensure_installed_module
-            )
-        )
-    end
-end
-
+---@diagnostic disable-next-line: missing-fields
 require("nvim-treesitter.configs").setup({
     ensure_installed = ensure_installed,
-    auto_install = false,
+    auto_install = true,
     matchup = { -- for vim-matchup
         enable = true,
-    },
-    autotag = { -- for nvim-ts-autotag
-        enable = true,
-        filetypes = {
-            "html",
-            "xml",
-            "javascript",
-            "typescript",
-            "javascriptreact",
-            "typescriptreact",
-            "jsx",
-            "tsx",
-            "svelte",
-            "vue",
-            "rescript",
-            "css",
-            "php",
-            "markdown",
-        },
     },
     highlight = {
         enable = true,
@@ -59,9 +24,7 @@ require("nvim-treesitter.configs").setup({
         disable = function(lang, buf)
             local max_filesize = constants.perf.file.maxsize
             local ok, stats = pcall(uv.fs_stat, vim.api.nvim_buf_get_name(buf))
-            if ok and stats and stats.size > max_filesize then
-                return true
-            end
+            return ok and stats and stats.size > max_filesize
         end,
         additional_vim_regex_highlighting = false,
     },
