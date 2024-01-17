@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.18.3](https://github.com/linrongbin16/lin.nvim/compare/v2.18.2...v2.18.3) (2024-01-17)
+
+
+### Bug Fixes
+
+* **install:** remove 'nvim-treesitter' ensure_installed.lua ([#448](https://github.com/linrongbin16/lin.nvim/issues/448)) ([299c011](https://github.com/linrongbin16/lin.nvim/commit/299c011ba4876ca560271b36122e66d650acf5db))
+
+
+### Performance Improvements
+
+* **nvim-treesitter:** enable auto install ([#447](https://github.com/linrongbin16/lin.nvim/issues/447)) ([b49ff28](https://github.com/linrongbin16/lin.nvim/commit/b49ff28f0000c044e063fa7770a0199024424802))
+
 ## [2.18.2](https://github.com/linrongbin16/lin.nvim/compare/v2.18.1...v2.18.2) (2024-01-13)
 
 
