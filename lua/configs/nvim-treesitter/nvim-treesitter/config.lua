@@ -4,7 +4,7 @@ local message = require("builtin.utils.message")
 local ensure_installed = {
     "vim",
     "lua",
-    "html",
+    "markdown",
     "javascript",
     "typescript",
     "tsx",
