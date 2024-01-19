@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.18.4](https://github.com/linrongbin16/lin.nvim/compare/v2.18.3...v2.18.4) (2024-01-19)
+
+
+### Performance Improvements
+
+* **nvim-colorizer.lua:** enable all colors ([#450](https://github.com/linrongbin16/lin.nvim/issues/450)) ([d3b779f](https://github.com/linrongbin16/lin.nvim/commit/d3b779fcf2d8c1b6eab40a1fc4ad664fa9bc280b))
+
 ## [2.18.3](https://github.com/linrongbin16/lin.nvim/compare/v2.18.2...v2.18.3) (2024-01-17)
 
 
