@@ -8,9 +8,10 @@ require("illuminate").configure({
 })
 
 -- highlight style
-vim.cmd([[
-augroup vim_illuminate_augroup
-    autocmd!
-    autocmd VimEnter * hi illuminatedWord cterm=underline gui=underline
-augroup END
-]])
+vim.api.nvim_create_augroup("vim_illuminate_augroup", { clear = true })
+vim.api.nvim_create_autocmd("BufReadPre", {
+    group = "vim_illuminate_augroup",
+    callback = function()
+        vim.cmd([[hi illuminatedWord cterm=underline gui=underline]])
+    end,
+})
