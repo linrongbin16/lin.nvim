@@ -9,7 +9,7 @@ require("illuminate").configure({
 
 -- highlight style
 vim.api.nvim_create_augroup("vim_illuminate_augroup", { clear = true })
-vim.api.nvim_create_autocmd("BufReadPre", {
+vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
     group = "vim_illuminate_augroup",
     callback = function()
         vim.cmd([[hi illuminatedWord cterm=underline gui=underline]])
