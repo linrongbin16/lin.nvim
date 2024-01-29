@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.19.0](https://github.com/linrongbin16/lin.nvim/compare/v2.18.4...v2.19.0) (2024-01-29)
+
+
+### Features
+
+* **neo-tree.nvim:** auto-resize file explorer sidebar width ([#452](https://github.com/linrongbin16/lin.nvim/issues/452)) ([786775b](https://github.com/linrongbin16/lin.nvim/commit/786775bb436d62c8927da65b9da65c9b58b40432))
+
+
+### Bug Fixes
+
+* **vim-illuminate:** fix hi trigger event ([#452](https://github.com/linrongbin16/lin.nvim/issues/452)) ([786775b](https://github.com/linrongbin16/lin.nvim/commit/786775bb436d62c8927da65b9da65c9b58b40432))
+
 ## [2.18.4](https://github.com/linrongbin16/lin.nvim/compare/v2.18.3...v2.18.4) (2024-01-19)
 
 
