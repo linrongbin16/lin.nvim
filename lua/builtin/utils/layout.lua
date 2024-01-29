@@ -16,8 +16,8 @@ local editor = {
     end,
 
     --- @param percent number
-    --- @param min_height integer
-    --- @param max_height integer
+    --- @param min_height integer?
+    --- @param max_height integer?
     --- @return integer
     height = function(percent, min_height, max_height)
         local editor_h = vim.o.lines
