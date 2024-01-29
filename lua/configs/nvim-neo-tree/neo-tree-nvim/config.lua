@@ -206,3 +206,43 @@ vim.api.nvim_create_autocmd({ "VimEnter", "UIEnter" }, {
         vim.defer_fn(open_impl, 0)
     end,
 })
+
+local sidebar_resizing = false
+vim.api.nvim_create_autocmd({ "WinResized", "VimResized", "UIEnter" }, {
+    group = "neo_tree_augroup",
+    callback = function()
+        if sidebar_resizing then
+            return
+        end
+
+        sidebar_resizing = true
+        local neo_tree_filesystem = string.lower("neo-tree filesystem")
+        local neo_tree_winnr = nil
+        local tabnr = vim.api.nvim_get_current_tabpage()
+        for _, winnr in ipairs(vim.api.nvim_tabpage_list_wins(tabnr)) do
+            local bufnr = vim.api.nvim_win_get_buf(winnr)
+            if vim.api.nvim_buf_is_valid(bufnr) then
+                local bufname = vim.fn.bufname(bufnr)
+                if
+                    string.len(bufname) >= string.len(neo_tree_filesystem)
+                    and string.sub(bufname, 1, #neo_tree_filesystem):lower()
+                        == neo_tree_filesystem
+                then
+                    neo_tree_winnr = winnr
+                    break
+                end
+            end
+        end
+        local new_width = layout.editor.width(
+            constants.ui.layout.sidebar.scale,
+            constants.ui.layout.sidebar.min,
+            constants.ui.layout.sidebar.max
+        )
+        if neo_tree_winnr then
+            vim.api.nvim_win_set_width(neo_tree_winnr, new_width)
+        end
+        vim.schedule(function()
+            sidebar_resizing = false
+        end)
+    end,
+})
