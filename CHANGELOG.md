@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.19.1](https://github.com/linrongbin16/lin.nvim/compare/v2.19.0...v2.19.1) (2024-01-29)
+
+
+### Bug Fixes
+
+* **colorbox.nvim:** disable 'onedark.nvim' ([#454](https://github.com/linrongbin16/lin.nvim/issues/454)) ([1cbd499](https://github.com/linrongbin16/lin.nvim/commit/1cbd499d0bc2a1ae49cbca359efd91ffdbb00a6d))
+
 ## [2.19.0](https://github.com/linrongbin16/lin.nvim/compare/v2.18.4...v2.19.0) (2024-01-29)
 
 
