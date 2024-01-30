@@ -141,7 +141,7 @@ basic.section_b = {
                     return {
                         { "  ", mode_hl() },
                         { vim.fn["gitbranch#name"](), "" },
-                        { " ", "" },
+                        { " " },
                         { right_separator, mode_sep_hl() },
                     }
                 end
@@ -157,11 +157,23 @@ basic.section_c = {
         return {
             { " ", mode_hl() },
             { b_components.cache_file_name("[No Name]", "unique") },
-            { " " },
-            { b_components.cache_file_size() },
-            { " " },
             { right_separator, mode_sep_hl() },
         }
+    end,
+}
+
+basic.section_d = {
+    hl_colors = airline_colors.d,
+    text = function(_, _, width)
+        if width > width_breakpoint then
+            return {
+                { " ", mode_hl() },
+                { b_components.cache_file_size() },
+                { " " },
+                { right_separator, mode_sep_hl() },
+            }
+        end
+        return { { right_separator, mode_sep_hl() } }
     end,
 }
 
@@ -182,6 +194,13 @@ local function file_format()
     end
 end
 
+local function file_encoding()
+    return function()
+        local enc = (vim.bo.fenc ~= "" and vim.bo.fenc) or vim.o.enc
+        return enc:lower()
+    end
+end
+
 basic.section_w = {
     hl_colors = airline_colors.d,
     width = width_breakpoint,
@@ -190,8 +209,8 @@ basic.section_w = {
             return {
                 { left_separator, mode_sep_hl() },
                 { " ", mode_hl() },
-                { b_components.file_encoding() },
-                { " ", "" },
+                { file_encoding() },
+                { " " },
             }
         end
         return {
@@ -209,7 +228,7 @@ basic.section_x = {
                 { left_separator, mode_sep_hl() },
                 { " ", mode_hl() },
                 { file_format() },
-                { " ", "" },
+                { " " },
             }
         end
         return {
@@ -230,7 +249,7 @@ basic.section_y = {
                     b_components.cache_file_type({ icon = true }),
                     "",
                 },
-                { " ", "" },
+                { " " },
             }
         end
         return { { left_separator, mode_sep_hl() } }
@@ -372,6 +391,7 @@ local default = {
         basic.section_a,
         basic.section_b,
         basic.section_c,
+        basic.section_d,
         basic.git_changes,
         basic.divider,
         { vim_components.search_count(), { "cyan", "NormalBg" } },
