@@ -3,11 +3,9 @@ local helper = require("windline.helpers")
 local sep = helper.separators
 local b_components = require("windline.components.basic")
 local state = _G.WindLine.state
-local vim_components = require("windline.components.vim")
 local HSL = require("wlanimation.utils")
 
 local lsp_comps = require("windline.components.lsp")
-local git_comps = require("windline.components.git")
 
 local cache_utils = require("windline.cache_utils")
 
@@ -20,14 +18,6 @@ local function hl_color(highlights, attr)
     attr = attr or "fg"
     for _, hl in ipairs(highlights) do
         local hl_value = vim.api.nvim_get_hl(0, { name = hl })
-        print(
-            string.format(
-                "hl:%s, is table:%s, is empty:%s",
-                hl,
-                vim.inspect(type(hl_value) == "table"),
-                vim.inspect(vim.tbl_isempty(hl_value))
-            )
-        )
         if type(hl_value) == "table" and type(hl_value[attr]) == "number" then
             return string.format("#%06x", hl_value[attr])
         end
@@ -384,6 +374,47 @@ basic.git_changes = {
     end,
 }
 
+basic.searchcount = {
+    name = "searchcount",
+    width = width_breakpoint,
+    text = function()
+        if vim.v.hlsearch == 0 then
+            return ""
+        end
+
+        local check, result = pcall(vim.fn.searchcount, { recompute = 0 })
+        if not check or not result or result.current == nil then
+            return ""
+        end
+
+        if result.total == 0 and result.current == 0 then
+            return ""
+        end
+
+        if result.incomplete == 1 then -- timed out
+            return " [?/??] "
+        elseif result.incomplete == 2 then -- max count exceeded
+            if
+                result.total > result.maxcount
+                and result.current > result.maxcount
+            then
+                return string.format(
+                    " [>%d/>%d] ",
+                    result.current,
+                    result.total
+                )
+            elseif result.total > result.maxcount then
+                return string.format(" [%d/>%d] ", result.current, result.total)
+            end
+        end
+        return string.format(
+            " [%d/%d] ",
+            result.current or "",
+            result.total or ""
+        )
+    end,
+}
+
 local quickfix = {
     filetypes = { "qf", "Trouble" },
     active = {
@@ -427,7 +458,7 @@ local default = {
         basic.section_d,
         basic.git_changes,
         basic.divider,
-        { vim_components.search_count(), { "cyan", "NormalBg" } },
+        basic.searchcount,
         basic.lsp_diagnos,
         basic.section_w,
         basic.section_x,
