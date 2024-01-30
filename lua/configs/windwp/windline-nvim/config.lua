@@ -532,9 +532,7 @@ windline.setup({
         def("replace", factors)
 
         colors.command = hl_color({
-            "DiagnosticSignError",
-            "LspDiagnosticsSignError",
-            "ErrorMsg",
+            "Special",
         }) or colors.red
         def("command", factors)
 
