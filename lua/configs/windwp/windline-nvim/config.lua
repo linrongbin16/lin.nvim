@@ -63,6 +63,19 @@ airline_colors.c = {
     Command = { "white", "red_c" },
 }
 
+airline_colors.d = {
+    NormalSep = { "magenta_d", "NormalBg" },
+    InsertSep = { "green_d", "NormalBg" },
+    VisualSep = { "yellow_d", "NormalBg" },
+    ReplaceSep = { "blue_d", "NormalBg" },
+    CommandSep = { "red_d", "NormalBg" },
+    Normal = { "white", "magenta_d" },
+    Insert = { "white", "green_d" },
+    Visual = { "white", "yellow_d" },
+    Replace = { "white", "blue_d" },
+    Command = { "white", "red_d" },
+}
+
 basic.divider = { b_components.divider, hl_list.Normal }
 
 -- a \ b \ c  ---  x / y / z
@@ -169,8 +182,9 @@ local function file_format()
     end
 end
 
-basic.section_x = {
-    hl_colors = airline_colors.c,
+basic.section_w = {
+    hl_colors = airline_colors.d,
+    width = width_breakpoint,
     text = function(_, _, width)
         if width > width_breakpoint then
             return {
@@ -178,6 +192,22 @@ basic.section_x = {
                 { " ", mode_hl() },
                 { b_components.file_encoding() },
                 { " " },
+            }
+        end
+        return {
+            { left_separator, mode_sep_hl() },
+        }
+    end,
+}
+
+basic.section_x = {
+    hl_colors = airline_colors.c,
+    width = width_breakpoint,
+    text = function(_, _, width)
+        if width > width_breakpoint then
+            return {
+                { left_separator, mode_sep_hl() },
+                { " ", mode_hl() },
                 { file_format() },
                 { " " },
             }
@@ -190,6 +220,7 @@ basic.section_x = {
 
 basic.section_y = {
     hl_colors = airline_colors.b,
+    width = width_breakpoint,
     text = function(_, _, width)
         if width > width_breakpoint then
             return {
@@ -345,6 +376,7 @@ local default = {
         basic.divider,
         { vim_components.search_count(), { "cyan", "NormalBg" } },
         basic.lsp_diagnos,
+        basic.section_w,
         basic.section_x,
         basic.section_y,
         basic.section_z,
