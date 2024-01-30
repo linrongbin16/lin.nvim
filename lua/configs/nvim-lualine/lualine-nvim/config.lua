@@ -43,6 +43,16 @@ end
 local function Location()
     return " %l:%-2v"
 end
+local function Progress()
+    local line_fraction = math.floor(vim.fn.line(".") / vim.fn.line("$") * 100)
+    if line_fraction >= 100 then
+        return "Bot "
+    elseif line_fraction <= 0 then
+        return "Top "
+    else
+        return string.format("%2d%%%% ", line_fraction)
+    end
+end
 
 -- local SCROLL_BAR = { "▁", "▂", "▃", "▄", "▅", "▆", "▇", "█" }
 --
@@ -134,7 +144,7 @@ local config = {
             },
             "encoding",
         },
-        lualine_z = { Location, "progress" },
+        lualine_z = { Location, Progress },
     },
 }
 
