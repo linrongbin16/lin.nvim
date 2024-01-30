@@ -13,12 +13,37 @@ local cache_utils = require("windline.cache_utils")
 
 local constants = require("builtin.utils.constants")
 
+--- @param highlights string[]
+---@param attr "fg"|"bg"|nil
+--- @return string?
+local function hl_color(highlights, attr)
+    attr = attr or "fg"
+    for _, hl in ipairs(highlights) do
+        local hl_value = vim.api.nvim_get_hl(0, { name = hl })
+        print(
+            string.format(
+                "hl:%s, is table:%s, is empty:%s",
+                hl,
+                vim.inspect(type(hl_value) == "table"),
+                vim.inspect(vim.tbl_isempty(hl_value))
+            )
+        )
+        if type(hl_value) == "table" and type(hl_value[attr]) == "number" then
+            return string.format("#%06x", hl_value[attr])
+        end
+    end
+    return nil
+end
+
 local hl_list = {
     Black = { "white", "black" },
     White = { "black", "white" },
     Normal = { "NormalFg", "NormalBg" },
     Inactive = { "InactiveFg", "InactiveBg" },
     Active = { "ActiveFg", "ActiveBg" },
+    -- GitAdded = { GIT_ADDED, "NormalBg" },
+    -- GitModified = { GIT_MODIFIED, "NormalBg" },
+    -- GitRemoved = { GIT_REMOVED, "NormalBg" },
 }
 local basic = {}
 
@@ -327,13 +352,18 @@ basic.lsp_diagnos = {
     end,
 }
 
+-- local GIT_ADDED = hl_color({ "GitGutterAdd", "diffAdded", "DiffAdd" })
+-- local GIT_MODIFIED =
+--     hl_color({ "GitGutterChange", "diffChanged", "DiffChange" })
+-- local GIT_REMOVED = hl_color({ "GitGutterDelete", "diffRemoved", "DiffDelete" })
+
 basic.git_changes = {
     name = "git_changes",
     width = width_breakpoint,
     hl_colors = {
-        green = { "green", "NormalBg" },
-        red = { "red", "NormalBg" },
-        blue = { "blue", "NormalBg" },
+        green = { "git_added", "NormalBg" },
+        red = { "git_removed", "NormalBg" },
+        blue = { "git_modified", "NormalBg" },
     },
     text = function(bufnr)
         if vim.fn.exists("*GitGutterGetHunkSummary") > 0 then
@@ -448,6 +478,12 @@ windline.setup({
         colors.red_b = mod(colors.red, 0.5)
         colors.red_c = mod(colors.red, 0.65)
         colors.red_d = mod(colors.red, 0.8)
+
+        colors.git_added = hl_color({ "GitGutterAdd", "diffAdded", "DiffAdd" })
+        colors.git_modified =
+            hl_color({ "GitGutterChange", "diffChanged", "DiffChange" })
+        colors.git_removed =
+            hl_color({ "GitGutterDelete", "diffRemoved", "DiffDelete" })
 
         return colors
     end,
