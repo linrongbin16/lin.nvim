@@ -35,6 +35,11 @@ local function GitDiffSource()
     }
 end
 
+local function LspStatus()
+    local status = require("lsp-progress").progress()
+    return type(status) == "string" and string.len(status) > 0 and status or ""
+end
+
 local function Location()
     return " %l:%-2v"
 end
@@ -84,12 +89,6 @@ local config = {
         },
         lualine_b = {
             "branch",
-            {
-                "diff",
-                cond = GitDiffCondition,
-                source = GitDiffSource,
-                padding = { left = 0, right = 1 },
-            },
         },
         lualine_c = {
             {
@@ -103,7 +102,13 @@ local config = {
                     newfile = "[New]", -- Text to show for newly created file before first write
                 },
             },
-            require("lsp-progress").progress,
+            {
+                "diff",
+                cond = GitDiffCondition,
+                source = GitDiffSource,
+                padding = { left = 1, right = 1 },
+            },
+            LspStatus,
         },
         lualine_x = {
             { "searchcount", maxcount = 100, timeout = 300 },
@@ -117,6 +122,8 @@ local config = {
                 },
             },
             "filetype",
+        },
+        lualine_y = {
             {
                 "fileformat",
                 symbols = {
@@ -127,8 +134,7 @@ local config = {
             },
             "encoding",
         },
-        lualine_y = { Location },
-        lualine_z = { "progress" },
+        lualine_z = { Location, "progress" },
     },
 }
 
