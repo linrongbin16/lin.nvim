@@ -113,7 +113,6 @@ basic.section_a = {
 
 basic.section_b = {
     hl_colors = airline_colors.b,
-    width = width_breakpoint,
     text = cache_utils.cache_on_buffer(
         {
             "BufEnter",
@@ -203,7 +202,6 @@ end
 
 basic.section_w = {
     hl_colors = airline_colors.d,
-    width = width_breakpoint,
     text = function(_, _, width)
         if width > width_breakpoint then
             return {
@@ -221,7 +219,6 @@ basic.section_w = {
 
 basic.section_x = {
     hl_colors = airline_colors.c,
-    width = width_breakpoint,
     text = function(_, _, width)
         if width > width_breakpoint then
             return {
@@ -239,7 +236,6 @@ basic.section_x = {
 
 basic.section_y = {
     hl_colors = airline_colors.b,
-    width = width_breakpoint,
     text = function(_, _, width)
         if width > width_breakpoint then
             return {
@@ -340,12 +336,22 @@ basic.git_changes = {
         blue = { "blue", "NormalBg" },
     },
     text = function(bufnr)
-        if git_comps.is_git(bufnr) then
-            return {
-                { git_comps.diff_added({ format = "  %s" }), "green" },
-                { git_comps.diff_removed({ format = "  %s" }), "red" },
-                { git_comps.diff_changed({ format = "  %s" }), "blue" },
-            }
+        if vim.fn.exists("*GitGutterGetHunkSummary") > 0 then
+            local summary = vim.fn.GitGutterGetHunkSummary() or {}
+            local signs = { "+", "~", "-" }
+            local colors = { "green", "blue", "red" }
+            local changes = { { " " } }
+            local has_changes = false
+            for i, v in ipairs(summary) do
+                if type(v) == "number" and v > 0 then
+                    table.insert(
+                        changes,
+                        { string.format("%s%s ", signs[i], v), colors[i] }
+                    )
+                    has_changes = true
+                end
+            end
+            return has_changes and changes or ""
         end
         return ""
     end,
