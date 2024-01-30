@@ -142,7 +142,7 @@ basic.section_c = {
     hl_colors = airline_colors.c,
     text = function()
         return {
-            { " ", state.mode[2] },
+            { " ", mode_hl() },
             { b_components.cache_file_name("[No Name]", "unique") },
             { " " },
             { right_separator, mode_sep_hl() },
