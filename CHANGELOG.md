@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.19.2](https://github.com/linrongbin16/lin.nvim/compare/v2.19.1...v2.19.2) (2024-01-30)
+
+
+### Performance Improvements
+
+* **lualine.nvim:** improve style ([#457](https://github.com/linrongbin16/lin.nvim/issues/457)) ([8cc8226](https://github.com/linrongbin16/lin.nvim/commit/8cc822612101d7cda5e590af64a26da4d0366a6e))
+
 ## [2.19.1](https://github.com/linrongbin16/lin.nvim/compare/v2.19.0...v2.19.1) (2024-01-29)
 
 
