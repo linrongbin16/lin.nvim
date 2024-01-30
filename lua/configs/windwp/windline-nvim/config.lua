@@ -351,15 +351,15 @@ basic.git_changes = {
     name = "git_changes",
     width = width_breakpoint,
     hl_colors = {
-        green = { "git_added", "NormalBg" },
-        red = { "git_removed", "NormalBg" },
-        blue = { "git_modified", "NormalBg" },
+        add = { "added", "NormalBg" },
+        delete = { "removed", "NormalBg" },
+        modify = { "modified", "NormalBg" },
     },
     text = function(bufnr)
         if vim.fn.exists("*GitGutterGetHunkSummary") > 0 then
             local summary = vim.fn.GitGutterGetHunkSummary() or {}
             local signs = { "+", "~", "-" }
-            local colors = { "green", "blue", "red" }
+            local colors = { "add", "modify", "delete" }
             local changes = { { " " } }
             local has_changes = false
             for i, v in ipairs(summary) do
@@ -519,11 +519,18 @@ windline.setup({
         }) or colors.red
         def("command", factors)
 
-        colors.git_added = hl_color({ "GitGutterAdd", "diffAdded", "DiffAdd" })
-        colors.git_modified =
-            hl_color({ "GitGutterChange", "diffChanged", "DiffChange" })
-        colors.git_removed =
-            hl_color({ "GitGutterDelete", "diffRemoved", "DiffDelete" })
+        colors.added = hl_color({ "GitGutterAdd", "diffAdded", "DiffAdd" })
+            or colors.green
+        colors.modified = hl_color({
+            "GitGutterChange",
+            "diffChanged",
+            "DiffChange",
+        }) or colors.blue
+        colors.removed = hl_color({
+            "GitGutterDelete",
+            "diffRemoved",
+            "DiffDelete",
+        }) or colors.red
 
         return colors
     end,
