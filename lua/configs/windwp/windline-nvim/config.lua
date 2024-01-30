@@ -282,22 +282,27 @@ windline.setup({
         colors.magenta_a = colors.magenta
         colors.magenta_b = mod(colors.magenta, 0.5)
         colors.magenta_c = mod(colors.magenta, 0.7)
+        colors.magenta_d = mod(colors.magenta, 0.85)
 
         colors.yellow_a = colors.yellow
         colors.yellow_b = mod(colors.yellow, 0.5)
         colors.yellow_c = mod(colors.yellow, 0.7)
+        colors.yellow_d = mod(colors.yellow, 0.85)
 
         colors.blue_a = colors.blue
         colors.blue_b = mod(colors.blue, 0.5)
         colors.blue_c = mod(colors.blue, 0.7)
+        colors.blue_d = mod(colors.blue, 0.85)
 
         colors.green_a = colors.green
         colors.green_b = mod(colors.green, 0.5)
         colors.green_c = mod(colors.green, 0.7)
+        colors.green_d = mod(colors.green, 0.85)
 
         colors.red_a = colors.red
         colors.red_b = mod(colors.red, 0.5)
         colors.red_c = mod(colors.red, 0.7)
+        colors.red_d = mod(colors.red, 0.85)
 
         return colors
     end,
