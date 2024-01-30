@@ -84,9 +84,9 @@ airline_colors.d = {
     Visual = { "white", "visual_d" },
     Replace = { "white", "replace_d" },
     Command = { "white", "command_d" },
-    DiffAdd = { "diff_added", "NormalBg" },
-    DiffModify = { "diff_modified", "NormalBg" },
-    DiffDelete = { "diff_removed", "NormalBg" },
+    DiffAdd = { "diff_added", "normal_d" },
+    DiffModify = { "diff_modified", "normal_d" },
+    DiffDelete = { "diff_removed", "normal_d" },
 }
 
 basic.divider = { b_components.divider, hl_list.Normal }
@@ -294,7 +294,7 @@ basic.section_d = {
                 end
             end
             if has_changes then
-                table.insert(components, { " " })
+                -- table.insert(components, { " " })
                 table.insert(components, { right_separator, mode_sep_hl() })
                 return components
             end
@@ -474,7 +474,7 @@ basic.lspstatus = {
     text = function(bufnr, _, width)
         local status = require("lsp-progress").progress()
         if type(status) == "string" and string.len(status) > 0 then
-            return { "", { status, "white" } }
+            return { "", { " " .. status, "white" } }
         else
             return ""
         end
@@ -597,10 +597,8 @@ windline.setup({
             end
         end
 
-        local factors = { 1, 0.4, 0.6, 0.8 }
-
-        colors.normal = hl_color({ "Directory", "SpecialChar" })
-            or colors.magenta
+        local factors = { 1, 0.5, 0.65, 0.8 }
+        colors.normal = hl_color({ "Directory", "Special" }) or colors.magenta
         def("normal", factors)
 
         colors.insert = hl_color({ "GitGutterAdd", "diffAdded", "DiffAdd" })
@@ -618,7 +616,7 @@ windline.setup({
         def("replace", factors)
 
         colors.command = hl_color({
-            "Special",
+            "SpecialChar",
         }) or colors.red
         def("command", factors)
 
