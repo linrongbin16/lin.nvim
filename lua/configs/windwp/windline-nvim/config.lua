@@ -38,54 +38,54 @@ local airline_colors = {}
 
 airline_colors.a = {
     NormalSep = { "normal_a", "normal_b" },
-    InsertSep = { "green_a", "green_b" },
-    VisualSep = { "yellow_a", "yellow_b" },
-    ReplaceSep = { "blue_a", "blue_b" },
-    CommandSep = { "red_a", "red_b" },
+    InsertSep = { "insert_a", "insert_b" },
+    VisualSep = { "visual_a", "visual_b" },
+    ReplaceSep = { "replace_a", "replace_b" },
+    CommandSep = { "command_a", "command_b" },
     Normal = { "black", "normal_a" },
-    Insert = { "black", "green_a" },
-    Visual = { "black", "yellow_a" },
-    Replace = { "black", "blue_a" },
-    Command = { "black", "red_a" },
+    Insert = { "black", "insert_a" },
+    Visual = { "black", "visual_a" },
+    Replace = { "black", "replace_a" },
+    Command = { "black", "command_a" },
 }
 
 airline_colors.b = {
     NormalSep = { "normal_b", "normal_c" },
-    InsertSep = { "green_b", "green_c" },
-    VisualSep = { "yellow_b", "yellow_c" },
-    ReplaceSep = { "blue_b", "blue_c" },
-    CommandSep = { "red_b", "red_c" },
+    InsertSep = { "insert_b", "insert_c" },
+    VisualSep = { "visual_b", "visual_c" },
+    ReplaceSep = { "replace_b", "replace_c" },
+    CommandSep = { "command_b", "command_c" },
     Normal = { "white", "normal_b" },
-    Insert = { "white", "green_b" },
-    Visual = { "white", "yellow_b" },
-    Replace = { "white", "blue_b" },
-    Command = { "white", "red_b" },
+    Insert = { "white", "insert_b" },
+    Visual = { "white", "visual_b" },
+    Replace = { "white", "replace_b" },
+    Command = { "white", "command_b" },
 }
 
 airline_colors.c = {
     NormalSep = { "normal_c", "normal_d" },
-    InsertSep = { "green_c", "green_d" },
-    VisualSep = { "yellow_c", "yellow_d" },
-    ReplaceSep = { "blue_c", "blue_d" },
-    CommandSep = { "red_c", "red_d" },
+    InsertSep = { "insert_c", "insert_d" },
+    VisualSep = { "visual_c", "visual_d" },
+    ReplaceSep = { "replace_c", "replace_d" },
+    CommandSep = { "command_c", "command_d" },
     Normal = { "white", "normal_c" },
-    Insert = { "white", "green_c" },
-    Visual = { "white", "yellow_c" },
-    Replace = { "white", "blue_c" },
-    Command = { "white", "red_c" },
+    Insert = { "white", "insert_c" },
+    Visual = { "white", "visual_c" },
+    Replace = { "white", "replace_c" },
+    Command = { "white", "command_c" },
 }
 
 airline_colors.d = {
     NormalSep = { "normal_d", "NormalBg" },
-    InsertSep = { "green_d", "NormalBg" },
-    VisualSep = { "yellow_d", "NormalBg" },
-    ReplaceSep = { "blue_d", "NormalBg" },
-    CommandSep = { "red_d", "NormalBg" },
+    InsertSep = { "insert_d", "NormalBg" },
+    VisualSep = { "visual_d", "NormalBg" },
+    ReplaceSep = { "replace_d", "NormalBg" },
+    CommandSep = { "command_d", "NormalBg" },
     Normal = { "white", "normal_d" },
-    Insert = { "white", "green_d" },
-    Visual = { "white", "yellow_d" },
-    Replace = { "white", "blue_d" },
-    Command = { "white", "red_d" },
+    Insert = { "white", "insert_d" },
+    Visual = { "white", "visual_d" },
+    Replace = { "white", "replace_d" },
+    Command = { "white", "command_d" },
 }
 
 basic.divider = { b_components.divider, hl_list.Normal }
@@ -128,8 +128,8 @@ basic.section_b = {
     text = cache_utils.cache_on_buffer(
         {
             "BufEnter",
-            "BufNewFile",
-            "BufLeave",
+            "VimEnter",
+            "UIEnter",
             "TermEnter",
             "TermLeave",
             "TermOpen",
@@ -138,8 +138,6 @@ basic.section_b = {
             "FocusLost",
             "CmdlineEnter",
             "CmdlineLeave",
-            "WinEnter",
-            "WinLeave",
         },
         "windline_nvim_git_branch",
         function(bufnr, _, width)
@@ -501,46 +499,26 @@ windline.setup({
         colors.normal = hl_color({ "Special" }) or colors.magenta
         def("normal", factors)
 
+        colors.insert = hl_color({ "GitGutterAdd", "diffAdded", "DiffAdd" })
+            or colors.green
+        def("insert", factors)
+
         colors.visual = hl_color({
             "DiagnosticSignWarn",
             "LspDiagnosticsSignWarn",
             "WarningMsg",
         }) or colors.yellow
-        -- def("visual", factors)
-
-        colors.insert = hl_color({ "GitGutterAdd", "diffAdded", "DiffAdd" })
-            or colors.green
-        -- def("insert", factors)
+        def("visual", factors)
 
         colors.replace = colors.blue
-        -- def("replace", factors)
+        def("replace", factors)
 
         colors.command = hl_color({
             "DiagnosticSignError",
             "LspDiagnosticsSignError",
             "ErrorMsg",
         }) or colors.red
-        -- def("command", factors)
-
-        colors.yellow_a = colors.yellow
-        colors.yellow_b = mod(colors.yellow, 0.5)
-        colors.yellow_c = mod(colors.yellow, 0.65)
-        colors.yellow_d = mod(colors.yellow, 0.8)
-
-        colors.blue_a = colors.blue
-        colors.blue_b = mod(colors.blue, 0.5)
-        colors.blue_c = mod(colors.blue, 0.65)
-        colors.blue_d = mod(colors.blue, 0.8)
-
-        colors.green_a = colors.green
-        colors.green_b = mod(colors.green, 0.5)
-        colors.green_c = mod(colors.green, 0.65)
-        colors.green_d = mod(colors.green, 0.8)
-
-        colors.red_a = colors.red
-        colors.red_b = mod(colors.red, 0.5)
-        colors.red_c = mod(colors.red, 0.65)
-        colors.red_d = mod(colors.red, 0.8)
+        def("command", factors)
 
         colors.git_added = hl_color({ "GitGutterAdd", "diffAdded", "DiffAdd" })
         colors.git_modified =
