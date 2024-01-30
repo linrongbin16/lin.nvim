@@ -258,42 +258,6 @@ basic.section_c = {
     end,
 }
 
-local gitdiff = {
-    name = "gitdiff",
-    hl_colors = {
-        add = { "diff_added", "NormalBg" },
-        delete = { "diff_removed", "NormalBg" },
-        modify = { "diff_modified", "NormalBg" },
-    },
-    text = cache_utils.cache_on_buffer(
-        { "User" },
-        "wl_git_diff",
-        function(bufnr, _, width)
-            if
-                width > width_breakpoint
-                and vim.fn.exists("*GitGutterGetHunkSummary") > 0
-            then
-                local summary = vim.fn.GitGutterGetHunkSummary() or {}
-                local signs = { "+", "~", "-" }
-                local colors = { "add", "modify", "delete" }
-                local changes = { { " " } }
-                local has_changes = false
-                for i, v in ipairs(summary) do
-                    if type(v) == "number" and v > 0 then
-                        table.insert(
-                            changes,
-                            { string.format("%s%s ", signs[i], v), colors[i] }
-                        )
-                        has_changes = true
-                    end
-                end
-                return has_changes and changes or ""
-            end
-            return ""
-        end
-    ),
-}
-
 basic.section_d = {
     hl_colors = airline_colors.d,
     text = function(_, _, width)
@@ -496,7 +460,7 @@ basic.lspstatus = {
     text = function(bufnr, _, width)
         local status = require("lsp-progress").progress()
         if type(status) == "string" and string.len(status) > 0 then
-            return { "", { " " .. status, "white" } }
+            return { "", { status, "white" } }
         else
             return ""
         end
@@ -585,7 +549,6 @@ local default = {
         basic.section_b,
         basic.section_c,
         basic.section_d,
-        -- basic.gitdiff,
         basic.lspstatus,
         basic.divider,
         basic.searchcount,
