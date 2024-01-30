@@ -127,9 +127,10 @@ basic.section_b = {
     hl_colors = airline_colors.b,
     text = cache_utils.cache_on_buffer(
         {
-            "BufEnter",
             "VimEnter",
             "UIEnter",
+            "BufEnter",
+            "BufNewFile",
             "TermEnter",
             "TermLeave",
             "TermOpen",
