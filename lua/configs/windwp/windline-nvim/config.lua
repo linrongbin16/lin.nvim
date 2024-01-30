@@ -265,7 +265,7 @@ basic.section_y = {
 }
 
 local LINENO_COLUMN = [[ %2l:%-2c ]]
-local LINENO_PROGRESS = [[%3p%% ]]
+local LINENO_PROGRESS = [[%2p%% ]]
 
 basic.section_z = {
     hl_colors = airline_colors.a,
@@ -275,7 +275,7 @@ basic.section_z = {
                 { left_separator, mode_sep_hl() },
                 { " ", mode_hl() },
                 { LINENO_COLUMN },
-                { "" },
+                { " " },
                 { LINENO_PROGRESS },
             }
         end
