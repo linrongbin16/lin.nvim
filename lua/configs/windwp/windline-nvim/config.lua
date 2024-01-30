@@ -140,7 +140,7 @@ basic.section_b = {
             "CmdlineEnter",
             "CmdlineLeave",
         },
-        "windline_nvim_git_branch",
+        "wl_git_branch",
         function(bufnr, _, width)
             if
                 width > width_breakpoint
