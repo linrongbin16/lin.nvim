@@ -157,6 +157,7 @@ basic.section_y = {
 }
 
 local LINENO_COLUMN = [[ %2l:%-2c ]]
+local LINENO_PROGRESS = [[%3p%% ]]
 
 basic.section_z = {
     hl_colors = airline_colors.a,
@@ -164,10 +165,10 @@ basic.section_z = {
         if width > width_breakpoint then
             return {
                 { left_separator, mode_sep_color() },
-                { "", mode_color() },
-                { b_components.progress_lua },
-                { " " },
+                { " ", mode_color() },
                 { LINENO_COLUMN },
+                { "" },
+                { LINENO_PROGRESS },
             }
         end
         return {
