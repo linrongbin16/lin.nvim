@@ -156,6 +156,8 @@ basic.section_y = {
     end,
 }
 
+local LINENO_COLUMN = [[ %2l:%-2c ]]
+
 basic.section_z = {
     hl_colors = airline_colors.a,
     text = function(_, _, width)
@@ -165,13 +167,13 @@ basic.section_z = {
                 { "", mode_color() },
                 { b_components.progress_lua },
                 { " " },
-                { b_components.line_col_lua },
+                { LINENO_COLUMN },
             }
         end
         return {
             { left_separator, mode_sep_color() },
             { " ", mode_color() },
-            { b_components.line_col_lua, mode_color() },
+            { LINENO_COLUMN, mode_color() },
         }
     end,
 }
@@ -269,10 +271,10 @@ local default = {
         basic.section_a,
         basic.section_b,
         basic.section_c,
-        basic.lsp_diagnos,
-        { vim_components.search_count(), { "cyan", "NormalBg" } },
-        basic.divider,
         basic.git,
+        basic.divider,
+        { vim_components.search_count(), { "cyan", "NormalBg" } },
+        basic.lsp_diagnos,
         basic.section_x,
         basic.section_y,
         basic.section_z,
