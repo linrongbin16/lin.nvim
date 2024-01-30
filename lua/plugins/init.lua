@@ -150,7 +150,11 @@ local M = {
     {
         "windwp/windline.nvim",
         event = { UIEnter },
-        dependencies = { "linrongbin16/lsp-progress.nvim" },
+        dependencies = {
+            "linrongbin16/lsp-progress.nvim",
+            "airblade/vim-gitgutter",
+            "itchyny/vim-gitbranch",
+        },
         config = lua_config("windwp/windline.nvim"),
     },
     -- Winbar

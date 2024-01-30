@@ -9,6 +9,8 @@ local HSL = require("wlanimation.utils")
 local lsp_comps = require("windline.components.lsp")
 local git_comps = require("windline.components.git")
 
+local cache_utils = require("windline.cache_utils")
+
 local constants = require("builtin.utils.constants")
 
 local hl_list = {
@@ -96,33 +98,43 @@ basic.section_a = {
     end,
 }
 
-local function git_branch()
-    local uv = vim.uv or vim.loop
-    local out_pipe = uv.new_pipe(false)
-    local err_pipe = uv.new_pipe(false)
-
-    uv.spawn("git", {
-        args = { "branch", "--show-current" },
-        stdio = { nil, out_pipe, err_pipe },
-        hide = true,
-    }, function(code, signal) end)
-
-    out_pipe:read_start(function(err, data) end)
-    err_pipe:read_start(function(err, data) end)
-end
-
 basic.section_b = {
     hl_colors = airline_colors.b,
-    text = function(bufnr, _, width)
-        if width > width_breakpoint and git_comps.is_git(bufnr) then
-            return {
-                { git_comps.git_branch(), mode_hl() },
-                { " ", "" },
-                { right_separator, mode_sep_hl() },
-            }
+    text = cache_utils.cache_on_buffer(
+        {
+            "BufEnter",
+            "BufNewFile",
+            "BufLeave",
+            "TermEnter",
+            "TermLeave",
+            "TermOpen",
+            "TermClose",
+            "FocusGained",
+            "FocusLost",
+            "CmdlineEnter",
+            "CmdlineLeave",
+            "WinEnter",
+            "WinLeave",
+        },
+        "windline_nvim_git_branch",
+        function(bufnr, _, width)
+            if
+                width > width_breakpoint
+                and vim.fn.exists("*gitbranch#name") > 0
+            then
+                local branch = vim.fn["gitbranch#name"]()
+                if type(branch) == "string" and string.len(branch) > 0 then
+                    return {
+                        { "  ", mode_hl() },
+                        { vim.fn["gitbranch#name"](), "" },
+                        { " ", "" },
+                        { right_separator, mode_sep_hl() },
+                    }
+                end
+            end
+            return { { right_separator, mode_sep_hl() } }
         end
-        return { { right_separator, mode_sep_hl() } }
-    end,
+    ),
 }
 
 basic.section_c = {
@@ -162,11 +174,12 @@ basic.section_y = {
         if width > width_breakpoint then
             return {
                 { left_separator, mode_sep_hl() },
+                { " ", mode_hl() },
                 {
                     b_components.cache_file_type({ icon = true }),
-                    mode_hl(),
+                    "",
                 },
-                { " " },
+                { " ", "" },
             }
         end
         return { { left_separator, mode_sep_hl() } }
