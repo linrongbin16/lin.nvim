@@ -191,7 +191,7 @@ basic.section_w = {
                 { left_separator, mode_sep_hl() },
                 { " ", mode_hl() },
                 { b_components.file_encoding() },
-                { " " },
+                { " ", "" },
             }
         end
         return {
@@ -209,7 +209,7 @@ basic.section_x = {
                 { left_separator, mode_sep_hl() },
                 { " ", mode_hl() },
                 { file_format() },
-                { " " },
+                { " ", "" },
             }
         end
         return {
