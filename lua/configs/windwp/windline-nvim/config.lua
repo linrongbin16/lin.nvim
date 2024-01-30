@@ -354,25 +354,44 @@ basic.gitdiff = {
         delete = { "diff_removed", "NormalBg" },
         modify = { "diff_modified", "NormalBg" },
     },
-    text = function(bufnr)
-        if vim.fn.exists("*GitGutterGetHunkSummary") > 0 then
-            local summary = vim.fn.GitGutterGetHunkSummary() or {}
-            local signs = { "+", "~", "-" }
-            local colors = { "add", "modify", "delete" }
-            local changes = { { " " } }
-            local has_changes = false
-            for i, v in ipairs(summary) do
-                if type(v) == "number" and v > 0 then
-                    table.insert(
-                        changes,
-                        { string.format("%s%s ", signs[i], v), colors[i] }
-                    )
-                    has_changes = true
+    text = cache_utils.cache_on_buffer(
+        { "User" },
+        "wl_git_diff",
+        function(bufnr)
+            if vim.fn.exists("*GitGutterGetHunkSummary") > 0 then
+                local summary = vim.fn.GitGutterGetHunkSummary() or {}
+                local signs = { "+", "~", "-" }
+                local colors = { "add", "modify", "delete" }
+                local changes = { { " " } }
+                local has_changes = false
+                for i, v in ipairs(summary) do
+                    if type(v) == "number" and v > 0 then
+                        table.insert(
+                            changes,
+                            { string.format("%s%s ", signs[i], v), colors[i] }
+                        )
+                        has_changes = true
+                    end
                 end
+                return has_changes and changes or ""
             end
-            return has_changes and changes or ""
+            return ""
         end
-        return ""
+    ),
+}
+
+basic.lspstatus = {
+    name = "lspstatus",
+    hl_colors = {
+        white = { "white", "NormalBg" },
+    },
+    text = function(bufnr, _, width)
+        local status = require("lsp-progress").progress()
+        if type(status) == "string" and string.len(status) > 0 then
+            return { "", { " " .. status, "white" } }
+        else
+            return ""
+        end
     end,
 }
 
@@ -459,6 +478,7 @@ local default = {
         basic.section_c,
         basic.section_d,
         basic.gitdiff,
+        basic.lspstatus,
         basic.divider,
         basic.searchcount,
         basic.diagnostic,
