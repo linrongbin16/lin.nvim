@@ -12,7 +12,7 @@ local cache_utils = require("windline.cache_utils")
 local constants = require("builtin.utils.constants")
 
 --- @param highlights string[]
----@param attr "fg"|"bg"|nil
+--- @param attr "fg"|"bg"|nil
 --- @return string?
 local function hl_color(highlights, attr)
     attr = attr or "fg"
@@ -164,7 +164,7 @@ basic.section_c = {
     text = function()
         return {
             { " ", mode_hl() },
-            { b_components.cache_file_name("[No Name]", "unique") },
+            { b_components.cache_file_name("[No Name]", "full") },
             { right_separator, mode_sep_hl() },
         }
     end,
@@ -295,7 +295,7 @@ basic.section_z = {
     end,
 }
 
-basic.lsp_diagnos = {
+basic.diagnostic = {
     name = "diagnostic",
     hl_colors = {
         diagnostic_err = { "diagnostic_err", "NormalBg" },
@@ -348,8 +348,8 @@ basic.lsp_diagnos = {
     end,
 }
 
-basic.git_changes = {
-    name = "git_changes",
+basic.gitdiff = {
+    name = "gitdiff",
     width = width_breakpoint,
     hl_colors = {
         add = { "diff_added", "NormalBg" },
@@ -460,10 +460,10 @@ local default = {
         basic.section_b,
         basic.section_c,
         basic.section_d,
-        basic.git_changes,
+        basic.gitdiff,
         basic.divider,
         basic.searchcount,
-        basic.lsp_diagnos,
+        basic.diagnostic,
         basic.section_w,
         basic.section_x,
         basic.section_y,
