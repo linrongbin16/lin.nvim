@@ -141,6 +141,10 @@ local M = {
         lazy = true,
         config = lua_config("linrongbin16/lsp-progress.nvim"),
     },
+    {
+        "itchyny/vim-gitbranch",
+        event = { VeryLazy, BufReadPre, BufNewFile },
+    },
     -- {
     --     "nvim-lualine/lualine.nvim",
     --     event = { UIEnter },
@@ -152,8 +156,6 @@ local M = {
         event = { UIEnter },
         dependencies = {
             "linrongbin16/lsp-progress.nvim",
-            "airblade/vim-gitgutter",
-            "itchyny/vim-gitbranch",
         },
         config = lua_config("windwp/windline.nvim"),
     },
