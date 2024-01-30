@@ -41,9 +41,6 @@ local hl_list = {
     Normal = { "NormalFg", "NormalBg" },
     Inactive = { "InactiveFg", "InactiveBg" },
     Active = { "ActiveFg", "ActiveBg" },
-    -- GitAdded = { GIT_ADDED, "NormalBg" },
-    -- GitModified = { GIT_MODIFIED, "NormalBg" },
-    -- GitRemoved = { GIT_REMOVED, "NormalBg" },
 }
 local basic = {}
 
