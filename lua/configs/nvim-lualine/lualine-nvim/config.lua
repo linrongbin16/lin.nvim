@@ -147,7 +147,7 @@ local config = {
         },
         lualine_z = {
             { Location, padding = { left = 1, right = 0 } },
-            Progress,
+            { Progress, padding = { left = 1, right = 0 } },
         },
     },
 }
