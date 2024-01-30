@@ -100,6 +100,7 @@ basic.section_a = {
 
 basic.section_b = {
     hl_colors = airline_colors.b,
+    width = width_breakpoint,
     text = cache_utils.cache_on_buffer(
         {
             "BufEnter",
@@ -261,8 +262,8 @@ basic.lsp_diagnos = {
     end,
 }
 
-basic.git = {
-    name = "git",
+basic.git_changes = {
+    name = "git_changes",
     width = width_breakpoint,
     hl_colors = {
         green = { "green", "NormalBg" },
@@ -280,6 +281,7 @@ basic.git = {
         return ""
     end,
 }
+
 local quickfix = {
     filetypes = { "qf", "Trouble" },
     active = {
@@ -320,7 +322,7 @@ local default = {
         basic.section_a,
         basic.section_b,
         basic.section_c,
-        basic.git,
+        basic.git_changes,
         basic.divider,
         { vim_components.search_count(), { "cyan", "NormalBg" } },
         basic.lsp_diagnos,
