@@ -182,6 +182,19 @@ local function file_name()
     end
 end
 
+local function file_status()
+    local modified = "" -- Text to show when the file is modified.
+    local readonly = "" -- Text to show when the file is non-modifiable or readonly.
+    local builder = ""
+    if vim.bo.modified then
+        builder = builder .. modified
+    end
+    if vim.bo.modifiable == false or vim.bo.readonly == true then
+        builder = builder .. readonly
+    end
+    return string.len(builder) > 0 and "[" .. builder .. "]" or ""
+end
+
 local function file_size(opt)
     opt = opt or {}
 
@@ -245,6 +258,7 @@ basic.section_c = {
                     file_name()
                 ),
             },
+            { file_status },
             {
                 cache_utils.cache_on_buffer(
                     "BufWritePost",
