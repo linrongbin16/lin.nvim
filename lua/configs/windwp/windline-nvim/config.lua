@@ -84,6 +84,9 @@ airline_colors.d = {
     Visual = { "white", "visual_d" },
     Replace = { "white", "replace_d" },
     Command = { "white", "command_d" },
+    DiffAdd = { "diff_added", "NormalBg" },
+    DiffModify = { "diff_modified", "NormalBg" },
+    DiffDelete = { "diff_removed", "NormalBg" },
 }
 
 basic.divider = { b_components.divider, hl_list.Normal }
@@ -294,13 +297,29 @@ local gitdiff = {
 basic.section_d = {
     hl_colors = airline_colors.d,
     text = function(_, _, width)
-        if width > width_breakpoint then
-            return {
-                { " ", mode_hl() },
-                gitdiff,
-                { " " },
-                { right_separator, mode_sep_hl() },
-            }
+        if
+            width > width_breakpoint
+            and vim.fn.exists("*GitGutterGetHunkSummary") > 0
+        then
+            local summary = vim.fn.GitGutterGetHunkSummary() or {}
+            local signs = { "+", "~", "-" }
+            local colors = { "DiffAdd", "DiffModify", "DiffDelete" }
+            local components = { { " ", mode_hl() } }
+            local has_changes = false
+            for i, v in ipairs(summary) do
+                if type(v) == "number" and v > 0 then
+                    table.insert(
+                        components,
+                        { string.format("%s%s ", signs[i], v), colors[i] }
+                    )
+                    has_changes = true
+                end
+            end
+            if has_changes then
+                table.insert(components, { " " })
+                table.insert(components, { right_separator, mode_sep_hl() })
+                return components
+            end
         end
         return { { right_separator, mode_sep_hl() } }
     end,
