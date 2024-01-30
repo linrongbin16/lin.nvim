@@ -551,8 +551,8 @@ windline.setup({
             "Comment",
         }) or colors.blue
 
-        colors.white = hl_color({ "Normal" }) or "white"
-        colors.black = hl_color({ "Normal" }, "bg") or "black"
+        colors.white = hl_color({ "Normal" }) or "NormalFg"
+        colors.black = hl_color({ "Normal" }, "bg") or "NormalBg"
 
         return colors
     end,
