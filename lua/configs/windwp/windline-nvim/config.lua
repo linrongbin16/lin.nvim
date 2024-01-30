@@ -298,9 +298,10 @@ basic.section_z = {
 basic.lsp_diagnos = {
     name = "diagnostic",
     hl_colors = {
-        red = { "red", "NormalBg" },
-        yellow = { "yellow", "NormalBg" },
-        blue = { "blue", "NormalBg" },
+        diagnostic_err = { "diagnostic_err", "NormalBg" },
+        diagnostic_warn = { "diagnostic_warn", "NormalBg" },
+        diagnostic_info = { "diagnostic_info", "NormalBg" },
+        diagnostic_hint = { "diagnostic_hint", "NormalBg" },
     },
     text = function(bufnr)
         if lsp_comps.check_lsp(bufnr) then
@@ -312,7 +313,7 @@ basic.lsp_diagnos = {
                             .. " %s",
                         show_zero = false,
                     }),
-                    "red",
+                    "diagnostic_err",
                 },
                 {
                     lsp_comps.lsp_warning({
@@ -321,29 +322,29 @@ basic.lsp_diagnos = {
                             .. " %s",
                         show_zero = false,
                     }),
-                    "yellow",
+                    "diagnostic_warn",
                 },
                 {
                     lsp_comps.lsp_info({
                         format = " " .. constants.diagnostic.sign.info .. " %s",
                         show_zero = false,
                     }),
-                    "cyan",
+                    "diagnostic_info",
                 },
                 {
                     lsp_comps.lsp_hint({
                         format = " " .. constants.diagnostic.sign.hint .. " %s",
                         show_zero = false,
                     }),
-                    "blue",
+                    "diagnostic_hint",
                 },
                 {
                     " ",
-                    "red",
+                    "diagnostic_err",
                 },
             }
         end
-        return { " ", "red" }
+        return { " ", "diagnostic_err" }
     end,
 }
 
@@ -351,9 +352,9 @@ basic.git_changes = {
     name = "git_changes",
     width = width_breakpoint,
     hl_colors = {
-        add = { "added", "NormalBg" },
-        delete = { "removed", "NormalBg" },
-        modify = { "modified", "NormalBg" },
+        add = { "diff_added", "NormalBg" },
+        delete = { "diff_removed", "NormalBg" },
+        modify = { "diff_modified", "NormalBg" },
     },
     text = function(bufnr)
         if vim.fn.exists("*GitGutterGetHunkSummary") > 0 then
@@ -519,18 +520,38 @@ windline.setup({
         }) or colors.red
         def("command", factors)
 
-        colors.added = hl_color({ "GitGutterAdd", "diffAdded", "DiffAdd" })
+        colors.diff_added = hl_color({ "GitGutterAdd", "diffAdded", "DiffAdd" })
             or colors.green
-        colors.modified = hl_color({
+        colors.diff_modified = hl_color({
             "GitGutterChange",
             "diffChanged",
             "DiffChange",
         }) or colors.blue
-        colors.removed = hl_color({
+        colors.diff_removed = hl_color({
             "GitGutterDelete",
             "diffRemoved",
             "DiffDelete",
         }) or colors.red
+
+        colors.diagnostic_err = hl_color({
+            "DiagnosticSignError",
+            "LspDiagnosticsSignError",
+            "ErrorMsg",
+        }) or colors.red
+        colors.diagnostic_warn = hl_color({
+            "DiagnosticSignWarn",
+            "LspDiagnosticsSignWarn",
+            "WarningMsg",
+        }) or colors.yellow
+        colors.diagnostic_info = hl_color({
+            "DiagnosticSignInfo",
+            "LspDiagnosticsSignInfo",
+        }) or colors.cyan
+        colors.diagnostic_hint = hl_color({
+            "DiagnosticSignHint",
+            "LspDiagnosticsSignHint",
+            "Comment",
+        }) or colors.blue
 
         return colors
     end,
