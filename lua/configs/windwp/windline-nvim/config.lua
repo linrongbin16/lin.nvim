@@ -37,12 +37,12 @@ local basic = {}
 local airline_colors = {}
 
 airline_colors.a = {
-    NormalSep = { "magenta_a", "magenta_b" },
+    NormalSep = { "normal_a", "normal_b" },
     InsertSep = { "green_a", "green_b" },
     VisualSep = { "yellow_a", "yellow_b" },
     ReplaceSep = { "blue_a", "blue_b" },
     CommandSep = { "red_a", "red_b" },
-    Normal = { "black", "magenta_a" },
+    Normal = { "black", "normal_a" },
     Insert = { "black", "green_a" },
     Visual = { "black", "yellow_a" },
     Replace = { "black", "blue_a" },
@@ -50,12 +50,12 @@ airline_colors.a = {
 }
 
 airline_colors.b = {
-    NormalSep = { "magenta_b", "magenta_c" },
+    NormalSep = { "normal_b", "normal_c" },
     InsertSep = { "green_b", "green_c" },
     VisualSep = { "yellow_b", "yellow_c" },
     ReplaceSep = { "blue_b", "blue_c" },
     CommandSep = { "red_b", "red_c" },
-    Normal = { "white", "magenta_b" },
+    Normal = { "white", "normal_b" },
     Insert = { "white", "green_b" },
     Visual = { "white", "yellow_b" },
     Replace = { "white", "blue_b" },
@@ -63,12 +63,12 @@ airline_colors.b = {
 }
 
 airline_colors.c = {
-    NormalSep = { "magenta_c", "magenta_d" },
+    NormalSep = { "normal_c", "normal_d" },
     InsertSep = { "green_c", "green_d" },
     VisualSep = { "yellow_c", "yellow_d" },
     ReplaceSep = { "blue_c", "blue_d" },
     CommandSep = { "red_c", "red_d" },
-    Normal = { "white", "magenta_c" },
+    Normal = { "white", "normal_c" },
     Insert = { "white", "green_c" },
     Visual = { "white", "yellow_c" },
     Replace = { "white", "blue_c" },
@@ -76,12 +76,12 @@ airline_colors.c = {
 }
 
 airline_colors.d = {
-    NormalSep = { "magenta_d", "NormalBg" },
+    NormalSep = { "normal_d", "NormalBg" },
     InsertSep = { "green_d", "NormalBg" },
     VisualSep = { "yellow_d", "NormalBg" },
     ReplaceSep = { "blue_d", "NormalBg" },
     CommandSep = { "red_d", "NormalBg" },
-    Normal = { "white", "magenta_d" },
+    Normal = { "white", "normal_d" },
     Insert = { "white", "green_d" },
     Visual = { "white", "yellow_d" },
     Replace = { "white", "blue_d" },
@@ -350,11 +350,6 @@ basic.lsp_diagnos = {
     end,
 }
 
--- local GIT_ADDED = hl_color({ "GitGutterAdd", "diffAdded", "DiffAdd" })
--- local GIT_MODIFIED =
---     hl_color({ "GitGutterChange", "diffChanged", "DiffChange" })
--- local GIT_REMOVED = hl_color({ "GitGutterDelete", "diffRemoved", "DiffDelete" })
-
 basic.git_changes = {
     name = "git_changes",
     width = width_breakpoint,
@@ -451,8 +446,8 @@ local quickfix = {
 local explorer = {
     filetypes = { "fern", "NvimTree", "lir" },
     active = {
-        { "  ", { "white", "magenta_b" } },
-        { helper.separators.slant_right, { "magenta_b", "NormalBg" } },
+        { "  ", { "white", "normal_b" } },
+        { helper.separators.slant_right, { "normal_b", "NormalBg" } },
         { b_components.divider, "" },
         { b_components.file_name(""), { "NormalFg", "NormalBg" } },
     },
@@ -497,14 +492,13 @@ windline.setup({
             for i = 1, n do
                 colors[name .. "_" .. ("").char(i + 96)] = i == 1
                         and colors[name]
-                    or mod(colors[name], factors)
+                    or mod(colors[name], factors[i])
             end
         end
 
-        local factors = { 0, 0.5, 0.65, 0.8 }
+        local factors = { 1, 0.5, 0.65, 0.8 }
 
-        colors.normal = hl_color({ "WinSeparator", "VertSplit" })
-            or colors.magenta
+        colors.normal = hl_color({ "Special" }) or colors.magenta
         def("normal", factors)
 
         colors.visual = hl_color({
@@ -512,26 +506,21 @@ windline.setup({
             "LspDiagnosticsSignWarn",
             "WarningMsg",
         }) or colors.yellow
-        def("visual", factors)
+        -- def("visual", factors)
 
         colors.insert = hl_color({ "GitGutterAdd", "diffAdded", "DiffAdd" })
             or colors.green
-        def("insert", factors)
+        -- def("insert", factors)
 
         colors.replace = colors.blue
-        def("replace", factors)
+        -- def("replace", factors)
 
         colors.command = hl_color({
             "DiagnosticSignError",
             "LspDiagnosticsSignError",
             "ErrorMsg",
         }) or colors.red
-        def("command", factors)
-
-        colors.magenta_a = colors.magenta
-        colors.magenta_b = mod(colors.magenta, 0.5)
-        colors.magenta_c = mod(colors.magenta, 0.65)
-        colors.magenta_d = mod(colors.magenta, 0.8)
+        -- def("command", factors)
 
         colors.yellow_a = colors.yellow
         colors.yellow_b = mod(colors.yellow, 0.5)
