@@ -1,13 +1,11 @@
 local windline = require("windline")
 local helper = require("windline.helpers")
-local sep = helper.separators
 local b_components = require("windline.components.basic")
-local state = _G.WindLine.state
 local HSL = require("wlanimation.utils")
-
 local lsp_comps = require("windline.components.lsp")
-
 local cache_utils = require("windline.cache_utils")
+local sep = helper.separators
+local state = _G.WindLine.state
 
 local constants = require("builtin.utils.constants")
 
