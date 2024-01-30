@@ -44,13 +44,14 @@ local function Location()
     return " %l:%-2v"
 end
 local function Progress()
+    local bar = " "
     local line_fraction = math.floor(vim.fn.line(".") / vim.fn.line("$") * 100)
     if line_fraction >= 100 then
-        return "Bot "
+        return bar .. "Bot "
     elseif line_fraction <= 0 then
-        return "Top "
+        return bar .. "Top "
     else
-        return string.format("%2d%%%% ", line_fraction)
+        return string.format("%s%2d%%%% ", bar, line_fraction)
     end
 end
 
@@ -144,7 +145,10 @@ local config = {
             },
             "encoding",
         },
-        lualine_z = { Location, Progress },
+        lualine_z = {
+            { Location, padding = { left = 1, right = 0 } },
+            Progress,
+        },
     },
 }
 
