@@ -265,7 +265,18 @@ basic.section_y = {
 }
 
 local LINENO_COLUMN = [[ %2l:%-2c ]]
-local LINENO_PROGRESS = [[%2p%% ]]
+-- local LINENO_PROGRESS = [[%2p%% ]]
+
+local function lineno_progress()
+    local line_fraction = math.floor(vim.fn.line(".") / vim.fn.line("$") * 100)
+    if line_fraction >= 100 then
+        return "Bot "
+    elseif line_fraction <= 0 then
+        return "Top "
+    else
+        return string.format("%2d%%%% ", line_fraction)
+    end
+end
 
 basic.section_z = {
     hl_colors = airline_colors.a,
@@ -276,7 +287,7 @@ basic.section_z = {
                 { " ", mode_hl() },
                 { LINENO_COLUMN },
                 { " " },
-                { LINENO_PROGRESS },
+                { lineno_progress },
             }
         end
         return {
