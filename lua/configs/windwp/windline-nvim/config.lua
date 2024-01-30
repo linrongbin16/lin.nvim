@@ -157,15 +157,138 @@ basic.section_b = {
     ),
 }
 
+local function get_buf_name(modify, shorten)
+    return function(bufnr)
+        local bufname = vim.fn.bufname(bufnr)
+        bufname = vim.fn.fnamemodify(bufname, modify)
+        if shorten then
+            return vim.fn.pathshorten(bufname)
+        end
+        return bufname
+    end
+end
+
+local function file_name()
+    local fnc_name = get_buf_name("%:p", true)
+    return function(bufnr)
+        local name = fnc_name(bufnr)
+        if name == "" then
+            name = "[No Name]"
+        end
+        return name .. " "
+    end
+end
+
+local function file_size(opt)
+    opt = opt or {}
+
+    local unit_factor = opt.base == nil and 1000
+        or opt.base == 10 and 1000
+        or opt.base == 2 and 1024
+
+    local clamped_precision = opt.precision == nil and 2
+        or opt.precision < 0 and 0
+        or opt.precision > 16 and 16
+        or opt.precision
+
+    local precision_factor = math.pow(10, clamped_precision)
+
+    local suffixes = {
+        "B",
+        "kB",
+        "MB",
+        "GB",
+        "TB",
+        "PB",
+        "EB",
+    }
+
+    return function()
+        local path = vim.api.nvim_buf_get_name(0)
+
+        if string.len(path) == 0 then
+            return ""
+        end
+
+        local size = vim.fn.getfsize(path)
+
+        if size < 1 then
+            return ""
+        end
+
+        local index = 1
+
+        while size >= unit_factor and index < #suffixes do
+            size = size / unit_factor
+            index = index + 1
+        end
+
+        local rounded_size = math.ceil(size * precision_factor - 0.5)
+            / precision_factor
+
+        return "[" .. rounded_size .. suffixes[index] .. "]"
+    end
+end
+
 basic.section_c = {
     hl_colors = airline_colors.c,
     text = function()
         return {
             { " ", mode_hl() },
-            { b_components.cache_file_name("[No Name]", "full") },
+            {
+                cache_utils.cache_on_buffer(
+                    "BufEnter",
+                    "wl_file_name",
+                    file_name()
+                ),
+            },
+            {
+                cache_utils.cache_on_buffer(
+                    "BufWritePost",
+                    "WL_filesize",
+                    file_size()
+                ),
+            },
+            { " " },
             { right_separator, mode_sep_hl() },
         }
     end,
+}
+
+local gitdiff = {
+    name = "gitdiff",
+    hl_colors = {
+        add = { "diff_added", "NormalBg" },
+        delete = { "diff_removed", "NormalBg" },
+        modify = { "diff_modified", "NormalBg" },
+    },
+    text = cache_utils.cache_on_buffer(
+        { "User" },
+        "wl_git_diff",
+        function(bufnr, _, width)
+            if
+                width > width_breakpoint
+                and vim.fn.exists("*GitGutterGetHunkSummary") > 0
+            then
+                local summary = vim.fn.GitGutterGetHunkSummary() or {}
+                local signs = { "+", "~", "-" }
+                local colors = { "add", "modify", "delete" }
+                local changes = { { " " } }
+                local has_changes = false
+                for i, v in ipairs(summary) do
+                    if type(v) == "number" and v > 0 then
+                        table.insert(
+                            changes,
+                            { string.format("%s%s ", signs[i], v), colors[i] }
+                        )
+                        has_changes = true
+                    end
+                end
+                return has_changes and changes or ""
+            end
+            return ""
+        end
+    ),
 }
 
 basic.section_d = {
@@ -174,7 +297,7 @@ basic.section_d = {
         if width > width_breakpoint then
             return {
                 { " ", mode_hl() },
-                { b_components.cache_file_size() },
+                gitdiff,
                 { " " },
                 { right_separator, mode_sep_hl() },
             }
@@ -346,40 +469,6 @@ basic.diagnostic = {
     end,
 }
 
-basic.gitdiff = {
-    name = "gitdiff",
-    width = width_breakpoint,
-    hl_colors = {
-        add = { "diff_added", "NormalBg" },
-        delete = { "diff_removed", "NormalBg" },
-        modify = { "diff_modified", "NormalBg" },
-    },
-    text = cache_utils.cache_on_buffer(
-        { "User" },
-        "wl_git_diff",
-        function(bufnr)
-            if vim.fn.exists("*GitGutterGetHunkSummary") > 0 then
-                local summary = vim.fn.GitGutterGetHunkSummary() or {}
-                local signs = { "+", "~", "-" }
-                local colors = { "add", "modify", "delete" }
-                local changes = { { " " } }
-                local has_changes = false
-                for i, v in ipairs(summary) do
-                    if type(v) == "number" and v > 0 then
-                        table.insert(
-                            changes,
-                            { string.format("%s%s ", signs[i], v), colors[i] }
-                        )
-                        has_changes = true
-                    end
-                end
-                return has_changes and changes or ""
-            end
-            return ""
-        end
-    ),
-}
-
 basic.lspstatus = {
     name = "lspstatus",
     hl_colors = {
@@ -477,7 +566,7 @@ local default = {
         basic.section_b,
         basic.section_c,
         basic.section_d,
-        basic.gitdiff,
+        -- basic.gitdiff,
         basic.lspstatus,
         basic.divider,
         basic.searchcount,
