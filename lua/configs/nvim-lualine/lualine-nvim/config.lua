@@ -41,7 +41,7 @@ local function LspStatus()
 end
 
 local function Location()
-    return " %l:%-2v"
+    return " %3l:%-2v"
 end
 local function Progress()
     local bar = " "
