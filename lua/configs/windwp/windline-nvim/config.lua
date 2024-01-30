@@ -492,6 +492,41 @@ windline.setup({
             end
             return HSL.rgb_to_hsl(c):shade(value):to_rgb()
         end
+        local def = function(name, factors)
+            local n = #factors
+            for i = 1, n do
+                colors[name .. "_" .. ("").char(i + 96)] = i == 1
+                        and colors[name]
+                    or mod(colors[name], factors)
+            end
+        end
+
+        local factors = { 0, 0.5, 0.65, 0.8 }
+
+        colors.normal = hl_color({ "WinSeparator", "VertSplit" })
+            or colors.magenta
+        def("normal", factors)
+
+        colors.visual = hl_color({
+            "DiagnosticSignWarn",
+            "LspDiagnosticsSignWarn",
+            "WarningMsg",
+        }) or colors.yellow
+        def("visual", factors)
+
+        colors.insert = hl_color({ "GitGutterAdd", "diffAdded", "DiffAdd" })
+            or colors.green
+        def("insert", factors)
+
+        colors.replace = colors.blue
+        def("replace", factors)
+
+        colors.command = hl_color({
+            "DiagnosticSignError",
+            "LspDiagnosticsSignError",
+            "ErrorMsg",
+        }) or colors.red
+        def("command", factors)
 
         colors.magenta_a = colors.magenta
         colors.magenta_b = mod(colors.magenta, 0.5)
