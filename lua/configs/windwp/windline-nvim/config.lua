@@ -133,8 +133,6 @@ basic.section_b = {
             "BufNewFile",
             "TermEnter",
             "TermLeave",
-            "TermOpen",
-            "TermClose",
             "FocusGained",
             "FocusLost",
             "CmdlineEnter",
