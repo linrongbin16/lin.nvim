@@ -9,6 +9,8 @@ local HSL = require("wlanimation.utils")
 local lsp_comps = require("windline.components.lsp")
 local git_comps = require("windline.components.git")
 
+local constants = require("builtin.utils.constants")
+
 local hl_list = {
     Black = { "white", "black" },
     White = { "black", "white" },
@@ -93,6 +95,21 @@ basic.section_a = {
         }
     end,
 }
+
+local function git_branch()
+    local uv = vim.uv or vim.loop
+    local out_pipe = uv.new_pipe(false)
+    local err_pipe = uv.new_pipe(false)
+
+    uv.spawn("git", {
+        args = { "branch", "--show-current" },
+        stdio = { nil, out_pipe, err_pipe },
+        hide = true,
+    }, function(code, signal) end)
+
+    out_pipe:read_start(function(err, data) end)
+    err_pipe:read_start(function(err, data) end)
+end
 
 basic.section_b = {
     hl_colors = airline_colors.b,
@@ -191,21 +208,39 @@ basic.lsp_diagnos = {
             return {
                 {
                     lsp_comps.lsp_error({
-                        format = "  %s",
-                        show_zero = true,
+                        format = " "
+                            .. constants.diagnostic.sign.error
+                            .. " %s",
+                        show_zero = false,
                     }),
                     "red",
                 },
                 {
                     lsp_comps.lsp_warning({
-                        format = "  %s",
-                        show_zero = true,
+                        format = " "
+                            .. constants.diagnostic.sign.warning
+                            .. " %s",
+                        show_zero = false,
                     }),
                     "yellow",
                 },
                 {
-                    lsp_comps.lsp_hint({ format = "  %s", show_zero = true }),
+                    lsp_comps.lsp_info({
+                        format = " " .. constants.diagnostic.sign.info .. " %s",
+                        show_zero = false,
+                    }),
+                    "cyan",
+                },
+                {
+                    lsp_comps.lsp_hint({
+                        format = " " .. constants.diagnostic.sign.hint .. " %s",
+                        show_zero = false,
+                    }),
                     "blue",
+                },
+                {
+                    " ",
+                    "red",
                 },
             }
         end
