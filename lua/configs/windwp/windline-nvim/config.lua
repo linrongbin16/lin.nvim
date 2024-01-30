@@ -145,10 +145,29 @@ basic.section_c = {
             { " ", mode_hl() },
             { b_components.cache_file_name("[No Name]", "unique") },
             { " " },
+            { b_components.cache_file_size() },
+            { " " },
             { right_separator, mode_sep_hl() },
         }
     end,
 }
+
+local FILE_FORMAT_ICONS = {
+    unix = "", -- e712
+    dos = "", -- e70f
+    mac = "", -- e711
+}
+
+local function file_format()
+    return function()
+        local bff = vim.bo.fileformat
+        if FILE_FORMAT_ICONS[bff] then
+            return FILE_FORMAT_ICONS[bff] .. " " .. bff
+        else
+            return bff
+        end
+    end
+end
 
 basic.section_x = {
     hl_colors = airline_colors.c,
@@ -159,7 +178,7 @@ basic.section_x = {
                 { " ", mode_hl() },
                 { b_components.file_encoding() },
                 { " " },
-                { b_components.file_format({ icon = true }) },
+                { file_format() },
                 { " " },
             }
         end
