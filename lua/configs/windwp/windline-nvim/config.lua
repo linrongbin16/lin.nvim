@@ -70,11 +70,11 @@ local right_separator = sep.slant_right
 
 local width_breakpoint = 100
 
-local function mode_color()
+local function mode_hl()
     return state.mode[2]
 end
 
-local function mode_sep_color()
+local function mode_sep_hl()
     return state.mode[2] .. "Sep"
 end
 
@@ -83,13 +83,13 @@ basic.section_a = {
     text = function(_, _, width)
         if width > width_breakpoint then
             return {
-                { " " .. state.mode[1] .. " ", mode_color() },
-                { right_separator, mode_sep_color() },
+                { " " .. state.mode[1] .. " ", mode_hl() },
+                { right_separator, mode_sep_hl() },
             }
         end
         return {
-            { " " .. state.mode[1]:sub(1, 1) .. " ", mode_color() },
-            { right_separator, mode_sep_color() },
+            { " " .. state.mode[1]:sub(1, 1) .. " ", mode_hl() },
+            { right_separator, mode_sep_hl() },
         }
     end,
 }
@@ -99,12 +99,12 @@ basic.section_b = {
     text = function(bufnr, _, width)
         if width > width_breakpoint and git_comps.is_git(bufnr) then
             return {
-                { git_comps.git_branch(), mode_color() },
+                { git_comps.git_branch(), mode_hl() },
                 { " ", "" },
-                { right_separator, mode_sep_color() },
+                { right_separator, mode_sep_hl() },
             }
         end
-        return { { right_separator, mode_sep_color() } }
+        return { { right_separator, mode_sep_hl() } }
     end,
 }
 
@@ -115,7 +115,7 @@ basic.section_c = {
             { " ", state.mode[2] },
             { b_components.cache_file_name("[No Name]", "unique") },
             { " " },
-            { right_separator, mode_sep_color() },
+            { right_separator, mode_sep_hl() },
         }
     end,
 }
@@ -125,8 +125,8 @@ basic.section_x = {
     text = function(_, _, width)
         if width > width_breakpoint then
             return {
-                { left_separator, mode_sep_color() },
-                { " ", mode_color() },
+                { left_separator, mode_sep_hl() },
+                { " ", mode_hl() },
                 { b_components.file_encoding() },
                 { " " },
                 { b_components.file_format({ icon = true }) },
@@ -134,7 +134,7 @@ basic.section_x = {
             }
         end
         return {
-            { left_separator, mode_sep_color() },
+            { left_separator, mode_sep_hl() },
         }
     end,
 }
@@ -144,15 +144,15 @@ basic.section_y = {
     text = function(_, _, width)
         if width > width_breakpoint then
             return {
-                { left_separator, mode_sep_color() },
+                { left_separator, mode_sep_hl() },
                 {
                     b_components.cache_file_type({ icon = true }),
-                    mode_color(),
+                    mode_hl(),
                 },
                 { " " },
             }
         end
-        return { { left_separator, mode_sep_color() } }
+        return { { left_separator, mode_sep_hl() } }
     end,
 }
 
@@ -164,17 +164,17 @@ basic.section_z = {
     text = function(_, _, width)
         if width > width_breakpoint then
             return {
-                { left_separator, mode_sep_color() },
-                { " ", mode_color() },
+                { left_separator, mode_sep_hl() },
+                { " ", mode_hl() },
                 { LINENO_COLUMN },
                 { "" },
                 { LINENO_PROGRESS },
             }
         end
         return {
-            { left_separator, mode_sep_color() },
-            { " ", mode_color() },
-            { LINENO_COLUMN, mode_color() },
+            { left_separator, mode_sep_hl() },
+            { " ", mode_hl() },
+            { LINENO_COLUMN, mode_hl() },
         }
     end,
 }
