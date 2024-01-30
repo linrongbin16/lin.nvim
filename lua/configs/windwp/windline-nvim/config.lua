@@ -51,11 +51,11 @@ airline_colors.b = {
 }
 
 airline_colors.c = {
-    NormalSep = { "magenta_c", "NormalBg" },
-    InsertSep = { "green_c", "NormalBg" },
-    VisualSep = { "yellow_c", "NormalBg" },
-    ReplaceSep = { "blue_c", "NormalBg" },
-    CommandSep = { "red_c", "NormalBg" },
+    NormalSep = { "magenta_c", "magenta_d" },
+    InsertSep = { "green_c", "green_d" },
+    VisualSep = { "yellow_c", "yellow_d" },
+    ReplaceSep = { "blue_c", "blue_d" },
+    CommandSep = { "red_c", "red_d" },
     Normal = { "white", "magenta_c" },
     Insert = { "white", "green_c" },
     Visual = { "white", "yellow_c" },
