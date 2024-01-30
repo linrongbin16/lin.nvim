@@ -70,18 +70,26 @@ local right_separator = sep.slant_right
 
 local width_breakpoint = 100
 
+local function mode_color()
+    return state.mode[2]
+end
+
+local function mode_sep_color()
+    return state.mode[2] .. "Sep"
+end
+
 basic.section_a = {
     hl_colors = airline_colors.a,
     text = function(_, _, width)
         if width > width_breakpoint then
             return {
-                { " " .. state.mode[1] .. " ", state.mode[2] },
-                { right_separator, state.mode[2] .. "Sep" },
+                { " " .. state.mode[1] .. " ", mode_color() },
+                { right_separator, mode_sep_color() },
             }
         end
         return {
-            { " " .. state.mode[1]:sub(1, 1) .. " ", state.mode[2] },
-            { right_separator, state.mode[2] .. "Sep" },
+            { " " .. state.mode[1]:sub(1, 1) .. " ", mode_color() },
+            { right_separator, mode_sep_color() },
         }
     end,
 }
@@ -91,12 +99,12 @@ basic.section_b = {
     text = function(bufnr, _, width)
         if width > width_breakpoint and git_comps.is_git(bufnr) then
             return {
-                { git_comps.git_branch(), state.mode[2] },
+                { git_comps.git_branch(), mode_color() },
                 { " ", "" },
-                { right_separator, state.mode[2] .. "Sep" },
+                { right_separator, mode_sep_color() },
             }
         end
-        return { { right_separator, state.mode[2] .. "Sep" } }
+        return { { right_separator, mode_sep_color() } }
     end,
 }
 
@@ -107,7 +115,7 @@ basic.section_c = {
             { " ", state.mode[2] },
             { b_components.cache_file_name("[No Name]", "unique") },
             { " " },
-            { right_separator, state.mode[2] .. "Sep" },
+            { right_separator, mode_sep_color() },
         }
     end,
 }
@@ -117,8 +125,8 @@ basic.section_x = {
     text = function(_, _, width)
         if width > width_breakpoint then
             return {
-                { left_separator, state.mode[2] .. "Sep" },
-                { " ", state.mode[2] },
+                { left_separator, mode_sep_color() },
+                { " ", mode_color() },
                 { b_components.file_encoding() },
                 { " " },
                 { b_components.file_format({ icon = true }) },
@@ -126,7 +134,7 @@ basic.section_x = {
             }
         end
         return {
-            { left_separator, state.mode[2] .. "Sep" },
+            { left_separator, mode_sep_color() },
         }
     end,
 }
@@ -136,15 +144,15 @@ basic.section_y = {
     text = function(_, _, width)
         if width > width_breakpoint then
             return {
-                { left_separator, state.mode[2] .. "Sep" },
+                { left_separator, mode_sep_color() },
                 {
                     b_components.cache_file_type({ icon = true }),
-                    state.mode[2],
+                    mode_color(),
                 },
                 { " " },
             }
         end
-        return { { left_separator, state.mode[2] .. "Sep" } }
+        return { { left_separator, mode_sep_color() } }
     end,
 }
 
@@ -153,17 +161,17 @@ basic.section_z = {
     text = function(_, _, width)
         if width > width_breakpoint then
             return {
-                { left_separator, state.mode[2] .. "Sep" },
-                { "", state.mode[2] },
+                { left_separator, mode_sep_color() },
+                { "", mode_color() },
                 { b_components.progress_lua },
                 { " " },
                 { b_components.line_col_lua },
             }
         end
         return {
-            { left_separator, state.mode[2] .. "Sep" },
-            { " ", state.mode[2] },
-            { b_components.line_col_lua, state.mode[2] },
+            { left_separator, mode_sep_color() },
+            { " ", mode_color() },
+            { b_components.line_col_lua, mode_color() },
         }
     end,
 }
