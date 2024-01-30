@@ -597,7 +597,7 @@ windline.setup({
             end
         end
 
-        local factors = { 1, 0.5, 0.65, 0.8 }
+        local factors = { 1, 0.4, 0.55, 0.7 }
         colors.normal = hl_color({ "Directory", "Special" }) or colors.magenta
         def("normal", factors)
 
