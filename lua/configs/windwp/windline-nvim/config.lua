@@ -15,7 +15,7 @@ local constants = require("builtin.utils.constants")
 local function hl_color(highlights, attr)
     attr = attr or "fg"
     for _, hl in ipairs(highlights) do
-        local hl_value = vim.api.nvim_get_hl(0, { name = hl })
+        local hl_value = vim.api.nvim_get_hl(0, { name = hl, link = false })
         if type(hl_value) == "table" and type(hl_value[attr]) == "number" then
             return string.format("#%06x", hl_value[attr])
         end
@@ -605,18 +605,14 @@ windline.setup({
             or colors.green
         def("insert", factors)
 
-        colors.visual = hl_color({
-            "DiagnosticSignWarn",
-            "LspDiagnosticsSignWarn",
-            "WarningMsg",
-        }) or colors.yellow
+        colors.visual = hl_color({ "IncSearch" }, "bg") or colors.yellow
         def("visual", factors)
 
-        colors.replace = colors.blue
+        colors.replace = hl_color({ "Constant" }) or colors.blue
         def("replace", factors)
 
         colors.command = hl_color({
-            "SpecialChar",
+            "Constant",
         }) or colors.red
         def("command", factors)
 
