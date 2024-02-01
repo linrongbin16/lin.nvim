@@ -608,7 +608,7 @@ windline.setup({
         colors.visual = hl_color({ "IncSearch" }, "bg") or colors.yellow
         def("visual", factors)
 
-        colors.replace = hl_color({ "Constant" }) or colors.blue
+        colors.replace = hl_color({ "Function" }) or colors.blue
         def("replace", factors)
 
         colors.command = hl_color({
