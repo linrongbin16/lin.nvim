@@ -22,6 +22,28 @@ local function OsName()
     end
 end
 
+local function FileSize()
+    local file = vim.fn.expand("%:p")
+    if file == nil or #file == 0 then
+        return ""
+    end
+    local size = vim.fn.getfsize(file)
+    if size <= 0 then
+        return ""
+    end
+
+    local suffixes = { "b", "k", "m", "g" }
+
+    local i = 1
+    while size > 1024 and i < #suffixes do
+        size = size / 1024
+        i = i + 1
+    end
+
+    local format = i == 1 and "[%d%s]" or "[%.1f%s]"
+    return string.format(format, size, suffixes[i])
+end
+
 local function GitDiffCondition()
     return vim.fn.exists("*GitGutterGetHunkSummary") > 0
 end
@@ -113,6 +135,7 @@ local config = {
                     newfile = "[New]", -- Text to show for newly created file before first write
                 },
             },
+            { FileSize, padding = { left = 0, right = 1 } },
             {
                 "diff",
                 cond = GitDiffCondition,
