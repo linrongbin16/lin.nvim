@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.19.3](https://github.com/linrongbin16/lin.nvim/compare/v2.19.2...v2.19.3) (2024-02-04)
+
+
+### Performance Improvements
+
+* **lazy.nvim:** improve 'plugins_blacklist' performance ([#460](https://github.com/linrongbin16/lin.nvim/issues/460)) ([3b56b58](https://github.com/linrongbin16/lin.nvim/commit/3b56b589173f0f2ecce993ac8ced9b46ffa7afef))
+
 ## [2.19.2](https://github.com/linrongbin16/lin.nvim/compare/v2.19.1...v2.19.2) (2024-01-30)
 
 
