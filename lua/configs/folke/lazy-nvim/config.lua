@@ -1,7 +1,10 @@
 local constants = require("builtin.utils.constants")
 local message = require("builtin.utils.message")
+local uv = vim.uv or vim.loop
 
-local lazypath = vim.fn.stdpath("config") .. "/lazy/lazy.nvim"
+local stdpath_config = vim.fn.stdpath("config")
+
+local lazypath = stdpath_config .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
     vim.fn.system({
         "git",
@@ -15,7 +18,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local opts = {
-    root = vim.fn.stdpath("config") .. "/lazy",
+    root = stdpath_config .. "/lazy",
     git = {
         timeout = 60,
     },
@@ -28,18 +31,16 @@ local opts = {
     },
 }
 
-local ok, plugins_blacklist = pcall(require, "plugins_blacklist")
-if ok then
-    if type(plugins_blacklist) == "table" then
-        opts.defaults = {
-            cond = function(plugin_spec)
-                local uri = plugin_spec[1]
-                return not plugins_blacklist[uri]
-            end,
-        }
-    else
-        message.warn("Error loading 'user_plugins_blacklist' lua module!")
-    end
+local plugins_blacklist_path = stdpath_config .. "/lua/plugins_blacklist.lua"
+if uv.fs_stat(plugins_blacklist_path) then
+    local plugins_blacklist = require("plugins_blacklist")
+    assert(type(plugins_blacklist) == "table")
+    opts.defaults = {
+        cond = function(plugin_spec)
+            local uri = plugin_spec[1]
+            return not plugins_blacklist[uri]
+        end,
+    }
 end
 
 require("lazy").setup("plugins", opts)
