@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.19.4](https://github.com/linrongbin16/lin.nvim/compare/v2.19.3...v2.19.4) (2024-02-04)
+
+
+### Performance Improvements
+
+* **lualine.nvim:** add filesize ([#462](https://github.com/linrongbin16/lin.nvim/issues/462)) ([5afd84d](https://github.com/linrongbin16/lin.nvim/commit/5afd84d7a68cfc1f60f5f84ff5ce92b1a2156d45))
+
 ## [2.19.3](https://github.com/linrongbin16/lin.nvim/compare/v2.19.2...v2.19.3) (2024-02-04)
 
 
