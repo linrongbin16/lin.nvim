@@ -122,7 +122,8 @@ end
 local contrast_threshold = 0.3
 local brightness_modifier_parameter = 10
 
-local NormalBgTextColor = "white_text"
+local HighlightATextColor = "white_text"
+local HighlightBTextColor = "black_text"
 
 local normal = colors_hl.get_color_with_fallback({ "Normal" }, "bg")
 if normal then
@@ -144,7 +145,8 @@ if normal then
         brightness_modifier(StatusLineBgColor, brightness_modifier_parameter)
 
     if brightness_modifier_parameter < 0 then
-        NormalBgTextColor = "black_text"
+        HighlightATextColor = "black_text"
+        HighlightBTextColor = "white_text"
     end
 end
 
@@ -202,11 +204,11 @@ local Highlight_A = {
     VisualSep = { "visual_bg1", "visual_bg2" },
     ReplaceSep = { "replace_bg1", "replace_bg2" },
     CommandSep = { "command_bg1", "command_bg2" },
-    Normal = { NormalBgTextColor, "normal_bg1" },
-    Insert = { NormalBgTextColor, "insert_bg1" },
-    Visual = { NormalBgTextColor, "visual_bg1" },
-    Replace = { NormalBgTextColor, "replace_bg1" },
-    Command = { NormalBgTextColor, "command_bg1" },
+    Normal = { HighlightATextColor, "normal_bg1" },
+    Insert = { HighlightATextColor, "insert_bg1" },
+    Visual = { HighlightATextColor, "visual_bg1" },
+    Replace = { HighlightATextColor, "replace_bg1" },
+    Command = { HighlightATextColor, "command_bg1" },
 }
 
 local Highlight_B = {
