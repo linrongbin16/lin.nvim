@@ -4,6 +4,10 @@ local uv = require("commons.uv")
 
 local sttusline_colors = require("sttusline.utils.color")
 
+-- separator style: A \ B \ C ---- X / Y / Z
+local LEFT_SLANT = ""
+local RIGHT_SLANT = ""
+
 local function ModifyColorBrightness(rgb, percent)
     local h, s, l = colors_hsl.rgb_string_to_hsl(rgb)
     local tmp = colors_hsl.new(h, s, l, rgb)
@@ -60,7 +64,7 @@ local HighlightB = {
     gui = "bold",
 }
 local HighlightC = {
-    bg = ModifyColorBrightness(NormalBgColor, 0.5),
+    bg = ModifyColorBrightness(NormalBgColor, 0.7),
     fg = WhiteColor,
     gui = "bold",
 }
@@ -129,10 +133,12 @@ local function OsNameIcon()
     end
 end
 
+-- os name, vi mode
 local Mode = {
     name = "mode",
     event = { "ModeChanged", "VimResized" },
     user_event = "VeryLazy",
+    separator = { right = LEFT_SLANT },
     configs = {
         modes = {
             ["n"] = { "NORMAL", "STTUSLINE_NORMAL_MODE" },
@@ -228,6 +234,9 @@ local Mode = {
         return " " .. os_icon .. " " .. string.upper(mode_code) .. " "
     end,
 }
+
+-- file name, file status(readonly/modified), file size
+local FileName = {}
 
 local Components = {
     Mode,
