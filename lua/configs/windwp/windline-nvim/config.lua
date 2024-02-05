@@ -122,7 +122,7 @@ end
 local contrast_threshold = 0.3
 local brightness_modifier_parameter = 10
 
-local NormalBgTextColor = "black_text"
+local NormalBgTextColor = "white_text"
 
 local normal = colors_hl.get_color_with_fallback({ "Normal" }, "bg")
 if normal then
@@ -144,7 +144,45 @@ if normal then
         brightness_modifier(StatusLineBgColor, brightness_modifier_parameter)
 
     if brightness_modifier_parameter < 0 then
-        NormalBgTextColor = "white_text"
+        NormalBgTextColor = "black_text"
+    end
+end
+
+-- Changes contrast of rgb_color by amount
+local function contrast_modifier(rgb_color, amount)
+    local color = rgb_str2num(rgb_color)
+    color.red = clamp(color.red + amount, 0, 255)
+    color.green = clamp(color.green + amount, 0, 255)
+    color.blue = clamp(color.blue + amount, 0, 255)
+    return rgb_num2str(color)
+end
+
+-- returns average of colors in range 0 to 1
+-- used to determine contrast level
+local function get_color_avg(rgb_color)
+    local color = rgb_str2num(rgb_color)
+    return (color.red + color.green + color.blue) / 3 / 256
+end
+
+-- Changes brightness of foreground color to achieve contrast
+-- without changing the color
+local function apply_contrast(highlight)
+    local highlight_bg_avg = get_color_avg(highlight.bg)
+    local contrast_threshold_config = clamp(contrast_threshold, 0, 0.5)
+    local contrast_change_step = 5
+    if highlight_bg_avg > 0.5 then
+        contrast_change_step = -contrast_change_step
+    end
+
+    -- Don't waste too much time here max 25 iteration should be more than enough
+    local iteration_count = 1
+    while
+        math.abs(get_color_avg(highlight.fg) - highlight_bg_avg)
+            < contrast_threshold_config
+        and iteration_count < 25
+    do
+        highlight.fg = contrast_modifier(highlight.fg, contrast_change_step)
+        iteration_count = iteration_count + 1
     end
 end
 
@@ -155,9 +193,8 @@ local HIGHLIGHTS = {
     Inactive = { "InactiveFg", "InactiveBg" },
     Active = { "ActiveFg", "ActiveBg" },
 }
-local basic = {}
 
-local airline_colors = {}
+local basic = {}
 
 local Highlight_A = {
     NormalSep = { "normal_bg1", "normal_bg2" },
