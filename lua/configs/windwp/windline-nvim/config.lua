@@ -7,9 +7,11 @@ local HSL = require("wlanimation.utils")
 
 local lsp_comps = require("windline.components.lsp")
 local git_comps = require("windline.components.git")
+
 local colors_hl = require("commons.colors.hl")
 local colors_hsl = require("commons.colors.hsl")
 local strings = require("commons.strings")
+local uv = require("commons.uv")
 
 -- slant_left = '',
 -- slant_left_thin = '',
@@ -87,37 +89,50 @@ local WIDTH_BREAKPOINT = 80
 
 local DividerComponent = { "%=", HIGHLIGHTS.Normal }
 
+local OS_UNAME = uv.os_uname()
+
+local function GetOsIcon()
+    local uname = OS_UNAME.sysname
+    if uname == "Darwin" then
+        return ""
+    elseif uname == "Linux" then
+        if
+            type(OS_UNAME.release) == "string" and OS_UNAME.release:find("arch")
+        then
+            return ""
+        end
+        return ""
+    elseif uname == "Windows" then
+        return ""
+    else
+        return "󱚟"
+    end
+end
+
 local Mode = {
     hl_colors = Highlight_A,
     text = function(_, _, width)
+        local os_icon = GetOsIcon()
         if width > WIDTH_BREAKPOINT then
             return {
-                { " " .. GetModeName() .. " ", GetModeCode() },
+                {
+                    " " .. os_icon .. " " .. GetModeName() .. " ",
+                    GetModeCode(),
+                },
                 { RIGHT_SEP, GetModeCode(true) },
             }
         end
         return {
-            { " " .. GetModeName():sub(1, 1) .. " ", GetModeCode() },
+            {
+                " " .. os_icon .. " " .. GetModeName():sub(1, 1) .. " ",
+                GetModeCode(),
+            },
             { RIGHT_SEP, GetModeCode(true) },
         }
     end,
 }
 
-basic.section_a = {
-    hl_colors = Highlight_A,
-    text = function(_, _, width)
-        if width > WIDTH_BREAKPOINT then
-            return {
-                { " " .. state.mode[1] .. " ", state.mode[2] },
-                { sep.right_filled, state.mode[2] .. "Sep" },
-            }
-        end
-        return {
-            { " " .. state.mode[1]:sub(1, 1) .. " ", state.mode[2] },
-            { sep.right_filled, state.mode[2] .. "Sep" },
-        }
-    end,
-}
+local FileSize = {}
 
 basic.section_b = {
     hl_colors = airline_colors.b,
