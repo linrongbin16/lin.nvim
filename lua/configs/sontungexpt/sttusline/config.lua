@@ -288,7 +288,7 @@ local FileName = {
     event = { "BufEnter", "WinEnter", "TextChangedI", "BufWritePost" },
     user_event = "VeryLazy",
     colors = HighlightB,
-    separator = { right = LEFT_SLANT },
+    separator = { left = LEFT_SLANT },
     update = function()
         local filename = vim.fn.expand("%:t")
         if type(filename) ~= "string" or string.len(filename) == 0 then
@@ -312,6 +312,31 @@ local FileName = {
         end
 
         return { icon and { icon .. " ", { fg = color_icon } } or "", filename }
+    end,
+}
+
+local FileSize = {
+    name = "filesize",
+    event = { "BufEnter", "BufWritePost" },
+    user_event = "VeryLazy",
+    colors = HighlightB,
+    separator = { right = RIGHT_SLANT },
+    update = function()
+        local file_name = vim.api.nvim_buf_get_name(0)
+        local file_size = vim.fn.getfsize(file_name)
+        if type(file_size) ~= "number" or file_size <= 0 then
+            return ""
+        end
+
+        local suffixes = { "B", "KB", "MB", "GB" }
+        local i = 1
+        while file_size > 1024 and i < #suffixes do
+            file_size = file_size / 1024
+            i = i + 1
+        end
+
+        local format = i == 1 and "[%d%s]" or "[%.1f%s]"
+        return string.format(format, file_size, suffixes[i])
     end,
 }
 
