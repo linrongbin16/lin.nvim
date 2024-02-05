@@ -88,7 +88,7 @@ local AbbrModeName = {
 
 local OS_UNAME = uv.os_uname()
 
-local function OsIcon()
+local function OsNameIcon()
     local uname = OS_UNAME.sysname
     if uname == "Darwin" then
         return ""
@@ -184,24 +184,25 @@ local Mode = {
         local mode_code = vim.api.nvim_get_mode().mode
         local mode_name = configs.modes[mode_code][1]
         local mode_color = configs.modes[mode_code][2]
+        local os_icon = OsNameIcon()
         if mode_name then
             if vim.o.columns > 70 then
                 return {
                     {
-                        FullModeName[mode_name],
+                        os_icon .. " " .. FullModeName[mode_name],
                         configs.mode_colors[mode_color],
                     },
                 }
             else
                 return {
                     {
-                        AbbrModeName[mode_name],
+                        os_icon .. " " .. AbbrModeName[mode_name],
                         configs.mode_colors[mode_color],
                     },
                 }
             end
         end
-        return " " .. string.upper(mode_code) .. " "
+        return " " .. os_icon .. " " .. string.upper(mode_code) .. " "
     end,
 }
 
