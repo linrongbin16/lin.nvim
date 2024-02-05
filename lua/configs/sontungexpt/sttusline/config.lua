@@ -8,7 +8,7 @@ local sttusline_colors = require("sttusline.utils.color")
 local LEFT_SLANT = ""
 local RIGHT_SLANT = ""
 
-local function ModifyColorBrightness(rgb, percent)
+local function StrengthenColorBrightness(rgb, percent)
     local h, s, l = colors_hsl.rgb_string_to_hsl(rgb)
     local tmp = colors_hsl.new(h, s, l, rgb)
     return vim.o.background == "light" and tmp:tint(percent):to_rgb()
@@ -53,24 +53,51 @@ local WhiteColor = colors_hl.get_color_with_fallback(
 local StatusLineColor =
     colors_hl.get_color_with_fallback({ "StatusLine", "Normal" }, "bg")
 
+local function rgb_str2num(rgb_color_str)
+    if rgb_color_str:find("#") == 1 then
+        rgb_color_str = rgb_color_str:sub(2, #rgb_color_str)
+    end
+    local red = tonumber(rgb_color_str:sub(1, 2), 16)
+    local green = tonumber(rgb_color_str:sub(3, 4), 16)
+    local blue = tonumber(rgb_color_str:sub(5, 6), 16)
+    return { red = red, green = green, blue = blue }
+end
+
+-- Returns brightness level of color in range 0 to 1
+-- arbitrary value it's basically an weighted average
+local function get_color_brightness(rgb)
+    local color = rgb_str2num(rgb)
+    local brightness = (color.red * 2 + color.green * 3 + color.blue) / 6
+    return brightness / 256
+end
+
+local IS_LIGHT = false
+if NormalBgColor then
+    IS_LIGHT = get_color_brightness(NormalBgColor) < 0.5
+end
+
+if IS_LIGHT then
+    NormalBgColor = StrengthenColorBrightness(NormalBgColor, 0.3)
+end
+
 local HighlightA = {
     bg = NormalBgColor,
     fg = WhiteColor,
     gui = "bold",
 }
 local HighlightB = {
-    bg = ModifyColorBrightness(NormalBgColor, 0.5),
+    bg = StrengthenColorBrightness(NormalBgColor, 0.5),
     fg = WhiteColor,
     gui = "bold",
 }
 local HighlightC = {
-    bg = ModifyColorBrightness(NormalBgColor, 0.7),
-    fg = WhiteColor,
+    bg = StrengthenColorBrightness(NormalBgColor, 0.7),
+    fg = BlackColor,
     gui = "bold",
 }
 local HighlightD = {
     bg = StatusLineColor,
-    fg = WhiteColor,
+    fg = BlackColor,
     gui = "bold",
 }
 
@@ -187,25 +214,45 @@ local Mode = {
             ["x"] = { "CONFIRM", "STTUSLINE_CONFIRM_MODE" },
         },
         mode_colors = {
-            ["STTUSLINE_NORMAL_MODE"] = { fg = WhiteColor, bg = NormalBgColor },
-            ["STTUSLINE_INSERT_MODE"] = { fg = WhiteColor, bg = InsertBgColor },
-            ["STTUSLINE_VISUAL_MODE"] = { fg = WhiteColor, bg = VisualBgColor },
+            ["STTUSLINE_NORMAL_MODE"] = {
+                fg = WhiteColor,
+                bg = NormalBgColor,
+                gui = "bold",
+            },
+            ["STTUSLINE_INSERT_MODE"] = {
+                fg = WhiteColor,
+                bg = InsertBgColor,
+                gui = "bold",
+            },
+            ["STTUSLINE_VISUAL_MODE"] = {
+                fg = WhiteColor,
+                bg = VisualBgColor,
+                gui = "bold",
+            },
             ["STTUSLINE_TERMINAL_MODE"] = {
                 fg = WhiteColor,
                 bg = CommandBgColor,
+                gui = "bold",
             },
             ["STTUSLINE_REPLACE_MODE"] = {
                 fg = WhiteColor,
                 bg = ReplaceBgColor,
+                gui = "bold",
             },
-            ["STTUSLINE_SELECT_MODE"] = { fg = WhiteColor, bg = VisualBgColor },
+            ["STTUSLINE_SELECT_MODE"] = {
+                fg = WhiteColor,
+                bg = VisualBgColor,
+                gui = "bold",
+            },
             ["STTUSLINE_COMMAND_MODE"] = {
                 fg = WhiteColor,
                 bg = CommandBgColor,
+                gui = "bold",
             },
             ["STTUSLINE_CONFIRM_MODE"] = {
                 fg = WhiteColor,
                 bg = CommandBgColor,
+                gui = "bold",
             },
         },
     },
@@ -240,6 +287,7 @@ local FileName = {
     name = "filename",
     event = { "BufEnter", "WinEnter", "TextChangedI", "BufWritePost" },
     user_event = "VeryLazy",
+    colors = HighlightB,
     separator = { right = LEFT_SLANT },
 }
 
