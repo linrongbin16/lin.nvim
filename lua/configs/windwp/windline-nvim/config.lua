@@ -132,7 +132,7 @@ local Mode = {
     end,
 }
 
-local FileSize = {
+local GitBranch = {
     hl_colors = Highlight_B,
     text = function(bufnr, _, width)
         if width > WIDTH_BREAKPOINT then
@@ -141,14 +141,14 @@ local FileSize = {
                 local git_branch = vim.fn["gitbranch#name"]()
                 if strings.not_empty(git_branch) then
                     return {
-                        { " " .. git_branch, GetHl() },
+                        { "  " .. git_branch, GetHl() },
                         { " ", "" },
                         { RIGHT_SEP, GetHl(true) },
                     }
                 end
             end
         end
-        return { { sep.right_filled, state.mode[2] .. "Sep" } }
+        return { { RIGHT_SEP, GetHl(true) } }
     end,
 }
 
@@ -313,7 +313,7 @@ local default = {
     filetypes = { "default" },
     active = {
         Mode,
-        basic.section_b,
+        GitBranch,
         basic.section_c,
         basic.lsp_diagnos,
         { vim_components.search_count(), { "cyan", "NormalBg" } },
@@ -326,6 +326,54 @@ local default = {
     inactive = {},
 }
 
+-- Turns #rrggbb -> { red, green, blue }
+local function rgb_str2num(rgb_color_str)
+    if rgb_color_str:find("#") == 1 then
+        rgb_color_str = rgb_color_str:sub(2, #rgb_color_str)
+    end
+    local red = tonumber(rgb_color_str:sub(1, 2), 16)
+    local green = tonumber(rgb_color_str:sub(3, 4), 16)
+    local blue = tonumber(rgb_color_str:sub(5, 6), 16)
+    return { red = red, green = green, blue = blue }
+end
+
+-- Turns { red, green, blue } -> #rrggbb
+local function rgb_num2str(rgb_color_num)
+    local rgb_color_str = string.format(
+        "#%02x%02x%02x",
+        rgb_color_num.red,
+        rgb_color_num.green,
+        rgb_color_num.blue
+    )
+    return rgb_color_str
+end
+
+local function get_color_brightness(rgb_color)
+    local color = rgb_str2num(rgb_color)
+    local brightness = (color.red * 2 + color.green * 3 + color.blue) / 6
+    return brightness / 256
+end
+
+-- Clamps the val between left and right
+local function clamp(val, left, right)
+    if val > right then
+        return right
+    end
+    if val < left then
+        return left
+    end
+    return val
+end
+
+-- Changes brightness of rgb_color by percentage
+local function brightness_modifier(rgb_color, percentage)
+    local color = rgb_str2num(rgb_color)
+    color.red = clamp(color.red + (color.red * percentage / 100), 0, 255)
+    color.green = clamp(color.green + (color.green * percentage / 100), 0, 255)
+    color.blue = clamp(color.blue + (color.blue * percentage / 100), 0, 255)
+    return rgb_num2str(color)
+end
+
 windline.setup({
     colors_name = function(colors)
         local mod = function(c, value)
@@ -335,18 +383,11 @@ windline.setup({
             return HSL.rgb_to_hsl(c):shade(value):to_rgb()
         end
 
-        -- colors.normal_bg = colors.magenta
-        -- if
-        --     type(colors.normal_bg) ~= "string"
-        --     or not strings.startswith(colors.normal_bg, "#")
-        -- then
         colors.normal_bg = colors_hl.get_color_with_fallback(
             { "PmenuSel", "PmenuThumb", "TabLineSel" },
             "bg",
             colors.magenta
         )
-        -- end
-
         colors.insert_bg = colors_hl.get_color_with_fallback(
             { "String", "MoreMsg" },
             "fg",
@@ -367,6 +408,37 @@ windline.setup({
             "fg",
             colors.red
         )
+
+        local contrast_threshold = 0.3
+        local brightness_modifier_parameter = 10
+
+        local normal = colors_hl.get_color_with_fallback({ "Normal" }, "bg")
+        if normal then
+            if get_color_brightness(normal) > 0.5 then
+                brightness_modifier_parameter = -brightness_modifier_parameter
+            end
+
+            colors.normal_bg = brightness_modifier(
+                colors.normal_bg,
+                brightness_modifier_parameter
+            )
+            colors.insert_bg = brightness_modifier(
+                colors.insert_bg,
+                brightness_modifier_parameter
+            )
+            colors.replace_bg = brightness_modifier(
+                colors.replace_bg,
+                brightness_modifier_parameter
+            )
+            colors.visual_bg = brightness_modifier(
+                colors.visual_bg,
+                brightness_modifier_parameter
+            )
+            colors.command_bg = brightness_modifier(
+                colors.command_bg,
+                brightness_modifier_parameter
+            )
+        end
 
         colors.statusline_bg = colors_hl.get_color_with_fallback(
             { "StatusLine", "Normal" },
