@@ -131,7 +131,7 @@ local Mode = {
 }
 
 local Components = {
-    "mode",
+    Mode,
     "os-uname",
     "filename",
     "git-branch",
