@@ -1,3 +1,5 @@
+local colors_hsl = require("commons.colors.hl")
+
 local Components = {
     "mode",
     "os-uname",
@@ -18,14 +20,5 @@ local Components = {
 require("sttusline").setup({
     on_attach = function(create_update_group) end,
     statusline_color = "StatusLine",
-    disabled = {
-        filetypes = {
-            -- "NvimTree",
-            -- "lazy",
-        },
-        buftypes = {
-            "terminal",
-        },
-    },
     components = Components,
 })
