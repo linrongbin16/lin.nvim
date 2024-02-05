@@ -208,7 +208,7 @@ vim.api.nvim_create_autocmd({ "VimEnter", "UIEnter" }, {
 })
 
 local sidebar_resizing = false
-vim.api.nvim_create_autocmd({ "WinResized", "VimResized", "UIEnter" }, {
+vim.api.nvim_create_autocmd({ "VimResized", "UIEnter" }, {
     group = "neo_tree_augroup",
     callback = function()
         if sidebar_resizing then
