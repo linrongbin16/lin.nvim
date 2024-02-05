@@ -357,8 +357,8 @@ local Mode = {
                     {
                         RIGHT_SLANT,
                         {
-                            fg = HighlightA.bg,
-                            bg = configs.mode_colors[mode_color].bg,
+                            fg = configs.mode_colors[mode_color].bg,
+                            bg = HighlightB.bg,
                         },
                     },
                 }
@@ -371,8 +371,8 @@ local Mode = {
                     {
                         RIGHT_SLANT,
                         {
-                            fg = HighlightA.bg,
-                            bg = configs.mode_colors[mode_color].bg,
+                            fg = configs.mode_colors[mode_color].bg,
+                            bg = HighlightB.bg,
                         },
                     },
                 }
