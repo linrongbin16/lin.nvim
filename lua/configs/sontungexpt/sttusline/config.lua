@@ -1,7 +1,50 @@
 local colors_hsl = require("commons.colors.hsl")
 local colors_hl = require("commons.colors.hl")
 
-local colors = require("sttusline.utils.color")
+local sttusline_colors = require("sttusline.utils.color")
+
+local NormalBgColor = colors_hl.get_color_with_fallback(
+    { "PmenuSel", "PmenuThumb", "TabLineSel" },
+    "bg",
+    sttusline_colors.blue
+)
+local InsertBgColor = colors_hl.get_color_with_fallback(
+    { "String", "MoreMsg" },
+    "fg",
+    sttusline_colors.green
+)
+local ReplaceBgColor = colors_hl.get_color_with_fallback(
+    { "Number", "Type" },
+    "fg",
+    sttusline_colors.red
+)
+local VisualBgColor = colors_hl(
+    { "Special", "Boolean", "Constant" },
+    "fg",
+    sttusline_colors.purple
+)
+local CommandBgColor = colors_hl.get_color_with_fallback(
+    { "Identifier" },
+    "fg",
+    sttusline_colors.yellow
+)
+local BlackColor = colors_hl.get_color_with_fallback(
+    { "Normal" },
+    "bg",
+    sttusline_colors.black
+)
+local WhiteColor = colors_hl.get_color_with_fallback(
+    { "Normal" },
+    "fg",
+    sttusline_colors.white
+)
+
+local SectionA = {
+    Bg = colors_hl({ "PmenuSel", "PmenuThumb", "TabLineSel" }, "bg", "blue"),
+}
+local SectionB = {}
+local SectionC = {}
+local SectionD = {}
 
 local FullModeName = {
     NORMAL = "NORMAL",
@@ -94,16 +137,27 @@ local Mode = {
             ["x"] = { "CONFIRM", "STTUSLINE_CONFIRM_MODE" },
         },
         mode_colors = {
-            ["STTUSLINE_NORMAL_MODE"] = { fg = colors.blue },
-            ["STTUSLINE_INSERT_MODE"] = { fg = colors.green },
-            ["STTUSLINE_VISUAL_MODE"] = { fg = colors.purple },
-            ["STTUSLINE_TERMINAL_MODE"] = { fg = colors.cyan },
-            ["STTUSLINE_REPLACE_MODE"] = { fg = colors.red },
-            ["STTUSLINE_SELECT_MODE"] = { fg = colors.magenta },
-            ["STTUSLINE_COMMAND_MODE"] = { fg = colors.yellow },
-            ["STTUSLINE_CONFIRM_MODE"] = { fg = colors.yellow },
+            ["STTUSLINE_NORMAL_MODE"] = { fg = WhiteColor, bg = NormalBgColor },
+            ["STTUSLINE_INSERT_MODE"] = { fg = WhiteColor, bg = InsertBgColor },
+            ["STTUSLINE_VISUAL_MODE"] = { fg = WhiteColor, bg = VisualBgColor },
+            ["STTUSLINE_TERMINAL_MODE"] = {
+                fg = WhiteColor,
+                bg = CommandBgColor,
+            },
+            ["STTUSLINE_REPLACE_MODE"] = {
+                fg = WhiteColor,
+                bg = ReplaceBgColor,
+            },
+            ["STTUSLINE_SELECT_MODE"] = { fg = WhiteColor, bg = VisualBgColor },
+            ["STTUSLINE_COMMAND_MODE"] = {
+                fg = WhiteColor,
+                bg = CommandBgColor,
+            },
+            ["STTUSLINE_CONFIRM_MODE"] = {
+                fg = WhiteColor,
+                bg = CommandBgColor,
+            },
         },
-        auto_hide_on_vim_resized = true,
     },
     update = function(configs)
         local mode_code = vim.api.nvim_get_mode().mode
