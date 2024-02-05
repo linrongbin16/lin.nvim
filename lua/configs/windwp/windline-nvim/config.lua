@@ -12,16 +12,7 @@ local colors_hsl = require("commons.colors.hsl")
 
 local state = _G.WindLine.state
 
---- @param highlights string|string[]
----@param attr "fg"|"bg"
----@param fallback_rgb string?
-local function get_color_with_fallback(highlights, attr, fallback_rgb)
-    local rgb =
-        colors_hl.get_color_with_fallback(highlights, attr, fallback_rgb)
-    return rgb or fallback_rgb.termnal
-end
-
-local hl_list = {
+local HIGHLIGHTS = {
     Black = { "white", "black" },
     White = { "black", "white" },
     Normal = { "NormalFg", "NormalBg" },
@@ -71,14 +62,14 @@ airline_colors.c = {
     Command = { "white", "red_c" },
 }
 
-basic.divider = { b_components.divider, hl_list.Normal }
+local WIDTH_BREAKPOINT = 80
 
-local width_breakpoint = 100
+local DividerComponent = { "%=", HIGHLIGHTS.Normal }
 
 basic.section_a = {
     hl_colors = airline_colors.a,
     text = function(_, _, width)
-        if width > width_breakpoint then
+        if width > WIDTH_BREAKPOINT then
             return {
                 { " " .. state.mode[1] .. " ", state.mode[2] },
                 { sep.right_filled, state.mode[2] .. "Sep" },
@@ -94,7 +85,7 @@ basic.section_a = {
 basic.section_b = {
     hl_colors = airline_colors.b,
     text = function(bufnr, _, width)
-        if width > width_breakpoint and git_comps.is_git(bufnr) then
+        if width > WIDTH_BREAKPOINT and git_comps.is_git(bufnr) then
             return {
                 { git_comps.git_branch(), state.mode[2] },
                 { " ", "" },
@@ -120,7 +111,7 @@ basic.section_c = {
 basic.section_x = {
     hl_colors = airline_colors.c,
     text = function(_, _, width)
-        if width > width_breakpoint then
+        if width > WIDTH_BREAKPOINT then
             return {
                 { sep.left_filled, state.mode[2] .. "Sep" },
                 { " ", state.mode[2] },
@@ -139,7 +130,7 @@ basic.section_x = {
 basic.section_y = {
     hl_colors = airline_colors.b,
     text = function(_, _, width)
-        if width > width_breakpoint then
+        if width > WIDTH_BREAKPOINT then
             return {
                 { sep.left_filled, state.mode[2] .. "Sep" },
                 {
@@ -156,7 +147,7 @@ basic.section_y = {
 basic.section_z = {
     hl_colors = airline_colors.a,
     text = function(_, _, width)
-        if width > width_breakpoint then
+        if width > WIDTH_BREAKPOINT then
             return {
                 { sep.left_filled, state.mode[2] .. "Sep" },
                 { "", state.mode[2] },
@@ -209,7 +200,7 @@ basic.lsp_diagnos = {
 
 basic.git = {
     name = "git",
-    width = width_breakpoint,
+    width = WIDTH_BREAKPOINT,
     hl_colors = {
         green = { "green", "NormalBg" },
         red = { "red", "NormalBg" },
@@ -240,7 +231,7 @@ local quickfix = {
         { " Total : %L ", { "cyan", "black_light" } },
         { helper.separators.slant_right, { "black_light", "InactiveBg" } },
         { " ", { "InactiveFg", "InactiveBg" } },
-        basic.divider,
+        DividerComponent,
         { helper.separators.slant_right, { "InactiveBg", "black" } },
         { "🧛 ", { "white", "black" } },
     },
@@ -253,7 +244,7 @@ local explorer = {
     active = {
         { "  ", { "white", "magenta_b" } },
         { helper.separators.slant_right, { "magenta_b", "NormalBg" } },
-        { b_components.divider, "" },
+        { "%=", "" },
         { b_components.file_name(""), { "NormalFg", "NormalBg" } },
     },
     always_active = true,
@@ -268,18 +259,13 @@ local default = {
         basic.section_c,
         basic.lsp_diagnos,
         { vim_components.search_count(), { "cyan", "NormalBg" } },
-        basic.divider,
+        DividerComponent,
         basic.git,
         basic.section_x,
         basic.section_y,
         basic.section_z,
     },
-    inactive = {
-        { b_components.full_file_name, hl_list.Inactive },
-        { b_components.divider, hl_list.Inactive },
-        { b_components.line_col, hl_list.Inactive },
-        { b_components.progress, hl_list.Inactive },
-    },
+    inactive = {},
 }
 
 windline.setup({
@@ -322,6 +308,16 @@ windline.setup({
             "bg",
             "#000000"
         )
+
+        colors.black_text =
+            colors_hl.get_color_with_fallback({ "Normal" }, "bg", "#000000")
+        colors.white_text =
+            colors_hl.get_color_with_fallback({ "Normal" }, "fg", "#ffffff")
+
+        colors.normal_bg1 = colors.normal_bg
+        colors.normal_bg2 = mod(colors.normal_bg, 0.5)
+        colors.normal_bg3 = mod(colors.normal_bg, 0.7)
+        colors.normal_bg4 = colors.statusline_bg
 
         colors.magenta_a = colors.magenta
         colors.magenta_b = mod(colors.magenta, 0.5)
