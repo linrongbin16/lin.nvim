@@ -22,8 +22,6 @@ local NormalBgColor = colors_hl.get_color_with_fallback(
     "bg",
     sttusline_colors.blue
 )
--- print(string.format("NormalBgColor:%s", vim.inspect(NormalBgColor)))
-
 local InsertBgColor = colors_hl.get_color_with_fallback(
     { "String", "MoreMsg" },
     "fg",
@@ -44,6 +42,8 @@ local CommandBgColor = colors_hl.get_color_with_fallback(
     "fg",
     sttusline_colors.yellow
 )
+local StatusLineBgColor =
+    colors_hl.get_color_with_fallback({ "StatusLine", "Normal" }, "bg")
 local BlackColor = colors_hl.get_color_with_fallback(
     { "Normal" },
     "bg",
@@ -54,8 +54,6 @@ local WhiteColor = colors_hl.get_color_with_fallback(
     "fg",
     sttusline_colors.white
 )
-local StatusLineColor =
-    colors_hl.get_color_with_fallback({ "StatusLine", "Normal" }, "bg")
 
 local function rgb_str2num(rgb_color_str)
     if rgb_color_str:find("#") == 1 then
@@ -105,7 +103,7 @@ local HighlightC = {
     fg = WhiteColor,
 }
 local HighlightD = {
-    bg = StatusLineColor,
+    bg = StatusLineBgColor,
     fg = WhiteColor,
 }
 
