@@ -372,47 +372,6 @@ local Mode = {
             { os_icon .. " " .. mode_text_value .. " ", mode_hl_value },
             { RIGHT_SLANT, { fg = sep_fg_color, bg = sep_bg_color } },
         }
-        -- if mode_name then
-        --     if vim.o.columns > 70 then
-        --         return {
-        --             {
-        --                 os_icon .. " " .. mode_value .. " ",
-        --                 ViModeColors[mode_hl],
-        --             },
-        --             {
-        --                 RIGHT_SLANT,
-        --                 {
-        --                     fg = ViModeColors[mode_hl].bg,
-        --                     bg = HighlightB.bg,
-        --                 },
-        --             },
-        --         }
-        --     else
-        --         return {
-        --             {
-        --                 os_icon .. " " .. AbbrModeName[mode_name] .. " ",
-        --                 ViModeColors[mode_hl],
-        --             },
-        --             {
-        --                 RIGHT_SLANT,
-        --                 {
-        --                     fg = ViModeColors[mode_hl].bg,
-        --                     bg = HighlightB.bg,
-        --                 },
-        --             },
-        --         }
-        --     end
-        -- end
-        -- return {
-        --     {
-        --         " " .. os_icon .. " " .. string.upper(mode_code) .. " ",
-        --         HighlightA,
-        --     },
-        --     {
-        --         RIGHT_SLANT,
-        --         { fg = HighlightA.bg, bg = HighlightB.bg },
-        --     },
-        -- }
     end,
 }
 
@@ -421,35 +380,29 @@ local FileName = {
     name = "filename",
     event = { "BufEnter", "WinEnter", "TextChangedI", "BufWritePost" },
     user_event = "VeryLazy",
-    colors = HighlightB,
-    separator = { left = LEFT_SLANT },
-    padding = { left = 1, right = 0 },
+    -- colors = HighlightB,
+    -- separator = { left = LEFT_SLANT },
+    padding = 0,
     update = function()
         local mode_code = vim.api.nvim_get_mode().mode
         local mode_name = ViModes[mode_code][1]
         local mode_hl = ViModes[mode_code][2]
 
+        local sep_fg_color = HighlightB.bg
+        local sep_bg_color = mode_name and ViModeColors[mode_hl].bg
+            or HighlightA.bg
+
         local filename = vim.fn.expand("%:t")
         if type(filename) ~= "string" or string.len(filename) == 0 then
-            if mode_name then
-                return {
-                    " ",
-                    { fg = HighlightC.bg, bg = ViModeColors[mode_hl].bg },
-                }
-            else
-                return {
-                    " ",
-                    { fg = HighlightC.bg, bg = HighlightB.bg },
-                }
-            end
+            return { " ", { fg = sep_fg_color, bg = sep_bg_color } }
         end
 
-        local has_devicons, devicons = pcall(require, "nvim-web-devicons")
-        local icon, color_icon
-        if has_devicons then
-            icon, color_icon =
-                devicons.get_icon_color(filename, vim.fn.expand("%:e"))
-        end
+        -- local has_devicons, devicons = pcall(require, "nvim-web-devicons")
+        -- local icon, color_icon
+        -- if has_devicons then
+        --     icon, color_icon =
+        --         devicons.get_icon_color(filename, vim.fn.expand("%:e"))
+        -- end
 
         local readonly = not vim.api.nvim_buf_get_option(0, "modifiable")
             or vim.api.nvim_buf_get_option(0, "readonly")
@@ -461,10 +414,8 @@ local FileName = {
         end
 
         return {
-            { " ", { fg = HighlightC.bg, bg = HighlightB.bg } },
-            icon and { icon .. " ", { fg = color_icon, bg = HighlightB.bg } }
-                or "",
-            { filename, HighlightB },
+            { " ", { fg = sep_fg_color, bg = sep_bg_color } },
+            { filename, { fg = HighlightB.fg, bg = sep_bg_color } },
         }
     end,
 }
