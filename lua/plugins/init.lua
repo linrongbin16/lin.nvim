@@ -142,10 +142,11 @@ local M = {
         config = lua_config("linrongbin16/lsp-progress.nvim"),
     },
     {
-        "nvim-lualine/lualine.nvim",
+        "sontungexpt/sttusline",
+        branch = "table_version",
         event = { UIEnter },
         dependencies = { "linrongbin16/lsp-progress.nvim" },
-        config = lua_config("nvim-lualine/lualine.nvim"),
+        config = lua_config("sontungexpt/sttusline"),
     },
     -- Winbar
     {
