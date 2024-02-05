@@ -233,12 +233,12 @@ vim.api.nvim_create_autocmd({ "WinResized", "VimResized", "UIEnter" }, {
                 end
             end
         end
-        local new_width = layout.editor.width(
-            constants.ui.layout.sidebar.scale,
-            constants.ui.layout.sidebar.min,
-            constants.ui.layout.sidebar.max
-        )
         if neo_tree_winnr then
+            local new_width = layout.editor.width(
+                constants.ui.layout.sidebar.scale,
+                constants.ui.layout.sidebar.min,
+                constants.ui.layout.sidebar.max
+            )
             vim.api.nvim_win_set_width(neo_tree_winnr, new_width)
         end
         vim.schedule(function()
