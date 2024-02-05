@@ -223,7 +223,7 @@ local Mode = {
         },
         mode_colors = {
             ["STTUSLINE_NORMAL_MODE"] = {
-                fg = WhiteColor,
+                fg = BlackColor,
                 bg = NormalBgColor,
             },
             ["STTUSLINE_INSERT_MODE"] = {
