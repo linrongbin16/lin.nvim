@@ -342,7 +342,8 @@ local FileSize = {
 
 local Components = {
     Mode,
-    "filename",
+    FileName,
+    FileSize,
     "git-branch",
     "git-diff",
     "%=",
