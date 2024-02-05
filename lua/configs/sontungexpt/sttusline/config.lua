@@ -77,7 +77,7 @@ if NormalBgColor then
 end
 
 if IS_LIGHT then
-    NormalBgColor = StrengthenColorBrightness(NormalBgColor, 0.3)
+    NormalBgColor = StrengthenColorBrightness(NormalBgColor, 0.2)
 end
 
 local HighlightA = {
