@@ -46,19 +46,29 @@ local WhiteColor = colors_hl.get_color_with_fallback(
     "fg",
     sttusline_colors.white
 )
+local StatusLineColor =
+    colors_hl.get_color_with_fallback({ "StatusLine", "Normal" }, "bg")
 
 local HighlightA = {
-    fg = NormalBgColor,
-    bg = WhiteColor,
+    bg = NormalBgColor,
+    fg = WhiteColor,
     gui = "bold",
 }
 local HighlightB = {
-    fg = NormalBgColor,
-    bg = WhiteColor,
+    bg = ModifyColorBrightness(NormalBgColor, 0.5),
+    fg = WhiteColor,
     gui = "bold",
 }
-local HighlightC = {}
-local HighlightD = {}
+local HighlightC = {
+    bg = ModifyColorBrightness(NormalBgColor, 0.5),
+    fg = WhiteColor,
+    gui = "bold",
+}
+local HighlightD = {
+    bg = StatusLineColor,
+    fg = WhiteColor,
+    gui = "bold",
+}
 
 local FullModeName = {
     NORMAL = "NORMAL",
