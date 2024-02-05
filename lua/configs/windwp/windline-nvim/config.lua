@@ -2,12 +2,24 @@ local windline = require("windline")
 local helper = require("windline.helpers")
 local sep = helper.separators
 local b_components = require("windline.components.basic")
-local state = _G.WindLine.state
 local vim_components = require("windline.components.vim")
 local HSL = require("wlanimation.utils")
 
 local lsp_comps = require("windline.components.lsp")
 local git_comps = require("windline.components.git")
+local colors_hl = require("commons.colors.hl")
+local colors_hsl = require("commons.colors.hsl")
+
+local state = _G.WindLine.state
+
+--- @param highlights string|string[]
+---@param attr "fg"|"bg"
+---@param fallback_rgb string?
+local function get_color_with_fallback(highlights, attr, fallback_rgb)
+    local rgb =
+        colors_hl.get_color_with_fallback(highlights, attr, fallback_rgb)
+    return rgb or fallback_rgb.termnal
+end
 
 local hl_list = {
     Black = { "white", "black" },
@@ -278,6 +290,38 @@ windline.setup({
             end
             return HSL.rgb_to_hsl(c):shade(value):to_rgb()
         end
+
+        colors.normal_bg = colors_hl.get_color_with_fallback(
+            { "PmenuSel", "PmenuThumb", "TabLineSel" },
+            "bg",
+            colors.magenta
+        )
+        colors.insert_bg = colors_hl.get_color_with_fallback(
+            { "String", "MoreMsg" },
+            "fg",
+            colors.green
+        )
+        colors.replace_bg = colors_hl.get_color_with_fallback(
+            { "Number", "Type" },
+            "fg",
+            colors.blue
+        )
+        colors.visual_bg = colors_hl.get_color_with_fallback(
+            { "Special", "Boolean", "Constant" },
+            "fg",
+            colors.yellow
+        )
+        colors.command_bg = colors_hl.get_color_with_fallback(
+            { "Identifier" },
+            "fg",
+            colors.red
+        )
+
+        colors.statusline_bg = colors_hl.get_color_with_fallback(
+            { "StatusLine", "Normal" },
+            "bg",
+            "#000000"
+        )
 
         colors.magenta_a = colors.magenta
         colors.magenta_b = mod(colors.magenta, 0.5)
