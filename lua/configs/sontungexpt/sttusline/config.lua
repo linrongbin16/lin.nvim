@@ -4,6 +4,13 @@ local uv = require("commons.uv")
 
 local sttusline_colors = require("sttusline.utils.color")
 
+local function ModifyColorBrightness(rgb, percent)
+    local h, s, l = colors_hsl.rgb_string_to_hsl(rgb)
+    local tmp = colors_hsl.new(h, s, l, rgb)
+    return vim.o.background == "light" and tmp:tint(percent):to_rgb()
+        or tmp:shade(percent):to_rgb()
+end
+
 local NormalBgColor = colors_hl.get_color_with_fallback(
     { "PmenuSel", "PmenuThumb", "TabLineSel" },
     "bg",
@@ -19,7 +26,7 @@ local ReplaceBgColor = colors_hl.get_color_with_fallback(
     "fg",
     sttusline_colors.red
 )
-local VisualBgColor = colors_hl(
+local VisualBgColor = colors_hl.get_color_with_fallback(
     { "Special", "Boolean", "Constant" },
     "fg",
     sttusline_colors.purple
@@ -40,12 +47,18 @@ local WhiteColor = colors_hl.get_color_with_fallback(
     sttusline_colors.white
 )
 
-local SectionA = {
-    Bg = colors_hl({ "PmenuSel", "PmenuThumb", "TabLineSel" }, "bg", "blue"),
+local HighlightA = {
+    fg = NormalBgColor,
+    bg = WhiteColor,
+    gui = "bold",
 }
-local SectionB = {}
-local SectionC = {}
-local SectionD = {}
+local HighlightB = {
+    fg = NormalBgColor,
+    bg = WhiteColor,
+    gui = "bold",
+}
+local HighlightC = {}
+local HighlightD = {}
 
 local FullModeName = {
     NORMAL = "NORMAL",
@@ -208,7 +221,6 @@ local Mode = {
 
 local Components = {
     Mode,
-    "os-uname",
     "filename",
     "git-branch",
     "git-diff",
