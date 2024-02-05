@@ -146,6 +146,10 @@ local M = {
         config = lua_config("linrongbin16/lsp-progress.nvim"),
     },
     {
+        "itchyny/vim-gitbranch",
+        event = { VeryLazy },
+    },
+    {
         "windwp/windline.nvim",
         event = { UIEnter },
         dependencies = { "linrongbin16/lsp-progress.nvim" },

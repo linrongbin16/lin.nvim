@@ -31,7 +31,7 @@ local function GetModeName()
 end
 
 --- @param with_sep boolean?
-local function GetModeCode(with_sep)
+local function GetHl(with_sep)
     return with_sep and state.mode[2] .. "Sep" or state.mode[2]
 end
 
@@ -59,7 +59,7 @@ local Highlight_A = {
     Command = { "black_text", "red_a" },
 }
 
-airline_colors.b = {
+local Highlight_B = {
     NormalSep = { "normal_bg2", "normal_bg3" },
     InsertSep = { "green_b", "green_c" },
     VisualSep = { "yellow_b", "yellow_c" },
@@ -117,25 +117,43 @@ local Mode = {
             return {
                 {
                     " " .. os_icon .. " " .. GetModeName() .. " ",
-                    GetModeCode(),
+                    GetHl(),
                 },
-                { RIGHT_SEP, GetModeCode(true) },
+                { RIGHT_SEP, GetHl(true) },
             }
         end
         return {
             {
                 " " .. os_icon .. " " .. GetModeName():sub(1, 1) .. " ",
-                GetModeCode(),
+                GetHl(),
             },
-            { RIGHT_SEP, GetModeCode(true) },
+            { RIGHT_SEP, GetHl(true) },
         }
     end,
 }
 
-local FileSize = {}
+local FileSize = {
+    hl_colors = Highlight_B,
+    text = function(bufnr, _, width)
+        if width > WIDTH_BREAKPOINT then
+            local has_git_branch = vim.fn.exists("*gitbranch#name") > 0
+            if has_git_branch then
+                local git_branch = vim.fn["gitbranch#name"]()
+                if strings.not_empty(git_branch) then
+                    return {
+                        { " " .. git_branch, GetHl() },
+                        { " ", "" },
+                        { RIGHT_SEP, GetHl(true) },
+                    }
+                end
+            end
+        end
+        return { { sep.right_filled, state.mode[2] .. "Sep" } }
+    end,
+}
 
 basic.section_b = {
-    hl_colors = airline_colors.b,
+    hl_colors = Highlight_B,
     text = function(bufnr, _, width)
         if width > WIDTH_BREAKPOINT and git_comps.is_git(bufnr) then
             return {
@@ -180,7 +198,7 @@ basic.section_x = {
 }
 
 basic.section_y = {
-    hl_colors = airline_colors.b,
+    hl_colors = Highlight_B,
     text = function(_, _, width)
         if width > WIDTH_BREAKPOINT then
             return {
