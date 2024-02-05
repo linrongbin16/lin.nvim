@@ -1,8 +1,9 @@
-local colors_hsl = require("commons.colors.hl")
+local colors_hsl = require("commons.colors.hsl")
+local colors_hl = require("commons.colors.hl")
 
 local colors = require("sttusline.utils.color")
 
-local ModeName = {
+local FullModeName = {
     NORMAL = "NORMAL",
     O_PENDING = "O-PENDING",
     VISUAL = "VISUAL",
@@ -13,6 +14,32 @@ local ModeName = {
     S_BLOCK = "S-BLOCK",
     INSERT = "INSERT",
     REPLACE = "REPLACE",
+    V_REPLACE = "V-REPLACE",
+    COMMAND = "COMMAND",
+    CONFIRM = "CONFIRM",
+    EX = "EX",
+    MORE = "MORE",
+    SHELL = "SHELL",
+    TERMINAL = "TERMINAL",
+}
+local AbbrModeName = {
+    NORMAL = "N",
+    O_PENDING = "O",
+    VISUAL = "V",
+    V_LINE = "V",
+    V_BLOCK = "V",
+    SELECT = "S",
+    S_LINE = "S",
+    S_BLOCK = "S",
+    INSERT = "I",
+    REPLACE = "R",
+    V_REPLACE = "V",
+    COMMAND = "C",
+    CONFIRM = "C",
+    EX = "E",
+    MORE = "M",
+    SHELL = "S",
+    TERMINAL = "T",
 }
 
 local Mode = {
@@ -22,46 +49,46 @@ local Mode = {
     configs = {
         modes = {
             ["n"] = { "NORMAL", "STTUSLINE_NORMAL_MODE" },
-            ["no"] = { "NORMAL (no)", "STTUSLINE_NORMAL_MODE" },
-            ["nov"] = { "NORMAL (nov)", "STTUSLINE_NORMAL_MODE" },
-            ["noV"] = { "NORMAL (noV)", "STTUSLINE_NORMAL_MODE" },
-            ["noCTRL-V"] = { "NORMAL", "STTUSLINE_NORMAL_MODE" },
-            ["niI"] = { "NORMAL i", "STTUSLINE_NORMAL_MODE" },
-            ["niR"] = { "NORMAL r", "STTUSLINE_NORMAL_MODE" },
-            ["niV"] = { "NORMAL v", "STTUSLINE_NORMAL_MODE" },
+            ["no"] = { "O_PENDING", "STTUSLINE_O_PENDING_MODE" },
+            ["nov"] = { "O_PENDING", "STTUSLINE_O_PENDING_MODE" },
+            ["noV"] = { "O_PENDING", "STTUSLINE_O_PENDING_MODE" },
+            ["noCTRL-V"] = { "O_PENDING", "STTUSLINE_O_PENDING_MODE" },
+            ["niI"] = { "NORMAL", "STTUSLINE_NORMAL_MODE" },
+            ["niR"] = { "NORMAL", "STTUSLINE_NORMAL_MODE" },
+            ["niV"] = { "NORMAL", "STTUSLINE_NORMAL_MODE" },
 
-            ["nt"] = { "TERMINAL", "STTUSLINE_NTERMINAL_MODE" },
-            ["ntT"] = { "TERMINAL (ntT)", "STTUSLINE_NTERMINAL_MODE" },
+            ["nt"] = { "NORMAL", "STTUSLINE_NORMAL_MODE" },
+            ["ntT"] = { "NORMAL", "STTUSLINE_NORMAL_MODE" },
 
             ["v"] = { "VISUAL", "STTUSLINE_VISUAL_MODE" },
-            ["vs"] = { "V-CHAR (Ctrl O)", "STTUSLINE_VISUAL_MODE" },
-            ["V"] = { "V-LINE", "STTUSLINE_VISUAL_MODE" },
-            ["Vs"] = { "V-LINE", "STTUSLINE_VISUAL_MODE" },
-            [""] = { "V-BLOCK", "STTUSLINE_VISUAL_MODE" },
+            ["vs"] = { "VISUAL", "STTUSLINE_VISUAL_MODE" },
+            ["V"] = { "V_LINE", "STTUSLINE_VISUAL_MODE" },
+            ["Vs"] = { "V_LINE", "STTUSLINE_VISUAL_MODE" },
+            [""] = { "V_BLOCK", "STTUSLINE_VISUAL_MODE" },
+
+            ["s"] = { "SELECT", "STTUSLINE_SELECT_MODE" },
+            ["S"] = { "S_LINE", "STTUSLINE_SELECT_MODE" },
+            [""] = { "S_BLOCK", "STTUSLINE_SELECT_MODE" },
 
             ["i"] = { "INSERT", "STTUSLINE_INSERT_MODE" },
-            ["ic"] = { "INSERT (completion)", "STTUSLINE_INSERT_MODE" },
-            ["ix"] = { "INSERT completion", "STTUSLINE_INSERT_MODE" },
+            ["ic"] = { "INSERT", "STTUSLINE_INSERT_MODE" },
+            ["ix"] = { "INSERT", "STTUSLINE_INSERT_MODE" },
 
             ["t"] = { "TERMINAL", "STTUSLINE_TERMINAL_MODE" },
             ["!"] = { "SHELL", "STTUSLINE_TERMINAL_MODE" },
 
             ["R"] = { "REPLACE", "STTUSLINE_REPLACE_MODE" },
-            ["Rc"] = { "REPLACE (Rc)", "STTUSLINE_REPLACE_MODE" },
-            ["Rx"] = { "REPLACEa (Rx)", "STTUSLINE_REPLACE_MODE" },
-            ["Rv"] = { "V-REPLACE", "STTUSLINE_REPLACE_MODE" },
-            ["Rvc"] = { "V-REPLACE (Rvc)", "STTUSLINE_REPLACE_MODE" },
-            ["Rvx"] = { "V-REPLACE (Rvx)", "STTUSLINE_REPLACE_MODE" },
-
-            ["s"] = { "SELECT", "STTUSLINE_SELECT_MODE" },
-            ["S"] = { "S-LINE", "STTUSLINE_SELECT_MODE" },
-            [""] = { "S-BLOCK", "STTUSLINE_SELECT_MODE" },
+            ["Rc"] = { "REPLACE", "STTUSLINE_REPLACE_MODE" },
+            ["Rx"] = { "REPLACE", "STTUSLINE_REPLACE_MODE" },
+            ["Rv"] = { "REPLACE", "STTUSLINE_REPLACE_MODE" },
+            ["Rvc"] = { "REPLACE", "STTUSLINE_REPLACE_MODE" },
+            ["Rvx"] = { "REPLACE", "STTUSLINE_REPLACE_MODE" },
 
             ["c"] = { "COMMAND", "STTUSLINE_COMMAND_MODE" },
-            ["cv"] = { "COMMAND", "STTUSLINE_COMMAND_MODE" },
-            ["ce"] = { "COMMAND", "STTUSLINE_COMMAND_MODE" },
+            ["cv"] = { "EX", "STTUSLINE_COMMAND_MODE" },
+            ["ce"] = { "EX", "STTUSLINE_COMMAND_MODE" },
 
-            ["r"] = { "PROMPT", "STTUSLINE_CONFIRM_MODE" },
+            ["r"] = { "REPLACE", "STTUSLINE_REPLACE_MODE" },
             ["rm"] = { "MORE", "STTUSLINE_CONFIRM_MODE" },
             ["r?"] = { "CONFIRM", "STTUSLINE_CONFIRM_MODE" },
             ["x"] = { "CONFIRM", "STTUSLINE_CONFIRM_MODE" },
@@ -70,7 +97,6 @@ local Mode = {
             ["STTUSLINE_NORMAL_MODE"] = { fg = colors.blue },
             ["STTUSLINE_INSERT_MODE"] = { fg = colors.green },
             ["STTUSLINE_VISUAL_MODE"] = { fg = colors.purple },
-            ["STTUSLINE_NTERMINAL_MODE"] = { fg = colors.gray },
             ["STTUSLINE_TERMINAL_MODE"] = { fg = colors.cyan },
             ["STTUSLINE_REPLACE_MODE"] = { fg = colors.red },
             ["STTUSLINE_SELECT_MODE"] = { fg = colors.magenta },
@@ -81,17 +107,26 @@ local Mode = {
     },
     update = function(configs)
         local mode_code = vim.api.nvim_get_mode().mode
-        local mode = configs.modes[mode_code]
-        if mode then
-            return { { mode[1], configs.mode_colors[mode[2]] } }
+        local mode_name = configs.modes[mode_code][1]
+        local mode_color = configs.modes[mode_code][2]
+        if mode_name then
+            if vim.o.columns > 70 then
+                return {
+                    {
+                        FullModeName[mode_name],
+                        configs.mode_colors[mode_color],
+                    },
+                }
+            else
+                return {
+                    {
+                        AbbrModeName[mode_name],
+                        configs.mode_colors[mode_color],
+                    },
+                }
+            end
         end
-        return " " .. mode_code .. " "
-    end,
-    condition = function(configs)
-        if configs.auto_hide_on_vim_resized then
-            vim.opt.showmode = not (vim.o.columns > 70)
-            return not vim.opt.showmode:get()
-        end
+        return " " .. string.upper(mode_code) .. " "
     end,
 }
 
