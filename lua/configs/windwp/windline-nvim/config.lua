@@ -7,6 +7,7 @@ local HSL = require("wlanimation.utils")
 
 local lsp_comps = require("windline.components.lsp")
 local git_comps = require("windline.components.git")
+local cache_utils = require("windline.cache_utils")
 
 local colors_hl = require("commons.colors.hl")
 local colors_hsl = require("commons.colors.hsl")
@@ -160,41 +161,41 @@ local airline_colors = {}
 
 local Highlight_A = {
     NormalSep = { "normal_bg1", "normal_bg2" },
-    InsertSep = { "green_a", "green_b" },
-    VisualSep = { "yellow_a", "yellow_b" },
-    ReplaceSep = { "blue_a", "blue_b" },
-    CommandSep = { "red_a", "red_b" },
+    InsertSep = { "insert_bg1", "insert_bg2" },
+    VisualSep = { "visual_bg1", "visual_bg2" },
+    ReplaceSep = { "replace_bg1", "replace_bg2" },
+    CommandSep = { "command_bg1", "command_bg2" },
     Normal = { NormalBgTextColor, "normal_bg1" },
-    Insert = { NormalBgTextColor, "green_a" },
-    Visual = { NormalBgTextColor, "yellow_a" },
-    Replace = { NormalBgTextColor, "blue_a" },
-    Command = { NormalBgTextColor, "red_a" },
+    Insert = { NormalBgTextColor, "insert_bg1" },
+    Visual = { NormalBgTextColor, "visual_bg1" },
+    Replace = { NormalBgTextColor, "replace_bg1" },
+    Command = { NormalBgTextColor, "command_bg1" },
 }
 
 local Highlight_B = {
     NormalSep = { "normal_bg2", "normal_bg3" },
-    InsertSep = { "green_b", "green_c" },
-    VisualSep = { "yellow_b", "yellow_c" },
-    ReplaceSep = { "blue_b", "blue_c" },
-    CommandSep = { "red_b", "red_c" },
+    InsertSep = { "insert_bg2", "insert_bg3" },
+    VisualSep = { "visual_bg2", "visual_bg3" },
+    ReplaceSep = { "replace_bg2", "replace_bg3" },
+    CommandSep = { "command_bg2", "command_bg3" },
     Normal = { "white_text", "normal_bg2" },
-    Insert = { "white_text", "green_b" },
-    Visual = { "white_text", "yellow_b" },
-    Replace = { "white_text", "blue_b" },
-    Command = { "white_text", "red_b" },
+    Insert = { "white_text", "insert_bg2" },
+    Visual = { "white_text", "visual_bg2" },
+    Replace = { "white_text", "replace_bg2" },
+    Command = { "white_text", "command_bg2" },
 }
 
-airline_colors.c = {
+local Highlight_C = {
     NormalSep = { "normal_bg3", "NormalBg" },
-    InsertSep = { "green_c", "NormalBg" },
-    VisualSep = { "yellow_c", "NormalBg" },
-    ReplaceSep = { "blue_c", "NormalBg" },
-    CommandSep = { "red_c", "NormalBg" },
+    InsertSep = { "insert_bg3", "NormalBg" },
+    VisualSep = { "visual_bg3", "NormalBg" },
+    ReplaceSep = { "replace_bg3", "NormalBg" },
+    CommandSep = { "command_bg3", "NormalBg" },
     Normal = { "white_text", "normal_bg3" },
-    Insert = { "white_text", "green_c" },
-    Visual = { "white_text", "yellow_c" },
-    Replace = { "white_text", "blue_c" },
-    Command = { "white_text", "red_c" },
+    Insert = { "white_text", "insert_bg3" },
+    Visual = { "white_text", "visual_bg3" },
+    Replace = { "white_text", "replace_bg3" },
+    Command = { "white_text", "command_bg3" },
 }
 
 local WIDTH_BREAKPOINT = 80
@@ -264,22 +265,37 @@ local GitBranch = {
     end,
 }
 
-basic.section_b = {
-    hl_colors = Highlight_B,
-    text = function(bufnr, _, width)
-        if width > WIDTH_BREAKPOINT and git_comps.is_git(bufnr) then
-            return {
-                { git_comps.git_branch(), state.mode[2] },
-                { " ", "" },
-                { sep.right_filled, state.mode[2] .. "Sep" },
-            }
-        end
-        return { { sep.right_filled, state.mode[2] .. "Sep" } }
+local function GetFileName(bufnr)
+    local default = "[No Name]"
+    local bufname = vim.api.nvim_buf_get_name(bufnr)
+    if strings.empty(bufname) then
+        return default
+    end
+    bufname = vim.fn.fnamemodify(bufname, ":~:.")
+    bufname = vim.fn.pathshorten(bufname)
+    return bufname
+end
+
+local FileName = {
+    hl_colors = Highlight_C,
+    text = function()
+        return {
+            { " ", GetHl() },
+            {
+                cache_utils.cache_on_buffer(
+                    "BufEnter",
+                    "WindLineComponent_FileName",
+                    GetFileName
+                ),
+            },
+            { " " },
+            { RIGHT_SEP, GetHl(true) },
+        }
     end,
 }
 
 basic.section_c = {
-    hl_colors = airline_colors.c,
+    hl_colors = Highlight_C,
     text = function()
         return {
             { " ", state.mode[2] },
@@ -291,7 +307,7 @@ basic.section_c = {
 }
 
 basic.section_x = {
-    hl_colors = airline_colors.c,
+    hl_colors = Highlight_C,
     text = function(_, _, width)
         if width > WIDTH_BREAKPOINT then
             return {
@@ -426,7 +442,7 @@ local default = {
     active = {
         Mode,
         GitBranch,
-        basic.section_c,
+        FileName,
         basic.lsp_diagnos,
         { vim_components.search_count(), { "cyan", "NormalBg" } },
         DividerComponent,
@@ -508,6 +524,26 @@ windline.setup({
         colors.normal_bg2 = mod(colors.normal_bg, 0.5)
         colors.normal_bg3 = mod(colors.normal_bg, 0.7)
         colors.normal_bg4 = colors.statusline_bg
+
+        colors.insert_bg1 = colors.insert_bg
+        colors.insert_bg2 = mod(colors.insert_bg, 0.5)
+        colors.insert_bg3 = mod(colors.insert_bg, 0.7)
+        colors.insert_bg4 = colors.statusline_bg
+
+        colors.replace_bg1 = colors.replace_bg
+        colors.replace_bg2 = mod(colors.replace_bg, 0.5)
+        colors.replace_bg3 = mod(colors.replace_bg, 0.7)
+        colors.replace_bg4 = colors.statusline_bg
+
+        colors.visual_bg1 = colors.visual_bg
+        colors.visual_bg2 = mod(colors.visual_bg, 0.5)
+        colors.visual_bg3 = mod(colors.visual_bg, 0.7)
+        colors.visual_bg4 = colors.statusline_bg
+
+        colors.command_bg1 = colors.command_bg
+        colors.command_bg2 = mod(colors.command_bg, 0.5)
+        colors.command_bg3 = mod(colors.command_bg, 0.7)
+        colors.command_bg4 = colors.statusline_bg
 
         colors.magenta_a = colors.magenta
         colors.magenta_b = mod(colors.magenta, 0.5)
