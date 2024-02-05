@@ -356,7 +356,10 @@ local Mode = {
                     },
                     {
                         RIGHT_SLANT,
-                        { fg = HighlightA.bg, bg = HighlightB.bg },
+                        {
+                            fg = HighlightA.bg,
+                            bg = configs.mode_colors[mode_color].bg,
+                        },
                     },
                 }
             else
@@ -367,7 +370,10 @@ local Mode = {
                     },
                     {
                         RIGHT_SLANT,
-                        { fg = HighlightA.bg, bg = HighlightB.bg },
+                        {
+                            fg = HighlightA.bg,
+                            bg = configs.mode_colors[mode_color].bg,
+                        },
                     },
                 }
             end
@@ -416,9 +422,10 @@ local FileName = {
         end
 
         return {
+            { " ", { fg = HighlightC.bg, bg = HighlightB.bg } },
             icon and { icon .. " ", { fg = color_icon, bg = HighlightB.bg } }
                 or "",
-            filename,
+            { filename, HighlightB },
         }
     end,
 }
@@ -444,7 +451,13 @@ local FileSize = {
         end
 
         local format = i == 1 and "[%d%s]" or "[%.1f%s]"
-        return string.format(format, file_size, suffixes[i])
+        return {
+            { string.format(format, file_size, suffixes[i]), HighlightB },
+            {
+                RIGHT_SLANT,
+                { fg = HighlightB.bg, bg = HighlightC.bg },
+            },
+        }
     end,
 }
 
