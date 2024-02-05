@@ -222,10 +222,7 @@ local Mode = {
             ["x"] = { "CONFIRM", "STTUSLINE_CONFIRM_MODE" },
         },
         mode_colors = {
-            ["STTUSLINE_NORMAL_MODE"] = {
-                fg = BlackColor,
-                bg = NormalBgColor,
-            },
+            ["STTUSLINE_NORMAL_MODE"] = HighlightA,
             ["STTUSLINE_INSERT_MODE"] = {
                 fg = WhiteColor,
                 bg = InsertBgColor,
