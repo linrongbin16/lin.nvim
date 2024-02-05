@@ -236,7 +236,12 @@ local Mode = {
 }
 
 -- file name, file status(readonly/modified), file size
-local FileName = {}
+local FileName = {
+    name = "filename",
+    event = { "BufEnter", "WinEnter", "TextChangedI", "BufWritePost" },
+    user_event = "VeryLazy",
+    separator = { right = LEFT_SLANT },
+}
 
 local Components = {
     Mode,
