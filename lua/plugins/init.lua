@@ -36,6 +36,10 @@ local M = {
             require("colorbox").update()
         end,
     },
+    {
+        "linrongbin16/commons.nvim",
+        lazy = true,
+    },
 
     -- ---- HIGHLIGHT ----
 
