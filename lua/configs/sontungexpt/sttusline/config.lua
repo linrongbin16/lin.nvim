@@ -219,6 +219,10 @@ apply_contrast(VisualHighlight)
 apply_contrast(CommandHighlight)
 apply_contrast(ReplaceHighlight)
 
+local function IsBigScreen()
+    return vim.o.columns > 80
+end
+
 local FullModeName = {
     NORMAL = "NORMAL",
     O_PENDING = "O-PENDING",
@@ -345,49 +349,70 @@ local Mode = {
     update = function(configs)
         local mode_code = vim.api.nvim_get_mode().mode
         local mode_name = ViModes[mode_code][1]
-        local mode_color = ViModes[mode_code][2]
+        local mode_hl = ViModes[mode_code][2]
         local os_icon = OsNameIcon()
+
+        local mode_text_value
+
         if mode_name then
-            if vim.o.columns > 70 then
-                return {
-                    {
-                        os_icon .. " " .. FullModeName[mode_name] .. " ",
-                        ViModeColors[mode_color],
-                    },
-                    {
-                        RIGHT_SLANT,
-                        {
-                            fg = ViModeColors[mode_color].bg,
-                            bg = HighlightB.bg,
-                        },
-                    },
-                }
+            if IsBigScreen() then
+                mode_text_value = FullModeName[mode_name]
             else
-                return {
-                    {
-                        os_icon .. " " .. AbbrModeName[mode_name] .. " ",
-                        ViModeColors[mode_color],
-                    },
-                    {
-                        RIGHT_SLANT,
-                        {
-                            fg = ViModeColors[mode_color].bg,
-                            bg = HighlightB.bg,
-                        },
-                    },
-                }
+                mode_text_value = AbbrModeName[mode_name]
             end
+        else
+            mode_text_value = string.upper(mode_code)
         end
+        local mode_hl_value = mode_name and ViModeColors[mode_hl] or HighlightA
+        local sep_fg_color = mode_name and ViModeColors[mode_hl].bg
+            or HighlightA.bg
+        local sep_bg_color = HighlightB.bg
+
         return {
-            {
-                " " .. os_icon .. " " .. string.upper(mode_code) .. " ",
-                HighlightA,
-            },
-            {
-                RIGHT_SLANT,
-                { fg = HighlightA.bg, bg = HighlightB.bg },
-            },
+            { os_icon .. " " .. mode_text_value .. " ", mode_hl_value },
+            { RIGHT_SLANT, { fg = sep_fg_color, bg = sep_bg_color } },
         }
+        -- if mode_name then
+        --     if vim.o.columns > 70 then
+        --         return {
+        --             {
+        --                 os_icon .. " " .. mode_value .. " ",
+        --                 ViModeColors[mode_hl],
+        --             },
+        --             {
+        --                 RIGHT_SLANT,
+        --                 {
+        --                     fg = ViModeColors[mode_hl].bg,
+        --                     bg = HighlightB.bg,
+        --                 },
+        --             },
+        --         }
+        --     else
+        --         return {
+        --             {
+        --                 os_icon .. " " .. AbbrModeName[mode_name] .. " ",
+        --                 ViModeColors[mode_hl],
+        --             },
+        --             {
+        --                 RIGHT_SLANT,
+        --                 {
+        --                     fg = ViModeColors[mode_hl].bg,
+        --                     bg = HighlightB.bg,
+        --                 },
+        --             },
+        --         }
+        --     end
+        -- end
+        -- return {
+        --     {
+        --         " " .. os_icon .. " " .. string.upper(mode_code) .. " ",
+        --         HighlightA,
+        --     },
+        --     {
+        --         RIGHT_SLANT,
+        --         { fg = HighlightA.bg, bg = HighlightB.bg },
+        --     },
+        -- }
     end,
 }
 
@@ -400,9 +425,23 @@ local FileName = {
     separator = { left = LEFT_SLANT },
     padding = { left = 1, right = 0 },
     update = function()
+        local mode_code = vim.api.nvim_get_mode().mode
+        local mode_name = ViModes[mode_code][1]
+        local mode_hl = ViModes[mode_code][2]
+
         local filename = vim.fn.expand("%:t")
         if type(filename) ~= "string" or string.len(filename) == 0 then
-            return { " " }
+            if mode_name then
+                return {
+                    " ",
+                    { fg = HighlightC.bg, bg = ViModeColors[mode_hl].bg },
+                }
+            else
+                return {
+                    " ",
+                    { fg = HighlightC.bg, bg = HighlightB.bg },
+                }
+            end
         end
 
         local has_devicons, devicons = pcall(require, "nvim-web-devicons")
