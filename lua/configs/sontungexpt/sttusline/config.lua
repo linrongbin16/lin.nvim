@@ -289,6 +289,30 @@ local FileName = {
     user_event = "VeryLazy",
     colors = HighlightB,
     separator = { right = LEFT_SLANT },
+    update = function()
+        local filename = vim.fn.expand("%:t")
+        if type(filename) ~= "string" or string.len(filename) == 0 then
+            return { " " }
+        end
+
+        local has_devicons, devicons = pcall(require, "nvim-web-devicons")
+        local icon, color_icon
+        if has_devicons then
+            icon, color_icon =
+                devicons.get_icon_color(filename, vim.fn.expand("%:e"))
+        end
+
+        local readonly = not vim.api.nvim_buf_get_option(0, "modifiable")
+            or vim.api.nvim_buf_get_option(0, "readonly")
+        local modified = vim.api.nvim_buf_get_option(0, "modified")
+        if readonly then
+            filename = filename .. " []"
+        elseif modified then
+            filename = filename .. " []"
+        end
+
+        return { icon and { icon .. " ", { fg = color_icon } } or "", filename }
+    end,
 }
 
 local Components = {
