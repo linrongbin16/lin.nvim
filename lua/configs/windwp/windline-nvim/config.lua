@@ -35,6 +35,118 @@ local function GetHl(with_sep)
     return with_sep and state.mode[2] .. "Sep" or state.mode[2]
 end
 
+local NormalBgColor = colors_hl.get_color_with_fallback(
+    { "PmenuSel", "PmenuThumb", "TabLineSel" },
+    "bg",
+    vim.g.terminal_color_5 -- magenta
+)
+local InsertBgColor = colors_hl.get_color_with_fallback(
+    { "String", "MoreMsg" },
+    "fg",
+    vim.g.terminal_color_2 -- green
+)
+local ReplaceBgColor = colors_hl.get_color_with_fallback(
+    { "Number", "Type" },
+    "fg",
+    vim.g.terminal_color_4 -- blue
+)
+local VisualBgColor = colors_hl.get_color_with_fallback(
+    { "Special", "Boolean", "Constant" },
+    "fg",
+    vim.g.terminal_color_3 -- yellow
+)
+local CommandBgColor = colors_hl.get_color_with_fallback(
+    { "Identifier" },
+    "fg",
+    vim.g.terminal_color_1 -- red
+)
+local StatusLineBgColor = colors_hl.get_color_with_fallback(
+    { "StatusLine", "Normal" },
+    "bg",
+    "#000000"
+)
+local BlackTextColor =
+    colors_hl.get_color_with_fallback({ "Normal" }, "bg", "#000000")
+local WhiteTextColor =
+    colors_hl.get_color_with_fallback({ "Normal" }, "fg", "#ffffff")
+
+-- Turns #rrggbb -> { red, green, blue }
+local function rgb_str2num(rgb_color_str)
+    if rgb_color_str:find("#") == 1 then
+        rgb_color_str = rgb_color_str:sub(2, #rgb_color_str)
+    end
+    local red = tonumber(rgb_color_str:sub(1, 2), 16)
+    local green = tonumber(rgb_color_str:sub(3, 4), 16)
+    local blue = tonumber(rgb_color_str:sub(5, 6), 16)
+    return { red = red, green = green, blue = blue }
+end
+
+-- Turns { red, green, blue } -> #rrggbb
+local function rgb_num2str(rgb_color_num)
+    local rgb_color_str = string.format(
+        "#%02x%02x%02x",
+        rgb_color_num.red,
+        rgb_color_num.green,
+        rgb_color_num.blue
+    )
+    return rgb_color_str
+end
+
+local function get_color_brightness(rgb_color)
+    local color = rgb_str2num(rgb_color)
+    local brightness = (color.red * 2 + color.green * 3 + color.blue) / 6
+    return brightness / 256
+end
+
+-- Clamps the val between left and right
+local function clamp(val, left, right)
+    if val > right then
+        return right
+    end
+    if val < left then
+        return left
+    end
+    return val
+end
+
+-- Changes brightness of rgb_color by percentage
+local function brightness_modifier(rgb_color, percentage)
+    local color = rgb_str2num(rgb_color)
+    color.red = clamp(color.red + (color.red * percentage / 100), 0, 255)
+    color.green = clamp(color.green + (color.green * percentage / 100), 0, 255)
+    color.blue = clamp(color.blue + (color.blue * percentage / 100), 0, 255)
+    return rgb_num2str(color)
+end
+
+local contrast_threshold = 0.3
+local brightness_modifier_parameter = 10
+
+local NormalBgTextColor = "black_text"
+
+local normal = colors_hl.get_color_with_fallback({ "Normal" }, "bg")
+if normal then
+    if get_color_brightness(normal) > 0.5 then
+        brightness_modifier_parameter = -brightness_modifier_parameter
+    end
+
+    NormalBgColor =
+        brightness_modifier(NormalBgColor, brightness_modifier_parameter)
+    InsertBgColor =
+        brightness_modifier(InsertBgColor, brightness_modifier_parameter)
+    ReplaceBgColor =
+        brightness_modifier(ReplaceBgColor, brightness_modifier_parameter)
+    VisualBgColor =
+        brightness_modifier(VisualBgColor, brightness_modifier_parameter)
+    CommandBgColor =
+        brightness_modifier(CommandBgColor, brightness_modifier_parameter)
+    StatusLineBgColor =
+        brightness_modifier(StatusLineBgColor, brightness_modifier_parameter)
+
+    if brightness_modifier_parameter < 0 then
+        NormalBgTextColor = "white_text"
+    end
+end
+
 local HIGHLIGHTS = {
     Black = { "white_text", "black_text" },
     White = { "black_text", "white_text" },
@@ -52,11 +164,11 @@ local Highlight_A = {
     VisualSep = { "yellow_a", "yellow_b" },
     ReplaceSep = { "blue_a", "blue_b" },
     CommandSep = { "red_a", "red_b" },
-    Normal = { "black_text", "normal_bg1" },
-    Insert = { "black_text", "green_a" },
-    Visual = { "black_text", "yellow_a" },
-    Replace = { "black_text", "blue_a" },
-    Command = { "black_text", "red_a" },
+    Normal = { NormalBgTextColor, "normal_bg1" },
+    Insert = { NormalBgTextColor, "green_a" },
+    Visual = { NormalBgTextColor, "yellow_a" },
+    Replace = { NormalBgTextColor, "blue_a" },
+    Command = { NormalBgTextColor, "red_a" },
 }
 
 local Highlight_B = {
@@ -383,73 +495,14 @@ windline.setup({
             return HSL.rgb_to_hsl(c):shade(value):to_rgb()
         end
 
-        colors.normal_bg = colors_hl.get_color_with_fallback(
-            { "PmenuSel", "PmenuThumb", "TabLineSel" },
-            "bg",
-            colors.magenta
-        )
-        colors.insert_bg = colors_hl.get_color_with_fallback(
-            { "String", "MoreMsg" },
-            "fg",
-            colors.green
-        )
-        colors.replace_bg = colors_hl.get_color_with_fallback(
-            { "Number", "Type" },
-            "fg",
-            colors.blue
-        )
-        colors.visual_bg = colors_hl.get_color_with_fallback(
-            { "Special", "Boolean", "Constant" },
-            "fg",
-            colors.yellow
-        )
-        colors.command_bg = colors_hl.get_color_with_fallback(
-            { "Identifier" },
-            "fg",
-            colors.red
-        )
-
-        local contrast_threshold = 0.3
-        local brightness_modifier_parameter = 10
-
-        local normal = colors_hl.get_color_with_fallback({ "Normal" }, "bg")
-        if normal then
-            if get_color_brightness(normal) > 0.5 then
-                brightness_modifier_parameter = -brightness_modifier_parameter
-            end
-
-            colors.normal_bg = brightness_modifier(
-                colors.normal_bg,
-                brightness_modifier_parameter
-            )
-            colors.insert_bg = brightness_modifier(
-                colors.insert_bg,
-                brightness_modifier_parameter
-            )
-            colors.replace_bg = brightness_modifier(
-                colors.replace_bg,
-                brightness_modifier_parameter
-            )
-            colors.visual_bg = brightness_modifier(
-                colors.visual_bg,
-                brightness_modifier_parameter
-            )
-            colors.command_bg = brightness_modifier(
-                colors.command_bg,
-                brightness_modifier_parameter
-            )
-        end
-
-        colors.statusline_bg = colors_hl.get_color_with_fallback(
-            { "StatusLine", "Normal" },
-            "bg",
-            "#000000"
-        )
-
-        colors.black_text =
-            colors_hl.get_color_with_fallback({ "Normal" }, "bg", "#000000")
-        colors.white_text =
-            colors_hl.get_color_with_fallback({ "Normal" }, "fg", "#ffffff")
+        colors.normal_bg = NormalBgColor
+        colors.insert_bg = InsertBgColor
+        colors.replace_bg = ReplaceBgColor
+        colors.visual_bg = VisualBgColor
+        colors.command_bg = CommandBgColor
+        colors.statusline_bg = StatusLineBgColor
+        colors.black_text = BlackTextColor
+        colors.white_text = WhiteTextColor
 
         colors.normal_bg1 = colors.normal_bg
         colors.normal_bg2 = mod(colors.normal_bg, 0.5)
