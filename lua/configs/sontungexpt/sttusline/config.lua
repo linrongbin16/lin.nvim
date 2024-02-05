@@ -5,8 +5,10 @@ local uv = require("commons.uv")
 local sttusline_colors = require("sttusline.utils.color")
 
 -- separator style: A \ B \ C ---- X / Y / Z
-local LEFT_SLANT = ""
-local RIGHT_SLANT = ""
+local LEFT_SLANT = ""
+local RIGHT_SLANT = ""
+local LEFT_SLANT2 = ""
+local RIGHT_SLANT2 = ""
 
 local function StrengthenColorBrightness(rgb, percent)
     local h, s, l = colors_hsl.rgb_string_to_hsl(rgb)
@@ -20,6 +22,8 @@ local NormalBgColor = colors_hl.get_color_with_fallback(
     "bg",
     sttusline_colors.blue
 )
+-- print(string.format("NormalBgColor:%s", vim.inspect(NormalBgColor)))
+
 local InsertBgColor = colors_hl.get_color_with_fallback(
     { "String", "MoreMsg" },
     "fg",
@@ -71,34 +75,38 @@ local function get_color_brightness(rgb)
     return brightness / 256
 end
 
-local IS_LIGHT = false
-if NormalBgColor then
-    IS_LIGHT = get_color_brightness(NormalBgColor) < 0.5
+local function try_strengthen_color_brightness(rgb, percent)
+    percent = percent or 0.2
+    if rgb then
+        local is_light = get_color_brightness(rgb) < 0.5
+        if is_light then
+            return StrengthenColorBrightness(rgb, percent)
+        end
+    end
+    return rgb
 end
 
-if IS_LIGHT then
-    NormalBgColor = StrengthenColorBrightness(NormalBgColor, 0.2)
-end
+-- NormalBgColor = try_strengthen_color_brightness(NormalBgColor)
+-- InsertBgColor = try_strengthen_color_brightness(InsertBgColor)
+-- ReplaceBgColor = try_strengthen_color_brightness(ReplaceBgColor)
+-- VisualBgColor = try_strengthen_color_brightness(VisualBgColor)
+-- CommandBgColor = try_strengthen_color_brightness(CommandBgColor)
 
 local HighlightA = {
     bg = NormalBgColor,
-    fg = WhiteColor,
-    gui = "bold",
+    fg = BlackColor,
 }
 local HighlightB = {
     bg = StrengthenColorBrightness(NormalBgColor, 0.5),
-    fg = WhiteColor,
-    gui = "bold",
+    fg = BlackColor,
 }
 local HighlightC = {
     bg = StrengthenColorBrightness(NormalBgColor, 0.7),
-    fg = BlackColor,
-    gui = "bold",
+    fg = WhiteColor,
 }
 local HighlightD = {
     bg = StatusLineColor,
-    fg = BlackColor,
-    gui = "bold",
+    fg = WhiteColor,
 }
 
 local FullModeName = {
@@ -165,7 +173,7 @@ local Mode = {
     name = "mode",
     event = { "ModeChanged", "VimResized" },
     user_event = "VeryLazy",
-    separator = { right = LEFT_SLANT },
+    colors = HighlightA,
     configs = {
         modes = {
             ["n"] = { "NORMAL", "STTUSLINE_NORMAL_MODE" },
@@ -217,42 +225,34 @@ local Mode = {
             ["STTUSLINE_NORMAL_MODE"] = {
                 fg = WhiteColor,
                 bg = NormalBgColor,
-                gui = "bold",
             },
             ["STTUSLINE_INSERT_MODE"] = {
                 fg = WhiteColor,
                 bg = InsertBgColor,
-                gui = "bold",
             },
             ["STTUSLINE_VISUAL_MODE"] = {
                 fg = WhiteColor,
                 bg = VisualBgColor,
-                gui = "bold",
             },
             ["STTUSLINE_TERMINAL_MODE"] = {
                 fg = WhiteColor,
                 bg = CommandBgColor,
-                gui = "bold",
             },
             ["STTUSLINE_REPLACE_MODE"] = {
                 fg = WhiteColor,
                 bg = ReplaceBgColor,
-                gui = "bold",
             },
             ["STTUSLINE_SELECT_MODE"] = {
                 fg = WhiteColor,
                 bg = VisualBgColor,
-                gui = "bold",
             },
             ["STTUSLINE_COMMAND_MODE"] = {
                 fg = WhiteColor,
                 bg = CommandBgColor,
-                gui = "bold",
             },
             ["STTUSLINE_CONFIRM_MODE"] = {
                 fg = WhiteColor,
                 bg = CommandBgColor,
-                gui = "bold",
             },
         },
     },
@@ -265,20 +265,37 @@ local Mode = {
             if vim.o.columns > 70 then
                 return {
                     {
-                        os_icon .. " " .. FullModeName[mode_name],
+                        os_icon .. " " .. FullModeName[mode_name] .. " ",
                         configs.mode_colors[mode_color],
+                    },
+                    {
+                        RIGHT_SLANT,
+                        { fg = HighlightA.bg, bg = HighlightB.bg },
                     },
                 }
             else
                 return {
                     {
-                        os_icon .. " " .. AbbrModeName[mode_name],
+                        os_icon .. " " .. AbbrModeName[mode_name] .. " ",
                         configs.mode_colors[mode_color],
+                    },
+                    {
+                        RIGHT_SLANT,
+                        { fg = HighlightA.bg, bg = HighlightB.bg },
                     },
                 }
             end
         end
-        return " " .. os_icon .. " " .. string.upper(mode_code) .. " "
+        return {
+            {
+                " " .. os_icon .. " " .. string.upper(mode_code) .. " ",
+                HighlightA,
+            },
+            {
+                RIGHT_SLANT,
+                { fg = HighlightA.bg, bg = HighlightB.bg },
+            },
+        }
     end,
 }
 
@@ -289,6 +306,7 @@ local FileName = {
     user_event = "VeryLazy",
     colors = HighlightB,
     separator = { left = LEFT_SLANT },
+    padding = { left = 1, right = 0 },
     update = function()
         local filename = vim.fn.expand("%:t")
         if type(filename) ~= "string" or string.len(filename) == 0 then
@@ -311,7 +329,11 @@ local FileName = {
             filename = filename .. " []"
         end
 
-        return { icon and { icon .. " ", { fg = color_icon } } or "", filename }
+        return {
+            icon and { icon .. " ", { fg = color_icon, bg = HighlightB.bg } }
+                or "",
+            filename,
+        }
     end,
 }
 
@@ -359,6 +381,6 @@ local Components = {
 
 require("sttusline").setup({
     on_attach = function(create_update_group) end,
-    statusline_color = "StatusLine",
+    -- statusline_color = "StatusLine",
     components = Components,
 })
