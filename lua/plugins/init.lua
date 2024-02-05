@@ -36,6 +36,10 @@ local M = {
             require("colorbox").update()
         end,
     },
+    {
+        "linrongbin16/commons.nvim",
+        lazy = true,
+    },
 
     -- ---- HIGHLIGHT ----
 
@@ -142,10 +146,10 @@ local M = {
         config = lua_config("linrongbin16/lsp-progress.nvim"),
     },
     {
-        "nvim-lualine/lualine.nvim",
+        "windwp/windline.nvim",
         event = { UIEnter },
         dependencies = { "linrongbin16/lsp-progress.nvim" },
-        config = lua_config("nvim-lualine/lualine.nvim"),
+        config = lua_config("windwp/windline.nvim"),
     },
     -- Winbar
     {
