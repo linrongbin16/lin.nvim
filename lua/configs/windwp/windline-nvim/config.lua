@@ -302,17 +302,17 @@ windline.setup({
             return HSL.rgb_to_hsl(c):shade(value):to_rgb()
         end
 
-        colors.normal_bg = colors.magenta
-        if
-            type(colors.normal_bg) ~= "string"
-            or not strings.startswith(colors.normal_bg, "#")
-        then
-            colors.normal_bg = colors_hl.get_color_with_fallback(
-                { "PmenuSel", "PmenuThumb", "TabLineSel" },
-                "bg",
-                "#FF00FF"
-            )
-        end
+        -- colors.normal_bg = colors.magenta
+        -- if
+        --     type(colors.normal_bg) ~= "string"
+        --     or not strings.startswith(colors.normal_bg, "#")
+        -- then
+        colors.normal_bg = colors_hl.get_color_with_fallback(
+            { "PmenuSel", "PmenuThumb", "TabLineSel" },
+            "bg",
+            colors.magenta
+        )
+        -- end
 
         colors.insert_bg = colors_hl.get_color_with_fallback(
             { "String", "MoreMsg" },
