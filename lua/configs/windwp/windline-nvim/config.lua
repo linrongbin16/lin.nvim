@@ -9,12 +9,33 @@ local lsp_comps = require("windline.components.lsp")
 local git_comps = require("windline.components.git")
 local colors_hl = require("commons.colors.hl")
 local colors_hsl = require("commons.colors.hsl")
+local strings = require("commons.strings")
+
+-- slant_left = '',
+-- slant_left_thin = '',
+-- slant_right = '',
+-- slant_right_thin = '',
+-- slant_left_2 = '',
+-- slant_left_2_thin = '',
+-- slant_right_2 = '',
+-- slant_right_2_thin = '',
+local LEFT_SEP = sep.slant_left
+local RIGHT_SEP = sep.slant_right
 
 local state = _G.WindLine.state
 
+local function GetModeName()
+    return state.mode[1]
+end
+
+--- @param with_sep boolean?
+local function GetModeCode(with_sep)
+    return with_sep and state.mode[2] .. "Sep" or state.mode[2]
+end
+
 local HIGHLIGHTS = {
-    Black = { "white", "black" },
-    White = { "black", "white" },
+    Black = { "white_text", "black_text" },
+    White = { "black_text", "white_text" },
     Normal = { "NormalFg", "NormalBg" },
     Inactive = { "InactiveFg", "InactiveBg" },
     Active = { "ActiveFg", "ActiveBg" },
@@ -23,51 +44,67 @@ local basic = {}
 
 local airline_colors = {}
 
-airline_colors.a = {
-    NormalSep = { "magenta_a", "magenta_b" },
+local Highlight_A = {
+    NormalSep = { "normal_bg1", "normal_bg2" },
     InsertSep = { "green_a", "green_b" },
     VisualSep = { "yellow_a", "yellow_b" },
     ReplaceSep = { "blue_a", "blue_b" },
     CommandSep = { "red_a", "red_b" },
-    Normal = { "black", "magenta_a" },
-    Insert = { "black", "green_a" },
-    Visual = { "black", "yellow_a" },
-    Replace = { "black", "blue_a" },
-    Command = { "black", "red_a" },
+    Normal = { "black_text", "normal_bg1" },
+    Insert = { "black_text", "green_a" },
+    Visual = { "black_text", "yellow_a" },
+    Replace = { "black_text", "blue_a" },
+    Command = { "black_text", "red_a" },
 }
 
 airline_colors.b = {
-    NormalSep = { "magenta_b", "magenta_c" },
+    NormalSep = { "normal_bg2", "normal_bg3" },
     InsertSep = { "green_b", "green_c" },
     VisualSep = { "yellow_b", "yellow_c" },
     ReplaceSep = { "blue_b", "blue_c" },
     CommandSep = { "red_b", "red_c" },
-    Normal = { "white", "magenta_b" },
-    Insert = { "white", "green_b" },
-    Visual = { "white", "yellow_b" },
-    Replace = { "white", "blue_b" },
-    Command = { "white", "red_b" },
+    Normal = { "white_text", "normal_bg2" },
+    Insert = { "white_text", "green_b" },
+    Visual = { "white_text", "yellow_b" },
+    Replace = { "white_text", "blue_b" },
+    Command = { "white_text", "red_b" },
 }
 
 airline_colors.c = {
-    NormalSep = { "magenta_c", "NormalBg" },
+    NormalSep = { "normal_bg3", "NormalBg" },
     InsertSep = { "green_c", "NormalBg" },
     VisualSep = { "yellow_c", "NormalBg" },
     ReplaceSep = { "blue_c", "NormalBg" },
     CommandSep = { "red_c", "NormalBg" },
-    Normal = { "white", "magenta_c" },
-    Insert = { "white", "green_c" },
-    Visual = { "white", "yellow_c" },
-    Replace = { "white", "blue_c" },
-    Command = { "white", "red_c" },
+    Normal = { "white_text", "normal_bg3" },
+    Insert = { "white_text", "green_c" },
+    Visual = { "white_text", "yellow_c" },
+    Replace = { "white_text", "blue_c" },
+    Command = { "white_text", "red_c" },
 }
 
 local WIDTH_BREAKPOINT = 80
 
 local DividerComponent = { "%=", HIGHLIGHTS.Normal }
 
+local Mode = {
+    hl_colors = Highlight_A,
+    text = function(_, _, width)
+        if width > WIDTH_BREAKPOINT then
+            return {
+                { " " .. GetModeName() .. " ", GetModeCode() },
+                { RIGHT_SEP, GetModeCode(true) },
+            }
+        end
+        return {
+            { " " .. GetModeName():sub(1, 1) .. " ", GetModeCode() },
+            { RIGHT_SEP, GetModeCode(true) },
+        }
+    end,
+}
+
 basic.section_a = {
-    hl_colors = airline_colors.a,
+    hl_colors = Highlight_A,
     text = function(_, _, width)
         if width > WIDTH_BREAKPOINT then
             return {
@@ -145,7 +182,7 @@ basic.section_y = {
 }
 
 basic.section_z = {
-    hl_colors = airline_colors.a,
+    hl_colors = Highlight_A,
     text = function(_, _, width)
         if width > WIDTH_BREAKPOINT then
             return {
@@ -220,8 +257,8 @@ basic.git = {
 local quickfix = {
     filetypes = { "qf", "Trouble" },
     active = {
-        { "🚦 Quickfix ", { "white", "black" } },
-        { helper.separators.slant_right, { "black", "black_light" } },
+        { "🚦 Quickfix ", { "white_text", "black_text" } },
+        { helper.separators.slant_right, { "black_text", "black_light" } },
         {
             function()
                 return vim.fn.getqflist({ title = 0 }).title
@@ -232,20 +269,8 @@ local quickfix = {
         { helper.separators.slant_right, { "black_light", "InactiveBg" } },
         { " ", { "InactiveFg", "InactiveBg" } },
         DividerComponent,
-        { helper.separators.slant_right, { "InactiveBg", "black" } },
-        { "🧛 ", { "white", "black" } },
-    },
-    always_active = true,
-    show_last_status = true,
-}
-
-local explorer = {
-    filetypes = { "fern", "NvimTree", "lir" },
-    active = {
-        { "  ", { "white", "magenta_b" } },
-        { helper.separators.slant_right, { "magenta_b", "NormalBg" } },
-        { "%=", "" },
-        { b_components.file_name(""), { "NormalFg", "NormalBg" } },
+        { helper.separators.slant_right, { "InactiveBg", "black_text" } },
+        { "🧛 ", { "white_text", "black_text" } },
     },
     always_active = true,
     show_last_status = true,
@@ -254,7 +279,7 @@ local explorer = {
 local default = {
     filetypes = { "default" },
     active = {
-        basic.section_a,
+        Mode,
         basic.section_b,
         basic.section_c,
         basic.lsp_diagnos,
@@ -277,11 +302,18 @@ windline.setup({
             return HSL.rgb_to_hsl(c):shade(value):to_rgb()
         end
 
-        colors.normal_bg = colors_hl.get_color_with_fallback(
-            { "PmenuSel", "PmenuThumb", "TabLineSel" },
-            "bg",
-            colors.magenta
-        )
+        colors.normal_bg = colors.magenta
+        if
+            type(colors.normal_bg) ~= "string"
+            or not strings.startswith(colors.normal_bg, "#")
+        then
+            colors.normal_bg = colors_hl.get_color_with_fallback(
+                { "PmenuSel", "PmenuThumb", "TabLineSel" },
+                "bg",
+                "#FF00FF"
+            )
+        end
+
         colors.insert_bg = colors_hl.get_color_with_fallback(
             { "String", "MoreMsg" },
             "fg",
@@ -344,6 +376,5 @@ windline.setup({
     statuslines = {
         default,
         quickfix,
-        explorer,
     },
 })
