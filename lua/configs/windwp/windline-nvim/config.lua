@@ -219,7 +219,7 @@ local function apply_contrast(highlight)
     end
 end
 
-local Highlight_A = {
+local Highlight1 = {
     NormalSep = { "normal_bg1", "normal_bg2" },
     InsertSep = { "insert_bg1", "normal_bg2" },
     VisualSep = { "visual_bg1", "normal_bg2" },
@@ -232,7 +232,7 @@ local Highlight_A = {
     Command = { "black_text", "command_bg1" },
 }
 
-local Highlight_B = {
+local Highlight2 = {
     NormalSep = { "normal_bg2", "normal_bg3" },
     Normal = { "white_text", "normal_bg2" },
     Insert = { "white_text", "normal_bg2" },
@@ -241,12 +241,12 @@ local Highlight_B = {
     Command = { "white_text", "normal_bg2" },
 }
 
-local Highlight_C = {
+local Highlight3 = {
     NormalSep = { "normal_bg3", "statusline_bg" },
     Normal = { "white_text", "normal_bg3" },
 }
 
-local Highlight_D = {
+local Highlight4 = {
     NormalSep = { "statusline_bg", "black_text" },
     Normal = { "white_text", "statusline_bg" },
     GitAdd = { "diff_add", "statusline_bg" },
@@ -306,7 +306,7 @@ local basic = {}
 
 local WIDTH_BREAKPOINT = 70
 
-local DividerComponent = { "%=", Highlight_D.Normal }
+local DividerComponent = { "%=", Highlight4.Normal }
 
 local OS_UNAME = uv.os_uname()
 
@@ -329,7 +329,7 @@ local function GetOsIcon()
 end
 
 local Mode = {
-    hl_colors = Highlight_A,
+    hl_colors = Highlight1,
     text = function(_, _, width)
         local os_icon = GetOsIcon()
         if width > WIDTH_BREAKPOINT then
@@ -352,7 +352,7 @@ local Mode = {
 }
 
 local GitBranch = {
-    hl_colors = Highlight_B,
+    hl_colors = Highlight2,
     text = function(bufnr, _, width)
         if width > WIDTH_BREAKPOINT then
             local has_git_branch = vim.fn.exists("*gitbranch#name") > 0
@@ -382,7 +382,7 @@ local function GetFileName(bufnr, _, width)
 end
 
 local FileName = {
-    hl_colors = Highlight_C,
+    hl_colors = Highlight3,
     text = function()
         return {
             { " ", "Normal" },
@@ -435,7 +435,7 @@ local function GetFileStatus(bufnr, _, width)
 end
 
 local FileStatus = {
-    hl_colors = Highlight_C,
+    hl_colors = Highlight3,
     width = WIDTH_BREAKPOINT,
     text = function()
         return {
@@ -479,7 +479,7 @@ end
 
 local GitDiff = {
     width = WIDTH_BREAKPOINT,
-    hl_colors = Highlight_D,
+    hl_colors = Highlight4,
     text = cache_utils.cache_on_buffer(
         { "User GitGutter" },
         "WindLineComponent_GitDiff",
@@ -488,7 +488,7 @@ local GitDiff = {
 }
 
 basic.section_c = {
-    hl_colors = Highlight_C,
+    hl_colors = Highlight3,
     text = function()
         return {
             { " ", state.mode[2] },
@@ -500,7 +500,7 @@ basic.section_c = {
 }
 
 basic.section_x = {
-    hl_colors = Highlight_C,
+    hl_colors = Highlight3,
     text = function(_, _, width)
         if width > WIDTH_BREAKPOINT then
             return {
@@ -519,7 +519,7 @@ basic.section_x = {
 }
 
 basic.section_y = {
-    hl_colors = Highlight_B,
+    hl_colors = Highlight2,
     text = function(_, _, width)
         if width > WIDTH_BREAKPOINT then
             return {
@@ -536,7 +536,7 @@ basic.section_y = {
 }
 
 basic.section_z = {
-    hl_colors = Highlight_A,
+    hl_colors = Highlight1,
     text = function(_, _, width)
         if width > WIDTH_BREAKPOINT then
             return {
@@ -638,7 +638,7 @@ local default = {
         FileName,
         FileStatus,
         GitDiff,
-        { vim_components.search_count(), { "cyan", "NormalBg" } },
+        -- { vim_components.search_count(), { "cyan", "NormalBg" } },
         DividerComponent,
         basic.lsp_diagnos,
         basic.section_x,
