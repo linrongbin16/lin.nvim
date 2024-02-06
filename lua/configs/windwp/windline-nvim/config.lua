@@ -66,9 +66,9 @@ local StatusLineBgColor = colors_hl.get_color_with_fallback(
     "bg",
     "#000000"
 )
-local BlackTextColor =
+local BlackColor =
     colors_hl.get_color_with_fallback({ "Normal" }, "bg", "#000000")
-local WhiteTextColor =
+local WhiteColor =
     colors_hl.get_color_with_fallback({ "Normal" }, "fg", "#ffffff")
 
 -- Turns #rrggbb -> { red, green, blue }
@@ -122,9 +122,6 @@ end
 local contrast_threshold = 0.3
 local brightness_modifier_parameter = 10
 
-local HighlightATextColor = "white_text"
-local HighlightBTextColor = "black_text"
-
 local normal = colors_hl.get_color_with_fallback({ "Normal" }, "bg")
 if normal then
     if get_color_brightness(normal) > 0.5 then
@@ -143,11 +140,6 @@ if normal then
         brightness_modifier(CommandBgColor, brightness_modifier_parameter)
     StatusLineBgColor =
         brightness_modifier(StatusLineBgColor, brightness_modifier_parameter)
-
-    if brightness_modifier_parameter < 0 then
-        HighlightATextColor = "black_text"
-        HighlightBTextColor = "white_text"
-    end
 end
 
 -- Changes contrast of rgb_color by amount
@@ -169,7 +161,7 @@ end
 -- Changes brightness of foreground color to achieve contrast
 -- without changing the color
 local function apply_contrast(highlight)
-    local highlight_bg_avg = get_color_avg(highlight.bg)
+    local highlight_bg_avg = get_color_avg(highlight[2])
     local contrast_threshold_config = clamp(contrast_threshold, 0, 0.5)
     local contrast_change_step = 5
     if highlight_bg_avg > 0.5 then
@@ -179,16 +171,16 @@ local function apply_contrast(highlight)
     -- Don't waste too much time here max 25 iteration should be more than enough
     local iteration_count = 1
     while
-        math.abs(get_color_avg(highlight.fg) - highlight_bg_avg)
+        math.abs(get_color_avg(highlight[1]) - highlight_bg_avg)
             < contrast_threshold_config
         and iteration_count < 25
     do
-        highlight.fg = contrast_modifier(highlight.fg, contrast_change_step)
+        highlight[1] = contrast_modifier(highlight[1], contrast_change_step)
         iteration_count = iteration_count + 1
     end
 end
 
-local HIGHLIGHTS = {
+local Highlights = {
     Black = { "white_text", "black_text" },
     White = { "black_text", "white_text" },
     Normal = { "NormalFg", "NormalBg" },
@@ -196,19 +188,17 @@ local HIGHLIGHTS = {
     Active = { "ActiveFg", "ActiveBg" },
 }
 
-local basic = {}
-
 local Highlight_A = {
     NormalSep = { "normal_bg1", "normal_bg2" },
     InsertSep = { "insert_bg1", "insert_bg2" },
     VisualSep = { "visual_bg1", "visual_bg2" },
     ReplaceSep = { "replace_bg1", "replace_bg2" },
     CommandSep = { "command_bg1", "command_bg2" },
-    Normal = { HighlightATextColor, "normal_bg1" },
-    Insert = { HighlightATextColor, "insert_bg1" },
-    Visual = { HighlightATextColor, "visual_bg1" },
-    Replace = { HighlightATextColor, "replace_bg1" },
-    Command = { HighlightATextColor, "command_bg1" },
+    Normal = { "black_text", "normal_bg1" },
+    Insert = { "black_text", "insert_bg1" },
+    Visual = { "black_text", "visual_bg1" },
+    Replace = { "black_text", "replace_bg1" },
+    Command = { "black_text", "command_bg1" },
 }
 
 local Highlight_B = {
@@ -237,9 +227,24 @@ local Highlight_C = {
     Command = { "white_text", "command_bg3" },
 }
 
+for _, h in ipairs(Highlights) do
+    apply_contrast(h)
+end
+for _, h in ipairs(Highlight_A) do
+    apply_contrast(h)
+end
+for _, h in ipairs(Highlight_B) do
+    apply_contrast(h)
+end
+for _, h in ipairs(Highlight_C) do
+    apply_contrast(h)
+end
+
+local basic = {}
+
 local WIDTH_BREAKPOINT = 80
 
-local DividerComponent = { "%=", HIGHLIGHTS.Normal }
+local DividerComponent = { "%=", Highlights.Normal }
 
 local OS_UNAME = uv.os_uname()
 
@@ -310,7 +315,7 @@ local function GetFileName(bufnr)
     if strings.empty(bufname) then
         return default
     end
-    bufname = vim.fn.fnamemodify(bufname, ":~:.")
+    bufname = vim.fn.fnamemodify(bufname, ":t")
     bufname = vim.fn.pathshorten(bufname)
     return bufname
 end
@@ -556,8 +561,8 @@ windline.setup({
         colors.visual_bg = VisualBgColor
         colors.command_bg = CommandBgColor
         colors.statusline_bg = StatusLineBgColor
-        colors.black_text = BlackTextColor
-        colors.white_text = WhiteTextColor
+        colors.black_text = BlackColor
+        colors.white_text = WhiteColor
 
         colors.normal_bg1 = colors.normal_bg
         colors.normal_bg2 = mod(colors.normal_bg, 0.5)
