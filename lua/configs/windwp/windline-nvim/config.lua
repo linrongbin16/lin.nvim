@@ -378,11 +378,15 @@ local FileStatus = {
     text = function()
         return {
             {
-                cache_utils.cache_on_buffer(
-                    { "BufEnter", "BufReadPost", "BufNewFile", "BufWritePost" },
-                    "WindLineComponent_FileStatus",
-                    GetFileStatus
-                ),
+                cache_utils.cache_on_buffer({
+                    "BufEnter",
+                    "BufNewFile",
+                    "BufWritePost",
+                    "FocusGained",
+                    "InsertEnter",
+                    "InsertLeave",
+                    "WinEnter",
+                }, "WindLineComponent_FileStatus", GetFileStatus),
             },
             { " " },
             { RIGHT_SEP, GetHl(true) },
