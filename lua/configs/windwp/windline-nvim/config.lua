@@ -351,7 +351,7 @@ local FileName = {
             { " ", GetHl() },
             {
                 cache_utils.cache_on_buffer(
-                    { "BufReadPost", "BufNewFile", "BufWritePost" },
+                    { "BufEnter", "BufReadPost", "BufNewFile", "BufWritePost" },
                     "WindLineComponent_FileName",
                     GetFileName
                 ),
@@ -361,6 +361,8 @@ local FileName = {
         }
     end,
 }
+
+local FileStatus = {}
 
 basic.section_c = {
     hl_colors = Highlight_C,
