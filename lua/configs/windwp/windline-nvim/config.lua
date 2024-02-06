@@ -36,6 +36,13 @@ local function GetHl(with_sep)
     return with_sep and state.mode[2] .. "Sep" or state.mode[2]
 end
 
+local function ModifyColor(c, value)
+    if vim.o.background == "light" then
+        return HSL.rgb_to_hsl(c):tint(value):to_rgb()
+    end
+    return HSL.rgb_to_hsl(c):shade(value):to_rgb()
+end
+
 local NormalBgColor = colors_hl.get_color_with_fallback(
     { "PmenuSel", "PmenuThumb", "TabLineSel" },
     "bg",
@@ -154,7 +161,25 @@ if normal then
         brightness_modifier(VisualBgColor, brightness_modifier_parameter)
     CommandBgColor =
         brightness_modifier(CommandBgColor, brightness_modifier_parameter)
+    StatusLineBgColor =
+        brightness_modifier(StatusLineBgColor, brightness_modifier_parameter)
 end
+
+local NormalBgColor1 = NormalBgColor
+local NormalBgColor2 = ModifyColor(NormalBgColor1, 0.5)
+local NormalBgColor3 = ModifyColor(NormalBgColor1, 0.7)
+local InsertBgColor1 = InsertBgColor
+local InsertBgColor2 = ModifyColor(InsertBgColor1, 0.5)
+local InsertBgColor3 = ModifyColor(InsertBgColor1, 0.7)
+local VisualBgColor1 = VisualBgColor
+local VisualBgColor2 = ModifyColor(VisualBgColor1, 0.5)
+local VisualBgColor3 = ModifyColor(VisualBgColor1, 0.7)
+local ReplaceBgColor1 = ReplaceBgColor
+local ReplaceBgColor2 = ModifyColor(ReplaceBgColor1, 0.5)
+local ReplaceBgColor3 = ModifyColor(ReplaceBgColor1, 0.7)
+local CommandBgColor1 = CommandBgColor
+local CommandBgColor2 = ModifyColor(CommandBgColor1, 0.5)
+local CommandBgColor3 = ModifyColor(CommandBgColor1, 0.7)
 
 -- Changes contrast of rgb_color by amount
 local function contrast_modifier(rgb_color, amount)
@@ -175,7 +200,7 @@ end
 -- Changes brightness of foreground color to achieve contrast
 -- without changing the color
 local function apply_contrast(highlight)
-    local highlight_bg_avg = get_color_avg(highlight[2])
+    local highlight_bg_avg = get_color_avg(highlight.bg)
     local contrast_threshold_config = clamp(contrast_threshold, 0, 0.5)
     local contrast_change_step = 5
     if highlight_bg_avg > 0.5 then
@@ -185,11 +210,11 @@ local function apply_contrast(highlight)
     -- Don't waste too much time here max 25 iteration should be more than enough
     local iteration_count = 1
     while
-        math.abs(get_color_avg(highlight[1]) - highlight_bg_avg)
+        math.abs(get_color_avg(highlight.fg) - highlight_bg_avg)
             < contrast_threshold_config
         and iteration_count < 25
     do
-        highlight[1] = contrast_modifier(highlight[1], contrast_change_step)
+        highlight.fg = contrast_modifier(highlight.fg, contrast_change_step)
         iteration_count = iteration_count + 1
     end
 end
@@ -229,16 +254,51 @@ local Highlight_D = {
     GitChange = { "diff_change", "statusline_bg" },
 }
 
-for _, h in ipairs(Highlight_A) do
+local Highlight1_Builder = {
+    NormalSep = { fg = NormalBgColor1, bg = NormalBgColor2 },
+    InsertSep = { fg = InsertBgColor1, bg = NormalBgColor2 },
+    VisualSep = { fg = VisualBgColor1, bg = NormalBgColor2 },
+    ReplaceSep = { fg = ReplaceBgColor1, bg = NormalBgColor2 },
+    CommandSep = { fg = CommandBgColor1, bg = NormalBgColor2 },
+    Normal = { fg = BlackColor, bg = NormalBgColor1 },
+    Insert = { fg = BlackColor, bg = InsertBgColor1 },
+    Visual = { fg = BlackColor, bg = VisualBgColor1 },
+    Replace = { fg = BlackColor, bg = ReplaceBgColor1 },
+    Command = { fg = BlackColor, bg = CommandBgColor1 },
+}
+
+local Highlight2_Builder = {
+    NormalSep = { fg = NormalBgColor2, bg = NormalBgColor3 },
+    Normal = { fg = WhiteColor, bg = NormalBgColor2 },
+    Insert = { fg = WhiteColor, bg = NormalBgColor2 },
+    Visual = { fg = WhiteColor, bg = NormalBgColor2 },
+    Replace = { fg = WhiteColor, bg = NormalBgColor2 },
+    Command = { fg = WhiteColor, bg = NormalBgColor2 },
+}
+
+local Highlight3_Builder = {
+    NormalSep = { fg = NormalBgColor3, bg = StatusLineBgColor },
+    Normal = { fg = WhiteColor, bg = NormalBgColor3 },
+}
+
+local Highlight4_Builder = {
+    NormalSep = { fg = StatusLineBgColor, bg = BlackColor },
+    Normal = { fg = WhiteColor, bg = StatusLineBgColor },
+    GitAdd = { fg = DiffAddColor, bg = StatusLineBgColor },
+    GitDelete = { fg = DiffDeleteColor, bg = StatusLineBgColor },
+    GitChange = { fg = DiffChangeColor, bg = StatusLineBgColor },
+}
+
+for _, h in ipairs(Highlight1_Builder) do
     apply_contrast(h)
 end
-for _, h in ipairs(Highlight_B) do
+for _, h in ipairs(Highlight2_Builder) do
     apply_contrast(h)
 end
-for _, h in ipairs(Highlight_C) do
+for _, h in ipairs(Highlight3_Builder) do
     apply_contrast(h)
 end
-for _, h in ipairs(Highlight_D) do
+for _, h in ipairs(Highlight4_Builder) do
     apply_contrast(h)
 end
 
@@ -638,41 +698,17 @@ end
 
 windline.setup({
     colors_name = function(colors)
-        local mod = function(c, value)
-            if vim.o.background == "light" then
-                return HSL.rgb_to_hsl(c):tint(value):to_rgb()
-            end
-            return HSL.rgb_to_hsl(c):shade(value):to_rgb()
-        end
+        colors.statusline_bg = Highlight4_Builder.Normal.bg
+        colors.black_text = Highlight1_Builder.Normal.fg
+        colors.white_text = Highlight4_Builder.Normal.fg
 
-        colors.normal_bg = NormalBgColor
-        colors.insert_bg = InsertBgColor
-        colors.replace_bg = ReplaceBgColor
-        colors.visual_bg = VisualBgColor
-        colors.command_bg = CommandBgColor
-        colors.statusline_bg = StatusLineBgColor
-        colors.black_text = BlackColor
-        colors.white_text = WhiteColor
-
-        colors.normal_bg1 = colors.normal_bg
-        colors.normal_bg2 = mod(colors.normal_bg, 0.5)
-        colors.normal_bg3 = mod(colors.normal_bg, 0.7)
-
-        colors.insert_bg1 = colors.insert_bg
-        -- colors.insert_bg2 = mod(colors.insert_bg, 0.5)
-        -- colors.insert_bg3 = mod(colors.insert_bg, 0.7)
-
-        colors.replace_bg1 = colors.replace_bg
-        -- colors.replace_bg2 = mod(colors.replace_bg, 0.5)
-        -- colors.replace_bg3 = mod(colors.replace_bg, 0.7)
-
-        colors.visual_bg1 = colors.visual_bg
-        -- colors.visual_bg2 = mod(colors.visual_bg, 0.5)
-        -- colors.visual_bg3 = mod(colors.visual_bg, 0.7)
-
-        colors.command_bg1 = colors.command_bg
-        -- colors.command_bg2 = mod(colors.command_bg, 0.5)
-        -- colors.command_bg3 = mod(colors.command_bg, 0.7)
+        colors.normal_bg1 = Highlight1_Builder.Normal.bg
+        colors.normal_bg2 = Highlight2_Builder.Normal.bg
+        colors.normal_bg3 = Highlight3_Builder.Normal.bg
+        colors.insert_bg1 = Highlight1_Builder.Insert.bg
+        colors.replace_bg1 = Highlight1_Builder.Replace.bg
+        colors.visual_bg1 = Highlight1_Builder.Visual.bg
+        colors.command_bg1 = Highlight1_Builder.Command.bg
 
         return colors
     end,
