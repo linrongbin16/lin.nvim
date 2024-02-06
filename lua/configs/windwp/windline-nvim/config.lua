@@ -316,32 +316,7 @@ local function GetFileName(bufnr, _, width)
         return default
     end
     local filename = vim.fn.fnamemodify(filepath, ":t")
-    if strings.empty(filename) or width <= WIDTH_BREAKPOINT then
-        return filename
-    end
-
-    local filestatus = ""
-    local readonly = not vim.api.nvim_buf_get_option(bufnr, "modifiable")
-        or vim.api.nvim_buf_get_option(bufnr, "readonly")
-    local modified = vim.api.nvim_buf_get_option(bufnr, "modified")
-    if readonly then
-        filestatus = " []"
-    elseif modified then
-        filestatus = " []"
-    end
-
-    local fsize = vim.fn.getfsize(filepath) or 0
-    local suffixes = { "b", "k", "m", "g" }
-    local i = 1
-    while fsize > 1024 and i < #suffixes do
-        fsize = fsize / 1024
-        i = i + 1
-    end
-
-    local filesize_format = i == 1 and " [%d%s]" or " [%.1f%s]"
-    local filesize = string.format(filesize_format, fsize, suffixes[i])
-
-    return filename .. filestatus .. filesize
+    return filename
 end
 
 local FileName = {
@@ -351,9 +326,62 @@ local FileName = {
             { " ", GetHl() },
             {
                 cache_utils.cache_on_buffer(
-                    { "BufEnter", "BufReadPost", "BufNewFile", "BufWritePost" },
+                    { "BufEnter", "BufNewFile" },
                     "WindLineComponent_FileName",
                     GetFileName
+                ),
+            },
+            { " " },
+        }
+    end,
+}
+
+local function GetFileStatus(bufnr, _, width)
+    local filepath = vim.fn.expand("%:p")
+    if strings.empty(filepath) then
+        return ""
+    end
+
+    local filestatus = ""
+    local readonly = not vim.api.nvim_buf_get_option(bufnr, "modifiable")
+        or vim.api.nvim_buf_get_option(bufnr, "readonly")
+    local modified = vim.api.nvim_buf_get_option(bufnr, "modified")
+    if readonly then
+        filestatus = "[]"
+    elseif modified then
+        filestatus = "[]"
+    end
+
+    local fsize = vim.fn.getfsize(filepath)
+    if fsize <= 0 then
+        return filestatus
+    end
+    local suffixes = { "b", "k", "m", "g" }
+    local i = 1
+    while fsize > 1024 and i < #suffixes do
+        fsize = fsize / 1024
+        i = i + 1
+    end
+
+    local filesize_format = i == 1 and "[%d%s]" or "[%.1f%s]"
+    local filesize = string.format(filesize_format, fsize, suffixes[i])
+    if string.len(filestatus) > 0 then
+        return filestatus .. " " .. filesize
+    else
+        return filesize
+    end
+end
+
+local FileStatus = {
+    hl_colors = Highlight_C,
+    width = WIDTH_BREAKPOINT,
+    text = function()
+        return {
+            {
+                cache_utils.cache_on_buffer(
+                    { "BufEnter", "BufReadPost", "BufNewFile", "BufWritePost" },
+                    "WindLineComponent_FileStatus",
+                    GetFileStatus
                 ),
             },
             { " " },
@@ -361,8 +389,6 @@ local FileName = {
         }
     end,
 }
-
-local FileStatus = {}
 
 basic.section_c = {
     hl_colors = Highlight_C,
@@ -513,6 +539,7 @@ local default = {
         Mode,
         GitBranch,
         FileName,
+        FileStatus,
         basic.lsp_diagnos,
         { vim_components.search_count(), { "cyan", "NormalBg" } },
         DividerComponent,
