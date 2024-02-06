@@ -710,6 +710,10 @@ windline.setup({
         colors.visual_bg1 = Highlight1_Builder.Visual.bg
         colors.command_bg1 = Highlight1_Builder.Command.bg
 
+        colors.diff_add = Highlight4_Builder.GitAdd.fg
+        colors.diff_change = Highlight4_Builder.GitChange.fg
+        colors.diff_delete = Highlight4_Builder.GitDelete.fg
+
         return colors
     end,
     statuslines = {
