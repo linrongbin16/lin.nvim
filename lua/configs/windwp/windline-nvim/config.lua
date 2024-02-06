@@ -243,6 +243,19 @@ local Highlight_C = {
     Command = { "white_text", "command_bg3" },
 }
 
+local Highlight_D = {
+    NormalSep = { "normal_bg4", "black_text" },
+    InsertSep = { "insert_bg4", "black_text" },
+    VisualSep = { "visual_bg4", "black_text" },
+    ReplaceSep = { "replace_bg4", "black_text" },
+    CommandSep = { "command_bg4", "black_text" },
+    Normal = { "white_text", "normal_bg4" },
+    Insert = { "white_text", "insert_bg4" },
+    Visual = { "white_text", "visual_bg4" },
+    Replace = { "white_text", "replace_bg4" },
+    Command = { "white_text", "command_bg4" },
+}
+
 for _, h in ipairs(Highlights) do
     apply_contrast(h)
 end
@@ -255,10 +268,13 @@ end
 for _, h in ipairs(Highlight_C) do
     apply_contrast(h)
 end
+for _, h in ipairs(Highlight_D) do
+    apply_contrast(h)
+end
 
 local basic = {}
 
-local WIDTH_BREAKPOINT = 80
+local WIDTH_BREAKPOINT = 70
 
 local DividerComponent = { "%=", Highlights.Normal }
 
@@ -410,24 +426,24 @@ local FileStatus = {
 local GitDiff = {
     name = "gitdiff",
     width = WIDTH_BREAKPOINT,
-    hl_colors = {
-        git_add = { "diff_add", "normal_bg4" },
-        git_delete = { "diff_delete", "normal_bg4" },
-        git_change = { "diff_change", "normal_bg4" },
-    },
-    text = function(bufnr)
+    hl_colors = Highlight_D,
+    text = function()
+        local git_add = { "diff_add", "black_text" }
+        local git_delete = { "diff_delete", "black_text" }
+        local git_change = { "diff_change", "black_text" }
+
         if vim.fn.exists("*GitGutterGetHunkSummary") > 0 then
             local summary = vim.fn["GitGutterGetHunkSummary"]()
             local signs = { "+", "~", "-" }
-            local hls = { "git_add", "git_change", "git_delete" }
-            local components = {}
+            local hls = { git_add, git_change, git_delete }
+            local components = { { " ", GetHl() } }
             local found = false
             for i = 1, 3 do
                 local value = summary[i] or 0
                 if value > 0 then
                     table.insert(
                         components,
-                        { string.format("%s%d", signs[i], value), hls[i] }
+                        { string.format("%s%d ", signs[i], value), hls[i] }
                     )
                     found = true
                 end
@@ -436,7 +452,7 @@ local GitDiff = {
                 return components
             end
         end
-        return ""
+        return { { " ", GetHl() } }
     end,
 }
 
@@ -590,7 +606,7 @@ local default = {
         GitBranch,
         FileName,
         FileStatus,
-        basic.git,
+        GitDiff,
         { vim_components.search_count(), { "cyan", "NormalBg" } },
         DividerComponent,
         basic.lsp_diagnos,
