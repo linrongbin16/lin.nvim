@@ -416,12 +416,25 @@ local GitDiff = {
         git_change = { "diff_change", "normal_bg4" },
     },
     text = function(bufnr)
-        if git_comps.is_git(bufnr) then
-            return {
-                { git_comps.diff_added({ format = "  %s" }), "green" },
-                { git_comps.diff_removed({ format = "  %s" }), "red" },
-                { git_comps.diff_changed({ format = "  %s" }), "blue" },
-            }
+        if vim.fn.exists("*GitGutterGetHunkSummary") > 0 then
+            local summary = vim.fn["GitGutterGetHunkSummary"]()
+            local signs = { "+", "~", "-" }
+            local hls = { "git_add", "git_change", "git_delete" }
+            local components = {}
+            local found = false
+            for i = 1, 3 do
+                local value = summary[i] or 0
+                if value > 0 then
+                    table.insert(
+                        components,
+                        { string.format("%s%d", signs[i], value), hls[i] }
+                    )
+                    found = true
+                end
+            end
+            if found then
+                return components
+            end
         end
         return ""
     end,
