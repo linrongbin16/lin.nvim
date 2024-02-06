@@ -289,18 +289,18 @@ local Highlight4_Builder = {
     GitChange = { fg = DiffChangeColor, bg = StatusLineBgColor },
 }
 
-for _, h in ipairs(Highlight1_Builder) do
-    apply_contrast(h)
-end
-for _, h in ipairs(Highlight2_Builder) do
-    apply_contrast(h)
-end
-for _, h in ipairs(Highlight3_Builder) do
-    apply_contrast(h)
-end
-for _, h in ipairs(Highlight4_Builder) do
-    apply_contrast(h)
-end
+-- for _, h in ipairs(Highlight1_Builder) do
+--     apply_contrast(h)
+-- end
+-- for _, h in ipairs(Highlight2_Builder) do
+--     apply_contrast(h)
+-- end
+-- for _, h in ipairs(Highlight3_Builder) do
+--     apply_contrast(h)
+-- end
+-- for _, h in ipairs(Highlight4_Builder) do
+--     apply_contrast(h)
+-- end
 
 local basic = {}
 
