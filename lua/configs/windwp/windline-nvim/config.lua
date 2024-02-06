@@ -316,11 +316,17 @@ local function GetFileName(bufnr, _, width)
         return default
     end
 
-    local fsize = vim.fn.getfsize(filepath)
-    if fsize <= 0 then
-        return ""
+    local filestatus = ""
+    local readonly = not vim.api.nvim_buf_get_option(bufnr, "modifiable")
+        or vim.api.nvim_buf_get_option(bufnr, "readonly")
+    local modified = vim.api.nvim_buf_get_option(bufnr, "modified")
+    if readonly then
+        filestatus = " []"
+    elseif modified then
+        filestatus = " []"
     end
 
+    local fsize = vim.fn.getfsize(filepath) or 0
     local suffixes = { "b", "k", "m", "g" }
     local i = 1
     while fsize > 1024 and i < #suffixes do
@@ -328,11 +334,11 @@ local function GetFileName(bufnr, _, width)
         i = i + 1
     end
 
-    local filesize_format = i == 1 and "[%d%s]" or "[%.1f%s]"
+    local filesize_format = i == 1 and " [%d%s]" or " [%.1f%s]"
     local filesize = string.format(filesize_format, fsize, suffixes[i])
 
     local filename = vim.fn.fnamemodify(filepath, ":t")
-    return filename
+    return filename .. filestatus .. filesize
 end
 
 local FileName = {
@@ -342,7 +348,7 @@ local FileName = {
             { " ", GetHl() },
             {
                 cache_utils.cache_on_buffer(
-                    "BufEnter",
+                    { "BufReadPost", "BufNewFile", "BufWritePost" },
                     "WindLineComponent_FileName",
                     GetFileName
                 ),
