@@ -423,37 +423,43 @@ local FileStatus = {
     end,
 }
 
+local function GetGitDiff()
+    local git_add = { "diff_add", "black_text" }
+    local git_delete = { "diff_delete", "black_text" }
+    local git_change = { "diff_change", "black_text" }
+
+    if vim.fn.exists("*GitGutterGetHunkSummary") > 0 then
+        local summary = vim.fn["GitGutterGetHunkSummary"]()
+        local signs = { "+", "~", "-" }
+        local hls = { git_add, git_change, git_delete }
+        local components = { { " ", GetHl() } }
+        local found = false
+        for i = 1, 3 do
+            local value = summary[i] or 0
+            if value > 0 then
+                table.insert(
+                    components,
+                    { string.format("%s%d ", signs[i], value), hls[i] }
+                )
+                found = true
+            end
+        end
+        if found then
+            return components
+        end
+    end
+    return { { " ", GetHl() } }
+end
+
 local GitDiff = {
     name = "gitdiff",
     width = WIDTH_BREAKPOINT,
     hl_colors = Highlight_D,
-    text = function()
-        local git_add = { "diff_add", "black_text" }
-        local git_delete = { "diff_delete", "black_text" }
-        local git_change = { "diff_change", "black_text" }
-
-        if vim.fn.exists("*GitGutterGetHunkSummary") > 0 then
-            local summary = vim.fn["GitGutterGetHunkSummary"]()
-            local signs = { "+", "~", "-" }
-            local hls = { git_add, git_change, git_delete }
-            local components = { { " ", GetHl() } }
-            local found = false
-            for i = 1, 3 do
-                local value = summary[i] or 0
-                if value > 0 then
-                    table.insert(
-                        components,
-                        { string.format("%s%d ", signs[i], value), hls[i] }
-                    )
-                    found = true
-                end
-            end
-            if found then
-                return components
-            end
-        end
-        return { { " ", GetHl() } }
-    end,
+    text = cache_utils.cache_on_buffer(
+        { "User GitGutter" },
+        "WindLineComponent_GitDiff",
+        GetGitDiff
+    ),
 }
 
 basic.section_c = {
