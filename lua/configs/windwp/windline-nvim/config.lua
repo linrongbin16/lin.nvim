@@ -309,15 +309,14 @@ local GitBranch = {
     end,
 }
 
-local function GetFileName(bufnr)
+local function GetFileName(bufnr, _, width)
     local default = "[No Name]"
     local bufname = vim.api.nvim_buf_get_name(bufnr)
     if strings.empty(bufname) then
         return default
     end
-    bufname = vim.fn.fnamemodify(bufname, ":t")
-    bufname = vim.fn.pathshorten(bufname)
-    return bufname
+    local filename = vim.fn.fnamemodify(bufname, ":t")
+    return filename
 end
 
 local FileName = {
