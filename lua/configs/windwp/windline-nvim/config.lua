@@ -657,51 +657,22 @@ windline.setup({
         colors.normal_bg1 = colors.normal_bg
         colors.normal_bg2 = mod(colors.normal_bg, 0.5)
         colors.normal_bg3 = mod(colors.normal_bg, 0.7)
-        -- colors.normal_bg4 = mod(colors.normal_bg, 0.7)
 
         colors.insert_bg1 = colors.insert_bg
-        colors.insert_bg2 = mod(colors.insert_bg, 0.5)
-        colors.insert_bg3 = mod(colors.insert_bg, 0.7)
-        -- colors.insert_bg4 = mod(colors.insert_bg, 0.7)
+        -- colors.insert_bg2 = mod(colors.insert_bg, 0.5)
+        -- colors.insert_bg3 = mod(colors.insert_bg, 0.7)
 
         colors.replace_bg1 = colors.replace_bg
-        colors.replace_bg2 = mod(colors.replace_bg, 0.5)
-        colors.replace_bg3 = mod(colors.replace_bg, 0.7)
-        -- colors.replace_bg4 = mod(colors.replace_bg, 0.7)
+        -- colors.replace_bg2 = mod(colors.replace_bg, 0.5)
+        -- colors.replace_bg3 = mod(colors.replace_bg, 0.7)
 
         colors.visual_bg1 = colors.visual_bg
-        colors.visual_bg2 = mod(colors.visual_bg, 0.5)
-        colors.visual_bg3 = mod(colors.visual_bg, 0.7)
-        -- colors.visual_bg4 = mod(colors.visual_bg, 0.7)
+        -- colors.visual_bg2 = mod(colors.visual_bg, 0.5)
+        -- colors.visual_bg3 = mod(colors.visual_bg, 0.7)
 
         colors.command_bg1 = colors.command_bg
-        colors.command_bg2 = mod(colors.command_bg, 0.5)
-        colors.command_bg3 = mod(colors.command_bg, 0.7)
-        -- colors.command_bg4 = mod(colors.command_bg, 0.7)
-
-        colors.diff_add = DiffAddColor
-        colors.diff_change = DiffChangeColor
-        colors.diff_delete = DiffDeleteColor
-
-        colors.magenta_a = colors.magenta
-        colors.magenta_b = mod(colors.magenta, 0.5)
-        colors.magenta_c = mod(colors.magenta, 0.7)
-
-        colors.yellow_a = colors.yellow
-        colors.yellow_b = mod(colors.yellow, 0.5)
-        colors.yellow_c = mod(colors.yellow, 0.7)
-
-        colors.blue_a = colors.blue
-        colors.blue_b = mod(colors.blue, 0.5)
-        colors.blue_c = mod(colors.blue, 0.7)
-
-        colors.green_a = colors.green
-        colors.green_b = mod(colors.green, 0.5)
-        colors.green_c = mod(colors.green, 0.7)
-
-        colors.red_a = colors.red
-        colors.red_b = mod(colors.red, 0.5)
-        colors.red_c = mod(colors.red, 0.7)
+        -- colors.command_bg2 = mod(colors.command_bg, 0.5)
+        -- colors.command_bg3 = mod(colors.command_bg, 0.7)
 
         return colors
     end,
