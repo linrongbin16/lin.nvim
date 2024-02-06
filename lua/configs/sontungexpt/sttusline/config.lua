@@ -173,7 +173,7 @@ end
 
 local HighlightA = {
     bg = NormalBgColor,
-    fg = BlackColor,
+    fg = WhiteColor,
 }
 local HighlightB = {
     bg = ModifyColorBrightness(NormalBgColor, 0.5),
@@ -187,9 +187,8 @@ local HighlightD = {
     bg = StatusLineBgColor,
     fg = WhiteColor,
 }
-
 local NormalHighlight = {
-    fg = BlackColor,
+    fg = WhiteColor,
     bg = NormalBgColor,
 }
 local InsertHighlight = {
@@ -197,7 +196,7 @@ local InsertHighlight = {
     bg = InsertBgColor,
 }
 local VisualHighlight = {
-    fg = WhiteColor,
+    fg = BlackColor,
     bg = VisualBgColor,
 }
 local CommandHighlight = {
@@ -205,7 +204,7 @@ local CommandHighlight = {
     bg = CommandBgColor,
 }
 local ReplaceHighlight = {
-    fg = WhiteColor,
+    fg = BlackColor,
     bg = ReplaceBgColor,
 }
 
