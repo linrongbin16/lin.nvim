@@ -71,18 +71,18 @@ local BlackColor =
 local WhiteColor =
     colors_hl.get_color_with_fallback({ "Normal" }, "fg", "#ffffff")
 
-local GitAddedColor = colors_hl.get_color_with_fallback(
-    { "GitSignsAdd", "GitGutterAdd", "DiffAdd", "diffAdded" },
+local DiffAddColor = colors_hl.get_color_with_fallback(
+    { "GitSignsAdd", "GitGutterAdd", "diffAdded", "DiffAdd" },
     "fg",
     "#008000"
 )
-local GitModifiedColor = colors_hl.get_color_with_fallback(
-    { "GitSignsChange", "GitGutterChange", "DiffChange", "diffChanged" },
+local DiffChangeColor = colors_hl.get_color_with_fallback(
+    { "GitSignsChange", "GitGutterChange", "diffChanged", "DiffChange" },
     "fg",
     "#FFFF00"
 )
-local GitDeletedColor = colors_hl.get_color_with_fallback(
-    { "GitSignsDelete", "GitGutterDelete", "DiffDelete", "diffRemoved" },
+local DiffDeleteColor = colors_hl.get_color_with_fallback(
+    { "GitSignsDelete", "GitGutterDelete", "diffRemoved", "DiffDelete" },
     "fg",
     "#FF0000"
 )
@@ -231,11 +231,11 @@ local Highlight_B = {
 }
 
 local Highlight_C = {
-    NormalSep = { "normal_bg3", "NormalBg" },
-    InsertSep = { "insert_bg3", "NormalBg" },
-    VisualSep = { "visual_bg3", "NormalBg" },
-    ReplaceSep = { "replace_bg3", "NormalBg" },
-    CommandSep = { "command_bg3", "NormalBg" },
+    NormalSep = { "normal_bg3", "normal_bg4" },
+    InsertSep = { "insert_bg3", "insert_bg4" },
+    VisualSep = { "visual_bg3", "visual_bg4" },
+    ReplaceSep = { "replace_bg3", "replace_bg4" },
+    CommandSep = { "command_bg3", "command_bg4" },
     Normal = { "white_text", "normal_bg3" },
     Insert = { "white_text", "insert_bg3" },
     Visual = { "white_text", "visual_bg3" },
@@ -411,9 +411,9 @@ local GitDiff = {
     name = "gitdiff",
     width = WIDTH_BREAKPOINT,
     hl_colors = {
-        green = { "green", "NormalBg" },
-        red = { "red", "NormalBg" },
-        blue = { "blue", "NormalBg" },
+        green = { "diff_add", "normal_bg4" },
+        red = { "diff_delete", "normal_bg4" },
+        blue = { "diff_change", "normal_bg4" },
     },
     text = function(bufnr)
         if git_comps.is_git(bufnr) then
@@ -678,6 +678,10 @@ windline.setup({
         colors.command_bg2 = mod(colors.command_bg, 0.5)
         colors.command_bg3 = mod(colors.command_bg, 0.7)
         colors.command_bg4 = colors.statusline_bg
+
+        colors.diff_add = DiffAddColor
+        colors.diff_change = DiffChangeColor
+        colors.diff_delete = DiffDeleteColor
 
         colors.magenta_a = colors.magenta
         colors.magenta_b = mod(colors.magenta, 0.5)
