@@ -13,6 +13,7 @@ local colors_hl = require("commons.colors.hl")
 local colors_hsl = require("commons.colors.hsl")
 local strings = require("commons.strings")
 local uv = require("commons.uv")
+local constants = require("builtin.utils.constants")
 
 -- slant_left = '',
 -- slant_left_thin = '',
@@ -93,6 +94,26 @@ local DiffDeleteColor = colors_hl.get_color_with_fallback(
     "fg",
     "#FF0000"
 )
+local DiagnosticErrorColor = colors_hl.get_color_with_fallback(
+    { "DiagnosticSignError", "LspDiagnosticsSignError", "ErrorMsg" },
+    "fg",
+    "#FF0000"
+)
+local DiagnosticWarnColor = colors_hl.get_color_with_fallback(
+    { "DiagnosticSignWarn", "LspDiagnosticsSignWarn", "WarningMsg" },
+    "fg",
+    "#FFFF00"
+)
+local DiagnosticInfoColor = colors_hl.get_color_with_fallback(
+    { "DiagnosticSignInfo", "LspDiagnosticsSignInfo", "None" },
+    "fg",
+    "#008000"
+)
+local DiagnosticHintColor = colors_hl.get_color_with_fallback(
+    { "DiagnosticSignHint", "LspDiagnosticsSignHint", "Comment" },
+    "fg",
+    "#00FFFF"
+)
 
 -- Turns #rrggbb -> { red, green, blue }
 local function rgb_str2num(rgb_color_str)
@@ -161,8 +182,8 @@ if normal then
         brightness_modifier(VisualBgColor, brightness_modifier_parameter)
     CommandBgColor =
         brightness_modifier(CommandBgColor, brightness_modifier_parameter)
-    StatusLineBgColor =
-        brightness_modifier(StatusLineBgColor, brightness_modifier_parameter)
+    -- StatusLineBgColor =
+    --     brightness_modifier(StatusLineBgColor, brightness_modifier_parameter)
 end
 
 local NormalBgColor1 = NormalBgColor
@@ -252,6 +273,10 @@ local Highlight4 = {
     GitAdd = { "diff_add", "statusline_bg" },
     GitDelete = { "diff_delete", "statusline_bg" },
     GitChange = { "diff_change", "statusline_bg" },
+    DiagnosticError = { "diagnostic_error", "statusline_bg" },
+    DiagnosticWarn = { "diagnostic_warn", "statusline_bg" },
+    DiagnosticInfo = { "diagnostic_info", "statusline_bg" },
+    DiagnosticHint = { "diagnostic_hint", "statusline_bg" },
 }
 
 local Highlight1_Builder = {
@@ -287,6 +312,10 @@ local Highlight4_Builder = {
     GitAdd = { fg = DiffAddColor, bg = StatusLineBgColor },
     GitDelete = { fg = DiffDeleteColor, bg = StatusLineBgColor },
     GitChange = { fg = DiffChangeColor, bg = StatusLineBgColor },
+    DiagnosticError = { fg = DiagnosticErrorColor, bg = StatusLineBgColor },
+    DiagnosticWarn = { fg = DiagnosticWarnColor, bg = StatusLineBgColor },
+    DiagnosticInfo = { fg = DiagnosticInfoColor, bg = StatusLineBgColor },
+    DiagnosticHint = { fg = DiagnosticHintColor, bg = StatusLineBgColor },
 }
 
 -- for _, h in ipairs(Highlight1_Builder) do
@@ -484,6 +513,57 @@ local GitDiff = {
         { "User GitGutter" },
         "WindLineComponent_GitDiff",
         GetGitDiff
+    ),
+}
+
+local function GetDiagnostics(bufnr)
+    local signs = {
+        constants.diagnostic.sign.hint,
+        constants.diagnostic.sign.info,
+        constants.diagnostic.sign.warn,
+        constants.diagnostic.sign.error,
+    }
+    local hls = {
+        "DiagnosticError",
+        "DiagnosticWarn",
+        "DiagnosticInfo",
+        "DiagnosticHint",
+    }
+    local severity = { "ERROR", "WARN", "INFO", "HINT" }
+    local components = {}
+    local found = false
+    local space = false
+    for i, name in ipairs(severity) do
+        local count = #vim.diagnostic.get(
+            bufnr,
+            { severity = vim.diagnostic.severity[name] }
+        )
+        if count > 0 then
+            if space then
+                table.insert(
+                    components,
+                    { " " .. signs[i] .. " " .. tostring(count), hls[i] }
+                )
+            else
+                space = true
+                table.insert(
+                    components,
+                    { signs[i] .. " " .. tostring(count), hls[i] }
+                )
+            end
+            found = true
+        end
+    end
+
+    table.insert(components, { LEFT_SEP, "Normal" })
+end
+
+local Diagnostic = {
+    hl_colors = Highlight4,
+    text = cache_utils.cache_on_buffer(
+        { "DiagnosticChanged", "BufEnter", "BufWritePost" },
+        "WindLineComponent_Diagnostic",
+        GetDiagnostics
     ),
 }
 
@@ -713,6 +793,10 @@ windline.setup({
         colors.diff_add = Highlight4_Builder.GitAdd.fg
         colors.diff_change = Highlight4_Builder.GitChange.fg
         colors.diff_delete = Highlight4_Builder.GitDelete.fg
+        colors.diagnostic_error = Highlight4_Builder.DiagnosticError.fg
+        colors.diagnostic_warn = Highlight4_Builder.DiagnosticWarn.fg
+        colors.diagnostic_info = Highlight4_Builder.DiagnosticInfo.fg
+        colors.diagnostic_hint = Highlight4_Builder.DiagnosticHint.fg
 
         return colors
     end,
