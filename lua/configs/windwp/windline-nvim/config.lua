@@ -194,15 +194,6 @@ local function apply_contrast(highlight)
     end
 end
 
-local Highlights = {
-    Black = { "white_text", "black_text" },
-    White = { "black_text", "white_text" },
-    Normal = { "NormalFg", "NormalBg" },
-    Inactive = { "InactiveFg", "InactiveBg" },
-    Active = { "ActiveFg", "ActiveBg" },
-    StatusLine = { "white_text", "statusline_bg" },
-}
-
 local Highlight_A = {
     NormalSep = { "normal_bg1", "normal_bg2" },
     InsertSep = { "insert_bg1", "normal_bg2" },
@@ -218,10 +209,6 @@ local Highlight_A = {
 
 local Highlight_B = {
     NormalSep = { "normal_bg2", "normal_bg3" },
-    InsertSep = { "insert_bg2", "normal_bg3" },
-    VisualSep = { "visual_bg2", "normal_bg3" },
-    ReplaceSep = { "replace_bg2", "normal_bg3" },
-    CommandSep = { "command_bg2", "normal_bg3" },
     Normal = { "white_text", "normal_bg2" },
     Insert = { "white_text", "normal_bg2" },
     Visual = { "white_text", "normal_bg2" },
@@ -230,34 +217,18 @@ local Highlight_B = {
 }
 
 local Highlight_C = {
-    NormalSep = { "normal_bg3", "normal_bg4" },
-    InsertSep = { "insert_bg3", "insert_bg4" },
-    VisualSep = { "visual_bg3", "visual_bg4" },
-    ReplaceSep = { "replace_bg3", "replace_bg4" },
-    CommandSep = { "command_bg3", "command_bg4" },
+    NormalSep = { "normal_bg3", "statusline_bg" },
     Normal = { "white_text", "normal_bg3" },
-    Insert = { "white_text", "insert_bg3" },
-    Visual = { "white_text", "visual_bg3" },
-    Replace = { "white_text", "replace_bg3" },
-    Command = { "white_text", "command_bg3" },
 }
 
 local Highlight_D = {
-    NormalSep = { "normal_bg4", "black_text" },
-    InsertSep = { "insert_bg4", "black_text" },
-    VisualSep = { "visual_bg4", "black_text" },
-    ReplaceSep = { "replace_bg4", "black_text" },
-    CommandSep = { "command_bg4", "black_text" },
-    Normal = { "white_text", "normal_bg4" },
-    Insert = { "white_text", "insert_bg4" },
-    Visual = { "white_text", "visual_bg4" },
-    Replace = { "white_text", "replace_bg4" },
-    Command = { "white_text", "command_bg4" },
+    NormalSep = { "statusline_bg", "black_text" },
+    Normal = { "white_text", "statusline_bg" },
+    GitAdd = { "diff_add", "statusline_bg" },
+    GitDelete = { "diff_delete", "statusline_bg" },
+    GitChange = { "diff_change", "statusline_bg" },
 }
 
-for _, h in ipairs(Highlights) do
-    apply_contrast(h)
-end
 for _, h in ipairs(Highlight_A) do
     apply_contrast(h)
 end
@@ -275,7 +246,7 @@ local basic = {}
 
 local WIDTH_BREAKPOINT = 70
 
-local DividerComponent = { "%=", Highlights.Normal }
+local DividerComponent = { "%=", Highlight_D.Normal }
 
 local OS_UNAME = uv.os_uname()
 
@@ -423,14 +394,10 @@ local FileStatus = {
 }
 
 local function GetGitDiff()
-    local git_add = { "diff_add", "black_text" }
-    local git_delete = { "diff_delete", "black_text" }
-    local git_change = { "diff_change", "black_text" }
-
     if vim.fn.exists("*GitGutterGetHunkSummary") > 0 then
         local summary = vim.fn["GitGutterGetHunkSummary"]()
         local signs = { "+", "~", "-" }
-        local hls = { git_add, git_change, git_delete }
+        local hls = { "GitAdd", "GitChange", "GitDelete" }
         local components = { { " ", "Normal" } }
         local found = false
         for i = 1, 3 do
@@ -689,28 +656,28 @@ windline.setup({
 
         colors.normal_bg1 = colors.normal_bg
         colors.normal_bg2 = mod(colors.normal_bg, 0.5)
-        colors.normal_bg3 = mod(colors.normal_bg, 0.6)
-        colors.normal_bg4 = mod(colors.normal_bg, 0.7)
+        colors.normal_bg3 = mod(colors.normal_bg, 0.7)
+        -- colors.normal_bg4 = mod(colors.normal_bg, 0.7)
 
         colors.insert_bg1 = colors.insert_bg
         colors.insert_bg2 = mod(colors.insert_bg, 0.5)
-        colors.insert_bg3 = mod(colors.insert_bg, 0.6)
-        colors.insert_bg4 = mod(colors.insert_bg, 0.7)
+        colors.insert_bg3 = mod(colors.insert_bg, 0.7)
+        -- colors.insert_bg4 = mod(colors.insert_bg, 0.7)
 
         colors.replace_bg1 = colors.replace_bg
         colors.replace_bg2 = mod(colors.replace_bg, 0.5)
-        colors.replace_bg3 = mod(colors.replace_bg, 0.6)
-        colors.replace_bg4 = mod(colors.replace_bg, 0.7)
+        colors.replace_bg3 = mod(colors.replace_bg, 0.7)
+        -- colors.replace_bg4 = mod(colors.replace_bg, 0.7)
 
         colors.visual_bg1 = colors.visual_bg
         colors.visual_bg2 = mod(colors.visual_bg, 0.5)
-        colors.visual_bg3 = mod(colors.visual_bg, 0.6)
-        colors.visual_bg4 = mod(colors.visual_bg, 0.7)
+        colors.visual_bg3 = mod(colors.visual_bg, 0.7)
+        -- colors.visual_bg4 = mod(colors.visual_bg, 0.7)
 
         colors.command_bg1 = colors.command_bg
         colors.command_bg2 = mod(colors.command_bg, 0.5)
-        colors.command_bg3 = mod(colors.command_bg, 0.6)
-        colors.command_bg4 = mod(colors.command_bg, 0.7)
+        colors.command_bg3 = mod(colors.command_bg, 0.7)
+        -- colors.command_bg4 = mod(colors.command_bg, 0.7)
 
         colors.diff_add = DiffAddColor
         colors.diff_change = DiffChangeColor
