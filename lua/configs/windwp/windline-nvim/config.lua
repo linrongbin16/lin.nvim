@@ -71,6 +71,22 @@ local BlackColor =
 local WhiteColor =
     colors_hl.get_color_with_fallback({ "Normal" }, "fg", "#ffffff")
 
+local GitAddedColor = colors_hl.get_color_with_fallback(
+    { "GitSignsAdd", "GitGutterAdd", "DiffAdd", "diffAdded" },
+    "fg",
+    "#008000"
+)
+local GitModifiedColor = colors_hl.get_color_with_fallback(
+    { "GitSignsChange", "GitGutterChange", "DiffChange", "diffChanged" },
+    "fg",
+    "#FFFF00"
+)
+local GitDeletedColor = colors_hl.get_color_with_fallback(
+    { "GitSignsDelete", "GitGutterDelete", "DiffDelete", "diffRemoved" },
+    "fg",
+    "#FF0000"
+)
+
 -- Turns #rrggbb -> { red, green, blue }
 local function rgb_str2num(rgb_color_str)
     if rgb_color_str:find("#") == 1 then
@@ -391,6 +407,26 @@ local FileStatus = {
     end,
 }
 
+local GitDiff = {
+    name = "gitdiff",
+    width = WIDTH_BREAKPOINT,
+    hl_colors = {
+        green = { "green", "NormalBg" },
+        red = { "red", "NormalBg" },
+        blue = { "blue", "NormalBg" },
+    },
+    text = function(bufnr)
+        if git_comps.is_git(bufnr) then
+            return {
+                { git_comps.diff_added({ format = "  %s" }), "green" },
+                { git_comps.diff_removed({ format = "  %s" }), "red" },
+                { git_comps.diff_changed({ format = "  %s" }), "blue" },
+            }
+        end
+        return ""
+    end,
+}
+
 basic.section_c = {
     hl_colors = Highlight_C,
     text = function()
@@ -541,10 +577,10 @@ local default = {
         GitBranch,
         FileName,
         FileStatus,
-        basic.lsp_diagnos,
+        basic.git,
         { vim_components.search_count(), { "cyan", "NormalBg" } },
         DividerComponent,
-        basic.git,
+        basic.lsp_diagnos,
         basic.section_x,
         basic.section_y,
         basic.section_z,
