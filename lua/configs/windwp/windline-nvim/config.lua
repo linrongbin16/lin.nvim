@@ -411,9 +411,9 @@ local GitDiff = {
     name = "gitdiff",
     width = WIDTH_BREAKPOINT,
     hl_colors = {
-        green = { "diff_add", "normal_bg4" },
-        red = { "diff_delete", "normal_bg4" },
-        blue = { "diff_change", "normal_bg4" },
+        git_add = { "diff_add", "normal_bg4" },
+        git_delete = { "diff_delete", "normal_bg4" },
+        git_change = { "diff_change", "normal_bg4" },
     },
     text = function(bufnr)
         if git_comps.is_git(bufnr) then
