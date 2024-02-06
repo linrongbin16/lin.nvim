@@ -315,6 +315,10 @@ local function GetFileName(bufnr, _, width)
     if strings.empty(filepath) then
         return default
     end
+    local filename = vim.fn.fnamemodify(filepath, ":t")
+    if width > WIDTH_BREAKPOINT then
+        return filename
+    end
 
     local filestatus = ""
     local readonly = not vim.api.nvim_buf_get_option(bufnr, "modifiable")
@@ -337,7 +341,6 @@ local function GetFileName(bufnr, _, width)
     local filesize_format = i == 1 and " [%d%s]" or " [%.1f%s]"
     local filesize = string.format(filesize_format, fsize, suffixes[i])
 
-    local filename = vim.fn.fnamemodify(filepath, ":t")
     return filename .. filestatus .. filesize
 end
 
