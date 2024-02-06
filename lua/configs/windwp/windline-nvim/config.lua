@@ -385,6 +385,7 @@ local FileStatus = {
                     "FocusGained",
                     "InsertEnter",
                     "InsertLeave",
+                    "TextChangedI",
                     "WinEnter",
                 }, "WindLineComponent_FileStatus", GetFileStatus),
             },
