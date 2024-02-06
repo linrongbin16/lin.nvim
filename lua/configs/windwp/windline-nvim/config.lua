@@ -169,17 +169,17 @@ local NormalBgColor1 = NormalBgColor
 local NormalBgColor2 = ModifyColor(NormalBgColor1, 0.5)
 local NormalBgColor3 = ModifyColor(NormalBgColor1, 0.7)
 local InsertBgColor1 = InsertBgColor
-local InsertBgColor2 = ModifyColor(InsertBgColor1, 0.5)
-local InsertBgColor3 = ModifyColor(InsertBgColor1, 0.7)
+-- local InsertBgColor2 = ModifyColor(InsertBgColor1, 0.5)
+-- local InsertBgColor3 = ModifyColor(InsertBgColor1, 0.7)
 local VisualBgColor1 = VisualBgColor
-local VisualBgColor2 = ModifyColor(VisualBgColor1, 0.5)
-local VisualBgColor3 = ModifyColor(VisualBgColor1, 0.7)
+-- local VisualBgColor2 = ModifyColor(VisualBgColor1, 0.5)
+-- local VisualBgColor3 = ModifyColor(VisualBgColor1, 0.7)
 local ReplaceBgColor1 = ReplaceBgColor
-local ReplaceBgColor2 = ModifyColor(ReplaceBgColor1, 0.5)
-local ReplaceBgColor3 = ModifyColor(ReplaceBgColor1, 0.7)
+-- local ReplaceBgColor2 = ModifyColor(ReplaceBgColor1, 0.5)
+-- local ReplaceBgColor3 = ModifyColor(ReplaceBgColor1, 0.7)
 local CommandBgColor1 = CommandBgColor
-local CommandBgColor2 = ModifyColor(CommandBgColor1, 0.5)
-local CommandBgColor3 = ModifyColor(CommandBgColor1, 0.7)
+-- local CommandBgColor2 = ModifyColor(CommandBgColor1, 0.5)
+-- local CommandBgColor3 = ModifyColor(CommandBgColor1, 0.7)
 
 -- Changes contrast of rgb_color by amount
 local function contrast_modifier(rgb_color, amount)
