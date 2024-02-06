@@ -316,7 +316,7 @@ local function GetFileName(bufnr, _, width)
         return default
     end
     local filename = vim.fn.fnamemodify(filepath, ":t")
-    if width > WIDTH_BREAKPOINT then
+    if strings.empty(filename) or width <= WIDTH_BREAKPOINT then
         return filename
     end
 
