@@ -380,13 +380,9 @@ local FileStatus = {
             {
                 cache_utils.cache_on_buffer({
                     "BufEnter",
-                    "BufNewFile",
-                    "BufWritePost",
-                    "FocusGained",
-                    "InsertEnter",
-                    "InsertLeave",
-                    "TextChangedI",
                     "WinEnter",
+                    "TextChangedI",
+                    "BufWritePost",
                 }, "WindLineComponent_FileStatus", GetFileStatus),
             },
             { " " },
