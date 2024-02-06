@@ -311,11 +311,27 @@ local GitBranch = {
 
 local function GetFileName(bufnr, _, width)
     local default = "[No Name]"
-    local bufname = vim.api.nvim_buf_get_name(bufnr)
-    if strings.empty(bufname) then
+    local filepath = vim.fn.expand("%:p")
+    if strings.empty(filepath) then
         return default
     end
-    local filename = vim.fn.fnamemodify(bufname, ":t")
+
+    local fsize = vim.fn.getfsize(filepath)
+    if fsize <= 0 then
+        return ""
+    end
+
+    local suffixes = { "b", "k", "m", "g" }
+    local i = 1
+    while fsize > 1024 and i < #suffixes do
+        fsize = fsize / 1024
+        i = i + 1
+    end
+
+    local filesize_format = i == 1 and "[%d%s]" or "[%.1f%s]"
+    local filesize = string.format(filesize_format, fsize, suffixes[i])
+
+    local filename = vim.fn.fnamemodify(filepath, ":t")
     return filename
 end
 
