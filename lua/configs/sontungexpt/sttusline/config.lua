@@ -173,7 +173,7 @@ end
 
 local HighlightA = {
     bg = NormalBgColor,
-    fg = WhiteColor,
+    fg = BlackColor,
 }
 local HighlightB = {
     bg = ModifyColorBrightness(NormalBgColor, 0.5),
@@ -188,7 +188,7 @@ local HighlightD = {
     fg = WhiteColor,
 }
 local NormalHighlight = {
-    fg = WhiteColor,
+    fg = BlackColor,
     bg = NormalBgColor,
 }
 local InsertHighlight = {
@@ -342,7 +342,10 @@ local ViModeColors = {
 -- os name, vi mode
 local Mode = {
     name = "mode",
-    event = { "ModeChanged", "VimResized" },
+    event = {
+        "ModeChanged",
+        "VimResized",
+    },
     user_event = "VeryLazy",
     colors = HighlightA,
     update = function(configs)
