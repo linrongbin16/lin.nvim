@@ -154,8 +154,6 @@ if normal then
         brightness_modifier(VisualBgColor, brightness_modifier_parameter)
     CommandBgColor =
         brightness_modifier(CommandBgColor, brightness_modifier_parameter)
-    StatusLineBgColor =
-        brightness_modifier(StatusLineBgColor, brightness_modifier_parameter)
 end
 
 -- Changes contrast of rgb_color by amount
@@ -202,14 +200,15 @@ local Highlights = {
     Normal = { "NormalFg", "NormalBg" },
     Inactive = { "InactiveFg", "InactiveBg" },
     Active = { "ActiveFg", "ActiveBg" },
+    StatusLine = { "white_text", "statusline_bg" },
 }
 
 local Highlight_A = {
     NormalSep = { "normal_bg1", "normal_bg2" },
-    InsertSep = { "insert_bg1", "insert_bg2" },
-    VisualSep = { "visual_bg1", "visual_bg2" },
-    ReplaceSep = { "replace_bg1", "replace_bg2" },
-    CommandSep = { "command_bg1", "command_bg2" },
+    InsertSep = { "insert_bg1", "normal_bg2" },
+    VisualSep = { "visual_bg1", "normal_bg2" },
+    ReplaceSep = { "replace_bg1", "normal_bg2" },
+    CommandSep = { "command_bg1", "normal_bg2" },
     Normal = { "black_text", "normal_bg1" },
     Insert = { "black_text", "insert_bg1" },
     Visual = { "black_text", "visual_bg1" },
@@ -219,15 +218,15 @@ local Highlight_A = {
 
 local Highlight_B = {
     NormalSep = { "normal_bg2", "normal_bg3" },
-    InsertSep = { "insert_bg2", "insert_bg3" },
-    VisualSep = { "visual_bg2", "visual_bg3" },
-    ReplaceSep = { "replace_bg2", "replace_bg3" },
-    CommandSep = { "command_bg2", "command_bg3" },
+    InsertSep = { "insert_bg2", "normal_bg3" },
+    VisualSep = { "visual_bg2", "normal_bg3" },
+    ReplaceSep = { "replace_bg2", "normal_bg3" },
+    CommandSep = { "command_bg2", "normal_bg3" },
     Normal = { "white_text", "normal_bg2" },
-    Insert = { "white_text", "insert_bg2" },
-    Visual = { "white_text", "visual_bg2" },
-    Replace = { "white_text", "replace_bg2" },
-    Command = { "white_text", "command_bg2" },
+    Insert = { "white_text", "normal_bg2" },
+    Visual = { "white_text", "normal_bg2" },
+    Replace = { "white_text", "normal_bg2" },
+    Command = { "white_text", "normal_bg2" },
 }
 
 local Highlight_C = {
@@ -330,14 +329,14 @@ local GitBranch = {
                 local git_branch = vim.fn["gitbranch#name"]()
                 if strings.not_empty(git_branch) then
                     return {
-                        { "  " .. git_branch, GetHl() },
-                        { " ", "" },
-                        { RIGHT_SEP, GetHl(true) },
+                        { " ", GetHl() },
+                        { " " .. git_branch .. " ", "Normal" },
+                        { RIGHT_SEP, "NormalSep" },
                     }
                 end
             end
         end
-        return { { RIGHT_SEP, GetHl(true) } }
+        return { { " ", GetHl() }, { RIGHT_SEP, "NormalSep" } }
     end,
 }
 
@@ -355,7 +354,7 @@ local FileName = {
     hl_colors = Highlight_C,
     text = function()
         return {
-            { " ", GetHl() },
+            { " ", "Normal" },
             {
                 cache_utils.cache_on_buffer(
                     { "BufEnter", "BufNewFile" },
@@ -418,7 +417,7 @@ local FileStatus = {
                 }, "WindLineComponent_FileStatus", GetFileStatus),
             },
             { " " },
-            { RIGHT_SEP, GetHl(true) },
+            { RIGHT_SEP, "NormalSep" },
         }
     end,
 }
@@ -432,7 +431,7 @@ local function GetGitDiff()
         local summary = vim.fn["GitGutterGetHunkSummary"]()
         local signs = { "+", "~", "-" }
         local hls = { git_add, git_change, git_delete }
-        local components = { { " ", GetHl() } }
+        local components = { { " ", "Normal" } }
         local found = false
         for i = 1, 3 do
             local value = summary[i] or 0
@@ -448,11 +447,10 @@ local function GetGitDiff()
             return components
         end
     end
-    return { { " ", GetHl() } }
+    return { { " ", "Normal" } }
 end
 
 local GitDiff = {
-    name = "gitdiff",
     width = WIDTH_BREAKPOINT,
     hl_colors = Highlight_D,
     text = cache_utils.cache_on_buffer(
@@ -691,28 +689,28 @@ windline.setup({
 
         colors.normal_bg1 = colors.normal_bg
         colors.normal_bg2 = mod(colors.normal_bg, 0.5)
-        colors.normal_bg3 = mod(colors.normal_bg, 0.7)
-        colors.normal_bg4 = colors.statusline_bg
+        colors.normal_bg3 = mod(colors.normal_bg, 0.6)
+        colors.normal_bg4 = mod(colors.normal_bg, 0.7)
 
         colors.insert_bg1 = colors.insert_bg
         colors.insert_bg2 = mod(colors.insert_bg, 0.5)
-        colors.insert_bg3 = mod(colors.insert_bg, 0.7)
-        colors.insert_bg4 = colors.statusline_bg
+        colors.insert_bg3 = mod(colors.insert_bg, 0.6)
+        colors.insert_bg4 = mod(colors.insert_bg, 0.7)
 
         colors.replace_bg1 = colors.replace_bg
         colors.replace_bg2 = mod(colors.replace_bg, 0.5)
-        colors.replace_bg3 = mod(colors.replace_bg, 0.7)
-        colors.replace_bg4 = colors.statusline_bg
+        colors.replace_bg3 = mod(colors.replace_bg, 0.6)
+        colors.replace_bg4 = mod(colors.replace_bg, 0.7)
 
         colors.visual_bg1 = colors.visual_bg
         colors.visual_bg2 = mod(colors.visual_bg, 0.5)
-        colors.visual_bg3 = mod(colors.visual_bg, 0.7)
-        colors.visual_bg4 = colors.statusline_bg
+        colors.visual_bg3 = mod(colors.visual_bg, 0.6)
+        colors.visual_bg4 = mod(colors.visual_bg, 0.7)
 
         colors.command_bg1 = colors.command_bg
         colors.command_bg2 = mod(colors.command_bg, 0.5)
-        colors.command_bg3 = mod(colors.command_bg, 0.7)
-        colors.command_bg4 = colors.statusline_bg
+        colors.command_bg3 = mod(colors.command_bg, 0.6)
+        colors.command_bg4 = mod(colors.command_bg, 0.7)
 
         colors.diff_add = DiffAddColor
         colors.diff_change = DiffChangeColor
