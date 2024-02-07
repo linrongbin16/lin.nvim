@@ -383,7 +383,6 @@ local FileName = {
     event = { "BufEnter", "WinEnter", "TextChangedI", "BufWritePost" },
     user_event = "VeryLazy",
     colors = HighlightB,
-    -- separator = { left = LEFT_SLANT },
     padding = 0,
     update = function()
         local filename = vim.fn.expand("%:t")
