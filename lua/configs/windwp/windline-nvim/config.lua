@@ -7,6 +7,7 @@ local cache_utils = require("windline.cache_utils")
 
 local colors_hl = require("commons.colors.hl")
 local strings = require("commons.strings")
+local tables = require("commons.tables")
 local uv = require("commons.uv")
 local constants = require("builtin.utils.constants")
 
@@ -194,42 +195,42 @@ local DiagnosticHintColor = colors_hl.get_color_with_fallback(
 
 -- highlight constants {
 local Highlight1 = {
-    NormalSep = { "normal_bg1", "normal_bg2" },
-    InsertSep = { "insert_bg1", "normal_bg2" },
-    VisualSep = { "visual_bg1", "normal_bg2" },
-    ReplaceSep = { "replace_bg1", "normal_bg2" },
-    CommandSep = { "command_bg1", "normal_bg2" },
-    Normal = { "white", "normal_bg1" },
-    Insert = { "black", "insert_bg1" },
-    Visual = { "black", "visual_bg1" },
-    Replace = { "black", "replace_bg1" },
-    Command = { "black", "command_bg1" },
+    NormalSep = { "magenta_a", "magenta_b" },
+    InsertSep = { "green_a", "magenta_b" },
+    VisualSep = { "yellow_a", "magenta_b" },
+    ReplaceSep = { "blue_a", "magenta_b" },
+    CommandSep = { "red_a", "magenta_b" },
+    Normal = { "white", "magenta_a" },
+    Insert = { "black", "green_a" },
+    Visual = { "black", "yellow_a" },
+    Replace = { "black", "blue_a" },
+    Command = { "black", "red_a" },
 }
 
 local Highlight2 = {
-    NormalSep = { "normal_bg2", "normal_bg3" },
-    Normal = { "white", "normal_bg2" },
-    Insert = { "white", "normal_bg2" },
-    Visual = { "white", "normal_bg2" },
-    Replace = { "white", "normal_bg2" },
-    Command = { "white", "normal_bg2" },
+    NormalSep = { "magenta_b", "magenta_c" },
+    Normal = { "white", "magenta_b" },
+    Insert = { "white", "magenta_b" },
+    Visual = { "white", "magenta_b" },
+    Replace = { "white", "magenta_b" },
+    Command = { "white", "magenta_b" },
 }
 
 local Highlight3 = {
-    NormalSep = { "normal_bg3", "normal_bg4" },
-    Normal = { "white", "normal_bg3" },
+    NormalSep = { "magenta_c", "magenta_d" },
+    Normal = { "white", "magenta_c" },
 }
 
 local Highlight4 = {
-    NormalSep = { "normal_bg4", "black" },
-    Normal = { "white", "normal_bg4" },
-    GitAdd = { "diff_add", "normal_bg4" },
-    GitDelete = { "diff_delete", "normal_bg4" },
-    GitChange = { "diff_change", "normal_bg4" },
-    DiagnosticError = { "diagnostic_error", "normal_bg4" },
-    DiagnosticWarn = { "diagnostic_warn", "normal_bg4" },
-    DiagnosticInfo = { "diagnostic_info", "normal_bg4" },
-    DiagnosticHint = { "diagnostic_hint", "normal_bg4" },
+    NormalSep = { "magenta_d", "black" },
+    Normal = { "white", "magenta_d" },
+    GitAdd = { "diff_add", "magenta_d" },
+    GitDelete = { "diff_delete", "magenta_d" },
+    GitChange = { "diff_change", "magenta_d" },
+    DiagnosticError = { "diagnostic_error", "magenta_d" },
+    DiagnosticWarn = { "diagnostic_warn", "magenta_d" },
+    DiagnosticInfo = { "diagnostic_info", "magenta_d" },
+    DiagnosticHint = { "diagnostic_hint", "magenta_d" },
 }
 -- highlight constants {
 
@@ -816,18 +817,6 @@ local default = {
 
 windline.setup({
     colors_name = function(colors)
-        colors.black = HighlightBuilder1.Normal.fg
-        colors.white = HighlightBuilder4.Normal.fg
-
-        colors.normal_bg1 = HighlightBuilder1.Normal.bg
-        colors.normal_bg2 = HighlightBuilder2.Normal.bg
-        colors.normal_bg3 = HighlightBuilder3.Normal.bg
-        colors.normal_bg4 = HighlightBuilder4.Normal.bg
-        colors.insert_bg1 = HighlightBuilder1.Insert.bg
-        colors.replace_bg1 = HighlightBuilder1.Replace.bg
-        colors.visual_bg1 = HighlightBuilder1.Visual.bg
-        colors.command_bg1 = HighlightBuilder1.Command.bg
-
         local DiffAddColor = colors_hl.get_color_with_fallback(
             { "GitSignsAdd", "GitGutterAdd", "diffAdded", "DiffAdd" },
             "fg",
@@ -871,6 +860,46 @@ windline.setup({
         colors.diagnostic_warn = DiagnosticWarnColor
         colors.diagnostic_info = DiagnosticInfoColor
         colors.diagnostic_hint = DiagnosticHintColor
+
+        local BlackColor = -- "#000000"
+            colors_hl.get_color_with_fallback({ "Normal" }, "bg", "#000000")
+        local WhiteColor = -- "#ffffff"
+            colors_hl.get_color_with_fallback({ "Normal" }, "fg", "#ffffff")
+
+        colors.black = BlackColor
+        colors.white = WhiteColor
+
+        local lualine_ok, lualine_theme = pcall(
+            require,
+            string.format("lualine.themes.%s", vim.g.colors_name)
+        )
+        if lualine_ok and type(lualine_theme) == "table" then
+            if
+                strings.not_empty(tables.tbl_get(lualine_theme, "normal", "a"))
+            then
+                colors.magenta = lualine_theme.normal.a
+            end
+            if
+                strings.not_empty(tables.tbl_get(lualine_theme, "insert", "a"))
+            then
+                colors.green = lualine_theme.insert.a
+            end
+            if
+                strings.not_empty(tables.tbl_get(lualine_theme, "visual", "a"))
+            then
+                colors.yellow = lualine_theme.visual.a
+            end
+            if
+                strings.not_empty(tables.tbl_get(lualine_theme, "replace", "a"))
+            then
+                colors.blue = lualine_theme.replace.a
+            end
+            if
+                strings.not_empty(tables.tbl_get(lualine_theme, "command", "a"))
+            then
+                colors.red = lualine_theme.command.a
+            end
+        end
 
         colors.magenta_a = colors.magenta
         colors.magenta_b = ModifyColor(colors.magenta, 0.5)
