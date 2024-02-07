@@ -1,16 +1,11 @@
 local windline = require("windline")
 local helper = require("windline.helpers")
 local sep = helper.separators
-local b_components = require("windline.components.basic")
-local vim_components = require("windline.components.vim")
 local HSL = require("wlanimation.utils")
 
-local lsp_comps = require("windline.components.lsp")
-local git_comps = require("windline.components.git")
 local cache_utils = require("windline.cache_utils")
 
 local colors_hl = require("commons.colors.hl")
-local colors_hsl = require("commons.colors.hsl")
 local strings = require("commons.strings")
 local uv = require("commons.uv")
 local constants = require("builtin.utils.constants")
@@ -87,6 +82,44 @@ local function brightness_modifier(rgb_color, percentage)
     color.green = clamp(color.green + (color.green * percentage / 100), 0, 255)
     color.blue = clamp(color.blue + (color.blue * percentage / 100), 0, 255)
     return rgb_num2str(color)
+end
+
+-- Changes contrast of rgb_color by amount
+local function contrast_modifier(rgb_color, amount)
+    local color = rgb_str2num(rgb_color)
+    color.red = clamp(color.red + amount, 0, 255)
+    color.green = clamp(color.green + amount, 0, 255)
+    color.blue = clamp(color.blue + amount, 0, 255)
+    return rgb_num2str(color)
+end
+
+-- returns average of colors in range 0 to 1
+-- used to determine contrast level
+local function get_color_avg(rgb_color)
+    local color = rgb_str2num(rgb_color)
+    return (color.red + color.green + color.blue) / 3 / 256
+end
+
+-- Changes brightness of foreground color to achieve contrast
+-- without changing the color
+local function apply_contrast(highlight)
+    local highlight_bg_avg = get_color_avg(highlight.bg)
+    local contrast_threshold_config = clamp(contrast_threshold, 0, 0.5)
+    local contrast_change_step = 5
+    if highlight_bg_avg > 0.5 then
+        contrast_change_step = -contrast_change_step
+    end
+
+    -- Don't waste too much time here max 25 iteration should be more than enough
+    local iteration_count = 1
+    while
+        math.abs(get_color_avg(highlight.fg) - highlight_bg_avg)
+            < contrast_threshold_config
+        and iteration_count < 25
+    do
+        highlight.fg = contrast_modifier(highlight.fg, contrast_change_step)
+        iteration_count = iteration_count + 1
+    end
 end
 
 -- rgb color constants {
@@ -241,44 +274,6 @@ local ReplaceBgColor1 = ReplaceBgColor
 local CommandBgColor1 = CommandBgColor
 -- local CommandBgColor2 = ModifyColor(CommandBgColor1, 0.5)
 -- local CommandBgColor3 = ModifyColor(CommandBgColor1, 0.7)
-
--- Changes contrast of rgb_color by amount
-local function contrast_modifier(rgb_color, amount)
-    local color = rgb_str2num(rgb_color)
-    color.red = clamp(color.red + amount, 0, 255)
-    color.green = clamp(color.green + amount, 0, 255)
-    color.blue = clamp(color.blue + amount, 0, 255)
-    return rgb_num2str(color)
-end
-
--- returns average of colors in range 0 to 1
--- used to determine contrast level
-local function get_color_avg(rgb_color)
-    local color = rgb_str2num(rgb_color)
-    return (color.red + color.green + color.blue) / 3 / 256
-end
-
--- Changes brightness of foreground color to achieve contrast
--- without changing the color
-local function apply_contrast(highlight)
-    local highlight_bg_avg = get_color_avg(highlight.bg)
-    local contrast_threshold_config = clamp(contrast_threshold, 0, 0.5)
-    local contrast_change_step = 5
-    if highlight_bg_avg > 0.5 then
-        contrast_change_step = -contrast_change_step
-    end
-
-    -- Don't waste too much time here max 25 iteration should be more than enough
-    local iteration_count = 1
-    while
-        math.abs(get_color_avg(highlight.fg) - highlight_bg_avg)
-            < contrast_threshold_config
-        and iteration_count < 25
-    do
-        highlight.fg = contrast_modifier(highlight.fg, contrast_change_step)
-        iteration_count = iteration_count + 1
-    end
-end
 
 local Highlight1_Builder = {
     NormalSep = { fg = NormalBgColor1, bg = NormalBgColor2 },
