@@ -647,11 +647,33 @@ local FileTypeIcon = {
 local function GetFileType(bufnr)
     local file_name = vim.fn.fnamemodify(vim.fn.bufname(bufnr), ":t")
     if strings.empty(file_name) then
-        return { { " ", "Normal" } }
+        return {
+            { LEFT_SEP, "NormalSep" },
+            { " ", "Normal" },
+        }
     end
     local file_ext = vim.fn.fnamemodify(file_name, ":e")
+    if strings.empty(file_ext) then
+        return {
+            { LEFT_SEP, "NormalSep" },
+            { " ", "Normal" },
+        }
+    end
+    local devicons_ok, devicons = pcall(require, "nvim-web-devicons")
+    local unknown_icon = ""
+    local icon_text
+    local icon_color
+    if devicons_ok and devicons ~= nil then
+        icon_text, icon_color = devicons.get_icon_color(file_name, file_ext)
+        if strings.empty(icon_text) then
+            icon_text = unknown_icon
+            icon_color = nil
+        end
+    end
     return {
-        { file_ext, "Normal" },
+        { LEFT_SEP, "NormalSep" },
+        { " ", "Normal" },
+        { icon_text .. " " .. file_ext, "Normal" },
         { " " },
     }
 end
@@ -835,7 +857,7 @@ local default = {
         DividerComponent,
         SearchCount,
         Diagnostic,
-        FileTypeIcon,
+        -- FileTypeIcon,
         FileType,
         FileEncoding,
         FileFormat,
