@@ -320,8 +320,6 @@ for _, h in ipairs(HighlightBuilder4) do
     apply_contrast(h)
 end
 
-local basic = {}
-
 local WIDTH_BREAKPOINT = 70
 
 local DividerComponent = { "%=", Highlight4.Normal }
