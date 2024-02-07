@@ -37,113 +37,6 @@ local ReplaceFgColor = BlackColor
 local VisualFgColor = BlackColor
 local CommandFgColor = BlackColor
 
--- Turns #rrggbb -> { red, green, blue }
-local function rgb_str2num(rgb_color_str)
-    if rgb_color_str:find("#") == 1 then
-        rgb_color_str = rgb_color_str:sub(2, #rgb_color_str)
-    end
-    local red = tonumber(rgb_color_str:sub(1, 2), 16)
-    local green = tonumber(rgb_color_str:sub(3, 4), 16)
-    local blue = tonumber(rgb_color_str:sub(5, 6), 16)
-    return { red = red, green = green, blue = blue }
-end
-
--- Turns { red, green, blue } -> #rrggbb
-local function rgb_num2str(rgb_color_num)
-    local rgb_color_str = string.format(
-        "#%02x%02x%02x",
-        rgb_color_num.red,
-        rgb_color_num.green,
-        rgb_color_num.blue
-    )
-    return rgb_color_str
-end
-
-local function get_color_brightness(rgb_color)
-    local color = rgb_str2num(rgb_color)
-    local brightness = (color.red * 2 + color.green * 3 + color.blue) / 6
-    return brightness / 256
-end
-
--- Clamps the val between left and right
-local function clamp(val, left, right)
-    if val > right then
-        return right
-    end
-    if val < left then
-        return left
-    end
-    return val
-end
-
--- Changes brightness of rgb_color by percentage
-local function brightness_modifier(rgb_color, percentage)
-    local color = rgb_str2num(rgb_color)
-    color.red = clamp(color.red + (color.red * percentage / 100), 0, 255)
-    color.green = clamp(color.green + (color.green * percentage / 100), 0, 255)
-    color.blue = clamp(color.blue + (color.blue * percentage / 100), 0, 255)
-    return rgb_num2str(color)
-end
-
-local contrast_threshold = 0.3
-local brightness_modifier_parameter = 10
-
-local normal = colors_hl.get_color_with_fallback({ "Normal" }, "bg")
-if normal then
-    if get_color_brightness(normal) > 0.5 then
-        brightness_modifier_parameter = -brightness_modifier_parameter
-    end
-
-    NormalBgColor =
-        brightness_modifier(NormalBgColor, brightness_modifier_parameter)
-    InsertBgColor =
-        brightness_modifier(InsertBgColor, brightness_modifier_parameter)
-    ReplaceBgColor =
-        brightness_modifier(ReplaceBgColor, brightness_modifier_parameter)
-    VisualBgColor =
-        brightness_modifier(VisualBgColor, brightness_modifier_parameter)
-    CommandBgColor =
-        brightness_modifier(CommandBgColor, brightness_modifier_parameter)
-end
-
--- Changes contrast of rgb_color by amount
-local function contrast_modifier(rgb_color, amount)
-    local color = rgb_str2num(rgb_color)
-    color.red = clamp(color.red + amount, 0, 255)
-    color.green = clamp(color.green + amount, 0, 255)
-    color.blue = clamp(color.blue + amount, 0, 255)
-    return rgb_num2str(color)
-end
-
--- returns average of colors in range 0 to 1
--- used to determine contrast level
-local function get_color_avg(rgb_color)
-    local color = rgb_str2num(rgb_color)
-    return (color.red + color.green + color.blue) / 3 / 256
-end
-
--- Changes brightness of foreground color to achieve contrast
--- without changing the color
-local function apply_contrast(highlight)
-    local highlight_bg_avg = get_color_avg(highlight.bg)
-    local contrast_threshold_config = clamp(contrast_threshold, 0, 0.5)
-    local contrast_change_step = 5
-    if highlight_bg_avg > 0.5 then
-        contrast_change_step = -contrast_change_step
-    end
-
-    -- Don't waste too much time here max 25 iteration should be more than enough
-    local iteration_count = 1
-    while
-        math.abs(get_color_avg(highlight.fg) - highlight_bg_avg)
-            < contrast_threshold_config
-        and iteration_count < 25
-    do
-        highlight.fg = contrast_modifier(highlight.fg, contrast_change_step)
-        iteration_count = iteration_count + 1
-    end
-end
-
 local HighlightA = {
     bg = NormalBgColor,
     fg = BlackColor,
@@ -153,11 +46,11 @@ local HighlightB = {
     fg = WhiteColor,
 }
 local HighlightC = {
-    bg = ModifyColor(NormalBgColor, 0.7),
+    bg = ModifyColor(NormalBgColor, 0.6),
     fg = WhiteColor,
 }
 local HighlightD = {
-    bg = StatusLineBgColor,
+    bg = ModifyColor(NormalBgColor, 0.7),
     fg = WhiteColor,
 }
 local NormalHighlight = {
@@ -180,16 +73,6 @@ local ReplaceHighlight = {
     fg = BlackColor,
     bg = ReplaceBgColor,
 }
-
-apply_contrast(HighlightA)
-apply_contrast(HighlightB)
-apply_contrast(HighlightC)
-apply_contrast(HighlightD)
-apply_contrast(NormalHighlight)
-apply_contrast(InsertHighlight)
-apply_contrast(VisualHighlight)
-apply_contrast(CommandHighlight)
-apply_contrast(ReplaceHighlight)
 
 local function IsBigScreen()
     return vim.o.columns > 80
