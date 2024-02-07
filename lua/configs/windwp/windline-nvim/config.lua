@@ -16,13 +16,7 @@ local uv = require("commons.uv")
 local constants = require("builtin.utils.constants")
 
 -- slant_left = '',
--- slant_left_thin = '',
 -- slant_right = '',
--- slant_right_thin = '',
--- slant_left_2 = '',
--- slant_left_2_thin = '',
--- slant_right_2 = '',
--- slant_right_2_thin = '',
 local LEFT_SEP = sep.slant_left
 local RIGHT_SEP = sep.slant_right
 
@@ -44,6 +38,11 @@ local function ModifyColor(c, value)
     return HSL.rgb_to_hsl(c):shade(value):to_rgb()
 end
 
+-- rgb color constants {
+local BlackColor = -- "#000000"
+    colors_hl.get_color_with_fallback({ "Normal" }, "bg", "#000000")
+local WhiteColor = -- "#ffffff"
+    colors_hl.get_color_with_fallback({ "Normal" }, "fg", "#ffffff")
 local NormalBgColor = colors_hl.get_color_with_fallback(
     { "PmenuSel", "PmenuThumb", "TabLineSel" },
     "bg",
@@ -74,10 +73,6 @@ local StatusLineBgColor = colors_hl.get_color_with_fallback(
     "bg",
     "#000000"
 )
-local BlackColor = "#000000"
--- colors_hl.get_color_with_fallback({ "Normal" }, "bg", "#000000")
-local WhiteColor = "#ffffff"
--- colors_hl.get_color_with_fallback({ "Normal" }, "fg", "#ffffff")
 
 local DiffAddColor = colors_hl.get_color_with_fallback(
     { "GitSignsAdd", "GitGutterAdd", "diffAdded", "DiffAdd" },
@@ -114,6 +109,7 @@ local DiagnosticHintColor = colors_hl.get_color_with_fallback(
     "fg",
     "#00FFFF"
 )
+-- rgb color constants }
 
 local Highlight1 = {
     NormalSep = { "normal_bg1", "normal_bg2" },
