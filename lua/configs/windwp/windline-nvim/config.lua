@@ -22,6 +22,9 @@ local RIGHT_SEP = sep.slant_right
 
 local state = _G.WindLine.state
 
+local contrast_threshold = 0.3
+local brightness_modifier_parameter = 10
+
 local function GetModeName()
     return state.mode[1]
 end
@@ -36,6 +39,54 @@ local function ModifyColor(c, value)
         return HSL.rgb_to_hsl(c):tint(value):to_rgb()
     end
     return HSL.rgb_to_hsl(c):shade(value):to_rgb()
+end
+
+-- Turns #rrggbb -> { red, green, blue }
+local function rgb_str2num(rgb_color_str)
+    if rgb_color_str:find("#") == 1 then
+        rgb_color_str = rgb_color_str:sub(2, #rgb_color_str)
+    end
+    local red = tonumber(rgb_color_str:sub(1, 2), 16)
+    local green = tonumber(rgb_color_str:sub(3, 4), 16)
+    local blue = tonumber(rgb_color_str:sub(5, 6), 16)
+    return { red = red, green = green, blue = blue }
+end
+
+-- Turns { red, green, blue } -> #rrggbb
+local function rgb_num2str(rgb_color_num)
+    local rgb_color_str = string.format(
+        "#%02x%02x%02x",
+        rgb_color_num.red,
+        rgb_color_num.green,
+        rgb_color_num.blue
+    )
+    return rgb_color_str
+end
+
+local function get_color_brightness(rgb_color)
+    local color = rgb_str2num(rgb_color)
+    local brightness = (color.red * 2 + color.green * 3 + color.blue) / 6
+    return brightness / 256
+end
+
+-- Clamps the val between left and right
+local function clamp(val, left, right)
+    if val > right then
+        return right
+    end
+    if val < left then
+        return left
+    end
+    return val
+end
+
+-- Changes brightness of rgb_color by percentage
+local function brightness_modifier(rgb_color, percentage)
+    local color = rgb_str2num(rgb_color)
+    color.red = clamp(color.red + (color.red * percentage / 100), 0, 255)
+    color.green = clamp(color.green + (color.green * percentage / 100), 0, 255)
+    color.blue = clamp(color.blue + (color.blue * percentage / 100), 0, 255)
+    return rgb_num2str(color)
 end
 
 -- rgb color constants {
@@ -149,57 +200,6 @@ local Highlight4 = {
     DiagnosticInfo = { "diagnostic_info", "normal_bg4" },
     DiagnosticHint = { "diagnostic_hint", "normal_bg4" },
 }
-
--- Turns #rrggbb -> { red, green, blue }
-local function rgb_str2num(rgb_color_str)
-    if rgb_color_str:find("#") == 1 then
-        rgb_color_str = rgb_color_str:sub(2, #rgb_color_str)
-    end
-    local red = tonumber(rgb_color_str:sub(1, 2), 16)
-    local green = tonumber(rgb_color_str:sub(3, 4), 16)
-    local blue = tonumber(rgb_color_str:sub(5, 6), 16)
-    return { red = red, green = green, blue = blue }
-end
-
--- Turns { red, green, blue } -> #rrggbb
-local function rgb_num2str(rgb_color_num)
-    local rgb_color_str = string.format(
-        "#%02x%02x%02x",
-        rgb_color_num.red,
-        rgb_color_num.green,
-        rgb_color_num.blue
-    )
-    return rgb_color_str
-end
-
-local function get_color_brightness(rgb_color)
-    local color = rgb_str2num(rgb_color)
-    local brightness = (color.red * 2 + color.green * 3 + color.blue) / 6
-    return brightness / 256
-end
-
--- Clamps the val between left and right
-local function clamp(val, left, right)
-    if val > right then
-        return right
-    end
-    if val < left then
-        return left
-    end
-    return val
-end
-
--- Changes brightness of rgb_color by percentage
-local function brightness_modifier(rgb_color, percentage)
-    local color = rgb_str2num(rgb_color)
-    color.red = clamp(color.red + (color.red * percentage / 100), 0, 255)
-    color.green = clamp(color.green + (color.green * percentage / 100), 0, 255)
-    color.blue = clamp(color.blue + (color.blue * percentage / 100), 0, 255)
-    return rgb_num2str(color)
-end
-
-local contrast_threshold = 0.3
-local brightness_modifier_parameter = 10
 
 local background = colors_hl.get_color_with_fallback(
     { "PmenuSel", "PmenuThumb", "TabLineSel" },
