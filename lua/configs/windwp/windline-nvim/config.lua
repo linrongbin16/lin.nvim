@@ -45,7 +45,7 @@ local function ModifyColor(c, value)
 end
 
 local NormalBgColor = colors_hl.get_color_with_fallback(
-    { "PmenuSel", "PmenuThumb", "TabLineSel" },
+    { "StatusLine", "PmenuSel", "PmenuThumb", "TabLineSel" },
     "bg",
     vim.g.terminal_color_5 -- magenta
 )
@@ -303,7 +303,7 @@ local Highlight2_Builder = {
 }
 
 local Highlight3_Builder = {
-    NormalSep = { fg = NormalBgColor3, bg = StatusLineBgColor },
+    NormalSep = { fg = NormalBgColor3, bg = NormalBgColor4 },
     Normal = { fg = WhiteColor, bg = NormalBgColor3 },
 }
 
