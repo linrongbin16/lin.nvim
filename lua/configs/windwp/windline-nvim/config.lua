@@ -1,7 +1,6 @@
 local windline = require("windline")
 local helper = require("windline.helpers")
 local HSL = require("wlanimation.utils")
-
 local cache_utils = require("windline.cache_utils")
 
 local colors_hl = require("commons.colors.hl")
