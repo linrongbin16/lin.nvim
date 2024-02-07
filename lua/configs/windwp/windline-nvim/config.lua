@@ -270,7 +270,12 @@ local LspStatus = {
         { "User LspProgressStatusUpdated" },
         "WindLineComponent_LspStatus",
         function()
-            return require("lsp-progress").progress({ max_size = 40 })
+            return {
+                { " ", "Normal" },
+                {
+                    require("lsp-progress").progress({ max_size = 70 }),
+                },
+            }
         end
     ),
 }
@@ -568,6 +573,7 @@ local default = {
         FileName,
         FileStatus,
         GitDiff,
+        LspStatus,
         DividerComponent,
         SearchCount,
         Diagnostic,
