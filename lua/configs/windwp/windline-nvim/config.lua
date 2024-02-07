@@ -751,6 +751,17 @@ local FileFormat = {
     ),
 }
 
+local Location = {
+    name = "location",
+    hl_colors = Highlight1,
+    text = function(_, winnr)
+        local row, col = unpack(vim.api.nvim_win_get_cursor(winnr))
+        return string.format(" %3s:%-2s ", row, col + 1)
+    end,
+}
+
+local Progress = {}
+
 basic.section_z = {
     hl_colors = Highlight1,
     text = function(_, _, width)
