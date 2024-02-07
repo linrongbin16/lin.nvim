@@ -188,7 +188,8 @@ end
 
 local NormalBgColor1 = NormalBgColor
 local NormalBgColor2 = ModifyColor(NormalBgColor1, 0.5)
-local NormalBgColor3 = ModifyColor(NormalBgColor1, 0.7)
+local NormalBgColor3 = ModifyColor(NormalBgColor1, 0.6)
+local NormalBgColor4 = ModifyColor(NormalBgColor1, 0.7)
 local InsertBgColor1 = InsertBgColor
 -- local InsertBgColor2 = ModifyColor(InsertBgColor1, 0.5)
 -- local InsertBgColor3 = ModifyColor(InsertBgColor1, 0.7)
@@ -307,15 +308,15 @@ local Highlight3_Builder = {
 }
 
 local Highlight4_Builder = {
-    NormalSep = { fg = StatusLineBgColor, bg = BlackColor },
-    Normal = { fg = WhiteColor, bg = StatusLineBgColor },
-    GitAdd = { fg = DiffAddColor, bg = StatusLineBgColor },
-    GitDelete = { fg = DiffDeleteColor, bg = StatusLineBgColor },
-    GitChange = { fg = DiffChangeColor, bg = StatusLineBgColor },
-    DiagnosticError = { fg = DiagnosticErrorColor, bg = StatusLineBgColor },
-    DiagnosticWarn = { fg = DiagnosticWarnColor, bg = StatusLineBgColor },
-    DiagnosticInfo = { fg = DiagnosticInfoColor, bg = StatusLineBgColor },
-    DiagnosticHint = { fg = DiagnosticHintColor, bg = StatusLineBgColor },
+    NormalSep = { fg = NormalBgColor4, bg = BlackColor },
+    Normal = { fg = WhiteColor, bg = NormalBgColor4 },
+    GitAdd = { fg = DiffAddColor, bg = NormalBgColor4 },
+    GitDelete = { fg = DiffDeleteColor, bg = NormalBgColor4 },
+    GitChange = { fg = DiffChangeColor, bg = NormalBgColor4 },
+    DiagnosticError = { fg = DiagnosticErrorColor, bg = NormalBgColor4 },
+    DiagnosticWarn = { fg = DiagnosticWarnColor, bg = NormalBgColor4 },
+    DiagnosticInfo = { fg = DiagnosticInfoColor, bg = NormalBgColor4 },
+    DiagnosticHint = { fg = DiagnosticHintColor, bg = NormalBgColor4 },
 }
 
 -- for _, h in ipairs(Highlight1_Builder) do
