@@ -586,17 +586,17 @@ windline.setup({
             "#FF0000"
         )
         local DiagnosticErrorColor = colors_hl.get_color_with_fallback(
-            { "DiagnosticSignError", "LspDiagnosticsSignError", "ErrorMsg" },
+            { "DiagnosticSignError", "ErrorMsg" },
             "fg",
             "#FF0000"
         )
         local DiagnosticWarnColor = colors_hl.get_color_with_fallback(
-            { "DiagnosticSignWarn", "LspDiagnosticsSignWarn", "WarningMsg" },
+            { "DiagnosticSignWarn", "WarningMsg" },
             "fg",
             "#FFFF00"
         )
         local DiagnosticInfoColor = colors_hl.get_color_with_fallback(
-            { "DiagnosticSignInfo", "LspDiagnosticsSignInfo", "None" },
+            { "DiagnosticSignInfo", "None" },
             "fg",
             "#008000"
         )
