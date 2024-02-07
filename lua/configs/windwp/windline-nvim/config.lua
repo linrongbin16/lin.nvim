@@ -828,13 +828,69 @@ windline.setup({
         colors.visual_bg1 = HighlightBuilder1.Visual.bg
         colors.command_bg1 = HighlightBuilder1.Command.bg
 
-        colors.diff_add = HighlightBuilder4.GitAdd.fg
-        colors.diff_change = HighlightBuilder4.GitChange.fg
-        colors.diff_delete = HighlightBuilder4.GitDelete.fg
-        colors.diagnostic_error = HighlightBuilder4.DiagnosticError.fg
-        colors.diagnostic_warn = HighlightBuilder4.DiagnosticWarn.fg
-        colors.diagnostic_info = HighlightBuilder4.DiagnosticInfo.fg
-        colors.diagnostic_hint = HighlightBuilder4.DiagnosticHint.fg
+        local DiffAddColor = colors_hl.get_color_with_fallback(
+            { "GitSignsAdd", "GitGutterAdd", "diffAdded", "DiffAdd" },
+            "fg",
+            "#008000"
+        )
+        local DiffChangeColor = colors_hl.get_color_with_fallback(
+            { "GitSignsChange", "GitGutterChange", "diffChanged", "DiffChange" },
+            "fg",
+            "#FFFF00"
+        )
+        local DiffDeleteColor = colors_hl.get_color_with_fallback(
+            { "GitSignsDelete", "GitGutterDelete", "diffRemoved", "DiffDelete" },
+            "fg",
+            "#FF0000"
+        )
+        local DiagnosticErrorColor = colors_hl.get_color_with_fallback(
+            { "DiagnosticSignError", "LspDiagnosticsSignError", "ErrorMsg" },
+            "fg",
+            "#FF0000"
+        )
+        local DiagnosticWarnColor = colors_hl.get_color_with_fallback(
+            { "DiagnosticSignWarn", "LspDiagnosticsSignWarn", "WarningMsg" },
+            "fg",
+            "#FFFF00"
+        )
+        local DiagnosticInfoColor = colors_hl.get_color_with_fallback(
+            { "DiagnosticSignInfo", "LspDiagnosticsSignInfo", "None" },
+            "fg",
+            "#008000"
+        )
+        local DiagnosticHintColor = colors_hl.get_color_with_fallback(
+            { "DiagnosticSignHint", "LspDiagnosticsSignHint", "Comment" },
+            "fg",
+            "#00FFFF"
+        )
+
+        colors.diff_add = DiffAddColor
+        colors.diff_change = DiffChangeColor
+        colors.diff_delete = DiffDeleteColor
+        colors.diagnostic_error = DiagnosticErrorColor
+        colors.diagnostic_warn = DiagnosticWarnColor
+        colors.diagnostic_info = DiagnosticInfoColor
+        colors.diagnostic_hint = DiagnosticHintColor
+
+        colors.magenta_a = colors.magenta
+        colors.magenta_b = ModifyColor(colors.magenta, 0.5)
+        colors.magenta_c = ModifyColor(colors.magenta, 0.7)
+
+        colors.yellow_a = colors.yellow
+        colors.yellow_b = ModifyColor(colors.yellow, 0.5)
+        colors.yellow_c = ModifyColor(colors.yellow, 0.7)
+
+        colors.blue_a = colors.blue
+        colors.blue_b = ModifyColor(colors.blue, 0.5)
+        colors.blue_c = ModifyColor(colors.blue, 0.7)
+
+        colors.green_a = colors.green
+        colors.green_b = ModifyColor(colors.green, 0.5)
+        colors.green_c = ModifyColor(colors.green, 0.7)
+
+        colors.red_a = colors.red
+        colors.red_b = ModifyColor(colors.red, 0.5)
+        colors.red_c = ModifyColor(colors.red, 0.7)
 
         return colors
     end,
