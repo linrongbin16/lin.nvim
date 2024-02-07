@@ -24,33 +24,11 @@ local function ModifyColor(rgb, percent)
         or tmp:shade(percent):to_rgb()
 end
 
-local NormalBgColor = colors_hl.get_color_with_fallback(
-    { "PmenuSel", "PmenuThumb", "TabLineSel" },
-    "bg",
-    sttusline_colors.blue
-)
-local InsertBgColor = colors_hl.get_color_with_fallback(
-    { "String", "MoreMsg" },
-    "fg",
-    sttusline_colors.green
-)
-local ReplaceBgColor = colors_hl.get_color_with_fallback(
-    { "Number", "Type" },
-    "fg",
-    sttusline_colors.red
-)
-local VisualBgColor = colors_hl.get_color_with_fallback(
-    { "Special", "Boolean", "Constant" },
-    "fg",
-    sttusline_colors.purple
-)
-local CommandBgColor = colors_hl.get_color_with_fallback(
-    { "Identifier" },
-    "fg",
-    sttusline_colors.yellow
-)
-local StatusLineBgColor =
-    colors_hl.get_color_with_fallback({ "StatusLine", "Normal" }, "bg")
+local NormalBgColor = sttusline_colors.blue
+local InsertBgColor = sttusline_colors.green
+local ReplaceBgColor = sttusline_colors.red
+local VisualBgColor = sttusline_colors.purple
+local CommandBgColor = sttusline_colors.yellow
 local BlackColor = colors_hl.get_color_with_fallback(
     { "Normal" },
     "bg",
@@ -129,8 +107,6 @@ if normal then
         brightness_modifier(VisualBgColor, brightness_modifier_parameter)
     CommandBgColor =
         brightness_modifier(CommandBgColor, brightness_modifier_parameter)
-    StatusLineBgColor =
-        brightness_modifier(StatusLineBgColor, brightness_modifier_parameter)
 end
 
 -- Changes contrast of rgb_color by amount
