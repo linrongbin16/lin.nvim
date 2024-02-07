@@ -264,20 +264,20 @@ local Highlight2 = {
 }
 
 local Highlight3 = {
-    NormalSep = { "normal_bg3", "statusline_bg" },
+    NormalSep = { "normal_bg3", "normal_bg4" },
     Normal = { "white", "normal_bg3" },
 }
 
 local Highlight4 = {
-    NormalSep = { "statusline_bg", "black" },
-    Normal = { "white", "statusline_bg" },
-    GitAdd = { "diff_add", "statusline_bg" },
-    GitDelete = { "diff_delete", "statusline_bg" },
-    GitChange = { "diff_change", "statusline_bg" },
-    DiagnosticError = { "diagnostic_error", "statusline_bg" },
-    DiagnosticWarn = { "diagnostic_warn", "statusline_bg" },
-    DiagnosticInfo = { "diagnostic_info", "statusline_bg" },
-    DiagnosticHint = { "diagnostic_hint", "statusline_bg" },
+    NormalSep = { "normal_bg4", "black" },
+    Normal = { "white", "normal_bg4" },
+    GitAdd = { "diff_add", "normal_bg4" },
+    GitDelete = { "diff_delete", "normal_bg4" },
+    GitChange = { "diff_change", "normal_bg4" },
+    DiagnosticError = { "diagnostic_error", "normal_bg4" },
+    DiagnosticWarn = { "diagnostic_warn", "normal_bg4" },
+    DiagnosticInfo = { "diagnostic_info", "normal_bg4" },
+    DiagnosticHint = { "diagnostic_hint", "normal_bg4" },
 }
 
 local Highlight1_Builder = {
@@ -878,13 +878,13 @@ end
 
 windline.setup({
     colors_name = function(colors)
-        colors.statusline_bg = Highlight4_Builder.Normal.bg
         colors.black = Highlight1_Builder.Normal.fg
         colors.white = Highlight4_Builder.Normal.fg
 
         colors.normal_bg1 = Highlight1_Builder.Normal.bg
         colors.normal_bg2 = Highlight2_Builder.Normal.bg
         colors.normal_bg3 = Highlight3_Builder.Normal.bg
+        colors.normal_bg4 = Highlight4_Builder.Normal.bg
         colors.insert_bg1 = Highlight1_Builder.Insert.bg
         colors.replace_bg1 = Highlight1_Builder.Replace.bg
         colors.visual_bg1 = Highlight1_Builder.Visual.bg
