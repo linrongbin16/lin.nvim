@@ -1,6 +1,5 @@
 local windline = require("windline")
 local helper = require("windline.helpers")
-local sep = helper.separators
 local HSL = require("wlanimation.utils")
 
 local cache_utils = require("windline.cache_utils")
@@ -13,8 +12,8 @@ local constants = require("builtin.utils.constants")
 
 -- slant_left = '',
 -- slant_right = '',
-local LEFT_SEP = sep.slant_left
-local RIGHT_SEP = sep.slant_right
+local LEFT_SEP = helper.separators.slant_left
+local RIGHT_SEP = helper.separators.slant_right
 
 local state = _G.WindLine.state
 
