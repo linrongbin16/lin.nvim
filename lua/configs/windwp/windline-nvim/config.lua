@@ -45,7 +45,7 @@ local function ModifyColor(c, value)
 end
 
 local NormalBgColor = colors_hl.get_color_with_fallback(
-    { "StatusLine", "PmenuSel", "PmenuThumb", "TabLineSel" },
+    { "PmenuSel", "PmenuThumb", "TabLineSel" },
     "bg",
     vim.g.terminal_color_5 -- magenta
 )
@@ -74,10 +74,10 @@ local StatusLineBgColor = colors_hl.get_color_with_fallback(
     "bg",
     "#000000"
 )
-local BlackColor =
-    colors_hl.get_color_with_fallback({ "Normal" }, "bg", "#000000")
-local WhiteColor =
-    colors_hl.get_color_with_fallback({ "Normal" }, "fg", "#ffffff")
+local BlackColor = "#000000"
+-- colors_hl.get_color_with_fallback({ "Normal" }, "bg", "#000000")
+local WhiteColor = "#ffffff"
+-- colors_hl.get_color_with_fallback({ "Normal" }, "fg", "#ffffff")
 
 local DiffAddColor = colors_hl.get_color_with_fallback(
     { "GitSignsAdd", "GitGutterAdd", "diffAdded", "DiffAdd" },
@@ -114,6 +114,45 @@ local DiagnosticHintColor = colors_hl.get_color_with_fallback(
     "fg",
     "#00FFFF"
 )
+
+local Highlight1 = {
+    NormalSep = { "normal_bg1", "normal_bg2" },
+    InsertSep = { "insert_bg1", "normal_bg2" },
+    VisualSep = { "visual_bg1", "normal_bg2" },
+    ReplaceSep = { "replace_bg1", "normal_bg2" },
+    CommandSep = { "command_bg1", "normal_bg2" },
+    Normal = { "white", "normal_bg1" },
+    Insert = { "black", "insert_bg1" },
+    Visual = { "black", "visual_bg1" },
+    Replace = { "black", "replace_bg1" },
+    Command = { "black", "command_bg1" },
+}
+
+local Highlight2 = {
+    NormalSep = { "normal_bg2", "normal_bg3" },
+    Normal = { "white", "normal_bg2" },
+    Insert = { "white", "normal_bg2" },
+    Visual = { "white", "normal_bg2" },
+    Replace = { "white", "normal_bg2" },
+    Command = { "white", "normal_bg2" },
+}
+
+local Highlight3 = {
+    NormalSep = { "normal_bg3", "normal_bg4" },
+    Normal = { "white", "normal_bg3" },
+}
+
+local Highlight4 = {
+    NormalSep = { "normal_bg4", "black" },
+    Normal = { "white", "normal_bg4" },
+    GitAdd = { "diff_add", "normal_bg4" },
+    GitDelete = { "diff_delete", "normal_bg4" },
+    GitChange = { "diff_change", "normal_bg4" },
+    DiagnosticError = { "diagnostic_error", "normal_bg4" },
+    DiagnosticWarn = { "diagnostic_warn", "normal_bg4" },
+    DiagnosticInfo = { "diagnostic_info", "normal_bg4" },
+    DiagnosticHint = { "diagnostic_hint", "normal_bg4" },
+}
 
 -- Turns #rrggbb -> { red, green, blue }
 local function rgb_str2num(rgb_color_str)
@@ -166,10 +205,14 @@ end
 local contrast_threshold = 0.3
 local brightness_modifier_parameter = 10
 
-local normal = colors_hl.get_color_with_fallback({ "Normal" }, "bg")
-if normal then
-    if get_color_brightness(normal) > 0.5 then
+local background = colors_hl.get_color_with_fallback(
+    { "PmenuSel", "PmenuThumb", "TabLineSel" },
+    "bg"
+)
+if background then
+    if get_color_brightness(background) > 0.5 then
         brightness_modifier_parameter = -brightness_modifier_parameter
+        Highlight1.Normal[1] = "black"
     end
 
     NormalBgColor =
@@ -240,45 +283,6 @@ local function apply_contrast(highlight)
         iteration_count = iteration_count + 1
     end
 end
-
-local Highlight1 = {
-    NormalSep = { "normal_bg1", "normal_bg2" },
-    InsertSep = { "insert_bg1", "normal_bg2" },
-    VisualSep = { "visual_bg1", "normal_bg2" },
-    ReplaceSep = { "replace_bg1", "normal_bg2" },
-    CommandSep = { "command_bg1", "normal_bg2" },
-    Normal = { "white", "normal_bg1" },
-    Insert = { "black", "insert_bg1" },
-    Visual = { "black", "visual_bg1" },
-    Replace = { "black", "replace_bg1" },
-    Command = { "black", "command_bg1" },
-}
-
-local Highlight2 = {
-    NormalSep = { "normal_bg2", "normal_bg3" },
-    Normal = { "white", "normal_bg2" },
-    Insert = { "white", "normal_bg2" },
-    Visual = { "white", "normal_bg2" },
-    Replace = { "white", "normal_bg2" },
-    Command = { "white", "normal_bg2" },
-}
-
-local Highlight3 = {
-    NormalSep = { "normal_bg3", "normal_bg4" },
-    Normal = { "white", "normal_bg3" },
-}
-
-local Highlight4 = {
-    NormalSep = { "normal_bg4", "black" },
-    Normal = { "white", "normal_bg4" },
-    GitAdd = { "diff_add", "normal_bg4" },
-    GitDelete = { "diff_delete", "normal_bg4" },
-    GitChange = { "diff_change", "normal_bg4" },
-    DiagnosticError = { "diagnostic_error", "normal_bg4" },
-    DiagnosticWarn = { "diagnostic_warn", "normal_bg4" },
-    DiagnosticInfo = { "diagnostic_info", "normal_bg4" },
-    DiagnosticHint = { "diagnostic_hint", "normal_bg4" },
-}
 
 local Highlight1_Builder = {
     NormalSep = { fg = NormalBgColor1, bg = NormalBgColor2 },
