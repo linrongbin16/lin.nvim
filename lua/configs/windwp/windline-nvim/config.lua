@@ -124,7 +124,7 @@ local function apply_contrast(highlight)
 end
 -- color utils }
 
--- rgb color constants {
+-- color constants {
 local BlackColor = -- "#000000"
     colors_hl.get_color_with_fallback({ "Normal" }, "bg", "#000000")
 local WhiteColor = -- "#ffffff"
@@ -195,8 +195,9 @@ local DiagnosticHintColor = colors_hl.get_color_with_fallback(
     "fg",
     "#00FFFF"
 )
--- rgb color constants }
+-- color constants }
 
+-- highlight constants {
 local Highlight1 = {
     NormalSep = { "normal_bg1", "normal_bg2" },
     InsertSep = { "insert_bg1", "normal_bg2" },
@@ -235,6 +236,7 @@ local Highlight4 = {
     DiagnosticInfo = { "diagnostic_info", "normal_bg4" },
     DiagnosticHint = { "diagnostic_hint", "normal_bg4" },
 }
+-- highlight constants {
 
 if NormalBgColor then
     if get_color_brightness(NormalBgColor) > 0.5 then
