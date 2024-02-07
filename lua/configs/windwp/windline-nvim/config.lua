@@ -536,7 +536,6 @@ local function GetDiagnostics(bufnr)
     }
     local severity = { "ERROR", "WARN", "INFO", "HINT" }
     local components = {}
-    local found = false
     local space = false
     for i, name in ipairs(severity) do
         local count = #vim.diagnostic.get(
@@ -556,7 +555,6 @@ local function GetDiagnostics(bufnr)
                     { signs[i] .. " " .. tostring(count), hls[i] }
                 )
             end
-            found = true
         end
     end
 
