@@ -40,38 +40,38 @@ local CommandFgColor = BlackColor
 
 local HighlightA = {
     bg = NormalBgColor,
-    fg = BlackColor,
+    fg = NormalFgColor,
 }
 local HighlightB = {
     bg = ModifyColor(NormalBgColor, 0.5),
-    fg = WhiteColor,
+    fg = NormalFgColor,
 }
 local HighlightC = {
     bg = ModifyColor(NormalBgColor, 0.6),
-    fg = WhiteColor,
+    fg = NormalFgColor,
 }
 local HighlightD = {
     bg = ModifyColor(NormalBgColor, 0.7),
-    fg = WhiteColor,
+    fg = NormalFgColor,
 }
 local NormalHighlight = {
-    fg = BlackColor,
+    fg = NormalFgColor,
     bg = NormalBgColor,
 }
 local InsertHighlight = {
-    fg = BlackColor,
+    fg = InsertFgColor,
     bg = InsertBgColor,
 }
 local VisualHighlight = {
-    fg = BlackColor,
+    fg = VisualFgColor,
     bg = VisualBgColor,
 }
 local CommandHighlight = {
-    fg = BlackColor,
+    fg = CommandFgColor,
     bg = CommandBgColor,
 }
 local ReplaceHighlight = {
-    fg = BlackColor,
+    fg = ReplaceFgColor,
     bg = ReplaceBgColor,
 }
 
@@ -251,7 +251,7 @@ local FileName = {
 
         local filename = vim.fn.expand("%:t")
         if strings.empty(filename) then
-            return { " ", HighlightB }
+            return { { " ", HighlightB } }
         end
 
         -- local has_devicons, devicons = pcall(require, "nvim-web-devicons")
@@ -282,7 +282,6 @@ local FileSize = {
     event = { "BufEnter", "BufWritePost" },
     user_event = "VeryLazy",
     colors = HighlightB,
-    separator = { right = RIGHT_SLANT },
     update = function()
         local file_name = vim.api.nvim_buf_get_name(0)
         local file_size = vim.fn.getfsize(file_name)
