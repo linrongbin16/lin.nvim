@@ -154,11 +154,6 @@ local CommandBgColor = colors_hl.get_color_with_fallback(
     "fg",
     vim.g.terminal_color_1 -- red
 )
-local StatusLineBgColor = colors_hl.get_color_with_fallback(
-    { "StatusLine", "Normal" },
-    "bg",
-    "#000000"
-)
 
 local DiffAddColor = colors_hl.get_color_with_fallback(
     { "GitSignsAdd", "GitGutterAdd", "diffAdded", "DiffAdd" },
@@ -254,8 +249,6 @@ if NormalBgColor then
         brightness_modifier(VisualBgColor, brightness_modifier_parameter)
     CommandBgColor =
         brightness_modifier(CommandBgColor, brightness_modifier_parameter)
-    StatusLineBgColor =
-        brightness_modifier(StatusLineBgColor, brightness_modifier_parameter)
 end
 
 local NormalBgColor1 = NormalBgColor
