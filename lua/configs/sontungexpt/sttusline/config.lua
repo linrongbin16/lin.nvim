@@ -1,5 +1,6 @@
 local colors_hsl = require("commons.colors.hsl")
 local colors_hl = require("commons.colors.hl")
+local strings = require("commons.strings")
 local uv = require("commons.uv")
 
 local sttusline_colors = require("sttusline.utils.color")
@@ -249,7 +250,7 @@ local FileName = {
         -- local sep_bg_color = HighlightB.bg
 
         local filename = vim.fn.expand("%:t")
-        if type(filename) ~= "string" or string.len(filename) == 0 then
+        if strings.empty(filename) then
             return { " ", HighlightB }
         end
 
