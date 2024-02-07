@@ -241,6 +241,13 @@ local FileName = {
     colors = HighlightB,
     padding = 0,
     update = function()
+        -- local mode_code = vim.api.nvim_get_mode().mode
+        -- local mode_name = ViModes[mode_code][1]
+        -- local mode_hl = ViModes[mode_code][2]
+        -- local sep_fg_color = mode_name and ViModeColors[mode_hl].bg
+        --     or HighlightA.bg
+        -- local sep_bg_color = HighlightB.bg
+
         local filename = vim.fn.expand("%:t")
         if type(filename) ~= "string" or string.len(filename) == 0 then
             return { " ", HighlightB }
