@@ -246,30 +246,30 @@ local Highlight1 = {
     VisualSep = { "visual_bg1", "normal_bg2" },
     ReplaceSep = { "replace_bg1", "normal_bg2" },
     CommandSep = { "command_bg1", "normal_bg2" },
-    Normal = { "black_text", "normal_bg1" },
-    Insert = { "black_text", "insert_bg1" },
-    Visual = { "black_text", "visual_bg1" },
-    Replace = { "black_text", "replace_bg1" },
-    Command = { "black_text", "command_bg1" },
+    Normal = { "black", "normal_bg1" },
+    Insert = { "black", "insert_bg1" },
+    Visual = { "black", "visual_bg1" },
+    Replace = { "black", "replace_bg1" },
+    Command = { "black", "command_bg1" },
 }
 
 local Highlight2 = {
     NormalSep = { "normal_bg2", "normal_bg3" },
-    Normal = { "white_text", "normal_bg2" },
-    Insert = { "white_text", "normal_bg2" },
-    Visual = { "white_text", "normal_bg2" },
-    Replace = { "white_text", "normal_bg2" },
-    Command = { "white_text", "normal_bg2" },
+    Normal = { "white", "normal_bg2" },
+    Insert = { "white", "normal_bg2" },
+    Visual = { "white", "normal_bg2" },
+    Replace = { "white", "normal_bg2" },
+    Command = { "white", "normal_bg2" },
 }
 
 local Highlight3 = {
     NormalSep = { "normal_bg3", "statusline_bg" },
-    Normal = { "white_text", "normal_bg3" },
+    Normal = { "white", "normal_bg3" },
 }
 
 local Highlight4 = {
-    NormalSep = { "statusline_bg", "black_text" },
-    Normal = { "white_text", "statusline_bg" },
+    NormalSep = { "statusline_bg", "black" },
+    Normal = { "white", "statusline_bg" },
     GitAdd = { "diff_add", "statusline_bg" },
     GitDelete = { "diff_delete", "statusline_bg" },
     GitChange = { "diff_change", "statusline_bg" },
@@ -358,6 +358,7 @@ local function GetOsIcon()
 end
 
 local Mode = {
+    name = "mode",
     hl_colors = Highlight1,
     text = function(_, _, width)
         local os_icon = GetOsIcon()
@@ -381,6 +382,7 @@ local Mode = {
 }
 
 local GitBranch = {
+    name = "git_branch",
     hl_colors = Highlight2,
     text = function(bufnr, _, width)
         if width > WIDTH_BREAKPOINT then
@@ -411,6 +413,7 @@ local function GetFileName(bufnr, _, width)
 end
 
 local FileName = {
+    name = "file_name",
     hl_colors = Highlight3,
     text = function()
         return {
@@ -464,6 +467,7 @@ local function GetFileStatus(bufnr, _, width)
 end
 
 local FileStatus = {
+    name = "file_status",
     hl_colors = Highlight3,
     width = WIDTH_BREAKPOINT,
     text = function()
@@ -507,6 +511,7 @@ local function GetGitDiff()
 end
 
 local GitDiff = {
+    name = "git_diff",
     width = WIDTH_BREAKPOINT,
     hl_colors = Highlight4,
     text = cache_utils.cache_on_buffer(
@@ -555,10 +560,52 @@ local function GetDiagnostics(bufnr)
         end
     end
 
-    table.insert(components, { LEFT_SEP, "Normal" })
+    if found then
+        table.insert(components, { " " })
+    end
+    table.insert(components, { " ", "Normal" })
+    return components
 end
 
+local SearchCount = {
+    name = "search_count",
+    hl_colors = Highlight4,
+    width = WIDTH_BREAKPOINT,
+    text = function(bufnr)
+        if vim.v.hlsearch == 0 then
+            return ""
+        end
+
+        local MAX_COUNT = 99
+        local ok, result = pcall(vim.fn.searchcount, { maxcount = MAX_COUNT })
+        if not ok or type(result) ~= "table" or result.current == nil then
+            return ""
+        end
+
+        if result.incomplete == 1 then -- timed out
+            return " [?/??] "
+        end
+
+        local current_fmt = "%d"
+        local total_fmt = "%d"
+        if result.incomplete == 2 then -- max count exceeded
+            if result.total > MAX_COUNT and result.current > MAX_COUNT then
+                current_fmt = ">%d"
+                total_fmt = ">%d"
+            elseif result.total > MAX_COUNT then
+                total_fmt = ">%d"
+            end
+        end
+        return string.format(
+            " [" .. current_fmt .. "/" .. total_fmt .. "] ",
+            result.current or 0,
+            result.total or 0
+        )
+    end,
+}
+
 local Diagnostic = {
+    name = "diagnostic",
     hl_colors = Highlight4,
     text = cache_utils.cache_on_buffer(
         { "DiagnosticChanged", "BufEnter", "BufWritePost" },
@@ -567,16 +614,52 @@ local Diagnostic = {
     ),
 }
 
-basic.section_c = {
+local function GetFileTypeIcon(bufnr)
+    local unknown_file = ""
+    local file_name = vim.fn.fnamemodify(vim.fn.bufname(bufnr), ":t")
+    local file_ext = vim.fn.fnamemodify(file_name, ":e")
+    local devicons_ok, devicons = pcall(require, "nvim-web-devicons")
+    local icon_text
+    local icon_color
+    if devicons_ok and devicons ~= nil then
+        icon_text, icon_color = devicons.get_icon_color(file_name, file_ext)
+        if strings.empty(icon_text) then
+            icon_text = unknown_file
+            icon_color = nil
+        end
+    end
+    return {
+        { LEFT_SEP, "NormalSep" },
+        { " ", "Normal" },
+        { icon_text, "Normal" },
+        { " " },
+    }
+end
+
+local FileTypeIcon = {
+    name = "file_type_icon",
     hl_colors = Highlight3,
-    text = function()
-        return {
-            { " ", state.mode[2] },
-            { b_components.cache_file_name("[No Name]", "unique") },
-            { " " },
-            { sep.right_filled, state.mode[2] .. "Sep" },
-        }
-    end,
+    text = cache_utils.cache_on_buffer(
+        { "BufEnter", "BufReadPre", "BufNewFile" },
+        "WindLineComponent_FileTypeIcon",
+        GetFileTypeIcon
+    ),
+}
+
+local function GetFileType(bufnr)
+    local file_name = vim.fn.fnamemodify(vim.fn.bufname(bufnr), ":t")
+    local file_ext = vim.fn.fnamemodify(file_name, ":e")
+    return { { file_ext, "Normal" }, { " ", "Normal" } }
+end
+
+local FileType = {
+    name = "file_type",
+    hl_colors = Highlight3,
+    text = cache_utils.cache_on_buffer(
+        { "BufEnter", "BufReadPre", "BufNewFile" },
+        "WindLineComponent_FileType",
+        GetFileType
+    ),
 }
 
 basic.section_x = {
@@ -691,8 +774,8 @@ basic.git = {
 local quickfix = {
     filetypes = { "qf", "Trouble" },
     active = {
-        { "🚦 Quickfix ", { "white_text", "black_text" } },
-        { helper.separators.slant_right, { "black_text", "black_light" } },
+        { "🚦 Quickfix ", { "white", "black" } },
+        { helper.separators.slant_right, { "black", "black_light" } },
         {
             function()
                 return vim.fn.getqflist({ title = 0 }).title
@@ -703,8 +786,8 @@ local quickfix = {
         { helper.separators.slant_right, { "black_light", "InactiveBg" } },
         { " ", { "InactiveFg", "InactiveBg" } },
         DividerComponent,
-        { helper.separators.slant_right, { "InactiveBg", "black_text" } },
-        { "🧛 ", { "white_text", "black_text" } },
+        { helper.separators.slant_right, { "InactiveBg", "black" } },
+        { "🧛 ", { "white", "black" } },
     },
     always_active = true,
     show_last_status = true,
@@ -718,10 +801,12 @@ local default = {
         FileName,
         FileStatus,
         GitDiff,
-        -- { vim_components.search_count(), { "cyan", "NormalBg" } },
         DividerComponent,
-        basic.lsp_diagnos,
-        basic.section_x,
+        -- { vim_components.search_count(), Highlight4 },
+        SearchCount,
+        Diagnostic,
+        FileTypeIcon,
+        FileType,
         basic.section_y,
         basic.section_z,
     },
@@ -779,8 +864,8 @@ end
 windline.setup({
     colors_name = function(colors)
         colors.statusline_bg = Highlight4_Builder.Normal.bg
-        colors.black_text = Highlight1_Builder.Normal.fg
-        colors.white_text = Highlight4_Builder.Normal.fg
+        colors.black = Highlight1_Builder.Normal.fg
+        colors.white = Highlight4_Builder.Normal.fg
 
         colors.normal_bg1 = Highlight1_Builder.Normal.bg
         colors.normal_bg2 = Highlight2_Builder.Normal.bg
