@@ -24,21 +24,18 @@ local function ModifyColor(rgb, percent)
         or tmp:shade(percent):to_rgb()
 end
 
+local BlackColor = sttusline_colors.black
+local WhiteColor = sttusline_colors.white
 local NormalBgColor = sttusline_colors.blue
 local InsertBgColor = sttusline_colors.green
 local ReplaceBgColor = sttusline_colors.red
 local VisualBgColor = sttusline_colors.purple
 local CommandBgColor = sttusline_colors.yellow
-local BlackColor = colors_hl.get_color_with_fallback(
-    { "Normal" },
-    "bg",
-    sttusline_colors.black
-)
-local WhiteColor = colors_hl.get_color_with_fallback(
-    { "Normal" },
-    "fg",
-    sttusline_colors.white
-)
+local NormalFgColor = BlackColor
+local InsertFgColor = BlackColor
+local ReplaceFgColor = BlackColor
+local VisualFgColor = BlackColor
+local CommandFgColor = BlackColor
 
 -- Turns #rrggbb -> { red, green, blue }
 local function rgb_str2num(rgb_color_str)
