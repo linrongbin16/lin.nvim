@@ -271,9 +271,9 @@ local LspStatus = {
         "WindLineComponent_LspStatus",
         function()
             return {
-                { " ", "Normal" },
                 {
                     require("lsp-progress").progress({ max_size = 70 }),
+                    "Normal",
                 },
             }
         end
