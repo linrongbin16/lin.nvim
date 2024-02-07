@@ -756,11 +756,33 @@ local Location = {
     hl_colors = Highlight1,
     text = function(_, winnr)
         local row, col = unpack(vim.api.nvim_win_get_cursor(winnr))
-        return string.format(" %3s:%-2s ", row, col + 1)
+        return {
+            { LEFT_SEP, GetHl(true) },
+            { " ", GetHl() },
+            { string.format(" %3s:%2s ", row, col + 1) },
+        }
     end,
 }
 
-local Progress = {}
+local Progress = {
+    name = "progress",
+    hl_colors = Highlight1,
+    text = function()
+        local line_fraction =
+            math.floor(vim.fn.line(".") / vim.fn.line("$") * 100)
+        local value = string.format("%3d%%%%", line_fraction)
+        if line_fraction <= 0 then
+            value = "Top"
+        elseif line_fraction >= 100 then
+            value = "Bot"
+        end
+        return {
+            { " ", GetHl() },
+            { value },
+            { " " },
+        }
+    end,
+}
 
 basic.section_z = {
     hl_colors = Highlight1,
@@ -872,7 +894,8 @@ local default = {
         FileType,
         FileEncoding,
         FileFormat,
-        basic.section_z,
+        Location,
+        Progress,
     },
     inactive = {},
 }
