@@ -19,11 +19,23 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
 
             if type(bufnrs) == "table" then
                 for _, bn in ipairs(bufnrs) do
+                    local buf_hidden =
+                        vim.api.nvim_get_option_value("bufhidden", { buf = bn })
+                    buf_hidden = type(buf_hidden) == "string"
+                        and string.len(buf_hidden) > 0
+                    local buf_listed =
+                        vim.api.nvim_get_option_value("buflisted", { buf = bn })
+                    local buf_loaded = vim.api.nvim_buf_is_loaded(bn)
                     local bufname = vim.api.nvim_buf_get_name(bn)
                     if not require("stickybuf").should_auto_pin(bn) then
                         totals = totals + 1
                     end
-                    if string.len(bufname) == 0 then
+                    if
+                        string.len(bufname) == 0
+                        and not buf_hidden
+                        and buf_listed
+                        and buf_loaded
+                    then
                         targets = targets + 1
                         target_bufnr = bn
                     end
