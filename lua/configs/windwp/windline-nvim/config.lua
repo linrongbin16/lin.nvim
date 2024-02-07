@@ -658,23 +658,13 @@ windline.setup({
 
         colors.magenta_a = colors.magenta
         colors.magenta_b = ModifyColor(colors.magenta, 0.5)
-        colors.magenta_c = ModifyColor(colors.magenta, 0.7)
+        colors.magenta_c = ModifyColor(colors.magenta, 0.6)
+        colors.magenta_d = ModifyColor(colors.magenta, 0.7)
 
         colors.yellow_a = colors.yellow
-        colors.yellow_b = ModifyColor(colors.yellow, 0.5)
-        colors.yellow_c = ModifyColor(colors.yellow, 0.7)
-
         colors.blue_a = colors.blue
-        colors.blue_b = ModifyColor(colors.blue, 0.5)
-        colors.blue_c = ModifyColor(colors.blue, 0.7)
-
         colors.green_a = colors.green
-        colors.green_b = ModifyColor(colors.green, 0.5)
-        colors.green_c = ModifyColor(colors.green, 0.7)
-
         colors.red_a = colors.red
-        colors.red_b = ModifyColor(colors.red, 0.5)
-        colors.red_c = ModifyColor(colors.red, 0.7)
 
         return colors
     end,
