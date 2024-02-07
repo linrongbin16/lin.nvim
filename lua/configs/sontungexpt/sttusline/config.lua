@@ -17,7 +17,7 @@ local sttusline_colors = require("sttusline.utils.color")
 local LEFT_SLANT = ""
 local RIGHT_SLANT = ""
 
-local function ModifyColorBrightness(rgb, percent)
+local function ModifyColor(rgb, percent)
     local h, s, l = colors_hsl.rgb_string_to_hsl(rgb)
     local tmp = colors_hsl.new(h, s, l, rgb)
     return vim.o.background == "light" and tmp:tint(percent):to_rgb()
@@ -176,11 +176,11 @@ local HighlightA = {
     fg = BlackColor,
 }
 local HighlightB = {
-    bg = ModifyColorBrightness(NormalBgColor, 0.5),
+    bg = ModifyColor(NormalBgColor, 0.5),
     fg = WhiteColor,
 }
 local HighlightC = {
-    bg = ModifyColorBrightness(NormalBgColor, 0.7),
+    bg = ModifyColor(NormalBgColor, 0.7),
     fg = WhiteColor,
 }
 local HighlightD = {
