@@ -41,11 +41,11 @@ local Highlight1 = {
     VisualSep = { "yellow_a", "magenta_b" },
     ReplaceSep = { "blue_a", "magenta_b" },
     CommandSep = { "red_a", "magenta_b" },
-    Normal = { "black", "magenta_a" },
-    Insert = { "black", "green_a" },
-    Visual = { "black", "yellow_a" },
-    Replace = { "black", "blue_a" },
-    Command = { "black", "red_a" },
+    Normal = { "normal_fg", "magenta_a" },
+    Insert = { "insert_fg", "green_a" },
+    Visual = { "visual_fg", "yellow_a" },
+    Replace = { "replace_fg", "blue_a" },
+    Command = { "command_fg", "red_a" },
 }
 
 local Highlight2 = {
