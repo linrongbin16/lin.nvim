@@ -20,6 +20,7 @@ local state = _G.WindLine.state
 local contrast_threshold = 0.3
 local brightness_modifier_parameter = 10
 
+-- color utils {
 local function GetModeName()
     return state.mode[1]
 end
@@ -121,6 +122,7 @@ local function apply_contrast(highlight)
         iteration_count = iteration_count + 1
     end
 end
+-- color utils }
 
 -- rgb color constants {
 local BlackColor = -- "#000000"
@@ -234,12 +236,8 @@ local Highlight4 = {
     DiagnosticHint = { "diagnostic_hint", "normal_bg4" },
 }
 
-local background = colors_hl.get_color_with_fallback(
-    { "PmenuSel", "PmenuThumb", "TabLineSel" },
-    "bg"
-)
-if background then
-    if get_color_brightness(background) > 0.5 then
+if NormalBgColor then
+    if get_color_brightness(NormalBgColor) > 0.5 then
         brightness_modifier_parameter = -brightness_modifier_parameter
         Highlight1.Normal[1] = "black"
     end
