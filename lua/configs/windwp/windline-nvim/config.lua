@@ -560,9 +560,6 @@ local function GetDiagnostics(bufnr)
         end
     end
 
-    if found then
-        table.insert(components, { " " })
-    end
     table.insert(components, { " ", "Normal" })
     return components
 end
@@ -617,6 +614,9 @@ local Diagnostic = {
 local function GetFileTypeIcon(bufnr)
     local unknown_file = ""
     local file_name = vim.fn.fnamemodify(vim.fn.bufname(bufnr), ":t")
+    if strings.empty(file_name) then
+        return ""
+    end
     local file_ext = vim.fn.fnamemodify(file_name, ":e")
     local devicons_ok, devicons = pcall(require, "nvim-web-devicons")
     local icon_text
@@ -631,7 +631,7 @@ local function GetFileTypeIcon(bufnr)
     return {
         { LEFT_SEP, "NormalSep" },
         { " ", "Normal" },
-        { icon_text, "Normal" },
+        { icon_text },
         { " " },
     }
 end
@@ -648,8 +648,14 @@ local FileTypeIcon = {
 
 local function GetFileType(bufnr)
     local file_name = vim.fn.fnamemodify(vim.fn.bufname(bufnr), ":t")
+    if strings.empty(file_name) then
+        return { { " ", "Normal" } }
+    end
     local file_ext = vim.fn.fnamemodify(file_name, ":e")
-    return { { file_ext, "Normal" }, { " ", "Normal" } }
+    return {
+        { file_ext, "Normal" },
+        { " " },
+    }
 end
 
 local FileType = {
@@ -662,40 +668,67 @@ local FileType = {
     ),
 }
 
-basic.section_x = {
-    hl_colors = Highlight3,
-    text = function(_, _, width)
-        if width > WIDTH_BREAKPOINT then
-            return {
-                { sep.left_filled, state.mode[2] .. "Sep" },
-                { " ", state.mode[2] },
-                { b_components.file_encoding() },
-                { " " },
-                { b_components.file_format({ icon = true }) },
-                { " " },
-            }
-        end
-        return {
-            { sep.left_filled, state.mode[2] .. "Sep" },
-        }
-    end,
+local FileEncodingIcon = {
+    ["utf-8"] = "󰉿",
+    ["utf-16"] = "󰊀",
+    ["utf-32"] = "󰊁",
+    ["utf-8mb4"] = "󰊂",
+    ["utf-16le"] = "󰊃",
+    ["utf-16be"] = "󰊄",
 }
 
-basic.section_y = {
+local function GetFileEncoding(bufnr)
+    local encoding = (vim.bo.fenc ~= "" and vim.bo.fenc) or vim.o.enc
+    local encoding_icon = FileEncodingIcon[encoding]
+    if strings.not_empty(encoding_icon) then
+        encoding = encoding_icon .. " " .. encoding
+    end
+
+    return {
+        { LEFT_SEP, "NormalSep" },
+        { " ", "Normal" },
+        { encoding },
+        { " " },
+    }
+end
+
+local FileEncoding = {
+    name = "file_encoding",
     hl_colors = Highlight2,
-    text = function(_, _, width)
-        if width > WIDTH_BREAKPOINT then
-            return {
-                { sep.left_filled, state.mode[2] .. "Sep" },
-                {
-                    b_components.cache_file_type({ icon = true }),
-                    state.mode[2],
-                },
-                { " " },
-            }
-        end
-        return { { sep.left_filled, state.mode[2] .. "Sep" } }
-    end,
+    text = cache_utils.cache_on_buffer(
+        { "BufEnter", "BufNewFile", "BufReadPost" },
+        "WindLineComponent_FileEncoding",
+        GetFileEncoding
+    ),
+}
+
+local FileFormatIcon = {
+    unix = "", -- e712
+    dos = "", -- e70f
+    mac = "", -- e711
+}
+
+local function GetFileFormat()
+    local format = vim.bo.fileformat
+    local format_icon = FileFormatIcon[format]
+    if strings.not_empty(format_icon) then
+        format = format_icon .. " " .. format
+    end
+
+    return {
+        { format, "Normal" },
+        { " " },
+    }
+end
+
+local FileFormat = {
+    name = "file_format",
+    hl_colors = Highlight2,
+    text = cache_utils.cache_on_buffer(
+        { "BufEnter", "BufNewFile", "BufReadPost" },
+        "WindLineComponent_FileFormat",
+        GetFileFormat
+    ),
 }
 
 basic.section_z = {
@@ -802,12 +835,12 @@ local default = {
         FileStatus,
         GitDiff,
         DividerComponent,
-        -- { vim_components.search_count(), Highlight4 },
         SearchCount,
         Diagnostic,
         FileTypeIcon,
         FileType,
-        basic.section_y,
+        FileEncoding,
+        FileFormat,
         basic.section_z,
     },
     inactive = {},
