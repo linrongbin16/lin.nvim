@@ -268,7 +268,7 @@ local CommandBgColor1 = CommandBgColor
 -- local CommandBgColor2 = ModifyColor(CommandBgColor1, 0.5)
 -- local CommandBgColor3 = ModifyColor(CommandBgColor1, 0.7)
 
-local Highlight1_Builder = {
+local HighlightBuilder1 = {
     NormalSep = { fg = NormalBgColor1, bg = NormalBgColor2 },
     InsertSep = { fg = InsertBgColor1, bg = NormalBgColor2 },
     VisualSep = { fg = VisualBgColor1, bg = NormalBgColor2 },
@@ -281,7 +281,7 @@ local Highlight1_Builder = {
     Command = { fg = BlackColor, bg = CommandBgColor1 },
 }
 
-local Highlight2_Builder = {
+local HighlightBuilder2 = {
     NormalSep = { fg = NormalBgColor2, bg = NormalBgColor3 },
     Normal = { fg = WhiteColor, bg = NormalBgColor2 },
     Insert = { fg = WhiteColor, bg = NormalBgColor2 },
@@ -290,12 +290,12 @@ local Highlight2_Builder = {
     Command = { fg = WhiteColor, bg = NormalBgColor2 },
 }
 
-local Highlight3_Builder = {
+local HighlightBuilder3 = {
     NormalSep = { fg = NormalBgColor3, bg = NormalBgColor4 },
     Normal = { fg = WhiteColor, bg = NormalBgColor3 },
 }
 
-local Highlight4_Builder = {
+local HighlightBuilder4 = {
     NormalSep = { fg = NormalBgColor4, bg = BlackColor },
     Normal = { fg = WhiteColor, bg = NormalBgColor4 },
     GitAdd = { fg = DiffAddColor, bg = NormalBgColor4 },
@@ -307,16 +307,16 @@ local Highlight4_Builder = {
     DiagnosticHint = { fg = DiagnosticHintColor, bg = NormalBgColor4 },
 }
 
-for _, h in ipairs(Highlight1_Builder) do
+for _, h in ipairs(HighlightBuilder1) do
     apply_contrast(h)
 end
-for _, h in ipairs(Highlight2_Builder) do
+for _, h in ipairs(HighlightBuilder2) do
     apply_contrast(h)
 end
-for _, h in ipairs(Highlight3_Builder) do
+for _, h in ipairs(HighlightBuilder3) do
     apply_contrast(h)
 end
-for _, h in ipairs(Highlight4_Builder) do
+for _, h in ipairs(HighlightBuilder4) do
     apply_contrast(h)
 end
 
@@ -818,25 +818,25 @@ local default = {
 
 windline.setup({
     colors_name = function(colors)
-        colors.black = Highlight1_Builder.Normal.fg
-        colors.white = Highlight4_Builder.Normal.fg
+        colors.black = HighlightBuilder1.Normal.fg
+        colors.white = HighlightBuilder4.Normal.fg
 
-        colors.normal_bg1 = Highlight1_Builder.Normal.bg
-        colors.normal_bg2 = Highlight2_Builder.Normal.bg
-        colors.normal_bg3 = Highlight3_Builder.Normal.bg
-        colors.normal_bg4 = Highlight4_Builder.Normal.bg
-        colors.insert_bg1 = Highlight1_Builder.Insert.bg
-        colors.replace_bg1 = Highlight1_Builder.Replace.bg
-        colors.visual_bg1 = Highlight1_Builder.Visual.bg
-        colors.command_bg1 = Highlight1_Builder.Command.bg
+        colors.normal_bg1 = HighlightBuilder1.Normal.bg
+        colors.normal_bg2 = HighlightBuilder2.Normal.bg
+        colors.normal_bg3 = HighlightBuilder3.Normal.bg
+        colors.normal_bg4 = HighlightBuilder4.Normal.bg
+        colors.insert_bg1 = HighlightBuilder1.Insert.bg
+        colors.replace_bg1 = HighlightBuilder1.Replace.bg
+        colors.visual_bg1 = HighlightBuilder1.Visual.bg
+        colors.command_bg1 = HighlightBuilder1.Command.bg
 
-        colors.diff_add = Highlight4_Builder.GitAdd.fg
-        colors.diff_change = Highlight4_Builder.GitChange.fg
-        colors.diff_delete = Highlight4_Builder.GitDelete.fg
-        colors.diagnostic_error = Highlight4_Builder.DiagnosticError.fg
-        colors.diagnostic_warn = Highlight4_Builder.DiagnosticWarn.fg
-        colors.diagnostic_info = Highlight4_Builder.DiagnosticInfo.fg
-        colors.diagnostic_hint = Highlight4_Builder.DiagnosticHint.fg
+        colors.diff_add = HighlightBuilder4.GitAdd.fg
+        colors.diff_change = HighlightBuilder4.GitChange.fg
+        colors.diff_delete = HighlightBuilder4.GitDelete.fg
+        colors.diagnostic_error = HighlightBuilder4.DiagnosticError.fg
+        colors.diagnostic_warn = HighlightBuilder4.DiagnosticWarn.fg
+        colors.diagnostic_info = HighlightBuilder4.DiagnosticInfo.fg
+        colors.diagnostic_hint = HighlightBuilder4.DiagnosticHint.fg
 
         return colors
     end,
