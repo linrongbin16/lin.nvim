@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.19.5](https://github.com/linrongbin16/lin.nvim/compare/v2.19.4...v2.19.5) (2024-02-07)
+
+
+### Bug Fixes
+
+* **neo-tree.nvim:** remove 'WinResized' from auto-resizing ([#465](https://github.com/linrongbin16/lin.nvim/issues/465)) ([b3af1db](https://github.com/linrongbin16/lin.nvim/commit/b3af1db6b4bc3a411a7327467b95402fd7e12714))
+
 ## [2.19.4](https://github.com/linrongbin16/lin.nvim/compare/v2.19.3...v2.19.4) (2024-02-04)
 
 
