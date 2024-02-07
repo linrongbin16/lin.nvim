@@ -266,10 +266,10 @@ local GitDiff = {
 
 local function GetDiagnostics(bufnr)
     local signs = {
-        constants.diagnostic.sign.hint,
-        constants.diagnostic.sign.info,
-        constants.diagnostic.sign.warn,
         constants.diagnostic.sign.error,
+        constants.diagnostic.sign.warn,
+        constants.diagnostic.sign.info,
+        constants.diagnostic.sign.hint,
     }
     local hls = {
         "DiagnosticError",
