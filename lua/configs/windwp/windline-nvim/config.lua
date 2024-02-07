@@ -182,8 +182,8 @@ if normal then
         brightness_modifier(VisualBgColor, brightness_modifier_parameter)
     CommandBgColor =
         brightness_modifier(CommandBgColor, brightness_modifier_parameter)
-    -- StatusLineBgColor =
-    --     brightness_modifier(StatusLineBgColor, brightness_modifier_parameter)
+    StatusLineBgColor =
+        brightness_modifier(StatusLineBgColor, brightness_modifier_parameter)
 end
 
 local NormalBgColor1 = NormalBgColor
