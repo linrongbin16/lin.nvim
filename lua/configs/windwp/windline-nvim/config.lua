@@ -601,7 +601,7 @@ windline.setup({
             "#008000"
         )
         local DiagnosticHintColor = colors_hl.get_color_with_fallback(
-            { "DiagnosticSignHint", "LspDiagnosticsSignHint", "Comment" },
+            { "DiagnosticSignHint", "Comment" },
             "fg",
             "#00FFFF"
         )
