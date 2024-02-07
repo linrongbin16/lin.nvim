@@ -621,8 +621,11 @@ windline.setup({
 
         colors.black = BlackColor
         colors.white = WhiteColor
-        colors.normal_black = BlackColor
-        colors.normal_white = WhiteColor
+        colors.normal_fg = BlackColor
+        colors.insert_fg = WhiteColor
+        colors.visual_fg = WhiteColor
+        colors.replace_fg = WhiteColor
+        colors.command_fg = WhiteColor
 
         local lualine_ok, lualine_theme = pcall(
             require,
@@ -641,7 +644,7 @@ windline.setup({
                     tables.tbl_get(lualine_theme, "normal", "a", "fg")
                 )
             then
-                colors.normal_black = lualine_theme.normal.a.fg
+                colors.normal_fg = lualine_theme.normal.a.fg
             end
             if
                 strings.not_empty(
@@ -652,10 +655,24 @@ windline.setup({
             end
             if
                 strings.not_empty(
+                    tables.tbl_get(lualine_theme, "insert", "a", "fg")
+                )
+            then
+                colors.insert_fg = lualine_theme.insert.a.fg
+            end
+            if
+                strings.not_empty(
                     tables.tbl_get(lualine_theme, "visual", "a", "bg")
                 )
             then
                 colors.yellow = lualine_theme.visual.a.bg
+            end
+            if
+                strings.not_empty(
+                    tables.tbl_get(lualine_theme, "visual", "a", "fg")
+                )
+            then
+                colors.visual_fg = lualine_theme.visual.a.fg
             end
             if
                 strings.not_empty(
@@ -666,10 +683,24 @@ windline.setup({
             end
             if
                 strings.not_empty(
+                    tables.tbl_get(lualine_theme, "replace", "a", "fg")
+                )
+            then
+                colors.replace_fg = lualine_theme.replace.a.fg
+            end
+            if
+                strings.not_empty(
                     tables.tbl_get(lualine_theme, "command", "a", "bg")
                 )
             then
                 colors.red = lualine_theme.command.a.bg
+            end
+            if
+                strings.not_empty(
+                    tables.tbl_get(lualine_theme, "command", "a", "fg")
+                )
+            then
+                colors.command_fg = lualine_theme.command.a.fg
             end
         end
 
