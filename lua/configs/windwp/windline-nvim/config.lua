@@ -262,6 +262,19 @@ local GitDiff = {
     ),
 }
 
+local LspStatus = {
+    name = "lsp_status",
+    width = WIDTH_BREAKPOINT,
+    hl_colors = Highlight4,
+    text = cache_utils.cache_on_buffer(
+        { "User LspProgressStatusUpdated" },
+        "WindLineComponent_LspStatus",
+        function()
+            return require("lsp-progress").progress({ max_size = 40 })
+        end
+    ),
+}
+
 local function GetDiagnostics(bufnr)
     local signs = {
         constants.diagnostic.sign.error,
