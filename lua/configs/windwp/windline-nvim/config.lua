@@ -630,29 +630,46 @@ windline.setup({
         )
         if lualine_ok and type(lualine_theme) == "table" then
             if
-                strings.not_empty(tables.tbl_get(lualine_theme, "normal", "a"))
+                strings.not_empty(
+                    tables.tbl_get(lualine_theme, "normal", "a", "bg")
+                )
             then
-                colors.magenta = lualine_theme.normal.a
+                colors.magenta = lualine_theme.normal.a.bg
             end
             if
-                strings.not_empty(tables.tbl_get(lualine_theme, "insert", "a"))
+                strings.not_empty(
+                    tables.tbl_get(lualine_theme, "normal", "a", "fg")
+                )
             then
-                colors.green = lualine_theme.insert.a
+                colors.black = lualine_theme.normal.a.fg
             end
             if
-                strings.not_empty(tables.tbl_get(lualine_theme, "visual", "a"))
+                strings.not_empty(
+                    tables.tbl_get(lualine_theme, "insert", "a", "bg")
+                )
             then
-                colors.yellow = lualine_theme.visual.a
+                colors.green = lualine_theme.insert.a.bg
             end
             if
-                strings.not_empty(tables.tbl_get(lualine_theme, "replace", "a"))
+                strings.not_empty(
+                    tables.tbl_get(lualine_theme, "visual", "a", "bg")
+                )
             then
-                colors.blue = lualine_theme.replace.a
+                colors.yellow = lualine_theme.visual.a.bg
             end
             if
-                strings.not_empty(tables.tbl_get(lualine_theme, "command", "a"))
+                strings.not_empty(
+                    tables.tbl_get(lualine_theme, "replace", "a", "bg")
+                )
             then
-                colors.red = lualine_theme.command.a
+                colors.blue = lualine_theme.replace.a.bg
+            end
+            if
+                strings.not_empty(
+                    tables.tbl_get(lualine_theme, "command", "a", "bg")
+                )
+            then
+                colors.red = lualine_theme.command.a.bg
             end
         end
 
