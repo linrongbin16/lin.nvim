@@ -265,7 +265,7 @@ local GitDiff = {
 local function GetDiagnostics(bufnr)
     local signs = {
         constants.diagnostic.sign.error,
-        constants.diagnostic.sign.warn,
+        constants.diagnostic.sign.warning,
         constants.diagnostic.sign.info,
         constants.diagnostic.sign.hint,
     }
