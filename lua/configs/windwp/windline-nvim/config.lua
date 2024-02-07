@@ -247,7 +247,7 @@ local Highlight1 = {
     VisualSep = { "visual_bg1", "normal_bg2" },
     ReplaceSep = { "replace_bg1", "normal_bg2" },
     CommandSep = { "command_bg1", "normal_bg2" },
-    Normal = { "black", "normal_bg1" },
+    Normal = { "white", "normal_bg1" },
     Insert = { "black", "insert_bg1" },
     Visual = { "black", "visual_bg1" },
     Replace = { "black", "replace_bg1" },
@@ -319,18 +319,18 @@ local Highlight4_Builder = {
     DiagnosticHint = { fg = DiagnosticHintColor, bg = NormalBgColor4 },
 }
 
--- for _, h in ipairs(Highlight1_Builder) do
---     apply_contrast(h)
--- end
--- for _, h in ipairs(Highlight2_Builder) do
---     apply_contrast(h)
--- end
--- for _, h in ipairs(Highlight3_Builder) do
---     apply_contrast(h)
--- end
--- for _, h in ipairs(Highlight4_Builder) do
---     apply_contrast(h)
--- end
+for _, h in ipairs(Highlight1_Builder) do
+    apply_contrast(h)
+end
+for _, h in ipairs(Highlight2_Builder) do
+    apply_contrast(h)
+end
+for _, h in ipairs(Highlight3_Builder) do
+    apply_contrast(h)
+end
+for _, h in ipairs(Highlight4_Builder) do
+    apply_contrast(h)
+end
 
 local basic = {}
 
