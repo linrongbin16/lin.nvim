@@ -3,41 +3,8 @@ local utils = require("heirline.utils")
 
 local uv = require("commons.uv")
 local strings = require("commons.strings")
+local tables = require("commons.tables")
 local colors_hl = require("commons.colors.hl")
-
-local lualine_ok, lualine_theme = pcall(require("module"))
-
-local colors = {
-    bright_bg = utils.get_highlight("Folded").bg,
-    bright_fg = utils.get_highlight("Folded").fg,
-    red = utils.get_highlight("DiagnosticError").fg,
-    dark_red = utils.get_highlight("DiffDelete").bg,
-    green = utils.get_highlight("String").fg,
-    blue = utils.get_highlight("Function").fg,
-    gray = utils.get_highlight("NonText").fg,
-    orange = utils.get_highlight("Constant").fg,
-    purple = utils.get_highlight("Statement").fg,
-    cyan = utils.get_highlight("Special").fg,
-    diag_warn = utils.get_highlight("DiagnosticWarn").fg,
-    diag_error = utils.get_highlight("DiagnosticError").fg,
-    diag_hint = utils.get_highlight("DiagnosticHint").fg,
-    diag_info = utils.get_highlight("DiagnosticInfo").fg,
-    git_add = colors_hl.get_color_with_fallback(
-        { "GitSignsAdd", "GitGutterAdd", "diffAdded", "DiffAdd" },
-        "fg",
-        "#008000"
-    ),
-    git_change = colors_hl.get_color_with_fallback(
-        { "GitSignsChange", "GitGutterChange", "diffChanged", "DiffChange" },
-        "fg",
-        "#FFFF00"
-    ),
-    git_delete = colors_hl.get_color_with_fallback(
-        { "GitSignsDelete", "GitGutterDelete", "diffRemoved", "DiffDelete" },
-        "fg",
-        "#FF0000"
-    ),
-}
 
 local ModeNames = {
     ["n"] = "NORMAL",
@@ -146,6 +113,91 @@ require("heirline").setup({
         colors = colors,
     },
 })
+
+local function setup_colors(colorname)
+    local bright_bg
+    local bright_fg
+    local red
+    local dark_red
+    local green
+    local blue
+    local grey
+    local orange
+    local yellow
+    local purple
+    local cyan
+    local diagnostic_error = colors_hl.get_color_with_fallback(
+        { "DiagnosticSignError", "ErrorMsg" },
+        "fg",
+        "#FF0000"
+    )
+    local diagnostic_warn = colors_hl.get_color_with_fallback(
+        { "DiagnosticSignWarn", "WarningMsg" },
+        "fg",
+        "#FFFF00"
+    )
+    local diagnostic_info = colors_hl.get_color_with_fallback(
+        { "DiagnosticSignInfo", "None" },
+        "fg",
+        "#00FFFF"
+    )
+    local diagnostic_hint = colors_hl.get_color_with_fallback(
+        { "DiagnosticSignHint", "Comment" },
+        "fg",
+        "#808080"
+    )
+    local git_add = colors_hl.get_color_with_fallback(
+        { "GitSignsAdd", "GitGutterAdd", "diffAdded", "DiffAdd" },
+        "fg",
+        "#008000"
+    )
+    local git_change = colors_hl.get_color_with_fallback(
+        { "GitSignsChange", "GitGutterChange", "diffChanged", "DiffChange" },
+        "fg",
+        "#FFFF00"
+    )
+    local git_delete = colors_hl.get_color_with_fallback(
+        { "GitSignsDelete", "GitGutterDelete", "diffRemoved", "DiffDelete" },
+        "fg",
+        "#FF0000"
+    )
+
+    local lualine_ok, lualine_theme = pcall(require("module"))
+    if lualine_ok and tables.tbl_not_empty(lualine_theme) then
+    end
+
+    local colors = {
+        bright_bg = utils.get_highlight("Folded").bg,
+        bright_fg = utils.get_highlight("Folded").fg,
+        red = utils.get_highlight("DiagnosticError").fg,
+        dark_red = utils.get_highlight("DiffDelete").bg,
+        green = utils.get_highlight("String").fg,
+        blue = utils.get_highlight("Function").fg,
+        gray = utils.get_highlight("NonText").fg,
+        orange = utils.get_highlight("Constant").fg,
+        purple = utils.get_highlight("Statement").fg,
+        cyan = utils.get_highlight("Special").fg,
+        diag_warn = utils.get_highlight("DiagnosticWarn").fg,
+        diag_error = utils.get_highlight("DiagnosticError").fg,
+        diag_hint = utils.get_highlight("DiagnosticHint").fg,
+        diag_info = utils.get_highlight("DiagnosticInfo").fg,
+        git_add = colors_hl.get_color_with_fallback(
+            { "GitSignsAdd", "GitGutterAdd", "diffAdded", "DiffAdd" },
+            "fg",
+            "#008000"
+        ),
+        git_change = colors_hl.get_color_with_fallback(
+            { "GitSignsChange", "GitGutterChange", "diffChanged", "DiffChange" },
+            "fg",
+            "#FFFF00"
+        ),
+        git_delete = colors_hl.get_color_with_fallback(
+            { "GitSignsDelete", "GitGutterDelete", "diffRemoved", "DiffDelete" },
+            "fg",
+            "#FF0000"
+        ),
+    }
+end
 
 vim.api.nvim_create_augroup("heirline_augroup", { clear = true })
 vim.api.nvim_create_autocmd("ColorScheme", {
