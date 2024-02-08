@@ -207,9 +207,18 @@ local function setup_colors(colorname)
         lualine_theme,
         "normal",
         "a",
-        "fg",
+        "bg",
         {},
         vim.g.terminal_color_0 or "#FF00FF"
+    )
+    local normal_fg = get_color_with_lualine(
+        lualine_ok,
+        lualine_theme,
+        "normal",
+        "a",
+        "fg",
+        {},
+        "#ffffff"
     )
     local dark_red = get_color_with_lualine(lualine_ok, lualine_theme, "normal")
     local green
