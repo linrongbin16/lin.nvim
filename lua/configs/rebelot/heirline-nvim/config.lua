@@ -264,11 +264,51 @@ local SectionD = {
 
     {
         provider = function(self)
+            if vim.fn.exists("*GitGutterGetHunkSummary") <= 0 then
+                return ""
+            end
+            local summary = vim.fn["GitGutterGetHunkSummary"]() or {}
+            local signs = { "+", "~", "-" }
+            local colors = { "git_add", "git_change", "git_delete" }
+            local components = {}
+            for i = 1, 3 do
+                local value = summary[i]
+                if type(value) == "number" and value > 0 then
+                    table.insert(components, {
+                        provider = string.format("%s%d ", signs[i], value),
+                        hl = { fg = colors[i], bg = "normal_bg4" },
+                    })
+                end
+            end
+            local added = tables.tbl_not_empty(self.git_diff)
+                    and self.git_diff[1]
+                or 0
+            if added > 0 then
+                return string.format("+%d ", added)
+            end
+            return ""
+        end,
+        update = { "User", pattern = "GitGutter" },
+    },
+    {
+        provider = function(self)
+            local modified = tables.tbl_not_empty(self.git_diff)
+                    and self.git_diff[2]
+                or 0
+            if modified > 0 then
+                return string.format("~%d ", modified)
+            end
+            return ""
+        end,
+        update = { "User", pattern = "GitGutter" },
+    },
+    {
+        provider = function(self)
             local git_add = tables.tbl_not_empty(self.git_diff)
                     and self.git_diff[1]
                 or 0
             if git_add > 0 then
-                return string.format("+%d", git_add)
+                return string.format("+%d ", git_add)
             end
             return ""
         end,
