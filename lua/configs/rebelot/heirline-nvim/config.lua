@@ -161,7 +161,7 @@ local SectionB = {
             if vim.fn.exists("*gitbranch#name") > 0 then
                 local branch = vim.fn["gitbranch#name"]()
                 if strings.not_empty(branch) then
-                    return " " .. branch
+                    return "  " .. branch
                 end
             end
             return ""
