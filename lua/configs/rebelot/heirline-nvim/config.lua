@@ -483,6 +483,7 @@ local StatusLine = {
 ---@param section "a"|"b"|"c"
 ---@param attribute "fg"|"bg"
 ---@param fallback_hls string|string[]
+---@param fallback_attribute 'fg'|'bg'
 ---@param fallback_color string?
 local function get_color_with_lualine(
     lualine_ok,
@@ -491,6 +492,7 @@ local function get_color_with_lualine(
     section,
     attribute,
     fallback_hls,
+    fallback_attribute,
     fallback_color
 )
     if
@@ -501,7 +503,7 @@ local function get_color_with_lualine(
     else
         return colors_hl.get_color_with_fallback(
             fallback_hls,
-            attribute,
+            fallback_attribute,
             fallback_color
         )
     end
@@ -563,6 +565,7 @@ local function setup_colors(colorname)
         "a",
         "bg",
         { "Normal" },
+        "bg",
         black
     )
     local text_fg = get_color_with_lualine(
@@ -572,6 +575,7 @@ local function setup_colors(colorname)
         "a",
         "fg",
         { "Normal" },
+        "fg",
         white
     )
     local statusline_bg = get_color_with_lualine(
@@ -581,6 +585,7 @@ local function setup_colors(colorname)
         "c",
         "bg",
         { "StatusLine", "Normal" },
+        "bg",
         black
     )
     local statusline_fg = get_color_with_lualine(
@@ -590,12 +595,8 @@ local function setup_colors(colorname)
         "c",
         "fg",
         { "StatusLine", "Normal" },
+        "fg",
         black
-    )
-    local normal_bg_fallback = colors_hl.get_color_with_fallback(
-        { "PmenuSel", "PmenuThumb", "TabLineSel" },
-        "bg",
-        get_terminal_color_with_fallback(0, magenta)
     )
     local normal_bg = get_color_with_lualine(
         lualine_ok,
@@ -603,8 +604,9 @@ local function setup_colors(colorname)
         "normal",
         "a",
         "bg",
-        {},
-        normal_bg_fallback
+        { "PmenuSel", "PmenuThumb", "TabLineSel" },
+        "bg",
+        get_terminal_color_with_fallback(0, magenta)
     )
     local normal_fg = get_color_with_lualine(
         lualine_ok,
