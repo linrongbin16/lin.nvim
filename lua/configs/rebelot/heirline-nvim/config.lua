@@ -543,6 +543,7 @@ local Location = {
     },
     {
         provider = function(self)
+            ---@diagnostic disable-next-line: deprecated
             local row, col = unpack(vim.api.nvim_win_get_cursor(0))
             if type(row) ~= "number" or type(col) ~= "number" then
                 return ""
