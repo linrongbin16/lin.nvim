@@ -520,13 +520,27 @@ local FileFormat = {
         },
     },
     {
+        init = function(self)
+            self.mode = vim.fn.mode(1)
+        end,
         provider = left_slant,
-        hl = { fg = "normal_bg1", bg = "normal_bg2" },
+        hl = function(self)
+            local mode_name = GetModeName(self.mode)
+            local mode_hl = ModeHighlights[mode_name] or ModeHighlights.NORMAL
+            return { fg = "normal_fg2", bg = mode_hl.bg }
+        end,
     },
 }
 
 local Location = {
-    hl = { fg = "normal_fg1", bg = "normal_bg1" },
+    init = function(self)
+        self.mode = vim.fn.mode(1)
+    end,
+    hl = function(self)
+        local mode_name = GetModeName(self.mode)
+        local mode_hl = ModeHighlights[mode_name] or ModeHighlights.NORMAL
+        return { fg = mode_hl.fg, bg = mode_hl.bg, bold = true }
+    end,
     provider = function(self)
         local row, col = unpack(vim.api.nvim_win_get_cursor(0))
         if type(row) ~= "number" or type(col) ~= "number" then
@@ -537,7 +551,14 @@ local Location = {
 }
 
 local Progress = {
-    hl = { fg = "normal_fg1", bg = "normal_bg1" },
+    init = function(self)
+        self.mode = vim.fn.mode(1)
+    end,
+    hl = function(self)
+        local mode_name = GetModeName(self.mode)
+        local mode_hl = ModeHighlights[mode_name] or ModeHighlights.NORMAL
+        return { fg = mode_hl.fg, bg = mode_hl.bg, bold = true }
+    end,
     provider = function(self)
         local line_fraction =
             math.floor(vim.fn.line(".") / vim.fn.line("$") * 100)
