@@ -519,18 +519,6 @@ local FileFormat = {
             "WinEnter",
         },
     },
-    {
-        init = function(self)
-            self.mode = vim.fn.mode(1)
-        end,
-        hl = function(self)
-            local mode_name = GetModeName(self.mode)
-            local mode_hl = ModeHighlights[mode_name] or ModeHighlights.NORMAL
-            return { fg = mode_hl.fg, bg = "normal_bg2" }
-        end,
-        provider = left_slant,
-        -- hl = { fg = "normal_bg1", bg = "normal_bg2" },
-    },
 }
 
 local Location = {
@@ -545,6 +533,11 @@ local Location = {
 
     {
         provider = left_slant,
+        hl = function(self)
+            local mode_name = GetModeName(self.mode)
+            local mode_hl = ModeHighlights[mode_name] or ModeHighlights.NORMAL
+            return { fg = mode_hl.bg, bg = "normal_bg2", bold = true }
+        end,
     },
     {
         provider = function(self)
@@ -569,13 +562,13 @@ local Progress = {
     provider = function(self)
         local line_fraction =
             math.floor(vim.fn.line(".") / vim.fn.line("$") * 100)
-        local value = string.format("%3d%%%%", line_fraction)
+        local value = string.format("%2d%%%%", line_fraction)
         if line_fraction <= 0 then
             value = "Top"
         elseif line_fraction >= 100 then
             value = "Bot"
         end
-        return "  " .. value
+        return "  " .. value .. " "
     end,
 }
 
