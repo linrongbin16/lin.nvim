@@ -236,7 +236,11 @@ local FileName = {
     -- file size
     {
         provider = function(self)
-            local filesize = vim.fn.getfsize(self.filename or "")
+            local filename = GetFileName()
+            if strings.empty(filename) then
+                return ""
+            end
+            local filesize = vim.fn.getfsize(filename or "")
             if type(filesize) ~= "number" or filesize <= 0 then
                 return ""
             end
