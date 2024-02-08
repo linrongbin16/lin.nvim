@@ -254,12 +254,6 @@ local SectionC = {
 }
 
 local SectionD = {
-    init = function(self)
-        self.git_diff = nil
-        if vim.fn.exists("*GitGutterGetHunkSummary") > 0 then
-            self.git_diff = vim.fn["GitGutterGetHunkSummary"]()
-        end
-    end,
     hl = { fg = "normal_fg4", bg = "normal_bg4" },
 
     {
