@@ -157,6 +157,7 @@ local Mode = {
 
 local GitBranch = {
     hl = { fg = "normal_fg2", bg = "normal_bg2" },
+    update = { "BufEnter", "BufReadPre", "BufNewFile" },
 
     {
         provider = function(self)
@@ -168,7 +169,7 @@ local GitBranch = {
             end
             return ""
         end,
-        update = { "BufEnter" },
+        update = { "User", pattern = "VeryLazy" },
     },
     {
         provider = right_slant,
@@ -269,6 +270,7 @@ local GitDiff = {
             self.summary = vim.fn["GitGutterGetHunkSummary"]() or {}
         end
     end,
+    update = { "BufEnter", "BufReadPre", "BufNewFile" },
     hl = { fg = "normal_fg4", bg = "normal_bg4" },
     update = { "User", pattern = "GitGutter" },
 

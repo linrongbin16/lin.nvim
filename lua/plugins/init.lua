@@ -141,18 +141,18 @@ local M = {
     },
     -- Statusline
     {
+        "itchyny/vim-gitbranch",
+        event = { VeryLazy, BufReadPre, BufNewFile },
+    },
+    {
         "linrongbin16/lsp-progress.nvim",
-        lazy = true,
+        event = { VeryLazy, BufReadPre, BufNewFile },
         config = lua_config("linrongbin16/lsp-progress.nvim"),
     },
     {
         "rebelot/heirline.nvim",
         event = { UIEnter },
-        dependencies = {
-            "linrongbin16/lsp-progress.nvim",
-            "itchyny/vim-gitbranch",
-            "airblade/vim-gitgutter",
-        },
+        dependencies = {},
         config = lua_config("rebelot/heirline.nvim"),
     },
     -- Winbar
