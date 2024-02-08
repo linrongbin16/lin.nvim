@@ -114,18 +114,39 @@ require("heirline").setup({
     },
 })
 
+---@param lualine_ok boolean
+---@param lualine_theme table
+---@param mode_name "normal"|"insert"|"visual"|"replace"|"command"|"inactive"
+---@param section "a"|"b"|"c"
+---@param attribute "fg"|"bg"
+---@param fallback_hls string|string[]
+---@param fallback_color string?
+local function get_color_with_lualine(
+    lualine_ok,
+    lualine_theme,
+    mode_name,
+    section,
+    attribute,
+    fallback_hls,
+    fallback_color
+)
+    if
+        lualine_ok
+        and strings.not_empty(
+            tables.tbl_get(lualine_theme, mode_name, section, attribute)
+        )
+    then
+        return lualine_theme[mode_name][section][attribute]
+    else
+        return colors_hl.get_color_with_fallback(
+            fallback_hls,
+            attribute,
+            fallback_color
+        )
+    end
+end
+
 local function setup_colors(colorname)
-    local bright_bg
-    local bright_fg
-    local red
-    local dark_red
-    local green
-    local blue
-    local grey
-    local orange
-    local yellow
-    local purple
-    local cyan
     local diagnostic_error = colors_hl.get_color_with_fallback(
         { "DiagnosticSignError", "ErrorMsg" },
         "fg",
@@ -163,8 +184,41 @@ local function setup_colors(colorname)
     )
 
     local lualine_ok, lualine_theme = pcall(require("module"))
-    if lualine_ok and tables.tbl_not_empty(lualine_theme) then
-    end
+    local bright_bg = get_color_with_lualine(
+        lualine_ok,
+        lualine_theme,
+        "normal",
+        "a",
+        "bg",
+        { "Folded", "Normal" },
+        "#000000"
+    )
+    local bright_fg = get_color_with_lualine(
+        lualine_ok,
+        lualine_theme,
+        "normal",
+        "a",
+        "fg",
+        { "Folded", "Normal" },
+        "#ffffff"
+    )
+    local red = get_color_with_lualine(
+        lualine_ok,
+        lualine_theme,
+        "normal",
+        "a",
+        "fg",
+        { "DiagnosticSignError", "ErrorMsg" },
+        "#FF0000"
+    )
+    local dark_red
+    local green
+    local blue
+    local grey
+    local orange
+    local yellow
+    local purple
+    local cyan
 
     local colors = {
         bright_bg = utils.get_highlight("Folded").bg,
