@@ -218,7 +218,7 @@ local function setup_colors(colorname)
         "a",
         "fg",
         {},
-        "#ffffff"
+        "#000000"
     )
     local dark_red = get_color_with_lualine(lualine_ok, lualine_theme, "normal")
     local green
