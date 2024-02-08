@@ -329,7 +329,7 @@ local SearchCount = {
             return ""
         end
         local ok, result =
-            pcall(vim.fn.searchcount, { maxcount = 100, timeout = 500 })
+            pcall(vim.fn.searchcount, { maxcount = 99, timeout = 500 })
         if not ok or tables.tbl_empty(result) then
             return ""
         end
