@@ -276,7 +276,7 @@ local function setup_colors(colorname)
         "b",
         "fg",
         {},
-        black
+        text_fg
     )
     local normal_bg3 = get_color_with_lualine(
         lualine_ok,
@@ -294,7 +294,7 @@ local function setup_colors(colorname)
         "b",
         "fg",
         {},
-        black
+        text_fg
     )
     local normal_bg4 = text_bg
     local normal_fg4 = text_fg
