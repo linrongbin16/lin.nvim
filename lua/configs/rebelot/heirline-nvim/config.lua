@@ -128,12 +128,31 @@ local Mode = {
             .. " "
             .. GetModeName(self.mode)
             .. " "
-            .. right_slant
     end,
     hl = function(self)
         local mode_name = GetModeName(self.mode)
         local mode_hl = ModeHighlights[mode_name] or ModeHighlights.NORMAL
         return { fg = mode_hl.fg, bg = mode_hl.bg, bold = true }
+    end,
+    update = {
+        "ModeChanged",
+        pattern = "*:*",
+        callback = vim.schedule_wrap(function()
+            vim.cmd("redrawstatus")
+        end),
+    },
+}
+
+local SeparatorA = {
+    init = function(self)
+        self.mode = vim.fn.mode(1)
+        self.os_uname = uv.os_uname()
+    end,
+    provider = right_slant,
+    hl = function(self)
+        local mode_name = GetModeName(self.mode)
+        local mode_hl = ModeHighlights[mode_name] or ModeHighlights.NORMAL
+        return { fg = mode_hl.fg, bg = "normal_bg2", bold = true }
     end,
     update = {
         "ModeChanged",
