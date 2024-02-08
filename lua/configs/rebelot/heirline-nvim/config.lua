@@ -6,6 +6,18 @@ local strings = require("commons.strings")
 local tables = require("commons.tables")
 local colors_hl = require("commons.colors.hl")
 
+local black = "#000000"
+local white = "#ffffff"
+local red = "#FF0000"
+local green = "#008000"
+local blue = "#0000FF"
+local cyan = "#00FFFF"
+local grey = "#808080"
+local orange = "#D2691E"
+local yellow = "#FFFF00"
+local purple = "#800080"
+local magenta = "#FF00FF"
+
 local ModeNames = {
     ["n"] = "NORMAL",
     ["no"] = "O-PENDING",
@@ -158,37 +170,37 @@ local function setup_colors(colorname)
     local diagnostic_error = colors_hl.get_color_with_fallback(
         { "DiagnosticSignError", "ErrorMsg" },
         "fg",
-        "#FF0000"
+        red
     )
     local diagnostic_warn = colors_hl.get_color_with_fallback(
         { "DiagnosticSignWarn", "WarningMsg" },
         "fg",
-        "#FFFF00"
+        yellow
     )
     local diagnostic_info = colors_hl.get_color_with_fallback(
         { "DiagnosticSignInfo", "None" },
         "fg",
-        "#00FFFF"
+        cyan
     )
     local diagnostic_hint = colors_hl.get_color_with_fallback(
         { "DiagnosticSignHint", "Comment" },
         "fg",
-        "#808080"
+        grey
     )
     local git_add = colors_hl.get_color_with_fallback(
         { "GitSignsAdd", "GitGutterAdd", "diffAdded", "DiffAdd" },
         "fg",
-        "#008000"
+        green
     )
     local git_change = colors_hl.get_color_with_fallback(
         { "GitSignsChange", "GitGutterChange", "diffChanged", "DiffChange" },
         "fg",
-        "#FFFF00"
+        yellow
     )
     local git_delete = colors_hl.get_color_with_fallback(
         { "GitSignsDelete", "GitGutterDelete", "diffRemoved", "DiffDelete" },
         "fg",
-        "#FF0000"
+        red
     )
 
     local lualine_ok, lualine_theme = pcall(require("module"))
@@ -199,7 +211,7 @@ local function setup_colors(colorname)
         "a",
         "bg",
         { "Normal" },
-        "#000000"
+        black
     )
     local text_fg = get_color_with_lualine(
         lualine_ok,
@@ -208,7 +220,7 @@ local function setup_colors(colorname)
         "a",
         "fg",
         { "Normal" },
-        "#ffffff"
+        white
     )
     local normal_bg = get_color_with_lualine(
         lualine_ok,
@@ -217,7 +229,7 @@ local function setup_colors(colorname)
         "a",
         "bg",
         {},
-        get_terminal_color_with_fallback(0, "#FF00FF")
+        get_terminal_color_with_fallback(0, magenta)
     )
     local normal_fg = get_color_with_lualine(
         lualine_ok,
@@ -226,7 +238,7 @@ local function setup_colors(colorname)
         "a",
         "fg",
         {},
-        "#000000"
+        black
     )
     local insert_bg = get_color_with_lualine(
         lualine_ok,
@@ -235,7 +247,7 @@ local function setup_colors(colorname)
         "a",
         "bg",
         {},
-        get_terminal_color_with_fallback(2, "#008000")
+        get_terminal_color_with_fallback(2, green)
     )
     local insert_fg = get_color_with_lualine(
         lualine_ok,
@@ -244,7 +256,7 @@ local function setup_colors(colorname)
         "a",
         "fg",
         {},
-        "#000000"
+        black
     )
     local visual_bg = get_color_with_lualine(
         lualine_ok,
@@ -253,7 +265,7 @@ local function setup_colors(colorname)
         "a",
         "bg",
         {},
-        get_terminal_color_with_fallback(3, "#FFFF00")
+        get_terminal_color_with_fallback(3, yellow)
     )
     local visual_fg = get_color_with_lualine(
         lualine_ok,
@@ -262,7 +274,7 @@ local function setup_colors(colorname)
         "a",
         "fg",
         {},
-        "#000000"
+        black
     )
     local replace_bg = get_color_with_lualine(
         lualine_ok,
@@ -271,7 +283,7 @@ local function setup_colors(colorname)
         "a",
         "bg",
         {},
-        get_terminal_color_with_fallback(4, "#0000FF")
+        get_terminal_color_with_fallback(4, blue)
     )
     local replace_fg = get_color_with_lualine(
         lualine_ok,
@@ -280,7 +292,7 @@ local function setup_colors(colorname)
         "a",
         "fg",
         {},
-        "#000000"
+        black
     )
     local command_bg = get_color_with_lualine(
         lualine_ok,
@@ -289,7 +301,7 @@ local function setup_colors(colorname)
         "a",
         "bg",
         {},
-        get_terminal_color_with_fallback(1, "#FF0000")
+        get_terminal_color_with_fallback(1, red)
     )
     local command_fg = get_color_with_lualine(
         lualine_ok,
@@ -300,26 +312,6 @@ local function setup_colors(colorname)
         {},
         "#000000"
     )
-
-    local red = colors_hl.get_color_with_fallback({
-        "DiagnosticSignError",
-        "GitSignsDelete",
-        "GitGutterDelete",
-        "diffRemoved",
-        "DiffDelete",
-        "ErrorMsg",
-    }, "fg", "#FF0000")
-    local green = colors_hl.get_color_with_fallback(
-        { "GitSignsAdd", "GitGutterAdd", "diffAdded", "DiffAdd" },
-        "fg",
-        "#008000"
-    )
-    local blue
-    local grey
-    local orange
-    local yellow
-    local purple
-    local cyan
 
     local colors = {
         bright_bg = utils.get_highlight("Folded").bg,
