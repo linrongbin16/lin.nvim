@@ -35,14 +35,16 @@ local function shade_rgb(rgb, value)
     return rgb_to_hsl(rgb):shade(value):to_rgb()
 end
 
-local function GetOsIcon(os_uname)
-    local uname = os_uname.sysname
+local OS_UNAME = uv.os_uname()
+
+local function GetOsIcon()
+    local uname = OS_UNAME.sysname
     if uname == "Darwin" then
         return ""
     elseif uname == "Linux" then
         if
-            type(os_uname.release) == "string"
-            and os_uname.release:find("arch")
+            type(OS_UNAME.release) == "string"
+            and OS_UNAME.release:find("arch")
         then
             return ""
         end
@@ -117,17 +119,10 @@ local function GetModeName(mode)
     return ModeNames[mode] or "???"
 end
 
-local Mode = {
+local SectionA = {
     init = function(self)
         self.mode = vim.fn.mode(1)
         self.os_uname = uv.os_uname()
-    end,
-    provider = function(self)
-        return " "
-            .. GetOsIcon(self.os_uname)
-            .. " "
-            .. GetModeName(self.mode)
-            .. " "
     end,
     hl = function(self)
         local mode_name = GetModeName(self.mode)
@@ -141,25 +136,24 @@ local Mode = {
             vim.cmd("redrawstatus")
         end),
     },
-}
 
-local Separator1 = {
-    init = function(self)
-        self.mode = vim.fn.mode(1)
-        self.os_uname = uv.os_uname()
-    end,
-    provider = right_slant,
-    hl = function(self)
-        local mode_name = GetModeName(self.mode)
-        local mode_hl = ModeHighlights[mode_name] or ModeHighlights.NORMAL
-        return { fg = mode_hl.bg, bg = "normal_bg2" }
-    end,
-    update = {
-        "ModeChanged",
-        pattern = "*:*",
-        callback = vim.schedule_wrap(function()
-            vim.cmd("redrawstatus")
-        end),
+    {
+        provider = function(self)
+            return " " .. GetOsIcon() .. " "
+        end,
+    },
+    {
+        provider = function(self)
+            return GetModeName(self.mode) .. " "
+        end,
+    },
+    {
+        provider = right_slant,
+        hl = function(self)
+            local mode_name = GetModeName(self.mode)
+            local mode_hl = ModeHighlights[mode_name] or ModeHighlights.NORMAL
+            return { fg = mode_hl.bg, bg = "normal_bg2" }
+        end,
     },
 }
 
@@ -170,8 +164,7 @@ local FileName = {
 }
 
 local StatusLine = {
-    Mode,
-    Separator1,
+    SectionA,
 }
 
 ---@param lualine_ok boolean
