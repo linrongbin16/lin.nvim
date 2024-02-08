@@ -128,13 +128,7 @@ local SectionA = {
         local mode_hl = ModeHighlights[mode_name] or ModeHighlights.NORMAL
         return { fg = mode_hl.fg, bg = mode_hl.bg, bold = true }
     end,
-    update = {
-        "ModeChanged",
-        pattern = "*:*",
-        callback = vim.schedule_wrap(function()
-            vim.cmd("redrawstatus")
-        end),
-    },
+    update = { "ModeChanged" },
 
     -- os icon
     {
@@ -168,10 +162,7 @@ local SectionC = {
         "BufWritePost",
         "BufEnter",
         "BufNewFile",
-        pattern = "*:*",
-        callback = vim.schedule_wrap(function()
-            vim.cmd("redrawstatus")
-        end),
+        "WinEnter",
     },
 
     -- file name
@@ -204,23 +195,15 @@ local SectionC = {
             return ""
         end,
         update = {
-            "InsertEnter",
-            "InsertLeave",
             "TextChangedI",
             "BufWritePost",
             "BufEnter",
             "BufNewFile",
-            pattern = "*:*",
-            callback = vim.schedule_wrap(function()
-                vim.cmd("redrawstatus")
-            end),
+            "WinEnter",
         },
     },
     -- file size
     {
-        init = function(self)
-            self.filename = vim.api.nvim_buf_get_name(0)
-        end,
         provider = function(self)
             local filesize = vim.fn.getfsize(self.filename)
             if type(self.filesize) ~= "number" or self.filesize <= 0 then
@@ -241,10 +224,7 @@ local SectionC = {
             "BufWritePost",
             "BufEnter",
             "BufNewFile",
-            pattern = "*:*",
-            callback = vim.schedule_wrap(function()
-                vim.cmd("redrawstatus")
-            end),
+            "WinEnter",
         },
     },
     {
