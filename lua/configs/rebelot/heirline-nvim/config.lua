@@ -165,7 +165,9 @@ local SectionC = {
     end,
     hl = { fg = "normal_fg2", bg = "normal_bg2" },
     update = {
-        { "BufEnter", "BufNewFile", "BufReadPost" },
+        "BufEnter",
+        "BufNewFile",
+        "BufReadPost",
         pattern = "*:*",
         callback = vim.schedule_wrap(function()
             vim.cmd("redrawstatus")
