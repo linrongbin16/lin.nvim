@@ -165,7 +165,8 @@ local SectionC = {
     end,
     hl = { fg = "normal_fg2", bg = "normal_bg2" },
     update = {
-        { "BufEnter", "BufNewFile" },
+        "BufEnter",
+        "BufNewFile",
         pattern = "*:*",
         callback = vim.schedule_wrap(function()
             vim.cmd("redrawstatus")
@@ -200,7 +201,12 @@ local SectionC = {
             return ""
         end,
         update = {
-            { "TextChangeI", "BufWritePost", "BufEnter", "BufNewFile" },
+            "InsertEnter",
+            "InsertLeave",
+            "TextChangedI",
+            "BufWritePost",
+            "BufEnter",
+            "BufNewFile",
             pattern = "*:*",
             callback = vim.schedule_wrap(function()
                 vim.cmd("redrawstatus")
@@ -224,10 +230,19 @@ local SectionC = {
                 i = i + 1
             end
 
-            local fsize_fmt = i == 1 and " [%d%s]" or " [%.1f%s]"
+            local fsize_fmt = i == 1 and " [%d%s] " or " [%.1f%s] "
             local fsize_value = string.format(fsize_fmt, fsize, suffixes[i])
             return fsize_value
         end,
+        update = {
+            "BufWritePost",
+            "BufEnter",
+            "BufNewFile",
+            pattern = "*:*",
+            callback = vim.schedule_wrap(function()
+                vim.cmd("redrawstatus")
+            end),
+        },
     },
     {
         provider = right_slant,
