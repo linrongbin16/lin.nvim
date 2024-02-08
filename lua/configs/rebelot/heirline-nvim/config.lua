@@ -187,15 +187,17 @@ local SectionC = {
     },
     -- file status
     {
-        init = function(self)
-            self.readonly = not vim.api.nvim_buf_get_option(0, "modifiable")
-                or vim.api.nvim_buf_get_option(0, "readonly")
-            self.modified = vim.api.nvim_buf_get_option(0, "modified")
-        end,
         provider = function(self)
-            if self.readonly then
+            local readonly = not vim.api.nvim_buf_get_option(
+                    0,
+                    "modifiable"
+                )
+                or vim.api.nvim_buf_get_option(0, "readonly")
+            if readonly then
                 return " []"
-            elseif self.modified then
+            end
+            local modified = vim.api.nvim_buf_get_option(0, "modified")
+            if modified then
                 return " []"
             end
             return ""
