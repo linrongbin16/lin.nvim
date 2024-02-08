@@ -213,8 +213,7 @@ local FileName = {
     -- file status
     {
         provider = function(self)
-            local filename = GetFileName()
-            if strings.empty(filename) then
+            if strings.empty(self.filename) then
                 return ""
             end
             local readonly = not vim.api.nvim_buf_get_option(
@@ -242,11 +241,10 @@ local FileName = {
     -- file size
     {
         provider = function(self)
-            local filename = GetFileName()
-            if strings.empty(filename) then
+            if strings.empty(self.filename) then
                 return ""
             end
-            local filesize = vim.fn.getfsize(filename)
+            local filesize = vim.fn.getfsize(self.filename)
             if type(filesize) ~= "number" or filesize <= 0 then
                 return ""
             end
