@@ -330,10 +330,9 @@ local SearchCount = {
         end
         local ok, result =
             pcall(vim.fn.searchcount, { maxcount = 100, timeout = 500 })
-        if not ok or next(result) == nil then
+        if not ok or tables.tbl_empty(result) then
             return ""
         end
-
         local denominator = math.min(result.total, result.maxcount)
         return string.format("[%d/%d]", result.current, denominator)
     end,
