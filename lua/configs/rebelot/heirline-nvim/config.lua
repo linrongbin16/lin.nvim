@@ -80,6 +80,7 @@ local ModeColors = {
 }
 
 local OS_UNAME = uv.os_uname()
+
 local function GetOsName()
     local uname = OS_UNAME.sysname
     if uname == "Darwin" then
@@ -99,7 +100,7 @@ local function GetOsName()
 end
 
 local function GetModeName(mode)
-    return ModeNames[self.mode] or "???"
+    return ModeNames[mode] or "???"
 end
 
 local Mode = {
@@ -107,8 +108,7 @@ local Mode = {
         self.mode = vim.fn.mode(1) -- :h mode()
     end,
     provider = function(self)
-        local mode_name = ModeNames[self.mode] or "???"
-        return " %2(" .. mode_name .. "%)"
+        return " " .. GetOsName() .. " " .. GetModeName(self.mode) .. " "
     end,
     hl = function(self)
         local mode = self.mode:sub(1, 1) -- get only the first mode character
