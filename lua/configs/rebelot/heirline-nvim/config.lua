@@ -488,9 +488,9 @@ local FileEncoding = {
 }
 
 local FileFormatIcons = {
-    unix = "", -- e712
-    dos = "", -- e70f
-    mac = "", -- e711
+    unix = " LF", -- e712
+    dos = " CRLF", -- e70f
+    mac = " CR", -- e711
 }
 
 local FileFormat = {
@@ -504,7 +504,7 @@ local FileFormat = {
         if strings.empty(icon) then
             return text .. " "
         end
-        return icon .. " " .. text
+        return icon .. " "
     end,
     update = {
         "BufEnter",
