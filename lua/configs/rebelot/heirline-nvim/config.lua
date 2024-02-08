@@ -19,6 +19,9 @@ local yellow = "#FFFF00"
 local purple = "#800080"
 local magenta = "#FF00FF"
 
+local left_slant = ""
+local right_slant = ""
+
 local function rgb_to_hsl(rgb)
     local h, s, l = colors_hsl.rgb_string_to_hsl(rgb)
     return colors_hsl.new(h, s, l, rgb)
@@ -31,34 +34,6 @@ local function shade_rgb(rgb, value)
     end
     return rgb_to_hsl(rgb):shade(value):to_rgb()
 end
-
-local OsName = {
-    init = function(self)
-        self.os_uname = uv.os_uname()
-    end,
-    provider = function(self)
-        local uname = self.os_uname.sysname
-        if uname == "Darwin" then
-            return ""
-        elseif uname == "Linux" then
-            if
-                type(self.os_uname.release) == "string"
-                and self.os_uname.release:find("arch")
-            then
-                return ""
-            end
-            return ""
-        elseif uname == "Windows" then
-            return ""
-        else
-            return "󱚟"
-        end
-    end,
-    hl = function(self)
-        local mode = self.mode:sub(1, 1) -- get only the first mode character
-        return { fg = ModeColors[mode], bold = true }
-    end,
-}
 
 local function GetOsIcon(os_uname)
     local uname = os_uname.sysname
@@ -153,6 +128,7 @@ local Mode = {
             .. " "
             .. GetModeName(self.mode)
             .. " "
+            .. right_slant
     end,
     hl = function(self)
         local mode_name = GetModeName(self.mode)
@@ -160,7 +136,7 @@ local Mode = {
         return { fg = mode_hl.fg, bg = mode_hl.bg, bold = true }
     end,
     update = {
-        { "ModeChanged", "VimResized" },
+        "ModeChanged",
         pattern = "*:*",
         callback = vim.schedule_wrap(function()
             vim.cmd("redrawstatus")
@@ -168,9 +144,9 @@ local Mode = {
     },
 }
 
-local SectionA = {}
-
-local StatusLine = {}
+local StatusLine = {
+    Mode,
+}
 
 ---@param lualine_ok boolean
 ---@param lualine_theme table
