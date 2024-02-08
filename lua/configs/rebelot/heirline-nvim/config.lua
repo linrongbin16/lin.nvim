@@ -213,6 +213,9 @@ local SectionC = {
             self.filesize = vim.fn.getfsize(self.filename)
         end,
         provider = function(self)
+            if type(self.filesize) ~= "number" or self.filesize <= 0 then
+                return ""
+            end
             local suffixes = { "b", "k", "m", "g" }
             local i = 1
             local fsize = self.filesize
