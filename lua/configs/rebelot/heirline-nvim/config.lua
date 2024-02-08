@@ -656,7 +656,7 @@ local function setup_colors(colorname)
         text_fg
     )
     local normal_bg4 = statusline_bg
-    local normal_fg4 = statusline_fg
+    local normal_fg4 = text_fg
     local insert_bg_fallback = colors_hl.get_color_with_fallback(
         { "String", "MoreMsg" },
         "fg",
