@@ -457,8 +457,31 @@ local FileType = {
     },
 }
 
+local FileEncodingIcons = {
+    ["utf-8"] = "󰉿",
+    ["utf-16"] = "󰊀",
+    ["utf-32"] = "󰊁",
+    ["utf-8mb4"] = "󰊂",
+    ["utf-16le"] = "󰊃",
+    ["utf-16be"] = "󰊄",
+}
+
 local FileEncoding = {
     hl = { fg = "normal_fg2", bg = "normal_bg2" },
+    provider = function(self)
+        local encoding = (vim.bo.fenc ~= "" and vim.bo.fenc) or vim.o.enc
+        local encoding_icon = FileEncodingIcons[encoding]
+        if strings.not_empty(encoding_icon) then
+            encoding = encoding_icon .. " " .. encoding
+        end
+        return encoding
+    end,
+    update = {
+        "BufEnter",
+        "BufNewFile",
+        "BufWritePost",
+        "WinEnter",
+    },
 }
 
 local FileFormat = {
