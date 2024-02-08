@@ -615,7 +615,7 @@ local function setup_colors(colorname)
         "a",
         "fg",
         {},
-        black
+        text_bg -- or black
     )
     local normal_bg1 = normal_bg
     local normal_fg1 = normal_fg
@@ -626,7 +626,7 @@ local function setup_colors(colorname)
         "b",
         "bg",
         {},
-        shade_rgb(normal_bg_fallback, 0.5)
+        shade_rgb(normal_bg1, 0.5)
     )
     local normal_fg2 = get_color_with_lualine(
         lualine_ok,
@@ -644,7 +644,7 @@ local function setup_colors(colorname)
         "c",
         "bg",
         {},
-        shade_rgb(normal_bg_fallback, 0.7)
+        shade_rgb(normal_bg1, 0.7)
     )
     local normal_fg3 = get_color_with_lualine(
         lualine_ok,
