@@ -217,23 +217,20 @@ local SectionC = {
     },
     -- file size
     {
-        init = function(self)
-            self.filesize = vim.fn.getfsize(self.filename)
-        end,
         provider = function(self)
+            local filesize = vim.fn.getfsize(self.filename)
             if type(self.filesize) ~= "number" or self.filesize <= 0 then
                 return ""
             end
             local suffixes = { "b", "k", "m", "g" }
             local i = 1
-            local fsize = self.filesize
-            while fsize > 1024 and i < #suffixes do
-                fsize = fsize / 1024
+            while filesize > 1024 and i < #suffixes do
+                filesize = filesize / 1024
                 i = i + 1
             end
 
             local fsize_fmt = i == 1 and " [%d%s] " or " [%.1f%s] "
-            local fsize_value = string.format(fsize_fmt, fsize, suffixes[i])
+            local fsize_value = string.format(fsize_fmt, filesize, suffixes[i])
             return fsize_value
         end,
         update = {
