@@ -165,7 +165,7 @@ local SectionC = {
     end,
     hl = { fg = "normal_fg2", bg = "normal_bg2" },
     update = {
-        "BufEnter",
+        { "BufEnter", "BufNewFile" },
         pattern = "*:*",
         callback = vim.schedule_wrap(function()
             vim.cmd("redrawstatus")
@@ -183,13 +183,6 @@ local SectionC = {
             end
             return ""
         end,
-        update = {
-            { "BufEnter", "BufNewFile" },
-            pattern = "*:*",
-            callback = vim.schedule_wrap(function()
-                vim.cmd("redrawstatus")
-            end),
-        },
     },
     -- file status
     {
