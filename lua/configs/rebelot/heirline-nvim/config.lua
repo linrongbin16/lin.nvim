@@ -118,20 +118,24 @@ local ModeNames = {
     ["t"] = "TERMINAL",
 }
 
-local ModeColors = {
-    n = "red",
-    i = "green",
-    v = "cyan",
-    V = "cyan",
-    ["\22"] = "cyan",
-    c = "orange",
-    s = "purple",
-    S = "purple",
-    ["\19"] = "purple",
-    R = "orange",
-    r = "orange",
-    ["!"] = "red",
-    t = "red",
+local ModeHighlights = {
+    NORMAL = { fg = "normal_fg1", bg = "normal_bg1" },
+    ["O-PENDING"] = { fg = "normal_fg1", bg = "normal_bg1" },
+    INSERT = { fg = "insert_fg", bg = "insert_bg" },
+    VISUAL = { fg = "visual_fg", bg = "visual_bg" },
+    ["V-LINE"] = { fg = "visual_fg", bg = "visual_bg" },
+    ["V-BLOCK"] = { fg = "visual_fg", bg = "visual_bg" },
+    SELECT = { fg = "visual_fg", bg = "visual_bg" },
+    ["S-LINE"] = { fg = "visual_fg", bg = "visual_bg" },
+    ["S-BLOCK"] = { fg = "visual_fg", bg = "visual_bg" },
+    REPLACE = { fg = "replace_fg", bg = "replace_bg" },
+    MORE = { fg = "replace_fg", bg = "replace_bg" },
+    ["V-REPLACE"] = { fg = "replace_fg", bg = "replace_bg" },
+    COMMAND = { fg = "command_fg", bg = "command_bg" },
+    EX = { fg = "command_fg", bg = "command_bg" },
+    CONFIRM = { fg = "command_fg", bg = "command_bg" },
+    SHELL = { fg = "command_fg", bg = "command_bg" },
+    TERMINAL = { fg = "command_fg", bg = "command_bg" },
 }
 
 local function GetModeName(mode)
@@ -152,7 +156,7 @@ local Mode = {
     end,
     hl = function(self)
         local mode = self.mode:sub(1, 1) -- get only the first mode character
-        return { fg = ModeColors[mode], bold = true }
+        return { fg = ModeHighlights[mode], bold = true }
     end,
     update = {
         { "ModeChanged", "VimResized" },
