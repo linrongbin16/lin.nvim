@@ -474,7 +474,7 @@ local FileEncoding = {
         if strings.not_empty(encoding_icon) then
             encoding = encoding_icon .. " " .. encoding
         end
-        return encoding
+        return encoding or ""
     end,
     update = {
         "BufEnter",
