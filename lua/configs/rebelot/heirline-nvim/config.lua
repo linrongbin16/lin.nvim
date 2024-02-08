@@ -474,10 +474,10 @@ local FileEncoding = {
             return ""
         end
         local encoding_icon = FileEncodingIcons[encoding]
-        if strings.not_empty(encoding_icon) then
-            return encoding_icon .. " " .. encoding
+        if strings.empty(encoding_icon) then
+            return encoding
         end
-        return encoding
+        return encoding_icon .. " " .. encoding
     end,
     update = {
         "BufEnter",
