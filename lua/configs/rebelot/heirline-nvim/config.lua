@@ -5,6 +5,7 @@ local uv = require("commons.uv")
 local strings = require("commons.strings")
 local tables = require("commons.tables")
 local colors_hl = require("commons.colors.hl")
+local colors_hsl = require("commons.colors.hsl")
 
 local black = "#000000"
 local white = "#ffffff"
@@ -17,6 +18,18 @@ local orange = "#D2691E"
 local yellow = "#FFFF00"
 local purple = "#800080"
 local magenta = "#FF00FF"
+
+local function rgb_to_hsl(rgb)
+    local h, s, l = colors_hsl.rgb_string_to_hsl(rgb)
+    return colors_hsl.new(h, s, l, rgb)
+end
+
+local function modify_color(c, value)
+    if vim.o.background == "light" then
+        return colors_hsl.rgb_to_hsl(c):tint(value):to_rgb()
+    end
+    return colors_hsl.rgb_to_hsl(c):shade(value):to_rgb()
+end
 
 local ModeNames = {
     ["n"] = "NORMAL",
@@ -166,6 +179,8 @@ local function get_terminal_color_with_fallback(number, fallback)
     end
 end
 
+---@param colorname string?
+---@return table<string, string>
 local function setup_colors(colorname)
     local diagnostic_error = colors_hl.get_color_with_fallback(
         { "DiagnosticSignError", "ErrorMsg" },
@@ -203,7 +218,8 @@ local function setup_colors(colorname)
         red
     )
 
-    local lualine_ok, lualine_theme = pcall(require("module"))
+    local lualine_ok, lualine_theme =
+        pcall(require, string.format("lualine.themes.%s", colorname))
     local text_bg = get_color_with_lualine(
         lualine_ok,
         lualine_theme,
@@ -227,6 +243,26 @@ local function setup_colors(colorname)
         lualine_theme,
         "normal",
         "a",
+        "bg",
+        {},
+        get_terminal_color_with_fallback(0, magenta)
+    )
+    local normal_fg = get_color_with_lualine(
+        lualine_ok,
+        lualine_theme,
+        "normal",
+        "a",
+        "fg",
+        {},
+        black
+    )
+    local normal_bg1 = normal_bg
+    local normal_fg1 = normal_fg
+    local normal_bg2 = get_color_with_lualine(
+        lualine_ok,
+        lualine_theme,
+        "normal",
+        "b",
         "bg",
         {},
         get_terminal_color_with_fallback(0, magenta)
@@ -310,39 +346,25 @@ local function setup_colors(colorname)
         "a",
         "fg",
         {},
-        "#000000"
+        black
     )
 
-    local colors = {
-        bright_bg = utils.get_highlight("Folded").bg,
-        bright_fg = utils.get_highlight("Folded").fg,
-        red = utils.get_highlight("DiagnosticError").fg,
-        dark_red = utils.get_highlight("DiffDelete").bg,
-        green = utils.get_highlight("String").fg,
-        blue = utils.get_highlight("Function").fg,
-        gray = utils.get_highlight("NonText").fg,
-        orange = utils.get_highlight("Constant").fg,
-        purple = utils.get_highlight("Statement").fg,
-        cyan = utils.get_highlight("Special").fg,
-        diag_warn = utils.get_highlight("DiagnosticWarn").fg,
-        diag_error = utils.get_highlight("DiagnosticError").fg,
-        diag_hint = utils.get_highlight("DiagnosticHint").fg,
-        diag_info = utils.get_highlight("DiagnosticInfo").fg,
-        git_add = colors_hl.get_color_with_fallback(
-            { "GitSignsAdd", "GitGutterAdd", "diffAdded", "DiffAdd" },
-            "fg",
-            "#008000"
-        ),
-        git_change = colors_hl.get_color_with_fallback(
-            { "GitSignsChange", "GitGutterChange", "diffChanged", "DiffChange" },
-            "fg",
-            "#FFFF00"
-        ),
-        git_delete = colors_hl.get_color_with_fallback(
-            { "GitSignsDelete", "GitGutterDelete", "diffRemoved", "DiffDelete" },
-            "fg",
-            "#FF0000"
-        ),
+    return {
+        text_bg = text_bg,
+        text_fg = text_fg,
+        black = black,
+        white = white,
+        red = red,
+        green = green,
+        blue = blue,
+        cyan = cyan,
+        grey = grey,
+        orange = orange,
+        yellow = yellow,
+        purple = purple,
+        magenta = magenta,
+        normal_bg = normal_bg,
+        normal_bg = normal_bg,
     }
 end
 
@@ -351,6 +373,7 @@ vim.api.nvim_create_autocmd("ColorScheme", {
     group = "heirline_augroup",
     callback = function(event)
         local colorname = event.match
+        utils.on_colorscheme(setup_colors(colorname))
     end,
 })
 vim.api.nvim_create_autocmd("VimEnter", {
