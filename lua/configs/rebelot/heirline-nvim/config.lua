@@ -272,7 +272,6 @@ local GitDiff = {
     end,
     update = { "BufEnter", "BufReadPre", "BufNewFile" },
     hl = { fg = "normal_fg4", bg = "normal_bg4" },
-    update = { "User", pattern = "GitGutter" },
 
     {
         provider = function(self)
@@ -283,6 +282,7 @@ local GitDiff = {
             return ""
         end,
         hl = { fg = "git_add", bg = "normal_bg4" },
+        update = { "User", pattern = "GitGutter" },
     },
     {
         provider = function(self)
@@ -293,6 +293,7 @@ local GitDiff = {
             return ""
         end,
         hl = { fg = "git_change", bg = "normal_bg4" },
+        update = { "User", pattern = "GitGutter" },
     },
     {
         provider = function(self)
@@ -303,6 +304,7 @@ local GitDiff = {
             return ""
         end,
         hl = { fg = "git_delete", bg = "normal_bg4" },
+        update = { "User", pattern = "GitGutter" },
     },
 }
 
