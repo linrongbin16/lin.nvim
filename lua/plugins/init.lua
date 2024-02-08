@@ -152,7 +152,6 @@ local M = {
     {
         "rebelot/heirline.nvim",
         event = { UIEnter },
-        dependencies = {},
         config = lua_config("rebelot/heirline.nvim"),
     },
     -- Winbar
