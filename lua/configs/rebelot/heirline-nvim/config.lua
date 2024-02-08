@@ -166,20 +166,22 @@ local SectionC = {
     hl = { fg = "normal_fg2", bg = "normal_bg2" },
     update = {
         "BufEnter",
-        "BufNewFile",
         pattern = "*:*",
         callback = vim.schedule_wrap(function()
             vim.cmd("redrawstatus")
         end),
     },
-    condition = function(self)
-        return strings.not_empty(self.filename)
-    end,
 
     -- file name
     {
         provider = function(self)
-            return " " .. vim.fn.fnamemodify(self.filename, ":t")
+            if strings.not_empty(self.filename) then
+                local fname = " " .. vim.fn.fnamemodify(self.filename, ":t")
+                if strings.not_empty(fname) then
+                    return fname
+                end
+            end
+            return ""
         end,
     },
     -- file status
@@ -196,9 +198,6 @@ local SectionC = {
                 return " []"
             end
             return ""
-        end,
-        condition = function(self)
-            return self.readonly or self.modified
         end,
     },
     -- file size
@@ -218,9 +217,6 @@ local SectionC = {
             local fsize_fmt = i == 1 and " [%d%s]" or " [%.1f%s]"
             local fsize_value = string.format(fsize_fmt, fsize, suffixes[i])
             return fsize_value
-        end,
-        condition = function(self)
-            return self.filesize > 0
         end,
     },
     {
@@ -252,9 +248,7 @@ local function get_color_with_lualine(
 )
     if
         lualine_ok
-        and strings.not_empty(
-            tables.tbl_get(lualine_theme, mode_name, section, attribute)
-        )
+        and tables.tbl_get(lualine_theme, mode_name, section, attribute)
     then
         return lualine_theme[mode_name][section][attribute]
     else
