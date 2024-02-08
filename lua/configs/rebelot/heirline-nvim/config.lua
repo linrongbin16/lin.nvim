@@ -334,9 +334,9 @@ local SearchCount = {
             return ""
         end
         local denominator = math.min(result.total, result.maxcount)
-        return string.format("[%d/%d]", result.current, denominator)
+        return string.format("[%d/%d] ", result.current, denominator)
     end,
-    update = {},
+    update = { "SearchWrapped" },
 }
 
 local StatusLine = {
@@ -345,6 +345,8 @@ local StatusLine = {
     FileName,
     GitDiff,
     LspStatus,
+    { provider = "%=", hl = { fg = "normal_fg4", bg = "normal_bg4" } },
+    SearchCount,
 }
 
 ---@param lualine_ok boolean
