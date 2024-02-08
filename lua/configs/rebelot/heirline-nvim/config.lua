@@ -495,22 +495,29 @@ local FileFormatIcons = {
 
 local FileFormat = {
     hl = { fg = "normal_fg2", bg = "normal_bg2" },
-    provider = function(self)
-        local text = vim.bo.fileformat
-        if strings.empty(text) then
-            return ""
-        end
-        local icon = FileFormatIcons[text]
-        if strings.empty(icon) then
-            return text .. " "
-        end
-        return icon .. " "
-    end,
-    update = {
-        "BufEnter",
-        "BufNewFile",
-        "BufWritePost",
-        "WinEnter",
+
+    {
+        provider = function(self)
+            local text = vim.bo.fileformat
+            if strings.empty(text) then
+                return ""
+            end
+            local icon = FileFormatIcons[text]
+            if strings.empty(icon) then
+                return text .. " "
+            end
+            return icon .. " "
+        end,
+        update = {
+            "BufEnter",
+            "BufNewFile",
+            "BufWritePost",
+            "WinEnter",
+        },
+    },
+    {
+        provider = left_slant,
+        hl = { fg = "normal_bg2", bg = "normal_bg3" },
     },
 }
 
@@ -524,6 +531,8 @@ local StatusLine = {
     SearchCount,
     Diagnostic,
     FileType,
+    FileEncoding,
+    FileFormat,
 }
 
 ---@param lualine_ok boolean
