@@ -163,9 +163,7 @@ local SectionC = {
     init = function(self)
         self.filename = vim.api.nvim_buf_get_name(0)
     end,
-    hl = function(self)
-        return { fg = "normal_fg2", bg = "normal_bg2" }
-    end,
+    hl = { fg = "normal_fg2", bg = "normal_bg2" },
     update = {
         { "BufEnter", "BufNewFile", "BufReadPost" },
         pattern = "*:*",
