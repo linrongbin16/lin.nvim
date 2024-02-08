@@ -159,13 +159,34 @@ local SectionA = {
     },
 }
 
-local SectionB = {
+local SectionC = {
     init = function(self)
         self.filename = vim.api.nvim_buf_get_name(0)
     end,
     hl = function(self)
         return { fg = "normal_fg2", bg = "normal_bg2" }
     end,
+    update = {
+        { "BufEnter", "BufNewFile", "BufReadPost" },
+        pattern = "*:*",
+        callback = vim.schedule_wrap(function()
+            vim.cmd("redrawstatus")
+        end),
+    },
+    condition = function(self)
+        return strings.not_empty(self.filename)
+    end,
+
+    -- file name
+    {
+        provider = function(self)
+            return " " .. vim.fn.fnamemodify(self.filename, ":t")
+        end,
+    },
+    -- file status
+    {},
+    -- file size
+    {},
 }
 
 local StatusLine = {
