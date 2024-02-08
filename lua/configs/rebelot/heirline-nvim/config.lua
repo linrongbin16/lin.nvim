@@ -520,8 +520,16 @@ local FileFormat = {
         },
     },
     {
+        init = function(self)
+            self.mode = vim.fn.mode(1)
+        end,
+        hl = function(self)
+            local mode_name = GetModeName(self.mode)
+            local mode_hl = ModeHighlights[mode_name] or ModeHighlights.NORMAL
+            return { fg = mode_hl.fg, bg = "normal_bg2" }
+        end,
         provider = left_slant,
-        hl = { fg = "normal_bg1", bg = "normal_bg2" },
+        -- hl = { fg = "normal_bg1", bg = "normal_bg2" },
     },
 }
 
