@@ -520,15 +520,8 @@ local FileFormat = {
         },
     },
     {
-        init = function(self)
-            self.mode = vim.fn.mode(1)
-        end,
         provider = left_slant,
-        hl = function(self)
-            local mode_name = GetModeName(self.mode)
-            local mode_hl = ModeHighlights[mode_name] or ModeHighlights.NORMAL
-            return { fg = "normal_fg2", bg = mode_hl.bg }
-        end,
+        hl = { fg = "normal_fg1", bg = "normal_bg2" },
     },
 }
 
@@ -541,13 +534,19 @@ local Location = {
         local mode_hl = ModeHighlights[mode_name] or ModeHighlights.NORMAL
         return { fg = mode_hl.fg, bg = mode_hl.bg, bold = true }
     end,
-    provider = function(self)
-        local row, col = unpack(vim.api.nvim_win_get_cursor(0))
-        if type(row) ~= "number" or type(col) ~= "number" then
-            return ""
-        end
-        return "  " .. string.format("%3s:%2s", row, col + 1)
-    end,
+
+    {
+        provider = left_slant,
+    },
+    {
+        provider = function(self)
+            local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+            if type(row) ~= "number" or type(col) ~= "number" then
+                return ""
+            end
+            return "  " .. string.format("%3s:%2s", row, col + 1)
+        end,
+    },
 }
 
 local Progress = {
