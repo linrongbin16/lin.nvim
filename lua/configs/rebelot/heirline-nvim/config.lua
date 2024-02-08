@@ -1,6 +1,9 @@
 local conditions = require("heirline.conditions")
 local utils = require("heirline.utils")
 
+local uv = require("commons.uv")
+local strings = require("commons.strings")
+
 local colors = {
     bright_bg = utils.get_highlight("Folded").bg,
     bright_fg = utils.get_highlight("Folded").fg,
@@ -75,6 +78,13 @@ local ModeColors = {
     ["!"] = "red",
     t = "red",
 }
+
+local OS_UNAME = uv.os_uname()
+local function GetOsName() end
+
+local function GetModeName(mode)
+    return ModeNames[self.mode] or "???"
+end
 
 local Mode = {
     init = function(self)
