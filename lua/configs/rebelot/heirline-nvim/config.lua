@@ -521,7 +521,7 @@ local FileFormat = {
     },
     {
         provider = left_slant,
-        hl = { fg = "normal_bg2", bg = "normal_bg3" },
+        hl = { fg = "normal_bg1", bg = "normal_bg2" },
     },
 }
 
