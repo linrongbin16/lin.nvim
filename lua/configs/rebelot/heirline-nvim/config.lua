@@ -470,11 +470,14 @@ local FileEncoding = {
     hl = { fg = "normal_fg2", bg = "normal_bg2" },
     provider = function(self)
         local encoding = (vim.bo.fenc ~= "" and vim.bo.fenc) or vim.o.enc
+        if strings.empty(encoding) then
+            return ""
+        end
         local encoding_icon = FileEncodingIcons[encoding]
         if strings.not_empty(encoding_icon) then
-            encoding = encoding_icon .. " " .. encoding
+            return encoding_icon .. " " .. encoding
         end
-        return encoding or ""
+        return encoding
     end,
     update = {
         "BufEnter",
