@@ -260,11 +260,6 @@ local FileName = {
     },
 }
 
-local Separator1 = {
-    provider = " ",
-    hl = { fg = "normal_fg4", bg = "normal_bg4" },
-}
-
 local GitDiff = {
     init = function(self)
         self.summary = {}
@@ -331,7 +326,6 @@ local StatusLine = {
     Mode,
     GitBranch,
     FileName,
-    Separator1,
     GitDiff,
     LspStatus,
 }
