@@ -160,13 +160,22 @@ local SectionA = {
 }
 
 local SectionC = {
+    init = function(self)
+        self.filename = vim.api.nvim_buf_get_name(0)
+    end,
     hl = { fg = "normal_fg2", bg = "normal_bg2" },
+    update = {
+        "BufWritePost",
+        "BufEnter",
+        "BufNewFile",
+        pattern = "*:*",
+        callback = vim.schedule_wrap(function()
+            vim.cmd("redrawstatus")
+        end),
+    },
 
     -- file name
     {
-        init = function(self)
-            self.filename = vim.api.nvim_buf_get_name(0)
-        end,
         provider = function(self)
             if strings.not_empty(self.filename) then
                 local fname = " " .. vim.fn.fnamemodify(self.filename, ":t")
@@ -176,15 +185,6 @@ local SectionC = {
             end
             return ""
         end,
-        update = {
-            "BufWritePost",
-            "BufEnter",
-            "BufNewFile",
-            pattern = "*:*",
-            callback = vim.schedule_wrap(function()
-                vim.cmd("redrawstatus")
-            end),
-        },
     },
     -- file status
     {
