@@ -146,6 +146,14 @@ local function get_color_with_lualine(
     end
 end
 
+local function get_terminal_color_with_fallback(number, fallback)
+    if strings.not_empty(vim.g[string.format("terminal_color_%d", number)]) then
+        return vim.g[string.format("terminal_color_%d", number)]
+    else
+        return fallback
+    end
+end
+
 local function setup_colors(colorname)
     local diagnostic_error = colors_hl.get_color_with_fallback(
         { "DiagnosticSignError", "ErrorMsg" },
@@ -209,8 +217,7 @@ local function setup_colors(colorname)
         "a",
         "bg",
         {},
-        strings.not_empty(vim.g.terminal_color_0) and vim.g.terminal_color_0
-            or "#FF00FF"
+        get_terminal_color_with_fallback(0, "#FF00FF")
     )
     local normal_fg = get_color_with_lualine(
         lualine_ok,
@@ -228,8 +235,7 @@ local function setup_colors(colorname)
         "a",
         "bg",
         {},
-        strings.not_empty(vim.g.terminal_color_2) and vim.g.terminal_color_2
-            or "#008000"
+        get_terminal_color_with_fallback(2, "#008000")
     )
     local insert_fg = get_color_with_lualine(
         lualine_ok,
@@ -240,7 +246,60 @@ local function setup_colors(colorname)
         {},
         "#000000"
     )
-    local dark_red = get_color_with_lualine(lualine_ok, lualine_theme, "normal")
+    local visual_bg = get_color_with_lualine(
+        lualine_ok,
+        lualine_theme,
+        "visual",
+        "a",
+        "bg",
+        {},
+        get_terminal_color_with_fallback(3, "#FFFF00")
+    )
+    local visual_fg = get_color_with_lualine(
+        lualine_ok,
+        lualine_theme,
+        "visual",
+        "a",
+        "fg",
+        {},
+        "#000000"
+    )
+    local replace_bg = get_color_with_lualine(
+        lualine_ok,
+        lualine_theme,
+        "replace",
+        "a",
+        "bg",
+        {},
+        get_terminal_color_with_fallback(4, "#0000FF")
+    )
+    local replace_fg = get_color_with_lualine(
+        lualine_ok,
+        lualine_theme,
+        "replace",
+        "a",
+        "fg",
+        {},
+        "#000000"
+    )
+    local command_bg = get_color_with_lualine(
+        lualine_ok,
+        lualine_theme,
+        "command",
+        "a",
+        "bg",
+        {},
+        get_terminal_color_with_fallback(1, "#FF0000")
+    )
+    local command_fg = get_color_with_lualine(
+        lualine_ok,
+        lualine_theme,
+        "command",
+        "a",
+        "fg",
+        {},
+        "#000000"
+    )
     local green
     local blue
     local grey
