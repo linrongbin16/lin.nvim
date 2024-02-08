@@ -295,11 +295,24 @@ local GitDiff = {
     },
 }
 
+local LspStatus = {
+    hl = { fg = "normal_fg4", bg = "normal_bg4" },
+    provider = function()
+        local result = require("lsp-progress").progress({ max_size = 100 })
+        if strings.not_empty(result) then
+            return " " .. result
+        end
+        return ""
+    end,
+    update = { "User", pattern = "LspProgressStatusUpdated" },
+}
+
 local StatusLine = {
     Mode,
     GitBranch,
     FileName,
     GitDiff,
+    LspStatus,
 }
 
 ---@param lualine_ok boolean
