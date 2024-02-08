@@ -410,7 +410,7 @@ local FileType = {
 
     {
         provider = left_slant,
-        hl = { fg = "normal_bg4", bg = "normal_bg3" },
+        hl = { fg = "normal_bg3", bg = "normal_bg4" },
     },
     {
         provider = function(self)
@@ -420,9 +420,9 @@ local FileType = {
             local icon_text, icon_color =
                 self.devicons.get_icon_color(self.filename, self.filename_ext)
             if strings.not_empty(icon_text) then
-                return icon_text .. " "
+                return " " .. icon_text .. " "
             else
-                return " "
+                return "  "
             end
         end,
         hl = function(self)
