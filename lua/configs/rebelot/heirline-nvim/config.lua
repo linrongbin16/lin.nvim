@@ -605,7 +605,7 @@ local function setup_colors(colorname)
         "a",
         "bg",
         { "PmenuSel", "PmenuThumb", "TabLineSel" },
-        "bg",
+        "fg",
         get_terminal_color_with_fallback(0, magenta)
     )
     local normal_fg = get_color_with_lualine(
@@ -662,11 +662,6 @@ local function setup_colors(colorname)
     )
     local normal_bg4 = statusline_bg
     local normal_fg4 = text_fg
-    local insert_bg_fallback = colors_hl.get_color_with_fallback(
-        { "String", "MoreMsg" },
-        "fg",
-        get_terminal_color_with_fallback(2, green)
-    )
     local insert_bg = get_color_with_lualine(
         lualine_ok,
         lualine_theme,
@@ -674,7 +669,8 @@ local function setup_colors(colorname)
         "a",
         "bg",
         { "String", "MoreMsg" },
-        insert_bg_fallback
+        "fg",
+        get_terminal_color_with_fallback(2, green)
     )
     local insert_fg = get_color_with_lualine(
         lualine_ok,
@@ -683,7 +679,8 @@ local function setup_colors(colorname)
         "a",
         "fg",
         {},
-        black
+        "fg",
+        text_fg
     )
     local visual_bg = get_color_with_lualine(
         lualine_ok,
@@ -691,7 +688,8 @@ local function setup_colors(colorname)
         "visual",
         "a",
         "bg",
-        {},
+        { "Special", "Boolean", "Constant" },
+        "fg",
         get_terminal_color_with_fallback(3, yellow)
     )
     local visual_fg = get_color_with_lualine(
@@ -701,7 +699,8 @@ local function setup_colors(colorname)
         "a",
         "fg",
         {},
-        black
+        "fg",
+        text_fg
     )
     local replace_bg = get_color_with_lualine(
         lualine_ok,
@@ -709,7 +708,8 @@ local function setup_colors(colorname)
         "replace",
         "a",
         "bg",
-        {},
+        { "Number", "Type" },
+        "fg",
         get_terminal_color_with_fallback(4, blue)
     )
     local replace_fg = get_color_with_lualine(
@@ -719,7 +719,7 @@ local function setup_colors(colorname)
         "a",
         "fg",
         {},
-        black
+        text_fg
     )
     local command_bg = get_color_with_lualine(
         lualine_ok,
@@ -727,7 +727,8 @@ local function setup_colors(colorname)
         "command",
         "a",
         "bg",
-        {},
+        { "Identifier" },
+        "fg",
         get_terminal_color_with_fallback(1, red)
     )
     local command_fg = get_color_with_lualine(
@@ -737,7 +738,8 @@ local function setup_colors(colorname)
         "a",
         "fg",
         {},
-        black
+        "fg",
+        text_fg
     )
 
     return {
