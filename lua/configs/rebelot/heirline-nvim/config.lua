@@ -698,7 +698,7 @@ local function setup_colors(colorname)
         "fg",
         { "StatusLine", "Normal" },
         "fg",
-        black
+        white
     )
     local normal_bg = get_color_with_lualine(
         lualine_theme,
@@ -757,7 +757,7 @@ local function setup_colors(colorname)
         text_fg
     )
     local normal_bg4 = statusline_bg
-    local normal_fg4 = text_fg
+    local normal_fg4 = statusline_fg
     local insert_bg = get_color_with_lualine(
         lualine_theme,
         "insert",
