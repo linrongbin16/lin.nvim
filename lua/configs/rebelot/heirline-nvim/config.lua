@@ -455,6 +455,10 @@ local FileType = {
             "WinEnter",
         },
     },
+    {
+        provider = left_slant,
+        hl = { fg = "normal_bg2", bg = "normal_bg3" },
+    },
 }
 
 local FileEncodingIcons = {
@@ -520,6 +524,12 @@ local FileFormat = {
         hl = { fg = "normal_bg2", bg = "normal_bg3" },
     },
 }
+
+local Location = {
+    hl = { fg = "normal_fg2", bg = "normal_bg2" },
+}
+
+local Progress = {}
 
 local StatusLine = {
     Mode,
