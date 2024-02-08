@@ -32,6 +32,53 @@ local function shade_rgb(rgb, value)
     return rgb_to_hsl(rgb):shade(value):to_rgb()
 end
 
+local OsName = {
+    init = function(self)
+        self.os_uname = uv.os_uname()
+    end,
+    provider = function(self)
+        local uname = self.os_uname.sysname
+        if uname == "Darwin" then
+            return ""
+        elseif uname == "Linux" then
+            if
+                type(self.os_uname.release) == "string"
+                and self.os_uname.release:find("arch")
+            then
+                return ""
+            end
+            return ""
+        elseif uname == "Windows" then
+            return ""
+        else
+            return "󱚟"
+        end
+    end,
+    hl = function(self)
+        local mode = self.mode:sub(1, 1) -- get only the first mode character
+        return { fg = ModeColors[mode], bold = true }
+    end,
+}
+
+local function GetOsIcon(os_uname)
+    local uname = os_uname.sysname
+    if uname == "Darwin" then
+        return ""
+    elseif uname == "Linux" then
+        if
+            type(os_uname.release) == "string"
+            and os_uname.release:find("arch")
+        then
+            return ""
+        end
+        return ""
+    elseif uname == "Windows" then
+        return ""
+    else
+        return "󱚟"
+    end
+end
+
 local ModeNames = {
     ["n"] = "NORMAL",
     ["no"] = "O-PENDING",
@@ -87,36 +134,21 @@ local ModeColors = {
     t = "red",
 }
 
-local OS_UNAME = uv.os_uname()
-
-local function GetOsName()
-    local uname = OS_UNAME.sysname
-    if uname == "Darwin" then
-        return ""
-    elseif uname == "Linux" then
-        if
-            type(OS_UNAME.release) == "string" and OS_UNAME.release:find("arch")
-        then
-            return ""
-        end
-        return ""
-    elseif uname == "Windows" then
-        return ""
-    else
-        return "󱚟"
-    end
-end
-
 local function GetModeName(mode)
     return ModeNames[mode] or "???"
 end
 
 local Mode = {
     init = function(self)
-        self.mode = vim.fn.mode(1) -- :h mode()
+        self.mode = vim.fn.mode(1)
+        self.os_uname = uv.os_uname()
     end,
     provider = function(self)
-        return " " .. GetOsName() .. " " .. GetModeName(self.mode) .. " "
+        return " "
+            .. GetOsIcon(self.os_uname)
+            .. " "
+            .. GetModeName(self.mode)
+            .. " "
     end,
     hl = function(self)
         local mode = self.mode:sub(1, 1) -- get only the first mode character
@@ -130,6 +162,8 @@ local Mode = {
         end),
     },
 }
+
+local SectionA = {}
 
 local StatusLine = {}
 
