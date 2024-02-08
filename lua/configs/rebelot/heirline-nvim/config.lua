@@ -290,30 +290,6 @@ local SectionD = {
         end,
         update = { "User", pattern = "GitGutter" },
     },
-    {
-        provider = function(self)
-            local modified = tables.tbl_not_empty(self.git_diff)
-                    and self.git_diff[2]
-                or 0
-            if modified > 0 then
-                return string.format("~%d ", modified)
-            end
-            return ""
-        end,
-        update = { "User", pattern = "GitGutter" },
-    },
-    {
-        provider = function(self)
-            local git_add = tables.tbl_not_empty(self.git_diff)
-                    and self.git_diff[1]
-                or 0
-            if git_add > 0 then
-                return string.format("+%d ", git_add)
-            end
-            return ""
-        end,
-        update = { "User", pattern = "GitGutter" },
-    },
 }
 
 local StatusLine = {
