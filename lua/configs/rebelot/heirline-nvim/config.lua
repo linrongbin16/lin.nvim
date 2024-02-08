@@ -176,7 +176,8 @@ local GitBranch = {
 
 local FileName = {
     init = function(self)
-        self.filename = vim.api.nvim_buf_get_name(0)
+        self.filepath = vim.api.nvim_buf_get_name(0) or ""
+        self.filename = vim.fn.fnamemodify(self.filepath, ":t")
     end,
     hl = { fg = "normal_fg3", bg = "normal_bg3" },
 
@@ -184,10 +185,7 @@ local FileName = {
     {
         provider = function(self)
             if strings.not_empty(self.filename) then
-                local fname = " " .. vim.fn.fnamemodify(self.filename, ":t")
-                if strings.not_empty(fname) then
-                    return fname
-                end
+                return " " .. self.filename .. " "
             end
             return ""
         end,
@@ -200,17 +198,20 @@ local FileName = {
     -- file status
     {
         provider = function(self)
+            if strings.empty(self.filename) then
+                return ""
+            end
             local readonly = not vim.api.nvim_buf_get_option(
                     0,
                     "modifiable"
                 )
                 or vim.api.nvim_buf_get_option(0, "readonly")
             if readonly then
-                return " []"
+                return "[] "
             end
             local modified = vim.api.nvim_buf_get_option(0, "modified")
             if modified then
-                return " []"
+                return "[] "
             end
             return ""
         end,
@@ -225,6 +226,9 @@ local FileName = {
     -- file size
     {
         provider = function(self)
+            if strings.empty(self.filename) then
+                return ""
+            end
             local filesize = vim.fn.getfsize(self.filename)
             if type(filesize) ~= "number" or filesize <= 0 then
                 return ""
@@ -251,6 +255,11 @@ local FileName = {
         provider = right_slant,
         hl = { fg = "normal_bg3", bg = "normal_bg4" },
     },
+}
+
+local Separator1 = {
+    provider = " ",
+    hl = { fg = "normal_fg4", bg = "normal_bg4" },
 }
 
 local GitDiff = {
@@ -319,6 +328,7 @@ local StatusLine = {
     Mode,
     GitBranch,
     FileName,
+    Separator1,
     GitDiff,
     LspStatus,
 }
