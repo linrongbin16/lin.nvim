@@ -322,6 +322,24 @@ local LspStatus = {
     },
 }
 
+local SearchCount = {
+    hl = { fg = "normal_fg4", bg = "normal_bg4" },
+    provider = function(self)
+        if vim.v.hlsearch == 0 then
+            return ""
+        end
+        local ok, result =
+            pcall(vim.fn.searchcount, { maxcount = 100, timeout = 500 })
+        if not ok or next(result) == nil then
+            return ""
+        end
+
+        local denominator = math.min(result.total, result.maxcount)
+        return string.format("[%d/%d]", result.current, denominator)
+    end,
+    update = {},
+}
+
 local StatusLine = {
     Mode,
     GitBranch,
