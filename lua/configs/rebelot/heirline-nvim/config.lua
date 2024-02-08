@@ -363,7 +363,7 @@ local function GetDiagnosticText(level)
     if value <= 0 then
         return ""
     end
-    return string.format("%s %d", DiagnosticSigns[level], value)
+    return string.format("%s %d ", DiagnosticSigns[level], value)
 end
 
 local function GetDiagnosticHighlight(level)
@@ -408,6 +408,7 @@ local StatusLine = {
     LspStatus,
     { provider = "%=", hl = { fg = "normal_fg4", bg = "normal_bg4" } },
     SearchCount,
+    Diagnostic,
 }
 
 ---@param lualine_ok boolean
