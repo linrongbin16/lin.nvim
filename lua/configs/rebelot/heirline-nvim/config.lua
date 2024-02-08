@@ -183,6 +183,13 @@ local SectionC = {
             end
             return ""
         end,
+        update = {
+            { "BufEnter", "BufNewFile" },
+            pattern = "*:*",
+            callback = vim.schedule_wrap(function()
+                vim.cmd("redrawstatus")
+            end),
+        },
     },
     -- file status
     {
@@ -199,6 +206,13 @@ local SectionC = {
             end
             return ""
         end,
+        update = {
+            { "TextChangeI", "BufWritePost", "BufEnter", "BufNewFile" },
+            pattern = "*:*",
+            callback = vim.schedule_wrap(function()
+                vim.cmd("redrawstatus")
+            end),
+        },
     },
     -- file size
     {
