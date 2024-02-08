@@ -174,18 +174,27 @@ local GitBranch = {
     },
 }
 
+local function GetFileName()
+    local filepath = vim.api.nvim_buf_get_name(0)
+    if strings.empty(filepath) then
+        return nil
+    end
+    local filename = vim.fn.fnamemodify(filepath, ":t")
+    if strings.empty(filename) then
+        return nil
+    end
+    return filename
+end
+
 local FileName = {
-    init = function(self)
-        self.filepath = vim.api.nvim_buf_get_name(0) or ""
-        self.filename = vim.fn.fnamemodify(self.filepath, ":t")
-    end,
     hl = { fg = "normal_fg3", bg = "normal_bg3" },
 
     -- file name
     {
         provider = function(self)
-            if strings.not_empty(self.filename) then
-                return " " .. self.filename .. " "
+            local filename = GetFileName()
+            if strings.not_empty(filename) then
+                return " " .. filename .. " "
             end
             return ""
         end,
@@ -198,7 +207,8 @@ local FileName = {
     -- file status
     {
         provider = function(self)
-            if strings.empty(self.filename) then
+            local filename = GetFileName()
+            if strings.empty(filename) then
                 return ""
             end
             local readonly = not vim.api.nvim_buf_get_option(
@@ -226,10 +236,7 @@ local FileName = {
     -- file size
     {
         provider = function(self)
-            if strings.empty(self.filename) then
-                return ""
-            end
-            local filesize = vim.fn.getfsize(self.filename)
+            local filesize = vim.fn.getfsize(self.filename or "")
             if type(filesize) ~= "number" or filesize <= 0 then
                 return ""
             end
@@ -240,7 +247,7 @@ local FileName = {
                 i = i + 1
             end
 
-            local fsize_fmt = i == 1 and " [%d%s] " or " [%.1f%s] "
+            local fsize_fmt = i == 1 and "[%d%s] " or "[%.1f%s] "
             local fsize_value = string.format(fsize_fmt, filesize, suffixes[i])
             return fsize_value
         end,
