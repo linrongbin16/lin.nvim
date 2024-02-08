@@ -338,7 +338,7 @@ local SearchCount = {
         local denominator = math.min(result.total, result.maxcount)
         return string.format("[%d/%d] ", result.current, denominator)
     end,
-    update = { "SearchWrapped" },
+    update = { "SearchWrapped", "CursorMoved" },
 }
 
 local DiagnosticSigns = {
