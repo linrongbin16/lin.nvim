@@ -174,18 +174,6 @@ local GitBranch = {
     },
 }
 
-local function GetFileName()
-    local filepath = vim.api.nvim_buf_get_name(0)
-    if strings.empty(filepath) then
-        return nil
-    end
-    local filename = vim.fn.fnamemodify(filepath, ":t")
-    if strings.empty(filename) then
-        return nil
-    end
-    return filename
-end
-
 local FileName = {
     init = function(self)
         self.filename = vim.api.nvim_buf_get_name(0)
