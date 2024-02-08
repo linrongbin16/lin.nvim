@@ -80,7 +80,23 @@ local ModeColors = {
 }
 
 local OS_UNAME = uv.os_uname()
-local function GetOsName() end
+local function GetOsName()
+    local uname = OS_UNAME.sysname
+    if uname == "Darwin" then
+        return ""
+    elseif uname == "Linux" then
+        if
+            type(OS_UNAME.release) == "string" and OS_UNAME.release:find("arch")
+        then
+            return ""
+        end
+        return ""
+    elseif uname == "Windows" then
+        return ""
+    else
+        return "󱚟"
+    end
+end
 
 local function GetModeName(mode)
     return ModeNames[self.mode] or "???"
