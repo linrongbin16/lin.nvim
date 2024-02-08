@@ -192,9 +192,9 @@ local SectionC = {
         end,
         provider = function(self)
             if self.readonly then
-                return "[]"
+                return " []"
             elseif self.modified then
-                return "[]"
+                return " []"
             end
             return ""
         end,
@@ -203,7 +203,27 @@ local SectionC = {
         end,
     },
     -- file size
-    {},
+    {
+        init = function(self)
+            self.filesize = vim.fn.getfsize(self.filename)
+        end,
+        provider = function(self)
+            local suffixes = { "b", "k", "m", "g" }
+            local i = 1
+            local fsize = self.filesize
+            while fsize > 1024 and i < #suffixes do
+                fsize = fsize / 1024
+                i = i + 1
+            end
+
+            local fsize_fmt = i == 1 and " [%d%s]" or " [%.1f%s]"
+            local fsize_value = string.format(fsize_fmt, fsize, suffixes[i])
+            return fsize_value
+        end,
+        condition = function(self)
+            return self.filesize > 0
+        end,
+    },
 }
 
 local StatusLine = {
