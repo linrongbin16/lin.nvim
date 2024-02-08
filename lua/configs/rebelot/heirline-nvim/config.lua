@@ -475,9 +475,9 @@ local FileEncoding = {
         end
         local icon = FileEncodingIcons[text]
         if strings.empty(icon) then
-            return text .. " "
+            return " " .. text
         end
-        return icon .. " " .. text .. " "
+        return " " .. icon .. " " .. text
     end,
     update = {
         "BufEnter",
@@ -504,9 +504,9 @@ local FileFormat = {
             end
             local icon = FileFormatIcons[text]
             if strings.empty(icon) then
-                return text .. " "
+                return " " .. text .. " "
             end
-            return icon .. " "
+            return " " .. icon .. " "
         end,
         update = {
             "BufEnter",
