@@ -455,6 +455,14 @@ local FileType = {
     },
 }
 
+local FileEncoding = {
+    hl = { fg = "normal_fg2", bg = "normal_bg2" },
+}
+
+local FileFormat = {
+    hl = { fg = "normal_fg2", bg = "normal_bg2" },
+}
+
 local StatusLine = {
     Mode,
     GitBranch,
