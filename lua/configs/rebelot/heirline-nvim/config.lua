@@ -24,6 +24,7 @@ local function rgb_to_hsl(rgb)
     return colors_hsl.new(h, s, l, rgb)
 end
 
+-- value 1-100
 local function shade_rgb(rgb, value)
     if vim.o.background == "light" then
         return colors_hsl.rgb_to_hsl(rgb):tint(value):to_rgb()
