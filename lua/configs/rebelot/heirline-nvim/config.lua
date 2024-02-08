@@ -122,7 +122,6 @@ end
 local SectionA = {
     init = function(self)
         self.mode = vim.fn.mode(1)
-        self.os_uname = uv.os_uname()
     end,
     hl = function(self)
         local mode_name = GetModeName(self.mode)
@@ -137,16 +136,19 @@ local SectionA = {
         end),
     },
 
+    -- os icon
     {
         provider = function(self)
             return " " .. GetOsIcon() .. " "
         end,
     },
+    -- mode
     {
         provider = function(self)
             return GetModeName(self.mode) .. " "
         end,
     },
+    -- separator
     {
         provider = right_slant,
         hl = function(self)
