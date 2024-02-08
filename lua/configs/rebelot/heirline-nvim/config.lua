@@ -161,7 +161,7 @@ local SectionB = {
             if vim.fn.exists("*gitbranch#name") > 0 then
                 local branch = vim.fn["gitbranch#name"]()
                 if strings.not_empty(branch) then
-                    return "  " .. branch
+                    return "  " .. branch .. " "
                 end
             end
             return ""
@@ -170,11 +170,7 @@ local SectionB = {
     },
     {
         provider = right_slant,
-        hl = function(self)
-            local mode_name = GetModeName(self.mode)
-            local mode_hl = ModeHighlights[mode_name] or ModeHighlights.NORMAL
-            return { fg = mode_hl.bg, bg = "normal_bg2" }
-        end,
+        hl = { fg = "normal_bg2", bg = "normal_bg3" },
     },
 }
 
