@@ -239,6 +239,7 @@ local function setup_colors(colorname)
         { "Normal" },
         white
     )
+    local normal_bg_fallback = get_terminal_color_with_fallback(0, magenta)
     local normal_bg = get_color_with_lualine(
         lualine_ok,
         lualine_theme,
@@ -246,7 +247,7 @@ local function setup_colors(colorname)
         "a",
         "bg",
         {},
-        get_terminal_color_with_fallback(0, magenta)
+        normal_bg_fallback
     )
     local normal_fg = get_color_with_lualine(
         lualine_ok,
@@ -266,13 +267,31 @@ local function setup_colors(colorname)
         "b",
         "bg",
         {},
-        get_terminal_color_with_fallback(0, magenta)
+        shade_rgb(normal_bg_fallback, 0.5)
     )
-    local normal_fg = get_color_with_lualine(
+    local normal_fg2 = get_color_with_lualine(
         lualine_ok,
         lualine_theme,
         "normal",
-        "a",
+        "b",
+        "fg",
+        {},
+        black
+    )
+    local normal_bg3 = get_color_with_lualine(
+        lualine_ok,
+        lualine_theme,
+        "normal",
+        "b",
+        "bg",
+        {},
+        shade_rgb(normal_bg_fallback, 0.7)
+    )
+    local normal_fg3 = get_color_with_lualine(
+        lualine_ok,
+        lualine_theme,
+        "normal",
+        "b",
         "fg",
         {},
         black
