@@ -143,7 +143,7 @@ local Mode = {
     },
 }
 
-local SeparatorA = {
+local Separator1 = {
     init = function(self)
         self.mode = vim.fn.mode(1)
         self.os_uname = uv.os_uname()
@@ -163,9 +163,15 @@ local SeparatorA = {
     },
 }
 
+local FileName = {
+    hl = function(self)
+        return { fg = "normal_fg2", bg = "normal_bg2" }
+    end,
+}
+
 local StatusLine = {
     Mode,
-    SeparatorA,
+    Separator1,
 }
 
 ---@param lualine_ok boolean
