@@ -133,13 +133,6 @@ local Mode = {
 
 local StatusLine = {}
 
-require("heirline").setup({
-    statusline = StatusLine,
-    opts = {
-        colors = colors,
-    },
-})
-
 ---@param lualine_ok boolean
 ---@param lualine_theme table
 ---@param mode_name "normal"|"insert"|"visual"|"replace"|"command"|"inactive"
@@ -411,8 +404,22 @@ local function setup_colors(colorname)
         replace_fg = replace_fg,
         command_bg = command_bg,
         command_fg = command_fg,
+        diagnostic_error = diagnostic_error,
+        diagnostic_warn = diagnostic_warn,
+        diagnostic_info = diagnostic_info,
+        diagnostic_hint = diagnostic_hint,
+        git_add = git_add,
+        git_change = git_change,
+        git_delete = git_delete,
     }
 end
+
+require("heirline").setup({
+    statusline = StatusLine,
+    opts = {
+        colors = setup_colors(vim.g.colors_name),
+    },
+})
 
 vim.api.nvim_create_augroup("heirline_augroup", { clear = true })
 vim.api.nvim_create_autocmd("ColorScheme", {
