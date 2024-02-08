@@ -526,10 +526,30 @@ local FileFormat = {
 }
 
 local Location = {
-    hl = { fg = "normal_fg2", bg = "normal_bg2" },
+    hl = { fg = "normal_fg1", bg = "normal_bg1" },
+    provider = function(self)
+        local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+        if type(row) ~= "number" or type(col) ~= "number" then
+            return ""
+        end
+        return "  " .. string.format("%3s:%2s", row, col + 1)
+    end,
 }
 
-local Progress = {}
+local Progress = {
+    hl = { fg = "normal_fg1", bg = "normal_bg1" },
+    provider = function(self)
+        local line_fraction =
+            math.floor(vim.fn.line(".") / vim.fn.line("$") * 100)
+        local value = string.format("%3d%%%%", line_fraction)
+        if line_fraction <= 0 then
+            value = "Top"
+        elseif line_fraction >= 100 then
+            value = "Bot"
+        end
+        return "  " .. value
+    end,
+}
 
 local StatusLine = {
     Mode,
@@ -543,6 +563,8 @@ local StatusLine = {
     FileType,
     FileEncoding,
     FileFormat,
+    Location,
+    Progress,
 }
 
 ---@param lualine_ok boolean
