@@ -376,32 +376,28 @@ local Diagnostic = {
 
     {
         provider = function(self)
-            local value = #vim.diagnostic.get(
-                0,
-                { severity = vim.diagnostic.severity[DiagnosticSeverity[1]] }
-            )
-            if value <= 0 then
-                return ""
-            end
-            return string.format("%s %d", DiagnosticSigns[1], value)
+            return GetDiagnosticText(1)
         end,
-        hl = { fg = DiagnosticColors[1], bg = "normal_bg4" },
+        hl = GetDiagnosticHighlight(1),
     },
     {
         provider = function(self)
-            local value = #vim.diagnostic.get(
-                0,
-                { severity = vim.diagnostic.severity[DiagnosticSeverity[2]] }
-            )
-            if value <= 0 then
-                return ""
-            end
-            return string.format("%s %d", DiagnosticSigns[2], value)
+            return GetDiagnosticText(2)
         end,
-        hl = { fg = DiagnosticColors[2], bg = "normal_bg4" },
+        hl = GetDiagnosticHighlight(2),
     },
-    {},
-    {},
+    {
+        provider = function(self)
+            return GetDiagnosticText(3)
+        end,
+        hl = GetDiagnosticHighlight(3),
+    },
+    {
+        provider = function(self)
+            return GetDiagnosticText(4)
+        end,
+        hl = GetDiagnosticHighlight(4),
+    },
 }
 
 local StatusLine = {
