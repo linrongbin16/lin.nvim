@@ -153,11 +153,36 @@ local SectionA = {
     },
 }
 
+local SectionB = {
+    hl = { fg = "normal_fg2", bg = "normal_bg2" },
+
+    {
+        provider = function(self)
+            if vim.fn.exists("*gitbranch#name") > 0 then
+                local branch = vim.fn["gitbranch#name"]()
+                if strings.not_empty(branch) then
+                    return " " .. branch
+                end
+            end
+            return ""
+        end,
+        update = { "BufEnter" },
+    },
+    {
+        provider = right_slant,
+        hl = function(self)
+            local mode_name = GetModeName(self.mode)
+            local mode_hl = ModeHighlights[mode_name] or ModeHighlights.NORMAL
+            return { fg = mode_hl.bg, bg = "normal_bg2" }
+        end,
+    },
+}
+
 local SectionC = {
     init = function(self)
         self.filename = vim.api.nvim_buf_get_name(0)
     end,
-    hl = { fg = "normal_fg2", bg = "normal_bg2" },
+    hl = { fg = "normal_fg3", bg = "normal_bg3" },
 
     -- file name
     {
@@ -234,6 +259,7 @@ local SectionC = {
 
 local StatusLine = {
     SectionA,
+    SectionB,
     SectionC,
 }
 

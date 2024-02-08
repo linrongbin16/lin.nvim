@@ -148,7 +148,10 @@ local M = {
     {
         "rebelot/heirline.nvim",
         event = { UIEnter },
-        dependencies = { "linrongbin16/lsp-progress.nvim" },
+        dependencies = {
+            "linrongbin16/lsp-progress.nvim",
+            "itchyny/vim-gitbranch",
+        },
         config = lua_config("rebelot/heirline.nvim"),
     },
     -- Winbar
