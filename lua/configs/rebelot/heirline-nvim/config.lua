@@ -300,7 +300,7 @@ local LspStatus = {
     provider = function()
         local result = require("lsp-progress").progress({ max_size = 100 })
         if strings.not_empty(result) then
-            return " " .. result
+            return "  " .. result
         end
         return ""
     end,
@@ -421,6 +421,15 @@ local function setup_colors(colorname)
         { "StatusLine", "Normal" },
         black
     )
+    local statusline_fg = get_color_with_lualine(
+        lualine_ok,
+        lualine_theme,
+        "normal",
+        "c",
+        "fg",
+        { "StatusLine", "Normal" },
+        black
+    )
     local normal_bg_fallback = colors_hl.get_color_with_fallback(
         { "PmenuSel", "PmenuThumb", "TabLineSel" },
         "bg",
@@ -482,8 +491,8 @@ local function setup_colors(colorname)
         {},
         text_fg
     )
-    local normal_bg4 = text_bg
-    local normal_fg4 = text_fg
+    local normal_bg4 = statusline_bg
+    local normal_fg4 = statusline_fg
     local insert_bg = get_color_with_lualine(
         lualine_ok,
         lualine_theme,
