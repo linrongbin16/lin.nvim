@@ -3,6 +3,9 @@ local utils = require("heirline.utils")
 
 local uv = require("commons.uv")
 local strings = require("commons.strings")
+local colors_hl = require("commons.colors.hl")
+
+local lualine_ok, lualine_theme = pcall(require("module"))
 
 local colors = {
     bright_bg = utils.get_highlight("Folded").bg,
@@ -19,9 +22,21 @@ local colors = {
     diag_error = utils.get_highlight("DiagnosticError").fg,
     diag_hint = utils.get_highlight("DiagnosticHint").fg,
     diag_info = utils.get_highlight("DiagnosticInfo").fg,
-    git_del = utils.get_highlight("diffDeleted").fg,
-    git_add = utils.get_highlight("diffAdded").fg,
-    git_change = utils.get_highlight("diffChanged").fg,
+    git_add = colors_hl.get_color_with_fallback(
+        { "GitSignsAdd", "GitGutterAdd", "diffAdded", "DiffAdd" },
+        "fg",
+        "#008000"
+    ),
+    git_change = colors_hl.get_color_with_fallback(
+        { "GitSignsChange", "GitGutterChange", "diffChanged", "DiffChange" },
+        "fg",
+        "#FFFF00"
+    ),
+    git_delete = colors_hl.get_color_with_fallback(
+        { "GitSignsDelete", "GitGutterDelete", "diffRemoved", "DiffDelete" },
+        "fg",
+        "#FF0000"
+    ),
 }
 
 local ModeNames = {
@@ -130,4 +145,18 @@ require("heirline").setup({
     opts = {
         colors = colors,
     },
+})
+
+vim.api.nvim_create_augroup("heirline_augroup", { clear = true })
+vim.api.nvim_create_autocmd("ColorScheme", {
+    group = "heirline_augroup",
+    callback = function(event)
+        local colorname = event.match
+    end,
+})
+vim.api.nvim_create_autocmd("VimEnter", {
+    group = "heirline_augroup",
+    callback = function()
+        local colorname = vim.g.colors_name
+    end,
 })
