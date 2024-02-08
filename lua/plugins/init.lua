@@ -151,6 +151,7 @@ local M = {
         dependencies = {
             "linrongbin16/lsp-progress.nvim",
             "itchyny/vim-gitbranch",
+            "airblade/vim-gitgutter",
         },
         config = lua_config("rebelot/heirline.nvim"),
     },

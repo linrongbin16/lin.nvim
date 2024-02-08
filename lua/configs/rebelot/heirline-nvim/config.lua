@@ -119,7 +119,7 @@ local function GetModeName(mode)
     return ModeNames[mode] or "???"
 end
 
-local SectionA = {
+local Mode = {
     init = function(self)
         self.mode = vim.fn.mode(1)
     end,
@@ -153,7 +153,7 @@ local SectionA = {
     },
 }
 
-local SectionB = {
+local GitBranch = {
     hl = { fg = "normal_fg2", bg = "normal_bg2" },
 
     {
@@ -174,7 +174,7 @@ local SectionB = {
     },
 }
 
-local SectionC = {
+local FileName = {
     init = function(self)
         self.filename = vim.api.nvim_buf_get_name(0)
     end,
@@ -253,43 +253,53 @@ local SectionC = {
     },
 }
 
-local SectionD = {
+local GitDiff = {
+    init = function(self)
+        self.summary = {}
+        if vim.fn.exists("*GitGutterGetHunkSummary") > 0 then
+            self.summary = vim.fn["GitGutterGetHunkSummary"]() or {}
+        end
+    end,
     hl = { fg = "normal_fg4", bg = "normal_bg4" },
+    update = { "User", pattern = "GitGutter" },
 
     {
         provider = function(self)
-            if vim.fn.exists("*GitGutterGetHunkSummary") <= 0 then
-                return ""
-            end
-            local summary = vim.fn["GitGutterGetHunkSummary"]() or {}
-            local signs = { "+", "~", "-" }
-            local colors = { "git_add", "git_change", "git_delete" }
-            local components = {}
-            for i = 1, 3 do
-                local value = summary[i]
-                if type(value) == "number" and value > 0 then
-                    table.insert(components, {
-                        provider = string.format("%s%d ", signs[i], value),
-                        hl = { fg = colors[i], bg = "normal_bg4" },
-                    })
-                end
-            end
-            local added = tables.tbl_not_empty(self.git_diff)
-                    and self.git_diff[1]
-                or 0
-            if added > 0 then
-                return string.format("+%d ", added)
+            local value = self.summary[1] or 0
+            if value > 0 then
+                return string.format(" +%d", value)
             end
             return ""
         end,
-        update = { "User", pattern = "GitGutter" },
+        hl = { fg = "git_add", bg = "normal_bg4" },
+    },
+    {
+        provider = function(self)
+            local value = self.summary[2] or 0
+            if value > 0 then
+                return string.format(" ~%d", value)
+            end
+            return ""
+        end,
+        hl = { fg = "git_change", bg = "normal_bg4" },
+    },
+    {
+        provider = function(self)
+            local value = self.summary[3] or 0
+            if value > 0 then
+                return string.format(" -%d", value)
+            end
+            return ""
+        end,
+        hl = { fg = "git_delete", bg = "normal_bg4" },
     },
 }
 
 local StatusLine = {
-    SectionA,
-    SectionB,
-    SectionC,
+    Mode,
+    GitBranch,
+    FileName,
+    GitDiff,
 }
 
 ---@param lualine_ok boolean
