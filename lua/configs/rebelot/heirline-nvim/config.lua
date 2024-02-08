@@ -152,7 +152,7 @@ local SeparatorA = {
     hl = function(self)
         local mode_name = GetModeName(self.mode)
         local mode_hl = ModeHighlights[mode_name] or ModeHighlights.NORMAL
-        return { fg = mode_hl.fg, bg = "normal_bg2", bold = true }
+        return { fg = mode_hl.bg, bg = "normal_bg2" }
     end,
     update = {
         "ModeChanged",
@@ -165,6 +165,7 @@ local SeparatorA = {
 
 local StatusLine = {
     Mode,
+    SeparatorA,
 }
 
 ---@param lualine_ok boolean
