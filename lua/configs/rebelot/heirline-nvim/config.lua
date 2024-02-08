@@ -403,35 +403,36 @@ local Diagnostic = {
 local FileType = {
     init = function(self)
         self.filename = vim.api.nvim_buf_get_name(0) or ""
-        self.filename_ext = vim.fn.fnamemodify(self.file_name, ":e") or ""
-        self.icon_text = nil
-        self.icon_color = nil
-        if strings.not_empty(self.filename_ext) then
-            local ok, devicons = pcall(require, "nvim-web-devicons")
-            if ok and devicons ~= nil then
-                local icon, icon_color =
-                    devicons.get_icon_color(self.filename, self.filename_ext)
-                if strings.not_empty(icon) then
-                    self.icon_text = icon
-                    self.icon_color = icon_color
-                else
-                    self.icon_text = ""
-                    self.icon_color = "normal_fg3"
-                end
-            end
-        end
+        self.filename_ext = vim.fn.fnamemodify(self.filename, ":e") or ""
+        self.devicons = require("nvim-web-devicons")
     end,
     hl = { fg = "normal_fg3", bg = "normal_bg3" },
 
     {
+        provider = left_slant,
+        hl = { fg = "normal_bg4", bg = "normal_bg3" },
+    },
+    {
         provider = function(self)
-            if strings.empty(self.icon_text) then
+            if strings.empty(self.filename_ext) then
                 return ""
             end
-            return self.icon_text .. " "
+            local icon_text, icon_color =
+                self.devicons.get_icon_color(self.filename, self.filename_ext)
+            if strings.not_empty(icon_text) then
+                return icon_text .. " "
+            else
+                return " "
+            end
         end,
         hl = function(self)
-            return { fg = self.icon_color, bg = "normal_bg3" }
+            local icon_text, icon_color =
+                self.devicons.get_icon_color(self.filename, self.filename_ext)
+            if strings.not_empty(icon_color) then
+                return { fg = icon_color, bg = "normal_bg3" }
+            else
+                return { fg = "normal_fg3", bg = "normal_bg3" }
+            end
         end,
         update = {
             "BufEnter",
