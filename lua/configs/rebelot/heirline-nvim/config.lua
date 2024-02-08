@@ -155,8 +155,9 @@ local Mode = {
             .. " "
     end,
     hl = function(self)
-        local mode = self.mode:sub(1, 1) -- get only the first mode character
-        return { fg = ModeHighlights[mode], bold = true }
+        local mode_name = GetModeName(self.mode)
+        local mode_hl = ModeHighlights[mode_name] or ModeHighlights.NORMAL
+        return { fg = mode_hl.fg, bg = mode_hl.bg, bold = true }
     end,
     update = {
         { "ModeChanged", "VimResized" },
