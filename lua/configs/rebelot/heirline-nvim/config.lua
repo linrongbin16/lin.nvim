@@ -41,9 +41,11 @@ local OS_UNAME = uv.os_uname()
 
 local function GetOsIcon()
     local uname = OS_UNAME.sysname
-    if uname == "Darwin" then
+    if uname:match("Darwin") then
         return ""
-    elseif uname == "Linux" then
+    elseif uname:match("Windows") then
+        return ""
+    elseif uname:match("Linux") then
         if
             type(OS_UNAME.release) == "string"
             and OS_UNAME.release:find("arch")
@@ -51,8 +53,6 @@ local function GetOsIcon()
             return ""
         end
         return ""
-    elseif uname == "Windows" then
-        return ""
     else
         return "󱚟"
     end
