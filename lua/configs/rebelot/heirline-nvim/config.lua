@@ -254,9 +254,26 @@ local SectionC = {
 }
 
 local SectionD = {
+    init = function(self)
+        self.git_diff = nil
+        if vim.fn.exists("*GitGutterGetHunkSummary") > 0 then
+            self.git_diff = vim.fn["GitGutterGetHunkSummary"]()
+        end
+    end,
     hl = { fg = "normal_fg4", bg = "normal_bg4" },
 
-    {},
+    {
+        provider = function(self)
+            local git_add = tables.tbl_not_empty(self.git_diff)
+                    and self.git_diff[1]
+                or 0
+            if git_add > 0 then
+                return string.format("+%d", git_add)
+            end
+            return ""
+        end,
+        update = { "User", pattern = "GitGutter" },
+    },
 }
 
 local StatusLine = {
