@@ -469,15 +469,15 @@ local FileEncodingIcons = {
 local FileEncoding = {
     hl = { fg = "normal_fg2", bg = "normal_bg2" },
     provider = function(self)
-        local encoding = (vim.bo.fenc ~= "" and vim.bo.fenc) or vim.o.enc
-        if strings.empty(encoding) then
+        local text = (vim.bo.fenc ~= "" and vim.bo.fenc) or vim.o.enc
+        if strings.empty(text) then
             return ""
         end
-        local encoding_icon = FileEncodingIcons[encoding]
-        if strings.empty(encoding_icon) then
-            return encoding .. " "
+        local icon = FileEncodingIcons[text]
+        if strings.empty(icon) then
+            return text .. " "
         end
-        return encoding_icon .. " " .. encoding .. " "
+        return icon .. " " .. text .. " "
     end,
     update = {
         "BufEnter",
@@ -487,8 +487,31 @@ local FileEncoding = {
     },
 }
 
+local FileFormatIcons = {
+    unix = "", -- e712
+    dos = "", -- e70f
+    mac = "", -- e711
+}
+
 local FileFormat = {
     hl = { fg = "normal_fg2", bg = "normal_bg2" },
+    provider = function(self)
+        local text = vim.bo.fileformat
+        if strings.empty(text) then
+            return ""
+        end
+        local icon = FileFormatIcons[text]
+        if strings.empty(icon) then
+            return text .. " "
+        end
+        return icon .. " " .. text
+    end,
+    update = {
+        "BufEnter",
+        "BufNewFile",
+        "BufWritePost",
+        "WinEnter",
+    },
 }
 
 local StatusLine = {
