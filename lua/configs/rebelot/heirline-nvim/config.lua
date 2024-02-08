@@ -27,9 +27,9 @@ end
 -- value 1-100
 local function shade_rgb(rgb, value)
     if vim.o.background == "light" then
-        return colors_hsl.rgb_to_hsl(rgb):tint(value):to_rgb()
+        return rgb_to_hsl(rgb):tint(value):to_rgb()
     end
-    return colors_hsl.rgb_to_hsl(rgb):shade(value):to_rgb()
+    return rgb_to_hsl(rgb):shade(value):to_rgb()
 end
 
 local ModeNames = {
