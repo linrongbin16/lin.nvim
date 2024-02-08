@@ -7,6 +7,8 @@ local tables = require("commons.tables")
 local colors_hl = require("commons.colors.hl")
 local colors_hsl = require("commons.colors.hsl")
 
+local constants = require("builtin.utils.constants")
+
 local black = "#000000"
 local white = "#ffffff"
 local red = "#FF0000"
@@ -337,6 +339,69 @@ local SearchCount = {
         return string.format("[%d/%d] ", result.current, denominator)
     end,
     update = { "SearchWrapped" },
+}
+
+local DiagnosticSigns = {
+    constants.diagnostic.sign.error,
+    constants.diagnostic.sign.warning,
+    constants.diagnostic.sign.info,
+    constants.diagnostic.sign.hint,
+}
+local DiagnosticColors = {
+    "diagnostic_error",
+    "diagnostic_warn",
+    "diagnostic_info",
+    "diagnostic_hint",
+}
+local DiagnosticSeverity = { "ERROR", "WARN", "INFO", "HINT" }
+
+local function GetDiagnosticText(level)
+    local value = #vim.diagnostic.get(
+        0,
+        { severity = vim.diagnostic.severity[DiagnosticSeverity[level]] }
+    )
+    if value <= 0 then
+        return ""
+    end
+    return string.format("%s %d", DiagnosticSigns[level], value)
+end
+
+local function GetDiagnosticHighlight(level)
+    return { fg = DiagnosticColors[level], bg = "normal_bg4" }
+end
+
+local Diagnostic = {
+    hl = { fg = "normal_fg4", bg = "normal_bg4" },
+    update = { "DiagnosticChanged", "BufEnter", "BufWritePost" },
+
+    {
+        provider = function(self)
+            local value = #vim.diagnostic.get(
+                0,
+                { severity = vim.diagnostic.severity[DiagnosticSeverity[1]] }
+            )
+            if value <= 0 then
+                return ""
+            end
+            return string.format("%s %d", DiagnosticSigns[1], value)
+        end,
+        hl = { fg = DiagnosticColors[1], bg = "normal_bg4" },
+    },
+    {
+        provider = function(self)
+            local value = #vim.diagnostic.get(
+                0,
+                { severity = vim.diagnostic.severity[DiagnosticSeverity[2]] }
+            )
+            if value <= 0 then
+                return ""
+            end
+            return string.format("%s %d", DiagnosticSigns[2], value)
+        end,
+        hl = { fg = DiagnosticColors[2], bg = "normal_bg4" },
+    },
+    {},
+    {},
 }
 
 local StatusLine = {
