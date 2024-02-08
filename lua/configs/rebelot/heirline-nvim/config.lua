@@ -383,6 +383,7 @@ local function setup_colors(colorname)
     return {
         text_bg = text_bg,
         text_fg = text_fg,
+        statusline_bg = statusline_bg,
         black = black,
         white = white,
         red = red,
