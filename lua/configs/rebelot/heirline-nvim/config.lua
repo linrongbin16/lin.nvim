@@ -615,6 +615,7 @@ local function setup_colors(colorname)
         "a",
         "fg",
         {},
+        "fg",
         text_bg -- or black
     )
     local normal_bg1 = normal_bg
@@ -626,6 +627,7 @@ local function setup_colors(colorname)
         "b",
         "bg",
         {},
+        "bg",
         shade_rgb(normal_bg1, 0.5)
     )
     local normal_fg2 = get_color_with_lualine(
@@ -635,6 +637,7 @@ local function setup_colors(colorname)
         "b",
         "fg",
         {},
+        "fg",
         text_fg
     )
     local normal_bg3 = get_color_with_lualine(
@@ -644,6 +647,7 @@ local function setup_colors(colorname)
         "c",
         "bg",
         {},
+        "bg",
         shade_rgb(normal_bg1, 0.7)
     )
     local normal_fg3 = get_color_with_lualine(
@@ -653,6 +657,7 @@ local function setup_colors(colorname)
         "c",
         "fg",
         {},
+        "fg",
         text_fg
     )
     local normal_bg4 = statusline_bg
@@ -668,7 +673,7 @@ local function setup_colors(colorname)
         "insert",
         "a",
         "bg",
-        {},
+        { "String", "MoreMsg" },
         insert_bg_fallback
     )
     local insert_fg = get_color_with_lualine(
