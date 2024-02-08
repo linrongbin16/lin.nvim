@@ -29,6 +29,10 @@ local M = {
         "folke/lsp-colors.nvim",
     },
     {
+        "linrongbin16/commons.nvim",
+        lazy = true,
+    },
+    {
         "linrongbin16/colorbox.nvim",
         priority = 1000,
         config = lua_config("linrongbin16/colorbox.nvim"),
@@ -142,10 +146,10 @@ local M = {
         config = lua_config("linrongbin16/lsp-progress.nvim"),
     },
     {
-        "nvim-lualine/lualine.nvim",
+        "rebelot/heirline.nvim",
         event = { UIEnter },
         dependencies = { "linrongbin16/lsp-progress.nvim" },
-        config = lua_config("nvim-lualine/lualine.nvim"),
+        config = lua_config("rebelot/heirline.nvim"),
     },
     -- Winbar
     {
