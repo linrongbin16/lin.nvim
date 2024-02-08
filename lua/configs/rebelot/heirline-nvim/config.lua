@@ -184,31 +184,31 @@ local function setup_colors(colorname)
     )
 
     local lualine_ok, lualine_theme = pcall(require("module"))
-    local normal_bg = get_color_with_lualine(
+    local text_bg = get_color_with_lualine(
         lualine_ok,
         lualine_theme,
         "normal",
         "a",
         "bg",
-        { "Folded", "Normal" },
+        { "Normal" },
         "#000000"
     )
-    local normal_fg = get_color_with_lualine(
+    local text_fg = get_color_with_lualine(
         lualine_ok,
         lualine_theme,
         "normal",
         "a",
         "fg",
-        { "Folded", "Normal" },
+        { "Normal" },
         "#ffffff"
     )
-    local red = get_color_with_lualine(
+    local normal_bg = get_color_with_lualine(
         lualine_ok,
         lualine_theme,
         "normal",
         "a",
         "fg",
-        { "DiagnosticSignError", "ErrorMsg" },
+        {},
         vim.g.terminal_color_0 or "#FF00FF"
     )
     local dark_red = get_color_with_lualine(lualine_ok, lualine_theme, "normal")
