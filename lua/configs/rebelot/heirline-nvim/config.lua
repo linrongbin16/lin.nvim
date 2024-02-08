@@ -296,6 +296,8 @@ local function setup_colors(colorname)
         {},
         black
     )
+    local normal_bg4 = text_bg
+    local normal_fg4 = text_fg
     local insert_bg = get_color_with_lualine(
         lualine_ok,
         lualine_theme,
