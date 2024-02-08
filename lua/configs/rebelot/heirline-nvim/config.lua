@@ -158,11 +158,6 @@ local SectionC = {
         self.filename = vim.api.nvim_buf_get_name(0)
     end,
     hl = { fg = "normal_fg2", bg = "normal_bg2" },
-    update = {
-        "BufEnter",
-        "BufNewFile",
-        "WinEnter",
-    },
 
     -- file name
     {
@@ -175,6 +170,11 @@ local SectionC = {
             end
             return ""
         end,
+        update = {
+            "BufEnter",
+            "BufNewFile",
+            "WinEnter",
+        },
     },
     -- file status
     {
