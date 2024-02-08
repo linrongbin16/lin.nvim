@@ -300,11 +300,19 @@ local LspStatus = {
     provider = function()
         local result = require("lsp-progress").progress({ max_size = 100 })
         if strings.not_empty(result) then
-            return "  " .. result
+            return " " .. result
         end
         return ""
     end,
-    update = { "User", pattern = "LspProgressStatusUpdated" },
+    update = {
+        "User",
+        pattern = "LspProgressStatusUpdated",
+        callback = function()
+            vim.schedule(function()
+                vim.cmd("redrawstatus")
+            end)
+        end,
+    },
 }
 
 local StatusLine = {
