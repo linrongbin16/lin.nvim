@@ -400,6 +400,31 @@ local Diagnostic = {
     },
 }
 
+local FileType = {
+    init = function(self)
+        self.filename = vim.api.nvim_buf_get_name(0) or ""
+        self.filename_ext = vim.fn.fnamemodify(self.file_name, ":e") or ""
+    end,
+    hl = { fg = "normal_fg3", bg = "normal_bg3" },
+
+    {
+        provider = function(self) end,
+        update = {
+            "BufEnter",
+            "BufNewFile",
+            "WinEnter",
+        },
+    },
+    {
+        provider = function(self) end,
+        update = {
+            "BufEnter",
+            "BufNewFile",
+            "WinEnter",
+        },
+    },
+}
+
 local StatusLine = {
     Mode,
     GitBranch,
