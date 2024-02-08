@@ -159,7 +159,6 @@ local SectionC = {
     end,
     hl = { fg = "normal_fg2", bg = "normal_bg2" },
     update = {
-        "BufWritePost",
         "BufEnter",
         "BufNewFile",
         "WinEnter",
@@ -206,7 +205,7 @@ local SectionC = {
     {
         provider = function(self)
             local filesize = vim.fn.getfsize(self.filename)
-            if type(self.filesize) ~= "number" or self.filesize <= 0 then
+            if type(filesize) ~= "number" or filesize <= 0 then
                 return ""
             end
             local suffixes = { "b", "k", "m", "g" }
