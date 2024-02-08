@@ -209,7 +209,8 @@ local function setup_colors(colorname)
         "a",
         "bg",
         {},
-        vim.g.terminal_color_0 or "#FF00FF"
+        strings.not_empty(vim.g.terminal_color_0) and vim.g.terminal_color_0
+            or "#FF00FF"
     )
     local normal_fg = get_color_with_lualine(
         lualine_ok,
@@ -227,7 +228,8 @@ local function setup_colors(colorname)
         "a",
         "bg",
         {},
-        vim.g.terminal_color_2 or "#008000"
+        strings.not_empty(vim.g.terminal_color_2) and vim.g.terminal_color_2
+            or "#008000"
     )
     local insert_fg = get_color_with_lualine(
         lualine_ok,
