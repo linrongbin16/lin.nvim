@@ -255,6 +255,8 @@ local SectionC = {
 
 local SectionD = {
     hl = { fg = "normal_fg4", bg = "normal_bg4" },
+
+    {},
 }
 
 local StatusLine = {
@@ -369,7 +371,11 @@ local function setup_colors(colorname)
         { "StatusLine", "Normal" },
         black
     )
-    local normal_bg_fallback = get_terminal_color_with_fallback(0, magenta)
+    local normal_bg_fallback = colors_hl.get_color_with_fallback(
+        { "PmenuSel", "PmenuThumb", "TabLineSel" },
+        "bg",
+        get_terminal_color_with_fallback(0, magenta)
+    )
     local normal_bg = get_color_with_lualine(
         lualine_ok,
         lualine_theme,
