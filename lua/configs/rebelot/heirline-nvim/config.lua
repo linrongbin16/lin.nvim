@@ -300,6 +300,19 @@ local function setup_colors(colorname)
         {},
         "#000000"
     )
+
+    local red = colors_hl.get_color_with_fallback(
+        {
+            "DiagnosticSignError",
+            "GitSignsDelete",
+            "GitGutterDelete",
+            "diffRemoved",
+            "DiffDelete",
+            "ErrorMsg",
+        },
+        "fg",
+        "#FF0000"
+    )
     local green
     local blue
     local grey
