@@ -249,8 +249,12 @@ local SectionC = {
     },
     {
         provider = right_slant,
-        hl = { fg = "normal_bg2", bg = "normal_bg3" },
+        hl = { fg = "normal_bg3", bg = "normal_bg4" },
     },
+}
+
+local SectionD = {
+    hl = { fg = "normal_fg4", bg = "normal_bg4" },
 }
 
 local StatusLine = {
