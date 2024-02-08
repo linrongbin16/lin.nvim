@@ -404,11 +404,30 @@ local FileType = {
     init = function(self)
         self.filename = vim.api.nvim_buf_get_name(0) or ""
         self.filename_ext = vim.fn.fnamemodify(self.file_name, ":e") or ""
+        local ok, devicons = pcall(require, "nvim-web-devicons")
+        if ok and devicons ~= nil then
+            local icon, icon_color = devicons.devicons.get_icon_color(
+                self.file_name,
+                self.filename_ext
+            )
+            if strings.not_empty(icon) then
+                self.icon_text = icon
+                self.icon_color = icon_color
+            else
+                self.icon_text = ""
+                self.icon_color = ""
+            end
+        end
     end,
     hl = { fg = "normal_fg3", bg = "normal_bg3" },
 
     {
-        provider = function(self) end,
+        provider = function(self)
+            if strings.empty(self.filename_ext) then
+                return ""
+            end
+        end,
+        hl = {},
         update = {
             "BufEnter",
             "BufNewFile",
@@ -416,7 +435,11 @@ local FileType = {
         },
     },
     {
-        provider = function(self) end,
+        provider = function(self)
+            if strings.empty(self.filename_ext) then
+                return ""
+            end
+        end,
         update = {
             "BufEnter",
             "BufNewFile",
