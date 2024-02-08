@@ -224,10 +224,15 @@ local SectionC = {
             return self.filesize > 0
         end,
     },
+    {
+        provider = right_slant,
+        hl = { fg = "normal_bg2", bg = "normal_bg3" },
+    },
 }
 
 local StatusLine = {
     SectionA,
+    SectionC,
 }
 
 ---@param lualine_ok boolean
