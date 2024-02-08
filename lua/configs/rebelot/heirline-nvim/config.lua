@@ -426,5 +426,6 @@ vim.api.nvim_create_autocmd("VimEnter", {
     group = "heirline_augroup",
     callback = function()
         local colorname = vim.g.colors_name
+        utils.on_colorscheme(setup_colors(colorname))
     end,
 })
