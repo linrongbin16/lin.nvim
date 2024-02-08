@@ -220,6 +220,24 @@ local function setup_colors(colorname)
         {},
         "#000000"
     )
+    local insert_bg = get_color_with_lualine(
+        lualine_ok,
+        lualine_theme,
+        "insert",
+        "a",
+        "bg",
+        {},
+        vim.g.terminal_color_2 or "#008000"
+    )
+    local insert_fg = get_color_with_lualine(
+        lualine_ok,
+        lualine_theme,
+        "insert",
+        "a",
+        "fg",
+        {},
+        "#000000"
+    )
     local dark_red = get_color_with_lualine(lualine_ok, lualine_theme, "normal")
     local green
     local blue
