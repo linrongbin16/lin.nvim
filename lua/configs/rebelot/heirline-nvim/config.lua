@@ -184,7 +184,24 @@ local SectionC = {
         end,
     },
     -- file status
-    {},
+    {
+        init = function(self)
+            self.readonly = not vim.api.nvim_buf_get_option(0, "modifiable")
+                or vim.api.nvim_buf_get_option(0, "readonly")
+            self.modified = vim.api.nvim_buf_get_option(0, "modified")
+        end,
+        provider = function(self)
+            if self.readonly then
+                return "[]"
+            elseif self.modified then
+                return "[]"
+            end
+            return ""
+        end,
+        condition = function(self)
+            return self.readonly or self.modified
+        end,
+    },
     -- file size
     {},
 }
