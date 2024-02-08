@@ -187,16 +187,22 @@ local function GetFileName()
 end
 
 local FileName = {
+    init = function(self)
+        self.filename = vim.api.nvim_buf_get_name(0)
+    end,
     hl = { fg = "normal_fg3", bg = "normal_bg3" },
 
     -- file name
     {
         provider = function(self)
-            local filename = GetFileName()
-            if strings.not_empty(filename) then
-                return " " .. filename .. " "
+            if strings.empty(self.filename) then
+                return ""
             end
-            return ""
+            local fname = vim.fn.fnamemodify(self.filename, ":t")
+            if strings.empty(fname) then
+                return ""
+            end
+            return " " .. fname .. " "
         end,
         update = {
             "BufEnter",
@@ -240,7 +246,7 @@ local FileName = {
             if strings.empty(filename) then
                 return ""
             end
-            local filesize = vim.fn.getfsize(filename or "")
+            local filesize = vim.fn.getfsize(filename)
             if type(filesize) ~= "number" or filesize <= 0 then
                 return ""
             end
