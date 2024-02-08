@@ -655,6 +655,11 @@ local function setup_colors(colorname)
     )
     local normal_bg4 = statusline_bg
     local normal_fg4 = statusline_fg
+    local insert_bg_fallback = colors_hl.get_color_with_fallback(
+        { "String", "MoreMsg" },
+        "fg",
+        get_terminal_color_with_fallback(2, green)
+    )
     local insert_bg = get_color_with_lualine(
         lualine_ok,
         lualine_theme,
@@ -662,7 +667,7 @@ local function setup_colors(colorname)
         "a",
         "bg",
         {},
-        get_terminal_color_with_fallback(2, green)
+        insert_bg_fallback
     )
     local insert_fg = get_color_with_lualine(
         lualine_ok,
