@@ -404,18 +404,20 @@ local FileType = {
     init = function(self)
         self.filename = vim.api.nvim_buf_get_name(0) or ""
         self.filename_ext = vim.fn.fnamemodify(self.file_name, ":e") or ""
-        local ok, devicons = pcall(require, "nvim-web-devicons")
-        if ok and devicons ~= nil then
-            local icon, icon_color = devicons.devicons.get_icon_color(
-                self.file_name,
-                self.filename_ext
-            )
-            if strings.not_empty(icon) then
-                self.icon_text = icon
-                self.icon_color = icon_color
-            else
-                self.icon_text = ""
-                self.icon_color = ""
+        self.icon_text = nil
+        self.icon_color = nil
+        if strings.not_empty(self.filename_ext) then
+            local ok, devicons = pcall(require, "nvim-web-devicons")
+            if ok and devicons ~= nil then
+                local icon, icon_color =
+                    devicons.get_icon_color(self.filename, self.filename_ext)
+                if strings.not_empty(icon) then
+                    self.icon_text = icon
+                    self.icon_color = icon_color
+                else
+                    self.icon_text = ""
+                    self.icon_color = "normal_fg3"
+                end
             end
         end
     end,
@@ -423,11 +425,14 @@ local FileType = {
 
     {
         provider = function(self)
-            if strings.empty(self.filename_ext) then
+            if strings.empty(self.icon_text) then
                 return ""
             end
+            return self.icon_text .. " "
         end,
-        hl = {},
+        hl = function(self)
+            return { fg = self.icon_color, bg = "normal_bg3" }
+        end,
         update = {
             "BufEnter",
             "BufNewFile",
@@ -439,6 +444,7 @@ local FileType = {
             if strings.empty(self.filename_ext) then
                 return ""
             end
+            return self.filename_ext .. " "
         end,
         update = {
             "BufEnter",
@@ -457,6 +463,7 @@ local StatusLine = {
     { provider = "%=", hl = { fg = "normal_fg4", bg = "normal_bg4" } },
     SearchCount,
     Diagnostic,
+    FileType,
 }
 
 ---@param lualine_ok boolean
