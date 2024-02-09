@@ -941,7 +941,7 @@ local function setup_colors(colorname)
         "fg"
     )
     if normal_bg3 and normal_fg3 then
-        local parameter = get_color_brightness(normal_bg3) > 0.5 and 10 or -10
+        local parameter = get_color_brightness(normal_bg3) > 0.5 and 8 or -8
         normal_bg4 = brightness_modifier(normal_bg3, parameter)
         normal_fg4 = normal_fg3
     else
