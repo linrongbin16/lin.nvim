@@ -630,15 +630,44 @@ local function get_terminal_color_with_fallback(number, fallback)
     end
 end
 
----@param lualine_ok boolean
----@param lualine_theme table
+---@param lightline_theme table
 ---@param mode_name "normal"|"insert"|"visual"|"replace"|"command"|"inactive"
 ---@param section "a"|"b"|"c"
 ---@param attribute "fg"|"bg"
 ---@param fallback_hls string|string[]
 ---@param fallback_attribute 'fg'|'bg'
 ---@param fallback_color string?
-local function get_color_with_lightline() end
+local function get_color_with_lightline(
+    lightline_theme,
+    mode_name,
+    section,
+    attribute,
+    fallback_hls,
+    fallback_attribute,
+    fallback_color
+)
+    local sec1, sec2
+    if section == "a" then
+        sec1 = "left"
+        sec2 = 1
+    elseif section == "b" then
+        sec1 = "left"
+        sec2 = 2
+    elseif section == "c" then
+        sec1 = "middle"
+        sec2 = 1
+    end
+    local attr = attribute == "fg" and 1 or 2
+    if tables.tbl_get(lightline_theme, mode_name, sec1, sec2, attr) then
+        return lightline_theme[mode_name][sec1][sec2][attr]
+    else
+        return colors_hl.get_color_with_fallback(
+            fallback_hls,
+            fallback_attribute,
+            fallback_color
+        )
+    end
+end
 
 local brightness_modifier_parameter = 10
 
@@ -937,6 +966,191 @@ local function setup_colors(colorname)
         ) > 0
     then
         has_lightline = true
+        local lightline_theme =
+            vim.g[string.format("lightline#colorscheme#%s#palette", colorname)]
+        text_bg = get_color_with_lightline(
+            lightline_theme,
+            "normal",
+            "a",
+            "bg",
+            { "Normal" },
+            "bg",
+            black
+        )
+        text_fg = get_color_with_lualine(
+            has_lualine,
+            lualine_theme,
+            "normal",
+            "a",
+            "fg",
+            { "Normal" },
+            "fg",
+            white
+        )
+        statusline_bg = get_color_with_lualine(
+            has_lualine,
+            lualine_theme,
+            "normal",
+            "c",
+            "bg",
+            { "StatusLine", "Normal" },
+            "bg",
+            black
+        )
+        statusline_fg = get_color_with_lualine(
+            has_lualine,
+            lualine_theme,
+            "normal",
+            "c",
+            "fg",
+            { "StatusLine", "Normal" },
+            "fg",
+            white
+        )
+        normal_bg = get_color_with_lualine(
+            has_lualine,
+            lualine_theme,
+            "normal",
+            "a",
+            "bg",
+            { "PmenuSel", "PmenuThumb", "TabLineSel" },
+            "bg",
+            get_terminal_color_with_fallback(0, magenta)
+        )
+        normal_fg = get_color_with_lualine(
+            has_lualine,
+            lualine_theme,
+            "normal",
+            "a",
+            "fg",
+            {},
+            "fg",
+            text_bg -- or black
+        )
+        normal_bg1 = normal_bg
+        normal_fg1 = normal_fg
+        normal_bg2 = get_color_with_lualine(
+            has_lualine,
+            lualine_theme,
+            "normal",
+            "b",
+            "bg",
+            {},
+            "bg",
+            shade_rgb(get_terminal_color_with_fallback(0, magenta), 0.5)
+        )
+        normal_fg2 = get_color_with_lualine(
+            has_lualine,
+            lualine_theme,
+            "normal",
+            "b",
+            "fg",
+            {},
+            "fg",
+            text_fg
+        )
+        normal_bg3 = get_color_with_lualine(
+            has_lualine,
+            lualine_theme,
+            "normal",
+            "c",
+            "bg",
+            {},
+            "bg",
+            shade_rgb(get_terminal_color_with_fallback(0, magenta), 0.7)
+        )
+        normal_fg3 = get_color_with_lualine(
+            has_lualine,
+            lualine_theme,
+            "normal",
+            "c",
+            "fg",
+            {},
+            "fg",
+            text_fg
+        )
+        normal_bg4 = statusline_bg
+        normal_fg4 = statusline_fg
+        insert_bg = get_color_with_lualine(
+            has_lualine,
+            lualine_theme,
+            "insert",
+            "a",
+            "bg",
+            { "String", "MoreMsg" },
+            "fg",
+            get_terminal_color_with_fallback(2, green)
+        )
+        insert_fg = get_color_with_lualine(
+            has_lualine,
+            lualine_theme,
+            "insert",
+            "a",
+            "fg",
+            {},
+            "fg",
+            text_bg
+        )
+        visual_bg = get_color_with_lualine(
+            has_lualine,
+            lualine_theme,
+            "visual",
+            "a",
+            "bg",
+            { "Special", "Boolean", "Constant" },
+            "fg",
+            get_terminal_color_with_fallback(3, yellow)
+        )
+        visual_fg = get_color_with_lualine(
+            has_lualine,
+            lualine_theme,
+            "visual",
+            "a",
+            "fg",
+            {},
+            "fg",
+            text_bg
+        )
+        replace_bg = get_color_with_lualine(
+            has_lualine,
+            lualine_theme,
+            "replace",
+            "a",
+            "bg",
+            { "Number", "Type" },
+            "fg",
+            get_terminal_color_with_fallback(4, blue)
+        )
+        replace_fg = get_color_with_lualine(
+            has_lualine,
+            lualine_theme,
+            "replace",
+            "a",
+            "fg",
+            {},
+            "fg",
+            text_bg
+        )
+        command_bg = get_color_with_lualine(
+            has_lualine,
+            lualine_theme,
+            "command",
+            "a",
+            "bg",
+            { "Identifier" },
+            "fg",
+            get_terminal_color_with_fallback(1, red)
+        )
+        command_fg = get_color_with_lualine(
+            has_lualine,
+            lualine_theme,
+            "command",
+            "a",
+            "fg",
+            {},
+            "fg",
+            text_bg
+        )
     end
 
     if not has_lualine or tables.tbl_empty(lualine_theme) then
