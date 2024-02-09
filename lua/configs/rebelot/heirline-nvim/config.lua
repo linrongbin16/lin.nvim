@@ -721,11 +721,23 @@ local function setup_colors(colorname)
         red
     )
 
+    local text_bg, text_fg
+    local statusline_bg, statusline_fg
+    local normal_bg, normal_fg
+    local normal_bg1, normal_fg1
+    local normal_bg2, normal_fg2
+    local normal_bg3, normal_fg3
+    local normal_bg4, normal_fg4
+    local insert_bg, insert_fg
+    local visual_bg, visual_fg
+    local replace_bg, replace_fg
+    local command_bg, command_fg
+
     local has_lightline = false
     local has_lualine, lualine_theme =
         pcall(require, string.format("lualine.themes.%s", colorname))
     if has_lualine and tables.tbl_not_empty(lualine_theme) then
-        local text_bg = get_color_with_lualine(
+        text_bg = get_color_with_lualine(
             has_lualine,
             lualine_theme,
             "normal",
@@ -735,7 +747,7 @@ local function setup_colors(colorname)
             "bg",
             black
         )
-        local text_fg = get_color_with_lualine(
+        text_fg = get_color_with_lualine(
             has_lualine,
             lualine_theme,
             "normal",
@@ -745,7 +757,7 @@ local function setup_colors(colorname)
             "fg",
             white
         )
-        local statusline_bg = get_color_with_lualine(
+        statusline_bg = get_color_with_lualine(
             has_lualine,
             lualine_theme,
             "normal",
@@ -755,7 +767,7 @@ local function setup_colors(colorname)
             "bg",
             black
         )
-        local statusline_fg = get_color_with_lualine(
+        statusline_fg = get_color_with_lualine(
             has_lualine,
             lualine_theme,
             "normal",
@@ -765,7 +777,7 @@ local function setup_colors(colorname)
             "fg",
             white
         )
-        local normal_bg = get_color_with_lualine(
+        normal_bg = get_color_with_lualine(
             has_lualine,
             lualine_theme,
             "normal",
@@ -775,7 +787,7 @@ local function setup_colors(colorname)
             "bg",
             get_terminal_color_with_fallback(0, magenta)
         )
-        local normal_fg = get_color_with_lualine(
+        normal_fg = get_color_with_lualine(
             has_lualine,
             lualine_theme,
             "normal",
@@ -785,9 +797,9 @@ local function setup_colors(colorname)
             "fg",
             text_bg -- or black
         )
-        local normal_bg1 = normal_bg
-        local normal_fg1 = normal_fg
-        local normal_bg2 = get_color_with_lualine(
+        normal_bg1 = normal_bg
+        normal_fg1 = normal_fg
+        normal_bg2 = get_color_with_lualine(
             has_lualine,
             lualine_theme,
             "normal",
@@ -797,7 +809,7 @@ local function setup_colors(colorname)
             "bg",
             shade_rgb(get_terminal_color_with_fallback(0, magenta), 0.5)
         )
-        local normal_fg2 = get_color_with_lualine(
+        normal_fg2 = get_color_with_lualine(
             has_lualine,
             lualine_theme,
             "normal",
@@ -807,7 +819,7 @@ local function setup_colors(colorname)
             "fg",
             text_fg
         )
-        local normal_bg3 = get_color_with_lualine(
+        normal_bg3 = get_color_with_lualine(
             has_lualine,
             lualine_theme,
             "normal",
@@ -817,7 +829,7 @@ local function setup_colors(colorname)
             "bg",
             shade_rgb(get_terminal_color_with_fallback(0, magenta), 0.7)
         )
-        local normal_fg3 = get_color_with_lualine(
+        normal_fg3 = get_color_with_lualine(
             has_lualine,
             lualine_theme,
             "normal",
@@ -827,9 +839,9 @@ local function setup_colors(colorname)
             "fg",
             text_fg
         )
-        local normal_bg4 = statusline_bg
-        local normal_fg4 = statusline_fg
-        local insert_bg = get_color_with_lualine(
+        normal_bg4 = statusline_bg
+        normal_fg4 = statusline_fg
+        insert_bg = get_color_with_lualine(
             has_lualine,
             lualine_theme,
             "insert",
@@ -839,7 +851,7 @@ local function setup_colors(colorname)
             "fg",
             get_terminal_color_with_fallback(2, green)
         )
-        local insert_fg = get_color_with_lualine(
+        insert_fg = get_color_with_lualine(
             has_lualine,
             lualine_theme,
             "insert",
@@ -849,7 +861,7 @@ local function setup_colors(colorname)
             "fg",
             text_bg
         )
-        local visual_bg = get_color_with_lualine(
+        visual_bg = get_color_with_lualine(
             has_lualine,
             lualine_theme,
             "visual",
@@ -859,7 +871,7 @@ local function setup_colors(colorname)
             "fg",
             get_terminal_color_with_fallback(3, yellow)
         )
-        local visual_fg = get_color_with_lualine(
+        visual_fg = get_color_with_lualine(
             has_lualine,
             lualine_theme,
             "visual",
@@ -869,7 +881,7 @@ local function setup_colors(colorname)
             "fg",
             text_bg
         )
-        local replace_bg = get_color_with_lualine(
+        replace_bg = get_color_with_lualine(
             has_lualine,
             lualine_theme,
             "replace",
@@ -879,7 +891,7 @@ local function setup_colors(colorname)
             "fg",
             get_terminal_color_with_fallback(4, blue)
         )
-        local replace_fg = get_color_with_lualine(
+        replace_fg = get_color_with_lualine(
             has_lualine,
             lualine_theme,
             "replace",
@@ -889,7 +901,7 @@ local function setup_colors(colorname)
             "fg",
             text_bg
         )
-        local command_bg = get_color_with_lualine(
+        command_bg = get_color_with_lualine(
             has_lualine,
             lualine_theme,
             "command",
@@ -899,7 +911,7 @@ local function setup_colors(colorname)
             "fg",
             get_terminal_color_with_fallback(1, red)
         )
-        local command_fg = get_color_with_lualine(
+        command_fg = get_color_with_lualine(
             has_lualine,
             lualine_theme,
             "command",
