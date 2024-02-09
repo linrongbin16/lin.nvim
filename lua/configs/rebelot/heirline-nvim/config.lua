@@ -779,8 +779,8 @@ end
 ---@param colorname string?
 ---@return table<string, string>
 local function setup_colors(colorname)
-    local shade_level1 = 0.4
-    local shade_level2 = 0.6
+    local shade_level1 = 0.5
+    local shade_level2 = 0.65
     local shade_level3 = 0.8
 
     local diagnostic_error = colors_hl.get_color_with_fallback(
@@ -943,7 +943,7 @@ local function setup_colors(colorname)
         "fg"
     )
     if normal_bg3 and normal_fg3 then
-        local parameter = get_color_brightness(normal_bg3) > 0.5 and 7 or -7
+        local parameter = get_color_brightness(normal_bg3) > 0.5 and 10 or -10
         normal_bg4 = brightness_modifier(normal_bg3, parameter)
         normal_fg4 = normal_fg3
     else
