@@ -657,8 +657,13 @@ local function get_color_with_lightline(
         sec1 = "left"
         sec2 = 1
     elseif section == "b" then
-        sec1 = "left"
-        sec2 = 2
+        if tables.tbl_get(lightline_theme, mode_name, "left", 2) then
+            sec1 = "left"
+            sec2 = 2
+        else
+            sec1 = "right"
+            sec2 = 1
+        end
     elseif section == "c" then
         sec1 = "middle"
         sec2 = 1
