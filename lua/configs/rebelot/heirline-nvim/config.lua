@@ -375,7 +375,7 @@ end
 
 local Diagnostic = {
     hl = { fg = "normal_fg4", bg = "normal_bg4" },
-    update = { "DiagnosticChanged", "BufEnter", "BufWritePost" },
+    update = { "DiagnosticChanged" },
 
     {
         provider = function(self)
