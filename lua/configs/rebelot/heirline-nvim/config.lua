@@ -120,7 +120,7 @@ end
 
 local Mode = {
     init = function(self)
-        self.mode = vim.fn.mode(1)
+        self.mode = vim.api.nvim_get_mode().mode
     end,
     hl = function(self)
         local mode_name = GetModeName(self.mode)
