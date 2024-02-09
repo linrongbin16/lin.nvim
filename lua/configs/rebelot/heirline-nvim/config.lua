@@ -908,7 +908,7 @@ local function setup_colors(colorname)
     )
 
     if not lualine_ok or tables.tbl_empty(lualine_theme) then
-        local background_color = utils.extract_highlight_colors("Normal", "bg")
+        local background_color = colors_hl.get_color("Normal", "bg")
         if background_color then
             if get_color_brightness(background_color) > 0.5 then
                 brightness_modifier_parameter = -brightness_modifier_parameter
