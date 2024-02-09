@@ -780,8 +780,8 @@ end
 ---@return table<string, string>
 local function setup_colors(colorname)
     local shade_level1 = 0.4
-    local shade_level2 = 0.55
-    local shade_level3 = 0.7
+    local shade_level2 = 0.6
+    local shade_level3 = 0.8
 
     local diagnostic_error = colors_hl.get_color_with_fallback(
         { "DiagnosticSignError", "ErrorMsg" },
