@@ -944,8 +944,26 @@ local function setup_colors(colorname)
     )
     -- normal_bg4 = statusline_bg
     -- normal_fg4 = statusline_fg
-    normal_bg4 = shade_rgb(normal_bg3)
-    normal_fg4 = normal_fg3
+    normal_bg4 = get_color_with_lualine(
+        has_lualine,
+        lualine_theme,
+        "normal",
+        "c",
+        "bg",
+        {},
+        "bg",
+        shade_rgb(get_terminal_color_with_fallback(0, magenta), 0.7)
+    )
+    normal_fg4 = get_color_with_lualine(
+        has_lualine,
+        lualine_theme,
+        "normal",
+        "c",
+        "fg",
+        {},
+        "fg",
+        text_fg
+    )
     insert_bg = get_color_with_lualine(
         has_lualine,
         lualine_theme,
@@ -1081,7 +1099,7 @@ local function setup_colors(colorname)
     return {
         text_bg = text_bg,
         text_fg = text_fg,
-        statusline_bg = statusline_bg,
+        -- statusline_bg = statusline_bg,
         black = black,
         white = white,
         red = red,
