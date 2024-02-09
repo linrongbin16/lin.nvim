@@ -820,14 +820,6 @@ local function setup_colors(colorname)
 
     local has_lualine, lualine_theme =
         pcall(require, string.format("lualine.themes.%s", colorname))
-    -- if not has_lualine then
-    --     local lightline_theme_name =
-    --         string.format("lightline#colorscheme#%s#palette", colorname)
-    --     if vim.fn.exists(string.format("g:%s", lightline_theme_name)) > 0 then
-    --         lualine_theme = convert_lightline_theme(colorname)
-    --         has_lualine = true
-    --     end
-    -- end
 
     text_bg = get_color_with_lualine(
         has_lualine,
