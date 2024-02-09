@@ -29,6 +29,10 @@ local M = {
         "folke/lsp-colors.nvim",
     },
     {
+        "linrongbin16/commons.nvim",
+        lazy = true,
+    },
+    {
         "linrongbin16/colorbox.nvim",
         priority = 1000,
         config = lua_config("linrongbin16/colorbox.nvim"),
@@ -123,11 +127,6 @@ local M = {
         event = { VeryLazy, BufReadPre, BufNewFile },
         config = lua_config("lukas-reineke/indent-blankline.nvim"),
     },
-    -- {
-    --     "shellRaining/hlchunk.nvim",
-    --     event = { VeryLazy, BufReadPre, BufNewFile },
-    --     config = lua_config("shellRaining/hlchunk.nvim"),
-    -- },
     -- Git
     {
         "airblade/vim-gitgutter",
@@ -137,15 +136,21 @@ local M = {
     },
     -- Statusline
     {
+        "itchyny/vim-gitbranch",
+        event = { VeryLazy, BufReadPre, BufNewFile },
+    },
+    {
         "linrongbin16/lsp-progress.nvim",
         lazy = true,
         config = lua_config("linrongbin16/lsp-progress.nvim"),
     },
     {
-        "nvim-lualine/lualine.nvim",
+        "rebelot/heirline.nvim",
         event = { UIEnter },
-        dependencies = { "linrongbin16/lsp-progress.nvim" },
-        config = lua_config("nvim-lualine/lualine.nvim"),
+        dependencies = {
+            "linrongbin16/lsp-progress.nvim",
+        },
+        config = lua_config("rebelot/heirline.nvim"),
     },
     -- Winbar
     {
