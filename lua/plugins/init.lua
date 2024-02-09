@@ -45,7 +45,7 @@ local M = {
 
     {
         "nvim-treesitter/nvim-treesitter",
-        event = { VeryLazy, BufEnter, CmdlineEnter },
+        event = { VeryLazy },
         build = function()
             require("nvim-treesitter.install").update({ with_sync = true })
         end,
@@ -53,7 +53,7 @@ local M = {
     },
     {
         "RRethy/vim-illuminate",
-        event = { VeryLazy, BufEnter },
+        event = { VeryLazy },
         dependencies = {
             "neovim/nvim-lspconfig",
             "nvim-treesitter/nvim-treesitter",
@@ -62,18 +62,18 @@ local M = {
     },
     {
         "NvChad/nvim-colorizer.lua",
-        event = { VeryLazy, BufEnter },
+        event = { VeryLazy },
         config = lua_config("NvChad/nvim-colorizer.lua"),
     },
     {
         "nvim-treesitter/nvim-treesitter-context",
-        event = { VeryLazy, BufEnter },
+        event = { VeryLazy },
         dependencies = { "nvim-treesitter/nvim-treesitter" },
         config = lua_config("nvim-treesitter/nvim-treesitter-context"),
     },
     {
         "andymass/vim-matchup",
-        event = { VeryLazy, BufEnter },
+        event = { VeryLazy },
         dependencies = { "nvim-treesitter/nvim-treesitter" },
         init = lua_init("andymass/vim-matchup"),
     },
@@ -116,7 +116,7 @@ local M = {
     {
         "akinsho/bufferline.nvim",
         version = "*",
-        event = { VeryLazy, BufEnter },
+        event = { VeryLazy },
         dependencies = { "moll/vim-bbye" },
         config = lua_config("akinsho/bufferline.nvim"),
         keys = lua_keys("akinsho/bufferline.nvim"),
@@ -124,20 +124,20 @@ local M = {
     -- Indentline
     {
         "lukas-reineke/indent-blankline.nvim",
-        event = { VeryLazy, BufEnter },
+        event = { VeryLazy },
         config = lua_config("lukas-reineke/indent-blankline.nvim"),
     },
     -- Git
     {
         "airblade/vim-gitgutter",
-        event = { VeryLazy, BufEnter },
+        event = { VeryLazy },
         init = lua_init("airblade/vim-gitgutter"),
         keys = lua_keys("airblade/vim-gitgutter"),
     },
     -- Statusline
     {
         "itchyny/vim-gitbranch",
-        event = { VeryLazy, BufEnter },
+        event = { VeryLazy },
     },
     {
         "linrongbin16/lsp-progress.nvim",
@@ -162,7 +162,7 @@ local M = {
         "utilyre/barbecue.nvim",
         name = "barbecue",
         version = "*",
-        event = { VeryLazy, BufEnter },
+        event = { VeryLazy },
         dependencies = { "SmiteshP/nvim-navic" },
         config = lua_config("utilyre/barbecue.nvim"),
     },
@@ -214,7 +214,7 @@ local M = {
     -- Project/local configuration
     {
         "folke/neoconf.nvim",
-        event = { VeryLazy, BufEnter, CmdlineEnter },
+        event = { VeryLazy },
         config = lua_config("folke/neoconf.nvim"),
     },
 
@@ -224,20 +224,20 @@ local M = {
     {
         "folke/neodev.nvim",
         ft = { "lua" },
-        event = { VeryLazy, BufEnter, CmdlineEnter },
+        event = { VeryLazy },
         dependencies = { "folke/neoconf.nvim" }, -- neoconf must be setup before neodev
         config = lua_config("folke/neodev.nvim"),
     },
     {
         "neovim/nvim-lspconfig",
-        event = { VeryLazy, BufEnter, CmdlineEnter },
+        event = { VeryLazy },
         dependencies = { "folke/neoconf.nvim", "folke/neodev.nvim" }, -- neoconf, neodev must be setup before nvim-lspconfig
         config = lua_config("neovim/nvim-lspconfig"),
     },
     -- Lsp server management
     {
         "williamboman/mason.nvim",
-        event = { VeryLazy, BufEnter, CmdlineEnter },
+        event = { VeryLazy },
         dependencies = { "neovim/nvim-lspconfig" },
         build = ":MasonUpdate",
         config = lua_config("williamboman/mason.nvim"),
@@ -245,7 +245,7 @@ local M = {
     },
     {
         "williamboman/mason-lspconfig.nvim",
-        event = { VeryLazy, BufEnter, CmdlineEnter },
+        event = { VeryLazy },
         dependencies = { "neovim/nvim-lspconfig", "williamboman/mason.nvim" },
         config = lua_config("williamboman/mason-lspconfig.nvim"),
     },
@@ -262,13 +262,13 @@ local M = {
     },
     {
         "nvimtools/none-ls.nvim",
-        event = { VeryLazy, BufEnter },
+        event = { VeryLazy },
         dependencies = { "neovim/nvim-lspconfig" },
         config = lua_config("jose-elias-alvarez/null-ls.nvim"),
     },
     {
         "jay-babu/mason-null-ls.nvim",
-        event = { VeryLazy, BufEnter },
+        event = { VeryLazy },
         dependencies = {
             "neovim/nvim-lspconfig",
             "williamboman/mason.nvim",
@@ -307,7 +307,7 @@ local M = {
     -- Tags generator
     {
         "linrongbin16/gentags.nvim",
-        event = { VeryLazy, BufEnter },
+        event = { VeryLazy },
         config = lua_config("linrongbin16/gentags.nvim"),
     },
 
@@ -427,18 +427,18 @@ local M = {
     -- Repeat
     {
         "tpope/vim-repeat",
-        event = { VeryLazy, BufEnter },
+        event = { VeryLazy },
     },
     -- Comment
     {
         "numToStr/Comment.nvim",
-        event = { VeryLazy, BufEnter },
+        event = { VeryLazy },
         config = lua_config("numToStr/Comment.nvim"),
     },
     -- Cursor motion
     {
         "smoka7/hop.nvim",
-        event = { VeryLazy, BufEnter },
+        event = { VeryLazy },
         version = "*",
         config = lua_config("smoka7/hop.nvim"),
         keys = lua_keys("smoka7/hop.nvim"),
@@ -447,7 +447,7 @@ local M = {
     {
         "kylechui/nvim-surround",
         version = "*",
-        event = { VeryLazy, BufEnter },
+        event = { VeryLazy },
         config = lua_config("kylechui/nvim-surround"),
     },
     -- Structure outlines
