@@ -172,7 +172,6 @@ local FileName = {
         end,
         update = {
             "BufEnter",
-            "BufNewFile",
             "WinEnter",
         },
     },
@@ -199,9 +198,7 @@ local FileName = {
         update = {
             "TextChangedI",
             "TextChanged",
-            "BufWritePost",
             "BufEnter",
-            "BufNewFile",
             "WinEnter",
         },
     },
@@ -230,7 +227,6 @@ local FileName = {
         update = {
             "BufWritePost",
             "BufEnter",
-            "BufNewFile",
             "WinEnter",
         },
     },
@@ -431,7 +427,6 @@ local FileEncoding = {
         end,
         update = {
             "BufEnter",
-            "WinEnter",
         },
     },
 }
@@ -457,7 +452,6 @@ local FileFormat = {
     end,
     update = {
         "BufEnter",
-        "WinEnter",
     },
 }
 
