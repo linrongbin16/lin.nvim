@@ -15,24 +15,29 @@ vim.diagnostic.config({
     },
 })
 
---- @param opts table<any, any>
-local function define_diagnostic_sign(opts)
-    vim.fn.sign_define(opts.name, {
-        texthl = opts.name,
-        text = opts.text,
-        numhl = "",
-    })
-end
-
 local diagnostic_signs = {
     DiagnosticSignError = constants.diagnostic.sign.error,
     DiagnosticSignWarn = constants.diagnostic.sign.warning,
     DiagnosticSignInfo = constants.diagnostic.sign.info,
     DiagnosticSignHint = constants.diagnostic.sign.hint,
 }
+local diagnostic_hls = {
+    DiagnosticSignError = "ErrorMsg",
+    DiagnosticSignWarn = "WarningMsg",
+    DiagnosticSignInfo = "None",
+    DiagnosticSignHint = "Comment",
+}
 
-for name, icon in pairs(diagnostic_signs) do
-    define_diagnostic_sign({ name = name, text = icon })
+for name, text in pairs(diagnostic_signs) do
+    local hl = vim.api.nvim_get_hl(0, { name = name })
+    if vim.tbl_isempty(hl) then
+        vim.api.nvim_set_hl(0, name, { link = diagnostic_hls[name] })
+    end
+    vim.fn.sign_define(name, {
+        texthl = name,
+        text = text,
+        numhl = "",
+    })
 end
 
 -- hover/signatureHelp
