@@ -916,6 +916,17 @@ local function setup_colors(colorname)
 
             normal_bg =
                 brightness_modifier(normal_bg, brightness_modifier_parameter)
+            normal_bg1 = normal_bg
+            normal_bg2 = shade_rgb(normal_bg, 0.5)
+            normal_bg3 = shade_rgb(normal_bg, 0.7)
+            insert_bg =
+                brightness_modifier(insert_bg, brightness_modifier_parameter)
+            visual_bg =
+                brightness_modifier(visual_bg, brightness_modifier_parameter)
+            replace_bg =
+                brightness_modifier(replace_bg, brightness_modifier_parameter)
+            command_bg =
+                brightness_modifier(command_bg, brightness_modifier_parameter)
         end
     end
 
