@@ -538,7 +538,7 @@ local Location = {
             if type(row) ~= "number" or type(col) ~= "number" then
                 return ""
             end
-            return "  " .. string.format("%3s:%2s", row, col + 1)
+            return "  " .. string.format("%2s:%2s", row, col + 1)
         end,
     },
 }
