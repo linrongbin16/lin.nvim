@@ -630,6 +630,8 @@ local function get_terminal_color_with_fallback(number, fallback)
     end
 end
 
+local fp = io.open("heirline.log", "a")
+
 ---@param lightline_theme table
 ---@param mode_name "normal"|"insert"|"visual"|"replace"|"command"|"inactive"
 ---@param section "a"|"b"|"c"
@@ -646,6 +648,10 @@ local function get_color_with_lightline(
     fallback_attribute,
     fallback_color
 )
+    fp:write(
+        string.format("lightline theme:%s\n", vim.inspect(lightline_theme))
+    )
+
     local sec1, sec2
     if section == "a" then
         sec1 = "left"
@@ -660,9 +666,9 @@ local function get_color_with_lightline(
     local attr = attribute == "fg" and 1 or 2
     if tables.tbl_get(lightline_theme, mode_name, sec1, sec2, attr) then
         local result = lightline_theme[mode_name][sec1][sec2][attr]
-        print(
+        fp:write(
             string.format(
-                "lightline(%s-%s-%s-%s):%s",
+                "lightline(%s-%s-%s-%s):%s\n",
                 vim.inspect(mode_name),
                 vim.inspect(sec1),
                 vim.inspect(sec2),
@@ -784,6 +790,8 @@ local function setup_colors(colorname)
     local command_bg, command_fg
 
     local has_lightline = false
+    local lightline_theme_name =
+        string.format("lightline#colorscheme#%s#palette", colorname)
     local has_lualine, lualine_theme =
         pcall(require, string.format("lualine.themes.%s", colorname))
     if has_lualine and tables.tbl_not_empty(lualine_theme) then
@@ -971,14 +979,11 @@ local function setup_colors(colorname)
             "fg",
             text_bg
         )
-    elseif
-        vim.fn.exists(
-            string.format("g:lightline#colorscheme#%s#palette", colorname)
-        ) > 0
-    then
+    elseif vim.fn.exists(string.format("g:%s", lightline_theme_name)) > 0 then
         has_lightline = true
-        local lightline_theme =
-            vim.g[string.format("lightline#colorscheme#%s#palette", colorname)]
+        vim.cmd("let tmp = " .. lightline_theme_name)
+        local lightline_theme = vim.g[lightline_theme_name]
+        print(string.format("lightline theme:%s", vim.inspect(lightline_theme)))
         text_bg = get_color_with_lightline(
             lightline_theme,
             "normal",
@@ -1153,7 +1158,6 @@ local function setup_colors(colorname)
             if get_color_brightness(background_color) > 0.5 then
                 brightness_modifier_parameter = -brightness_modifier_parameter
             end
-
             normal_bg =
                 brightness_modifier(normal_bg, brightness_modifier_parameter)
             normal_bg1 = normal_bg
