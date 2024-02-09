@@ -469,6 +469,10 @@ local FileType = {
     hl = { fg = "normal_fg2", bg = "normal_bg2" },
 
     {
+        provider = left_slant,
+        hl = { fg = "normal_bg2", bg = "normal_bg3" },
+    },
+    {
         provider = function(self)
             if strings.empty(self.filename_ext) then
                 return ""
@@ -485,9 +489,9 @@ local FileType = {
             local icon_text, icon_color =
                 self.devicons.get_icon_color(self.filename, self.filename_ext)
             if strings.not_empty(icon_color) then
-                return { fg = icon_color, bg = "normal_bg3" }
+                return { fg = icon_color, bg = "normal_bg2" }
             else
-                return { fg = "normal_fg3", bg = "normal_bg3" }
+                return { fg = "normal_fg2", bg = "normal_bg2" }
             end
         end,
         update = {
@@ -507,10 +511,10 @@ local FileType = {
             "WinEnter",
         },
     },
-    {
-        provider = left_slant,
-        hl = { fg = "normal_bg1", bg = "normal_bg2" },
-    },
+    -- {
+    --     provider = left_slant,
+    --     hl = { fg = "normal_bg1", bg = "normal_bg2" },
+    -- },
 }
 
 local Location = {
