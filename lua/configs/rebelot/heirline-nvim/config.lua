@@ -867,7 +867,8 @@ local function setup_colors(colorname)
         "normal",
         "a",
         "bg",
-        { "PmenuSel", "PmenuThumb", "TabLineSel" },
+        -- { "PmenuSel", "PmenuThumb", "TabLineSel" },
+        { "StatusLine", "PmenuSel", "PmenuThumb", "TabLineSel" },
         "bg",
         get_terminal_color_with_fallback(0, magenta)
     )
