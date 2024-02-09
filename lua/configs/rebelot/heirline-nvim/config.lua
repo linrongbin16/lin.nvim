@@ -222,6 +222,7 @@ local FileName = {
         end,
         update = {
             "TextChangedI",
+            "TextChanged",
             "BufWritePost",
             "BufEnter",
             "BufNewFile",
