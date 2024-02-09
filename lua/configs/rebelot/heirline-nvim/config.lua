@@ -721,194 +721,202 @@ local function setup_colors(colorname)
         red
     )
 
-    local lualine_ok, lualine_theme =
+    local has_lightline = false
+    local has_lualine, lualine_theme =
         pcall(require, string.format("lualine.themes.%s", colorname))
-    local text_bg = get_color_with_lualine(
-        lualine_ok,
-        lualine_theme,
-        "normal",
-        "a",
-        "bg",
-        { "Normal" },
-        "bg",
-        black
-    )
-    local text_fg = get_color_with_lualine(
-        lualine_ok,
-        lualine_theme,
-        "normal",
-        "a",
-        "fg",
-        { "Normal" },
-        "fg",
-        white
-    )
-    local statusline_bg = get_color_with_lualine(
-        lualine_ok,
-        lualine_theme,
-        "normal",
-        "c",
-        "bg",
-        { "StatusLine", "Normal" },
-        "bg",
-        black
-    )
-    local statusline_fg = get_color_with_lualine(
-        lualine_ok,
-        lualine_theme,
-        "normal",
-        "c",
-        "fg",
-        { "StatusLine", "Normal" },
-        "fg",
-        white
-    )
-    local normal_bg = get_color_with_lualine(
-        lualine_ok,
-        lualine_theme,
-        "normal",
-        "a",
-        "bg",
-        { "PmenuSel", "PmenuThumb", "TabLineSel" },
-        "bg",
-        get_terminal_color_with_fallback(0, magenta)
-    )
-    local normal_fg = get_color_with_lualine(
-        lualine_ok,
-        lualine_theme,
-        "normal",
-        "a",
-        "fg",
-        {},
-        "fg",
-        text_bg -- or black
-    )
-    local normal_bg1 = normal_bg
-    local normal_fg1 = normal_fg
-    local normal_bg2 = get_color_with_lualine(
-        lualine_ok,
-        lualine_theme,
-        "normal",
-        "b",
-        "bg",
-        {},
-        "bg",
-        shade_rgb(get_terminal_color_with_fallback(0, magenta), 0.5)
-    )
-    local normal_fg2 = get_color_with_lualine(
-        lualine_ok,
-        lualine_theme,
-        "normal",
-        "b",
-        "fg",
-        {},
-        "fg",
-        text_fg
-    )
-    local normal_bg3 = get_color_with_lualine(
-        lualine_ok,
-        lualine_theme,
-        "normal",
-        "c",
-        "bg",
-        {},
-        "bg",
-        shade_rgb(get_terminal_color_with_fallback(0, magenta), 0.7)
-    )
-    local normal_fg3 = get_color_with_lualine(
-        lualine_ok,
-        lualine_theme,
-        "normal",
-        "c",
-        "fg",
-        {},
-        "fg",
-        text_fg
-    )
-    local normal_bg4 = statusline_bg
-    local normal_fg4 = statusline_fg
-    local insert_bg = get_color_with_lualine(
-        lualine_ok,
-        lualine_theme,
-        "insert",
-        "a",
-        "bg",
-        { "String", "MoreMsg" },
-        "fg",
-        get_terminal_color_with_fallback(2, green)
-    )
-    local insert_fg = get_color_with_lualine(
-        lualine_ok,
-        lualine_theme,
-        "insert",
-        "a",
-        "fg",
-        {},
-        "fg",
-        text_bg
-    )
-    local visual_bg = get_color_with_lualine(
-        lualine_ok,
-        lualine_theme,
-        "visual",
-        "a",
-        "bg",
-        { "Special", "Boolean", "Constant" },
-        "fg",
-        get_terminal_color_with_fallback(3, yellow)
-    )
-    local visual_fg = get_color_with_lualine(
-        lualine_ok,
-        lualine_theme,
-        "visual",
-        "a",
-        "fg",
-        {},
-        "fg",
-        text_bg
-    )
-    local replace_bg = get_color_with_lualine(
-        lualine_ok,
-        lualine_theme,
-        "replace",
-        "a",
-        "bg",
-        { "Number", "Type" },
-        "fg",
-        get_terminal_color_with_fallback(4, blue)
-    )
-    local replace_fg = get_color_with_lualine(
-        lualine_ok,
-        lualine_theme,
-        "replace",
-        "a",
-        "fg",
-        {},
-        "fg",
-        text_bg
-    )
-    local command_bg = get_color_with_lualine(
-        lualine_ok,
-        lualine_theme,
-        "command",
-        "a",
-        "bg",
-        { "Identifier" },
-        "fg",
-        get_terminal_color_with_fallback(1, red)
-    )
-    local command_fg = get_color_with_lualine(
-        lualine_ok,
-        lualine_theme,
-        "command",
-        "a",
-        "fg",
-        {},
-        "fg",
-        text_bg
-    )
+    if has_lualine and tables.tbl_not_empty(lualine_theme) then
+        local text_bg = get_color_with_lualine(
+            has_lualine,
+            lualine_theme,
+            "normal",
+            "a",
+            "bg",
+            { "Normal" },
+            "bg",
+            black
+        )
+        local text_fg = get_color_with_lualine(
+            has_lualine,
+            lualine_theme,
+            "normal",
+            "a",
+            "fg",
+            { "Normal" },
+            "fg",
+            white
+        )
+        local statusline_bg = get_color_with_lualine(
+            has_lualine,
+            lualine_theme,
+            "normal",
+            "c",
+            "bg",
+            { "StatusLine", "Normal" },
+            "bg",
+            black
+        )
+        local statusline_fg = get_color_with_lualine(
+            has_lualine,
+            lualine_theme,
+            "normal",
+            "c",
+            "fg",
+            { "StatusLine", "Normal" },
+            "fg",
+            white
+        )
+        local normal_bg = get_color_with_lualine(
+            has_lualine,
+            lualine_theme,
+            "normal",
+            "a",
+            "bg",
+            { "PmenuSel", "PmenuThumb", "TabLineSel" },
+            "bg",
+            get_terminal_color_with_fallback(0, magenta)
+        )
+        local normal_fg = get_color_with_lualine(
+            has_lualine,
+            lualine_theme,
+            "normal",
+            "a",
+            "fg",
+            {},
+            "fg",
+            text_bg -- or black
+        )
+        local normal_bg1 = normal_bg
+        local normal_fg1 = normal_fg
+        local normal_bg2 = get_color_with_lualine(
+            has_lualine,
+            lualine_theme,
+            "normal",
+            "b",
+            "bg",
+            {},
+            "bg",
+            shade_rgb(get_terminal_color_with_fallback(0, magenta), 0.5)
+        )
+        local normal_fg2 = get_color_with_lualine(
+            has_lualine,
+            lualine_theme,
+            "normal",
+            "b",
+            "fg",
+            {},
+            "fg",
+            text_fg
+        )
+        local normal_bg3 = get_color_with_lualine(
+            has_lualine,
+            lualine_theme,
+            "normal",
+            "c",
+            "bg",
+            {},
+            "bg",
+            shade_rgb(get_terminal_color_with_fallback(0, magenta), 0.7)
+        )
+        local normal_fg3 = get_color_with_lualine(
+            has_lualine,
+            lualine_theme,
+            "normal",
+            "c",
+            "fg",
+            {},
+            "fg",
+            text_fg
+        )
+        local normal_bg4 = statusline_bg
+        local normal_fg4 = statusline_fg
+        local insert_bg = get_color_with_lualine(
+            has_lualine,
+            lualine_theme,
+            "insert",
+            "a",
+            "bg",
+            { "String", "MoreMsg" },
+            "fg",
+            get_terminal_color_with_fallback(2, green)
+        )
+        local insert_fg = get_color_with_lualine(
+            has_lualine,
+            lualine_theme,
+            "insert",
+            "a",
+            "fg",
+            {},
+            "fg",
+            text_bg
+        )
+        local visual_bg = get_color_with_lualine(
+            has_lualine,
+            lualine_theme,
+            "visual",
+            "a",
+            "bg",
+            { "Special", "Boolean", "Constant" },
+            "fg",
+            get_terminal_color_with_fallback(3, yellow)
+        )
+        local visual_fg = get_color_with_lualine(
+            has_lualine,
+            lualine_theme,
+            "visual",
+            "a",
+            "fg",
+            {},
+            "fg",
+            text_bg
+        )
+        local replace_bg = get_color_with_lualine(
+            has_lualine,
+            lualine_theme,
+            "replace",
+            "a",
+            "bg",
+            { "Number", "Type" },
+            "fg",
+            get_terminal_color_with_fallback(4, blue)
+        )
+        local replace_fg = get_color_with_lualine(
+            has_lualine,
+            lualine_theme,
+            "replace",
+            "a",
+            "fg",
+            {},
+            "fg",
+            text_bg
+        )
+        local command_bg = get_color_with_lualine(
+            has_lualine,
+            lualine_theme,
+            "command",
+            "a",
+            "bg",
+            { "Identifier" },
+            "fg",
+            get_terminal_color_with_fallback(1, red)
+        )
+        local command_fg = get_color_with_lualine(
+            has_lualine,
+            lualine_theme,
+            "command",
+            "a",
+            "fg",
+            {},
+            "fg",
+            text_bg
+        )
+    elseif
+        vim.fn.exists(
+            string.format("g:lightline#colorscheme#%s#palette", colorname)
+        ) > 0
+    then
+    end
 
-    if not lualine_ok or tables.tbl_empty(lualine_theme) then
+    if not has_lualine or tables.tbl_empty(lualine_theme) then
         local background_color = colors_hl.get_color("Normal", "bg")
         if background_color then
             if get_color_brightness(background_color) > 0.5 then
