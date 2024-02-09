@@ -400,18 +400,74 @@ local Diagnostic = {
     },
 }
 
-local FileType = {
-    init = function(self)
-        self.filename = vim.api.nvim_buf_get_name(0) or ""
-        self.filename_ext = vim.fn.fnamemodify(self.filename, ":e") or ""
-        self.devicons = require("nvim-web-devicons")
-    end,
+local FileEncodingIcons = {
+    ["utf-8"] = "󰉿",
+    ["utf-16"] = "󰊀",
+    ["utf-32"] = "󰊁",
+    ["utf-8mb4"] = "󰊂",
+    ["utf-16le"] = "󰊃",
+    ["utf-16be"] = "󰊄",
+}
+
+local FileEncoding = {
     hl = { fg = "normal_fg3", bg = "normal_bg3" },
 
     {
         provider = left_slant,
         hl = { fg = "normal_bg3", bg = "normal_bg4" },
     },
+    {
+        provider = function(self)
+            local text = (vim.bo.fenc ~= "" and vim.bo.fenc) or vim.o.enc
+            if strings.empty(text) then
+                return ""
+            end
+            local icon = FileEncodingIcons[text]
+            if strings.empty(icon) then
+                return " " .. text .. " "
+            end
+            return " " .. icon .. " " .. text .. " "
+        end,
+        update = {
+            "BufEnter",
+            "WinEnter",
+        },
+    },
+}
+
+local FileFormatIcons = {
+    unix = " LF", -- e712
+    dos = " CRLF", -- e70f
+    mac = " CR", -- e711
+}
+
+local FileFormat = {
+    hl = { fg = "normal_fg3", bg = "normal_bg3" },
+    provider = function(self)
+        local text = vim.bo.fileformat
+        if strings.empty(text) then
+            return ""
+        end
+        local icon = FileFormatIcons[text]
+        if strings.empty(icon) then
+            return " " .. text .. " "
+        end
+        return " " .. icon .. " "
+    end,
+    update = {
+        "BufEnter",
+        "WinEnter",
+    },
+}
+
+local FileType = {
+    init = function(self)
+        self.filename = vim.api.nvim_buf_get_name(0) or ""
+        self.filename_ext = vim.fn.fnamemodify(self.filename, ":e") or ""
+        self.devicons = require("nvim-web-devicons")
+    end,
+    hl = { fg = "normal_fg2", bg = "normal_bg2" },
+
     {
         provider = function(self)
             if strings.empty(self.filename_ext) then
@@ -436,7 +492,6 @@ local FileType = {
         end,
         update = {
             "BufEnter",
-            "BufNewFile",
             "WinEnter",
         },
     },
@@ -449,73 +504,12 @@ local FileType = {
         end,
         update = {
             "BufEnter",
-            "BufNewFile",
             "WinEnter",
         },
     },
     {
         provider = left_slant,
-        hl = { fg = "normal_bg2", bg = "normal_bg3" },
-    },
-}
-
-local FileEncodingIcons = {
-    ["utf-8"] = "󰉿",
-    ["utf-16"] = "󰊀",
-    ["utf-32"] = "󰊁",
-    ["utf-8mb4"] = "󰊂",
-    ["utf-16le"] = "󰊃",
-    ["utf-16be"] = "󰊄",
-}
-
-local FileEncoding = {
-    hl = { fg = "normal_fg2", bg = "normal_bg2" },
-    provider = function(self)
-        local text = (vim.bo.fenc ~= "" and vim.bo.fenc) or vim.o.enc
-        if strings.empty(text) then
-            return ""
-        end
-        local icon = FileEncodingIcons[text]
-        if strings.empty(icon) then
-            return " " .. text .. " "
-        end
-        return " " .. icon .. " " .. text .. " "
-    end,
-    update = {
-        "BufEnter",
-        "BufNewFile",
-        "BufWritePost",
-        "WinEnter",
-    },
-}
-
-local FileFormatIcons = {
-    unix = " LF", -- e712
-    dos = " CRLF", -- e70f
-    mac = " CR", -- e711
-}
-
-local FileFormat = {
-    hl = { fg = "normal_fg2", bg = "normal_bg2" },
-
-    {
-        provider = function(self)
-            local text = vim.bo.fileformat
-            if strings.empty(text) then
-                return ""
-            end
-            local icon = FileFormatIcons[text]
-            if strings.empty(icon) then
-                return " " .. text .. " "
-            end
-            return " " .. icon .. " "
-        end,
-        update = {
-            "BufEnter",
-            "BufNewFile",
-            "BufWritePost",
-            "WinEnter",
-        },
+        hl = { fg = "normal_bg1", bg = "normal_bg2" },
     },
 }
 
@@ -580,9 +574,9 @@ local StatusLine = {
     { provider = "%=", hl = { fg = "normal_fg4", bg = "normal_bg4" } },
     SearchCount,
     Diagnostic,
-    FileType,
     FileEncoding,
     FileFormat,
+    FileType,
     Location,
     Progress,
 }
