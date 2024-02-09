@@ -211,7 +211,8 @@ local FileName = {
             if strings.empty(self.filename) then
                 return ""
             end
-            local filesize = vim.fn.getfsize(self.filename)
+            local fstat = uv.fs_state(self.filename)
+            local filesize = tables.tbl_get(fstat, "size")
             if type(filesize) ~= "number" or filesize <= 0 then
                 return ""
             end
