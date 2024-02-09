@@ -902,7 +902,7 @@ local function setup_colors(colorname)
         "fg",
         {},
         "fg",
-        text_fg
+        text_fg -- or white
     )
     normal_bg3 = get_color_with_lualine(
         has_lualine,
