@@ -152,32 +152,11 @@ local Mode = {
     },
 }
 
-local GitBranch = {
-    hl = { fg = "normal_fg2", bg = "normal_bg2" },
-    update = { "BufEnter", "BufReadPre", "BufNewFile" },
-
-    {
-        provider = function(self)
-            if vim.fn.exists("*gitbranch#name") > 0 then
-                local branch = vim.fn["gitbranch#name"]()
-                if strings.not_empty(branch) then
-                    return "  " .. branch .. " "
-                end
-            end
-            return ""
-        end,
-    },
-    {
-        provider = right_slant,
-        hl = { fg = "normal_bg2", bg = "normal_bg3" },
-    },
-}
-
 local FileName = {
     init = function(self)
         self.filename = vim.api.nvim_buf_get_name(0)
     end,
-    hl = { fg = "normal_fg3", bg = "normal_bg3" },
+    hl = { fg = "normal_fg2", bg = "normal_bg2" },
 
     -- file name
     {
@@ -253,6 +232,27 @@ local FileName = {
             "BufNewFile",
             "WinEnter",
         },
+    },
+    {
+        provider = right_slant,
+        hl = { fg = "normal_bg2", bg = "normal_bg3" },
+    },
+}
+
+local GitBranch = {
+    hl = { fg = "normal_fg3", bg = "normal_bg3" },
+    update = { "BufEnter", "WinEnter" },
+
+    {
+        provider = function(self)
+            if vim.fn.exists("*gitbranch#name") > 0 then
+                local branch = vim.fn["gitbranch#name"]()
+                if strings.not_empty(branch) then
+                    return "  " .. branch .. " "
+                end
+            end
+            return ""
+        end,
     },
     {
         provider = right_slant,
@@ -573,8 +573,8 @@ local Progress = {
 
 local StatusLine = {
     Mode,
-    GitBranch,
     FileName,
+    GitBranch,
     GitDiff,
     LspStatus,
     { provider = "%=", hl = { fg = "normal_fg4", bg = "normal_bg4" } },
