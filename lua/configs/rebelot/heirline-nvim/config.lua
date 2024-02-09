@@ -844,7 +844,7 @@ local function setup_colors(colorname)
         "fg",
         {},
         "fg",
-        text_fg
+        text_bg
     )
     local visual_bg = get_color_with_lualine(
         lualine_ok,
@@ -864,7 +864,7 @@ local function setup_colors(colorname)
         "fg",
         {},
         "fg",
-        text_fg
+        text_bg
     )
     local replace_bg = get_color_with_lualine(
         lualine_ok,
@@ -884,7 +884,7 @@ local function setup_colors(colorname)
         "fg",
         {},
         "fg",
-        text_fg
+        text_bg
     )
     local command_bg = get_color_with_lualine(
         lualine_ok,
@@ -904,7 +904,7 @@ local function setup_colors(colorname)
         "fg",
         {},
         "fg",
-        text_fg
+        text_bg
     )
 
     if not lualine_ok or tables.tbl_empty(lualine_theme) then
