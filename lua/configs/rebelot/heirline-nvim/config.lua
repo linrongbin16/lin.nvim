@@ -726,8 +726,6 @@ local function get_color_with_lightline(
     end
 end
 
--- local brightness_modifier_parameter = 10
-
 -- Turns #rrggbb -> { red, green, blue }
 local function rgb_str2num(rgb_color_str)
     if rgb_color_str:find("#") == 1 then
@@ -929,8 +927,7 @@ local function setup_colors(colorname)
         "c",
         "bg",
         {},
-        "bg",
-        shade_rgb(get_terminal_color_with_fallback(0, magenta), 0.6)
+        "bg"
     )
     normal_fg3 = get_color_with_lualine(
         has_lualine,
@@ -939,31 +936,22 @@ local function setup_colors(colorname)
         "c",
         "fg",
         {},
-        "fg",
-        text_fg
+        "fg"
     )
+    if normal_bg3 and normal_fg3 then
+        local parameter = get_color_brightness(normal_bg3) > 0.5 and 7 or -7
+        normal_bg4 = brightness_modifier(normal_bg3, parameter)
+        normal_fg4 = normal_fg3
+    else
+        normal_bg3 =
+            shade_rgb(get_terminal_color_with_fallback(0, magenta), 0.6)
+        normal_fg3 = text_fg
+        normal_bg4 =
+            shade_rgb(get_terminal_color_with_fallback(0, magenta), 0.7)
+        normal_fg4 = text_fg
+    end
     -- normal_bg4 = statusline_bg
     -- normal_fg4 = statusline_fg
-    normal_bg4 = get_color_with_lualine(
-        has_lualine,
-        lualine_theme,
-        "normal",
-        "c",
-        "bg",
-        {},
-        "bg",
-        shade_rgb(get_terminal_color_with_fallback(0, magenta), 0.7)
-    )
-    normal_fg4 = get_color_with_lualine(
-        has_lualine,
-        lualine_theme,
-        "normal",
-        "c",
-        "fg",
-        {},
-        "fg",
-        text_fg
-    )
     insert_bg = get_color_with_lualine(
         has_lualine,
         lualine_theme,
@@ -1086,14 +1074,6 @@ local function setup_colors(colorname)
                 command_fg = text_fg
             end
         end
-        -- if statusline_bg then
-        --     local parameter = get_color_brightness(statusline_bg) > 0.5 and -10
-        --         or 10
-        --     normal_bg4 = brightness_modifier(normal_bg4, parameter)
-        --     if get_color_brightness(normal_bg4) > 0.5 then
-        --         normal_fg4 = text_bg
-        --     end
-        -- end
     end
 
     return {
