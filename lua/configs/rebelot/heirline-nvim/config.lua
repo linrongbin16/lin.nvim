@@ -232,11 +232,6 @@ local FileName = {
             "BufEnter",
             "BufNewFile",
             "WinEnter",
-            callback = function()
-                vim.schedule(function()
-                    vim.cmd("redrawstatus")
-                end)
-            end,
         },
     },
     {
