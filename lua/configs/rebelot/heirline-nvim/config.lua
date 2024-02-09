@@ -823,8 +823,16 @@ local function setup_colors(colorname)
         "fg",
         get_terminal_color_with_fallback(4, blue)
     )
-    local replace_fg =
-        get_color_with_lualine(lualine_theme, "replace", "a", "fg", {}, text_fg)
+    local replace_fg = get_color_with_lualine(
+        lualine_ok,
+        lualine_theme,
+        "replace",
+        "a",
+        "fg",
+        {},
+        "fg",
+        text_fg
+    )
     local command_bg = get_color_with_lualine(
         lualine_ok,
         lualine_theme,
