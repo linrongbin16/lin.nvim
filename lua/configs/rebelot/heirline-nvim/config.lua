@@ -726,7 +726,7 @@ local function get_color_with_lightline(
     end
 end
 
-local brightness_modifier_parameter = 10
+-- local brightness_modifier_parameter = 10
 
 -- Turns #rrggbb -> { red, green, blue }
 local function rgb_str2num(rgb_color_str)
@@ -1028,11 +1028,10 @@ local function setup_colors(colorname)
     if not has_lualine then
         local background_color = colors_hl.get_color("Normal", "bg")
         if background_color then
-            if get_color_brightness(background_color) > 0.5 then
-                brightness_modifier_parameter = -brightness_modifier_parameter
-            end
-            normal_bg =
-                brightness_modifier(normal_bg, brightness_modifier_parameter)
+            local parameter = get_color_brightness(background_color) > 0.5
+                    and -10
+                or 10
+            normal_bg = brightness_modifier(normal_bg, parameter)
             normal_bg1 = normal_bg
             if get_color_brightness(normal_bg1) < 0.5 then
                 normal_fg = text_fg
@@ -1046,25 +1045,29 @@ local function setup_colors(colorname)
             if get_color_brightness(normal_bg3) > 0.5 then
                 normal_fg3 = text_bg
             end
-            insert_bg =
-                brightness_modifier(insert_bg, brightness_modifier_parameter)
+            insert_bg = brightness_modifier(insert_bg, parameter)
             if get_color_brightness(insert_bg) < 0.5 then
                 insert_fg = text_fg
             end
-            visual_bg =
-                brightness_modifier(visual_bg, brightness_modifier_parameter)
+            visual_bg = brightness_modifier(visual_bg, parameter)
             if get_color_brightness(visual_bg) < 0.5 then
                 visual_fg = text_fg
             end
-            replace_bg =
-                brightness_modifier(replace_bg, brightness_modifier_parameter)
+            replace_bg = brightness_modifier(replace_bg, parameter)
             if get_color_brightness(replace_bg) < 0.5 then
                 replace_fg = text_fg
             end
-            command_bg =
-                brightness_modifier(command_bg, brightness_modifier_parameter)
+            command_bg = brightness_modifier(command_bg, parameter)
             if get_color_brightness(command_bg) < 0.5 then
                 command_fg = text_fg
+            end
+        end
+        if statusline_bg then
+            local parameter = get_color_brightness(statusline_bg) > 0.5 and -10
+                or 10
+            normal_bg4 = brightness_modifier(normal_bg4, parameter)
+            if get_color_brightness(normal_bg4) > 0.5 then
+                normal_fg4 = text_bg
             end
         end
     end
