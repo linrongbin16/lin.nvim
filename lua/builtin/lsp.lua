@@ -24,7 +24,7 @@ local diagnostic_signs = {
 local diagnostic_hls = {
     DiagnosticSignError = "ErrorMsg",
     DiagnosticSignWarn = "WarningMsg",
-    DiagnosticSignInfo = "None",
+    DiagnosticSignInfo = "Normal",
     DiagnosticSignHint = "Comment",
 }
 
