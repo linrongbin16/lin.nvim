@@ -26,7 +26,7 @@ local function rgb_to_hsl(rgb)
     return colors_hsl.new(h, s, l, rgb)
 end
 
--- value 1-100
+-- value 0.0-1.0
 local function shade_rgb(rgb, value)
     if vim.o.background == "light" then
         return rgb_to_hsl(rgb):tint(value):to_rgb()
@@ -120,7 +120,7 @@ end
 
 local Mode = {
     init = function(self)
-        self.mode = vim.fn.mode(1)
+        self.mode = vim.api.nvim_get_mode().mode
     end,
     hl = function(self)
         local mode_name = GetModeName(self.mode)
@@ -172,7 +172,6 @@ local FileName = {
         end,
         update = {
             "BufEnter",
-            "BufNewFile",
             "WinEnter",
         },
     },
@@ -199,9 +198,7 @@ local FileName = {
         update = {
             "TextChangedI",
             "TextChanged",
-            "BufWritePost",
             "BufEnter",
-            "BufNewFile",
             "WinEnter",
         },
     },
@@ -211,7 +208,8 @@ local FileName = {
             if strings.empty(self.filename) then
                 return ""
             end
-            local filesize = vim.fn.getfsize(self.filename)
+            local fstat = uv.fs_stat(self.filename)
+            local filesize = tables.tbl_get(fstat, "size")
             if type(filesize) ~= "number" or filesize <= 0 then
                 return ""
             end
@@ -229,7 +227,6 @@ local FileName = {
         update = {
             "BufWritePost",
             "BufEnter",
-            "BufNewFile",
             "WinEnter",
         },
     },
@@ -430,7 +427,6 @@ local FileEncoding = {
         end,
         update = {
             "BufEnter",
-            "WinEnter",
         },
     },
 }
@@ -456,7 +452,6 @@ local FileFormat = {
     end,
     update = {
         "BufEnter",
-        "WinEnter",
     },
 }
 
@@ -545,7 +540,7 @@ local Location = {
 
 local Progress = {
     init = function(self)
-        self.mode = vim.fn.mode(1)
+        self.mode = vim.api.nvim_get_mode().mode
     end,
     hl = function(self)
         local mode_name = GetModeName(self.mode)
@@ -825,14 +820,6 @@ local function setup_colors(colorname)
 
     local has_lualine, lualine_theme =
         pcall(require, string.format("lualine.themes.%s", colorname))
-    -- if not has_lualine then
-    --     local lightline_theme_name =
-    --         string.format("lightline#colorscheme#%s#palette", colorname)
-    --     if vim.fn.exists(string.format("g:%s", lightline_theme_name)) > 0 then
-    --         lualine_theme = convert_lightline_theme(colorname)
-    --         has_lualine = true
-    --     end
-    -- end
 
     text_bg = get_color_with_lualine(
         has_lualine,
@@ -880,7 +867,8 @@ local function setup_colors(colorname)
         "normal",
         "a",
         "bg",
-        { "PmenuSel", "PmenuThumb", "TabLineSel" },
+        -- { "PmenuSel", "PmenuThumb", "TabLineSel" },
+        { "StatusLine", "PmenuSel", "PmenuThumb", "TabLineSel" },
         "bg",
         get_terminal_color_with_fallback(0, magenta)
     )
@@ -914,7 +902,7 @@ local function setup_colors(colorname)
         "fg",
         {},
         "fg",
-        text_fg
+        text_fg -- or white
     )
     normal_bg3 = get_color_with_lualine(
         has_lualine,
