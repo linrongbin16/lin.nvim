@@ -146,7 +146,7 @@ local M = {
     },
     {
         "linrongbin16/lsp-progress.nvim",
-        event = { VeryLazy, BufReadPre, BufNewFile },
+        lazy = true,
         config = lua_config("linrongbin16/lsp-progress.nvim"),
     },
     {
