@@ -1023,45 +1023,45 @@ local function setup_colors(colorname)
 
     if not has_lualine then
         local background_color = colors_hl.get_color("Normal", "bg")
-        -- if background_color then
-        --     local parameter = get_color_brightness(background_color) > 0.5
-        --             and -10
-        --         or 10
-        -- normal_bg = brightness_modifier(normal_bg, parameter)
-        -- normal_bg1 = normal_bg
-        if get_color_brightness(normal_bg1) < 0.5 then
-            normal_fg = text_fg
-            normal_fg1 = text_fg
+        if background_color then
+            local parameter = get_color_brightness(background_color) > 0.5
+                    and -10
+                or 10
+            normal_bg = brightness_modifier(normal_bg, parameter)
+            normal_bg1 = normal_bg
+            if get_color_brightness(normal_bg1) < 0.5 then
+                normal_fg = text_fg
+                normal_fg1 = text_fg
+            end
+            normal_bg2 = shade_rgb(normal_bg, 0.5)
+            if get_color_brightness(normal_bg2) > 0.5 then
+                normal_fg2 = text_bg
+            end
+            normal_bg3 = shade_rgb(normal_bg, shade_level2)
+            if get_color_brightness(normal_bg3) > 0.5 then
+                normal_fg3 = text_bg
+            end
+            normal_bg4 = shade_rgb(normal_bg, shade_level3)
+            if get_color_brightness(normal_bg4) > 0.5 then
+                normal_fg4 = text_bg
+            end
+            insert_bg = brightness_modifier(insert_bg, parameter)
+            if get_color_brightness(insert_bg) < 0.5 then
+                insert_fg = text_fg
+            end
+            visual_bg = brightness_modifier(visual_bg, parameter)
+            if get_color_brightness(visual_bg) < 0.5 then
+                visual_fg = text_fg
+            end
+            replace_bg = brightness_modifier(replace_bg, parameter)
+            if get_color_brightness(replace_bg) < 0.5 then
+                replace_fg = text_fg
+            end
+            command_bg = brightness_modifier(command_bg, parameter)
+            if get_color_brightness(command_bg) < 0.5 then
+                command_fg = text_fg
+            end
         end
-        normal_bg2 = shade_rgb(normal_bg, 0.5)
-        if get_color_brightness(normal_bg2) > 0.5 then
-            normal_fg2 = text_bg
-        end
-        normal_bg3 = shade_rgb(normal_bg, shade_level2)
-        if get_color_brightness(normal_bg3) > 0.5 then
-            normal_fg3 = text_bg
-        end
-        normal_bg4 = shade_rgb(normal_bg, shade_level3)
-        if get_color_brightness(normal_bg4) > 0.5 then
-            normal_fg4 = text_bg
-        end
-        -- insert_bg = brightness_modifier(insert_bg, parameter)
-        if get_color_brightness(insert_bg) < 0.5 then
-            insert_fg = text_fg
-        end
-        -- visual_bg = brightness_modifier(visual_bg, parameter)
-        if get_color_brightness(visual_bg) < 0.5 then
-            visual_fg = text_fg
-        end
-        -- replace_bg = brightness_modifier(replace_bg, parameter)
-        if get_color_brightness(replace_bg) < 0.5 then
-            replace_fg = text_fg
-        end
-        -- command_bg = brightness_modifier(command_bg, parameter)
-        if get_color_brightness(command_bg) < 0.5 then
-            command_fg = text_fg
-        end
-        -- end
     end
 
     return {
