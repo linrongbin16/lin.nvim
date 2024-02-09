@@ -39,10 +39,6 @@ local M = {
         build = function()
             require("colorbox").update()
         end,
-        init = function()
-            vim.g.lightline = 1
-            vim.g.airline_theme = 1
-        end,
     },
 
     -- ---- HIGHLIGHT ----
