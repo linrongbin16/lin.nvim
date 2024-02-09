@@ -630,6 +630,16 @@ local function get_terminal_color_with_fallback(number, fallback)
     end
 end
 
+---@param lualine_ok boolean
+---@param lualine_theme table
+---@param mode_name "normal"|"insert"|"visual"|"replace"|"command"|"inactive"
+---@param section "a"|"b"|"c"
+---@param attribute "fg"|"bg"
+---@param fallback_hls string|string[]
+---@param fallback_attribute 'fg'|'bg'
+---@param fallback_color string?
+local function get_color_with_lightline() end
+
 local brightness_modifier_parameter = 10
 
 -- Turns #rrggbb -> { red, green, blue }
@@ -926,6 +936,7 @@ local function setup_colors(colorname)
             string.format("g:lightline#colorscheme#%s#palette", colorname)
         ) > 0
     then
+        has_lightline = true
     end
 
     if not has_lualine or tables.tbl_empty(lualine_theme) then
