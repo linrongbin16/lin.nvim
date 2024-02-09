@@ -860,26 +860,26 @@ local function setup_colors(colorname)
         "fg",
         white
     )
-    statusline_bg = get_color_with_lualine(
-        has_lualine,
-        lualine_theme,
-        "normal",
-        "c",
-        "bg",
-        { "StatusLine", "Normal" },
-        "bg",
-        black
-    )
-    statusline_fg = get_color_with_lualine(
-        has_lualine,
-        lualine_theme,
-        "normal",
-        "c",
-        "fg",
-        { "StatusLine", "Normal" },
-        "fg",
-        white
-    )
+    -- statusline_bg = get_color_with_lualine(
+    --     has_lualine,
+    --     lualine_theme,
+    --     "normal",
+    --     "c",
+    --     "bg",
+    --     { "StatusLine", "Normal" },
+    --     "bg",
+    --     black
+    -- )
+    -- statusline_fg = get_color_with_lualine(
+    --     has_lualine,
+    --     lualine_theme,
+    --     "normal",
+    --     "c",
+    --     "fg",
+    --     { "StatusLine", "Normal" },
+    --     "fg",
+    --     white
+    -- )
     normal_bg = get_color_with_lualine(
         has_lualine,
         lualine_theme,
@@ -930,7 +930,7 @@ local function setup_colors(colorname)
         "bg",
         {},
         "bg",
-        shade_rgb(get_terminal_color_with_fallback(0, magenta), 0.7)
+        shade_rgb(get_terminal_color_with_fallback(0, magenta), 0.6)
     )
     normal_fg3 = get_color_with_lualine(
         has_lualine,
@@ -942,8 +942,10 @@ local function setup_colors(colorname)
         "fg",
         text_fg
     )
-    normal_bg4 = statusline_bg
-    normal_fg4 = statusline_fg
+    -- normal_bg4 = statusline_bg
+    -- normal_fg4 = statusline_fg
+    normal_bg4 = shade_rgb(normal_bg3)
+    normal_fg4 = normal_fg3
     insert_bg = get_color_with_lualine(
         has_lualine,
         lualine_theme,
@@ -1041,9 +1043,13 @@ local function setup_colors(colorname)
             if get_color_brightness(normal_bg2) > 0.5 then
                 normal_fg2 = text_bg
             end
-            normal_bg3 = shade_rgb(normal_bg, 0.7)
+            normal_bg3 = shade_rgb(normal_bg, 0.6)
             if get_color_brightness(normal_bg3) > 0.5 then
                 normal_fg3 = text_bg
+            end
+            normal_bg4 = shade_rgb(normal_bg, 0.7)
+            if get_color_brightness(normal_bg4) > 0.5 then
+                normal_fg4 = text_bg
             end
             insert_bg = brightness_modifier(insert_bg, parameter)
             if get_color_brightness(insert_bg) < 0.5 then
@@ -1062,14 +1068,14 @@ local function setup_colors(colorname)
                 command_fg = text_fg
             end
         end
-        if statusline_bg then
-            local parameter = get_color_brightness(statusline_bg) > 0.5 and -10
-                or 10
-            normal_bg4 = brightness_modifier(normal_bg4, parameter)
-            if get_color_brightness(normal_bg4) > 0.5 then
-                normal_fg4 = text_bg
-            end
-        end
+        -- if statusline_bg then
+        --     local parameter = get_color_brightness(statusline_bg) > 0.5 and -10
+        --         or 10
+        --     normal_bg4 = brightness_modifier(normal_bg4, parameter)
+        --     if get_color_brightness(normal_bg4) > 0.5 then
+        --         normal_fg4 = text_bg
+        --     end
+        -- end
     end
 
     return {
