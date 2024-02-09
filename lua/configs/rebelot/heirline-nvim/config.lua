@@ -628,6 +628,60 @@ local function get_terminal_color_with_fallback(number, fallback)
     end
 end
 
+local contrast_threshold = 0.3
+local brightness_modifier_parameter = 10
+
+-- Turns #rrggbb -> { red, green, blue }
+local function rgb_str2num(rgb_color_str)
+    if rgb_color_str:find("#") == 1 then
+        rgb_color_str = rgb_color_str:sub(2, #rgb_color_str)
+    end
+    local red = tonumber(rgb_color_str:sub(1, 2), 16)
+    local green = tonumber(rgb_color_str:sub(3, 4), 16)
+    local blue = tonumber(rgb_color_str:sub(5, 6), 16)
+    return { red = red, green = green, blue = blue }
+end
+
+-- Turns { red, green, blue } -> #rrggbb
+local function rgb_num2str(rgb_color_num)
+    local rgb_color_str = string.format(
+        "#%02x%02x%02x",
+        rgb_color_num.red,
+        rgb_color_num.green,
+        rgb_color_num.blue
+    )
+    return rgb_color_str
+end
+
+-- Returns brightness level of color in range 0 to 1
+-- arbitrary value it's basically an weighted average
+local function get_color_brightness(rgb_color)
+    local color = rgb_str2num(rgb_color)
+    local brightness = (color.red * 2 + color.green * 3 + color.blue) / 6
+    return brightness / 256
+end
+
+-- Clamps the val between left and right
+local function clamp(val, left, right)
+    if val > right then
+        return right
+    end
+    if val < left then
+        return left
+    end
+    return val
+end
+
+-- Changes brightness of rgb_color by percentage
+local function brightness_modifier(rgb_color, percentage)
+    percentage = percentage or brightness_modifier_parameter
+    local color = rgb_str2num(rgb_color)
+    color.red = clamp(color.red + (color.red * percentage / 100), 0, 255)
+    color.green = clamp(color.green + (color.green * percentage / 100), 0, 255)
+    color.blue = clamp(color.blue + (color.blue * percentage / 100), 0, 255)
+    return rgb_num2str(color)
+end
+
 ---@param colorname string?
 ---@return table<string, string>
 local function setup_colors(colorname)
