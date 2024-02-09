@@ -169,7 +169,6 @@ local GitBranch = {
             end
             return ""
         end,
-        update = { "User", pattern = "VeryLazy" },
     },
     {
         provider = right_slant,
