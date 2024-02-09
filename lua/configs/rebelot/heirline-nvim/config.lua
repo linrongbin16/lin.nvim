@@ -977,9 +977,8 @@ local function setup_colors(colorname)
             "bg",
             black
         )
-        text_fg = get_color_with_lualine(
-            has_lualine,
-            lualine_theme,
+        text_fg = get_color_with_lightline(
+            lightline_theme,
             "normal",
             "a",
             "fg",
@@ -987,9 +986,8 @@ local function setup_colors(colorname)
             "fg",
             white
         )
-        statusline_bg = get_color_with_lualine(
-            has_lualine,
-            lualine_theme,
+        statusline_bg = get_color_with_lightline(
+            lightline_theme,
             "normal",
             "c",
             "bg",
@@ -997,9 +995,8 @@ local function setup_colors(colorname)
             "bg",
             black
         )
-        statusline_fg = get_color_with_lualine(
-            has_lualine,
-            lualine_theme,
+        statusline_fg = get_color_with_lightline(
+            lightline_theme,
             "normal",
             "c",
             "fg",
@@ -1007,9 +1004,8 @@ local function setup_colors(colorname)
             "fg",
             white
         )
-        normal_bg = get_color_with_lualine(
-            has_lualine,
-            lualine_theme,
+        normal_bg = get_color_with_lightline(
+            lightline_theme,
             "normal",
             "a",
             "bg",
@@ -1017,9 +1013,8 @@ local function setup_colors(colorname)
             "bg",
             get_terminal_color_with_fallback(0, magenta)
         )
-        normal_fg = get_color_with_lualine(
-            has_lualine,
-            lualine_theme,
+        normal_fg = get_color_with_lightline(
+            lightline_theme,
             "normal",
             "a",
             "fg",
@@ -1029,9 +1024,8 @@ local function setup_colors(colorname)
         )
         normal_bg1 = normal_bg
         normal_fg1 = normal_fg
-        normal_bg2 = get_color_with_lualine(
-            has_lualine,
-            lualine_theme,
+        normal_bg2 = get_color_with_lightline(
+            lightline_theme,
             "normal",
             "b",
             "bg",
@@ -1039,9 +1033,8 @@ local function setup_colors(colorname)
             "bg",
             shade_rgb(get_terminal_color_with_fallback(0, magenta), 0.5)
         )
-        normal_fg2 = get_color_with_lualine(
-            has_lualine,
-            lualine_theme,
+        normal_fg2 = get_color_with_lightline(
+            lightline_theme,
             "normal",
             "b",
             "fg",
@@ -1049,9 +1042,8 @@ local function setup_colors(colorname)
             "fg",
             text_fg
         )
-        normal_bg3 = get_color_with_lualine(
-            has_lualine,
-            lualine_theme,
+        normal_bg3 = get_color_with_lightline(
+            lightline_theme,
             "normal",
             "c",
             "bg",
@@ -1059,9 +1051,8 @@ local function setup_colors(colorname)
             "bg",
             shade_rgb(get_terminal_color_with_fallback(0, magenta), 0.7)
         )
-        normal_fg3 = get_color_with_lualine(
-            has_lualine,
-            lualine_theme,
+        normal_fg3 = get_color_with_lightline(
+            lightline_theme,
             "normal",
             "c",
             "fg",
@@ -1071,9 +1062,8 @@ local function setup_colors(colorname)
         )
         normal_bg4 = statusline_bg
         normal_fg4 = statusline_fg
-        insert_bg = get_color_with_lualine(
-            has_lualine,
-            lualine_theme,
+        insert_bg = get_color_with_lightline(
+            lightline_theme,
             "insert",
             "a",
             "bg",
@@ -1081,9 +1071,8 @@ local function setup_colors(colorname)
             "fg",
             get_terminal_color_with_fallback(2, green)
         )
-        insert_fg = get_color_with_lualine(
-            has_lualine,
-            lualine_theme,
+        insert_fg = get_color_with_lightline(
+            lightline_theme,
             "insert",
             "a",
             "fg",
@@ -1091,9 +1080,8 @@ local function setup_colors(colorname)
             "fg",
             text_bg
         )
-        visual_bg = get_color_with_lualine(
-            has_lualine,
-            lualine_theme,
+        visual_bg = get_color_with_lightline(
+            lightline_theme,
             "visual",
             "a",
             "bg",
@@ -1101,9 +1089,8 @@ local function setup_colors(colorname)
             "fg",
             get_terminal_color_with_fallback(3, yellow)
         )
-        visual_fg = get_color_with_lualine(
-            has_lualine,
-            lualine_theme,
+        visual_fg = get_color_with_lightline(
+            lightline_theme,
             "visual",
             "a",
             "fg",
@@ -1111,9 +1098,8 @@ local function setup_colors(colorname)
             "fg",
             text_bg
         )
-        replace_bg = get_color_with_lualine(
-            has_lualine,
-            lualine_theme,
+        replace_bg = get_color_with_lightline(
+            lightline_theme,
             "replace",
             "a",
             "bg",
@@ -1121,9 +1107,8 @@ local function setup_colors(colorname)
             "fg",
             get_terminal_color_with_fallback(4, blue)
         )
-        replace_fg = get_color_with_lualine(
-            has_lualine,
-            lualine_theme,
+        replace_fg = get_color_with_lightline(
+            lightline_theme,
             "replace",
             "a",
             "fg",
@@ -1131,9 +1116,8 @@ local function setup_colors(colorname)
             "fg",
             text_bg
         )
-        command_bg = get_color_with_lualine(
-            has_lualine,
-            lualine_theme,
+        command_bg = get_color_with_lightline(
+            lightline_theme,
             "command",
             "a",
             "bg",
@@ -1141,9 +1125,8 @@ local function setup_colors(colorname)
             "fg",
             get_terminal_color_with_fallback(1, red)
         )
-        command_fg = get_color_with_lualine(
-            has_lualine,
-            lualine_theme,
+        command_fg = get_color_with_lightline(
+            lightline_theme,
             "command",
             "a",
             "fg",
@@ -1153,7 +1136,7 @@ local function setup_colors(colorname)
         )
     end
 
-    if not has_lualine or tables.tbl_empty(lualine_theme) then
+    if not has_lualine or not has_lightline then
         local background_color = colors_hl.get_color("Normal", "bg")
         if background_color then
             if get_color_brightness(background_color) > 0.5 then
