@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.20.1](https://github.com/linrongbin16/lin.nvim/compare/v2.20.0...v2.20.1) (2024-02-09)
+
+
+### Performance Improvements
+
+* **heirline.nvim:** prefer uv api ([#472](https://github.com/linrongbin16/lin.nvim/issues/472)) ([35bf04f](https://github.com/linrongbin16/lin.nvim/commit/35bf04f9b9682368155b9884fb947b64a3936fb8))
+
 ## [2.20.0](https://github.com/linrongbin16/lin.nvim/compare/v2.19.5...v2.20.0) (2024-02-09)
 
 
