@@ -779,6 +779,10 @@ end
 ---@param colorname string?
 ---@return table<string, string>
 local function setup_colors(colorname)
+    local shade_level1 = 0.4
+    local shade_level2 = 0.55
+    local shade_level3 = 0.7
+
     local diagnostic_error = colors_hl.get_color_with_fallback(
         { "DiagnosticSignError", "ErrorMsg" },
         "fg",
@@ -908,7 +912,7 @@ local function setup_colors(colorname)
         "bg",
         {},
         "bg",
-        shade_rgb(get_terminal_color_with_fallback(0, magenta), 0.5)
+        shade_rgb(get_terminal_color_with_fallback(0, magenta), shade_level1)
     )
     normal_fg2 = get_color_with_lualine(
         has_lualine,
@@ -943,11 +947,15 @@ local function setup_colors(colorname)
         normal_bg4 = brightness_modifier(normal_bg3, parameter)
         normal_fg4 = normal_fg3
     else
-        normal_bg3 =
-            shade_rgb(get_terminal_color_with_fallback(0, magenta), 0.6)
+        normal_bg3 = shade_rgb(
+            get_terminal_color_with_fallback(0, magenta),
+            shade_level2
+        )
         normal_fg3 = text_fg
-        normal_bg4 =
-            shade_rgb(get_terminal_color_with_fallback(0, magenta), 0.7)
+        normal_bg4 = shade_rgb(
+            get_terminal_color_with_fallback(0, magenta),
+            shade_level3
+        )
         normal_fg4 = text_fg
     end
     -- normal_bg4 = statusline_bg
@@ -1049,11 +1057,11 @@ local function setup_colors(colorname)
             if get_color_brightness(normal_bg2) > 0.5 then
                 normal_fg2 = text_bg
             end
-            normal_bg3 = shade_rgb(normal_bg, 0.6)
+            normal_bg3 = shade_rgb(normal_bg, shade_level2)
             if get_color_brightness(normal_bg3) > 0.5 then
                 normal_fg3 = text_bg
             end
-            normal_bg4 = shade_rgb(normal_bg, 0.7)
+            normal_bg4 = shade_rgb(normal_bg, shade_level3)
             if get_color_brightness(normal_bg4) > 0.5 then
                 normal_fg4 = text_bg
             end
