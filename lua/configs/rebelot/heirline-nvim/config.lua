@@ -511,10 +511,6 @@ local FileType = {
             "WinEnter",
         },
     },
-    -- {
-    --     provider = left_slant,
-    --     hl = { fg = "normal_bg1", bg = "normal_bg2" },
-    -- },
 }
 
 local Location = {
