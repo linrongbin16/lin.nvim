@@ -634,11 +634,6 @@ local function convert_lightline_theme(colorname)
     local var_name = "lightline#colorscheme#" .. colorname .. "#palette"
     vim.cmd("let tmp = " .. var_name)
     local theme = vim.g[var_name]
-    print(vim.inspect(theme))
-    local fp = io.open("lightline.log", "w")
-    assert(fp ~= nil)
-    fp:write(vim.inspect(theme) .. "\n")
-    fp:close()
 
     local lua_theme = {}
 
@@ -687,8 +682,6 @@ local function convert_lightline_theme(colorname)
     return lua_theme
 end
 
-local fp = io.open("heirline.log", "a")
-
 ---@param lightline_theme table
 ---@param mode_name "normal"|"insert"|"visual"|"replace"|"command"|"inactive"
 ---@param section "a"|"b"|"c"
@@ -705,10 +698,6 @@ local function get_color_with_lightline(
     fallback_attribute,
     fallback_color
 )
-    fp:write(
-        string.format("lightline theme:%s\n", vim.inspect(lightline_theme))
-    )
-
     local sec1, sec2
     if section == "a" then
         sec1 = "left"
@@ -728,16 +717,6 @@ local function get_color_with_lightline(
     local attr = attribute == "fg" and 1 or 2
     if tables.tbl_get(lightline_theme, mode_name, sec1, sec2, attr) then
         local result = lightline_theme[mode_name][sec1][sec2][attr]
-        fp:write(
-            string.format(
-                "lightline(%s-%s-%s-%s):%s\n",
-                vim.inspect(mode_name),
-                vim.inspect(sec1),
-                vim.inspect(sec2),
-                vim.inspect(attr),
-                vim.inspect(result)
-            )
-        )
         return result
     else
         return colors_hl.get_color_with_fallback(
@@ -853,14 +832,14 @@ local function setup_colors(colorname)
 
     local has_lualine, lualine_theme =
         pcall(require, string.format("lualine.themes.%s", colorname))
-    if not has_lualine then
-        local lightline_theme_name =
-            string.format("lightline#colorscheme#%s#palette", colorname)
-        if vim.fn.exists(string.format("g:%s", lightline_theme_name)) > 0 then
-            lualine_theme = convert_lightline_theme(colorname)
-            has_lualine = true
-        end
-    end
+    -- if not has_lualine then
+    --     local lightline_theme_name =
+    --         string.format("lightline#colorscheme#%s#palette", colorname)
+    --     if vim.fn.exists(string.format("g:%s", lightline_theme_name)) > 0 then
+    --         lualine_theme = convert_lightline_theme(colorname)
+    --         has_lualine = true
+    --     end
+    -- end
 
     text_bg = get_color_with_lualine(
         has_lualine,
