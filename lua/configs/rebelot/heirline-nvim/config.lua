@@ -674,7 +674,6 @@ end
 
 -- Changes brightness of rgb_color by percentage
 local function brightness_modifier(rgb_color, percentage)
-    percentage = percentage or brightness_modifier_parameter
     local color = rgb_str2num(rgb_color)
     color.red = clamp(color.red + (color.red * percentage / 100), 0, 255)
     color.green = clamp(color.green + (color.green * percentage / 100), 0, 255)
@@ -770,7 +769,7 @@ local function setup_colors(colorname)
         "a",
         "bg",
         { "PmenuSel", "PmenuThumb", "TabLineSel" },
-        "fg",
+        "bg",
         get_terminal_color_with_fallback(0, magenta)
     )
     local normal_fg = get_color_with_lualine(
@@ -793,7 +792,7 @@ local function setup_colors(colorname)
         "bg",
         {},
         "bg",
-        shade_rgb(normal_bg1, 0.5)
+        shade_rgb(get_terminal_color_with_fallback(0, magenta), 0.5)
     )
     local normal_fg2 = get_color_with_lualine(
         lualine_ok,
@@ -813,7 +812,7 @@ local function setup_colors(colorname)
         "bg",
         {},
         "bg",
-        shade_rgb(normal_bg1, 0.7)
+        shade_rgb(get_terminal_color_with_fallback(0, magenta), 0.7)
     )
     local normal_fg3 = get_color_with_lualine(
         lualine_ok,
@@ -907,6 +906,18 @@ local function setup_colors(colorname)
         "fg",
         text_fg
     )
+
+    if not lualine_ok or tables.tbl_empty(lualine_theme) then
+        local background_color = utils.extract_highlight_colors("Normal", "bg")
+        if background_color then
+            if get_color_brightness(background_color) > 0.5 then
+                brightness_modifier_parameter = -brightness_modifier_parameter
+            end
+
+            normal_bg =
+                brightness_modifier(normal_bg, brightness_modifier_parameter)
+        end
+    end
 
     return {
         text_bg = text_bg,
