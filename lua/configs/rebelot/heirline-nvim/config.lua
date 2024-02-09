@@ -1,5 +1,3 @@
-local utils = require("heirline.utils")
-
 local uv = require("commons.uv")
 local strings = require("commons.strings")
 local tables = require("commons.tables")
@@ -1137,13 +1135,13 @@ vim.api.nvim_create_autocmd("ColorScheme", {
     group = "heirline_augroup",
     callback = function(event)
         local colorname = event.match
-        utils.on_colorscheme(setup_colors(colorname))
+        require("heirline.utils").on_colorscheme(setup_colors(colorname))
     end,
 })
 vim.api.nvim_create_autocmd("VimEnter", {
     group = "heirline_augroup",
     callback = function()
         local colorname = vim.g.colors_name
-        utils.on_colorscheme(setup_colors(colorname))
+        require("heirline.utils").on_colorscheme(setup_colors(colorname))
     end,
 })
