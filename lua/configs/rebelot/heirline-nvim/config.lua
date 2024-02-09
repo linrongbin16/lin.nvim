@@ -1056,51 +1056,37 @@ local function setup_colors(colorname)
             normal_bg =
                 brightness_modifier(normal_bg, brightness_modifier_parameter)
             normal_bg1 = normal_bg
-            if normal_bg1 then
-                if get_color_brightness(normal_bg1) > 0.5 then
-                    normal_fg = text_fg
-                    normal_fg1 = text_fg
-                end
+            if get_color_brightness(normal_bg1) < 0.5 then
+                normal_fg = text_fg
+                normal_fg1 = text_fg
             end
             normal_bg2 = shade_rgb(normal_bg, 0.5)
-            if normal_bg2 then
-                if get_color_brightness(normal_bg2) < 0.5 then
-                    normal_fg2 = text_bg
-                end
+            if get_color_brightness(normal_bg2) > 0.5 then
+                normal_fg2 = text_bg
             end
             normal_bg3 = shade_rgb(normal_bg, 0.7)
-            if normal_bg3 then
-                if get_color_brightness(normal_bg3) < 0.5 then
-                    normal_fg3 = text_bg
-                end
+            if get_color_brightness(normal_bg3) > 0.5 then
+                normal_fg3 = text_bg
             end
             insert_bg =
                 brightness_modifier(insert_bg, brightness_modifier_parameter)
-            if insert_bg then
-                if get_color_brightness(insert_bg) > 0.5 then
-                    insert_fg = text_fg
-                end
+            if get_color_brightness(insert_bg) < 0.5 then
+                insert_fg = text_fg
             end
             visual_bg =
                 brightness_modifier(visual_bg, brightness_modifier_parameter)
-            if visual_bg then
-                if get_color_brightness(visual_bg) > 0.5 then
-                    visual_fg = text_fg
-                end
+            if get_color_brightness(visual_bg) < 0.5 then
+                visual_fg = text_fg
             end
             replace_bg =
                 brightness_modifier(replace_bg, brightness_modifier_parameter)
-            if replace_bg then
-                if get_color_brightness(replace_bg) > 0.5 then
-                    replace_fg = text_fg
-                end
+            if get_color_brightness(replace_bg) < 0.5 then
+                replace_fg = text_fg
             end
             command_bg =
                 brightness_modifier(command_bg, brightness_modifier_parameter)
-            if command_bg then
-                if get_color_brightness(command_bg) > 0.5 then
-                    command_fg = text_fg
-                end
+            if get_color_brightness(command_bg) < 0.5 then
+                command_fg = text_fg
             end
         end
     end
