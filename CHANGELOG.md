@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.20.0](https://github.com/linrongbin16/lin.nvim/compare/v2.19.5...v2.20.0) (2024-02-09)
+
+
+### Features
+
+* **heirline.nvim:** migrate 'lualine.nvim' to 'heirline.nvim' ([#470](https://github.com/linrongbin16/lin.nvim/issues/470)) ([ee8abae](https://github.com/linrongbin16/lin.nvim/commit/ee8abae9b511da523e9ee2826f5cb2086184ee4e))
+
 ## [2.19.5](https://github.com/linrongbin16/lin.nvim/compare/v2.19.4...v2.19.5) (2024-02-07)
 
 
