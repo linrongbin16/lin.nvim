@@ -588,7 +588,7 @@ local StatusLine = {
     Progress,
 }
 
----@param lualine_theme table
+---@param lualine_theme table?
 ---@param mode_name "normal"|"insert"|"visual"|"replace"|"command"|"inactive"
 ---@param section "a"|"b"|"c"
 ---@param attribute "fg"|"bg"
@@ -664,6 +664,9 @@ local function setup_colors(colorname)
 
     local lualine_ok, lualine_theme =
         pcall(require, string.format("lualine.themes.%s", colorname))
+    if not lualine_ok then
+        lualine_theme = nil
+    end
     local text_bg = get_color_with_lualine(
         lualine_theme,
         "normal",
