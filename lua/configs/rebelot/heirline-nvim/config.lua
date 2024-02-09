@@ -630,7 +630,6 @@ local function get_terminal_color_with_fallback(number, fallback)
     end
 end
 
-local contrast_threshold = 0.3
 local brightness_modifier_parameter = 10
 
 -- Turns #rrggbb -> { red, green, blue }
