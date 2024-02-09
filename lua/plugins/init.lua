@@ -127,11 +127,6 @@ local M = {
         event = { VeryLazy, BufReadPre, BufNewFile },
         config = lua_config("lukas-reineke/indent-blankline.nvim"),
     },
-    -- {
-    --     "shellRaining/hlchunk.nvim",
-    --     event = { VeryLazy, BufReadPre, BufNewFile },
-    --     config = lua_config("shellRaining/hlchunk.nvim"),
-    -- },
     -- Git
     {
         "airblade/vim-gitgutter",
