@@ -262,7 +262,11 @@ local M = {
     },
     {
         "williamboman/mason-lspconfig.nvim",
-        event = { VeryLazy, BufReadPre, BufNewFile, CmdlineEnter },
+        event = { VeryLazy },
+        cmd = {
+            "LspInstall",
+            "LspUninstall",
+        },
         dependencies = { "neovim/nvim-lspconfig", "williamboman/mason.nvim" },
         config = lua_config("williamboman/mason-lspconfig.nvim"),
     },
