@@ -544,8 +544,10 @@ local StatusLine = {
     Progress,
 }
 
----@param lualine_ok boolean
+---@param has_lualine boolean
 ---@param lualine_theme table
+---@param has_airline boolean
+---@param airline_theme table
 ---@param mode_name "normal"|"insert"|"visual"|"replace"|"command"|"inactive"
 ---@param section "a"|"b"|"c"
 ---@param attribute "fg"|"bg"
@@ -553,8 +555,10 @@ local StatusLine = {
 ---@param fallback_attribute 'fg'|'bg'
 ---@param fallback_color string?
 local function get_color_with_lualine(
-    lualine_ok,
+    has_lualine,
     lualine_theme,
+    has_airline,
+    airline_theme,
     mode_name,
     section,
     attribute,
@@ -562,11 +566,19 @@ local function get_color_with_lualine(
     fallback_attribute,
     fallback_color
 )
+    local a_section = "airline_" .. section
+    local a_attribute = attribute == "fg" and 1 or 2
+    local a_mode_name = mode_name == "command" and "terminal" or mode_name
     if
-        lualine_ok
+        has_lualine
         and tables.tbl_get(lualine_theme, mode_name, section, attribute)
     then
         return lualine_theme[mode_name][section][attribute]
+    elseif
+        has_airline
+        and tables.tbl_get(airline_theme, a_mode_name, a_section, a_attribute)
+    then
+        return airline_theme[a_mode_name][a_section][a_attribute]
     else
         return colors_hl.get_color_with_fallback(
             fallback_hls,
@@ -581,103 +593,6 @@ local function get_terminal_color_with_fallback(number, fallback)
         return vim.g[string.format("terminal_color_%d", number)]
     else
         return fallback
-    end
-end
-
-local function convert_lightline_theme(colorname)
-    local var_name = "lightline#colorscheme#" .. colorname .. "#palette"
-    vim.cmd("let tmp = " .. var_name)
-    local theme = vim.g[var_name]
-
-    local lua_theme = {}
-
-    for mode, sections in pairs(theme) do
-        if mode ~= "tabline" then
-            lua_theme[mode] = {}
-            lua_theme[mode].a = {}
-            lua_theme[mode].b = {}
-            lua_theme[mode].c = {}
-            lua_theme[mode].a.fg = sections["left"][1][1]
-            lua_theme[mode].a.bg = sections["left"][1][2]
-            if sections["left"][2] then
-                lua_theme[mode].b.fg = sections["left"][2][1]
-                lua_theme[mode].b.bg = sections["left"][2][2]
-            elseif sections["right"] then
-                lua_theme[mode].b.fg = sections["right"][1][1]
-                lua_theme[mode].b.bg = sections["right"][1][2]
-            end
-            if sections["middle"] then
-                lua_theme[mode].c.fg = sections["middle"][1][1]
-                lua_theme[mode].c.bg = sections["middle"][1][2]
-            end
-        end
-    end
-
-    local colors = {}
-    local next_color = 0
-
-    local function color_insert(color)
-        for k, v in pairs(colors) do
-            if v == color then
-                return nil
-            end
-        end
-        colors["color" .. next_color] = color
-        next_color = next_color + 1
-        return nil
-    end
-
-    for mode, sections in pairs(lua_theme) do
-        for component, parts in pairs(sections) do
-            color_insert(parts.fg)
-            color_insert(parts.bg)
-        end
-    end
-    return lua_theme
-end
-
----@param lightline_theme table
----@param mode_name "normal"|"insert"|"visual"|"replace"|"command"|"inactive"
----@param section "a"|"b"|"c"
----@param attribute "fg"|"bg"
----@param fallback_hls string|string[]
----@param fallback_attribute 'fg'|'bg'
----@param fallback_color string?
-local function get_color_with_lightline(
-    lightline_theme,
-    mode_name,
-    section,
-    attribute,
-    fallback_hls,
-    fallback_attribute,
-    fallback_color
-)
-    local sec1, sec2
-    if section == "a" then
-        sec1 = "left"
-        sec2 = 1
-    elseif section == "b" then
-        if tables.tbl_get(lightline_theme, mode_name, "left", 2) then
-            sec1 = "left"
-            sec2 = 2
-        else
-            sec1 = "right"
-            sec2 = 1
-        end
-    elseif section == "c" then
-        sec1 = "middle"
-        sec2 = 1
-    end
-    local attr = attribute == "fg" and 1 or 2
-    if tables.tbl_get(lightline_theme, mode_name, sec1, sec2, attr) then
-        local result = lightline_theme[mode_name][sec1][sec2][attr]
-        return result
-    else
-        return colors_hl.get_color_with_fallback(
-            fallback_hls,
-            fallback_attribute,
-            fallback_color
-        )
     end
 end
 
@@ -775,7 +690,6 @@ local function setup_colors(colorname)
     )
 
     local text_bg, text_fg
-    local statusline_bg, statusline_fg
     local normal_bg, normal_fg
     local normal_bg1, normal_fg1
     local normal_bg2, normal_fg2
@@ -788,10 +702,21 @@ local function setup_colors(colorname)
 
     local has_lualine, lualine_theme =
         pcall(require, string.format("lualine.themes.%s", colorname))
+    local has_airline = false
+    local airline_theme_name =
+        string.format("airline#themes#%s#palette", colorname)
+    local airline_theme = nil
+    if not has_lualine and vim.fn.exists("g:" .. airline_theme_name) > 0 then
+        has_airline = true
+        vim.cmd("let heirline_tmp=g:" .. airline_theme_name)
+        airline_theme = vim.g[airline_theme_name]
+    end
 
     text_bg = get_color_with_lualine(
         has_lualine,
         lualine_theme,
+        has_airline,
+        airline_theme,
         "normal",
         "a",
         "bg",
@@ -802,6 +727,8 @@ local function setup_colors(colorname)
     text_fg = get_color_with_lualine(
         has_lualine,
         lualine_theme,
+        has_airline,
+        airline_theme,
         "normal",
         "a",
         "fg",
@@ -809,33 +736,14 @@ local function setup_colors(colorname)
         "fg",
         white
     )
-    -- statusline_bg = get_color_with_lualine(
-    --     has_lualine,
-    --     lualine_theme,
-    --     "normal",
-    --     "c",
-    --     "bg",
-    --     { "StatusLine", "Normal" },
-    --     "bg",
-    --     black
-    -- )
-    -- statusline_fg = get_color_with_lualine(
-    --     has_lualine,
-    --     lualine_theme,
-    --     "normal",
-    --     "c",
-    --     "fg",
-    --     { "StatusLine", "Normal" },
-    --     "fg",
-    --     white
-    -- )
     normal_bg = get_color_with_lualine(
         has_lualine,
         lualine_theme,
+        has_airline,
+        airline_theme,
         "normal",
         "a",
         "bg",
-        -- { "PmenuSel", "PmenuThumb", "TabLineSel" },
         { "StatusLine", "PmenuSel", "PmenuThumb", "TabLineSel" },
         "bg",
         get_terminal_color_with_fallback(0, magenta)
@@ -843,6 +751,8 @@ local function setup_colors(colorname)
     normal_fg = get_color_with_lualine(
         has_lualine,
         lualine_theme,
+        has_airline,
+        airline_theme,
         "normal",
         "a",
         "fg",
@@ -855,6 +765,8 @@ local function setup_colors(colorname)
     normal_bg2 = get_color_with_lualine(
         has_lualine,
         lualine_theme,
+        has_airline,
+        airline_theme,
         "normal",
         "b",
         "bg",
@@ -865,6 +777,8 @@ local function setup_colors(colorname)
     normal_fg2 = get_color_with_lualine(
         has_lualine,
         lualine_theme,
+        has_airline,
+        airline_theme,
         "normal",
         "b",
         "fg",
@@ -875,6 +789,8 @@ local function setup_colors(colorname)
     normal_bg3 = get_color_with_lualine(
         has_lualine,
         lualine_theme,
+        has_airline,
+        airline_theme,
         "normal",
         "c",
         "bg",
@@ -884,6 +800,8 @@ local function setup_colors(colorname)
     normal_fg3 = get_color_with_lualine(
         has_lualine,
         lualine_theme,
+        has_airline,
+        airline_theme,
         "normal",
         "c",
         "fg",
@@ -906,11 +824,11 @@ local function setup_colors(colorname)
         )
         normal_fg4 = text_fg
     end
-    -- normal_bg4 = statusline_bg
-    -- normal_fg4 = statusline_fg
     insert_bg = get_color_with_lualine(
         has_lualine,
         lualine_theme,
+        has_airline,
+        airline_theme,
         "insert",
         "a",
         "bg",
@@ -921,6 +839,8 @@ local function setup_colors(colorname)
     insert_fg = get_color_with_lualine(
         has_lualine,
         lualine_theme,
+        has_airline,
+        airline_theme,
         "insert",
         "a",
         "fg",
@@ -931,6 +851,8 @@ local function setup_colors(colorname)
     visual_bg = get_color_with_lualine(
         has_lualine,
         lualine_theme,
+        has_airline,
+        airline_theme,
         "visual",
         "a",
         "bg",
@@ -941,6 +863,8 @@ local function setup_colors(colorname)
     visual_fg = get_color_with_lualine(
         has_lualine,
         lualine_theme,
+        has_airline,
+        airline_theme,
         "visual",
         "a",
         "fg",
@@ -951,6 +875,8 @@ local function setup_colors(colorname)
     replace_bg = get_color_with_lualine(
         has_lualine,
         lualine_theme,
+        has_airline,
+        airline_theme,
         "replace",
         "a",
         "bg",
@@ -961,6 +887,8 @@ local function setup_colors(colorname)
     replace_fg = get_color_with_lualine(
         has_lualine,
         lualine_theme,
+        has_airline,
+        airline_theme,
         "replace",
         "a",
         "fg",
@@ -971,6 +899,8 @@ local function setup_colors(colorname)
     command_bg = get_color_with_lualine(
         has_lualine,
         lualine_theme,
+        has_airline,
+        airline_theme,
         "command",
         "a",
         "bg",
@@ -981,6 +911,8 @@ local function setup_colors(colorname)
     command_fg = get_color_with_lualine(
         has_lualine,
         lualine_theme,
+        has_airline,
+        airline_theme,
         "command",
         "a",
         "fg",
@@ -989,7 +921,7 @@ local function setup_colors(colorname)
         text_bg
     )
 
-    if not has_lualine then
+    if not has_lualine and not has_airline then
         local background_color = colors_hl.get_color("Normal", "bg")
         if background_color then
             local parameter = get_color_brightness(background_color) > 0.5
