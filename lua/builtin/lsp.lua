@@ -13,15 +13,22 @@ vim.diagnostic.config({
         header = "",
         prefix = "",
     },
-    signs = {
-        text = {
-            [vim.diagnostic.severity.ERROR] = constants.diagnostic.sign.error,
-            [vim.diagnostic.severity.WARN] = constants.diagnostic.sign.warning,
-            [vim.diagnostic.severity.INFO] = constants.diagnostic.sign.info,
-            [vim.diagnostic.severity.HINT] = constants.diagnostic.sign.hint,
-        },
-    },
 })
+
+local diagnostic_signs = {
+    DiagnosticSignError = constants.diagnostic.sign.error,
+    DiagnosticSignWarn = constants.diagnostic.sign.warning,
+    DiagnosticSignInfo = constants.diagnostic.sign.info,
+    DiagnosticSignHint = constants.diagnostic.sign.hint,
+}
+
+for name, text in pairs(diagnostic_signs) do
+    vim.fn.sign_define(name, {
+        texthl = name,
+        text = text,
+        numhl = "",
+    })
+end
 
 -- hover/signatureHelp
 vim.lsp.handlers["textDocument/hover"] =
