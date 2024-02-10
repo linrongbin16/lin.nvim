@@ -741,7 +741,7 @@ local function setup_colors(colorname)
     local airline_theme = nil
     if not has_lualine and vim.fn.exists("g:" .. airline_theme_name) > 0 then
         has_airline = true
-        vim.cmd("let tmp=g:" .. airline_theme_name)
+        vim.cmd("let heirline_tmp=g:" .. airline_theme_name)
         airline_theme = vim.g[airline_theme_name]
     end
 
