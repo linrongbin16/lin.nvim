@@ -325,11 +325,11 @@ local LspStatus = {
         local width = vim.o.columns
         if width > 250 then
             width = math.max(math.floor((width - 50) / 3 * 2) - 5, 3)
-        elseif width < 200 then
+        else
             width = math.max(math.floor((width - 50) / 2) - 5, 3)
         end
         local result = require("lsp-progress").progress({
-            max_size = math.max(math.floor(vim.o.columns / 2) - 5, 3),
+            max_size = width,
         })
         if strings.not_empty(result) then
             return " " .. result
