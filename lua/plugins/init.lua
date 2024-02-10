@@ -330,7 +330,7 @@ local M = {
     -- Diagnostic
     {
         "folke/trouble.nvim",
-        cmd = { "Trouble", "TroubleToggle" },
+        cmd = { "Trouble", "TroubleClose", "TroubleToggle", "TroubleRefresh" },
         config = lua_config("folke/trouble.nvim"),
         keys = lua_keys("folke/trouble.nvim"),
     },
@@ -339,7 +339,7 @@ local M = {
     -- Tags generator
     {
         "linrongbin16/gentags.nvim",
-        event = { VeryLazy, BufReadPre, BufNewFile },
+        event = { VeryLazy },
         config = lua_config("linrongbin16/gentags.nvim"),
     },
 
@@ -429,7 +429,12 @@ local M = {
     -- Blame
     {
         "f-person/git-blame.nvim",
-        event = { VeryLazy, CmdlineEnter },
+        event = { VeryLazy },
+        cmd = {
+            "GitBlameToggle",
+            "GitBlameEnable",
+            "GitBlameDisable",
+        },
         config = lua_config("f-person/git-blame.nvim"),
         keys = lua_keys("f-person/git-blame.nvim"),
     },
