@@ -83,8 +83,15 @@ local M = {
     },
     {
         "inkarkat/vim-mark",
-        event = { CmdlineEnter },
         dependencies = { "inkarkat/vim-ingo-library" },
+        cmd = {
+            "Mark",
+            "MarkClear",
+            "MarkName",
+            "MarkLoad",
+            "MarkSave",
+            "Marks",
+        },
         init = lua_init("inkarkat/vim-mark"),
         keys = lua_keys("inkarkat/vim-mark"),
     },
