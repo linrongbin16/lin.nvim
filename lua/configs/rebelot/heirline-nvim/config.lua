@@ -527,7 +527,7 @@ local Location = {
         end,
     },
     {
-        provider = "  %2l:%-2c"
+        provider = "  %2l:%-2c",
     },
 }
 
