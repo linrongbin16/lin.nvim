@@ -246,7 +246,6 @@ local M = {
     -- Lsp server management
     {
         "williamboman/mason.nvim",
-        dependencies = { "neovim/nvim-lspconfig" },
         event = { VeryLazy },
         cmd = {
             "Mason",
@@ -256,6 +255,7 @@ local M = {
             "MasonUninstallAll",
             "MasonLog",
         },
+        dependencies = { "neovim/nvim-lspconfig" },
         build = ":MasonUpdate",
         config = lua_config("williamboman/mason.nvim"),
         keys = lua_keys("williamboman/mason.nvim"),
@@ -280,6 +280,7 @@ local M = {
     {
         "nvimtools/none-ls.nvim",
         event = { VeryLazy },
+        cmd = { "NullLsInfo", "NullLsLog" },
         dependencies = { "neovim/nvim-lspconfig" },
         config = lua_config("jose-elias-alvarez/null-ls.nvim"),
     },
