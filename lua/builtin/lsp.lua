@@ -13,26 +13,32 @@ vim.diagnostic.config({
         header = "",
         prefix = "",
     },
+    signs = {
+        text = {
+            [vim.diagnostic.severity.ERROR] = constants.diagnostic.sign.error,
+            [vim.diagnostic.severity.WARN] = constants.diagnostic.sign.warning,
+            [vim.diagnostic.severity.INFO] = constants.diagnostic.sign.info,
+            [vim.diagnostic.severity.HINT] = constants.diagnostic.sign.hint,
+        },
+    },
 })
 
---- @param opts table<any, any>
-local function define_diagnostic_sign(opts)
-    vim.fn.sign_define(opts.name, {
-        texthl = opts.name,
-        text = opts.text,
-        numhl = "",
-    })
-end
-
-local diagnostic_signs = {
-    DiagnosticSignError = constants.diagnostic.sign.error,
-    DiagnosticSignWarn = constants.diagnostic.sign.warning,
-    DiagnosticSignInfo = constants.diagnostic.sign.info,
-    DiagnosticSignHint = constants.diagnostic.sign.hint,
+local diagnostic_hls = {
+    DiagnosticError = "ErrorMsg",
+    DiagnosticWarn = "WarningMsg",
+    DiagnosticInfo = "Normal",
+    DiagnosticHint = "Comment",
+    DiagnosticSignError = "DiagnosticError",
+    DiagnosticSignWarn = "DiagnosticWarn",
+    DiagnosticSignInfo = "DiagnosticInfo",
+    DiagnosticSignHint = "DiagnosticHint",
 }
 
-for name, icon in pairs(diagnostic_signs) do
-    define_diagnostic_sign({ name = name, text = icon })
+for name, link in pairs(diagnostic_hls) do
+    local hl = vim.api.nvim_get_hl(0, { name = name })
+    if hl == nil or vim.tbl_isempty(hl) then
+        vim.api.nvim_set_hl(0, name, { link = link })
+    end
 end
 
 -- hover/signatureHelp
