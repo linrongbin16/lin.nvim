@@ -195,7 +195,7 @@ local FileName = {
             end
             return ""
         end,
-        update = { "TextChangedI"},
+        update = { "TextChangedI" },
     },
     -- file size
     {
@@ -233,7 +233,7 @@ local FileName = {
 
 local GitBranch = {
     hl = { fg = "normal_fg3", bg = "normal_bg3" },
-    update = { "FocusGained", "TermLeave", "TermClose"},
+    update = { "FocusGained", "TermLeave", "TermClose" },
 
     {
         provider = function(self)
