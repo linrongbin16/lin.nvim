@@ -160,22 +160,8 @@ local FileName = {
 
     -- file name
     {
-        provider = function(self)
-            if strings.empty(self.filename) then
-                return ""
-            end
-            local fname = vim.fn.fnamemodify(self.filename, ":t")
-            if strings.empty(fname) then
-                return ""
-            end
-            return " " .. fname .. " "
-        end,
-        update = {
-            "BufEnter",
-            "WinEnter",
-        },
+        provider = " %t ",
     },
-    -- file status
     {
         provider = function(self)
             if strings.empty(self.filename) then
@@ -195,12 +181,7 @@ local FileName = {
             end
             return ""
         end,
-        update = {
-            "TextChangedI",
-            "TextChanged",
-            "BufEnter",
-            "WinEnter",
-        },
+        update = { "OptionSet" },
     },
     -- file size
     {
@@ -238,7 +219,7 @@ local FileName = {
 
 local GitBranch = {
     hl = { fg = "normal_fg3", bg = "normal_bg3" },
-    update = { "BufEnter", "WinEnter" },
+    update = { "FocusGained", "TermLeave", "TermClose" },
 
     {
         provider = function(self)
@@ -302,8 +283,14 @@ local GitDiff = {
 local LspStatus = {
     hl = { fg = "normal_fg4", bg = "normal_bg4" },
     provider = function()
+        local width = vim.o.columns
+        if width > 250 then
+            width = math.max(math.floor((width - 50) / 3 * 2) - 5, 3)
+        else
+            width = math.max(math.floor((width - 50) / 2) - 5, 3)
+        end
         local result = require("lsp-progress").progress({
-            max_size = math.max(math.floor(vim.o.columns / 2) - 5, 3),
+            max_size = width,
         })
         if strings.not_empty(result) then
             return " " .. result
@@ -335,7 +322,11 @@ local SearchCount = {
         local denominator = math.min(result.total, result.maxcount)
         return string.format("[%d/%d] ", result.current, denominator)
     end,
-    update = { "SearchWrapped", "CursorMoved" },
+    update = {
+        "SearchWrapped",
+        "CmdlineEnter",
+        "CmdlineLeave",
+    },
 }
 
 local DiagnosticSigns = {
@@ -489,10 +480,7 @@ local FileType = {
                 return { fg = "normal_fg2", bg = "normal_bg2" }
             end
         end,
-        update = {
-            "BufEnter",
-            "WinEnter",
-        },
+        update = { "BufEnter" },
     },
     {
         provider = function(self)
@@ -501,10 +489,7 @@ local FileType = {
             end
             return self.filename_ext .. " "
         end,
-        update = {
-            "BufEnter",
-            "WinEnter",
-        },
+        update = { "BufEnter" },
     },
 }
 
@@ -527,14 +512,7 @@ local Location = {
         end,
     },
     {
-        provider = function(self)
-            ---@diagnostic disable-next-line: deprecated
-            local row, col = unpack(vim.api.nvim_win_get_cursor(0))
-            if type(row) ~= "number" or type(col) ~= "number" then
-                return ""
-            end
-            return "  " .. string.format("%2s:%2s", row, col + 1)
-        end,
+        provider = "  %2l:%-2c",
     },
 }
 
@@ -547,17 +525,7 @@ local Progress = {
         local mode_hl = ModeHighlights[mode_name] or ModeHighlights.NORMAL
         return { fg = mode_hl.fg, bg = mode_hl.bg, bold = true }
     end,
-    provider = function(self)
-        local line_fraction =
-            math.floor(vim.fn.line(".") / vim.fn.line("$") * 100)
-        local value = string.format("%2d%%%%", line_fraction)
-        if line_fraction <= 0 then
-            value = "Top"
-        elseif line_fraction >= 100 then
-            value = "Bot"
-        end
-        return "  " .. value .. " "
-    end,
+    provider = "  %P ",
 }
 
 local StatusLine = {
