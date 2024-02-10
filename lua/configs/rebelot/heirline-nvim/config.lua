@@ -564,17 +564,7 @@ local Progress = {
         local mode_hl = ModeHighlights[mode_name] or ModeHighlights.NORMAL
         return { fg = mode_hl.fg, bg = mode_hl.bg, bold = true }
     end,
-    provider = function(self)
-        local line_fraction =
-            math.floor(vim.fn.line(".") / vim.fn.line("$") * 100)
-        local value = string.format("%2d%%%%", line_fraction)
-        if line_fraction <= 0 then
-            value = "Top"
-        elseif line_fraction >= 100 then
-            value = "Bot"
-        end
-        return "  " .. value .. " "
-    end,
+    provider = "  %P ",
 }
 
 local StatusLine = {
