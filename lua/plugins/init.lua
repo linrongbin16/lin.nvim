@@ -45,7 +45,15 @@ local M = {
 
     {
         "nvim-treesitter/nvim-treesitter",
-        event = { VeryLazy, BufReadPre, BufNewFile, CmdlineEnter },
+        event = { VeryLazy },
+        cmd = {
+            "TSInstall",
+            "TSInstallSync",
+            "TSInstallInfo",
+            "TSUpdate",
+            "TSUpdateSync",
+            "TSUninstall",
+        },
         build = function()
             require("nvim-treesitter.install").update({ with_sync = true })
         end,
