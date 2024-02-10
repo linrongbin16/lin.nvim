@@ -600,25 +600,13 @@ local function get_color_with_airline(
     fallback_attribute,
     fallback_color
 )
-    local sec1, sec2
-    if section == "a" then
-        sec1 = "left"
-        sec2 = 1
-    elseif section == "b" then
-        if tables.tbl_get(airline_theme, mode_name, "left", 2) then
-            sec1 = "left"
-            sec2 = 2
-        else
-            sec1 = "right"
-            sec2 = 1
-        end
-    elseif section == "c" then
-        sec1 = "middle"
-        sec2 = 1
-    end
+    section = "airline_" .. section
     local attr = attribute == "fg" and 1 or 2
-    if tables.tbl_get(airline_theme, mode_name, sec1, sec2, attr) then
-        local result = airline_theme[mode_name][sec1][sec2][attr]
+    if mode_name == "command" then
+        mode_name = "terminal"
+    end
+    if tables.tbl_get(airline_theme, mode_name, section, attr) then
+        local result = airline_theme[mode_name][section][attr]
         return result
     else
         return colors_hl.get_color_with_fallback(
@@ -723,7 +711,6 @@ local function setup_colors(colorname)
     )
 
     local text_bg, text_fg
-    local statusline_bg, statusline_fg
     local normal_bg, normal_fg
     local normal_bg1, normal_fg1
     local normal_bg2, normal_fg2
@@ -924,14 +911,172 @@ local function setup_colors(colorname)
         has_airline = true
         vim.cmd("let tmp=g:" .. airline_theme_name)
         local airline_theme = vim.g[airline_theme_name]
+        text_bg = get_color_with_airline(
+            airline_theme,
+            "normal",
+            "a",
+            "bg",
+            { "Normal" },
+            "bg",
+            black
+        )
+        text_fg = get_color_with_airline(
+            airline_theme,
+            "normal",
+            "a",
+            "fg",
+            { "Normal" },
+            "fg",
+            white
+        )
+        normal_bg = get_color_with_airline(
+            airline_theme,
+            "normal",
+            "a",
+            "bg",
+            { "StatusLine", "PmenuSel", "PmenuThumb", "TabLineSel" },
+            "bg",
+            get_terminal_color_with_fallback(0, magenta)
+        )
+        normal_fg = get_color_with_airline(
+            airline_theme,
+            "normal",
+            "a",
+            "fg",
+            {},
+            "fg",
+            text_bg -- or black
+        )
+        normal_bg1 = normal_bg
+        normal_fg1 = normal_fg
+        normal_bg2 = get_color_with_airline(
+            airline_theme,
+            "normal",
+            "b",
+            "bg",
+            {},
+            "bg",
+            shade_rgb(
+                get_terminal_color_with_fallback(0, magenta),
+                shade_level1
+            )
+        )
+        normal_fg2 = get_color_with_airline(
+            airline_theme,
+            "normal",
+            "b",
+            "fg",
+            {},
+            "fg",
+            text_fg -- or white
+        )
+        normal_bg3 =
+            get_color_with_airline(airline_theme, "normal", "c", "bg", {}, "bg")
+        normal_fg3 =
+            get_color_with_airline(airline_theme, "normal", "c", "fg", {}, "fg")
+        if normal_bg3 and normal_fg3 then
+            local parameter = get_color_brightness(normal_bg3) > 0.5 and 8 or -8
+            normal_bg4 = brightness_modifier(normal_bg3, parameter)
+            normal_fg4 = normal_fg3
+        else
+            normal_bg3 = shade_rgb(
+                get_terminal_color_with_fallback(0, magenta),
+                shade_level2
+            )
+            normal_fg3 = text_fg
+            normal_bg4 = shade_rgb(
+                get_terminal_color_with_fallback(0, magenta),
+                shade_level3
+            )
+            normal_fg4 = text_fg
+        end
+        insert_bg = get_color_with_airline(
+            airline_theme,
+            "insert",
+            "a",
+            "bg",
+            { "String", "MoreMsg" },
+            "fg",
+            get_terminal_color_with_fallback(2, green)
+        )
+        insert_fg = get_color_with_airline(
+            airline_theme,
+            "insert",
+            "a",
+            "fg",
+            {},
+            "fg",
+            text_bg
+        )
+        visual_bg = get_color_with_airline(
+            airline_theme,
+            "visual",
+            "a",
+            "bg",
+            { "Special", "Boolean", "Constant" },
+            "fg",
+            get_terminal_color_with_fallback(3, yellow)
+        )
+        visual_fg = get_color_with_airline(
+            airline_theme,
+            "visual",
+            "a",
+            "fg",
+            {},
+            "fg",
+            text_bg
+        )
+        replace_bg = get_color_with_airline(
+            airline_theme,
+            "replace",
+            "a",
+            "bg",
+            { "Number", "Type" },
+            "fg",
+            get_terminal_color_with_fallback(4, blue)
+        )
+        replace_fg = get_color_with_airline(
+            airline_theme,
+            "replace",
+            "a",
+            "fg",
+            {},
+            "fg",
+            text_bg
+        )
+        command_bg = get_color_with_airline(
+            airline_theme,
+            "command",
+            "a",
+            "bg",
+            { "Identifier" },
+            "fg",
+            get_terminal_color_with_fallback(1, red)
+        )
+        command_fg = get_color_with_airline(
+            airline_theme,
+            "command",
+            "a",
+            "fg",
+            {},
+            "fg",
+            text_bg
+        )
     end
 
-    if not has_lualine then
+    if not has_lualine and not has_airline then
         local background_color = colors_hl.get_color("Normal", "bg")
         if background_color then
             local parameter = get_color_brightness(background_color) > 0.5
                     and -10
                 or 10
+            if not normal_bg then
+                normal_bg = colors_hl.get_color_with_fallback(
+                    { "StatusLine", "PmenuSel", "PmenuThumb", "TabLineSel" },
+                    "bg",
+                    get_terminal_color_with_fallback(0, magenta)
+                )
+            end
             normal_bg = brightness_modifier(normal_bg, parameter)
             normal_bg1 = normal_bg
             if get_color_brightness(normal_bg1) < 0.5 then
