@@ -268,7 +268,7 @@ local M = {
     },
     {
         "stevearc/conform.nvim",
-        event = { VeryLazy, BufWritePre },
+        event = { BufWritePre },
         dependencies = {
             "neovim/nvim-lspconfig",
             "williamboman/mason.nvim",
