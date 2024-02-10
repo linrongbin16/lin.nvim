@@ -1,5 +1,28 @@
 # Changelog
 
+## [2.21.0](https://github.com/linrongbin16/lin.nvim/compare/v2.20.1...v2.21.0) (2024-02-10)
+
+
+### Features
+
+* **heirline.nvim:** leverage airline themes for pure vim colorschemes ([#483](https://github.com/linrongbin16/lin.nvim/issues/483)) ([98e71bb](https://github.com/linrongbin16/lin.nvim/commit/98e71bbd3e32b2bdded4742268dd66911b955845))
+
+
+### Bug Fixes
+
+* **diagnostics:** fix diagnostic signs ([#482](https://github.com/linrongbin16/lin.nvim/issues/482)) ([db4dfff](https://github.com/linrongbin16/lin.nvim/commit/db4dfff98acc3fceea80b85e0ec1be2ab082891f))
+
+
+### Performance Improvements
+
+* **heirline.nvim:** remove useless time interval ([#476](https://github.com/linrongbin16/lin.nvim/issues/476)) ([92e1f59](https://github.com/linrongbin16/lin.nvim/commit/92e1f599185b6538237ee3496d2406c65271a064))
+* **heirline.nvim:** use modifiers 2 ([#475](https://github.com/linrongbin16/lin.nvim/issues/475)) ([e0b4d7b](https://github.com/linrongbin16/lin.nvim/commit/e0b4d7bff298a44cdf1d864f90e602d058c4afdd))
+* **heirline.nvim:** use statusline modifiers ([#474](https://github.com/linrongbin16/lin.nvim/issues/474)) ([e60f58d](https://github.com/linrongbin16/lin.nvim/commit/e60f58d6c0022b5b3e464211dcd9f6f0a36019d6))
+* **lsp-colors.nvim:** drop off 'lsp-colors.nvim' ([#477](https://github.com/linrongbin16/lin.nvim/issues/477)) ([ee8b54c](https://github.com/linrongbin16/lin.nvim/commit/ee8b54c49d3e1d356213e4ddc84c5716370fe154))
+* **lsp-colors.nvim:** remove 'lsp-colors.nvim' ([#481](https://github.com/linrongbin16/lin.nvim/issues/481)) ([b4f10d2](https://github.com/linrongbin16/lin.nvim/commit/b4f10d2c4ba7b59306d04a6498bbf168492102b1))
+* **plugins:** improve startup time ([#477](https://github.com/linrongbin16/lin.nvim/issues/477)) ([ee8b54c](https://github.com/linrongbin16/lin.nvim/commit/ee8b54c49d3e1d356213e4ddc84c5716370fe154))
+* **plugins:** reduce startup time ([#480](https://github.com/linrongbin16/lin.nvim/issues/480)) ([20914b4](https://github.com/linrongbin16/lin.nvim/commit/20914b4b0c5110d6779c4051025cd806d100b4e8))
+
 ## [2.20.1](https://github.com/linrongbin16/lin.nvim/compare/v2.20.0...v2.20.1) (2024-02-09)
 
 
