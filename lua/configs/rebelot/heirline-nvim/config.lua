@@ -174,48 +174,54 @@ local FileName = {
 
     -- file name
     {
-        provider = function(self)
-            if strings.empty(self.filename) then
-                return ""
-            end
-            local fname = vim.fn.fnamemodify(self.filename, ":t")
-            if strings.empty(fname) then
-                return ""
-            end
-            return " " .. fname .. " "
-        end,
-        update = {
-            "BufEnter",
-            "WinEnter",
-            callback = redraw_file_name,
-        },
+        provider = " %t",
     },
+    -- {
+    --     provider = function(self)
+    --         if strings.empty(self.filename) then
+    --             return ""
+    --         end
+    --         local fname = vim.fn.fnamemodify(self.filename, ":t")
+    --         if strings.empty(fname) then
+    --             return ""
+    --         end
+    --         return " " .. fname .. " "
+    --     end,
+    --     update = {
+    --         "BufEnter",
+    --         "WinEnter",
+    --         callback = redraw_file_name,
+    --     },
+    -- },
     -- file status
     {
-        provider = function(self)
-            if strings.empty(self.filename) then
-                return ""
-            end
-            local readonly = not vim.api.nvim_buf_get_option(
-                    0,
-                    "modifiable"
-                )
-                or vim.api.nvim_buf_get_option(0, "readonly")
-            if readonly then
-                return "[] "
-            end
-            local modified = vim.api.nvim_buf_get_option(0, "modified")
-            if modified then
-                return "[] "
-            end
-            return ""
-        end,
-        update = {
-            "TextChangedI",
-            "TextChanged",
-            callback = redraw_file_name,
-        },
+        provider = "%r%m",
     },
+    -- {
+    --     provider = function(self)
+    --         if strings.empty(self.filename) then
+    --             return ""
+    --         end
+    --         local readonly = not vim.api.nvim_buf_get_option(
+    --                 0,
+    --                 "modifiable"
+    --             )
+    --             or vim.api.nvim_buf_get_option(0, "readonly")
+    --         if readonly then
+    --             return "[] "
+    --         end
+    --         local modified = vim.api.nvim_buf_get_option(0, "modified")
+    --         if modified then
+    --             return "[] "
+    --         end
+    --         return ""
+    --     end,
+    --     update = {
+    --         "TextChangedI",
+    --         "TextChanged",
+    --         callback = redraw_file_name,
+    --     },
+    -- },
     -- file size
     {
         provider = function(self)
@@ -234,7 +240,7 @@ local FileName = {
                 i = i + 1
             end
 
-            local fsize_fmt = i == 1 and "[%d%s] " or "[%.1f%s] "
+            local fsize_fmt = i == 1 and " [%d%s] " or " [%.1f%s] "
             local fsize_value = string.format(fsize_fmt, filesize, suffixes[i])
             return fsize_value
         end,
