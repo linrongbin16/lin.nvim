@@ -13,31 +13,43 @@ vim.diagnostic.config({
         header = "",
         prefix = "",
     },
+    signs = {
+        text = {
+            [vim.diagnostic.severity.ERROR] = constants.diagnostic.sign.error,
+            [vim.diagnostic.severity.WARN] = constants.diagnostic.sign.warning,
+            [vim.diagnostic.severity.INFO] = constants.diagnostic.sign.info,
+            [vim.diagnostic.severity.HINT] = constants.diagnostic.sign.hint,
+        },
+    },
 })
 
-local diagnostic_signs = {
-    DiagnosticSignError = constants.diagnostic.sign.error,
-    DiagnosticSignWarn = constants.diagnostic.sign.warning,
-    DiagnosticSignInfo = constants.diagnostic.sign.info,
-    DiagnosticSignHint = constants.diagnostic.sign.hint,
-}
+-- local diagnostic_signs = {
+--     DiagnosticSignError = constants.diagnostic.sign.error,
+--     DiagnosticSignWarn = constants.diagnostic.sign.warning,
+--     DiagnosticSignInfo = constants.diagnostic.sign.info,
+--     DiagnosticSignHint = constants.diagnostic.sign.hint,
+-- }
 local diagnostic_hls = {
-    DiagnosticSignError = "ErrorMsg",
-    DiagnosticSignWarn = "WarningMsg",
-    DiagnosticSignInfo = "Normal",
-    DiagnosticSignHint = "Comment",
+    DiagnosticError = "ErrorMsg",
+    DiagnosticWarn = "WarningMsg",
+    DiagnosticInfo = "Normal",
+    DiagnosticHint = "Comment",
+    DiagnosticSignError = "DiagnosticError",
+    DiagnosticSignWarn = "DiagnosticWarn",
+    DiagnosticSignInfo = "DiagnosticInfo",
+    DiagnosticSignHint = "DiagnosticHint",
 }
 
-for name, text in pairs(diagnostic_signs) do
+for name, link in pairs(diagnostic_hls) do
     local hl = vim.api.nvim_get_hl(0, { name = name })
-    if vim.tbl_isempty(hl) then
-        vim.api.nvim_set_hl(0, name, { link = diagnostic_hls[name] })
+    if hl == nil or vim.tbl_isempty(hl) then
+        vim.api.nvim_set_hl(0, name, { link = link })
     end
-    vim.fn.sign_define(name, {
-        texthl = name,
-        text = text,
-        numhl = "",
-    })
+    -- vim.fn.sign_define(name, {
+    --     texthl = name,
+    --     text = text,
+    --     numhl = "",
+    -- })
 end
 
 -- hover/signatureHelp
