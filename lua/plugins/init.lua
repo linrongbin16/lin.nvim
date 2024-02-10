@@ -7,8 +7,8 @@ local vim_init = require("builtin.utils.plugin").vim_init
 local vim_config = require("builtin.utils.plugin").vim_config
 
 local VeryLazy = "VeryLazy"
-local BufNewFile = "BufNewFile"
-local BufReadPost = "BufReadPost"
+local BufEnter = "BufEnter"
+local BufWritePost = "BufWritePost"
 local CmdlineEnter = "CmdlineEnter"
 local VimEnter = "VimEnter"
 local InsertEnter = "InsertEnter"
@@ -272,7 +272,7 @@ local M = {
     },
     {
         "stevearc/conform.nvim",
-        event = { BufReadPost },
+        event = { BufWritePost },
         cmd = { "ConformInfo" },
         dependencies = {
             "neovim/nvim-lspconfig",
@@ -464,12 +464,12 @@ local M = {
     -- Repeat
     {
         "tpope/vim-repeat",
-        event = { VeryLazy, BufReadPost, BufNewFile },
+        event = { VeryLazy, BufEnter },
     },
     -- Comment
     {
         "numToStr/Comment.nvim",
-        event = { VeryLazy, BufReadPost, BufNewFile },
+        event = { VeryLazy, BufEnter },
         config = lua_config("numToStr/Comment.nvim"),
     },
     -- Cursor motion
@@ -484,7 +484,7 @@ local M = {
     {
         "kylechui/nvim-surround",
         version = "*",
-        event = { VeryLazy, BufReadPost, BufNewFile },
+        event = { VeryLazy, BufEnter },
         config = lua_config("kylechui/nvim-surround"),
     },
     -- Structure outlines
