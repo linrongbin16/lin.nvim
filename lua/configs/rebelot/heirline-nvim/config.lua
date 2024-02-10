@@ -210,7 +210,11 @@ local FileName = {
             end
             return ""
         end,
-        update = { "TextChangedI", callback = redraw_file_name },
+        update = {
+            "TextChangedI",
+            "TextChanged",
+            callback = redraw_file_name,
+        },
     },
     -- file size
     {
