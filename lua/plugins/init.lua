@@ -239,14 +239,22 @@ local M = {
     },
     {
         "neovim/nvim-lspconfig",
-        event = { VeryLazy, BufReadPre, BufNewFile, CmdlineEnter },
+        event = { VeryLazy },
         dependencies = { "folke/neoconf.nvim", "folke/neodev.nvim" }, -- neoconf, neodev must be setup before nvim-lspconfig
         config = lua_config("neovim/nvim-lspconfig"),
     },
     -- Lsp server management
     {
         "williamboman/mason.nvim",
-        event = { VeryLazy, BufReadPre, BufNewFile, CmdlineEnter },
+        event = { VeryLazy },
+        cmd = {
+            "Mason",
+            "MasonUpdate",
+            "MasonInstall",
+            "MasonUninstall",
+            "MasonUninstallAll",
+            "MasonLog",
+        },
         dependencies = { "neovim/nvim-lspconfig" },
         build = ":MasonUpdate",
         config = lua_config("williamboman/mason.nvim"),
