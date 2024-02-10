@@ -191,7 +191,7 @@ local M = {
     -- Fuzzy search
     {
         "junegunn/fzf",
-        event = { CmdlineEnter },
+        cmd = { "FZF" },
         build = function()
             vim.fn["fzf#install"]()
         end,
