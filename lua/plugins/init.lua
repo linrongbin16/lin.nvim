@@ -421,7 +421,12 @@ local M = {
     -- Blame
     {
         "f-person/git-blame.nvim",
-        event = { VeryLazy, CmdlineEnter },
+        event = { VeryLazy },
+        cmd = {
+            "GitBlameToggle",
+            "GitBlameEnable",
+            "GitBlameDisable",
+        },
         config = lua_config("f-person/git-blame.nvim"),
         keys = lua_keys("f-person/git-blame.nvim"),
     },
