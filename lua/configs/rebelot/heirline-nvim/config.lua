@@ -527,14 +527,7 @@ local Location = {
         end,
     },
     {
-        provider = function(self)
-            ---@diagnostic disable-next-line: deprecated
-            local row, col = unpack(vim.api.nvim_win_get_cursor(0))
-            if type(row) ~= "number" or type(col) ~= "number" then
-                return ""
-            end
-            return "  " .. string.format("%2s:%2s", row, col + 1)
-        end,
+        provider = "  %2l:%-2c"
     },
 }
 
