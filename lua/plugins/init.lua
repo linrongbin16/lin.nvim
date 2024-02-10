@@ -61,7 +61,7 @@ local M = {
     },
     {
         "RRethy/vim-illuminate",
-        event = { VeryLazy, BufReadPre, BufNewFile },
+        event = { VeryLazy },
         dependencies = {
             "neovim/nvim-lspconfig",
             "nvim-treesitter/nvim-treesitter",
@@ -70,18 +70,18 @@ local M = {
     },
     {
         "NvChad/nvim-colorizer.lua",
-        event = { VeryLazy, BufReadPre, BufNewFile },
+        event = { VeryLazy },
         config = lua_config("NvChad/nvim-colorizer.lua"),
     },
     {
         "nvim-treesitter/nvim-treesitter-context",
-        event = { VeryLazy, BufReadPre, BufNewFile },
+        event = { VeryLazy },
         dependencies = { "nvim-treesitter/nvim-treesitter" },
         config = lua_config("nvim-treesitter/nvim-treesitter-context"),
     },
     {
         "andymass/vim-matchup",
-        event = { VeryLazy, BufReadPre, BufNewFile },
+        event = { VeryLazy },
         dependencies = { "nvim-treesitter/nvim-treesitter" },
         init = lua_init("andymass/vim-matchup"),
     },
@@ -124,7 +124,7 @@ local M = {
     {
         "akinsho/bufferline.nvim",
         version = "*",
-        event = { VeryLazy, BufReadPre, BufNewFile },
+        event = { VeryLazy },
         dependencies = { "moll/vim-bbye" },
         config = lua_config("akinsho/bufferline.nvim"),
         keys = lua_keys("akinsho/bufferline.nvim"),
@@ -132,20 +132,20 @@ local M = {
     -- Indentline
     {
         "lukas-reineke/indent-blankline.nvim",
-        event = { VeryLazy, BufReadPre, BufNewFile },
+        event = { VeryLazy },
         config = lua_config("lukas-reineke/indent-blankline.nvim"),
     },
     -- Git
     {
         "airblade/vim-gitgutter",
-        event = { VeryLazy, BufReadPre, BufNewFile },
+        event = { VeryLazy },
         init = lua_init("airblade/vim-gitgutter"),
         keys = lua_keys("airblade/vim-gitgutter"),
     },
     -- Statusline
     {
         "itchyny/vim-gitbranch",
-        event = { VeryLazy, BufReadPre, BufNewFile },
+        event = { VeryLazy },
     },
     {
         "linrongbin16/lsp-progress.nvim",
@@ -170,7 +170,7 @@ local M = {
         "utilyre/barbecue.nvim",
         name = "barbecue",
         version = "*",
-        event = { VeryLazy, BufReadPre, BufNewFile },
+        event = { VeryLazy },
         dependencies = { "SmiteshP/nvim-navic" },
         config = lua_config("utilyre/barbecue.nvim"),
     },
@@ -222,7 +222,8 @@ local M = {
     -- Project/local configuration
     {
         "folke/neoconf.nvim",
-        event = { VeryLazy, BufReadPre, BufNewFile, CmdlineEnter },
+        event = { VeryLazy },
+        cmd = { "Neoconf" },
         config = lua_config("folke/neoconf.nvim"),
     },
 
@@ -232,7 +233,7 @@ local M = {
     {
         "folke/neodev.nvim",
         ft = { "lua" },
-        event = { VeryLazy, BufReadPre, BufNewFile, CmdlineEnter },
+        event = { VeryLazy },
         dependencies = { "folke/neoconf.nvim" }, -- neoconf must be setup before neodev
         config = lua_config("folke/neodev.nvim"),
     },
