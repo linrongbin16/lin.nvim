@@ -365,8 +365,6 @@ local SearchCount = {
         "SearchWrapped",
         "CmdlineEnter",
         "CmdlineLeave",
-        "CmdwinEnter",
-        "CmdwinLeave",
     },
 }
 
