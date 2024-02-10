@@ -23,6 +23,21 @@ vim.diagnostic.config({
     },
 })
 
+local diagnostic_signs = {
+    DiagnosticSignError = constants.diagnostic.sign.error,
+    DiagnosticSignWarn = constants.diagnostic.sign.warning,
+    DiagnosticSignInfo = constants.diagnostic.sign.info,
+    DiagnosticSignHint = constants.diagnostic.sign.hint,
+}
+
+for name, text in pairs(diagnostic_signs) do
+    vim.fn.sign_define(name, {
+        texthl = name,
+        text = text,
+        numhl = "",
+    })
+end
+
 -- hover/signatureHelp
 vim.lsp.handlers["textDocument/hover"] =
     vim.lsp.with(vim.lsp.handlers.hover, { border = constants.ui.border })
