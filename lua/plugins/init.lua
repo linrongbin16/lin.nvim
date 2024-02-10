@@ -491,7 +491,6 @@ local M = {
             "AerialGo",
             "AerialInfo",
         },
-        event = { CmdlineEnter },
         dependencies = {
             "neovim/nvim-lspconfig",
             "nvim-treesitter/nvim-treesitter",
