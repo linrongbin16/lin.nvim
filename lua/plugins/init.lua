@@ -204,6 +204,8 @@ local M = {
             "FzfxLspTypeDefinitions",
             "FzfxLspReferences",
             "FzfxLspImplementations",
+            "FzfxLspIncomingCalls",
+            "FzfxLspOutgoingCalls",
         },
         dependencies = { "junegunn/fzf" },
         config = lua_config("linrongbin16/fzfx.nvim"),
@@ -244,8 +246,16 @@ local M = {
     -- Lsp server management
     {
         "williamboman/mason.nvim",
-        event = { VeryLazy },
         dependencies = { "neovim/nvim-lspconfig" },
+        event = { VeryLazy },
+        cmd = {
+            "Mason",
+            "MasonUpdate",
+            "MasonInstall",
+            "MasonUninstall",
+            "MasonUninstallAll",
+            "MasonLog",
+        },
         build = ":MasonUpdate",
         config = lua_config("williamboman/mason.nvim"),
         keys = lua_keys("williamboman/mason.nvim"),
