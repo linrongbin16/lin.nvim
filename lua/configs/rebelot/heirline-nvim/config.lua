@@ -152,6 +152,20 @@ local Mode = {
     },
 }
 
+local file_name_redrawing = false
+local function redraw_file_name()
+    if file_name_redrawing then
+        return
+    end
+    file_name_redrawing = true
+    vim.schedule(function()
+        vim.cmd("redrawstatus")
+        vim.defer_fn(function()
+            file_name_redrawing = false
+        end, 1000)
+    end)
+end
+
 local FileName = {
     init = function(self)
         self.filename = vim.api.nvim_buf_get_name(0)
@@ -173,6 +187,7 @@ local FileName = {
         update = {
             "BufEnter",
             "WinEnter",
+            callback = redraw_file_name,
         },
     },
     -- file status
@@ -195,7 +210,7 @@ local FileName = {
             end
             return ""
         end,
-        update = { "TextChangedI" },
+        update = { "TextChangedI", callback = redraw_file_name },
     },
     -- file size
     {
@@ -223,6 +238,7 @@ local FileName = {
             "BufWritePost",
             "BufEnter",
             "WinEnter",
+            callback = redraw_file_name,
         },
     },
     {
@@ -330,7 +346,7 @@ local SearchCount = {
         local denominator = math.min(result.total, result.maxcount)
         return string.format("[%d/%d] ", result.current, denominator)
     end,
-    update = { "SearchWrapped", "CursorMoved" },
+    update = { "SearchWrapped" },
 }
 
 local DiagnosticSigns = {
