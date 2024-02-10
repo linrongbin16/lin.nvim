@@ -544,8 +544,10 @@ local StatusLine = {
     Progress,
 }
 
----@param lualine_ok boolean
+---@param has_lualine boolean
 ---@param lualine_theme table
+---@param has_airline boolean
+---@param airline_theme table
 ---@param mode_name "normal"|"insert"|"visual"|"replace"|"command"|"inactive"
 ---@param section "a"|"b"|"c"
 ---@param attribute "fg"|"bg"
@@ -553,8 +555,10 @@ local StatusLine = {
 ---@param fallback_attribute 'fg'|'bg'
 ---@param fallback_color string?
 local function get_color_with_lualine(
-    lualine_ok,
+    has_lualine,
     lualine_theme,
+    has_airline,
+    airline_theme,
     mode_name,
     section,
     attribute,
@@ -562,11 +566,19 @@ local function get_color_with_lualine(
     fallback_attribute,
     fallback_color
 )
+    local a_section = "airline_" .. section
+    local a_attribute = attribute == "fg" and 1 or 2
+    local a_mode_name = mode_name == "command" and "terminal" or mode_name
     if
-        lualine_ok
+        has_lualine
         and tables.tbl_get(lualine_theme, mode_name, section, attribute)
     then
         return lualine_theme[mode_name][section][attribute]
+    elseif
+        has_airline
+        and tables.tbl_get(airline_theme, a_mode_name, a_section, a_attribute)
+    then
+        return airline_theme[a_mode_name][a_section][a_attribute]
     else
         return colors_hl.get_color_with_fallback(
             fallback_hls,
@@ -726,343 +738,221 @@ local function setup_colors(colorname)
     local has_airline = false
     local airline_theme_name =
         string.format("airline#themes#%s#palette", colorname)
-
-    if has_lualine then
-        text_bg = get_color_with_lualine(
-            has_lualine,
-            lualine_theme,
-            "normal",
-            "a",
-            "bg",
-            { "Normal" },
-            "bg",
-            black
-        )
-        text_fg = get_color_with_lualine(
-            has_lualine,
-            lualine_theme,
-            "normal",
-            "a",
-            "fg",
-            { "Normal" },
-            "fg",
-            white
-        )
-        normal_bg = get_color_with_lualine(
-            has_lualine,
-            lualine_theme,
-            "normal",
-            "a",
-            "bg",
-            { "StatusLine", "PmenuSel", "PmenuThumb", "TabLineSel" },
-            "bg",
-            get_terminal_color_with_fallback(0, magenta)
-        )
-        normal_fg = get_color_with_lualine(
-            has_lualine,
-            lualine_theme,
-            "normal",
-            "a",
-            "fg",
-            {},
-            "fg",
-            text_bg -- or black
-        )
-        normal_bg1 = normal_bg
-        normal_fg1 = normal_fg
-        normal_bg2 = get_color_with_lualine(
-            has_lualine,
-            lualine_theme,
-            "normal",
-            "b",
-            "bg",
-            {},
-            "bg",
-            shade_rgb(
-                get_terminal_color_with_fallback(0, magenta),
-                shade_level1
-            )
-        )
-        normal_fg2 = get_color_with_lualine(
-            has_lualine,
-            lualine_theme,
-            "normal",
-            "b",
-            "fg",
-            {},
-            "fg",
-            text_fg -- or white
-        )
-        normal_bg3 = get_color_with_lualine(
-            has_lualine,
-            lualine_theme,
-            "normal",
-            "c",
-            "bg",
-            {},
-            "bg"
-        )
-        normal_fg3 = get_color_with_lualine(
-            has_lualine,
-            lualine_theme,
-            "normal",
-            "c",
-            "fg",
-            {},
-            "fg"
-        )
-        if normal_bg3 and normal_fg3 then
-            local parameter = get_color_brightness(normal_bg3) > 0.5 and 8 or -8
-            normal_bg4 = brightness_modifier(normal_bg3, parameter)
-            normal_fg4 = normal_fg3
-        else
-            normal_bg3 = shade_rgb(
-                get_terminal_color_with_fallback(0, magenta),
-                shade_level2
-            )
-            normal_fg3 = text_fg
-            normal_bg4 = shade_rgb(
-                get_terminal_color_with_fallback(0, magenta),
-                shade_level3
-            )
-            normal_fg4 = text_fg
-        end
-        insert_bg = get_color_with_lualine(
-            has_lualine,
-            lualine_theme,
-            "insert",
-            "a",
-            "bg",
-            { "String", "MoreMsg" },
-            "fg",
-            get_terminal_color_with_fallback(2, green)
-        )
-        insert_fg = get_color_with_lualine(
-            has_lualine,
-            lualine_theme,
-            "insert",
-            "a",
-            "fg",
-            {},
-            "fg",
-            text_bg
-        )
-        visual_bg = get_color_with_lualine(
-            has_lualine,
-            lualine_theme,
-            "visual",
-            "a",
-            "bg",
-            { "Special", "Boolean", "Constant" },
-            "fg",
-            get_terminal_color_with_fallback(3, yellow)
-        )
-        visual_fg = get_color_with_lualine(
-            has_lualine,
-            lualine_theme,
-            "visual",
-            "a",
-            "fg",
-            {},
-            "fg",
-            text_bg
-        )
-        replace_bg = get_color_with_lualine(
-            has_lualine,
-            lualine_theme,
-            "replace",
-            "a",
-            "bg",
-            { "Number", "Type" },
-            "fg",
-            get_terminal_color_with_fallback(4, blue)
-        )
-        replace_fg = get_color_with_lualine(
-            has_lualine,
-            lualine_theme,
-            "replace",
-            "a",
-            "fg",
-            {},
-            "fg",
-            text_bg
-        )
-        command_bg = get_color_with_lualine(
-            has_lualine,
-            lualine_theme,
-            "command",
-            "a",
-            "bg",
-            { "Identifier" },
-            "fg",
-            get_terminal_color_with_fallback(1, red)
-        )
-        command_fg = get_color_with_lualine(
-            has_lualine,
-            lualine_theme,
-            "command",
-            "a",
-            "fg",
-            {},
-            "fg",
-            text_bg
-        )
-    elseif vim.fn.exists("g:" .. airline_theme_name) > 0 then
+    local airline_theme = nil
+    if not has_lualine and vim.fn.exists("g:" .. airline_theme_name) > 0 then
         has_airline = true
         vim.cmd("let tmp=g:" .. airline_theme_name)
-        local airline_theme = vim.g[airline_theme_name]
-        text_bg = get_color_with_airline(
-            airline_theme,
-            "normal",
-            "a",
-            "bg",
-            { "Normal" },
-            "bg",
-            black
-        )
-        text_fg = get_color_with_airline(
-            airline_theme,
-            "normal",
-            "a",
-            "fg",
-            { "Normal" },
-            "fg",
-            white
-        )
-        normal_bg = get_color_with_airline(
-            airline_theme,
-            "normal",
-            "a",
-            "bg",
-            { "StatusLine", "PmenuSel", "PmenuThumb", "TabLineSel" },
-            "bg",
-            get_terminal_color_with_fallback(0, magenta)
-        )
-        normal_fg = get_color_with_airline(
-            airline_theme,
-            "normal",
-            "a",
-            "fg",
-            {},
-            "fg",
-            text_bg -- or black
-        )
-        normal_bg1 = normal_bg
-        normal_fg1 = normal_fg
-        normal_bg2 = get_color_with_airline(
-            airline_theme,
-            "normal",
-            "b",
-            "bg",
-            {},
-            "bg",
-            shade_rgb(
-                get_terminal_color_with_fallback(0, magenta),
-                shade_level1
-            )
-        )
-        normal_fg2 = get_color_with_airline(
-            airline_theme,
-            "normal",
-            "b",
-            "fg",
-            {},
-            "fg",
-            text_fg -- or white
-        )
-        normal_bg3 =
-            get_color_with_airline(airline_theme, "normal", "c", "bg", {}, "bg")
-        normal_fg3 =
-            get_color_with_airline(airline_theme, "normal", "c", "fg", {}, "fg")
-        if normal_bg3 and normal_fg3 then
-            local parameter = get_color_brightness(normal_bg3) > 0.5 and 8 or -8
-            normal_bg4 = brightness_modifier(normal_bg3, parameter)
-            normal_fg4 = normal_fg3
-        else
-            normal_bg3 = shade_rgb(
-                get_terminal_color_with_fallback(0, magenta),
-                shade_level2
-            )
-            normal_fg3 = text_fg
-            normal_bg4 = shade_rgb(
-                get_terminal_color_with_fallback(0, magenta),
-                shade_level3
-            )
-            normal_fg4 = text_fg
-        end
-        insert_bg = get_color_with_airline(
-            airline_theme,
-            "insert",
-            "a",
-            "bg",
-            { "String", "MoreMsg" },
-            "fg",
-            get_terminal_color_with_fallback(2, green)
-        )
-        insert_fg = get_color_with_airline(
-            airline_theme,
-            "insert",
-            "a",
-            "fg",
-            {},
-            "fg",
-            text_bg
-        )
-        visual_bg = get_color_with_airline(
-            airline_theme,
-            "visual",
-            "a",
-            "bg",
-            { "Special", "Boolean", "Constant" },
-            "fg",
-            get_terminal_color_with_fallback(3, yellow)
-        )
-        visual_fg = get_color_with_airline(
-            airline_theme,
-            "visual",
-            "a",
-            "fg",
-            {},
-            "fg",
-            text_bg
-        )
-        replace_bg = get_color_with_airline(
-            airline_theme,
-            "replace",
-            "a",
-            "bg",
-            { "Number", "Type" },
-            "fg",
-            get_terminal_color_with_fallback(4, blue)
-        )
-        replace_fg = get_color_with_airline(
-            airline_theme,
-            "replace",
-            "a",
-            "fg",
-            {},
-            "fg",
-            text_bg
-        )
-        command_bg = get_color_with_airline(
-            airline_theme,
-            "command",
-            "a",
-            "bg",
-            { "Identifier" },
-            "fg",
-            get_terminal_color_with_fallback(1, red)
-        )
-        command_fg = get_color_with_airline(
-            airline_theme,
-            "command",
-            "a",
-            "fg",
-            {},
-            "fg",
-            text_bg
-        )
+        airline_theme = vim.g[airline_theme_name]
     end
+
+    text_bg = get_color_with_lualine(
+        has_lualine,
+        lualine_theme,
+        has_airline,
+        airline_theme,
+        "normal",
+        "a",
+        "bg",
+        { "Normal" },
+        "bg",
+        black
+    )
+    text_fg = get_color_with_lualine(
+        has_lualine,
+        lualine_theme,
+        has_airline,
+        airline_theme,
+        "normal",
+        "a",
+        "fg",
+        { "Normal" },
+        "fg",
+        white
+    )
+    normal_bg = get_color_with_lualine(
+        has_lualine,
+        lualine_theme,
+        has_airline,
+        airline_theme,
+        "normal",
+        "a",
+        "bg",
+        { "StatusLine", "PmenuSel", "PmenuThumb", "TabLineSel" },
+        "bg",
+        get_terminal_color_with_fallback(0, magenta)
+    )
+    normal_fg = get_color_with_lualine(
+        has_lualine,
+        lualine_theme,
+        has_airline,
+        airline_theme,
+        "normal",
+        "a",
+        "fg",
+        {},
+        "fg",
+        text_bg -- or black
+    )
+    normal_bg1 = normal_bg
+    normal_fg1 = normal_fg
+    normal_bg2 = get_color_with_lualine(
+        has_lualine,
+        lualine_theme,
+        has_airline,
+        airline_theme,
+        "normal",
+        "b",
+        "bg",
+        {},
+        "bg",
+        shade_rgb(get_terminal_color_with_fallback(0, magenta), shade_level1)
+    )
+    normal_fg2 = get_color_with_lualine(
+        has_lualine,
+        lualine_theme,
+        has_airline,
+        airline_theme,
+        "normal",
+        "b",
+        "fg",
+        {},
+        "fg",
+        text_fg -- or white
+    )
+    normal_bg3 = get_color_with_lualine(
+        has_lualine,
+        lualine_theme,
+        has_airline,
+        airline_theme,
+        "normal",
+        "c",
+        "bg",
+        {},
+        "bg"
+    )
+    normal_fg3 = get_color_with_lualine(
+        has_lualine,
+        lualine_theme,
+        has_airline,
+        airline_theme,
+        "normal",
+        "c",
+        "fg",
+        {},
+        "fg"
+    )
+    if normal_bg3 and normal_fg3 then
+        local parameter = get_color_brightness(normal_bg3) > 0.5 and 8 or -8
+        normal_bg4 = brightness_modifier(normal_bg3, parameter)
+        normal_fg4 = normal_fg3
+    else
+        normal_bg3 = shade_rgb(
+            get_terminal_color_with_fallback(0, magenta),
+            shade_level2
+        )
+        normal_fg3 = text_fg
+        normal_bg4 = shade_rgb(
+            get_terminal_color_with_fallback(0, magenta),
+            shade_level3
+        )
+        normal_fg4 = text_fg
+    end
+    insert_bg = get_color_with_lualine(
+        has_lualine,
+        lualine_theme,
+        has_airline,
+        airline_theme,
+        "insert",
+        "a",
+        "bg",
+        { "String", "MoreMsg" },
+        "fg",
+        get_terminal_color_with_fallback(2, green)
+    )
+    insert_fg = get_color_with_lualine(
+        has_lualine,
+        lualine_theme,
+        has_airline,
+        airline_theme,
+        "insert",
+        "a",
+        "fg",
+        {},
+        "fg",
+        text_bg
+    )
+    visual_bg = get_color_with_lualine(
+        has_lualine,
+        lualine_theme,
+        has_airline,
+        airline_theme,
+        "visual",
+        "a",
+        "bg",
+        { "Special", "Boolean", "Constant" },
+        "fg",
+        get_terminal_color_with_fallback(3, yellow)
+    )
+    visual_fg = get_color_with_lualine(
+        has_lualine,
+        lualine_theme,
+        has_airline,
+        airline_theme,
+        "visual",
+        "a",
+        "fg",
+        {},
+        "fg",
+        text_bg
+    )
+    replace_bg = get_color_with_lualine(
+        has_lualine,
+        lualine_theme,
+        has_airline,
+        airline_theme,
+        "replace",
+        "a",
+        "bg",
+        { "Number", "Type" },
+        "fg",
+        get_terminal_color_with_fallback(4, blue)
+    )
+    replace_fg = get_color_with_lualine(
+        has_lualine,
+        lualine_theme,
+        has_airline,
+        airline_theme,
+        "replace",
+        "a",
+        "fg",
+        {},
+        "fg",
+        text_bg
+    )
+    command_bg = get_color_with_lualine(
+        has_lualine,
+        lualine_theme,
+        has_airline,
+        airline_theme,
+        "command",
+        "a",
+        "bg",
+        { "Identifier" },
+        "fg",
+        get_terminal_color_with_fallback(1, red)
+    )
+    command_fg = get_color_with_lualine(
+        has_lualine,
+        lualine_theme,
+        has_airline,
+        airline_theme,
+        "command",
+        "a",
+        "fg",
+        {},
+        "fg",
+        text_bg
+    )
 
     if not has_lualine and not has_airline then
         local background_color = colors_hl.get_color("Normal", "bg")
