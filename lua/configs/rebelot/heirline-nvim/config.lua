@@ -519,10 +519,7 @@ local FileType = {
                 return { fg = "normal_fg2", bg = "normal_bg2" }
             end
         end,
-        update = {
-            "BufEnter",
-            "WinEnter",
-        },
+        update = { "BufEnter" },
     },
     {
         provider = function(self)
@@ -531,10 +528,7 @@ local FileType = {
             end
             return self.filename_ext .. " "
         end,
-        update = {
-            "BufEnter",
-            "WinEnter",
-        },
+        update = { "BufEnter" },
     },
 }
 
