@@ -152,20 +152,6 @@ local Mode = {
     },
 }
 
-local file_name_redrawing = false
-local function redraw_file_name()
-    if file_name_redrawing then
-        return
-    end
-    file_name_redrawing = true
-    vim.schedule(function()
-        vim.cmd("redrawstatus")
-        vim.defer_fn(function()
-            file_name_redrawing = false
-        end, 1000)
-    end)
-end
-
 local FileName = {
     init = function(self)
         self.filename = vim.api.nvim_buf_get_name(0)
@@ -176,27 +162,6 @@ local FileName = {
     {
         provider = " %t ",
     },
-    -- {
-    --     provider = function(self)
-    --         if strings.empty(self.filename) then
-    --             return ""
-    --         end
-    --         local fname = vim.fn.fnamemodify(self.filename, ":t")
-    --         if strings.empty(fname) then
-    --             return ""
-    --         end
-    --         return " " .. fname .. " "
-    --     end,
-    --     update = {
-    --         "BufEnter",
-    --         "WinEnter",
-    --         callback = redraw_file_name,
-    --     },
-    -- },
-    -- file status
-    -- {
-    --     provider = " %r%m",
-    -- },
     {
         provider = function(self)
             if strings.empty(self.filename) then
@@ -216,10 +181,7 @@ local FileName = {
             end
             return ""
         end,
-        update = {
-            "OptionSet",
-            callback = redraw_file_name,
-        },
+        update = { "OptionSet" },
     },
     -- file size
     {
@@ -247,7 +209,6 @@ local FileName = {
             "BufWritePost",
             "BufEnter",
             "WinEnter",
-            callback = redraw_file_name,
         },
     },
     {
