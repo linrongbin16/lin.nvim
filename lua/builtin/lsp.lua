@@ -23,12 +23,6 @@ vim.diagnostic.config({
     },
 })
 
--- local diagnostic_signs = {
---     DiagnosticSignError = constants.diagnostic.sign.error,
---     DiagnosticSignWarn = constants.diagnostic.sign.warning,
---     DiagnosticSignInfo = constants.diagnostic.sign.info,
---     DiagnosticSignHint = constants.diagnostic.sign.hint,
--- }
 local diagnostic_hls = {
     DiagnosticError = "ErrorMsg",
     DiagnosticWarn = "WarningMsg",
@@ -45,11 +39,6 @@ for name, link in pairs(diagnostic_hls) do
     if hl == nil or vim.tbl_isempty(hl) then
         vim.api.nvim_set_hl(0, name, { link = link })
     end
-    -- vim.fn.sign_define(name, {
-    --     texthl = name,
-    --     text = text,
-    --     numhl = "",
-    -- })
 end
 
 -- hover/signatureHelp
