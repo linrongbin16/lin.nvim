@@ -475,7 +475,7 @@ local M = {
     -- Cursor motion
     {
         "smoka7/hop.nvim",
-        event = { VeryLazy, BufReadPre, BufNewFile, CmdlineEnter },
+        event = { VeryLazy },
         version = "*",
         config = lua_config("smoka7/hop.nvim"),
         keys = lua_keys("smoka7/hop.nvim"),
@@ -490,7 +490,13 @@ local M = {
     -- Structure outlines
     {
         "stevearc/aerial.nvim",
-        cmd = { "AerialToggle", "AerialOpen" },
+        cmd = {
+            "AerialToggle",
+            "AerialOpen",
+            "AerialOpenAll",
+            "AerialClose",
+            "AerialInfo",
+        },
         event = { CmdlineEnter },
         dependencies = {
             "neovim/nvim-lspconfig",
