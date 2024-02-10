@@ -596,39 +596,6 @@ local function get_terminal_color_with_fallback(number, fallback)
     end
 end
 
----@param airline_theme table
----@param mode_name "normal"|"insert"|"visual"|"replace"|"command"|"inactive"
----@param section "a"|"b"|"c"
----@param attribute "fg"|"bg"
----@param fallback_hls string|string[]
----@param fallback_attribute 'fg'|'bg'
----@param fallback_color string?
-local function get_color_with_airline(
-    airline_theme,
-    mode_name,
-    section,
-    attribute,
-    fallback_hls,
-    fallback_attribute,
-    fallback_color
-)
-    section = "airline_" .. section
-    local attr = attribute == "fg" and 1 or 2
-    if mode_name == "command" then
-        mode_name = "terminal"
-    end
-    if tables.tbl_get(airline_theme, mode_name, section, attr) then
-        local result = airline_theme[mode_name][section][attr]
-        return result
-    else
-        return colors_hl.get_color_with_fallback(
-            fallback_hls,
-            fallback_attribute,
-            fallback_color
-        )
-    end
-end
-
 -- Turns #rrggbb -> { red, green, blue }
 local function rgb_str2num(rgb_color_str)
     if rgb_color_str:find("#") == 1 then
