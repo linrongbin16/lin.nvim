@@ -1070,6 +1070,14 @@ local function setup_colors(colorname)
             local parameter = get_color_brightness(background_color) > 0.5
                     and -10
                 or 10
+            if not text_bg then
+                text_bg =
+                    colors_hl.get_color_with_fallback({ "Normal" }, "bg", black)
+            end
+            if not text_fg then
+                text_fg =
+                    colors_hl.get_color_with_fallback({ "Normal" }, "fg", white)
+            end
             if not normal_bg then
                 normal_bg = colors_hl.get_color_with_fallback(
                     { "StatusLine", "PmenuSel", "PmenuThumb", "TabLineSel" },
