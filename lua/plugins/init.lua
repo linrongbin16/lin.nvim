@@ -284,13 +284,23 @@ local M = {
     },
     {
         "nvimtools/none-ls.nvim",
-        event = { VeryLazy, BufReadPre, BufNewFile, CmdlineEnter },
+        event = { VeryLazy },
+        cmd = {
+            "NullLsInfo",
+            "NullLsLog",
+        },
         dependencies = { "neovim/nvim-lspconfig" },
         config = lua_config("jose-elias-alvarez/null-ls.nvim"),
     },
     {
         "jay-babu/mason-null-ls.nvim",
-        event = { VeryLazy, BufReadPre, BufNewFile, CmdlineEnter },
+        event = { VeryLazy },
+        cmd = {
+            "NullLsInstall",
+            "NoneLsInstall",
+            "NullLsUninstall",
+            "NoneLsUninstall",
+        },
         dependencies = {
             "neovim/nvim-lspconfig",
             "williamboman/mason.nvim",
