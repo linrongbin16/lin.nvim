@@ -272,7 +272,8 @@ local M = {
     },
     {
         "stevearc/conform.nvim",
-        event = { VeryLazy, BufReadPre, BufNewFile, CmdlineEnter },
+        event = { BufReadPre },
+        cmd = { "ConformInfo" },
         dependencies = {
             "neovim/nvim-lspconfig",
             "williamboman/mason.nvim",
