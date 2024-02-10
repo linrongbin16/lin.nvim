@@ -26,9 +26,6 @@ local M = {
         lazy = true,
     },
     {
-        "folke/lsp-colors.nvim",
-    },
-    {
         "linrongbin16/commons.nvim",
         lazy = true,
     },
