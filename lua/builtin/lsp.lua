@@ -214,16 +214,21 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 local function setup_diagnostic()
     local highlights = {
-        DiagnosticError = "ErrorMsg",
-        DiagnosticWarn = "WarningMsg",
-        DiagnosticInfo = "Normal",
-        DiagnosticHint = "Comment",
-        DiagnosticOk = "Comment",
+        DiagnosticError = { "ErrorMsg", "#ff0000" },
+        DiagnosticWarn = { "WarningMsg", "#FFFF00" },
+        DiagnosticInfo = { "Normal", "#00FFFF" },
+        DiagnosticHint = { "Comment", "#808080" },
+        DiagnosticOk = { nil, "#008000" },
     }
     for name, hl in pairs(highlights) do
         local old_hl = vim.api.nvim_get_hl(0, { name = name })
         if type(old_hl) ~= "table" or vim.tbl_isempty(old_hl) then
-            vim.api.nvim_set_hl(0, name, { link = hl.hl })
+            local new_hl = vim.api.nvim_get_hl(0, { name = hl[1] })
+            if type(new_hl) == "table" and not vim.tbl_isempty(new_hl) then
+                vim.api.nvim_set_hl(0, name, { link = hl[1] })
+            else
+                vim.api.nvim_set_hl(0, name, { fg = hl[2] })
+            end
         end
     end
 
