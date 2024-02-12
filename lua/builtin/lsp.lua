@@ -39,13 +39,6 @@ vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
     { border = constants.ui.border }
 )
 
--- key mapping
---- @param value string
---- @return table<any, any>
-local function map_desc(value)
-    return { buffer = true, desc = value }
-end
-
 --- @param next boolean
 --- @param severity string|nil
 local function diagnostic_goto(next, severity)
@@ -61,6 +54,12 @@ vim.api.nvim_create_augroup("builtin_lsp_augroup", { clear = true })
 vim.api.nvim_create_autocmd("LspAttach", {
     group = "builtin_lsp_augroup",
     callback = function()
+        --- @param value string
+        --- @return table
+        local function make_desc(value)
+            return { buffer = true, desc = value }
+        end
+
         -- lsp key mappings
         -- navigation
 
@@ -73,7 +72,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         else
             definition_cmd = "<cmd>lua vim.lsp.buf.definition()<cr>"
         end
-        set_key("n", "gd", definition_cmd, map_desc("Go to lsp definitions"))
+        set_key("n", "gd", definition_cmd, make_desc("Go to lsp definitions"))
 
         -- type definitions
         local type_definition_cmd = nil
@@ -88,7 +87,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
             "n",
             "gt",
             type_definition_cmd,
-            map_desc("Go to lsp type definitions")
+            make_desc("Go to lsp type definitions")
         )
 
         -- implementations
@@ -104,7 +103,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
             "n",
             "gi",
             implementation_cmd,
-            map_desc("Go to lsp implementations")
+            make_desc("Go to lsp implementations")
         )
 
         -- references
@@ -116,25 +115,25 @@ vim.api.nvim_create_autocmd("LspAttach", {
         else
             reference_cmd = "<cmd>lua vim.lsp.buf.references()<cr>"
         end
-        set_key("n", "gr", reference_cmd, map_desc("Go to lsp references"))
+        set_key("n", "gr", reference_cmd, make_desc("Go to lsp references"))
 
         set_key(
             "n",
             "gD",
             "<cmd>lua vim.lsp.buf.declaration()<cr>",
-            map_desc("Go to declarations")
+            make_desc("Go to declarations")
         )
         set_key(
             "n",
             "<leader>ic",
             "<cmd>lua vim.lsp.buf.incoming_calls()<cr>",
-            map_desc("Go to incoming calls")
+            make_desc("Go to incoming calls")
         )
         set_key(
             "n",
             "<leader>og",
             "<cmd>lua vim.lsp.buf.outgoing_calls()<cr>",
-            map_desc("Go to outgoing calls")
+            make_desc("Go to outgoing calls")
         )
 
         -- hover
@@ -142,14 +141,14 @@ vim.api.nvim_create_autocmd("LspAttach", {
             "n",
             "K",
             "<cmd>lua vim.lsp.buf.hover()<cr>",
-            map_desc("Show hover")
+            make_desc("Show hover")
         )
 
         set_key(
             { "n", "i" },
             "<C-k>",
             "<cmd>lua vim.lsp.buf.signature_help()<cr>",
-            map_desc("Show signature help")
+            make_desc("Show signature help")
         )
 
         -- operation
@@ -157,28 +156,19 @@ vim.api.nvim_create_autocmd("LspAttach", {
             "n",
             "<Leader>rn",
             "<cmd>lua vim.lsp.buf.rename()<cr>",
-            map_desc("Rename symbol")
+            make_desc("Rename symbol")
         )
-        -- don't format via lsp.
-        -- use conform.nvim, see: /lua/configs/stevearc/conform-nvim/keys.lua.
-        --
-        -- set_key(
-        --     { "n", "x" },
-        --     "<Leader>cf",
-        --     "<cmd>lua vim.lsp.buf.format({async=false})<cr>",
-        --     map_desc("Code format")
-        -- )
         set_key(
             "n",
             "<Leader>ca",
             "<cmd>lua vim.lsp.buf.code_action()<cr>",
-            map_desc("Code actions")
+            make_desc("Code actions")
         )
         set_key(
             "x",
             "<Leader>ca",
             "<cmd>lua vim.lsp.buf.range_code_action()<cr>",
-            map_desc("Code actions")
+            make_desc("Code actions")
         )
 
         -- diagnostic
@@ -186,37 +176,37 @@ vim.api.nvim_create_autocmd("LspAttach", {
             "n",
             "]d",
             diagnostic_goto(true),
-            map_desc("Next diagnostic item")
+            make_desc("Next diagnostic item")
         )
         set_key(
             "n",
             "[d",
             diagnostic_goto(false),
-            map_desc("Previous diagnostic item")
+            make_desc("Previous diagnostic item")
         )
         set_key(
             "n",
             "]e",
             diagnostic_goto(true, "ERROR"),
-            map_desc("Next diagnostic error")
+            make_desc("Next diagnostic error")
         )
         set_key(
             "n",
             "[e",
             diagnostic_goto(false, "ERROR"),
-            map_desc("Previous diagnostic error")
+            make_desc("Previous diagnostic error")
         )
         set_key(
             "n",
             "]w",
             diagnostic_goto(true, "WARN"),
-            map_desc("Next diagnostic warning")
+            make_desc("Next diagnostic warning")
         )
         set_key(
             "n",
             "[w",
             diagnostic_goto(false, "WARN"),
-            map_desc("Previous diagnostic warning")
+            make_desc("Previous diagnostic warning")
         )
 
         -- switch header/source for c/c++
