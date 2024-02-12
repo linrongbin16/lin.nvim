@@ -54,8 +54,6 @@ vim.api.nvim_create_augroup("builtin_lsp_augroup", { clear = true })
 vim.api.nvim_create_autocmd("LspAttach", {
     group = "builtin_lsp_augroup",
     callback = function()
-        --- @param value string
-        --- @return table
         local function make_desc(value)
             return { buffer = true, desc = value }
         end
