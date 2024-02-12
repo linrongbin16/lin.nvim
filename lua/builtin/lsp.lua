@@ -238,3 +238,17 @@ vim.api.nvim_create_autocmd("LspAttach", {
         vim.bo.tagfunc = nil
     end,
 })
+
+vim.api.nvim_create_autocmd("ColorScheme", {
+    group = "builtin_lsp_augroup",
+    callback = function(event)
+        local colorname = event.match
+    end,
+})
+
+vim.api.nvim_create_autocmd("VimEnter", {
+    group = "builtin_lsp_augroup",
+    callback = function()
+        local colorname = vim.g.colors_name
+    end,
+})
