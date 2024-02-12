@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.21.1](https://github.com/linrongbin16/lin.nvim/compare/v2.21.0...v2.21.1) (2024-02-12)
+
+
+### Performance Improvements
+
+* **diagnostics:** improve diagnostics ([#484](https://github.com/linrongbin16/lin.nvim/issues/484)) ([bfebdef](https://github.com/linrongbin16/lin.nvim/commit/bfebdef9526269777ce1e1ec6889633d01745644))
+
 ## [2.21.0](https://github.com/linrongbin16/lin.nvim/compare/v2.20.1...v2.21.0) (2024-02-10)
 
 
