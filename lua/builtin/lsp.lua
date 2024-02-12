@@ -48,12 +48,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
         end
 
         --- @param next boolean
-        --- @param severity string|nil
+        --- @param severity integer?
         local function diagnostic_goto(next, severity)
             local go = next and vim.diagnostic.goto_next
                 or vim.diagnostic.goto_prev
-            severity = severity ~= nil and vim.diagnostic.severity[severity] --[[@as string]]
-                or nil
             return function()
                 go({ severity = severity })
             end
@@ -186,25 +184,25 @@ vim.api.nvim_create_autocmd("LspAttach", {
         set_key(
             "n",
             "]e",
-            diagnostic_goto(true, "ERROR"),
+            diagnostic_goto(true, vim.diagnostic.severity.ERROR),
             make_desc("Next diagnostic error")
         )
         set_key(
             "n",
             "[e",
-            diagnostic_goto(false, "ERROR"),
+            diagnostic_goto(false, vim.diagnostic.severity.ERROR),
             make_desc("Previous diagnostic error")
         )
         set_key(
             "n",
             "]w",
-            diagnostic_goto(true, "WARN"),
+            diagnostic_goto(true, vim.diagnostic.severity.WARN),
             make_desc("Next diagnostic warning")
         )
         set_key(
             "n",
             "[w",
-            diagnostic_goto(false, "WARN"),
+            diagnostic_goto(false, vim.diagnostic.severity.WARN),
             make_desc("Previous diagnostic warning")
         )
 
