@@ -39,23 +39,24 @@ vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
     { border = constants.ui.border }
 )
 
---- @param next boolean
---- @param severity string|nil
-local function diagnostic_goto(next, severity)
-    local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
-    severity = severity ~= nil and vim.diagnostic.severity[severity] --[[@as string]]
-        or nil
-    return function()
-        go({ severity = severity })
-    end
-end
-
 vim.api.nvim_create_augroup("builtin_lsp_augroup", { clear = true })
 vim.api.nvim_create_autocmd("LspAttach", {
     group = "builtin_lsp_augroup",
     callback = function()
         local function make_desc(value)
             return { buffer = true, desc = value }
+        end
+
+        --- @param next boolean
+        --- @param severity string|nil
+        local function diagnostic_goto(next, severity)
+            local go = next and vim.diagnostic.goto_next
+                or vim.diagnostic.goto_prev
+            severity = severity ~= nil and vim.diagnostic.severity[severity] --[[@as string]]
+                or nil
+            return function()
+                go({ severity = severity })
+            end
         end
 
         -- lsp key mappings
