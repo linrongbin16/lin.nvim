@@ -212,8 +212,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end,
 })
 
---- @param colorname string
-local function setup_diagnostic(colorname)
+local function setup_diagnostic()
     vim.diagnostic.config({
         virtual_text = false,
         severity_sort = true,
@@ -252,18 +251,10 @@ end
 
 vim.api.nvim_create_autocmd("ColorScheme", {
     group = "builtin_lsp_augroup",
-    callback = function(event)
-        vim.schedule(function()
-            setup_diagnostic(event.match)
-        end)
-    end,
+    callback = vim.schedule_wrap(setup_diagnostic),
 })
 
 vim.api.nvim_create_autocmd("VimEnter", {
     group = "builtin_lsp_augroup",
-    callback = function()
-        vim.schedule(function()
-            setup_diagnostic(vim.g.colors_name)
-        end)
-    end,
+    callback = vim.schedule_wrap(setup_diagnostic),
 })
