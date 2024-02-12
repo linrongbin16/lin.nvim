@@ -213,6 +213,14 @@ vim.api.nvim_create_autocmd("LspAttach", {
 })
 
 local function setup_diagnostic()
+    local highlights = {
+        DiagnosticError = { hl = { "ErrorMsg" }, rgb = "#ff0000" },
+        DiagnosticWarn = { hl = { "WarningMsg" }, rgb = "#FFFF00" },
+        DiagnosticInfo = { hl = { "Normal" }, rgb = "#00FFFF" },
+        DiagnosticHint = { hl = { "Comment" }, rgb = "#808080" },
+        DiagnosticOk = { hl = { "Normal" }, rgb = "#008000" },
+    }
+
     vim.diagnostic.config({
         virtual_text = false,
         severity_sort = true,
@@ -223,14 +231,6 @@ local function setup_diagnostic()
             prefix = "",
         },
     })
-
-    local highlights = {
-        DiagnosticError = { hl = { "ErrorMsg" }, rgb = "#ff0000" },
-        DiagnosticWarn = { hl = { "WarningMsg" }, rgb = "#FFFF00" },
-        DiagnosticInfo = { hl = { "Normal" }, rgb = "#00FFFF" },
-        DiagnosticHint = { hl = { "Comment" }, rgb = "#808080" },
-        DiagnosticOk = { hl = { "Normal" }, rgb = "#008000" },
-    }
 
     local signs = {
         DiagnosticSignError = constants.diagnostic.sign.error,
