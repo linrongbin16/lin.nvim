@@ -3,33 +3,6 @@
 local constants = require("builtin.utils.constants")
 local set_key = require("builtin.utils.keymap").set_key
 
--- diagnostics
-vim.diagnostic.config({
-    virtual_text = false,
-    severity_sort = true,
-    float = {
-        border = constants.ui.border,
-        source = "always",
-        header = "",
-        prefix = "",
-    },
-})
-
-local diagnostic_signs = {
-    DiagnosticSignError = constants.diagnostic.sign.error,
-    DiagnosticSignWarn = constants.diagnostic.sign.warning,
-    DiagnosticSignInfo = constants.diagnostic.sign.info,
-    DiagnosticSignHint = constants.diagnostic.sign.hint,
-}
-
-for name, text in pairs(diagnostic_signs) do
-    vim.fn.sign_define(name, {
-        texthl = name,
-        text = text,
-        numhl = "",
-    })
-end
-
 -- hover/signatureHelp
 vim.lsp.handlers["textDocument/hover"] =
     vim.lsp.with(vim.lsp.handlers.hover, { border = constants.ui.border })
@@ -39,28 +12,24 @@ vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
     { border = constants.ui.border }
 )
 
--- key mapping
---- @param value string
---- @return table<any, any>
-local function map_desc(value)
-    return { buffer = true, desc = value }
-end
-
---- @param next boolean
---- @param severity string|nil
-local function diagnostic_goto(next, severity)
-    local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
-    severity = severity ~= nil and vim.diagnostic.severity[severity] --[[@as string]]
-        or nil
-    return function()
-        go({ severity = severity })
-    end
-end
-
 vim.api.nvim_create_augroup("builtin_lsp_augroup", { clear = true })
 vim.api.nvim_create_autocmd("LspAttach", {
     group = "builtin_lsp_augroup",
     callback = function()
+        local function make_desc(value)
+            return { buffer = true, desc = value }
+        end
+
+        --- @param next boolean
+        --- @param severity integer?
+        local function diagnostic_goto(next, severity)
+            local go = next and vim.diagnostic.goto_next
+                or vim.diagnostic.goto_prev
+            return function()
+                go({ severity = severity })
+            end
+        end
+
         -- lsp key mappings
         -- navigation
 
@@ -73,7 +42,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         else
             definition_cmd = "<cmd>lua vim.lsp.buf.definition()<cr>"
         end
-        set_key("n", "gd", definition_cmd, map_desc("Go to lsp definitions"))
+        set_key("n", "gd", definition_cmd, make_desc("Go to lsp definitions"))
 
         -- type definitions
         local type_definition_cmd = nil
@@ -88,7 +57,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
             "n",
             "gt",
             type_definition_cmd,
-            map_desc("Go to lsp type definitions")
+            make_desc("Go to lsp type definitions")
         )
 
         -- implementations
@@ -104,7 +73,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
             "n",
             "gi",
             implementation_cmd,
-            map_desc("Go to lsp implementations")
+            make_desc("Go to lsp implementations")
         )
 
         -- references
@@ -116,25 +85,25 @@ vim.api.nvim_create_autocmd("LspAttach", {
         else
             reference_cmd = "<cmd>lua vim.lsp.buf.references()<cr>"
         end
-        set_key("n", "gr", reference_cmd, map_desc("Go to lsp references"))
+        set_key("n", "gr", reference_cmd, make_desc("Go to lsp references"))
 
         set_key(
             "n",
             "gD",
             "<cmd>lua vim.lsp.buf.declaration()<cr>",
-            map_desc("Go to declarations")
+            make_desc("Go to declarations")
         )
         set_key(
             "n",
             "<leader>ic",
             "<cmd>lua vim.lsp.buf.incoming_calls()<cr>",
-            map_desc("Go to incoming calls")
+            make_desc("Go to incoming calls")
         )
         set_key(
             "n",
             "<leader>og",
             "<cmd>lua vim.lsp.buf.outgoing_calls()<cr>",
-            map_desc("Go to outgoing calls")
+            make_desc("Go to outgoing calls")
         )
 
         -- hover
@@ -142,14 +111,14 @@ vim.api.nvim_create_autocmd("LspAttach", {
             "n",
             "K",
             "<cmd>lua vim.lsp.buf.hover()<cr>",
-            map_desc("Show hover")
+            make_desc("Show hover")
         )
 
         set_key(
             { "n", "i" },
             "<C-k>",
             "<cmd>lua vim.lsp.buf.signature_help()<cr>",
-            map_desc("Show signature help")
+            make_desc("Show signature help")
         )
 
         -- operation
@@ -157,28 +126,19 @@ vim.api.nvim_create_autocmd("LspAttach", {
             "n",
             "<Leader>rn",
             "<cmd>lua vim.lsp.buf.rename()<cr>",
-            map_desc("Rename symbol")
+            make_desc("Rename symbol")
         )
-        -- don't format via lsp.
-        -- use conform.nvim, see: /lua/configs/stevearc/conform-nvim/keys.lua.
-        --
-        -- set_key(
-        --     { "n", "x" },
-        --     "<Leader>cf",
-        --     "<cmd>lua vim.lsp.buf.format({async=false})<cr>",
-        --     map_desc("Code format")
-        -- )
         set_key(
             "n",
             "<Leader>ca",
             "<cmd>lua vim.lsp.buf.code_action()<cr>",
-            map_desc("Code actions")
+            make_desc("Code actions")
         )
         set_key(
             "x",
             "<Leader>ca",
             "<cmd>lua vim.lsp.buf.range_code_action()<cr>",
-            map_desc("Code actions")
+            make_desc("Code actions")
         )
 
         -- diagnostic
@@ -186,37 +146,37 @@ vim.api.nvim_create_autocmd("LspAttach", {
             "n",
             "]d",
             diagnostic_goto(true),
-            map_desc("Next diagnostic item")
+            make_desc("Next diagnostic item")
         )
         set_key(
             "n",
             "[d",
             diagnostic_goto(false),
-            map_desc("Previous diagnostic item")
+            make_desc("Previous diagnostic item")
         )
         set_key(
             "n",
             "]e",
-            diagnostic_goto(true, "ERROR"),
-            map_desc("Next diagnostic error")
+            diagnostic_goto(true, vim.diagnostic.severity.ERROR),
+            make_desc("Next diagnostic error")
         )
         set_key(
             "n",
             "[e",
-            diagnostic_goto(false, "ERROR"),
-            map_desc("Previous diagnostic error")
+            diagnostic_goto(false, vim.diagnostic.severity.ERROR),
+            make_desc("Previous diagnostic error")
         )
         set_key(
             "n",
             "]w",
-            diagnostic_goto(true, "WARN"),
-            map_desc("Next diagnostic warning")
+            diagnostic_goto(true, vim.diagnostic.severity.WARN),
+            make_desc("Next diagnostic warning")
         )
         set_key(
             "n",
             "[w",
-            diagnostic_goto(false, "WARN"),
-            map_desc("Previous diagnostic warning")
+            diagnostic_goto(false, vim.diagnostic.severity.WARN),
+            make_desc("Previous diagnostic warning")
         )
 
         -- switch header/source for c/c++
@@ -250,4 +210,62 @@ vim.api.nvim_create_autocmd("LspAttach", {
         -- disable tagfunc to fix workspace/symbol not support error
         vim.bo.tagfunc = nil
     end,
+})
+
+local function setup_diagnostic()
+    local highlights = {
+        DiagnosticError = { "ErrorMsg", "#ff0000" },
+        DiagnosticWarn = { "WarningMsg", "#FFFF00" },
+        DiagnosticInfo = { "Normal", "#00FFFF" },
+        DiagnosticHint = { "Comment", "#808080" },
+        DiagnosticOk = { "Normal", "#008000" },
+    }
+    for name, hl in pairs(highlights) do
+        local old_hl = vim.api.nvim_get_hl(0, { name = name })
+        if type(old_hl) ~= "table" or vim.tbl_isempty(old_hl) then
+            local new_hl = vim.api.nvim_get_hl(0, { name = hl[1] })
+            if type(new_hl) == "table" and not vim.tbl_isempty(new_hl) then
+                vim.api.nvim_set_hl(0, name, { link = hl[1] })
+            else
+                vim.api.nvim_set_hl(0, name, { fg = hl[2] })
+            end
+        end
+    end
+
+    vim.diagnostic.config({
+        virtual_text = false,
+        severity_sort = true,
+        float = {
+            border = constants.ui.border,
+            source = "always",
+            header = "",
+            prefix = "",
+        },
+    })
+
+    local signs = {
+        DiagnosticSignError = constants.diagnostic.sign.error,
+        DiagnosticSignWarn = constants.diagnostic.sign.warning,
+        DiagnosticSignInfo = constants.diagnostic.sign.info,
+        DiagnosticSignHint = constants.diagnostic.sign.hint,
+        DiagnosticSignOk = constants.diagnostic.sign.ok,
+    }
+
+    for name, text in pairs(signs) do
+        vim.fn.sign_define(name, {
+            texthl = name,
+            text = text,
+            numhl = "",
+        })
+    end
+end
+
+vim.api.nvim_create_autocmd("ColorScheme", {
+    group = "builtin_lsp_augroup",
+    callback = vim.schedule_wrap(setup_diagnostic),
+})
+
+vim.api.nvim_create_autocmd("VimEnter", {
+    group = "builtin_lsp_augroup",
+    callback = vim.schedule_wrap(setup_diagnostic),
 })
