@@ -3,33 +3,6 @@
 local constants = require("builtin.utils.constants")
 local set_key = require("builtin.utils.keymap").set_key
 
--- diagnostics
-vim.diagnostic.config({
-    virtual_text = false,
-    severity_sort = true,
-    float = {
-        border = constants.ui.border,
-        source = "always",
-        header = "",
-        prefix = "",
-    },
-})
-
-local diagnostic_signs = {
-    DiagnosticSignError = constants.diagnostic.sign.error,
-    DiagnosticSignWarn = constants.diagnostic.sign.warning,
-    DiagnosticSignInfo = constants.diagnostic.sign.info,
-    DiagnosticSignHint = constants.diagnostic.sign.hint,
-}
-
-for name, text in pairs(diagnostic_signs) do
-    vim.fn.sign_define(name, {
-        texthl = name,
-        text = text,
-        numhl = "",
-    })
-end
-
 -- hover/signatureHelp
 vim.lsp.handlers["textDocument/hover"] =
     vim.lsp.with(vim.lsp.handlers.hover, { border = constants.ui.border })
@@ -238,6 +211,44 @@ vim.api.nvim_create_autocmd("LspAttach", {
         vim.bo.tagfunc = nil
     end,
 })
+
+--- @param colorname string
+local function setup_diagnostic(colorname)
+    vim.diagnostic.config({
+        virtual_text = false,
+        severity_sort = true,
+        float = {
+            border = constants.ui.border,
+            source = "always",
+            header = "",
+            prefix = "",
+        },
+    })
+
+    local highlights = {
+        DiagnosticError = { hl = { "ErrorMsg" }, rgb = "#ff0000" },
+        DiagnosticWarn = { hl = { "WarningMsg" }, rgb = "#FFFF00" },
+        DiagnosticInfo = { hl = { "Normal" }, rgb = "#00FFFF" },
+        DiagnosticHint = { hl = { "Comment" }, rgb = "#808080" },
+        DiagnosticOk = { hl = { "Normal" }, rgb = "#008000" },
+    }
+
+    local signs = {
+        DiagnosticSignError = constants.diagnostic.sign.error,
+        DiagnosticSignWarn = constants.diagnostic.sign.warning,
+        DiagnosticSignInfo = constants.diagnostic.sign.info,
+        DiagnosticSignHint = constants.diagnostic.sign.hint,
+        DiagnosticSignOk = constants.diagnostic.sign.ok,
+    }
+
+    for name, text in pairs(signs) do
+        vim.fn.sign_define(name, {
+            texthl = name,
+            text = text,
+            numhl = "",
+        })
+    end
+end
 
 vim.api.nvim_create_autocmd("ColorScheme", {
     group = "builtin_lsp_augroup",
