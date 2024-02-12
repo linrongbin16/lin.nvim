@@ -218,7 +218,7 @@ local function setup_diagnostic()
         DiagnosticWarn = { "WarningMsg", "#FFFF00" },
         DiagnosticInfo = { "Normal", "#00FFFF" },
         DiagnosticHint = { "Comment", "#808080" },
-        DiagnosticOk = { nil, "#008000" },
+        DiagnosticOk = { "Normal", "#008000" },
     }
     for name, hl in pairs(highlights) do
         local old_hl = vim.api.nvim_get_hl(0, { name = name })
