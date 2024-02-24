@@ -191,13 +191,13 @@ function NvimConfig()
         Copy-Item -Path "$ConformHome\formatters_by_ft_sample.lua" -Destination "$ConformFormattersByFt"
     }
 
-    # # nvim-lint
-    # $NvimLintHome="$NVIM_HOME\lua\configs\mfussenegger\nvim-lint"
-    # $NvimLintLintersByFt="$NvimLintHome\linters_by_ft.lua"
-    # if (-not(TestReparsePoint $NvimLintLintersByFt) -and -not(Test-Path $NvimLintLintersByFt))
-    # {
-    #     Copy-Item -Path "$NvimLintHome\linters_by_ft_sample.lua" -Destination "$NvimLintLintersByFt"
-    # }
+    # nvim-lint
+    $NvimLintHome="$NVIM_HOME\lua\configs\mfussenegger\nvim-lint"
+    $NvimLintLintersByFt="$NvimLintHome\linters_by_ft.lua"
+    if (-not(TestReparsePoint $NvimLintLintersByFt) -and -not(Test-Path $NvimLintLintersByFt))
+    {
+        Copy-Item -Path "$NvimLintHome\linters_by_ft_sample.lua" -Destination "$NvimLintLintersByFt"
+    }
 }
 
 Info "install for Windows"

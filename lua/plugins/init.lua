@@ -269,7 +269,7 @@ local M = {
     },
     {
         "stevearc/conform.nvim",
-        event = { BufWritePost },
+        event = { VeryLazy, BufWritePost },
         cmd = { "ConformInfo" },
         dependencies = {
             "neovim/nvim-lspconfig",
@@ -279,32 +279,42 @@ local M = {
         config = lua_config("stevearc/conform.nvim"),
         keys = lua_keys("stevearc/conform.nvim"),
     },
+    -- {
+    --     "nvimtools/none-ls.nvim",
+    --     event = { VeryLazy },
+    --     cmd = {
+    --         "NullLsInfo",
+    --         "NullLsLog",
+    --     },
+    --     dependencies = { "neovim/nvim-lspconfig" },
+    --     config = lua_config("jose-elias-alvarez/null-ls.nvim"),
+    -- },
+    -- {
+    --     "jay-babu/mason-null-ls.nvim",
+    --     event = { VeryLazy },
+    --     cmd = {
+    --         "NullLsInstall",
+    --         "NoneLsInstall",
+    --         "NullLsUninstall",
+    --         "NoneLsUninstall",
+    --     },
+    --     dependencies = {
+    --         "neovim/nvim-lspconfig",
+    --         "williamboman/mason.nvim",
+    --         "williamboman/mason-lspconfig.nvim",
+    --         "nvimtools/none-ls.nvim",
+    --     },
+    --     config = lua_config("jay-babu/mason-null-ls.nvim"),
+    -- },
     {
-        "nvimtools/none-ls.nvim",
-        event = { VeryLazy },
-        cmd = {
-            "NullLsInfo",
-            "NullLsLog",
-        },
-        dependencies = { "neovim/nvim-lspconfig" },
-        config = lua_config("jose-elias-alvarez/null-ls.nvim"),
-    },
-    {
-        "jay-babu/mason-null-ls.nvim",
-        event = { VeryLazy },
-        cmd = {
-            "NullLsInstall",
-            "NoneLsInstall",
-            "NullLsUninstall",
-            "NoneLsUninstall",
-        },
+        "mfussenegger/nvim-lint",
+        event = { VeryLazy, BufWritePost },
         dependencies = {
             "neovim/nvim-lspconfig",
             "williamboman/mason.nvim",
             "williamboman/mason-lspconfig.nvim",
-            "nvimtools/none-ls.nvim",
         },
-        config = lua_config("jay-babu/mason-null-ls.nvim"),
+        config = lua_config("mfussenegger/nvim-lint"),
     },
     -- Json schema
     {
