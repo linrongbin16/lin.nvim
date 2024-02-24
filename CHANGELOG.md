@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.22.0](https://github.com/linrongbin16/lin.nvim/compare/v2.21.1...v2.22.0) (2024-02-24)
+
+
+### Features
+
+* **nvim-lint:** migrate 'none-ls.nvim' to 'nvim-lint' ([#486](https://github.com/linrongbin16/lin.nvim/issues/486)) ([8289a4f](https://github.com/linrongbin16/lin.nvim/commit/8289a4fb78f82a446564586635945b49175f72c0))
+
+
+### Bug Fixes
+
+* **nvim-lint:** disable template linters ([#487](https://github.com/linrongbin16/lin.nvim/issues/487)) ([12560fc](https://github.com/linrongbin16/lin.nvim/commit/12560fce9a422a2a742648683b9ea60bd8d2033e))
+
 ## [2.21.1](https://github.com/linrongbin16/lin.nvim/compare/v2.21.0...v2.21.1) (2024-02-12)
 
 
