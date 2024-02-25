@@ -39,9 +39,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
       - name: Selene
         run: |
           wget -q https://github.com/Kampfkarren/selene/releases/download/0.26.1/selene-0.26.1-linux.zip
