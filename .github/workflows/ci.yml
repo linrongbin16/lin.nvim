@@ -33,16 +33,19 @@ jobs:
           level: Information
           configpath: ".luarc.json"
           neodev-version: stable
-  luacheck:
-    name: Lua check
+  lint:
+    name: Lint
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Luacheck
-        uses: lunarmodules/luacheck@v1
+      - uses: actions-rs/toolchain@v1
         with:
-          args: lua --config .luacheckrc
+          toolchain: stable
+      - name: Selene
+        run: |
+          cargo install selene
+          selene --config selene.toml ./lua
   stylua:
     name: Stylua
     runs-on: ubuntu-latest
@@ -96,7 +99,7 @@ jobs:
     if: ${{ github.ref == 'refs/heads/main' }}
     needs:
       - typecheck
-      - luacheck
+      - lint
       - stylua
       - ubuntu_installer
       - macos_installer
