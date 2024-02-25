@@ -279,43 +279,43 @@ local M = {
         config = lua_config("stevearc/conform.nvim"),
         keys = lua_keys("stevearc/conform.nvim"),
     },
-    -- {
-    --     "nvimtools/none-ls.nvim",
-    --     event = { VeryLazy },
-    --     cmd = {
-    --         "NullLsInfo",
-    --         "NullLsLog",
-    --     },
-    --     dependencies = { "neovim/nvim-lspconfig" },
-    --     config = lua_config("jose-elias-alvarez/null-ls.nvim"),
-    -- },
-    -- {
-    --     "jay-babu/mason-null-ls.nvim",
-    --     event = { VeryLazy },
-    --     cmd = {
-    --         "NullLsInstall",
-    --         "NoneLsInstall",
-    --         "NullLsUninstall",
-    --         "NoneLsUninstall",
-    --     },
-    --     dependencies = {
-    --         "neovim/nvim-lspconfig",
-    --         "williamboman/mason.nvim",
-    --         "williamboman/mason-lspconfig.nvim",
-    --         "nvimtools/none-ls.nvim",
-    --     },
-    --     config = lua_config("jay-babu/mason-null-ls.nvim"),
-    -- },
     {
-        "mfussenegger/nvim-lint",
-        event = { VeryLazy, BufWritePost },
+        "nvimtools/none-ls.nvim",
+        event = { VeryLazy },
+        cmd = {
+            "NullLsInfo",
+            "NullLsLog",
+        },
+        dependencies = { "neovim/nvim-lspconfig" },
+        config = lua_config("jose-elias-alvarez/null-ls.nvim"),
+    },
+    {
+        "jay-babu/mason-null-ls.nvim",
+        event = { VeryLazy },
+        cmd = {
+            "NullLsInstall",
+            "NoneLsInstall",
+            "NullLsUninstall",
+            "NoneLsUninstall",
+        },
         dependencies = {
             "neovim/nvim-lspconfig",
             "williamboman/mason.nvim",
             "williamboman/mason-lspconfig.nvim",
+            "nvimtools/none-ls.nvim",
         },
-        config = lua_config("mfussenegger/nvim-lint"),
+        config = lua_config("jay-babu/mason-null-ls.nvim"),
     },
+    -- {
+    --     "mfussenegger/nvim-lint",
+    --     event = { VeryLazy, BufWritePost },
+    --     dependencies = {
+    --         "neovim/nvim-lspconfig",
+    --         "williamboman/mason.nvim",
+    --         "williamboman/mason-lspconfig.nvim",
+    --     },
+    --     config = lua_config("mfussenegger/nvim-lint"),
+    -- },
     -- Json schema
     {
         "b0o/SchemaStore.nvim",
