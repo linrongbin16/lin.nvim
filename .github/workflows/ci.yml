@@ -45,14 +45,13 @@ jobs:
       - name: Selene
         run: |
           sudo apt install -y unzip
-          sudo apt install -y tree
           wget -q https://github.com/Kampfkarren/selene/releases/download/0.26.1/selene-0.26.1-linux.zip
           unzip selene-0.26.1-linux.zip
           echo 'ls -lha'
           ls -lha
-          echo 'tree selene'
-          tree selene
-          cargo install selene
+          chmod +x selene
+          sudo mv ./selene /usr/local/bin/selene
+          rm -rf selene-0.26.1-linux.zip
           selene --config selene.toml ./lua
   stylua:
     name: Stylua
