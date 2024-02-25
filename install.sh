@@ -323,10 +323,11 @@ rust_dependency() {
     info "install rust and modern commands"
     install "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y" "cargo"
     . "$HOME/.cargo/env"
-    install "cargo install fd-find" "fd"
-    install "cargo install ripgrep" "rg"
-    install "cargo install --locked bat" "bat"
-    install "cargo install eza" "eza"
+    install "curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash" "cargo-binstall"
+    install "cargo binstall fd-find" "fd"
+    install "cargo binstall ripgrep" "rg"
+    install "cargo binstall --locked bat" "bat"
+    install "cargo binstall eza" "eza"
 }
 
 pip3_dependency() {
