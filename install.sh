@@ -324,10 +324,10 @@ rust_dependency() {
     install "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y" "cargo"
     . "$HOME/.cargo/env"
     install "curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash" "cargo-binstall"
-    install "cargo binstall fd-find" "fd"
-    install "cargo binstall ripgrep" "rg"
-    install "cargo binstall --locked bat" "bat"
-    install "cargo binstall eza" "eza"
+    install "cargo binstall --no-confirm fd-find" "fd"
+    install "cargo binstall --no-confirm ripgrep" "rg"
+    install "cargo binstall --no-confirm bat" "bat"
+    install "cargo binstall --no-confirm eza" "eza"
 }
 
 pip3_dependency() {
