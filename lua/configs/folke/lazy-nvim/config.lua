@@ -34,9 +34,7 @@ local opts = {
 local plugins_blacklist_path = stdpath_config .. "/lua/plugins_blacklist.lua"
 if uv.fs_stat(plugins_blacklist_path) then
     local plugins_blacklist = require("plugins_blacklist")
-    assert(
-        type(plugins_blacklist) == "table"
-    )
+    assert(type(plugins_blacklist) == "table")
     opts.defaults = {
         cond = function(plugin_spec)
             local uri = plugin_spec[1]
