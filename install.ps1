@@ -113,7 +113,7 @@ function PythonDependency()
     # python
     InstallOrSkip -command "scoop install python" -target "python3"
     InstallOrSkip -command "scoop install python" -target "pip3"
-    python3 -m pip install pynvim --user --upgrade
+    python3 -m pip install pynvim --user --upgrade --break-system-packages
 }
 
 function NodejsDependency()
