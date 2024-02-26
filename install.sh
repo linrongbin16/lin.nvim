@@ -86,7 +86,7 @@ install_linux_ctags() {
     if [ $? -ne 0 ]; then
         info "failed to download $ctags_file, skip..."
     else
-        tar zxf $ctags_file
+        tar -xf $ctags_file
         chmod u+x $ctags_dir/bin/ctags
         chmod u+x $ctags_dir/bin/readtags
         sudo mv $ctags_dir/bin/ctags /usr/local/bin/ctags
