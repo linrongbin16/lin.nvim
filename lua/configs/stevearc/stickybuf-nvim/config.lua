@@ -11,20 +11,14 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
             local target_bufnr = nil
 
             local function _got_target()
-                return totals > 0
-                    and targets > 0
-                    and totals > targets
-                    and target_bufnr ~= nil
+                return totals > 0 and targets > 0 and totals > targets and target_bufnr ~= nil
             end
 
             if type(bufnrs) == "table" then
                 for _, bn in ipairs(bufnrs) do
-                    local buf_hidden =
-                        vim.api.nvim_get_option_value("bufhidden", { buf = bn })
-                    buf_hidden = type(buf_hidden) == "string"
-                        and string.len(buf_hidden) > 0
-                    local buf_listed =
-                        vim.api.nvim_get_option_value("buflisted", { buf = bn })
+                    local buf_hidden = vim.api.nvim_get_option_value("bufhidden", { buf = bn })
+                    buf_hidden = type(buf_hidden) == "string" and string.len(buf_hidden) > 0
+                    local buf_listed = vim.api.nvim_get_option_value("buflisted", { buf = bn })
                     local buf_loaded = vim.api.nvim_buf_is_loaded(bn)
                     local bufname = vim.api.nvim_buf_get_name(bn)
                     if not require("stickybuf").should_auto_pin(bn) then

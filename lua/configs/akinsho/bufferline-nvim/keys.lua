@@ -10,26 +10,11 @@ local M = {
     ),
 
     -- go to next/previous buffer
-    set_lazy_key(
-        "n",
-        "]b",
-        "<cmd>BufferLineCycleNext<cr>",
-        { desc = "Go to next buffer" }
-    ),
-    set_lazy_key(
-        "n",
-        "[b",
-        "<cmd>BufferLineCyclePrev<cr>",
-        { desc = "Go to previous buffer" }
-    ),
+    set_lazy_key("n", "]b", "<cmd>BufferLineCycleNext<cr>", { desc = "Go to next buffer" }),
+    set_lazy_key("n", "[b", "<cmd>BufferLineCyclePrev<cr>", { desc = "Go to previous buffer" }),
 
     -- move/re-order buffer to next/previous position
-    set_lazy_key(
-        "n",
-        "<leader>.",
-        "<cmd>BufferLineMoveNext<cr>",
-        { desc = "Move buffer to next" }
-    ),
+    set_lazy_key("n", "<leader>.", "<cmd>BufferLineMoveNext<cr>", { desc = "Move buffer to next" }),
     set_lazy_key(
         "n",
         "<leader>,",
@@ -45,10 +30,7 @@ for i = 1, 9 do
         set_lazy_key(
             "n",
             string.format("<leader>%d", i),
-            string.format(
-                "<cmd>lua require('bufferline').go_to_buffer(%d, true)<cr>",
-                i
-            ),
+            string.format("<cmd>lua require('bufferline').go_to_buffer(%d, true)<cr>", i),
             { desc = string.format("Go to buffer-%d", i) }
         )
     )

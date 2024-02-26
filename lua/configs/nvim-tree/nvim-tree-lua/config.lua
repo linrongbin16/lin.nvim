@@ -23,12 +23,7 @@ local on_attach = function(bufnr)
     -- l => open file/directory
     -- h => close directory
     vim.keymap.set("n", "l", api.node.open.edit, opts("Open"))
-    vim.keymap.set(
-        "n",
-        "h",
-        api.node.navigate.parent_close,
-        opts("Close Directory")
-    )
+    vim.keymap.set("n", "h", api.node.navigate.parent_close, opts("Close Directory"))
 
     -- . => cd to folder
     vim.keymap.set("n", ".", api.tree.change_root_to_node, opts("CD"))
@@ -38,46 +33,25 @@ local on_attach = function(bufnr)
     -- open in new tab/split/vsplit
     vim.keymap.set("n", "<C-w>t", api.node.open.tab, opts("Open: New Tab"))
     vim.keymap.del("n", "<C-t>", { buffer = bufnr })
-    vim.keymap.set(
-        "n",
-        "<C-w>v",
-        api.node.open.vertical,
-        opts("Open: Vertical Split")
-    )
+    vim.keymap.set("n", "<C-w>v", api.node.open.vertical, opts("Open: Vertical Split"))
     vim.keymap.del("n", "<C-v>", { buffer = bufnr })
-    vim.keymap.set(
-        "n",
-        "<C-w>s",
-        api.node.open.horizontal,
-        opts("Open: Horizontal Split")
-    )
+    vim.keymap.set("n", "<C-w>s", api.node.open.horizontal, opts("Open: Horizontal Split"))
     vim.keymap.del("n", "<C-x>", { buffer = bufnr })
 
     -- ]d => next diagnostic
     -- [d => prev diagnostic
-    vim.keymap.set(
-        "n",
-        "]d",
-        api.node.navigate.diagnostics.next,
-        opts("Next Diagnostic")
-    )
-    vim.keymap.set(
-        "n",
-        "[d",
-        api.node.navigate.diagnostics.prev,
-        opts("Prev Diagnostic")
-    )
+    vim.keymap.set("n", "]d", api.node.navigate.diagnostics.next, opts("Next Diagnostic"))
+    vim.keymap.set("n", "[d", api.node.navigate.diagnostics.prev, opts("Prev Diagnostic"))
 
     -- d => trash
     -- D => delete
     local function trash_put()
         local node = api.tree.get_node_under_cursor()
         local function trash_impl(on_exit, on_stderr)
-            local j =
-                vim.fn.jobstart("trash" .. ' "' .. node.absolute_path .. '"', {
-                    on_exit = on_exit,
-                    on_stderr = on_stderr,
-                })
+            local j = vim.fn.jobstart("trash" .. ' "' .. node.absolute_path .. '"', {
+                on_exit = on_exit,
+                on_stderr = on_stderr,
+            })
             vim.fn.jobwait({ j })
         end
 
@@ -89,9 +63,7 @@ local on_attach = function(bufnr)
         end
         local function on_trash_exit(_, rc)
             if rc ~= 0 then
-                require("nvim-tree.notify").warn(
-                    "trash failed: " .. err_msg .. ""
-                )
+                require("nvim-tree.notify").warn("trash failed: " .. err_msg .. "")
             end
         end
 

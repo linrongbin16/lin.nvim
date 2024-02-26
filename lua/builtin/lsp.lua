@@ -7,10 +7,8 @@ local set_key = require("builtin.utils.keymap").set_key
 vim.lsp.handlers["textDocument/hover"] =
     vim.lsp.with(vim.lsp.handlers.hover, { border = constants.ui.border })
 
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
-    vim.lsp.handlers.signature_help,
-    { border = constants.ui.border }
-)
+vim.lsp.handlers["textDocument/signatureHelp"] =
+    vim.lsp.with(vim.lsp.handlers.signature_help, { border = constants.ui.border })
 
 vim.api.nvim_create_augroup("builtin_lsp_augroup", { clear = true })
 vim.api.nvim_create_autocmd("LspAttach", {
@@ -23,8 +21,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         --- @param next boolean
         --- @param severity integer?
         local function diagnostic_goto(next, severity)
-            local go = next and vim.diagnostic.goto_next
-                or vim.diagnostic.goto_prev
+            local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
             return function()
                 go({ severity = severity })
             end
@@ -53,12 +50,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         else
             type_definition_cmd = "<cmd>lua vim.lsp.buf.type_definition()<cr>"
         end
-        set_key(
-            "n",
-            "gt",
-            type_definition_cmd,
-            make_desc("Go to lsp type definitions")
-        )
+        set_key("n", "gt", type_definition_cmd, make_desc("Go to lsp type definitions"))
 
         -- implementations
         local implementation_cmd = nil
@@ -69,12 +61,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         else
             implementation_cmd = "<cmd>lua vim.lsp.buf.implementation()<cr>"
         end
-        set_key(
-            "n",
-            "gi",
-            implementation_cmd,
-            make_desc("Go to lsp implementations")
-        )
+        set_key("n", "gi", implementation_cmd, make_desc("Go to lsp implementations"))
 
         -- references
         local reference_cmd = nil
@@ -107,12 +94,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         )
 
         -- hover
-        set_key(
-            "n",
-            "K",
-            "<cmd>lua vim.lsp.buf.hover()<cr>",
-            make_desc("Show hover")
-        )
+        set_key("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>", make_desc("Show hover"))
 
         set_key(
             { "n", "i" },
@@ -122,12 +104,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         )
 
         -- operation
-        set_key(
-            "n",
-            "<Leader>rn",
-            "<cmd>lua vim.lsp.buf.rename()<cr>",
-            make_desc("Rename symbol")
-        )
+        set_key("n", "<Leader>rn", "<cmd>lua vim.lsp.buf.rename()<cr>", make_desc("Rename symbol"))
         set_key(
             "n",
             "<Leader>ca",
@@ -142,18 +119,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
         )
 
         -- diagnostic
-        set_key(
-            "n",
-            "]d",
-            diagnostic_goto(true),
-            make_desc("Next diagnostic item")
-        )
-        set_key(
-            "n",
-            "[d",
-            diagnostic_goto(false),
-            make_desc("Previous diagnostic item")
-        )
+        set_key("n", "]d", diagnostic_goto(true), make_desc("Next diagnostic item"))
+        set_key("n", "[d", diagnostic_goto(false), make_desc("Previous diagnostic item"))
         set_key(
             "n",
             "]e",

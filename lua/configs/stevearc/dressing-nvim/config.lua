@@ -1,6 +1,5 @@
 local constants = require("builtin.utils.constants")
-local close_mappings =
-    { ["<ESC>"] = "Close", ["<C-[>"] = "Close", ["<C-c>"] = "Close" }
+local close_mappings = { ["<ESC>"] = "Close", ["<C-[>"] = "Close", ["<C-c>"] = "Close" }
 local window_min_width_value = 50
 local window_min_width_rate = 0.2
 local window_min_width = { window_min_width_value, window_min_width_rate }
