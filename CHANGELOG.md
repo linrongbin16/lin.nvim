@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.23.2](https://github.com/linrongbin16/lin.nvim/compare/v2.23.1...v2.23.2) (2024-02-26)
+
+
+### Bug Fixes
+
+* **install:** force '--break-system-packages' for pip ([#496](https://github.com/linrongbin16/lin.nvim/issues/496)) ([2d25a7b](https://github.com/linrongbin16/lin.nvim/commit/2d25a7bcd8a8fb5bcc2afc8a2d303d5040dfc126))
+
 ## [2.23.1](https://github.com/linrongbin16/lin.nvim/compare/v2.23.0...v2.23.1) (2024-02-26)
 
 
