@@ -4,7 +4,6 @@
 # set -x
 
 NVIM_HOME=$HOME/.config/nvim
-CTAGS_HOME=$NVIM_HOME/universal-ctags
 OS="$(uname -s)"
 
 IS_APT=0
@@ -63,17 +62,37 @@ install_func() {
     fi
 }
 
-install_ctags() {
-    info "install universal-ctags from source"
+latest_github_release_tag() {
+    local org="$1"
+    local repo="$2"
+    local uri="https://github.com/$org/$repo/releases/latest"
+    curl -s -f -L $uri | grep "href=\"/$org/$repo/releases/tag" | grep -Eo 'href="/[a-zA-Z0-9#~.*,/!?=+&_%:-]*"' | head -n 1 | cut -d '"' -f2 | cut -d "/" -f6
+}
+
+install_linux_ctags() {
+    # info "install universal-ctags from source"
+    local org="universal-ctags"
+    local repo="ctags-nightly-build"
+    local ctags_version=$(latest_github_release_tag $org $repo)
+    local ctags_file="uctags-${ctags_version:0:10}-linux-x86_64.tar.xz"
+    local ctags_dir="uctags-${ctags_version:0:10}-linux-x86_64"
+    local ctags_url="https://github.com/$org/$repo/releases/download/$ctags_version/$ctags_file"
     cd $NVIM_HOME
-    if [ ! -d $CTAGS_HOME ]; then
-        git clone https://github.com/universal-ctags/ctags.git $CTAGS_HOME
+    info "install $ctags_file($ctags_version) ctags from github"
+    if [ -f $ctags_file ]; then
+        rm -rf $ctags_file
     fi
-    cd $CTAGS_HOME
-    ./autogen.sh
-    ./configure
-    make -s
-    sudo make -s install
+    curl -s -L $ctags_url -o $ctags_file
+    if [ $? -ne 0 ]; then
+        info "failed to download $ctags_file, skip..."
+    else
+        tar -xf $ctags_file
+        chmod u+x $ctags_dir/bin/ctags
+        chmod u+x $ctags_dir/bin/readtags
+        sudo mv $ctags_dir/bin/ctags /usr/local/bin/ctags
+        sudo mv $ctags_dir/bin/readtags /usr/local/bin/readtags
+        info "install $ctags_file($ctags_version) ctags from github - done"
+    fi
 }
 
 # }
@@ -82,7 +101,7 @@ install_ctags() {
 
 install_apt_nvim() {
     info "install 'nvim'(appimage) from github.com"
-    sudo apt-get -q -y install fuse
+    sudo apt-get -qq -y install fuse
     wget https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
     sudo mkdir -p /usr/local/bin
     chmod u+x nvim.appimage
@@ -92,27 +111,27 @@ install_apt_nvim() {
 install_apt_node() {
     # see: https://github.com/nodesource/distributions
     info "install nodejs from deb.nodesource.com"
-    sudo apt-get -q -y install ca-certificates gnupg
+    sudo apt-get -qq -y install ca-certificates gnupg
     sudo mkdir -p /etc/apt/keyrings
     curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
     NODE_MAJOR=20
     echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
-    sudo apt-get -q update
-    sudo apt-get -q -y install nodejs
+    sudo apt-get -qq update
+    sudo apt-get -qq -y install nodejs
 }
 
 install_apt_ctags() {
-    sudo apt-get -q -y install libseccomp-dev
-    sudo apt-get -q -y install libjansson-dev
-    sudo apt-get -q -y install libyaml-dev
-    sudo apt-get -q -y install libxml2-dev
-    install_ctags
+    sudo apt-get -qq -y install libseccomp-dev
+    sudo apt-get -qq -y install libjansson-dev
+    sudo apt-get -qq -y install libyaml-dev
+    sudo apt-get -qq -y install libxml2-dev
+    install_linux_ctags
 }
 
 install_apt_git() {
     sudo apt-add-repository ppa:git-core/ppa
-    sudo apt-get -q update
-    sudo apt-get -q -y install git
+    sudo apt-get -qq update
+    sudo apt-get -qq -y install git
 }
 
 install_apt() {
@@ -125,34 +144,34 @@ install_apt() {
     install_func "install_apt_nvim" "nvim"
 
     # c++ toolchain
-    install "sudo apt-get -q -y install build-essential" "gcc"
-    install "sudo apt-get -q -y install build-essential" "make"
-    install "sudo apt-get -q -y install autoconf" "autoconf"
-    install "sudo apt-get -q -y install automake" "automake"
-    install "sudo apt-get -q -y install pkg-config" "pkg-config"
-    install "sudo apt-get -q -y install cmake" "cmake"
+    install "sudo apt-get -qq -y install build-essential" "gcc"
+    install "sudo apt-get -qq -y install build-essential" "make"
+    install "sudo apt-get -qq -y install autoconf" "autoconf"
+    install "sudo apt-get -qq -y install automake" "automake"
+    install "sudo apt-get -qq -y install pkg-config" "pkg-config"
+    install "sudo apt-get -qq -y install cmake" "cmake"
 
     # download tools
     install_func "install_apt_git" "git"
-    install "sudo apt-get -q -y install curl" "curl"
-    install "sudo apt-get -q -y install wget" "wget"
+    install "sudo apt-get -qq -y install curl" "curl"
+    install "sudo apt-get -qq -y install wget" "wget"
 
     # compress tools
-    install "sudo apt-get -q -y install p7zip" "7z"
-    install "sudo apt-get -q -y install gzip" "gzip"
-    install "sudo apt-get -q -y install unzip" "unzip"
+    install "sudo apt-get -qq -y install p7zip" "7z"
+    install "sudo apt-get -qq -y install gzip" "gzip"
+    install "sudo apt-get -qq -y install unzip" "unzip"
 
     # luarocks
-    install "sudo apt-get -q -y install luajit" "luajit"
-    install "sudo apt-get -q -y install luarocks" "luarocks"
+    install "sudo apt-get -qq -y install luajit" "luajit"
+    install "sudo apt-get -qq -y install luarocks" "luarocks"
 
     # copy/paste tools
-    install "sudo apt-get -q -y install xsel" "xsel"
-    install "sudo apt-get -q -y install xclip" "xclip"
+    install "sudo apt-get -qq -y install xsel" "xsel"
+    install "sudo apt-get -qq -y install xclip" "xclip"
 
     # python3
-    install "sudo apt-get -q -y install python3 python3-dev python3-venv python3-pip python3-docutils python3-pynvim" "python3"
-    install "sudo apt-get -q -y install python3 python3-dev python3-venv python3-pip python3-docutils python3-pynvim" "pip3"
+    install "sudo apt-get -qq -y install python3 python3-dev python3-venv python3-pip python3-docutils python3-pynvim" "python3"
+    install "sudo apt-get -qq -y install python3 python3-dev python3-venv python3-pip python3-docutils python3-pynvim" "pip3"
 
     # nodejs
     install_func "install_apt_node" "node"
@@ -222,7 +241,7 @@ install_dnf_ctags() {
     sudo dnf install -y jansson-devel
     sudo dnf install -y libyaml-devel
     sudo dnf install -y libxml2-devel
-    install_ctags
+    install_linux_ctags
 }
 
 install_dnf() {
@@ -323,10 +342,11 @@ rust_dependency() {
     info "install rust and modern commands"
     install "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y" "cargo"
     . "$HOME/.cargo/env"
-    install "cargo install fd-find" "fd"
-    install "cargo install ripgrep" "rg"
-    install "cargo install --locked bat" "bat"
-    install "cargo install eza" "eza"
+    install "curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash" "cargo-binstall"
+    install "cargo binstall --no-confirm fd-find" "fd"
+    install "cargo binstall --no-confirm ripgrep" "rg"
+    install "cargo binstall --no-confirm bat" "bat"
+    install "cargo binstall --no-confirm eza" "eza"
 }
 
 pip3_dependency() {
@@ -345,13 +365,6 @@ npm_dependency() {
     install "sudo npm install --silent -g trash-cli" "trash"
 }
 
-nerdfont_latest_release_tag() {
-    local org="$1"
-    local repo="$2"
-    local uri="https://github.com/$org/$repo/releases/latest"
-    curl -s -f -L $uri | grep "href=\"/$org/$repo/releases/tag" | grep -Eo 'href="/[a-zA-Z0-9#~.*,/!?=+&_%:-]*"' | head -n 1 | cut -d '"' -f2 | cut -d "/" -f6
-}
-
 install_nerdfont() {
     if [ "$OS" == "Darwin" ]; then
         local font_name=$2
@@ -363,7 +376,7 @@ install_nerdfont() {
         local org="ryanoasis"
         local repo="nerd-fonts"
         local font_file=$1
-        local font_version=$(nerdfont_latest_release_tag $org $repo)
+        local font_version=$(latest_github_release_tag $org $repo)
         local font_url="https://github.com/$org/$repo/releases/download/$font_version/$font_file"
         info "install $font_file($font_version) nerd fonts from github"
         if [ -f $font_file ]; then
@@ -435,12 +448,12 @@ nvim_config() {
         cp $conform_home/formatters_by_ft_sample.lua $conform_formatters_by_ft
     fi
 
-    # nvim-lint
-    local nvim_lint_home="$NVIM_HOME/lua/configs/mfussenegger/nvim-lint"
-    local nvim_lint_linters_by_ft="$nvim_lint_home/linters_by_ft.lua"
-    if [ ! -f $nvim_lint_linters_by_ft ]; then
-        cp $nvim_lint_home/linters_by_ft_sample.lua $nvim_lint_linters_by_ft
-    fi
+    # # nvim-lint
+    # local nvim_lint_home="$NVIM_HOME/lua/configs/mfussenegger/nvim-lint"
+    # local nvim_lint_linters_by_ft="$nvim_lint_home/linters_by_ft.lua"
+    # if [ ! -f $nvim_lint_linters_by_ft ]; then
+    #     cp $nvim_lint_home/linters_by_ft_sample.lua $nvim_lint_linters_by_ft
+    # fi
 }
 
 info "install for $OS"

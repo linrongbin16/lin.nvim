@@ -33,16 +33,17 @@ jobs:
           level: Information
           configpath: ".luarc.json"
           neodev-version: stable
-  luacheck:
-    name: Lua check
+  selene:
+    name: Selene
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Luacheck
-        uses: lunarmodules/luacheck@v1
-        with:
-          args: lua --config .luacheckrc
+      - uses: cargo-bins/cargo-binstall@main
+      - name: Selene
+        run: |
+          cargo binstall  --no-confirm selene
+          selene --config selene.toml ./lua
   stylua:
     name: Stylua
     runs-on: ubuntu-latest
@@ -69,7 +70,6 @@ jobs:
         run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
         id: extract_branch
       - name: Install lin.nvim
-        shell: bash
         run: |
           set -x
           echo '${{ steps.extract_branch.outputs.branch }}'
@@ -96,7 +96,7 @@ jobs:
     if: ${{ github.ref == 'refs/heads/main' }}
     needs:
       - typecheck
-      - luacheck
+      - selene
       - stylua
       - ubuntu_installer
       - macos_installer
