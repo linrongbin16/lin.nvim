@@ -471,12 +471,12 @@ local M = {
     -- Repeat
     {
         "tpope/vim-repeat",
-        event = { VeryLazy, BufEnter },
+        event = { VeryLazy },
     },
     -- Comment
     {
         "numToStr/Comment.nvim",
-        event = { VeryLazy, BufEnter },
+        event = { VeryLazy },
         config = lua_config("numToStr/Comment.nvim"),
     },
     -- Cursor motion
@@ -491,7 +491,7 @@ local M = {
     {
         "kylechui/nvim-surround",
         version = "*",
-        event = { VeryLazy, BufEnter },
+        event = { VeryLazy },
         config = lua_config("kylechui/nvim-surround"),
     },
     -- Structure outlines
