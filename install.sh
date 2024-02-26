@@ -349,14 +349,11 @@ rust_dependency() {
     install "cargo binstall --no-confirm eza" "eza"
 }
 
-pip3_dependency() {
+pip_dependency() {
     if [ $IS_APT -eq 0 ]; then
         info "install python packages with pip3"
-        python3 -m pip install pynvim --user --upgrade
+        python3 -m pip install pynvim --user --upgrade --break-system-packages
     fi
-    # install "python3 -m pip install pipx --user && python3 -m pipx ensurepath" "pipx"
-    # export PATH="$PATH:$HOME/.local/bin"
-    # install "pipx install trash-cli" "trash-put"
 }
 
 npm_dependency() {
@@ -491,7 +488,7 @@ FreeBSD | NetBSD | OpenBSD)
 esac
 
 rust_dependency
-pip3_dependency
+pip_dependency
 npm_dependency
 nerdfont_dependency
 nvim_config
