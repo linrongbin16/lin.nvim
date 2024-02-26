@@ -63,6 +63,13 @@ install_func() {
     fi
 }
 
+latest_github_release_tag() {
+    local org="$1"
+    local repo="$2"
+    local uri="https://github.com/$org/$repo/releases/latest"
+    curl -s -f -L $uri | grep "href=\"/$org/$repo/releases/tag" | grep -Eo 'href="/[a-zA-Z0-9#~.*,/!?=+&_%:-]*"' | head -n 1 | cut -d '"' -f2 | cut -d "/" -f6
+}
+
 install_ctags() {
     info "install universal-ctags from source"
     cd $NVIM_HOME
@@ -346,13 +353,6 @@ npm_dependency() {
     install "sudo npm install --silent -g trash-cli" "trash"
 }
 
-nerdfont_latest_release_tag() {
-    local org="$1"
-    local repo="$2"
-    local uri="https://github.com/$org/$repo/releases/latest"
-    curl -s -f -L $uri | grep "href=\"/$org/$repo/releases/tag" | grep -Eo 'href="/[a-zA-Z0-9#~.*,/!?=+&_%:-]*"' | head -n 1 | cut -d '"' -f2 | cut -d "/" -f6
-}
-
 install_nerdfont() {
     if [ "$OS" == "Darwin" ]; then
         local font_name=$2
@@ -364,7 +364,7 @@ install_nerdfont() {
         local org="ryanoasis"
         local repo="nerd-fonts"
         local font_file=$1
-        local font_version=$(nerdfont_latest_release_tag $org $repo)
+        local font_version=$(latest_github_release_tag $org $repo)
         local font_url="https://github.com/$org/$repo/releases/download/$font_version/$font_file"
         info "install $font_file($font_version) nerd fonts from github"
         if [ -f $font_file ]; then
