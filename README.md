@@ -49,8 +49,8 @@ This ultra config solves below issues:
   lint)? [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig),
   [nvim-cmp](https://github.com/hrsh7th/nvim-cmp),
   [mason.nvim](https://github.com/williamboman/mason.nvim),
-  [null-ls.nvim](https://github.com/jose-elias-alvarez/null-ls.nvim) and a bunch of language extensions are embeded.
-- Naive UI? File explorer, git status, opened buffers,
+  [none-ls.nvim](https://github.com/nvimtools/none-ls.nvim) and a bunch of language extensions are embeded.
+- Naive UI? File explorer, git status, tabs,
   icons and most popular colorschemes integrated (again, just like vscode).
 - More efficient editing? Most popular editing improving plugins
   embeded, and well cooperated for best user experience and performance.
