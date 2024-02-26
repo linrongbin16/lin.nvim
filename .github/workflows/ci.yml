@@ -72,7 +72,6 @@ jobs:
       - name: Install lin.nvim
         run: |
           set -x
-          sudo apt install -y universal-ctags
           echo '${{ steps.extract_branch.outputs.branch }}'
           export BRANCH_NAME=${{ steps.extract_branch.outputs.branch }}
           sudo sh -c "git clone --single-branch --branch $BRANCH_NAME --depth=1 https://github.com/linrongbin16/lin.nvim ~/.config/nvim && cd ~/.config/nvim && sudo bash -euxo pipefail  ./install.sh"
