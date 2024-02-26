@@ -24,30 +24,10 @@ set_key(
     ":noa w<CR>",
     { silent = false, desc = "Save file without formatting" }
 )
-set_key(
-    { "n", "x" },
-    "<leader>qt",
-    ":quit<CR>",
-    { silent = false, desc = ":quit" }
-)
-set_key(
-    { "n", "x" },
-    "<leader>qT",
-    ":quit!<CR>",
-    { silent = false, desc = ":quit!" }
-)
-set_key(
-    { "n", "x" },
-    "<leader>qa",
-    ":qall<CR>",
-    { silent = false, desc = ":qall" }
-)
-set_key(
-    { "n", "x" },
-    "<leader>qA",
-    ":qall!<CR>",
-    { silent = false, desc = ":qall!" }
-)
+set_key({ "n", "x" }, "<leader>qt", ":quit<CR>", { silent = false, desc = ":quit" })
+set_key({ "n", "x" }, "<leader>qT", ":quit!<CR>", { silent = false, desc = ":quit!" })
+set_key({ "n", "x" }, "<leader>qa", ":qall<CR>", { silent = false, desc = ":qall" })
+set_key({ "n", "x" }, "<leader>qA", ":qall!<CR>", { silent = false, desc = ":qall!" })
 set_key(
     { "n", "x" },
     "<leader>zz",

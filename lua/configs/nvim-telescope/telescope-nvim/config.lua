@@ -90,11 +90,9 @@ require("telescope").setup({
                 ["Q"] = require("telescope.actions").close,
             },
         },
-        file_previewer = BAT_PREVIEWER
-                and require("telescope.previewers").cat.new
+        file_previewer = BAT_PREVIEWER and require("telescope.previewers").cat.new
             or require("telescope.previewers").vim_buffer_cat.new,
-        grep_previewer = BAT_PREVIEWER
-                and require("telescope.previewers").vimgrep.new
+        grep_previewer = BAT_PREVIEWER and require("telescope.previewers").vimgrep.new
             or require("telescope.previewers").vim_buffer_vimgrep.new,
     },
     pickers = {

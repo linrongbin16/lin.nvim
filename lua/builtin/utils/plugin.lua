@@ -6,9 +6,7 @@ local stdpath_config = vim.fn.stdpath("config")
 --- @param key string
 --- @return any
 local function load_lua_module(name, key)
-    local user_filepath_base = stdpath_config
-        .. "/lua/configs/"
-        .. name:gsub("%.", "-")
+    local user_filepath_base = stdpath_config .. "/lua/configs/" .. name:gsub("%.", "-")
     local user_path = user_filepath_base .. string.format("/user_%s.lua", key)
     local module_base = "configs." .. name:gsub("%.", "-")
 
@@ -24,9 +22,7 @@ end
 --- @param name string
 --- @param key string
 local function load_vim_script(name, key)
-    local filepath_base = stdpath_config
-        .. "/lua/configs/"
-        .. name:gsub("%.", "-")
+    local filepath_base = stdpath_config .. "/lua/configs/" .. name:gsub("%.", "-")
     local user_path = filepath_base .. string.format("/user_%s.vim", key)
 
     if uv.fs_stat(user_path) then

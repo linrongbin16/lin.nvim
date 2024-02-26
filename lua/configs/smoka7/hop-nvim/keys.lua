@@ -25,18 +25,8 @@ local M = {
         "<cmd>HopChar2BC<cr>",
         { desc = "Jump backward by {char}{char}" }
     ),
-    set_lazy_key(
-        { "n", "x" },
-        "<leader>j",
-        "<cmd>HopLineAC<cr>",
-        { desc = "Jump to below lines" }
-    ),
-    set_lazy_key(
-        { "n", "x" },
-        "<leader>k",
-        "<cmd>HopLineBC<cr>",
-        { desc = "Jump to above lines" }
-    ),
+    set_lazy_key({ "n", "x" }, "<leader>j", "<cmd>HopLineAC<cr>", { desc = "Jump to below lines" }),
+    set_lazy_key({ "n", "x" }, "<leader>k", "<cmd>HopLineBC<cr>", { desc = "Jump to above lines" }),
 }
 
 return M

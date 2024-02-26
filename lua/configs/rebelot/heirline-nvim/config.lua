@@ -43,10 +43,7 @@ local function GetOsIcon()
     elseif uname:match("Windows") then
         return ""
     elseif uname:match("Linux") then
-        if
-            type(OS_UNAME.release) == "string"
-            and OS_UNAME.release:find("arch")
-        then
+        if type(OS_UNAME.release) == "string" and OS_UNAME.release:find("arch") then
             return ""
         end
         return ""
@@ -167,10 +164,7 @@ local FileName = {
             if strings.empty(self.filename) then
                 return ""
             end
-            local readonly = not vim.api.nvim_buf_get_option(
-                    0,
-                    "modifiable"
-                )
+            local readonly = not vim.api.nvim_buf_get_option(0, "modifiable")
                 or vim.api.nvim_buf_get_option(0, "readonly")
             if readonly then
                 return "[] "
@@ -309,8 +303,7 @@ local SearchCount = {
         if vim.v.hlsearch == 0 then
             return ""
         end
-        local ok, result =
-            pcall(vim.fn.searchcount, { maxcount = 100, timeout = 500 })
+        local ok, result = pcall(vim.fn.searchcount, { maxcount = 100, timeout = 500 })
         if not ok or tables.tbl_empty(result) then
             return ""
         end
@@ -339,10 +332,8 @@ local DiagnosticColors = {
 local DiagnosticSeverity = { "ERROR", "WARN", "INFO", "HINT" }
 
 local function GetDiagnosticText(level)
-    local value = #vim.diagnostic.get(
-        0,
-        { severity = vim.diagnostic.severity[DiagnosticSeverity[level]] }
-    )
+    local value =
+        #vim.diagnostic.get(0, { severity = vim.diagnostic.severity[DiagnosticSeverity[level]] })
     if value <= 0 then
         return ""
     end
@@ -564,22 +555,12 @@ local function get_color_with_lualine(
     local a_section = "airline_" .. section
     local a_attribute = attribute == "fg" and 1 or 2
     local a_mode_name = mode_name == "command" and "terminal" or mode_name
-    if
-        has_lualine
-        and tables.tbl_get(lualine_theme, mode_name, section, attribute)
-    then
+    if has_lualine and tables.tbl_get(lualine_theme, mode_name, section, attribute) then
         return lualine_theme[mode_name][section][attribute]
-    elseif
-        has_airline
-        and tables.tbl_get(airline_theme, a_mode_name, a_section, a_attribute)
-    then
+    elseif has_airline and tables.tbl_get(airline_theme, a_mode_name, a_section, a_attribute) then
         return airline_theme[a_mode_name][a_section][a_attribute]
     else
-        return colors_hl.get_color_with_fallback(
-            fallback_hls,
-            fallback_attribute,
-            fallback_color
-        )
+        return colors_hl.get_color_with_fallback(fallback_hls, fallback_attribute, fallback_color)
     end
 end
 
@@ -604,12 +585,8 @@ end
 
 -- Turns { red, green, blue } -> #rrggbb
 local function rgb_num2str(rgb_color_num)
-    local rgb_color_str = string.format(
-        "#%02x%02x%02x",
-        rgb_color_num.red,
-        rgb_color_num.green,
-        rgb_color_num.blue
-    )
+    local rgb_color_str =
+        string.format("#%02x%02x%02x", rgb_color_num.red, rgb_color_num.green, rgb_color_num.blue)
     return rgb_color_str
 end
 
@@ -648,26 +625,14 @@ local function setup_colors(colorname)
     local shade_level2 = 0.65
     local shade_level3 = 0.8
 
-    local diagnostic_error = colors_hl.get_color_with_fallback(
-        { "DiagnosticSignError", "ErrorMsg" },
-        "fg",
-        red
-    )
-    local diagnostic_warn = colors_hl.get_color_with_fallback(
-        { "DiagnosticSignWarn", "WarningMsg" },
-        "fg",
-        yellow
-    )
-    local diagnostic_info = colors_hl.get_color_with_fallback(
-        { "DiagnosticSignInfo", "None" },
-        "fg",
-        cyan
-    )
-    local diagnostic_hint = colors_hl.get_color_with_fallback(
-        { "DiagnosticSignHint", "Comment" },
-        "fg",
-        grey
-    )
+    local diagnostic_error =
+        colors_hl.get_color_with_fallback({ "DiagnosticSignError", "ErrorMsg" }, "fg", red)
+    local diagnostic_warn =
+        colors_hl.get_color_with_fallback({ "DiagnosticSignWarn", "WarningMsg" }, "fg", yellow)
+    local diagnostic_info =
+        colors_hl.get_color_with_fallback({ "DiagnosticSignInfo", "None" }, "fg", cyan)
+    local diagnostic_hint =
+        colors_hl.get_color_with_fallback({ "DiagnosticSignHint", "Comment" }, "fg", grey)
     local git_add = colors_hl.get_color_with_fallback(
         { "GitSignsAdd", "GitGutterAdd", "diffAdded", "DiffAdd" },
         "fg",
@@ -695,11 +660,9 @@ local function setup_colors(colorname)
     local replace_bg, replace_fg
     local command_bg, command_fg
 
-    local has_lualine, lualine_theme =
-        pcall(require, string.format("lualine.themes.%s", colorname))
+    local has_lualine, lualine_theme = pcall(require, string.format("lualine.themes.%s", colorname))
     local has_airline = false
-    local airline_theme_name =
-        string.format("airline#themes#%s#palette", colorname)
+    local airline_theme_name = string.format("airline#themes#%s#palette", colorname)
     local airline_theme = nil
     if not has_lualine and vim.fn.exists("g:" .. airline_theme_name) > 0 then
         has_airline = true
@@ -808,15 +771,9 @@ local function setup_colors(colorname)
         normal_bg4 = brightness_modifier(normal_bg3, parameter)
         normal_fg4 = normal_fg3
     else
-        normal_bg3 = shade_rgb(
-            get_terminal_color_with_fallback(0, magenta),
-            shade_level2
-        )
+        normal_bg3 = shade_rgb(get_terminal_color_with_fallback(0, magenta), shade_level2)
         normal_fg3 = text_fg
-        normal_bg4 = shade_rgb(
-            get_terminal_color_with_fallback(0, magenta),
-            shade_level3
-        )
+        normal_bg4 = shade_rgb(get_terminal_color_with_fallback(0, magenta), shade_level3)
         normal_fg4 = text_fg
     end
     insert_bg = get_color_with_lualine(
@@ -919,9 +876,7 @@ local function setup_colors(colorname)
     if not has_lualine and not has_airline then
         local background_color = colors_hl.get_color("Normal", "bg")
         if background_color then
-            local parameter = get_color_brightness(background_color) > 0.5
-                    and -10
-                or 10
+            local parameter = get_color_brightness(background_color) > 0.5 and -10 or 10
             normal_bg = brightness_modifier(normal_bg, parameter)
             normal_bg1 = normal_bg
             if get_color_brightness(normal_bg1) < 0.5 then

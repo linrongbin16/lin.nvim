@@ -6,11 +6,7 @@ require("toggleterm").setup({
     float_opts = {
         border = constants.ui.border,
         width = function()
-            return layout.editor.width(
-                constants.ui.layout.middle.scale,
-                nil,
-                nil
-            )
+            return layout.editor.width(constants.ui.layout.middle.scale, nil, nil)
         end,
         height = function()
             layout.editor.height(constants.ui.layout.middle.scale, nil, nil)

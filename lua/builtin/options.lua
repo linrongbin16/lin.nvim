@@ -98,21 +98,16 @@ vim.opt.autoread = true
 vim.opt.autowrite = true
 vim.opt.swapfile = false
 vim.opt.confirm = false
-vim.api.nvim_create_autocmd(
-    { "FocusGained", "BufEnter", "TermEnter", "TermLeave" },
-    {
-        pattern = "*",
-        callback = function()
-            vim.cmd.checktime()
-        end,
-    }
-)
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "TermEnter", "TermLeave" }, {
+    pattern = "*",
+    callback = function()
+        vim.cmd.checktime()
+    end,
+})
 
 -- encodings
 vim.opt.fileencoding = "utf-8"
-vim.opt.fileencodings:append(
-    "ucs-bom,utf-8,cp936,gb18030,gbk,big5,euc-jp,euc-kr,default,latin1"
-)
+vim.opt.fileencodings:append("ucs-bom,utf-8,cp936,gb18030,gbk,big5,euc-jp,euc-kr,default,latin1")
 vim.opt.encoding = "utf-8"
 -- vim.opt.termencoding = "utf-8"
 -- set fileformat=unix

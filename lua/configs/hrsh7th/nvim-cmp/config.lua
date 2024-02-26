@@ -81,9 +81,7 @@ local setup_handler = {
             local col = vim.fn.col(".") - 1
             if cmp.visible() then
                 cmp.confirm({ select = true })
-            elseif
-                col == 0 or vim.fn.getline("."):sub(col, col):match("%s")
-            then
+            elseif col == 0 or vim.fn.getline("."):sub(col, col):match("%s") then
                 fallback()
             else
                 cmp.complete()
@@ -106,15 +104,10 @@ local setup_handler = {
     }),
 }
 
-local ok, user_setup_handler =
-    pcall(require, "configs.hrsh7th.nvim-cmp.setup_handler")
+local ok, user_setup_handler = pcall(require, "configs.hrsh7th.nvim-cmp.setup_handler")
 
 if ok then
-    setup_handler = vim.tbl_deep_extend(
-        "force",
-        vim.deepcopy(setup_handler),
-        user_setup_handler
-    )
+    setup_handler = vim.tbl_deep_extend("force", vim.deepcopy(setup_handler), user_setup_handler)
 end
 
 cmp.setup(setup_handler)
