@@ -518,6 +518,15 @@ local M = {
         config = lua_config("axieax/urlview.nvim"),
         keys = lua_keys("axieax/urlview.nvim"),
     },
+    -- Open Url
+    {
+        "chrishrb/gx.nvim",
+        cmd = { "Browse" },
+        submodules = false, -- no
+        config = lua_config("chrishrb/gx.nvim"),
+        init = lua_init("chrishrb/gx.nvim"),
+        keys = lua_keys("chrishrb/gx.nvim"),
+    },
 }
 
 return M
