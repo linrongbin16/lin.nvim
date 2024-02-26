@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.23.1](https://github.com/linrongbin16/lin.nvim/compare/v2.23.0...v2.23.1) (2024-02-26)
+
+
+### Performance Improvements
+
+* **plugins:** reduce 'BufEnter' from plugin load ([#494](https://github.com/linrongbin16/lin.nvim/issues/494)) ([1ac64ed](https://github.com/linrongbin16/lin.nvim/commit/1ac64edb7889b9904e7799e7a6640606c4c25ede))
+
 ## [2.23.0](https://github.com/linrongbin16/lin.nvim/compare/v2.22.1...v2.23.0) (2024-02-26)
 
 
