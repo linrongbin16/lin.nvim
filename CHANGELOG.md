@@ -1,5 +1,18 @@
 # Changelog
 
+## [2.22.1](https://github.com/linrongbin16/lin.nvim/compare/v2.22.0...v2.22.1) (2024-02-26)
+
+
+### Performance Improvements
+
+* **install:** use cargo-binstall to install rust commands ([#489](https://github.com/linrongbin16/lin.nvim/issues/489)) ([2037458](https://github.com/linrongbin16/lin.nvim/commit/2037458431d140161b66ecdb0d211b6e7a592b79))
+* **install:** use github release to install ctags ([#489](https://github.com/linrongbin16/lin.nvim/issues/489)) ([2037458](https://github.com/linrongbin16/lin.nvim/commit/2037458431d140161b66ecdb0d211b6e7a592b79))
+
+
+### Reverts
+
+* **none-ls.nvim:** revert 'nvim-lint' to 'none-ls.nvim'! ([#489](https://github.com/linrongbin16/lin.nvim/issues/489)) ([2037458](https://github.com/linrongbin16/lin.nvim/commit/2037458431d140161b66ecdb0d211b6e7a592b79))
+
 ## [2.22.0](https://github.com/linrongbin16/lin.nvim/compare/v2.21.1...v2.22.0) (2024-02-24)
 
 
