@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.23.0](https://github.com/linrongbin16/lin.nvim/compare/v2.22.1...v2.23.0) (2024-02-26)
+
+
+### Features
+
+* **gx.nvim:** add 'gx.nvim' instead of 'netrw' ([#492](https://github.com/linrongbin16/lin.nvim/issues/492)) ([a504cce](https://github.com/linrongbin16/lin.nvim/commit/a504cce661667ed139127e142ad910b7650b5e2b))
+
 ## [2.22.1](https://github.com/linrongbin16/lin.nvim/compare/v2.22.0...v2.22.1) (2024-02-26)
 
 
