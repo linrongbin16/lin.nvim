@@ -4,7 +4,6 @@
 # set -x
 
 NVIM_HOME=$HOME/.config/nvim
-CTAGS_HOME=$NVIM_HOME/universal-ctags
 OS="$(uname -s)"
 
 IS_APT=0
@@ -70,17 +69,30 @@ latest_github_release_tag() {
     curl -s -f -L $uri | grep "href=\"/$org/$repo/releases/tag" | grep -Eo 'href="/[a-zA-Z0-9#~.*,/!?=+&_%:-]*"' | head -n 1 | cut -d '"' -f2 | cut -d "/" -f6
 }
 
-install_ctags() {
-    info "install universal-ctags from source"
+install_linux_ctags() {
+    # info "install universal-ctags from source"
+    local org="universal-ctags"
+    local repo="ctags-nightly-build"
+    local ctags_version=$(latest_github_release_tag $org $repo)
+    local ctags_file="uctags-${ctags_version:0:10}-linux-x86_64.tar.xz"
+    local ctags_dir="uctags-${ctags_version:0:10}-linux-x86_64"
+    local ctags_url="https://github.com/$org/$repo/releases/download/$ctags_version/$ctags_file"
     cd $NVIM_HOME
-    if [ ! -d $CTAGS_HOME ]; then
-        git clone https://github.com/universal-ctags/ctags.git $CTAGS_HOME
+    info "install $ctags_file($ctags_version) ctags from github"
+    if [ -f $ctags_file ]; then
+        rm -rf $ctags_file
     fi
-    cd $CTAGS_HOME
-    ./autogen.sh
-    ./configure
-    make -s
-    sudo make -s install
+    curl -s -L $ctags_url -o $ctags_file
+    if [ $? -ne 0 ]; then
+        info "failed to download $ctags_file, skip..."
+    else
+        tar zxf $ctags_file
+        chmod u+x $ctags_dir/bin/ctags
+        chmod u+x $ctags_dir/bin/readtags
+        sudo mv $ctags_dir/bin/ctags /usr/local/bin/ctags
+        sudo mv $ctags_dir/bin/readtags /usr/local/bin/readtags
+        info "install $ctags_file($ctags_version) ctags from github - done"
+    fi
 }
 
 # }
@@ -113,7 +125,7 @@ install_apt_ctags() {
     sudo apt-get -q -y install libjansson-dev
     sudo apt-get -q -y install libyaml-dev
     sudo apt-get -q -y install libxml2-dev
-    install_ctags
+    install_linux_ctags
 }
 
 install_apt_git() {
@@ -229,7 +241,7 @@ install_dnf_ctags() {
     sudo dnf install -y jansson-devel
     sudo dnf install -y libyaml-devel
     sudo dnf install -y libxml2-devel
-    install_ctags
+    install_linux_ctags
 }
 
 install_dnf() {
