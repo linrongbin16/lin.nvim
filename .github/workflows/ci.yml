@@ -79,6 +79,9 @@ jobs:
     name: MacOS Installer
     runs-on: macos-latest
     steps:
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
       - uses: Homebrew/actions/setup-homebrew@master
       - name: Get branch
         shell: bash
