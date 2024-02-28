@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.23.4](https://github.com/linrongbin16/lin.nvim/compare/v2.23.3...v2.23.4) (2024-02-28)
+
+
+### Bug Fixes
+
+* **lsp:** fix diagnostics icons ([#501](https://github.com/linrongbin16/lin.nvim/issues/501)) ([8a6ef68](https://github.com/linrongbin16/lin.nvim/commit/8a6ef689077ac8eb9a59c0df9993763408614378))
+
 ## [2.23.3](https://github.com/linrongbin16/lin.nvim/compare/v2.23.2...v2.23.3) (2024-02-28)
 
 
