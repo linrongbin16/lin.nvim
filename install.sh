@@ -368,7 +368,7 @@ npm_dependency() {
 }
 
 install_nerdfont() {
-    if [ "$OS" == "Darwin" ]; then
+    if [ "$OS" = "Darwin" ]; then
         local font_name=$2
         info "install $font_name nerd fonts with brew"
         brew tap homebrew/cask-fonts
