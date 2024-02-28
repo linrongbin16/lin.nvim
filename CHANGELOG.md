@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.23.3](https://github.com/linrongbin16/lin.nvim/compare/v2.23.2...v2.23.3) (2024-02-28)
+
+
+### Bug Fixes
+
+* **install:** fix Windows installer ([#498](https://github.com/linrongbin16/lin.nvim/issues/498)) ([b1ba2f4](https://github.com/linrongbin16/lin.nvim/commit/b1ba2f420a6179aa92fbd960d641bbb684cf15ea))
+
+
+### Performance Improvements
+
+* **install:** force Python PEP668 ([#498](https://github.com/linrongbin16/lin.nvim/issues/498)) ([b1ba2f4](https://github.com/linrongbin16/lin.nvim/commit/b1ba2f420a6179aa92fbd960d641bbb684cf15ea))
+
 ## [2.23.2](https://github.com/linrongbin16/lin.nvim/compare/v2.23.1...v2.23.2) (2024-02-26)
 
 
