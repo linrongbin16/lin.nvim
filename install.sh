@@ -353,6 +353,7 @@ pip_dependency() {
     info "install python packages with pip3"
     local python_has_pep668=$(python3 -c 'import sys; major=sys.version_info.major; minor=sys.version_info.minor; micro=sys.version_info.micro; r1=major >= 3 and minor > 11; r2=major >= 3 and minor == 11 and micro >= 1; print(1 if r1 or r2 else 0)')
 
+    python3 --version
     if [ $python_has_pep668 -eq 1 ]; then
         python3 -m pip install pynvim --user --upgrade --break-system-packages
     else
