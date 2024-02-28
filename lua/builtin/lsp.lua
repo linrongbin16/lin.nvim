@@ -208,6 +208,14 @@ local function setup_diagnostic()
             header = "",
             prefix = "",
         },
+        signs = {
+            text = {
+                [vim.diagnostic.severity.ERROR] = constants.diagnostic.sign.error,
+                [vim.diagnostic.severity.WARN] = constants.diagnostic.sign.warning,
+                [vim.diagnostic.severity.INFO] = constants.diagnostic.sign.info,
+                [vim.diagnostic.severity.HINT] = constants.diagnostic.sign.hint,
+            },
+        },
     })
 
     local signs = {
@@ -217,7 +225,6 @@ local function setup_diagnostic()
         DiagnosticSignHint = constants.diagnostic.sign.hint,
         DiagnosticSignOk = constants.diagnostic.sign.ok,
     }
-
     for name, text in pairs(signs) do
         vim.fn.sign_define(name, {
             texthl = name,
