@@ -170,8 +170,8 @@ install_apt() {
     install "sudo apt-get -qq -y install xclip" "xclip"
 
     # python3
-    install "sudo apt-get -qq -y install python3 python3-dev python3-venv python3-pip python3-docutils python3-pynvim" "python3"
-    install "sudo apt-get -qq -y install python3 python3-dev python3-venv python3-pip python3-docutils python3-pynvim" "pip3"
+    install "sudo apt-get -qq -y install python3 python3-dev python3-venv python3-pip python3-docutils" "python3"
+    install "sudo apt-get -qq -y install python3 python3-dev python3-venv python3-pip python3-docutils" "pip3"
 
     # nodejs
     install_func "install_apt_node" "node"
@@ -350,9 +350,14 @@ rust_dependency() {
 }
 
 pip_dependency() {
-    if [ $IS_APT -eq 0 ]; then
-        info "install python packages with pip3"
+    info "install python packages with pip3"
+    local python_has_pep668=$(python3 -c 'import sys; major=sys.version_info.major; minor=sys.version_info.minor; micro=sys.version_info.micro; r1=major >= 3 and minor > 11; r2=major >= 3 and minor == 11 and micro >= 1; print(1 if r1 or r2 else 0)')
+
+    python3 --version
+    if [ $python_has_pep668 -eq 1 ]; then
         python3 -m pip install pynvim --user --upgrade --break-system-packages
+    else
+        python3 -m pip install pynvim --user --upgrade
     fi
 }
 
@@ -363,7 +368,7 @@ npm_dependency() {
 }
 
 install_nerdfont() {
-    if [ "$OS" == "Darwin" ]; then
+    if [ "$OS" = "Darwin" ]; then
         local font_name=$2
         info "install $font_name nerd fonts with brew"
         brew tap homebrew/cask-fonts

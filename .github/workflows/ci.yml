@@ -10,8 +10,8 @@ concurrency:
   group: ${{ github.ref }}
   cancel-in-progress: true
 jobs:
-  pr_conventional_commit:
-    name: PR Conventional Commit
+  commits:
+    name: Commits
     if: ${{ github.ref != 'refs/heads/main' }}
     runs-on: ubuntu-latest
     steps:
@@ -79,6 +79,9 @@ jobs:
     name: MacOS Installer
     runs-on: macos-latest
     steps:
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
       - uses: Homebrew/actions/setup-homebrew@master
       - name: Get branch
         shell: bash
