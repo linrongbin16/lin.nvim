@@ -151,7 +151,7 @@ local M = {
     },
     {
         "rebelot/heirline.nvim",
-        event = { UIEnter },
+        event = { VeryLazy },
         dependencies = {
             "linrongbin16/lsp-progress.nvim",
         },
@@ -180,7 +180,7 @@ local M = {
     },
     {
         "stevearc/stickybuf.nvim",
-        event = { UIEnter },
+        event = { VeryLazy },
         config = lua_config("stevearc/stickybuf.nvim"),
     },
 
