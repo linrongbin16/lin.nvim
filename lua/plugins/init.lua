@@ -357,15 +357,15 @@ local M = {
     },
     {
         "hrsh7th/cmp-nvim-lsp",
-        event = { VeryLazy, InsertEnter },
+        event = { InsertEnter },
     },
     {
         "hrsh7th/cmp-buffer",
-        event = { VeryLazy, InsertEnter },
+        event = { InsertEnter },
     },
     {
         "FelipeLema/cmp-async-path",
-        event = { VeryLazy, InsertEnter, CmdlineEnter },
+        event = { InsertEnter, CmdlineEnter },
     },
     {
         "rafamadriz/friendly-snippets",
@@ -373,23 +373,23 @@ local M = {
     },
     {
         "L3MON4D3/LuaSnip",
-        event = { VeryLazy, InsertEnter },
+        event = { InsertEnter },
         dependencies = { "rafamadriz/friendly-snippets" },
         version = "v2.*",
         submodules = false,
     },
     {
         "saadparwaiz1/cmp_luasnip",
-        event = { VeryLazy, InsertEnter },
+        event = { InsertEnter },
         dependencies = { "L3MON4D3/LuaSnip" },
     },
     {
         "hrsh7th/cmp-cmdline",
-        event = { VeryLazy, CmdlineEnter },
+        event = { CmdlineEnter },
     },
     {
         "hrsh7th/nvim-cmp",
-        event = { VeryLazy, InsertEnter, CmdlineEnter },
+        event = { InsertEnter, CmdlineEnter },
         dependencies = {
             "neovim/nvim-lspconfig",
             "onsails/lspkind.nvim",
