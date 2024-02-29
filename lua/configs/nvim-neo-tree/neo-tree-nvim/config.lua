@@ -174,7 +174,7 @@ vim.api.nvim_create_autocmd("FileType", {
         set_key("n", "<leader>,", "<cmd>vertical resize -10<cr>", opts)
     end,
 })
-vim.api.nvim_create_autocmd({ "VimEnter", "UIEnter" }, {
+vim.api.nvim_create_autocmd({ "UIEnter" }, {
     group = "neo_tree_augroup",
     callback = function(data)
         -- use defer_fn to open async
@@ -197,7 +197,7 @@ vim.api.nvim_create_autocmd({ "VimEnter", "UIEnter" }, {
             -- open neo-tree
             vim.cmd("Neotree reveal")
         end
-        vim.defer_fn(open_impl, 0)
+        vim.defer_fn(open_impl, 1)
     end,
 })
 
