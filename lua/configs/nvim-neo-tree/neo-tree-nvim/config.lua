@@ -197,7 +197,7 @@ vim.api.nvim_create_autocmd({ "UIEnter" }, {
             -- open neo-tree
             vim.cmd("Neotree reveal")
         end
-        vim.defer_fn(open_impl, 0)
+        vim.defer_fn(open_impl, 1)
     end,
 })
 
