@@ -342,14 +342,6 @@ local M = {
         keys = lua_keys("folke/trouble.nvim"),
     },
 
-    -- ---- TAGS ----
-    -- Tags generator
-    {
-        "linrongbin16/gentags.nvim",
-        event = { VeryLazy },
-        config = lua_config("linrongbin16/gentags.nvim"),
-    },
-
     -- ---- AUTO-COMPLETE ----
     {
         "onsails/lspkind.nvim",

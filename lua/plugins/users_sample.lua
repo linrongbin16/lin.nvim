@@ -174,6 +174,12 @@
 --         init = lua_init("iamcco/markdown-preview.nvim"),
 --         keys = lua_keys("iamcco/markdown-preview.nvim"),
 --     },
+--     -- Tags generator
+--     {
+--         "linrongbin16/gentags.nvim",
+--         event = { VeryLazy },
+--         config = lua_config("linrongbin16/gentags.nvim"),
+--     },
 -- }
 
 return {}
