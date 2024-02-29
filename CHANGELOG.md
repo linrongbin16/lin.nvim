@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.23.5](https://github.com/linrongbin16/lin.nvim/compare/v2.23.4...v2.23.5) (2024-02-29)
+
+
+### Performance Improvements
+
+* **plugins:** lazy 'heirline' and 'stikcybuf' ([#503](https://github.com/linrongbin16/lin.nvim/issues/503)) ([f3c3dd4](https://github.com/linrongbin16/lin.nvim/commit/f3c3dd44dd34ff99a15ec824b9075b2d6a8dae13))
+* **plugins:** move unused plugins to user list! ([#505](https://github.com/linrongbin16/lin.nvim/issues/505)) ([7a8b6bb](https://github.com/linrongbin16/lin.nvim/commit/7a8b6bbbac5ce7bc3b1bb8971fd3567b092a8fda))
+* **startup:** lazy load plugins on startup ([#506](https://github.com/linrongbin16/lin.nvim/issues/506)) ([c735916](https://github.com/linrongbin16/lin.nvim/commit/c73591649105d43aea650535dfad11bc6badbba2))
+
 ## [2.23.4](https://github.com/linrongbin16/lin.nvim/compare/v2.23.3...v2.23.4) (2024-02-28)
 
 
