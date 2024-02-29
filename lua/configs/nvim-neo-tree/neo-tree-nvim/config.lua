@@ -174,7 +174,7 @@ vim.api.nvim_create_autocmd("FileType", {
         set_key("n", "<leader>,", "<cmd>vertical resize -10<cr>", opts)
     end,
 })
-vim.api.nvim_create_autocmd({ "VimEnter", "UIEnter" }, {
+vim.api.nvim_create_autocmd({ "UIEnter" }, {
     group = "neo_tree_augroup",
     callback = function(data)
         -- use defer_fn to open async
