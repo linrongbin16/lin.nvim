@@ -374,7 +374,7 @@ local M = {
         config = lua_config("hrsh7th/nvim-cmp"),
     },
 
-    -- ---- AUTO-COMPLETE ----
+    -- ---- SPECIFIC LANGUAGE SUPPORT ----
 
     -- Markdown
     {
