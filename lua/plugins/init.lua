@@ -374,6 +374,24 @@ local M = {
         config = lua_config("hrsh7th/nvim-cmp"),
     },
 
+    -- ---- AUTO-COMPLETE ----
+
+    -- Markdown
+    {
+        "iamcco/markdown-preview.nvim",
+        build = function()
+            vim.fn["mkdp#util#install"]()
+        end,
+        cmd = {
+            "MarkdownPreviewToggle",
+            "MarkdownPreview",
+            "MarkdownPreviewStop",
+        },
+        ft = { "markdown" },
+        init = lua_init("iamcco/markdown-preview.nvim"),
+        keys = lua_keys("iamcco/markdown-preview.nvim"),
+    },
+
     -- ---- KEY BINDING ----
 
     -- Key mappings
