@@ -8,6 +8,7 @@ local vim_config = require("builtin.utils.plugin").vim_config
 
 local VeryLazy = "VeryLazy"
 local BufEnter = "BufEnter"
+local BufWritePre = "BufWritePre"
 local BufWritePost = "BufWritePost"
 local CmdlineEnter = "CmdlineEnter"
 local VimEnter = "VimEnter"
@@ -202,6 +203,8 @@ local M = {
             "FzfxLspTypeDefinitions",
             "FzfxLspReferences",
             "FzfxLspImplementations",
+            "FzfxLspIncomingCalls",
+            "FzfxLspOutgoingCalls",
         },
         dependencies = { "junegunn/fzf" },
         config = lua_config("linrongbin16/fzfx.nvim"),
@@ -269,7 +272,7 @@ local M = {
     },
     {
         "stevearc/conform.nvim",
-        event = { VeryLazy, BufWritePost },
+        event = { BufWritePre, BufWritePost },
         cmd = { "ConformInfo" },
         dependencies = {
             "neovim/nvim-lspconfig",
@@ -316,30 +319,17 @@ local M = {
     --     },
     --     config = lua_config("mfussenegger/nvim-lint"),
     -- },
-    -- Json schema
+    -- Lsp server GC
     {
-        "b0o/SchemaStore.nvim",
-        lazy = true,
-    },
-    -- Garbage server collection
-    {
-        "Zeioth/garbage-day.nvim",
+        "hinell/lsp-timeout.nvim",
         event = { VeryLazy },
         dependencies = { "neovim/nvim-lspconfig" },
-        config = lua_config("Zeioth/garbage-day.nvim"),
     },
     -- Symbol navigation
     {
         "DNLHC/glance.nvim",
         cmd = { "Glance" },
         config = lua_config("DNLHC/glance.nvim"),
-    },
-    -- Diagnostic
-    {
-        "folke/trouble.nvim",
-        cmd = { "Trouble", "TroubleClose", "TroubleToggle", "TroubleRefresh" },
-        config = lua_config("folke/trouble.nvim"),
-        keys = lua_keys("folke/trouble.nvim"),
     },
 
     -- ---- AUTO-COMPLETE ----

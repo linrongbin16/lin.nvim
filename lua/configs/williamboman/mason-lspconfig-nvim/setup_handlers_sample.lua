@@ -8,30 +8,19 @@
 local lspconfig = require("lspconfig")
 
 local setup_handlers = {
-    jsonls = function()
-        lspconfig["jsonls"].setup({
-            settings = {
-                json = {
-                    schemas = require("schemastore").json.schemas(),
-                    validate = { enable = true },
-                },
-            },
-        })
-    end,
-    lua_ls = function()
-        lspconfig["lua_ls"].setup({
-            settings = {
-                Lua = {
-                    workspace = {
-                        checkThirdParty = false,
-                    },
-                },
-            },
-        })
-    end,
-
     -- Please uncomment below lines to enable them.
 
+    -- lua_ls = function()
+    --     lspconfig["lua_ls"].setup({
+    --         settings = {
+    --             Lua = {
+    --                 workspace = {
+    --                     checkThirdParty = false,
+    --                 },
+    --             },
+    --         },
+    --     })
+    -- end,
     -- tsserver = function()
     --     lspconfig["tsserver"].setup({})
     -- end,

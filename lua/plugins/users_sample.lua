@@ -180,6 +180,18 @@
 --         event = { VeryLazy },
 --         config = lua_config("linrongbin16/gentags.nvim"),
 --     },
+--     -- Diagnostic
+--     {
+--         "folke/trouble.nvim",
+--         cmd = { "Trouble", "TroubleClose", "TroubleToggle", "TroubleRefresh" },
+--         config = lua_config("folke/trouble.nvim"),
+--         keys = lua_keys("folke/trouble.nvim"),
+--     },
+--     -- Json schema
+--     {
+--         "b0o/SchemaStore.nvim",
+--         lazy = true,
+--     },
 -- }
 
 return {}
