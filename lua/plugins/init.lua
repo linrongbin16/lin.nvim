@@ -436,7 +436,6 @@ local M = {
     -- Blame
     {
         "f-person/git-blame.nvim",
-        event = { VeryLazy },
         cmd = {
             "GitBlameToggle",
             "GitBlameEnable",
@@ -482,7 +481,6 @@ local M = {
     -- Cursor motion
     {
         "smoka7/hop.nvim",
-        event = { VeryLazy },
         version = "*",
         config = lua_config("smoka7/hop.nvim"),
         keys = lua_keys("smoka7/hop.nvim"),
