@@ -152,6 +152,13 @@
 --         event = { VeryLazy, BufReadPre, BufNewFile },
 --         config = lua_config("folke/todo-comments.nvim"),
 --     },
+--     -- Url viewer
+--     {
+--         "axieax/urlview.nvim",
+--         cmd = { "UrlView" },
+--         config = lua_config("axieax/urlview.nvim"),
+--         keys = lua_keys("axieax/urlview.nvim"),
+--     },
 -- }
 
 return {}

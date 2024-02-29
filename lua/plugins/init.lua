@@ -511,13 +511,6 @@ local M = {
         keys = lua_keys("stevearc/aerial.nvim"),
         config = lua_config("stevearc/aerial.nvim"),
     },
-    -- Url viewer
-    {
-        "axieax/urlview.nvim",
-        cmd = { "UrlView" },
-        config = lua_config("axieax/urlview.nvim"),
-        keys = lua_keys("axieax/urlview.nvim"),
-    },
     -- Open Url
     {
         "chrishrb/gx.nvim",
