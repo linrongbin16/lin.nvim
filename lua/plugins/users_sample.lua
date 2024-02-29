@@ -177,18 +177,6 @@
 --         "b0o/SchemaStore.nvim",
 --         lazy = true,
 --     },
---     -- Mark word
---     {
---         "inkarkat/vim-ingo-library",
---         lazy = true,
---     },
---     {
---         "inkarkat/vim-mark",
---         event = { CmdlineEnter },
---         dependencies = { "inkarkat/vim-ingo-library" },
---         init = lua_init("inkarkat/vim-mark"),
---         keys = lua_keys("inkarkat/vim-mark"),
---     },
 -- }
 
 return {}
