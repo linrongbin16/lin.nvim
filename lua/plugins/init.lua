@@ -177,7 +177,7 @@ local M = {
     -- UI improvement
     {
         "stevearc/dressing.nvim",
-        event = { UIEnter },
+        event = { VeryLazy },
         dependencies = { "junegunn/fzf" },
         config = lua_config("stevearc/dressing.nvim"),
     },
