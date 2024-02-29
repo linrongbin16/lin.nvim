@@ -8,6 +8,7 @@ local vim_config = require("builtin.utils.plugin").vim_config
 
 local VeryLazy = "VeryLazy"
 local BufEnter = "BufEnter"
+local BufWritePre = "BufWritePre"
 local BufWritePost = "BufWritePost"
 local CmdlineEnter = "CmdlineEnter"
 local VimEnter = "VimEnter"
@@ -82,6 +83,12 @@ local M = {
         dependencies = { "nvim-treesitter/nvim-treesitter" },
         init = lua_init("andymass/vim-matchup"),
     },
+    -- Range/substitude
+    {
+        "markonm/traces.vim",
+        event = { CmdlineEnter },
+    },
+    -- Mark word
     {
         "inkarkat/vim-ingo-library",
         lazy = true,
@@ -92,10 +99,6 @@ local M = {
         dependencies = { "inkarkat/vim-ingo-library" },
         init = lua_init("inkarkat/vim-mark"),
         keys = lua_keys("inkarkat/vim-mark"),
-    },
-    {
-        "markonm/traces.vim",
-        event = { CmdlineEnter },
     },
 
     -- ---- UI ----
@@ -108,7 +111,7 @@ local M = {
         "nvim-neo-tree/neo-tree.nvim",
         event = { UIEnter },
         dependencies = { "MunifTanjim/nui.nvim" },
-        branch = "v3.x",
+        version = "*",
         config = lua_config("nvim-neo-tree/neo-tree.nvim"),
         keys = lua_keys("nvim-neo-tree/neo-tree.nvim"),
     },
@@ -202,6 +205,8 @@ local M = {
             "FzfxLspTypeDefinitions",
             "FzfxLspReferences",
             "FzfxLspImplementations",
+            "FzfxLspIncomingCalls",
+            "FzfxLspOutgoingCalls",
         },
         dependencies = { "junegunn/fzf" },
         config = lua_config("linrongbin16/fzfx.nvim"),
@@ -269,7 +274,7 @@ local M = {
     },
     {
         "stevearc/conform.nvim",
-        event = { VeryLazy, BufWritePost },
+        event = { BufWritePre, BufWritePost },
         cmd = { "ConformInfo" },
         dependencies = {
             "neovim/nvim-lspconfig",
@@ -316,38 +321,17 @@ local M = {
     --     },
     --     config = lua_config("mfussenegger/nvim-lint"),
     -- },
-    -- Json schema
+    -- Lsp server GC
     {
-        "b0o/SchemaStore.nvim",
-        lazy = true,
-    },
-    -- Garbage server collection
-    {
-        "Zeioth/garbage-day.nvim",
+        "hinell/lsp-timeout.nvim",
         event = { VeryLazy },
         dependencies = { "neovim/nvim-lspconfig" },
-        config = lua_config("Zeioth/garbage-day.nvim"),
     },
     -- Symbol navigation
     {
         "DNLHC/glance.nvim",
         cmd = { "Glance" },
         config = lua_config("DNLHC/glance.nvim"),
-    },
-    -- Diagnostic
-    {
-        "folke/trouble.nvim",
-        cmd = { "Trouble", "TroubleClose", "TroubleToggle", "TroubleRefresh" },
-        config = lua_config("folke/trouble.nvim"),
-        keys = lua_keys("folke/trouble.nvim"),
-    },
-
-    -- ---- TAGS ----
-    -- Tags generator
-    {
-        "linrongbin16/gentags.nvim",
-        event = { VeryLazy },
-        config = lua_config("linrongbin16/gentags.nvim"),
     },
 
     -- ---- AUTO-COMPLETE ----
@@ -357,15 +341,15 @@ local M = {
     },
     {
         "hrsh7th/cmp-nvim-lsp",
-        event = { VeryLazy, InsertEnter },
+        event = { InsertEnter },
     },
     {
         "hrsh7th/cmp-buffer",
-        event = { VeryLazy, InsertEnter },
+        event = { InsertEnter },
     },
     {
         "FelipeLema/cmp-async-path",
-        event = { VeryLazy, InsertEnter, CmdlineEnter },
+        event = { InsertEnter, CmdlineEnter },
     },
     {
         "rafamadriz/friendly-snippets",
@@ -373,23 +357,23 @@ local M = {
     },
     {
         "L3MON4D3/LuaSnip",
-        event = { VeryLazy, InsertEnter },
+        event = { InsertEnter },
         dependencies = { "rafamadriz/friendly-snippets" },
         version = "v2.*",
         submodules = false,
     },
     {
         "saadparwaiz1/cmp_luasnip",
-        event = { VeryLazy, InsertEnter },
+        event = { InsertEnter },
         dependencies = { "L3MON4D3/LuaSnip" },
     },
     {
         "hrsh7th/cmp-cmdline",
-        event = { VeryLazy, CmdlineEnter },
+        event = { CmdlineEnter },
     },
     {
         "hrsh7th/nvim-cmp",
-        event = { VeryLazy, InsertEnter, CmdlineEnter },
+        event = { InsertEnter, CmdlineEnter },
         dependencies = {
             "neovim/nvim-lspconfig",
             "onsails/lspkind.nvim",
@@ -436,7 +420,6 @@ local M = {
     -- Blame
     {
         "f-person/git-blame.nvim",
-        event = { VeryLazy },
         cmd = {
             "GitBlameToggle",
             "GitBlameEnable",
@@ -482,7 +465,6 @@ local M = {
     -- Cursor motion
     {
         "smoka7/hop.nvim",
-        event = { VeryLazy },
         version = "*",
         config = lua_config("smoka7/hop.nvim"),
         keys = lua_keys("smoka7/hop.nvim"),
@@ -510,13 +492,6 @@ local M = {
         },
         keys = lua_keys("stevearc/aerial.nvim"),
         config = lua_config("stevearc/aerial.nvim"),
-    },
-    -- Url viewer
-    {
-        "axieax/urlview.nvim",
-        cmd = { "UrlView" },
-        config = lua_config("axieax/urlview.nvim"),
-        keys = lua_keys("axieax/urlview.nvim"),
     },
     -- Open Url
     {
