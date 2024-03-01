@@ -27,12 +27,12 @@ local M = {
     lazy = true,
   },
   {
-    dir = "~/github/linrongbin16/commons.nvim",
+    "linrongbin16/commons.nvim",
     dev = true,
     lazy = true,
   },
   {
-    dir = "~/github/linrongbin16/colorbox.nvim",
+    "linrongbin16/colorbox.nvim",
     dev = true,
     priority = 1000,
     config = lua_config("linrongbin16/colorbox.nvim"),
@@ -150,7 +150,7 @@ local M = {
     event = { VeryLazy },
   },
   {
-    dir = "~/github/linrongbin16/lsp-progress.nvim",
+    "linrongbin16/lsp-progress.nvim",
     dev = true,
     lazy = true,
     config = lua_config("linrongbin16/lsp-progress.nvim"),
@@ -159,7 +159,7 @@ local M = {
     "rebelot/heirline.nvim",
     event = { VeryLazy },
     dependencies = {
-      dir = "~/github/linrongbin16/lsp-progress.nvim",
+      "linrongbin16/lsp-progress.nvim",
       dev = true,
     },
     config = lua_config("rebelot/heirline.nvim"),
@@ -202,7 +202,7 @@ local M = {
     end,
   },
   {
-    dir = "~/github/linrongbin16/fzfx.nvim",
+    "linrongbin16/fzfx.nvim",
     dev = true,
     event = { CmdlineEnter },
     cmd = {
@@ -435,7 +435,7 @@ local M = {
   },
   -- Permlink
   {
-    dir = "~/github/linrongbin16/gitlinker.nvim",
+    "linrongbin16/gitlinker.nvim",
     dev = true,
     cmd = { "GitLink" },
     config = lua_config("linrongbin16/gitlinker.nvim"),

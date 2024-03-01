@@ -29,6 +29,7 @@ local opts = {
     },
     border = constants.ui.border,
   },
+  dev = { path = "~/github/linrongbin16" },
 }
 
 local plugins_blacklist_path = stdpath_config .. "/lua/plugins_blacklist.lua"
