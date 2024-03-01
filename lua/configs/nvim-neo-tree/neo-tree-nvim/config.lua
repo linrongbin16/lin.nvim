@@ -220,19 +220,16 @@ vim.api.nvim_create_autocmd({ "VimResized", "UIEnter" }, {
 local function bootstrap()
   local function open_impl()
     local strings = require("commons.strings")
-    local uv = require("commons.uv")
 
+    local buftype = vim.bo.buftype
     local filename = vim.api.nvim_buf_get_name(0)
-    local fstat = strings.not_empty(filename) and uv.fs_lstat(filename) or nil
-    local isdir = fstat ~= nil and fstat.type == "directory"
 
-    -- change to the directory
-    if isdir then
-      vim.cmd.cd(filename)
+    -- print(string.format("buftype:%s, filename:%s", vim.inspect(buftype), vim.inspect(filename)))
+    if strings.not_empty(buftype) or strings.not_empty(filename) then
+      vim.cmd("Neotree action=show")
+    else
+      vim.cmd("Neotree")
     end
-
-    -- open neo-tree
-    vim.cmd("Neotree reveal")
     resize_sidebar()
   end
   vim.defer_fn(open_impl, 1)
