@@ -326,6 +326,7 @@ local M = {
     "hinell/lsp-timeout.nvim",
     event = { VeryLazy },
     dependencies = { "neovim/nvim-lspconfig" },
+    init = lua_init("hinell/lsp-timeout.nvim"),
   },
   -- Symbol navigation
   {
