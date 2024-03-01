@@ -65,13 +65,15 @@ Please check out [Features](https://github.com/linrongbin16/lin.nvim/wiki/Featur
 
 ### MacOS/Linux
 
+> [!NOTE]
+>
+> For MacOS please install [Xcode](https://developer.apple.com/xcode/) and [homebrew](https://brew.sh/) as pre-requirements.
+
 ```bash
 git clone https://github.com/linrongbin16/lin.nvim ~/.nvim && cd ~/.nvim && ./install
 ```
 
 And that's all of it.
-
-> Note: for macOS please install [Xcode](https://developer.apple.com/xcode/) and [homebrew](https://brew.sh/) as pre-requirements.
 
 ### Windows
 
