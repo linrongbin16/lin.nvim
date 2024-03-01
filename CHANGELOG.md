@@ -1,5 +1,16 @@
 # Changelog
 
+## [3.0.0](https://github.com/linrongbin16/lin.nvim/compare/v2.23.5...v3.0.0) (2024-03-01)
+
+
+### ⚠ BREAKING CHANGES
+
+* **install:** move install folder to '~/.nvim' ([#507](https://github.com/linrongbin16/lin.nvim/issues/507))
+
+### Code Refactoring
+
+* **install:** move install folder to '~/.nvim' ([#507](https://github.com/linrongbin16/lin.nvim/issues/507)) ([25053cf](https://github.com/linrongbin16/lin.nvim/commit/25053cf13bc12aaeb3dcecbb716fffef70e9e121))
+
 ## [2.23.5](https://github.com/linrongbin16/lin.nvim/compare/v2.23.4...v2.23.5) (2024-02-29)
 
 
