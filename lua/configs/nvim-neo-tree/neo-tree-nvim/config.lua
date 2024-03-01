@@ -226,10 +226,10 @@ local function bootstrap()
 
     -- print(string.format("buftype:%s, filename:%s", vim.inspect(buftype), vim.inspect(filename)))
     if strings.not_empty(buftype) or strings.not_empty(filename) then
-      vim.cmd("Neotree show")
-    else
-      vim.cmd("Neotree")
+      return
     end
+
+    vim.cmd("Neotree")
     resize_sidebar()
   end
   vim.defer_fn(open_impl, 1)
