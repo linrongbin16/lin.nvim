@@ -66,7 +66,7 @@ Please check out [Features](https://github.com/linrongbin16/lin.nvim/wiki/Featur
 ### MacOS/Linux
 
 ```bash
-git clone https://github.com/linrongbin16/lin.nvim ~/.config/nvim && cd ~/.config/nvim && ./install.sh
+git clone https://github.com/linrongbin16/lin.nvim ~/.nvim && cd ~/.nvim && ./install
 ```
 
 And that's all of it.
