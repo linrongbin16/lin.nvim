@@ -164,6 +164,7 @@ require("neo-tree").setup({
 })
 
 vim.api.nvim_create_augroup("neo_tree_augroup", { clear = true })
+
 vim.api.nvim_create_autocmd("FileType", {
   group = "neo_tree_augroup",
   pattern = "neo-tree",
@@ -174,68 +175,75 @@ vim.api.nvim_create_autocmd("FileType", {
     set_key("n", "<leader>,", "<cmd>vertical resize -10<cr>", opts)
   end,
 })
-vim.api.nvim_create_autocmd({ "UIEnter" }, {
-  group = "neo_tree_augroup",
-  callback = function(data)
-    -- use defer_fn to open async
-    local function open_impl()
-      -- buffer is a [No Name]
-      local no_name = data.file == "" and vim.bo[data.buf].buftype == ""
-      -- buffer is a directory
-      local directory = vim.fn.isdirectory(data.file) == 1
-
-      -- don't open neo-tree if opened buffer is a file
-      if not no_name and not directory then
-        return
-      end
-
-      -- change to the directory
-      if directory then
-        vim.cmd.cd(data.file)
-      end
-
-      -- open neo-tree
-      vim.cmd("Neotree reveal")
-    end
-    vim.defer_fn(open_impl, 1)
-  end,
-})
 
 local sidebar_resizing = false
+local function resize_sidebar()
+  if sidebar_resizing then
+    return
+  end
+
+  sidebar_resizing = true
+  local neo_tree_filesystem = string.lower("neo-tree filesystem")
+  local neo_tree_winnr = nil
+  local tabnr = vim.api.nvim_get_current_tabpage()
+  for _, winnr in ipairs(vim.api.nvim_tabpage_list_wins(tabnr)) do
+    local bufnr = vim.api.nvim_win_get_buf(winnr)
+    if vim.api.nvim_buf_is_valid(bufnr) then
+      local bufname = vim.fn.bufname(bufnr)
+      if
+        string.len(bufname) >= string.len(neo_tree_filesystem)
+        and string.sub(bufname, 1, #neo_tree_filesystem):lower() == neo_tree_filesystem
+      then
+        neo_tree_winnr = winnr
+        break
+      end
+    end
+  end
+  if neo_tree_winnr then
+    local new_width = layout.editor.width(
+      constants.ui.layout.sidebar.scale,
+      constants.ui.layout.sidebar.min,
+      constants.ui.layout.sidebar.max
+    )
+    vim.api.nvim_win_set_width(neo_tree_winnr, new_width)
+  end
+  vim.schedule(function()
+    sidebar_resizing = false
+  end)
+end
+
 vim.api.nvim_create_autocmd({ "VimResized", "UIEnter" }, {
   group = "neo_tree_augroup",
-  callback = function()
-    if sidebar_resizing then
+  callback = resize_sidebar,
+})
+
+local function bootstrap()
+  local function open_impl()
+    local strings = require("commons.strings")
+    local uv = require("commons.uv")
+
+    local buftype = vim.bo.buftype
+    local filename = vim.api.nvim_buf_get_name(0)
+    local fstat = strings.not_empty(filename) and uv.fs_lstat(filename) or nil
+    local isdir = fstat ~= nil and fstat.type == "directory"
+    -- buffer is a directory
+    -- local directory = vim.fn.isdirectory(data.file) == 1
+
+    -- don't open neo-tree if opened buffer is a file
+    if strings.not_empty(buftype) and strings.not_empty(filename) and not isdir then
       return
     end
 
-    sidebar_resizing = true
-    local neo_tree_filesystem = string.lower("neo-tree filesystem")
-    local neo_tree_winnr = nil
-    local tabnr = vim.api.nvim_get_current_tabpage()
-    for _, winnr in ipairs(vim.api.nvim_tabpage_list_wins(tabnr)) do
-      local bufnr = vim.api.nvim_win_get_buf(winnr)
-      if vim.api.nvim_buf_is_valid(bufnr) then
-        local bufname = vim.fn.bufname(bufnr)
-        if
-          string.len(bufname) >= string.len(neo_tree_filesystem)
-          and string.sub(bufname, 1, #neo_tree_filesystem):lower() == neo_tree_filesystem
-        then
-          neo_tree_winnr = winnr
-          break
-        end
-      end
+    -- change to the directory
+    if isdir then
+      vim.cmd.cd(filename)
     end
-    if neo_tree_winnr then
-      local new_width = layout.editor.width(
-        constants.ui.layout.sidebar.scale,
-        constants.ui.layout.sidebar.min,
-        constants.ui.layout.sidebar.max
-      )
-      vim.api.nvim_win_set_width(neo_tree_winnr, new_width)
-    end
-    vim.schedule(function()
-      sidebar_resizing = false
-    end)
-  end,
-})
+
+    -- open neo-tree
+    vim.cmd("Neotree reveal")
+    resize_sidebar()
+  end
+  vim.defer_fn(open_impl, 1)
+end
+
+bootstrap()

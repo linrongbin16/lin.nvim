@@ -109,7 +109,7 @@ local M = {
   },
   {
     "nvim-neo-tree/neo-tree.nvim",
-    event = { UIEnter },
+    event = { VeryLazy },
     dependencies = { "MunifTanjim/nui.nvim" },
     version = "*",
     config = lua_config("nvim-neo-tree/neo-tree.nvim"),
