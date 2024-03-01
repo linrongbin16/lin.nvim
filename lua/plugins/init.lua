@@ -322,11 +322,17 @@ local M = {
   --     config = lua_config("mfussenegger/nvim-lint"),
   -- },
   -- Lsp server GC
+  -- {
+  --   "hinell/lsp-timeout.nvim",
+  --   event = { VeryLazy },
+  --   dependencies = { "neovim/nvim-lspconfig" },
+  --   init = lua_init("hinell/lsp-timeout.nvim"),
+  -- },
   {
-    "hinell/lsp-timeout.nvim",
+    "Zeioth/garbage-day.nvim",
     event = { VeryLazy },
     dependencies = { "neovim/nvim-lspconfig" },
-    init = lua_init("hinell/lsp-timeout.nvim"),
+    init = lua_init("Zeioth/garbage-day.nvim"),
   },
   -- Symbol navigation
   {
