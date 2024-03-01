@@ -86,7 +86,7 @@ And that's all of it.
 
    ![image](https://github.com/linrongbin16/lin.nvim/assets/6496887/bca811b5-8b1a-42c0-9283-c38e75f2f06a)
 
-3. run PowerShell command:
+3. Run PowerShell command:
 
    ```powershell
    # scoop
@@ -116,9 +116,7 @@ you still need to manually config it in your terminal, e.g.
 
 ## User guide
 
-Please check out
-[User Guide](https://github.com/linrongbin16/lin.nvim/wiki/User-Guide) for full
-features, key mappings and customizations.
+Please check out [User Guide](https://github.com/linrongbin16/lin.nvim/wiki/User-Guide) for full features, key mappings and customizations.
 
 ## Contribute
 
