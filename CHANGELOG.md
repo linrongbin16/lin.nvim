@@ -1,5 +1,18 @@
 # Changelog
 
+## [3.0.2](https://github.com/linrongbin16/lin.nvim/compare/v3.0.1...v3.0.2) (2024-03-01)
+
+
+### Bug Fixes
+
+* **garbage-day.nvim:** fix 'garbage-day.nvim' config ([#512](https://github.com/linrongbin16/lin.nvim/issues/512)) ([a4f5bf5](https://github.com/linrongbin16/lin.nvim/commit/a4f5bf50b79b5f8edf7850a0015b98e7e4249311))
+
+
+### Performance Improvements
+
+* **garbage-day.nvim:** migrate 'lsp-timeout.nvim' to 'garbage-day.nvim' ([#511](https://github.com/linrongbin16/lin.nvim/issues/511)) ([f1255cb](https://github.com/linrongbin16/lin.nvim/commit/f1255cbb131ea43cdbf4255ccbeac4c88043c33d))
+* **options:** remove 'cmdheight=2' ([#511](https://github.com/linrongbin16/lin.nvim/issues/511)) ([f1255cb](https://github.com/linrongbin16/lin.nvim/commit/f1255cbb131ea43cdbf4255ccbeac4c88043c33d))
+
 ## [3.0.1](https://github.com/linrongbin16/lin.nvim/compare/v3.0.0...v3.0.1) (2024-03-01)
 
 
