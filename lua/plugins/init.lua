@@ -111,7 +111,7 @@ local M = {
   },
   {
     "nvim-neo-tree/neo-tree.nvim",
-    event = { UIEnter },
+    event = { VeryLazy },
     dependencies = { "MunifTanjim/nui.nvim" },
     version = "*",
     config = lua_config("nvim-neo-tree/neo-tree.nvim"),
@@ -331,6 +331,7 @@ local M = {
     "hinell/lsp-timeout.nvim",
     event = { VeryLazy },
     dependencies = { "neovim/nvim-lspconfig" },
+    init = lua_init("hinell/lsp-timeout.nvim"),
   },
   -- Symbol navigation
   {

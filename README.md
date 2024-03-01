@@ -1,3 +1,5 @@
+<!-- markdownlint-disable MD001 MD013 MD034 MD033 MD051 -->
+
 # lin.nvim : Lin Rongbin's Neovim Distribution
 
 <p>
@@ -9,8 +11,7 @@
 
 > Leave Vim behind, this is the next generation of [lin.vim](https://github.com/linrongbin16/lin.vim).
 
-lin.nvim is a highly configured [Neovim](https://neovim.io/) distribution
-integrated with tons of utilities for development, inspired by [spf13-vim](https://github.com/spf13/spf13-vim).
+lin.nvim is a highly configured [Neovim](https://neovim.io/) distribution integrated with tons of utilities for development, inspired by [spf13-vim](https://github.com/spf13/spf13-vim).
 
 <p align="center">
   <img
@@ -36,24 +37,15 @@ integrated with tons of utilities for development, inspired by [spf13-vim](https
 
 ## Introduction
 
-Aim to be out-of-box, IDE-like editing experience, performant, lightweight and
-friendly to most Neovim users. Focus on and only on editing, no compiling/packaging/debugging.
+Aim to be out-of-box, IDE-like editing experience, performant, lightweight and friendly to most Neovim users. Focus on and only on editing, no compiling/packaging/debugging.
 
 This ultra config solves below issues:
 
-- Duplicate installation on different OS and machines? All done by one-line
-  command (not on Windows for now), same behaviors on all platforms.
-- Time-costing configurations? All configs follow community best practice, vim
-  tradition and most popular editors (just like [vscode](https://code.visualstudio.com/)).
-- Lack of IDE-like features (auto-complete, diagnostics, code-format,
-  lint)? [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig),
-  [nvim-cmp](https://github.com/hrsh7th/nvim-cmp),
-  [mason.nvim](https://github.com/williamboman/mason.nvim),
-  [none-ls.nvim](https://github.com/nvimtools/none-ls.nvim) and a bunch of language extensions are embedded.
-- Naive UI? File explorer, git status, tabs,
-  icons and most popular colorschemes integrated (again, just like vscode).
-- More efficient editing? Most popular editing improving plugins
-  embedded, and well cooperated for best user experience and performance.
+- Duplicate installation on different OS and machines? All done by one-line command (not on Windows for now), same behaviors on all platforms.
+- Time-costing configurations? All configs follow community best practice, vim tradition and most popular editors (just like [vscode](https://code.visualstudio.com/)).
+- Lack of IDE-like features (auto-complete, diagnostics, code-format, lint)? [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig), [nvim-cmp](https://github.com/hrsh7th/nvim-cmp), [mason.nvim](https://github.com/williamboman/mason.nvim), [none-ls.nvim](https://github.com/nvimtools/none-ls.nvim) and a bunch of language extensions are embedded.
+- Naive UI? File explorer, git status, tabs, icons and most popular colorschemes integrated (again, just like vscode).
+- More efficient editing? Most popular editing improving plugins embedded, and well cooperated for best user experience and performance.
 
 When maintaining this config, I always follow the [philosophy](https://github.com/linrongbin16/lin.nvim/wiki/Philosophy).
 
@@ -65,13 +57,15 @@ Please check out [Features](https://github.com/linrongbin16/lin.nvim/wiki/Featur
 
 ### MacOS/Linux
 
+> [!NOTE]
+>
+> For MacOS please install [Xcode](https://developer.apple.com/xcode/) and [homebrew](https://brew.sh/) as pre-requirements.
+
 ```bash
 git clone https://github.com/linrongbin16/lin.nvim ~/.nvim && cd ~/.nvim && ./install
 ```
 
 And that's all of it.
-
-> Note: for macOS please install [Xcode](https://developer.apple.com/xcode/) and [homebrew](https://brew.sh/) as pre-requirements.
 
 ### Windows
 
@@ -84,7 +78,7 @@ And that's all of it.
 
    ![image](https://github.com/linrongbin16/lin.nvim/assets/6496887/bca811b5-8b1a-42c0-9283-c38e75f2f06a)
 
-3. run PowerShell command:
+3. Run PowerShell command:
 
    ```powershell
    # scoop
@@ -102,21 +96,11 @@ For more details, please check out [Installation](https://github.com/linrongbin1
 
 Patched GUI font is mandatory for icons.
 
-Even `install.sh` (`install.ps1`) already installed the
-[Hack Nerd Font](https://github.com/ryanoasis/nerd-fonts/tree/c173f661a0ed03bc537d31a79670bc03b586251d/patched-fonts/Hack),
-you still need to manually config it in your terminal, e.g.
-[gnome-terminal](https://help.gnome.org/users/gnome-terminal/stable/) (Ubuntu),
-[item2](https://iterm2.com/) (MacOS),
-[Windows Terminal](https://github.com/microsoft/terminal) (Windows),
-[kitty](https://sw.kovidgoyal.net/kitty/),
-[alacritty](https://github.com/alacritty/alacritty),
-[wezterm](https://wezfurlong.org/wezterm/), etc.
+Even `install.sh` (`install.ps1`) already installed the [Hack Nerd Font](https://github.com/ryanoasis/nerd-fonts/tree/c173f661a0ed03bc537d31a79670bc03b586251d/patched-fonts/Hack), you still need to manually config it in your terminal, e.g. [gnome-terminal](https://help.gnome.org/users/gnome-terminal/stable/) (Ubuntu), [item2](https://iterm2.com/) (MacOS), [Windows Terminal](https://github.com/microsoft/terminal) (Windows), [kitty](https://sw.kovidgoyal.net/kitty/), [alacritty](https://github.com/alacritty/alacritty), [wezterm](https://wezfurlong.org/wezterm/), etc.
 
 ## User guide
 
-Please check out
-[User Guide](https://github.com/linrongbin16/lin.nvim/wiki/User-Guide) for full
-features, key mappings and customizations.
+Please check out [User Guide](https://github.com/linrongbin16/lin.nvim/wiki/User-Guide) for full features, key mappings and customizations.
 
 ## Contribute
 

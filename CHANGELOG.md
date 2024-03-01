@@ -1,5 +1,24 @@
 # Changelog
 
+## [3.0.1](https://github.com/linrongbin16/lin.nvim/compare/v3.0.0...v3.0.1) (2024-03-01)
+
+
+### Performance Improvements
+
+* **lsp-timeout.nvim:** set 'silent=true' ([#509](https://github.com/linrongbin16/lin.nvim/issues/509)) ([4d56f1c](https://github.com/linrongbin16/lin.nvim/commit/4d56f1c3ab61040c600b7aaa737d720ce26d7a43))
+* **neo-tree.nvim:** lazy start neo-tree ([#509](https://github.com/linrongbin16/lin.nvim/issues/509)) ([4d56f1c](https://github.com/linrongbin16/lin.nvim/commit/4d56f1c3ab61040c600b7aaa737d720ce26d7a43))
+
+## [3.0.0](https://github.com/linrongbin16/lin.nvim/compare/v2.23.5...v3.0.0) (2024-03-01)
+
+
+### ⚠ BREAKING CHANGES
+
+* **install:** move install folder to '~/.nvim' ([#507](https://github.com/linrongbin16/lin.nvim/issues/507))
+
+### Code Refactoring
+
+* **install:** move install folder to '~/.nvim' ([#507](https://github.com/linrongbin16/lin.nvim/issues/507)) ([25053cf](https://github.com/linrongbin16/lin.nvim/commit/25053cf13bc12aaeb3dcecbb716fffef70e9e121))
+
 ## [2.23.5](https://github.com/linrongbin16/lin.nvim/compare/v2.23.4...v2.23.5) (2024-02-29)
 
 
