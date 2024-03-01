@@ -71,7 +71,7 @@ vim.opt.wildmenu = true
 vim.opt.showcmd = true
 vim.opt.display:append("lastline,truncate")
 vim.opt.shortmess:append("c")
-vim.opt.cmdheight = 2
+-- vim.opt.cmdheight = 2
 
 -- scroll
 vim.opt.scrolloff = 1
