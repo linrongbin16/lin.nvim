@@ -6,8 +6,7 @@
 --  * [null-ls BUILTINS](https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md) and install them from mason.
 
 local ensure_installed = {
-    "jsonlint", -- json
-    "markdownlint", -- markdown
+  -- "markdownlint", -- markdown
 }
 
 return ensure_installed

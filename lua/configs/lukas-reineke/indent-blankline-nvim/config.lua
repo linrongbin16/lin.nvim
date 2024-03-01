@@ -1,3 +1,3 @@
 require("ibl").setup({
-    scope = { enabled = false },
+  scope = { enabled = false },
 })

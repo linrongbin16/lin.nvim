@@ -1,3 +1,3 @@
 require("gitlinker").setup({
-    highlight_duration = 200,
+  highlight_duration = 200,
 })

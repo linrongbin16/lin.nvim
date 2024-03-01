@@ -41,10 +41,10 @@ vim.opt.incsearch = true
 
 -- clean highlight
 vim.keymap.set(
-    "n",
-    "<C-L>",
-    ":nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>",
-    { silent = true, noremap = true }
+  "n",
+  "<C-L>",
+  ":nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>",
+  { silent = true, noremap = true }
 )
 
 -- match brackets
@@ -99,10 +99,10 @@ vim.opt.autowrite = true
 vim.opt.swapfile = false
 vim.opt.confirm = false
 vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "TermEnter", "TermLeave" }, {
-    pattern = "*",
-    callback = function()
-        vim.cmd.checktime()
-    end,
+  pattern = "*",
+  callback = function()
+    vim.cmd.checktime()
+  end,
 })
 
 -- encodings
