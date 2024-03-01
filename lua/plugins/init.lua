@@ -27,11 +27,13 @@ local M = {
     lazy = true,
   },
   {
-    "linrongbin16/commons.nvim",
+    dir = "~/github/linrongbin16/commons.nvim",
+    dev = true,
     lazy = true,
   },
   {
-    "linrongbin16/colorbox.nvim",
+    dir = "~/github/linrongbin16/colorbox.nvim",
+    dev = true,
     priority = 1000,
     config = lua_config("linrongbin16/colorbox.nvim"),
     build = function()
@@ -148,7 +150,8 @@ local M = {
     event = { VeryLazy },
   },
   {
-    "linrongbin16/lsp-progress.nvim",
+    dir = "~/github/linrongbin16/lsp-progress.nvim",
+    dev = true,
     lazy = true,
     config = lua_config("linrongbin16/lsp-progress.nvim"),
   },
@@ -156,7 +159,8 @@ local M = {
     "rebelot/heirline.nvim",
     event = { VeryLazy },
     dependencies = {
-      "linrongbin16/lsp-progress.nvim",
+      dir = "~/github/linrongbin16/lsp-progress.nvim",
+      dev = true,
     },
     config = lua_config("rebelot/heirline.nvim"),
   },
@@ -198,7 +202,8 @@ local M = {
     end,
   },
   {
-    "linrongbin16/fzfx.nvim",
+    dir = "~/github/linrongbin16/fzfx.nvim",
+    dev = true,
     event = { CmdlineEnter },
     cmd = {
       "FzfxLspDefinitions",
@@ -430,7 +435,8 @@ local M = {
   },
   -- Permlink
   {
-    "linrongbin16/gitlinker.nvim",
+    dir = "~/github/linrongbin16/gitlinker.nvim",
+    dev = true,
     cmd = { "GitLink" },
     config = lua_config("linrongbin16/gitlinker.nvim"),
     keys = lua_keys("linrongbin16/gitlinker.nvim"),
