@@ -80,7 +80,6 @@ function CoreDependency()
     Install -command "scoop install 7zip" -target "7z"
     Install -command "scoop install gzip" -target "gzip"
     Install -command "scoop install unzip" -target "unzip"
-    Install -command "scoop install unrar" -target "unrar"
 
     # luarocks
     Install -command "scoop install luarocks" -target "luarocks"
