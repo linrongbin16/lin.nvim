@@ -11,8 +11,7 @@
 
 > Leave Vim behind, this is the next generation of [lin.vim](https://github.com/linrongbin16/lin.vim).
 
-lin.nvim is a highly configured [Neovim](https://neovim.io/) distribution
-integrated with tons of utilities for development, inspired by [spf13-vim](https://github.com/spf13/spf13-vim).
+lin.nvim is a highly configured [Neovim](https://neovim.io/) distribution integrated with tons of utilities for development, inspired by [spf13-vim](https://github.com/spf13/spf13-vim).
 
 <p align="center">
   <img
@@ -38,8 +37,7 @@ integrated with tons of utilities for development, inspired by [spf13-vim](https
 
 ## Introduction
 
-Aim to be out-of-box, IDE-like editing experience, performant, lightweight and
-friendly to most Neovim users. Focus on and only on editing, no compiling/packaging/debugging.
+Aim to be out-of-box, IDE-like editing experience, performant, lightweight and friendly to most Neovim users. Focus on and only on editing, no compiling/packaging/debugging.
 
 This ultra config solves below issues:
 
