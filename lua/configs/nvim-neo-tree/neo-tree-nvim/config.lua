@@ -222,17 +222,9 @@ local function bootstrap()
     local strings = require("commons.strings")
     local uv = require("commons.uv")
 
-    local buftype = vim.bo.buftype
     local filename = vim.api.nvim_buf_get_name(0)
     local fstat = strings.not_empty(filename) and uv.fs_lstat(filename) or nil
     local isdir = fstat ~= nil and fstat.type == "directory"
-    -- buffer is a directory
-    -- local directory = vim.fn.isdirectory(data.file) == 1
-
-    -- don't open neo-tree if opened buffer is a file
-    if strings.not_empty(buftype) and strings.not_empty(filename) and not isdir then
-      return
-    end
 
     -- change to the directory
     if isdir then
