@@ -226,7 +226,7 @@ local function bootstrap()
 
     -- print(string.format("buftype:%s, filename:%s", vim.inspect(buftype), vim.inspect(filename)))
     if strings.not_empty(buftype) or strings.not_empty(filename) then
-      vim.cmd("Neotree action=show")
+      vim.cmd("Neotree show")
     else
       vim.cmd("Neotree")
     end
