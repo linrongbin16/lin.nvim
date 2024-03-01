@@ -44,18 +44,19 @@ jobs:
         run: |
           cargo binstall  --no-confirm selene
           selene --config selene.toml ./lua
-  stylua:
-    name: Stylua
+  code_format:
+    name: Code Format
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Stylua
-        uses: JohnnyMorganz/stylua-action@v3
+      - uses: JohnnyMorganz/stylua-action@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           version: latest
           args: --config-path .stylua.toml ./lua
+      - uses: mfinelli/setup-shfmt@v3
+      - run: shfmt -d ./install
       - name: Auto commit
         if: ${{ github.ref != 'refs/heads/main' }}
         uses: stefanzweifel/git-auto-commit-action@v4
@@ -100,7 +101,7 @@ jobs:
     needs:
       - typecheck
       - selene
-      - stylua
+      - code_format
       - ubuntu_installer
       - macos_installer
     runs-on: ubuntu-latest
