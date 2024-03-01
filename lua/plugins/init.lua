@@ -332,7 +332,7 @@ local M = {
     "Zeioth/garbage-day.nvim",
     event = { VeryLazy },
     dependencies = { "neovim/nvim-lspconfig" },
-    init = lua_init("Zeioth/garbage-day.nvim"),
+    config = lua_config("Zeioth/garbage-day.nvim"),
   },
   -- Symbol navigation
   {
