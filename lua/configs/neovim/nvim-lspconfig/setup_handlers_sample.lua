@@ -4,7 +4,7 @@
 -- Please copy this file to 'setup_handlers.lua' to enable it.
 
 local setup_handlers = {
-    -- ["flow"] = {},
+  -- ["flow"] = {},
 }
 
 return setup_handlers

@@ -6,9 +6,9 @@
 --  * [mason-lspconfig Available LSP servers](https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers) for more LSP servers.
 
 local ensure_installed = {
-    -- "lua_ls", -- lua
-    -- "vimls",  -- vim
-    -- "jsonls", -- json
+  -- "lua_ls", -- lua
+  -- "vimls",  -- vim
+  -- "jsonls", -- json
 }
 
 return ensure_installed

@@ -1,4 +1,4 @@
 require("notify").setup({
-    fps = 120,
-    render = "compact",
+  fps = 120,
+  render = "compact",
 })

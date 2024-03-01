@@ -7,7 +7,7 @@ vim.g.gitgutter_sign_allow_clobber = 0
 
 -- use rg to improve performance
 if vim.fn.executable("rg") > 0 then
-    vim.g.gitgutter_grep = "rg"
+  vim.g.gitgutter_grep = "rg"
 end
 
 -- use float window for preview

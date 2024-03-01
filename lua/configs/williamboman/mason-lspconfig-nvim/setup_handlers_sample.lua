@@ -8,28 +8,28 @@
 local lspconfig = require("lspconfig")
 
 local setup_handlers = {
-    -- Please uncomment below lines to enable them.
+  -- Please uncomment below lines to enable them.
 
-    -- lua_ls = function()
-    --     lspconfig["lua_ls"].setup({
-    --         settings = {
-    --             Lua = {
-    --                 workspace = {
-    --                     checkThirdParty = false,
-    --                 },
-    --             },
-    --         },
-    --     })
-    -- end,
-    -- tsserver = function()
-    --     lspconfig["tsserver"].setup({})
-    -- end,
-    -- clangd = function()
-    --     require("clangd_extensions").setup({})
-    -- end,
-    -- ["rust_analyzer"] = function()
-    --     require("rust-tools").setup({})
-    -- end,
+  -- lua_ls = function()
+  --     lspconfig["lua_ls"].setup({
+  --         settings = {
+  --             Lua = {
+  --                 workspace = {
+  --                     checkThirdParty = false,
+  --                 },
+  --             },
+  --         },
+  --     })
+  -- end,
+  -- tsserver = function()
+  --     lspconfig["tsserver"].setup({})
+  -- end,
+  -- clangd = function()
+  --     require("clangd_extensions").setup({})
+  -- end,
+  -- ["rust_analyzer"] = function()
+  --     require("rust-tools").setup({})
+  -- end,
 }
 
 return setup_handlers

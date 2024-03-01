@@ -5,34 +5,34 @@ local window_min_width_rate = 0.2
 local window_min_width = { window_min_width_value, window_min_width_rate }
 
 require("dressing").setup({
-    input = {
-        border = constants.ui.border,
-        min_width = window_min_width,
-        win_options = {
-            winblend = constants.ui.winblend,
-        },
-        mappings = {
-            n = close_mappings,
-            i = close_mappings,
-        },
+  input = {
+    border = constants.ui.border,
+    min_width = window_min_width,
+    win_options = {
+      winblend = constants.ui.winblend,
     },
-    select = {
-        nui = {
-            border = {
-                style = constants.ui.border,
-            },
-            win_options = {
-                winblend = constants.ui.winblend,
-            },
-            min_width = window_min_width_value,
-        },
-        builtin = {
-            border = constants.ui.border,
-            min_width = window_min_width,
-            win_options = {
-                winblend = constants.ui.winblend,
-            },
-            mappings = close_mappings,
-        },
+    mappings = {
+      n = close_mappings,
+      i = close_mappings,
     },
+  },
+  select = {
+    nui = {
+      border = {
+        style = constants.ui.border,
+      },
+      win_options = {
+        winblend = constants.ui.winblend,
+      },
+      min_width = window_min_width_value,
+    },
+    builtin = {
+      border = constants.ui.border,
+      min_width = window_min_width,
+      win_options = {
+        winblend = constants.ui.winblend,
+      },
+      mappings = close_mappings,
+    },
+  },
 })
