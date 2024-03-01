@@ -91,8 +91,8 @@ And that's all of it.
    Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
    irm get.scoop.sh | iex
 
-   git clone https://github.com/linrongbin16/lin.nvim $env:HOME\.nvim
-   cd $env:HOME\.nvim
+   git clone https://github.com/linrongbin16/lin.nvim $env:USERPROFILE\.nvim
+   cd $env:USERPROFILE\.nvim
    .\install.ps1
    ```
 
