@@ -1,8 +1,8 @@
 local uv = require("commons.uv")
-local strings = require("commons.strings")
-local tables = require("commons.tables")
-local colors_hl = require("commons.colors.hl")
-local colors_hsl = require("commons.colors.hsl")
+local str = require("commons.str")
+local tbl = require("commons.tbl")
+local color_hl = require("commons.color.hl")
+local color_hsl = require("commons.color.hsl")
 
 local constants = require("builtin.utils.constants")
 
@@ -22,8 +22,8 @@ local left_slant = ""
 local right_slant = ""
 
 local function rgb_to_hsl(rgb)
-  local h, s, l = colors_hsl.rgb_string_to_hsl(rgb)
-  return colors_hsl.new(h, s, l, rgb)
+  local h, s, l = color_hsl.rgb_string_to_hsl(rgb)
+  return color_hsl.new(h, s, l, rgb)
 end
 
 -- value 0.0-1.0
@@ -161,7 +161,7 @@ local FileName = {
   },
   {
     provider = function(self)
-      if strings.empty(self.filename) then
+      if str.empty(self.filename) then
         return ""
       end
       local readonly = not vim.api.nvim_buf_get_option(0, "modifiable")
@@ -180,11 +180,11 @@ local FileName = {
   -- file size
   {
     provider = function(self)
-      if strings.empty(self.filename) then
+      if str.empty(self.filename) then
         return ""
       end
       local fstat = uv.fs_stat(self.filename)
-      local filesize = tables.tbl_get(fstat, "size")
+      local filesize = tbl.tbl_get(fstat, "size")
       if type(filesize) ~= "number" or filesize <= 0 then
         return ""
       end
@@ -219,7 +219,7 @@ local GitBranch = {
     provider = function(self)
       if vim.fn.exists("*gitbranch#name") > 0 then
         local branch = vim.fn["gitbranch#name"]()
-        if strings.not_empty(branch) then
+        if str.not_empty(branch) then
           return "  " .. branch .. " "
         end
       end
@@ -281,7 +281,7 @@ local LspStatus = {
     local result = require("lsp-progress").progress({
       max_size = width,
     })
-    if strings.not_empty(result) then
+    if str.not_empty(result) then
       return " " .. result
     end
     return ""
@@ -304,7 +304,7 @@ local SearchCount = {
       return ""
     end
     local ok, result = pcall(vim.fn.searchcount, { maxcount = 100, timeout = 500 })
-    if not ok or tables.tbl_empty(result) then
+    if not ok or tbl.tbl_empty(result) then
       return ""
     end
     local denominator = math.min(result.total, result.maxcount)
@@ -393,11 +393,11 @@ local FileEncoding = {
   {
     provider = function(self)
       local text = (vim.bo.fenc ~= "" and vim.bo.fenc) or vim.o.enc
-      if strings.empty(text) then
+      if str.empty(text) then
         return ""
       end
       local icon = FileEncodingIcons[text]
-      if strings.empty(icon) then
+      if str.empty(icon) then
         return " " .. text .. " "
       end
       return " " .. icon .. " " .. text .. " "
@@ -418,11 +418,11 @@ local FileFormat = {
   hl = { fg = "normal_fg3", bg = "normal_bg3" },
   provider = function(self)
     local text = vim.bo.fileformat
-    if strings.empty(text) then
+    if str.empty(text) then
       return ""
     end
     local icon = FileFormatIcons[text]
-    if strings.empty(icon) then
+    if str.empty(icon) then
       return " " .. text .. " "
     end
     return " " .. icon .. " "
@@ -446,11 +446,11 @@ local FileType = {
   },
   {
     provider = function(self)
-      if strings.empty(self.filename_ext) then
+      if str.empty(self.filename_ext) then
         return ""
       end
       local icon_text, icon_color = self.devicons.get_icon_color(self.filename, self.filename_ext)
-      if strings.not_empty(icon_text) then
+      if str.not_empty(icon_text) then
         return " " .. icon_text .. " "
       else
         return "  "
@@ -458,7 +458,7 @@ local FileType = {
     end,
     hl = function(self)
       local icon_text, icon_color = self.devicons.get_icon_color(self.filename, self.filename_ext)
-      if strings.not_empty(icon_color) then
+      if str.not_empty(icon_color) then
         return { fg = icon_color, bg = "normal_bg2" }
       else
         return { fg = "normal_fg2", bg = "normal_bg2" }
@@ -468,7 +468,7 @@ local FileType = {
   },
   {
     provider = function(self)
-      if strings.empty(self.filename_ext) then
+      if str.empty(self.filename_ext) then
         return ""
       end
       return self.filename_ext .. " "
@@ -553,17 +553,17 @@ local function get_color_with_lualine(
   local a_section = "airline_" .. section
   local a_attribute = attribute == "fg" and 1 or 2
   local a_mode_name = mode_name == "command" and "terminal" or mode_name
-  if has_lualine and tables.tbl_get(lualine_theme, mode_name, section, attribute) then
+  if has_lualine and tbl.tbl_get(lualine_theme, mode_name, section, attribute) then
     return lualine_theme[mode_name][section][attribute]
-  elseif has_airline and tables.tbl_get(airline_theme, a_mode_name, a_section, a_attribute) then
+  elseif has_airline and tbl.tbl_get(airline_theme, a_mode_name, a_section, a_attribute) then
     return airline_theme[a_mode_name][a_section][a_attribute]
   else
-    return colors_hl.get_color_with_fallback(fallback_hls, fallback_attribute, fallback_color)
+    return color_hl.get_color_with_fallback(fallback_hls, fallback_attribute, fallback_color)
   end
 end
 
 local function get_terminal_color_with_fallback(number, fallback)
-  if strings.not_empty(vim.g[string.format("terminal_color_%d", number)]) then
+  if str.not_empty(vim.g[string.format("terminal_color_%d", number)]) then
     return vim.g[string.format("terminal_color_%d", number)]
   else
     return fallback
@@ -624,24 +624,24 @@ local function setup_colors(colorname)
   local shade_level3 = 0.8
 
   local diagnostic_error =
-    colors_hl.get_color_with_fallback({ "DiagnosticSignError", "ErrorMsg" }, "fg", red)
+    color_hl.get_color_with_fallback({ "DiagnosticSignError", "ErrorMsg" }, "fg", red)
   local diagnostic_warn =
-    colors_hl.get_color_with_fallback({ "DiagnosticSignWarn", "WarningMsg" }, "fg", yellow)
+    color_hl.get_color_with_fallback({ "DiagnosticSignWarn", "WarningMsg" }, "fg", yellow)
   local diagnostic_info =
-    colors_hl.get_color_with_fallback({ "DiagnosticSignInfo", "None" }, "fg", cyan)
+    color_hl.get_color_with_fallback({ "DiagnosticSignInfo", "None" }, "fg", cyan)
   local diagnostic_hint =
-    colors_hl.get_color_with_fallback({ "DiagnosticSignHint", "Comment" }, "fg", grey)
-  local git_add = colors_hl.get_color_with_fallback(
+    color_hl.get_color_with_fallback({ "DiagnosticSignHint", "Comment" }, "fg", grey)
+  local git_add = color_hl.get_color_with_fallback(
     { "GitSignsAdd", "GitGutterAdd", "diffAdded", "DiffAdd" },
     "fg",
     green
   )
-  local git_change = colors_hl.get_color_with_fallback(
+  local git_change = color_hl.get_color_with_fallback(
     { "GitSignsChange", "GitGutterChange", "diffChanged", "DiffChange" },
     "fg",
     yellow
   )
-  local git_delete = colors_hl.get_color_with_fallback(
+  local git_delete = color_hl.get_color_with_fallback(
     { "GitSignsDelete", "GitGutterDelete", "diffRemoved", "DiffDelete" },
     "fg",
     red
@@ -872,7 +872,7 @@ local function setup_colors(colorname)
   )
 
   if not has_lualine and not has_airline then
-    local background_color = colors_hl.get_color("Normal", "bg")
+    local background_color = color_hl.get_color("Normal", "bg")
     if background_color then
       local parameter = get_color_brightness(background_color) > 0.5 and -10 or 10
       normal_bg = brightness_modifier(normal_bg, parameter)

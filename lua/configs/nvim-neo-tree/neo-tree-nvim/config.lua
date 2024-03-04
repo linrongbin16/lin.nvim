@@ -219,12 +219,12 @@ vim.api.nvim_create_autocmd({ "VimResized", "UIEnter" }, {
 
 local function bootstrap()
   local function open_impl()
-    local strings = require("commons.strings")
+    local str = require("commons.str")
 
     local buftype = vim.bo.buftype
     local filename = vim.api.nvim_buf_get_name(0)
     -- print(string.format("buftype:%s, filename:%s", vim.inspect(buftype), vim.inspect(filename)))
-    if strings.not_empty(buftype) or strings.not_empty(filename) then
+    if str.not_empty(buftype) or str.not_empty(filename) then
       return
     end
 
