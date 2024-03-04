@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.1.0](https://github.com/linrongbin16/lin.nvim/compare/v3.0.2...v3.1.0) (2024-03-04)
+
+
+### Features
+
+* **nvim-highlight-colors:** migrate 'nvim-colorizer.lua' to 'nvim-highlight-colors' ([#514](https://github.com/linrongbin16/lin.nvim/issues/514)) ([ef5b841](https://github.com/linrongbin16/lin.nvim/commit/ef5b841338cd87bfcb0d6feaa5470c8faf75dc09))
+
 ## [3.0.2](https://github.com/linrongbin16/lin.nvim/compare/v3.0.1...v3.0.2) (2024-03-01)
 
 
