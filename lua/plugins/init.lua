@@ -67,11 +67,6 @@ local M = {
     config = lua_config("RRethy/vim-illuminate"),
   },
   {
-    "NvChad/nvim-colorizer.lua",
-    event = { VeryLazy },
-    config = lua_config("NvChad/nvim-colorizer.lua"),
-  },
-  {
     "brenoprata10/nvim-highlight-colors",
     event = { VeryLazy },
     config = lua_config("brenoprata10/nvim-highlight-colors"),
