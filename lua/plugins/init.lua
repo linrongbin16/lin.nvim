@@ -72,6 +72,11 @@ local M = {
     config = lua_config("NvChad/nvim-colorizer.lua"),
   },
   {
+    "brenoprata10/nvim-highlight-colors",
+    event = { VeryLazy },
+    config = lua_config("brenoprata10/nvim-highlight-colors"),
+  },
+  {
     "nvim-treesitter/nvim-treesitter-context",
     event = { VeryLazy },
     dependencies = { "nvim-treesitter/nvim-treesitter" },
