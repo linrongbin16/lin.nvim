@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.2.0](https://github.com/linrongbin16/lin.nvim/compare/v3.1.0...v3.2.0) (2024-03-07)
+
+
+### Features
+
+* **neo-tree.nvim:** add '&lt;leader&gt;nf' to find current file in neo-tree.nvim ([#517](https://github.com/linrongbin16/lin.nvim/issues/517)) ([dd9d700](https://github.com/linrongbin16/lin.nvim/commit/dd9d7009a5e27e9dcb870929f2bdc8b6626c3e37))
+
+
+### Performance Improvements
+
+* **neo-tree.nvim:** disable follow current file ([#517](https://github.com/linrongbin16/lin.nvim/issues/517)) ([dd9d700](https://github.com/linrongbin16/lin.nvim/commit/dd9d7009a5e27e9dcb870929f2bdc8b6626c3e37))
+
 ## [3.1.0](https://github.com/linrongbin16/lin.nvim/compare/v3.0.2...v3.1.0) (2024-03-04)
 
 
