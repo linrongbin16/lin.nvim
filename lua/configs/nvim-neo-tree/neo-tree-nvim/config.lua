@@ -229,7 +229,7 @@ local function bootstrap()
       return
     end
 
-    vim.cmd("Neotree reveal")
+    vim.cmd("Neotree")
     resize_sidebar()
   end
   vim.defer_fn(open_impl, 1)
