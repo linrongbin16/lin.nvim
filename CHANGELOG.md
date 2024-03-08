@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.3.0](https://github.com/linrongbin16/lin.nvim/compare/v3.2.0...v3.3.0) (2024-03-08)
+
+
+### Features
+
+* **toggleterm.nvim:** use powershell for Windows ([#519](https://github.com/linrongbin16/lin.nvim/issues/519)) ([f0865ae](https://github.com/linrongbin16/lin.nvim/commit/f0865aecffe38a1bbe02a677adc09b4d00ff33e0))
+
 ## [3.2.0](https://github.com/linrongbin16/lin.nvim/compare/v3.1.0...v3.2.0) (2024-03-07)
 
 
