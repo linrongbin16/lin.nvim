@@ -1,6 +1,11 @@
 local constants = require("builtin.utils.constants")
 local layout = require("builtin.utils.layout")
 
+local shell = vim.o.shell
+if constants.os.is_windows then
+  shell = vim.fn.executable("pwsh") > 0 and "pwsh" or "powershell"
+end
+
 require("toggleterm").setup({
   direction = "float",
   float_opts = {
@@ -13,4 +18,5 @@ require("toggleterm").setup({
     end,
     winblend = constants.ui.winblend,
   },
+  shell = shell,
 })
