@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.3.1](https://github.com/linrongbin16/lin.nvim/compare/v3.3.0...v3.3.1) (2024-03-11)
+
+
+### Performance Improvements
+
+* **options:** disable 'q' to macro recording ([#521](https://github.com/linrongbin16/lin.nvim/issues/521)) ([7be177f](https://github.com/linrongbin16/lin.nvim/commit/7be177f7942db1fc7a0cf1cae3f0925be37ec1c2))
+
 ## [3.3.0](https://github.com/linrongbin16/lin.nvim/compare/v3.2.0...v3.3.0) (2024-03-08)
 
 
