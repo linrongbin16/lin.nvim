@@ -32,6 +32,7 @@ require("bufferline").setup({
         require("nvim-web-devicons").get_icon_by_filetype(element.filetype, { default = false })
       if
         str.not_empty(current_bufpath)
+        and str.not_empty(element.path)
         and path.normalize(current_bufpath, { expand = true, double_backslash = true })
           == path.normalize(element.path, { expand = true, double_backslash = true })
       then
