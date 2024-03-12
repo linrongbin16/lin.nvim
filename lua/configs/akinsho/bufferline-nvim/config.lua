@@ -1,4 +1,6 @@
 local layout = require("builtin.utils.layout")
+local path = require("commons.path")
+local str = require("commons.str")
 
 require("bufferline").setup({
   options = {
@@ -24,6 +26,20 @@ require("bufferline").setup({
     max_prefix_length = layout.editor.width(0.1, 10, 18),
     diagnostics = false,
     -- separator_style = "slant",
+    get_element_icon = function(element)
+      local current_bufpath = vim.api.nvim_buf_get_name(0)
+      local icon_text, icon_color =
+        require("nvim-web-devicons").get_icon_by_filetype(element.filetype, { default = false })
+      if
+        str.not_empty(current_bufpath)
+        and path.normalize(current_bufpath, { expand = true, double_backslash = true })
+          == path.normalize(element.path, { expand = true, double_backslash = true })
+      then
+        return icon_text, icon_color
+      else
+        return icon_text, "Comment"
+      end
+    end,
     hover = {
       enabled = false,
     },
