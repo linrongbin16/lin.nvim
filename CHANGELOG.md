@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.4.0](https://github.com/linrongbin16/lin.nvim/compare/v3.3.1...v3.4.0) (2024-03-12)
+
+
+### Features
+
+* **bufferline.nvim:** use grey for non-current buffer's icon color ([#523](https://github.com/linrongbin16/lin.nvim/issues/523)) ([7bb4f19](https://github.com/linrongbin16/lin.nvim/commit/7bb4f19fe6a9b423af698d1841b3cd22f33d5319))
+
 ## [3.3.1](https://github.com/linrongbin16/lin.nvim/compare/v3.3.0...v3.3.1) (2024-03-11)
 
 
