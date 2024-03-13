@@ -10,4 +10,8 @@ require("fzfx").setup({
       width = constants.ui.layout.middle.scale,
     },
   },
+  debug = {
+    enable = true,
+    file_log = true,
+  },
 })
