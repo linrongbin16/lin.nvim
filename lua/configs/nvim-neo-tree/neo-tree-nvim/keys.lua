@@ -10,7 +10,7 @@ local M = {
   set_lazy_key(
     "n",
     "<leader>nf",
-    "<cmd>Neotree reveal action=show<cr>",
+    "<cmd>Neotree reveal<cr>",
     { silent = false, desc = "Find current file in neo-tree file explorer" }
   ),
 }
