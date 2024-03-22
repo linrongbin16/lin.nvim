@@ -3,8 +3,6 @@
 # debug
 # set -x
 
-export HOMEBREW_NO_AUTO_UPDATE=1
-
 NVIM_HOME=$HOME/.nvim
 OS="$(uname -s)"
 
