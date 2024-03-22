@@ -468,10 +468,14 @@ local FileType = {
   },
   {
     provider = function(self)
-      if str.empty(self.filename_ext) then
+      if str.empty(self.filename) then
         return ""
       end
-      return self.filename_ext .. " "
+      local ft = vim.filetype.match({ filename = self.filename }) or ""
+      if str.empty(ft) then
+        return ""
+      end
+      return ft .. " "
     end,
     update = { "BufEnter" },
   },
