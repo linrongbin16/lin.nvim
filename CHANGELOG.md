@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.5.0](https://github.com/linrongbin16/lin.nvim/compare/v3.4.0...v3.5.0) (2024-03-22)
+
+
+### Features
+
+* **heirline:** use 'vim.filetype.match' to recognize filetype ([#526](https://github.com/linrongbin16/lin.nvim/issues/526)) ([c567ebd](https://github.com/linrongbin16/lin.nvim/commit/c567ebd2778bd65a2ddb6b194bc875c78317805e))
+
+
+### Performance Improvements
+
+* **neo-tree.nvim:** move cursor when reveal file in neo-tree ([#525](https://github.com/linrongbin16/lin.nvim/issues/525)) ([edc4ec5](https://github.com/linrongbin16/lin.nvim/commit/edc4ec5fef7ba3c09dff9b32417e1fb2b43b83bb))
+
 ## [3.4.0](https://github.com/linrongbin16/lin.nvim/compare/v3.3.1...v3.4.0) (2024-03-12)
 
 
