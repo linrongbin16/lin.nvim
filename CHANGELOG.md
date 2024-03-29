@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.5.1](https://github.com/linrongbin16/lin.nvim/compare/v3.5.0...v3.5.1) (2024-03-29)
+
+
+### Bug Fixes
+
+* **options:** fix 'q' Noq mapping ([#528](https://github.com/linrongbin16/lin.nvim/issues/528)) ([8856baa](https://github.com/linrongbin16/lin.nvim/commit/8856baa3af5b617bdc10f2fdd11d605c70f0ad5a))
+
 ## [3.5.0](https://github.com/linrongbin16/lin.nvim/compare/v3.4.0...v3.5.0) (2024-03-22)
 
 
