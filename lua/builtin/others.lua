@@ -18,7 +18,7 @@ else
 end
 
 -- biscuits
-set_key({ "n", "x", "o" }, "q", "<Noq>", { silent = true, desc = "Disable macro recording" })
+set_key({ "n", "x" }, "q", "<Noq>", { silent = true, desc = "Disable macro recording" })
 set_key(
   { "n", "x" },
   "<leader>ww",
