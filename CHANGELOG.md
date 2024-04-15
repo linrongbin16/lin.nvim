@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.5.2](https://github.com/linrongbin16/lin.nvim/compare/v3.5.1...v3.5.2) (2024-04-15)
+
+
+### Bug Fixes
+
+* **stickybuf.nvim:** remove buf-delete background job ([#530](https://github.com/linrongbin16/lin.nvim/issues/530)) ([47c354c](https://github.com/linrongbin16/lin.nvim/commit/47c354ca15d50b135beb9e75fd3981eec8ab099b))
+
 ## [3.5.1](https://github.com/linrongbin16/lin.nvim/compare/v3.5.0...v3.5.1) (2024-03-29)
 
 
