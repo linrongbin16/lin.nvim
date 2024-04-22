@@ -56,13 +56,6 @@ require("neo-tree").setup({
           },
           { "clipboard", zindex = 10 },
           {
-            "diagnostics",
-            errors_only = true,
-            zindex = 20,
-            align = "left",
-            hide_when_expanded = true,
-          },
-          {
             "git_status",
             zindex = 20,
             align = "right",
@@ -87,9 +80,7 @@ require("neo-tree").setup({
             highlight = "NeoTreeSymbolicLinkTarget",
           },
           { "clipboard", zindex = 10 },
-          { "bufnr", zindex = 10 },
           { "modified", zindex = 20, align = "left" },
-          { "diagnostics", zindex = 20, align = "left" },
           { "git_status", zindex = 20, align = "right" },
         },
       },
