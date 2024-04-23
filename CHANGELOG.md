@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.5.3](https://github.com/linrongbin16/lin.nvim/compare/v3.5.2...v3.5.3) (2024-04-22)
+
+
+### Performance Improvements
+
+* **neo-tree.nvim:** remove diagnostics from neo-tree.nvim ([#532](https://github.com/linrongbin16/lin.nvim/issues/532)) ([6c5a0d2](https://github.com/linrongbin16/lin.nvim/commit/6c5a0d2080fbc342f55133a3df1cb578ff68b627))
+
 ## [3.5.2](https://github.com/linrongbin16/lin.nvim/compare/v3.5.1...v3.5.2) (2024-04-15)
 
 

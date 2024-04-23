@@ -535,7 +535,7 @@ local StatusLine = {
 ---@param has_lualine boolean
 ---@param lualine_theme table
 ---@param has_airline boolean
----@param airline_theme table
+---@param airline_theme table?
 ---@param mode_name "normal"|"insert"|"visual"|"replace"|"command"|"inactive"
 ---@param section "a"|"b"|"c"
 ---@param attribute "fg"|"bg"
@@ -560,6 +560,7 @@ local function get_color_with_lualine(
   if has_lualine and tbl.tbl_get(lualine_theme, mode_name, section, attribute) then
     return lualine_theme[mode_name][section][attribute]
   elseif has_airline and tbl.tbl_get(airline_theme, a_mode_name, a_section, a_attribute) then
+    ---@diagnostic disable-next-line: need-check-nil
     return airline_theme[a_mode_name][a_section][a_attribute]
   else
     return color_hl.get_color_with_fallback(fallback_hls, fallback_attribute, fallback_color)
