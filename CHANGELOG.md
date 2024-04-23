@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.5.5](https://github.com/linrongbin16/lin.nvim/compare/v3.5.4...v3.5.5) (2024-04-23)
+
+
+### Performance Improvements
+
+* **vim-mark:** move 'vim-mark' to users list ([#536](https://github.com/linrongbin16/lin.nvim/issues/536)) ([7d5ced4](https://github.com/linrongbin16/lin.nvim/commit/7d5ced4bc523809a6566bb5ccf8a03c1c5579da7))
+
 ## [3.5.4](https://github.com/linrongbin16/lin.nvim/compare/v3.5.3...v3.5.4) (2024-04-23)
 
 
