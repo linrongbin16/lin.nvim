@@ -25,13 +25,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: LuaLs Typecheck
-        uses: stevearc/nvim-typecheck-action@v1
+      - uses: mrcjkb/lua-typecheck-action@v0
         with:
-          path: lua
-          level: Information
+          directories: lua
           configpath: ".luarc.json"
-          neodev-version: stable
   selene:
     name: Selene
     runs-on: ubuntu-latest
