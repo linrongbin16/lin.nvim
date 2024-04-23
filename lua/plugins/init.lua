@@ -212,37 +212,12 @@ local M = {
     config = lua_config("linrongbin16/fzfx.nvim"),
     keys = lua_keys("linrongbin16/fzfx.nvim"),
   },
-  -- Search and replace
-  {
-    "nvim-pack/nvim-spectre",
-    cmd = { "Spectre" },
-    config = lua_config("nvim-pack/nvim-spectre"),
-  },
-
-  -- ---- PROJECT ----
-
-  -- Project/local configuration
-  {
-    "folke/neoconf.nvim",
-    event = { VeryLazy },
-    cmd = { "Neoconf" },
-    config = lua_config("folke/neoconf.nvim"),
-  },
 
   -- ---- LSP ----
 
-  -- Lsp configuration
-  {
-    "folke/neodev.nvim",
-    ft = { "lua" },
-    event = { VeryLazy },
-    dependencies = { "folke/neoconf.nvim" }, -- neoconf must be setup before neodev
-    config = lua_config("folke/neodev.nvim"),
-  },
   {
     "neovim/nvim-lspconfig",
     event = { VeryLazy },
-    dependencies = { "folke/neoconf.nvim", "folke/neodev.nvim" }, -- neoconf, neodev must be setup before nvim-lspconfig
     config = lua_config("neovim/nvim-lspconfig"),
   },
   -- Lsp server management
@@ -311,23 +286,7 @@ local M = {
     },
     config = lua_config("jay-babu/mason-null-ls.nvim"),
   },
-  -- {
-  --     "mfussenegger/nvim-lint",
-  --     event = { VeryLazy, BufWritePost },
-  --     dependencies = {
-  --         "neovim/nvim-lspconfig",
-  --         "williamboman/mason.nvim",
-  --         "williamboman/mason-lspconfig.nvim",
-  --     },
-  --     config = lua_config("mfussenegger/nvim-lint"),
-  -- },
   -- Lsp server GC
-  -- {
-  --   "hinell/lsp-timeout.nvim",
-  --   event = { VeryLazy },
-  --   dependencies = { "neovim/nvim-lspconfig" },
-  --   init = lua_init("hinell/lsp-timeout.nvim"),
-  -- },
   {
     "Zeioth/garbage-day.nvim",
     event = { VeryLazy },
@@ -468,13 +427,6 @@ local M = {
     "numToStr/Comment.nvim",
     event = { VeryLazy },
     config = lua_config("numToStr/Comment.nvim"),
-  },
-  -- Cursor motion
-  {
-    "smoka7/hop.nvim",
-    version = "*",
-    config = lua_config("smoka7/hop.nvim"),
-    keys = lua_keys("smoka7/hop.nvim"),
   },
   -- Surround
   {
