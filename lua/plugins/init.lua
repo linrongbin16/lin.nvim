@@ -90,18 +90,6 @@ local M = {
     "markonm/traces.vim",
     event = { CmdlineEnter },
   },
-  -- Mark word
-  {
-    "inkarkat/vim-ingo-library",
-    lazy = true,
-  },
-  {
-    "inkarkat/vim-mark",
-    event = { CmdlineEnter },
-    dependencies = { "inkarkat/vim-ingo-library" },
-    init = lua_init("inkarkat/vim-mark"),
-    keys = lua_keys("inkarkat/vim-mark"),
-  },
 
   -- ---- UI ----
 
