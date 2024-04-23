@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.5.4](https://github.com/linrongbin16/lin.nvim/compare/v3.5.3...v3.5.4) (2024-04-23)
+
+
+### Performance Improvements
+
+* **users:** move multiple plugins to users list ([#534](https://github.com/linrongbin16/lin.nvim/issues/534)) ([d6c968d](https://github.com/linrongbin16/lin.nvim/commit/d6c968d2a79a07ae845d1f8b48aa4910e6a4959c))
+
 ## [3.5.3](https://github.com/linrongbin16/lin.nvim/compare/v3.5.2...v3.5.3) (2024-04-22)
 
 
