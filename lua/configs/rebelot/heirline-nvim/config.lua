@@ -242,7 +242,9 @@ local GitPromptString = {
   {
     provider = function(self)
       if vim.fn.executable("git-prompt-string") > 0 then
-        return str.not_empty(git_prompt_string_cache) and (git_prompt_string_cache .. " ") or ""
+        return str.not_empty(git_prompt_string_cache)
+            and (" " .. str.trim(git_prompt_string_cache) .. " ")
+          or ""
       end
     end,
     -- hl = function(self)
