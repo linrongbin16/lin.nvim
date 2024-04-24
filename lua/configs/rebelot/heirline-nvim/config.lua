@@ -18,6 +18,14 @@ local orange = "#D2691E"
 local yellow = "#FFFF00"
 local purple = "#800080"
 local magenta = "#FF00FF"
+local bright_black = "#808080"
+local bright_red = "#CD5C5C"
+local bright_green = "#90EE90"
+local bright_yellow = "#FFFFE0"
+local bright_blue = "#ADD8E6"
+local bright_magenta = "#EE82EE"
+local bright_cyan = "#E0FFFF"
+local bright_white = "#C0C0C0"
 
 local left_slant = ""
 local right_slant = ""
@@ -240,11 +248,9 @@ local GitPromptString = {
 
   {
     provider = function(self)
-      if vim.fn.executable("git-prompt-string") > 0 then
-        return str.not_empty(git_prompt_string_cache)
-            and (" " .. str.trim(git_prompt_string_cache) .. " ")
-          or ""
-      end
+      return str.not_empty(git_prompt_string_cache)
+          and (" " .. str.trim(git_prompt_string_cache) .. " ")
+        or ""
     end,
     -- hl = function(self)
     --   if vim.fn.executable("git-prompt-string") > 0 then
@@ -966,6 +972,14 @@ local function setup_colors(colorname)
     yellow = yellow,
     purple = purple,
     magenta = magenta,
+    bright_black = bright_black,
+    bright_red = bright_red,
+    bright_green = bright_green,
+    bright_yellow = bright_yellow,
+    bright_blue = bright_blue,
+    bright_magenta = bright_magenta,
+    bright_cyan = bright_cyan,
+    bright_white = bright_white,
     normal_bg1 = normal_bg1,
     normal_fg1 = normal_fg1,
     normal_bg2 = normal_bg2,
