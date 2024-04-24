@@ -242,18 +242,7 @@ local GitPromptString = {
   {
     provider = function(self)
       if vim.fn.executable("git-prompt-string") > 0 then
-        if str.not_empty(git_prompt_string_cache) then
-          local j = json.decode(git_prompt_string_cache)
-          return string.format(
-            "%s%s%s%s",
-            j["promptPrefix"],
-            j["branchInfo"],
-            j["branchStatus"],
-            j["promptSuffix"]
-          )
-        else
-          return ""
-        end
+        return git_prompt_string_cache or ""
       end
     end,
     -- hl = function(self)
@@ -1046,20 +1035,19 @@ if vim.fn.executable("git-prompt-string") > 0 then
         end
       end
 
-      local branch_info = {}
-      spawn.run({ "git-prompt-string", "-json" }, {
+      local branch = nil
+      spawn.run({ "git-prompt-string", "-color-disabled" }, {
         cwd = cwd,
         on_stdout = function(line)
           if type(line) == "string" and string.len(line) > 0 then
-            table.insert(branch_info, line)
+            branch = line
           end
         end,
         on_stderr = function(line)
-          branch_info = nil
+          branch = nil
         end,
       }, function()
-        git_prompt_string_cache = tbl.tbl_not_empty(branch_info) and table.concat(branch_info, "\n")
-          or nil
+        git_prompt_string_cache = branch
         vim.schedule(function()
           vim.api.nvim_exec_autocmds("User", {
             pattern = "HeirlineGitPromptStringUpdated",
