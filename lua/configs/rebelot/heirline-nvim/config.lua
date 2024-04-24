@@ -4,7 +4,6 @@ local tbl = require("commons.tbl")
 local color_hl = require("commons.color.hl")
 local color_hsl = require("commons.color.hsl")
 local spawn = require("commons.spawn")
-local json = require("commons.json")
 
 local constants = require("builtin.utils.constants")
 
