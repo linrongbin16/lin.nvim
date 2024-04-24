@@ -1070,7 +1070,7 @@ if vim.fn.executable("git-prompt-string") > 0 then
           return
         end
         running_git_prompt_string = true
-        
+
         local cwd
         local bufname
         local bufnr = vim.api.nvim_get_current_buf()
@@ -1097,7 +1097,9 @@ if vim.fn.executable("git-prompt-string") > 0 then
               branch = line
             end
           end,
-          on_stderr = function() failed_get_branch = true end,
+          on_stderr = function()
+            failed_get_branch = true
+          end,
         }, function()
           if not failed_get_branch then
             git_prompt_string_value_cache = branch
@@ -1112,7 +1114,9 @@ if vim.fn.executable("git-prompt-string") > 0 then
                 branch_info = branch_info .. line
               end
             end,
-            on_stderr = function() failed_get_branch_info = true end,
+            on_stderr = function()
+              failed_get_branch_info = true
+            end,
           }, function()
             if not failed_get_branch_info then
               local ok, j = pcall(vim.json.decode, branch_info)
@@ -1126,8 +1130,8 @@ if vim.fn.executable("git-prompt-string") > 0 then
                 modeline = false,
               })
               vim.schedule(function()
-                        running_git_prompt_string = false
-                      end)
+                running_git_prompt_string = false
+              end)
             end)
           end)
         end)
