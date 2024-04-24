@@ -1022,7 +1022,7 @@ if vim.fn.executable("git-prompt-string") > 0 then
       end
 
       local branch = nil
-      spawn.run({ "git-prompt-string" }, {
+      spawn.run({ "git-prompt-string", "-color-disabled" }, {
         cwd = cwd,
         on_stdout = function(line)
           if type(line) == "string" and string.len(line) > 0 then
