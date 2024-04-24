@@ -1089,7 +1089,6 @@ if vim.fn.executable("git-prompt-string") > 0 then
               branch = line
             end
           end,
-          on_stderr = function(line) end,
         }, function()
           if str.not_empty(branch) then
             git_prompt_string_value_cache = branch
@@ -1103,7 +1102,6 @@ if vim.fn.executable("git-prompt-string") > 0 then
                 branch_info = branch_info .. line
               end
             end,
-            on_stderr = function(line) end,
           }, function()
             if str.not_empty(branch_info) then
               local ok, j = pcall(vim.json.decode, branch_info)
