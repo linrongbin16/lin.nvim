@@ -5,6 +5,14 @@ local color_hl = require("commons.color.hl")
 local color_hsl = require("commons.color.hsl")
 local spawn = require("commons.spawn")
 local json = require("commons.json")
+-- local logging = require("commons.logging")
+-- logging.setup({
+--   name = "heirline",
+--   console_log = true,
+--   file_log = true,
+--   file_log_name = "heirline.log",
+-- })
+-- local logger = logging.get("heirline")
 
 local constants = require("builtin.utils.constants")
 
@@ -27,6 +35,28 @@ local bright_blue = "#ADD8E6"
 local bright_magenta = "#EE82EE"
 local bright_cyan = "#E0FFFF"
 local bright_white = "#C0C0C0"
+
+local ansi_colors = {
+  black = 1,
+  white = 1,
+  red = 1,
+  green = 1,
+  blue = 1,
+  cyan = 1,
+  grey = 1,
+  orange = 1,
+  yellow = 1,
+  purple = 1,
+  magenta = 1,
+  bright_black = 1,
+  bright_red = 1,
+  bright_green = 1,
+  bright_yellow = 1,
+  bright_blue = 1,
+  bright_magenta = 1,
+  bright_cyan = 1,
+  bright_white = 1,
+}
 
 local left_slant = ""
 local right_slant = ""
@@ -242,27 +272,24 @@ local GitBranch = {
   },
 }
 
-local git_prompt_string_cache = nil
+local git_prompt_string_value_cache = nil
+local git_prompt_string_color_cache = nil
 local GitPromptString = {
   hl = { fg = "normal_fg3", bg = "normal_bg3" },
   update = { "User", pattern = "HeirlineGitPromptStringUpdated" },
 
   {
     provider = function(self)
-      if str.not_empty(git_prompt_string_cache) then
-        local j = json.decode(git_prompt_string_cache)
-        return string.format("%s%s%s ", j["promptPrefix"], j["branchInfo"], j["branchStatus"])
-      else
-        return ""
-      end
-      -- return str.not_empty(git_prompt_string_cache)
-      --     and (" " .. str.trim(git_prompt_string_cache) .. " ")
-      --   or ""
+      return str.not_empty(git_prompt_string_value_cache)
+          and (" " .. str.trim(git_prompt_string_value_cache) .. " ")
+        or ""
     end,
     hl = function(self)
-      if str.not_empty(git_prompt_string_cache) then
-        local j = json.decode(git_prompt_string_cache)
-        return { fg = j["color"], bg = "normal_bg3" }
+      if str.not_empty(git_prompt_string_color_cache) then
+        local c = str.replace(git_prompt_string_color_cache, "-", "_")
+        if ansi_colors[c] then
+          return { fg = c, bg = "normal_bg3" }
+        end
       end
       return { fg = "normal_fg3", bg = "normal_bg3" }
     end,
@@ -1030,46 +1057,70 @@ vim.api.nvim_create_autocmd("VimEnter", {
   end,
 })
 if vim.fn.executable("git-prompt-string") > 0 then
-  vim.api.nvim_create_autocmd({ "FocusGained", "TermLeave", "TermClose" }, {
-    group = "heirline_augroup",
-    callback = function()
-      local cwd
-      local bufname
-      local bufnr = vim.api.nvim_get_current_buf()
-      if type(bufnr) == "number" and bufnr > 0 then
-        bufname = vim.api.nvim_buf_get_name(bufnr)
-        if type(bufname) == "string" and string.len(bufname) > 0 then
-          local bufdir = vim.fn.fnamemodify(bufname, ":h")
-          if
-            type(bufdir) == "string"
-            and string.len(bufdir) > 0
-            and vim.fn.isdirectory(bufdir) > 0
-          then
-            cwd = bufdir
+  vim.api.nvim_create_autocmd(
+    { "FocusGained", "TermLeave", "TermClose", "BufWritePost", "BufEnter", "WinEnter" },
+    {
+      group = "heirline_augroup",
+      callback = function()
+        local cwd
+        local bufname
+        local bufnr = vim.api.nvim_get_current_buf()
+        if type(bufnr) == "number" and bufnr > 0 then
+          bufname = vim.api.nvim_buf_get_name(bufnr)
+          if type(bufname) == "string" and string.len(bufname) > 0 then
+            local bufdir = vim.fn.fnamemodify(bufname, ":h")
+            if
+              type(bufdir) == "string"
+              and string.len(bufdir) > 0
+              and vim.fn.isdirectory(bufdir) > 0
+            then
+              cwd = bufdir
+            end
           end
         end
-      end
 
-      local branch = {}
-      spawn.run({ "git-prompt-string", "-json" }, {
-        cwd = cwd,
-        on_stdout = function(line)
-          if type(line) == "string" and string.len(line) > 0 then
-            table.insert(branch, line)
-          end
-        end,
-        on_stderr = function(line)
-          branch = nil
-        end,
-      }, function()
-        git_prompt_string_cache = tbl.tbl_not_empty(branch) and table.concat(branch) or nil
-        vim.schedule(function()
-          vim.api.nvim_exec_autocmds("User", {
-            pattern = "HeirlineGitPromptStringUpdated",
-            modeline = false,
-          })
+        local branch = nil
+        spawn.run({ "git-prompt-string", "-color-disabled" }, {
+          cwd = cwd,
+          on_stdout = function(line)
+            if type(line) == "string" and string.len(line) > 0 then
+              branch = line
+            end
+          end,
+          on_stderr = function(line)
+            branch = nil
+          end,
+        }, function()
+          git_prompt_string_value_cache = branch
+
+          local branch_info = {}
+          spawn.run({ "git-prompt-string", "-json" }, {
+            cwd = cwd,
+            on_stdout = function(line)
+              if type(line) == "string" and string.len(line) > 0 then
+                table.insert(branch_info, line)
+              end
+            end,
+            on_stderr = function(line)
+              branch_info = nil
+            end,
+          }, function()
+            if tbl.tbl_not_empty(branch_info) then
+              local j = json.decode(table.concat(branch_info, " "))
+              local j_color = j["color"]
+              if str.not_empty(j_color) then
+                git_prompt_string_color_cache = j_color
+              end
+            end
+            vim.schedule(function()
+              vim.api.nvim_exec_autocmds("User", {
+                pattern = "HeirlineGitPromptStringUpdated",
+                modeline = false,
+              })
+            end)
+          end)
         end)
-      end)
-    end,
-  })
+      end,
+    }
+  )
 end
