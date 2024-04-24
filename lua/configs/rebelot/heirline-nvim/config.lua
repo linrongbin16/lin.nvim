@@ -552,8 +552,7 @@ local Progress = {
 local StatusLine = {
   Mode,
   FileName,
-  -- GitBranch,
-  GitPromptString,
+  vim.fn.executable("git-prompt-string") > 0 and GitPromptString or GitBranch,
   GitDiff,
   LspStatus,
   { provider = "%=", hl = { fg = "normal_fg4", bg = "normal_bg4" } },
