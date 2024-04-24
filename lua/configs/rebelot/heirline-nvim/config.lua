@@ -280,7 +280,7 @@ local GitPromptString = {
   {
     provider = function(self)
       if str.not_empty(git_prompt_string_value_cache) then
-        ---@diagnostic disable-next-line: need-check-nil
+        ---@diagnostic disable-next-line
         local result = git_prompt_string_value_cache:gsub("%%", "%%%%")
         return result .. " "
       end
