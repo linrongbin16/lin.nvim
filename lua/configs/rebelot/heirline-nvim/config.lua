@@ -4,14 +4,14 @@ local tbl = require("commons.tbl")
 local color_hl = require("commons.color.hl")
 local color_hsl = require("commons.color.hsl")
 local spawn = require("commons.spawn")
-local logging = require("commons.logging")
-logging.setup({
-  name = "heirline",
-  console_log = true,
-  file_log = true,
-  file_log_name = "heirline.log",
-})
-local logger = logging.get("heirline")
+-- local logging = require("commons.logging")
+-- logging.setup({
+--   name = "heirline",
+--   console_log = true,
+--   file_log = true,
+--   file_log_name = "heirline.log",
+-- })
+-- local logger = logging.get("heirline")
 
 local constants = require("builtin.utils.constants")
 
@@ -1105,7 +1105,6 @@ if vim.fn.executable("git-prompt-string") > 0 then
             end,
             on_stderr = function(line) end,
           }, function()
-            git_prompt_string_color_cache = nil
             if str.not_empty(branch_info) then
               local ok, j = pcall(vim.json.decode, branch_info)
               if ok and str.not_empty(tbl.tbl_get(j, "color")) then
