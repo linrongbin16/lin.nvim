@@ -1089,11 +1089,11 @@ if vim.fn.executable("git-prompt-string") > 0 then
               branch = line
             end
           end,
-          on_stderr = function(line)
-            branch = nil
-          end,
+          on_stderr = function(line) end,
         }, function()
-          git_prompt_string_value_cache = branch
+          if str.not_empty(branch) then
+            git_prompt_string_value_cache = branch
+          end
 
           local branch_info = ""
           spawn.run({ "git-prompt-string", "-json" }, {
