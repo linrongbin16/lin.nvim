@@ -3,6 +3,7 @@ local str = require("commons.str")
 local tbl = require("commons.tbl")
 local color_hl = require("commons.color.hl")
 local color_hsl = require("commons.color.hsl")
+local spawn = require("commons.spawn")
 
 local constants = require("builtin.utils.constants")
 
@@ -224,6 +225,24 @@ local GitBranch = {
         end
       end
       return ""
+    end,
+  },
+  {
+    provider = right_slant,
+    hl = { fg = "normal_bg3", bg = "normal_bg4" },
+  },
+}
+
+local git_prompt_string_cache = nil
+local GitPromptString = {
+  hl = { fg = "normal_fg3", bg = "normal_bg3" },
+  update = { "User", pattern = "HeirlineGitPromptStringUpdated" },
+
+  {
+    provider = function(self)
+      if vim.fn.executable("git-prompt-string") > 0 then
+        return git_prompt_string_cache or ""
+      end
     end,
   },
   {
@@ -519,7 +538,8 @@ local Progress = {
 local StatusLine = {
   Mode,
   FileName,
-  GitBranch,
+  -- GitBranch,
+  GitPromptString,
   GitDiff,
   LspStatus,
   { provider = "%=", hl = { fg = "normal_fg4", bg = "normal_bg4" } },
@@ -980,3 +1000,45 @@ vim.api.nvim_create_autocmd("VimEnter", {
     require("heirline.utils").on_colorscheme(setup_colors(colorname))
   end,
 })
+if vim.fn.executable("git-prompt-string") > 0 then
+  vim.api.nvim_create_autocmd({ "FocusGained", "TermLeave", "TermClose" }, {
+    group = "heirline_augroup",
+    callback = function()
+      local cwd
+      local bufname
+      local bufnr = vim.api.nvim_get_current_buf()
+      if type(bufnr) == "number" and bufnr > 0 then
+        bufname = vim.api.nvim_buf_get_name(bufnr)
+        if type(bufname) == "string" and string.len(bufname) > 0 then
+          local bufdir = vim.fn.fnamemodify(bufname, ":h")
+          if
+            type(bufdir) == "string"
+            and string.len(bufdir) > 0
+            and vim.fn.isdirectory(bufdir) > 0
+          then
+            cwd = bufdir
+          end
+        end
+      end
+
+      local branch = nil
+      spawn.run({ "git-prompt-string" }, {
+        cwd = cwd,
+        on_stdout = function(line)
+          if type(line) == "string" and string.len(line) > 0 then
+            branch = line
+          end
+        end,
+        on_stderr = function(line) end,
+      }, function()
+        git_prompt_string_cache = branch
+        vim.schedule(function()
+          vim.api.nvim_exec_autocmds("User", {
+            pattern = "HeirlineGitPromptStringUpdated",
+            modeline = false,
+          })
+        end)
+      end)
+    end,
+  })
+end
