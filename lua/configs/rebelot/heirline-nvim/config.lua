@@ -4,15 +4,14 @@ local tbl = require("commons.tbl")
 local color_hl = require("commons.color.hl")
 local color_hsl = require("commons.color.hsl")
 local spawn = require("commons.spawn")
-local json = require("commons.json")
--- local logging = require("commons.logging")
--- logging.setup({
---   name = "heirline",
---   console_log = true,
---   file_log = true,
---   file_log_name = "heirline.log",
--- })
--- local logger = logging.get("heirline")
+local logging = require("commons.logging")
+logging.setup({
+  name = "heirline",
+  console_log = true,
+  file_log = true,
+  file_log_name = "heirline.log",
+})
+local logger = logging.get("heirline")
 
 local constants = require("builtin.utils.constants")
 
@@ -272,7 +271,7 @@ local GitBranch = {
   },
 }
 
-local git_prompt_string_value_cache = nil
+local git_prompt_string_value_cache = nil --[[@as string?]]
 local git_prompt_string_color_cache = nil
 local GitPromptString = {
   hl = { fg = "normal_fg3", bg = "normal_bg3" },
@@ -280,9 +279,12 @@ local GitPromptString = {
 
   {
     provider = function(self)
-      return str.not_empty(git_prompt_string_value_cache)
-          and (" " .. str.trim(git_prompt_string_value_cache) .. " ")
-        or ""
+      if str.not_empty(git_prompt_string_value_cache) then
+        ---@diagnostic disable-next-line: need-check-nil
+        local result = git_prompt_string_value_cache:gsub("%%", "%%%%")
+        return result .. " "
+      end
+      return ""
     end,
     hl = function(self)
       if str.not_empty(git_prompt_string_color_cache) then
@@ -1093,23 +1095,21 @@ if vim.fn.executable("git-prompt-string") > 0 then
         }, function()
           git_prompt_string_value_cache = branch
 
-          local branch_info = {}
+          local branch_info = ""
           spawn.run({ "git-prompt-string", "-json" }, {
             cwd = cwd,
             on_stdout = function(line)
               if type(line) == "string" and string.len(line) > 0 then
-                table.insert(branch_info, line)
+                branch_info = branch_info .. line
               end
             end,
-            on_stderr = function(line)
-              branch_info = nil
-            end,
+            on_stderr = function(line) end,
           }, function()
-            if tbl.tbl_not_empty(branch_info) then
-              local j = json.decode(table.concat(branch_info, " "))
-              local j_color = j["color"]
-              if str.not_empty(j_color) then
-                git_prompt_string_color_cache = j_color
+            git_prompt_string_color_cache = nil
+            if str.not_empty(branch_info) then
+              local ok, j = pcall(vim.json.decode, branch_info)
+              if ok and str.not_empty(tbl.tbl_get(j, "color")) then
+                git_prompt_string_color_cache = j["color"]
               end
             end
             vim.schedule(function()
