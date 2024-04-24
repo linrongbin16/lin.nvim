@@ -4,6 +4,7 @@ local tbl = require("commons.tbl")
 local color_hl = require("commons.color.hl")
 local color_hsl = require("commons.color.hsl")
 local spawn = require("commons.spawn")
+local json = require("commons.json")
 
 local constants = require("builtin.utils.constants")
 
@@ -241,9 +242,33 @@ local GitPromptString = {
   {
     provider = function(self)
       if vim.fn.executable("git-prompt-string") > 0 then
-        return git_prompt_string_cache or ""
+        if str.not_empty(git_prompt_string_cache) then
+          local j = json.decode(git_prompt_string_cache)
+          return string.format(
+            "%s%s%s%s",
+            j["promptPrefix"],
+            j["branchInfo"],
+            j["branchStatus"],
+            j["promptSuffix"]
+          )
+        else
+          return ""
+        end
       end
     end,
+    -- hl = function(self)
+    --   if vim.fn.executable("git-prompt-string") > 0 then
+    --     if str.not_empty(git_prompt_string_value_cache) then
+    --       local j = json.decode(git_prompt_string_value_cache)
+    --       local prompt_color = j["color"]
+    --       return {
+    --         fg = str.not_empty(prompt_color) and prompt_color or "normal_fg3",
+    --         bg = "normal_bg3",
+    --       }
+    --     end
+    --     return { fg = "normal_fg3", bg = "normal_bg3" }
+    --   end
+    -- end,
   },
   {
     provider = right_slant,
@@ -1021,17 +1046,20 @@ if vim.fn.executable("git-prompt-string") > 0 then
         end
       end
 
-      local branch = nil
-      spawn.run({ "git-prompt-string", "-color-disabled" }, {
+      local branch_info = {}
+      spawn.run({ "git-prompt-string", "-json" }, {
         cwd = cwd,
         on_stdout = function(line)
           if type(line) == "string" and string.len(line) > 0 then
-            branch = line
+            table.insert(branch_info, line)
           end
         end,
-        on_stderr = function(line) end,
+        on_stderr = function(line)
+          branch_info = nil
+        end,
       }, function()
-        git_prompt_string_cache = branch
+        git_prompt_string_cache = tbl.tbl_not_empty(branch_info) and table.concat(branch_info, "\n")
+          or nil
         vim.schedule(function()
           vim.api.nvim_exec_autocmds("User", {
             pattern = "HeirlineGitPromptStringUpdated",
