@@ -27,28 +27,6 @@ local bright_magenta = "#EE82EE"
 local bright_cyan = "#E0FFFF"
 local bright_white = "#C0C0C0"
 
-local ansi_colors = {
-  black = 1,
-  white = 1,
-  red = 1,
-  green = 1,
-  blue = 1,
-  cyan = 1,
-  grey = 1,
-  orange = 1,
-  yellow = 1,
-  purple = 1,
-  magenta = 1,
-  bright_black = 1,
-  bright_red = 1,
-  bright_green = 1,
-  bright_yellow = 1,
-  bright_blue = 1,
-  bright_magenta = 1,
-  bright_cyan = 1,
-  bright_white = 1,
-}
-
 local left_slant = ""
 local right_slant = ""
 
@@ -263,6 +241,28 @@ local GitBranch = {
   },
 }
 
+local git_prompt_string_colors = {
+  black = "text_bg",
+  white = "text_fg",
+  red = "git_delete",
+  green = "git_add",
+  blue = "replace_bg",
+  cyan = "diagnostic_info",
+  grey = grey,
+  orange = "git_change",
+  yellow = "git_change",
+  purple = "normal_bg",
+  magenta = "normal_bg",
+  bright_black = "text_bg",
+  bright_red = "text_fg",
+  bright_green = "git_add",
+  bright_yellow = "git_change",
+  bright_blue = "replace_bg",
+  bright_magenta = "normal_bg",
+  bright_cyan = "diagnostic_info",
+  bright_white = "text_fg",
+}
+
 local git_prompt_string_value_cache = nil --[[@as string?]]
 local git_prompt_string_color_cache = nil
 local GitPromptString = {
@@ -281,8 +281,8 @@ local GitPromptString = {
     hl = function(self)
       if str.not_empty(git_prompt_string_color_cache) then
         local c = str.replace(git_prompt_string_color_cache, "-", "_")
-        if ansi_colors[c] and c ~= "green" then
-          return { fg = c, bg = "normal_bg3" }
+        if git_prompt_string_colors[c] then
+          return { fg = git_prompt_string_colors[c], bg = "normal_bg3" }
         end
       end
       return { fg = "normal_fg3", bg = "normal_bg3" }
@@ -1130,7 +1130,7 @@ if vim.fn.executable("git-prompt-string") > 0 then
   end
 
   vim.api.nvim_create_autocmd(
-    { "FocusGained", "TermLeave", "TermClose", "BufEnter", "TextChanged" },
+    { "FocusGained", "TermLeave", "TermClose", "BufEnter", "CursorHold" },
     {
       group = "heirline_augroup",
       callback = update_git_branch_info,
