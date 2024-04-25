@@ -281,10 +281,7 @@ local GitPromptString = {
     hl = function(self)
       if str.not_empty(git_prompt_string_color_cache) then
         local c = str.replace(git_prompt_string_color_cache, "-", "_")
-        local bright_c = string.format("bright_%s", c)
-        if ansi_colors[bright_c] then
-          return { fg = c, bg = "normal_bg3" }
-        elseif ansi_colors[c] then
+        if ansi_colors[c] and c ~= "green" then
           return { fg = c, bg = "normal_bg3" }
         end
       end
