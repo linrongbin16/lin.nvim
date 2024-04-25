@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.6.0](https://github.com/linrongbin16/lin.nvim/compare/v3.5.5...v3.6.0) (2024-04-25)
+
+
+### Features
+
+* **heirline.nvim:** use 'git-prompt-string' for git branch info ([#539](https://github.com/linrongbin16/lin.nvim/issues/539)) ([0d6391b](https://github.com/linrongbin16/lin.nvim/commit/0d6391b1da1160c98074ff9c67f68824d4ec31db))
+
 ## [3.5.5](https://github.com/linrongbin16/lin.nvim/compare/v3.5.4...v3.5.5) (2024-04-23)
 
 
