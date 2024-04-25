@@ -4,14 +4,6 @@ local tbl = require("commons.tbl")
 local color_hl = require("commons.color.hl")
 local color_hsl = require("commons.color.hsl")
 local spawn = require("commons.spawn")
--- local logging = require("commons.logging")
--- logging.setup({
---   name = "heirline",
---   console_log = true,
---   file_log = true,
---   file_log_name = "heirline.log",
--- })
--- local logger = logging.get("heirline")
 
 local constants = require("builtin.utils.constants")
 
@@ -1063,81 +1055,83 @@ vim.api.nvim_create_autocmd("VimEnter", {
 
 local running_git_prompt_string = false
 if vim.fn.executable("git-prompt-string") > 0 then
+  local function update_git_branch_info()
+    if running_git_prompt_string then
+      return
+    end
+    running_git_prompt_string = true
+
+    local cwd
+    local bufname
+    local bufnr = vim.api.nvim_get_current_buf()
+    if type(bufnr) == "number" and bufnr > 0 then
+      bufname = vim.api.nvim_buf_get_name(bufnr)
+      if type(bufname) == "string" and string.len(bufname) > 0 then
+        local bufdir = vim.fn.fnamemodify(bufname, ":h")
+        if
+          type(bufdir) == "string"
+          and string.len(bufdir) > 0
+          and vim.fn.isdirectory(bufdir) > 0
+        then
+          cwd = bufdir
+        end
+      end
+    end
+
+    local branch = nil
+    local failed_get_branch = false
+    spawn.run({ "git-prompt-string", "-color-disabled" }, {
+      cwd = cwd,
+      on_stdout = function(line)
+        if type(line) == "string" then
+          branch = line
+        end
+      end,
+      on_stderr = function()
+        failed_get_branch = true
+      end,
+    }, function()
+      if not failed_get_branch then
+        git_prompt_string_value_cache = branch
+      end
+
+      local branch_info = ""
+      local failed_get_branch_info = false
+      spawn.run({ "git-prompt-string", "-json" }, {
+        cwd = cwd,
+        on_stdout = function(line)
+          if type(line) == "string" and string.len(line) > 0 then
+            branch_info = branch_info .. line
+          end
+        end,
+        on_stderr = function()
+          failed_get_branch_info = true
+        end,
+      }, function()
+        if not failed_get_branch_info then
+          local ok, j = pcall(vim.json.decode, branch_info)
+          if ok and str.not_empty(tbl.tbl_get(j, "color")) then
+            git_prompt_string_color_cache = j["color"]
+          end
+        end
+        vim.schedule(function()
+          vim.api.nvim_exec_autocmds("User", {
+            pattern = "HeirlineGitPromptStringUpdated",
+            modeline = false,
+          })
+          vim.schedule(function()
+            running_git_prompt_string = false
+          end)
+        end)
+      end)
+    end)
+  end
+
   vim.api.nvim_create_autocmd(
     { "FocusGained", "TermLeave", "TermClose", "BufWritePost", "BufEnter", "WinEnter" },
     {
       group = "heirline_augroup",
-      callback = function()
-        if running_git_prompt_string then
-          return
-        end
-        running_git_prompt_string = true
-
-        local cwd
-        local bufname
-        local bufnr = vim.api.nvim_get_current_buf()
-        if type(bufnr) == "number" and bufnr > 0 then
-          bufname = vim.api.nvim_buf_get_name(bufnr)
-          if type(bufname) == "string" and string.len(bufname) > 0 then
-            local bufdir = vim.fn.fnamemodify(bufname, ":h")
-            if
-              type(bufdir) == "string"
-              and string.len(bufdir) > 0
-              and vim.fn.isdirectory(bufdir) > 0
-            then
-              cwd = bufdir
-            end
-          end
-        end
-
-        local branch = nil
-        local failed_get_branch = false
-        spawn.run({ "git-prompt-string", "-color-disabled" }, {
-          cwd = cwd,
-          on_stdout = function(line)
-            if type(line) == "string" and string.len(line) > 0 then
-              branch = line
-            end
-          end,
-          on_stderr = function()
-            failed_get_branch = true
-          end,
-        }, function()
-          if not failed_get_branch then
-            git_prompt_string_value_cache = branch
-          end
-
-          local branch_info = ""
-          local failed_get_branch_info = false
-          spawn.run({ "git-prompt-string", "-json" }, {
-            cwd = cwd,
-            on_stdout = function(line)
-              if type(line) == "string" and string.len(line) > 0 then
-                branch_info = branch_info .. line
-              end
-            end,
-            on_stderr = function()
-              failed_get_branch_info = true
-            end,
-          }, function()
-            if not failed_get_branch_info then
-              local ok, j = pcall(vim.json.decode, branch_info)
-              if ok and str.not_empty(tbl.tbl_get(j, "color")) then
-                git_prompt_string_color_cache = j["color"]
-              end
-            end
-            vim.schedule(function()
-              vim.api.nvim_exec_autocmds("User", {
-                pattern = "HeirlineGitPromptStringUpdated",
-                modeline = false,
-              })
-              vim.schedule(function()
-                running_git_prompt_string = false
-              end)
-            end)
-          end)
-        end)
-      end,
+      callback = update_git_branch_info,
     }
   )
 end
