@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.6.1](https://github.com/linrongbin16/lin.nvim/compare/v3.6.0...v3.6.1) (2024-04-25)
+
+
+### Bug Fixes
+
+* **heirline.nvim:** fix git-prompt-string colors ([#541](https://github.com/linrongbin16/lin.nvim/issues/541)) ([dda4936](https://github.com/linrongbin16/lin.nvim/commit/dda49367572190a7ec1a2d62101cc896a548d2fa))
+
 ## [3.6.0](https://github.com/linrongbin16/lin.nvim/compare/v3.5.5...v3.6.0) (2024-04-25)
 
 
