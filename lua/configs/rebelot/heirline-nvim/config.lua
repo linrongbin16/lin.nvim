@@ -1100,7 +1100,7 @@ if vim.fn.executable("git-prompt-string") > 0 then
       spawn.run({ "git-prompt-string", "-json" }, {
         cwd = cwd,
         on_stdout = function(line)
-          if type(line) == "string" and string.len(line) > 0 then
+          if type(line) == "string" then
             branch_info = branch_info .. line
           end
         end,
