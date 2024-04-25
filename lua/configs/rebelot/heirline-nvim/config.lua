@@ -1133,7 +1133,7 @@ if vim.fn.executable("git-prompt-string") > 0 then
   end
 
   vim.api.nvim_create_autocmd(
-    { "FocusGained", "TermLeave", "TermClose", "BufWritePost", "BufEnter", "TextChanged" },
+    { "FocusGained", "TermLeave", "TermClose", "BufEnter", "TextChanged" },
     {
       group = "heirline_augroup",
       callback = update_git_branch_info,
