@@ -1095,7 +1095,9 @@ if vim.fn.executable("git-prompt-string") > 0 then
         return
       end
 
-      git_prompt_string_value_cache = branch
+      if type(branch) == "string" then
+        git_prompt_string_value_cache = branch
+      end
 
       local branch_info = ""
       local failed_get_branch_info = false
