@@ -1091,9 +1091,14 @@ if vim.fn.executable("git-prompt-string") > 0 then
         failed_get_branch = true
       end,
     }, function()
-      if not failed_get_branch then
-        git_prompt_string_value_cache = branch
+      if failed_get_branch then
+        vim.schedule(function()
+          running_git_prompt_string = false
+        end)
+        return
       end
+
+      git_prompt_string_value_cache = branch
 
       local branch_info = ""
       local failed_get_branch_info = false
