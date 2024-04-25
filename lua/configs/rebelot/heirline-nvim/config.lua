@@ -1112,7 +1112,7 @@ if vim.fn.executable("git-prompt-string") > 0 then
           failed_get_branch_info = true
         end,
       }, function()
-        if not failed_get_branch_info then
+        if not failed_get_branch_info and str.not_empty(branch_info) then
           local ok, j = pcall(vim.json.decode, branch_info)
           if ok and str.not_empty(tbl.tbl_get(j, "color")) then
             git_prompt_string_color_cache = j["color"]
