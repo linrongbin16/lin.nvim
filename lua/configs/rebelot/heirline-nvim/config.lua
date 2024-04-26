@@ -220,30 +220,7 @@ local FileName = {
   },
 }
 
-local git_prompt_colors = {
-  black = "diagnostic_hint",
-  white = "text_fg",
-  red = "git_delete",
-  green = "git_add",
-  blue = "replace_bg",
-  cyan = "diagnostic_info",
-  grey = "diagnostic_hint",
-  orange = "git_change",
-  yellow = "git_change",
-  purple = "normal_fg3",
-  magenta = "normal_fg3",
-  bright_black = "diagnostic_hint",
-  bright_red = "text_fg",
-  bright_green = "git_add",
-  bright_yellow = "git_change",
-  bright_blue = "replace_bg",
-  bright_magenta = "normal_fg3",
-  bright_cyan = "diagnostic_info",
-  bright_white = "text_fg",
-}
-
 local git_branch_name_cache = nil
-local git_branch_color_cache = nil
 local GitBranch = {
   hl = { fg = "normal_fg3", bg = "normal_bg3" },
   update = { "User", pattern = "HeirlineGitBranchUpdated" },
@@ -254,17 +231,6 @@ local GitBranch = {
         return "  " .. git_branch_name_cache .. " "
       end
       return ""
-    end,
-  },
-  {
-    hl = function(self)
-      if str.not_empty(git_branch_color_cache) then
-        local c = str.replace(git_branch_color_cache, "-", "_")
-        if git_prompt_colors[c] then
-          return { fg = git_prompt_colors[c], bg = "normal_bg3" }
-        end
-      end
-      return { fg = "normal_fg3", bg = "normal_bg3" }
     end,
   },
   {
@@ -1044,21 +1010,7 @@ local function get_buffer_dir()
   return nil
 end
 
-local HAS_GIT_PROMPT_STRING = vim.fn.executable("git-prompt-string") > 0
 local running_git_branch_info = false
-
-local function before_exit()
-  vim.schedule(function()
-    vim.api.nvim_exec_autocmds("User", {
-      pattern = "HeirlineGitBranchUpdated",
-      modeline = false,
-    })
-    vim.schedule(function()
-      running_git_branch_info = false
-    end)
-  end)
-end
-
 local function update_git_branch()
   if running_git_branch_info then
     return
@@ -1079,49 +1031,17 @@ local function update_git_branch()
       branch_name = nil
     end,
   }, function(git_completed)
-    if failed_get_branch_name or tbl.tbl_get(git_completed, "code") ~= 0 then
-      before_exit()
-      return
+    if not failed_get_branch_name and tbl.tbl_get(git_completed, "code") == 0 then
+      git_branch_name_cache = branch_name
     end
-
-    git_branch_name_cache = branch_name
-    if not HAS_GIT_PROMPT_STRING then
-      before_exit()
-      return
-    end
-
-    local prompt_string = ""
-    local failed_get_prompt = false
-    spawn.run({ "git-prompt-string", "-json" }, {
-      cwd = cwd,
-      on_stdout = function(line)
-        if type(line) == "string" then
-          prompt_string = prompt_string .. line
-        end
-      end,
-      on_stderr = function()
-        failed_get_prompt = true
-      end,
-    }, function(git_prompt_completed)
-      if failed_get_prompt or tbl.tbl_get(git_prompt_completed, "code") ~= 0 then
-        before_exit()
-        return
-      end
-
-      local ok, j = pcall(vim.json.decode, prompt_string)
-      if
-        not ok
-        or type(j) ~= "table"
-        or type(j["branchInfo"]) ~= "string"
-        or type(j["branchStatus"]) ~= "string"
-      then
-        before_exit()
-        return
-      end
-
-      git_branch_name_cache = string.format("%s%s", j["branchInfo"], j["branchStatus"])
-      git_branch_color_cache = str.not_empty(j["color"]) and j["color"] or nil
-      before_exit()
+    vim.schedule(function()
+      vim.api.nvim_exec_autocmds("User", {
+        pattern = "HeirlineGitBranchUpdated",
+        modeline = false,
+      })
+      vim.schedule(function()
+        running_git_branch_info = false
+      end)
     end)
   end)
 end
