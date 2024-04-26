@@ -1,5 +1,19 @@
 # Changelog
 
+## [3.6.3](https://github.com/linrongbin16/lin.nvim/compare/v3.6.2...v3.6.3) (2024-04-26)
+
+
+### Performance Improvements
+
+* **heirline.nvim:** use 'WinEnter' instead of 'CursorHold' event ([#546](https://github.com/linrongbin16/lin.nvim/issues/546)) ([f971650](https://github.com/linrongbin16/lin.nvim/commit/f9716502619fee435413b829f8ef60ea5a76800b))
+
+## [3.6.2](https://github.com/linrongbin16/lin.nvim/compare/v3.6.1...v3.6.2) (2024-04-26)
+
+
+### Performance Improvements
+
+* **heirline.nvim:** async query git branch name, remove calling 'git-prompt-string' ([#544](https://github.com/linrongbin16/lin.nvim/issues/544)) ([1271988](https://github.com/linrongbin16/lin.nvim/commit/12719887fc4fad60768450800039c284ba5acbf5))
+
 ## [3.6.1](https://github.com/linrongbin16/lin.nvim/compare/v3.6.0...v3.6.1) (2024-04-25)
 
 
