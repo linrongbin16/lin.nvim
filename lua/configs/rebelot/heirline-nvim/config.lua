@@ -1063,6 +1063,18 @@ end
 
 local running_git_prompt_string = false
 if vim.fn.executable("git-prompt-string") > 0 then
+  local function before_exit()
+    vim.schedule(function()
+      vim.api.nvim_exec_autocmds("User", {
+        pattern = "HeirlineGitPromptStringUpdated",
+        modeline = false,
+      })
+      vim.schedule(function()
+        running_git_prompt_string = false
+      end)
+    end)
+  end
+
   local function update_git_branch_info()
     if running_git_prompt_string then
       return
@@ -1083,15 +1095,19 @@ if vim.fn.executable("git-prompt-string") > 0 then
         failed_get_branch = true
       end,
     }, function()
+      print(
+        string.format("failed:%s, branch:%s", vim.inspect(failed_get_branch), vim.inspect(branch))
+      )
       if failed_get_branch then
-        vim.schedule(function()
-          running_git_prompt_string = false
-        end)
+        before_exit()
         return
       end
 
-      if type(branch) == "string" then
-        git_prompt_string_value_cache = branch
+      git_prompt_string_value_cache = branch
+
+      if str.empty(branch) then
+        before_exit()
+        return
       end
 
       local branch_info = ""
@@ -1113,15 +1129,7 @@ if vim.fn.executable("git-prompt-string") > 0 then
             git_prompt_string_color_cache = j["color"]
           end
         end
-        vim.schedule(function()
-          vim.api.nvim_exec_autocmds("User", {
-            pattern = "HeirlineGitPromptStringUpdated",
-            modeline = false,
-          })
-          vim.schedule(function()
-            running_git_prompt_string = false
-          end)
-        end)
+        before_exit()
       end)
     end)
   end
@@ -1137,6 +1145,18 @@ end
 
 local running_git_branch_show_current = false
 if vim.fn.executable("git") > 0 then
+  local function before_exit()
+    vim.schedule(function()
+      vim.api.nvim_exec_autocmds("User", {
+        pattern = "HeirlineGitBranchNameUpdated",
+        modeline = false,
+      })
+      vim.schedule(function()
+        running_git_branch_show_current = false
+      end)
+    end)
+  end
+
   local function update_git_branch_name()
     if running_git_branch_show_current then
       return
@@ -1158,23 +1178,12 @@ if vim.fn.executable("git") > 0 then
       end,
     }, function()
       if failed_get_branch then
-        vim.schedule(function()
-          running_git_branch_show_current = false
-        end)
+        before_exit()
         return
       end
 
       git_branch_current_name_cache = branch
-
-      vim.schedule(function()
-        vim.api.nvim_exec_autocmds("User", {
-          pattern = "HeirlineGitBranchNameUpdated",
-          modeline = false,
-        })
-        vim.schedule(function()
-          running_git_branch_show_current = false
-        end)
-      end)
+      before_exit()
     end)
   end
 
