@@ -1081,14 +1081,14 @@ if vim.fn.executable("git-prompt-string") > 0 then
     end
     running_git_prompt_string = true
 
-    local branch = nil
+    local branch = ""
     local failed_get_branch = false
     local cwd = get_buffer_dir()
-    spawn.run({ "git-prompt-string", "-color-disabled" }, {
+    spawn.run({ "git-prompt-string", "-json" }, {
       cwd = cwd,
       on_stdout = function(line)
         if type(line) == "string" then
-          branch = line
+          branch = branch .. line
         end
       end,
       on_stderr = function()
@@ -1100,38 +1100,20 @@ if vim.fn.executable("git-prompt-string") > 0 then
         return
       end
 
-      git_prompt_string_value_cache = branch
-
-      if str.empty(branch) then
+      local ok, j = pcall(vim.json.decode, branch)
+      if
+        not ok
+        or type(j) ~= "table"
+        or type(j["branchInfo"]) ~= "string"
+        or type(j["branchStatus"]) ~= "string"
+      then
         before_exit()
         return
       end
 
-      local branch_info = ""
-      local failed_get_branch_info = false
-      spawn.run({ "git-prompt-string", "-json" }, {
-        cwd = cwd,
-        on_stdout = function(line)
-          if type(line) == "string" then
-            branch_info = branch_info .. line
-          end
-        end,
-        on_stderr = function()
-          failed_get_branch_info = true
-        end,
-      }, function(json_completed)
-        if
-          not failed_get_branch_info
-          and str.not_empty(branch_info)
-          and tbl.tbl_get(json_completed, "code") == 0
-        then
-          local ok, j = pcall(vim.json.decode, branch_info)
-          if ok and str.not_empty(tbl.tbl_get(j, "color")) then
-            git_prompt_string_color_cache = j["color"]
-          end
-        end
-        before_exit()
-      end)
+      git_prompt_string_value_cache = string.format("  %s%s", j["branchInfo"], j["branchStatus"])
+      git_prompt_string_color_cache = str.not_empty(j["color"]) and j["color"] or nil
+      before_exit()
     end)
   end
 
