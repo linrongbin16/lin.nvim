@@ -1094,8 +1094,8 @@ if vim.fn.executable("git-prompt-string") > 0 then
       on_stderr = function()
         failed_get_branch = true
       end,
-    }, function()
-      if failed_get_branch then
+    }, function(completed)
+      if failed_get_branch or tbl.tbl_get(completed, "code") ~= 0 then
         before_exit()
         return
       end
@@ -1119,8 +1119,12 @@ if vim.fn.executable("git-prompt-string") > 0 then
         on_stderr = function()
           failed_get_branch_info = true
         end,
-      }, function()
-        if not failed_get_branch_info and str.not_empty(branch_info) then
+      }, function(json_completed)
+        if
+          not failed_get_branch_info
+          and str.not_empty(branch_info)
+          and tbl.tbl_get(json_completed, "code") == 0
+        then
           local ok, j = pcall(vim.json.decode, branch_info)
           if ok and str.not_empty(tbl.tbl_get(j, "color")) then
             git_prompt_string_color_cache = j["color"]
@@ -1173,8 +1177,8 @@ if vim.fn.executable("git") > 0 then
       on_stderr = function()
         branch = nil
       end,
-    }, function()
-      if failed_get_branch then
+    }, function(completed)
+      if failed_get_branch or tbl.tbl_get(completed, "code") ~= 0 then
         before_exit()
         return
       end
