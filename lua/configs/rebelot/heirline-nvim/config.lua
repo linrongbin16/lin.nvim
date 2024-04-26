@@ -1044,7 +1044,7 @@ local function get_buffer_dir()
   return nil
 end
 
-local has_git_prompt_string = vim.fn.executable("git-prompt-string") > 0
+local HAS_GIT_PROMPT_STRING = vim.fn.executable("git-prompt-string") > 0
 local running_git_branch_info = false
 
 local function before_exit()
@@ -1085,7 +1085,7 @@ local function update_git_branch()
     end
 
     git_branch_name_cache = branch_name
-    if not has_git_prompt_string then
+    if not HAS_GIT_PROMPT_STRING then
       before_exit()
       return
     end
