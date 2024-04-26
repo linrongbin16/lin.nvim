@@ -220,26 +220,7 @@ local FileName = {
   },
 }
 
-local git_branch_current_name_cache = nil
-local GitBranch = {
-  hl = { fg = "normal_fg3", bg = "normal_bg3" },
-  update = { "User", pattern = "HeirlineGitBranchNameUpdated" },
-
-  {
-    provider = function(self)
-      if str.not_empty(git_branch_current_name_cache) then
-        return "  " .. git_branch_current_name_cache .. " "
-      end
-      return ""
-    end,
-  },
-  {
-    provider = right_slant,
-    hl = { fg = "normal_bg3", bg = "normal_bg4" },
-  },
-}
-
-local git_prompt_string_colors = {
+local git_prompt_colors = {
   black = "diagnostic_hint",
   white = "text_fg",
   red = "git_delete",
@@ -261,24 +242,26 @@ local git_prompt_string_colors = {
   bright_white = "text_fg",
 }
 
-local git_prompt_string_value_cache = nil --[[@as string?]]
-local git_prompt_string_color_cache = nil
-local GitPromptString = {
+local git_branch_name_cache = nil
+local git_branch_color_cache = nil
+local GitBranch = {
   hl = { fg = "normal_fg3", bg = "normal_bg3" },
-  update = { "User", pattern = "HeirlineGitPromptStringUpdated" },
+  update = { "User", pattern = "HeirlineGitBranchUpdated" },
 
   {
     provider = function(self)
-      if str.not_empty(git_prompt_string_value_cache) then
-        return git_prompt_string_value_cache .. " "
+      if str.not_empty(git_branch_name_cache) then
+        return "  " .. git_branch_name_cache .. " "
       end
       return ""
     end,
+  },
+  {
     hl = function(self)
-      if str.not_empty(git_prompt_string_color_cache) then
-        local c = str.replace(git_prompt_string_color_cache, "-", "_")
-        if git_prompt_string_colors[c] then
-          return { fg = git_prompt_string_colors[c], bg = "normal_bg3" }
+      if str.not_empty(git_branch_color_cache) then
+        local c = str.replace(git_branch_color_cache, "-", "_")
+        if git_prompt_colors[c] then
+          return { fg = git_prompt_colors[c], bg = "normal_bg3" }
         end
       end
       return { fg = "normal_fg3", bg = "normal_bg3" }
@@ -577,7 +560,7 @@ local Progress = {
 local StatusLine = {
   Mode,
   FileName,
-  vim.fn.executable("git-prompt-string") > 0 and GitPromptString or GitBranch,
+  GitBranch,
   GitDiff,
   LspStatus,
   { provider = "%=", hl = { fg = "normal_fg4", bg = "normal_bg4" } },
@@ -1061,46 +1044,71 @@ local function get_buffer_dir()
   return nil
 end
 
-local running_git_prompt_string = false
-if vim.fn.executable("git-prompt-string") > 0 then
-  local function before_exit()
-    vim.schedule(function()
-      vim.api.nvim_exec_autocmds("User", {
-        pattern = "HeirlineGitPromptStringUpdated",
-        modeline = false,
-      })
-      vim.schedule(function()
-        running_git_prompt_string = false
-      end)
-    end)
-  end
+local has_git_prompt_string = vim.fn.executable("git-prompt-string") > 0
+local running_git_branch_info = false
 
-  local function update_git_branch_info()
-    if running_git_prompt_string then
+local function before_exit()
+  vim.schedule(function()
+    vim.api.nvim_exec_autocmds("User", {
+      pattern = "HeirlineGitBranchUpdated",
+      modeline = false,
+    })
+    vim.schedule(function()
+      running_git_branch_info = false
+    end)
+  end)
+end
+
+local function update_git_branch()
+  if running_git_branch_info then
+    return
+  end
+  running_git_branch_info = true
+
+  local cwd = get_buffer_dir()
+  local branch_name = nil
+  local failed_get_branch_name = false
+  spawn.run({ "git", "branch", "--show-current" }, {
+    cwd = cwd,
+    on_stdout = function(line)
+      if type(line) == "string" then
+        branch_name = line
+      end
+    end,
+    on_stderr = function()
+      branch_name = nil
+    end,
+  }, function(git_completed)
+    if failed_get_branch_name or tbl.tbl_get(git_completed, "code") ~= 0 then
+      before_exit()
       return
     end
-    running_git_prompt_string = true
 
-    local branch = ""
-    local failed_get_branch = false
-    local cwd = get_buffer_dir()
+    git_branch_name_cache = branch_name
+    if not has_git_prompt_string then
+      before_exit()
+      return
+    end
+
+    local prompt_string = ""
+    local failed_get_prompt = false
     spawn.run({ "git-prompt-string", "-json" }, {
       cwd = cwd,
       on_stdout = function(line)
         if type(line) == "string" then
-          branch = branch .. line
+          prompt_string = prompt_string .. line
         end
       end,
       on_stderr = function()
-        failed_get_branch = true
+        failed_get_prompt = true
       end,
-    }, function(completed)
-      if failed_get_branch or tbl.tbl_get(completed, "code") ~= 0 then
+    }, function(git_prompt_completed)
+      if failed_get_prompt or tbl.tbl_get(git_prompt_completed, "code") ~= 0 then
         before_exit()
         return
       end
 
-      local ok, j = pcall(vim.json.decode, branch)
+      local ok, j = pcall(vim.json.decode, prompt_string)
       if
         not ok
         or type(j) ~= "table"
@@ -1111,70 +1119,14 @@ if vim.fn.executable("git-prompt-string") > 0 then
         return
       end
 
-      git_prompt_string_value_cache = string.format("  %s%s", j["branchInfo"], j["branchStatus"])
-      git_prompt_string_color_cache = str.not_empty(j["color"]) and j["color"] or nil
+      git_branch_name_cache = string.format("%s%s", j["branchInfo"], j["branchStatus"])
+      git_branch_color_cache = str.not_empty(j["color"]) and j["color"] or nil
       before_exit()
     end)
-  end
-
-  vim.api.nvim_create_autocmd(
-    { "FocusGained", "TermLeave", "TermClose", "BufEnter", "CursorHold" },
-    {
-      group = "heirline_augroup",
-      callback = update_git_branch_info,
-    }
-  )
+  end)
 end
 
-local running_git_branch_show_current = false
-if vim.fn.executable("git") > 0 then
-  local function before_exit()
-    vim.schedule(function()
-      vim.api.nvim_exec_autocmds("User", {
-        pattern = "HeirlineGitBranchNameUpdated",
-        modeline = false,
-      })
-      vim.schedule(function()
-        running_git_branch_show_current = false
-      end)
-    end)
-  end
-
-  local function update_git_branch_name()
-    if running_git_branch_show_current then
-      return
-    end
-    running_git_branch_show_current = true
-
-    local branch = nil
-    local failed_get_branch = false
-    local cwd = get_buffer_dir()
-    spawn.run({ "git", "branch", "--show-current" }, {
-      cwd = cwd,
-      on_stdout = function(line)
-        if type(line) == "string" then
-          branch = line
-        end
-      end,
-      on_stderr = function()
-        branch = nil
-      end,
-    }, function(completed)
-      if failed_get_branch or tbl.tbl_get(completed, "code") ~= 0 then
-        before_exit()
-        return
-      end
-
-      git_branch_current_name_cache = branch
-      before_exit()
-    end)
-  end
-
-  vim.api.nvim_create_autocmd(
-    { "FocusGained", "TermLeave", "TermClose", "BufEnter", "CursorHold" },
-    {
-      group = "heirline_augroup",
-      callback = update_git_branch_name,
-    }
-  )
-end
+vim.api.nvim_create_autocmd({ "FocusGained", "TermLeave", "TermClose", "BufEnter", "CursorHold" }, {
+  group = "heirline_augroup",
+  callback = update_git_branch,
+})
