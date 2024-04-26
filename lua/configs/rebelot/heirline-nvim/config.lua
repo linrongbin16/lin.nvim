@@ -220,17 +220,15 @@ local FileName = {
   },
 }
 
+local git_branch_current_name_cache = nil
 local GitBranch = {
   hl = { fg = "normal_fg3", bg = "normal_bg3" },
-  update = { "FocusGained", "TermLeave", "TermClose" },
+  update = { "User", pattern = "HeirlineGitBranchNameUpdated" },
 
   {
     provider = function(self)
-      if vim.fn.exists("*gitbranch#name") > 0 then
-        local branch = vim.fn["gitbranch#name"]()
-        if str.not_empty(branch) then
-          return "  " .. branch .. " "
-        end
+      if str.not_empty(git_branch_current_name_cache) then
+        return "  " .. git_branch_current_name_cache .. " "
       end
       return ""
     end,
@@ -272,9 +270,7 @@ local GitPromptString = {
   {
     provider = function(self)
       if str.not_empty(git_prompt_string_value_cache) then
-        ---@diagnostic disable-next-line
-        local result = git_prompt_string_value_cache:gsub("%%", "%%%%")
-        return result .. " "
+        return git_prompt_string_value_cache .. " "
       end
       return ""
     end,
@@ -1050,6 +1046,21 @@ vim.api.nvim_create_autocmd("VimEnter", {
   end,
 })
 
+local function get_buffer_dir()
+  local bufnr = vim.api.nvim_get_current_buf()
+  if type(bufnr) == "number" and bufnr > 0 then
+    local bufname = vim.api.nvim_buf_get_name(bufnr)
+    if type(bufname) == "string" and string.len(bufname) > 0 then
+      local bufdir = vim.fn.fnamemodify(bufname, ":h")
+      if type(bufdir) == "string" and string.len(bufdir) > 0 and vim.fn.isdirectory(bufdir) > 0 then
+        return bufdir
+      end
+    end
+  end
+
+  return nil
+end
+
 local running_git_prompt_string = false
 if vim.fn.executable("git-prompt-string") > 0 then
   local function update_git_branch_info()
@@ -1058,25 +1069,9 @@ if vim.fn.executable("git-prompt-string") > 0 then
     end
     running_git_prompt_string = true
 
-    local cwd
-    local bufname
-    local bufnr = vim.api.nvim_get_current_buf()
-    if type(bufnr) == "number" and bufnr > 0 then
-      bufname = vim.api.nvim_buf_get_name(bufnr)
-      if type(bufname) == "string" and string.len(bufname) > 0 then
-        local bufdir = vim.fn.fnamemodify(bufname, ":h")
-        if
-          type(bufdir) == "string"
-          and string.len(bufdir) > 0
-          and vim.fn.isdirectory(bufdir) > 0
-        then
-          cwd = bufdir
-        end
-      end
-    end
-
     local branch = nil
     local failed_get_branch = false
+    local cwd = get_buffer_dir()
     spawn.run({ "git-prompt-string", "-color-disabled" }, {
       cwd = cwd,
       on_stdout = function(line)
@@ -1136,6 +1131,58 @@ if vim.fn.executable("git-prompt-string") > 0 then
     {
       group = "heirline_augroup",
       callback = update_git_branch_info,
+    }
+  )
+end
+
+local running_git_branch_show_current = false
+if vim.fn.executable("git") > 0 then
+  local function update_git_branch_name()
+    if running_git_branch_show_current then
+      return
+    end
+    running_git_branch_show_current = true
+
+    local branch = nil
+    local failed_get_branch = false
+    local cwd = get_buffer_dir()
+    spawn.run({ "git", "branch", "--show-current" }, {
+      cwd = cwd,
+      on_stdout = function(line)
+        if type(line) == "string" then
+          branch = line
+        end
+      end,
+      on_stderr = function()
+        branch = nil
+      end,
+    }, function()
+      if failed_get_branch then
+        vim.schedule(function()
+          running_git_branch_show_current = false
+        end)
+        return
+      end
+
+      git_branch_current_name_cache = branch
+
+      vim.schedule(function()
+        vim.api.nvim_exec_autocmds("User", {
+          pattern = "HeirlineGitBranchNameUpdated",
+          modeline = false,
+        })
+        vim.schedule(function()
+          running_git_branch_show_current = false
+        end)
+      end)
+    end)
+  end
+
+  vim.api.nvim_create_autocmd(
+    { "FocusGained", "TermLeave", "TermClose", "BufEnter", "CursorHold", "CursorMoved" },
+    {
+      group = "heirline_augroup",
+      callback = update_git_branch_name,
     }
   )
 end

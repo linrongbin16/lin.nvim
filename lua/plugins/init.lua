@@ -132,10 +132,6 @@ local M = {
   },
   -- Statusline
   {
-    "itchyny/vim-gitbranch",
-    event = { VeryLazy },
-  },
-  {
     "linrongbin16/lsp-progress.nvim",
     lazy = true,
     config = lua_config("linrongbin16/lsp-progress.nvim"),
