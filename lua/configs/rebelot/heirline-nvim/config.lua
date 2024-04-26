@@ -1046,7 +1046,7 @@ local function update_git_branch()
   end)
 end
 
-vim.api.nvim_create_autocmd({ "FocusGained", "TermLeave", "TermClose", "BufEnter", "CursorHold" }, {
+vim.api.nvim_create_autocmd({ "FocusGained", "TermLeave", "TermClose", "BufEnter", "WinEnter" }, {
   group = "heirline_augroup",
   callback = update_git_branch,
 })
