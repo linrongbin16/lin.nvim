@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.6.2](https://github.com/linrongbin16/lin.nvim/compare/v3.6.1...v3.6.2) (2024-04-26)
+
+
+### Performance Improvements
+
+* **heirline.nvim:** async query git branch name, remove calling 'git-prompt-string' ([#544](https://github.com/linrongbin16/lin.nvim/issues/544)) ([1271988](https://github.com/linrongbin16/lin.nvim/commit/12719887fc4fad60768450800039c284ba5acbf5))
+
 ## [3.6.1](https://github.com/linrongbin16/lin.nvim/compare/v3.6.0...v3.6.1) (2024-04-25)
 
 
