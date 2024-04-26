@@ -1095,9 +1095,6 @@ if vim.fn.executable("git-prompt-string") > 0 then
         failed_get_branch = true
       end,
     }, function()
-      print(
-        string.format("failed:%s, branch:%s", vim.inspect(failed_get_branch), vim.inspect(branch))
-      )
       if failed_get_branch then
         before_exit()
         return
