@@ -1032,7 +1032,7 @@ local function update_git_branch()
         table.insert(status_info, line)
       end
     end,
-    on_stderr = function(line)
+    on_stderr = function()
       status_info = nil
     end,
   }, function(git_completed)
@@ -1089,7 +1089,10 @@ local function update_git_branch()
   end)
 end
 
-vim.api.nvim_create_autocmd({ "FocusGained", "TermLeave", "TermClose", "BufEnter", "WinEnter" }, {
-  group = "heirline_augroup",
-  callback = update_git_branch,
-})
+vim.api.nvim_create_autocmd(
+  { "FocusGained", "FocusLost", "TermLeave", "TermClose", "DirChanged", "BufEnter" },
+  {
+    group = "heirline_augroup",
+    callback = update_git_branch,
+  }
+)
