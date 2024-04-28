@@ -1053,13 +1053,13 @@ local function update_git_branch()
             for _, ab in ipairs(ab_splits) do
               if str.startswith(ab, "+") and string.len(ab) > 1 then
                 local a_count = tonumber(string.sub(ab, 2))
-                if a_count ~= nil then
+                if type(a_count) == "number" and a_count > 0 then
                   table.insert(branch_status, string.format("↑[%d]", a_count))
                 end
               end
               if str.startswith(ab, "-") and string.len(ab) > 1 then
                 local b_count = tonumber(string.sub(ab, 2))
-                if b_count ~= nil then
+                if type(b_count) == "number" and b_count > 0 then
                   table.insert(branch_status, string.format("↓[%d]", b_count))
                 end
               end
