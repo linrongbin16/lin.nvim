@@ -229,13 +229,46 @@ local GitBranch = {
   {
     provider = function(self)
       if str.not_empty(git_branch_name_cache) then
-        local result = "  " .. git_branch_name_cache
-        if str.not_empty(git_branch_status_cache) then
-          result = result .. " " .. git_branch_status_cache
-        end
-        return result .. " "
+        return "  " .. git_branch_name_cache .. " "
       end
       return ""
+    end,
+  },
+  {
+    provider = function(self)
+      return "* "
+    end,
+    condition = function(self)
+      return type(git_branch_status_cache) == "table" and git_branch_status_cache["changed"] ~= nil
+    end,
+    hl = function(self)
+      return { fg = "git_change", bg = "normal_bg3" }
+    end,
+  },
+  {
+    provider = function(self)
+      ---@diagnostic disable-next-line: need-check-nil
+      return string.format("↑[%d] ", git_branch_status_cache["ahead"])
+    end,
+    condition = function(self)
+      return type(git_branch_status_cache) == "table"
+        and type(git_branch_status_cache["ahead"]) == "number"
+    end,
+    hl = function(self)
+      return { fg = "git_add", bg = "normal_bg3" }
+    end,
+  },
+  {
+    provider = function(self)
+      ---@diagnostic disable-next-line: need-check-nil
+      return string.format("↓[%d] ", git_branch_status_cache["behind"])
+    end,
+    condition = function(self)
+      return type(git_branch_status_cache) == "table"
+        and type(git_branch_status_cache["behind"]) == "number"
+    end,
+    hl = function(self)
+      return { fg = "git_delete", bg = "normal_bg3" }
     end,
   },
   {
@@ -1054,13 +1087,13 @@ local function update_git_branch()
               if str.startswith(ab, "+") and string.len(ab) > 1 then
                 local a_count = tonumber(string.sub(ab, 2))
                 if type(a_count) == "number" and a_count > 0 then
-                  table.insert(branch_status, string.format("↑[%d]", a_count))
+                  branch_status["ahead"] = a_count
                 end
               end
               if str.startswith(ab, "-") and string.len(ab) > 1 then
                 local b_count = tonumber(string.sub(ab, 2))
                 if type(b_count) == "number" and b_count > 0 then
-                  table.insert(branch_status, string.format("↓[%d]", b_count))
+                  branch_status["behind"] = b_count
                 end
               end
             end
@@ -1069,13 +1102,11 @@ local function update_git_branch()
         if not str.startswith(sinfo, "# branch") then
           local sinfo_splits = str.split(sinfo, " ", { trimempty = true })
           if tbl.list_not_empty(sinfo_splits) and tonumber(sinfo_splits[1]) ~= nil then
-            table.insert(branch_status, 1, "*")
+            branch_status["changed"] = true
           end
         end
       end
-      git_branch_status_cache = tbl.list_not_empty(branch_status)
-          and table.concat(branch_status, " ")
-        or nil
+      git_branch_status_cache = tbl.tbl_not_empty(branch_status) and branch_status or nil
     end
     vim.schedule(function()
       vim.api.nvim_exec_autocmds("User", {
