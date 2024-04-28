@@ -221,6 +221,7 @@ local FileName = {
 }
 
 local git_branch_name_cache = nil
+local git_branch_status_cache = nil
 local GitBranch = {
   hl = { fg = "normal_fg3", bg = "normal_bg3" },
   update = { "User", pattern = "HeirlineGitBranchUpdated" },
@@ -231,6 +232,43 @@ local GitBranch = {
         return "  " .. git_branch_name_cache .. " "
       end
       return ""
+    end,
+  },
+  {
+    provider = function(self)
+      return "* "
+    end,
+    condition = function(self)
+      return type(git_branch_status_cache) == "table" and git_branch_status_cache["changed"] ~= nil
+    end,
+    hl = function(self)
+      return { fg = "git_change", bg = "normal_bg3" }
+    end,
+  },
+  {
+    provider = function(self)
+      ---@diagnostic disable-next-line: need-check-nil
+      return string.format("↑[%d] ", git_branch_status_cache["ahead"])
+    end,
+    condition = function(self)
+      return type(git_branch_status_cache) == "table"
+        and type(git_branch_status_cache["ahead"]) == "number"
+    end,
+    hl = function(self)
+      return { fg = "git_add", bg = "normal_bg3" }
+    end,
+  },
+  {
+    provider = function(self)
+      ---@diagnostic disable-next-line: need-check-nil
+      return string.format("↓[%d] ", git_branch_status_cache["behind"])
+    end,
+    condition = function(self)
+      return type(git_branch_status_cache) == "table"
+        and type(git_branch_status_cache["behind"]) == "number"
+    end,
+    hl = function(self)
+      return { fg = "git_delete", bg = "normal_bg3" }
     end,
   },
   {
@@ -1018,21 +1056,57 @@ local function update_git_branch()
   running_git_branch_info = true
 
   local cwd = get_buffer_dir()
-  local branch_name = nil
-  local failed_get_branch_name = false
-  spawn.run({ "git", "branch", "--show-current" }, {
+  local status_info = {}
+  local failed_get_status = false
+  spawn.run({ "git", "-c", "color.status=never", "status", "-b", "--porcelain=v2" }, {
     cwd = cwd,
     on_stdout = function(line)
       if type(line) == "string" then
-        branch_name = line
+        table.insert(status_info, line)
       end
     end,
     on_stderr = function()
-      branch_name = nil
+      status_info = nil
     end,
   }, function(git_completed)
-    if not failed_get_branch_name and tbl.tbl_get(git_completed, "code") == 0 then
-      git_branch_name_cache = branch_name
+    if
+      not failed_get_status
+      and tbl.tbl_get(git_completed, "code") == 0
+      and tbl.list_not_empty(status_info)
+    then
+      local branch_status = {}
+      for _, sinfo in ipairs(status_info) do
+        if str.startswith(sinfo, "# branch.head") then
+          local branch_name = string.sub(sinfo, 14)
+          git_branch_name_cache = str.trim(branch_name)
+        end
+        if str.startswith(sinfo, "# branch.ab") then
+          local ab_splits = str.split(sinfo, " ", { trimempty = true })
+          if tbl.list_not_empty(ab_splits) then
+            for _, ab in ipairs(ab_splits) do
+              if str.startswith(ab, "+") and string.len(ab) > 1 then
+                local a_count = tonumber(string.sub(ab, 2))
+                if type(a_count) == "number" and a_count > 0 then
+                  branch_status["ahead"] = a_count
+                end
+              end
+              if str.startswith(ab, "-") and string.len(ab) > 1 then
+                local b_count = tonumber(string.sub(ab, 2))
+                if type(b_count) == "number" and b_count > 0 then
+                  branch_status["behind"] = b_count
+                end
+              end
+            end
+          end
+        end
+        if not str.startswith(sinfo, "# branch") then
+          local sinfo_splits = str.split(sinfo, " ", { trimempty = true })
+          if tbl.list_not_empty(sinfo_splits) and tonumber(sinfo_splits[1]) ~= nil then
+            branch_status["changed"] = true
+          end
+        end
+      end
+      git_branch_status_cache = tbl.tbl_not_empty(branch_status) and branch_status or nil
     end
     vim.schedule(function()
       vim.api.nvim_exec_autocmds("User", {
@@ -1046,7 +1120,10 @@ local function update_git_branch()
   end)
 end
 
-vim.api.nvim_create_autocmd({ "FocusGained", "TermLeave", "TermClose", "BufEnter", "WinEnter" }, {
-  group = "heirline_augroup",
-  callback = update_git_branch,
-})
+vim.api.nvim_create_autocmd(
+  { "FocusGained", "FocusLost", "TermLeave", "TermClose", "DirChanged", "BufEnter", "VimEnter" },
+  {
+    group = "heirline_augroup",
+    callback = update_git_branch,
+  }
+)
