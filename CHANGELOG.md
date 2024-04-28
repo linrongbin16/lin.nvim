@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.7.0](https://github.com/linrongbin16/lin.nvim/compare/v3.6.3...v3.7.0) (2024-04-28)
+
+
+### Features
+
+* **heirline.nvim:** add more git status info ([#548](https://github.com/linrongbin16/lin.nvim/issues/548)) ([573c6f2](https://github.com/linrongbin16/lin.nvim/commit/573c6f22554d04f3e156c340c61d837792711c4b))
+
 ## [3.6.3](https://github.com/linrongbin16/lin.nvim/compare/v3.6.2...v3.6.3) (2024-04-26)
 
 
