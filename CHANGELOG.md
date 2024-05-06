@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.7.1](https://github.com/linrongbin16/lin.nvim/compare/v3.7.0...v3.7.1) (2024-05-06)
+
+
+### Bug Fixes
+
+* **nvim-treesitter:** initialize 'nvim-treesitter' on VimEnter ([#551](https://github.com/linrongbin16/lin.nvim/issues/551)) ([c20a639](https://github.com/linrongbin16/lin.nvim/commit/c20a63988bb0efba8e2984ca8f8fa931ed7c8f40))
+
 ## [3.7.0](https://github.com/linrongbin16/lin.nvim/compare/v3.6.3...v3.7.0) (2024-04-28)
 
 
