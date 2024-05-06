@@ -43,7 +43,7 @@ local M = {
 
   {
     "nvim-treesitter/nvim-treesitter",
-    event = { VeryLazy },
+    event = { VimEnter },
     cmd = {
       "TSInstall",
       "TSInstallSync",
