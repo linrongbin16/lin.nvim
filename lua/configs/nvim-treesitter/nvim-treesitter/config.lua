@@ -1,5 +1,4 @@
 local constants = require("builtin.utils.constants")
-local message = require("builtin.utils.message")
 local uv = vim.uv or vim.loop
 
 local ensure_installed = {

@@ -242,7 +242,7 @@ local GitBranch = {
       return type(git_branch_status_cache) == "table" and git_branch_status_cache["changed"] ~= nil
     end,
     hl = function(self)
-      return { fg = "git_change", bg = "normal_bg3" }
+      return { fg = "git_dirty", bg = "normal_bg3" }
     end,
   },
   {
@@ -255,7 +255,7 @@ local GitBranch = {
         and type(git_branch_status_cache["ahead"]) == "number"
     end,
     hl = function(self)
-      return { fg = "git_add", bg = "normal_bg3" }
+      return { fg = "git_ahead", bg = "normal_bg3" }
     end,
   },
   {
@@ -268,7 +268,7 @@ local GitBranch = {
         and type(git_branch_status_cache["behind"]) == "number"
     end,
     hl = function(self)
-      return { fg = "git_delete", bg = "normal_bg3" }
+      return { fg = "git_behind", bg = "normal_bg3" }
     end,
   },
   {
@@ -696,6 +696,9 @@ local function setup_colors(colorname)
     "fg",
     red
   )
+  local git_ahead = get_terminal_color_with_fallback(3, yellow)
+  local git_behind = get_terminal_color_with_fallback(3, yellow)
+  local git_dirty = get_terminal_color_with_fallback(1, magenta)
 
   local text_bg, text_fg
   local normal_bg, normal_fg
@@ -1007,6 +1010,9 @@ local function setup_colors(colorname)
     git_add = git_add,
     git_change = git_change,
     git_delete = git_delete,
+    git_ahead = git_ahead,
+    git_behind = git_behind,
+    git_dirty = git_dirty,
   }
 end
 
