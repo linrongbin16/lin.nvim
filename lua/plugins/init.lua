@@ -38,25 +38,16 @@ local M = {
       require("colorbox").update()
     end,
   },
-
-  -- ---- HIGHLIGHT ----
-
   {
     "nvim-treesitter/nvim-treesitter",
-    event = { VimEnter },
-    cmd = {
-      "TSInstall",
-      "TSInstallSync",
-      "TSInstallInfo",
-      "TSUpdate",
-      "TSUpdateSync",
-      "TSUninstall",
-    },
     build = function()
       require("nvim-treesitter.install").update({ with_sync = true })
     end,
     config = lua_config("nvim-treesitter/nvim-treesitter"),
   },
+
+  -- ---- HIGHLIGHT ----
+
   {
     "RRethy/vim-illuminate",
     event = { VeryLazy },
