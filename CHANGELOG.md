@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.7.3](https://github.com/linrongbin16/lin.nvim/compare/v3.7.2...v3.7.3) (2024-05-07)
+
+
+### Bug Fixes
+
+* **nvim-treesitter:** fix treesitter parser builds ([#555](https://github.com/linrongbin16/lin.nvim/issues/555)) ([7ae203d](https://github.com/linrongbin16/lin.nvim/commit/7ae203dcaa6df315aace3dc14f9e76213236c3b9))
+
 ## [3.7.2](https://github.com/linrongbin16/lin.nvim/compare/v3.7.1...v3.7.2) (2024-05-07)
 
 
