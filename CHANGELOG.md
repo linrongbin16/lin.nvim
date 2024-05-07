@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.7.2](https://github.com/linrongbin16/lin.nvim/compare/v3.7.1...v3.7.2) (2024-05-07)
+
+
+### Bug Fixes
+
+* **which-key.nvim:** lazy initialize which-key.nvim ([#553](https://github.com/linrongbin16/lin.nvim/issues/553)) ([f809308](https://github.com/linrongbin16/lin.nvim/commit/f809308b7f8a8419dacb9d891451144c24fcc0e4))
+
 ## [3.7.1](https://github.com/linrongbin16/lin.nvim/compare/v3.7.0...v3.7.1) (2024-05-06)
 
 
