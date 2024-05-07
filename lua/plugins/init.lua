@@ -40,9 +40,7 @@ local M = {
   },
   {
     "nvim-treesitter/nvim-treesitter",
-    build = function()
-      require("nvim-treesitter.install").update({ with_sync = true })
-    end,
+    build = ":TSUpdate",
     config = lua_config("nvim-treesitter/nvim-treesitter"),
   },
 
