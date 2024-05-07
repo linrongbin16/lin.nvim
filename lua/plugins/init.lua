@@ -359,6 +359,7 @@ local M = {
   -- Key mappings
   {
     "folke/which-key.nvim",
+    event = { VeryLazy, CmdlineEnter, InsertEnter },
     cmd = { "WhichKey" },
     config = lua_config("folke/which-key.nvim"),
     keys = lua_keys("folke/which-key.nvim"),
