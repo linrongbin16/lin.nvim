@@ -46,7 +46,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - uses: JohnnyMorganz/stylua-action@v3
+      - uses: JohnnyMorganz/stylua-action@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           version: latest
@@ -55,7 +55,7 @@ jobs:
       - run: shfmt -d ./install
       - name: Auto commit
         if: ${{ github.ref != 'refs/heads/main' }}
-        uses: stefanzweifel/git-auto-commit-action@v4
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "chore(pr): auto-commit"
   ubuntu_installer:
