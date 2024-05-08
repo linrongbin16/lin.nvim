@@ -80,7 +80,7 @@ vim.opt.sidescrolloff = 2
 
 -- whitespace
 vim.opt.listchars = "tab:>·,trail:~,extends:>,precedes:<,nbsp:+"
--- set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣,nbsp:+
+-- vim.opt.listchars ="eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣,nbsp:+"
 vim.opt.list = true
 
 -- delete extra comments when formatting
