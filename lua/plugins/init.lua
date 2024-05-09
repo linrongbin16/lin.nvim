@@ -93,16 +93,20 @@ local M = {
     keys = lua_keys("nvim-neo-tree/neo-tree.nvim"),
   },
   -- Tabline
+  -- {
+  --   "moll/vim-bbye",
+  --   cmd = { "Bdelete", "Bwipeout" },
+  --   keys = lua_keys("moll/vim-bbye"),
+  -- },
   {
-    "moll/vim-bbye",
-    cmd = { "Bdelete", "Bwipeout" },
-    keys = lua_keys("moll/vim-bbye"),
+    "famiu/bufdelete.nvim",
+    lazy = true,
+    keys = lua_keys("famiu/bufdelete.nvim"),
   },
   {
     "akinsho/bufferline.nvim",
     version = "*",
     event = { VeryLazy },
-    dependencies = { "moll/vim-bbye" },
     config = lua_config("akinsho/bufferline.nvim"),
     keys = lua_keys("akinsho/bufferline.nvim"),
   },
