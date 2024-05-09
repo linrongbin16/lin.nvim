@@ -8,12 +8,8 @@ require("bufferline").setup({
     --     return string.format("%s.%s", opts.ordinal, opts.lower(opts.id))
     -- end,
     numbers = "ordinal",
-    close_command = function(bufnr)
-      require("bufdelete").bufdelete(bufnr, true)
-    end,
-    right_mouse_command = function(bufnr)
-      require("bufdelete").bufdelete(bufnr, true)
-    end,
+    close_command = "Bdelete! %d", -- Bdelete: https://github.com/moll/vim-bbye
+    right_mouse_command = "Bdelete! %d",
     name_formatter = function(buf)
       local max_name_len = layout.editor.width(0.334, 60, nil)
       local name = buf.name
