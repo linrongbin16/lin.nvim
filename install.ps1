@@ -92,6 +92,9 @@ function CoreDependency()
     Install -command "scoop install ripgrep" -target "rg"
     Install -command "scoop install bat" -target "bat"
     Install -command "scoop install eza" -target "eza"
+
+    # fzf
+    Install -command "scoop install fzf" -target "fzf"
 }
 
 function RustDependency()
