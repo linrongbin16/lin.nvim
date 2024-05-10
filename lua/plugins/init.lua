@@ -40,14 +40,15 @@ local M = {
       require("colorbox").update()
     end,
   },
-  {
-    "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",
-    config = lua_config("nvim-treesitter/nvim-treesitter"),
-  },
 
   -- ---- HIGHLIGHT ----
 
+  {
+    "nvim-treesitter/nvim-treesitter",
+    event = { VeryLazy, CmdlineEnter },
+    build = ":TSUpdate",
+    config = lua_config("nvim-treesitter/nvim-treesitter"),
+  },
   {
     "RRethy/vim-illuminate",
     event = { VeryLazy },
