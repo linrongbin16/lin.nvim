@@ -1,4 +1,5 @@
-local constants = require("builtin.utils.constants")
+local constants = require("builtin.constants")
+
 local close_mappings = { ["<ESC>"] = "Close", ["<C-[>"] = "Close", ["<C-c>"] = "Close" }
 local window_min_width_value = 50
 local window_min_width_rate = 0.2
@@ -6,10 +7,10 @@ local window_min_width = { window_min_width_value, window_min_width_rate }
 
 require("dressing").setup({
   input = {
-    border = constants.ui.border,
+    border = constants.window.border,
     min_width = window_min_width,
     win_options = {
-      winblend = constants.ui.winblend,
+      winblend = constants.window.blend,
     },
     mappings = {
       n = close_mappings,
@@ -19,18 +20,18 @@ require("dressing").setup({
   select = {
     nui = {
       border = {
-        style = constants.ui.border,
+        style = constants.window.border,
       },
       win_options = {
-        winblend = constants.ui.winblend,
+        winblend = constants.window.blend,
       },
       min_width = window_min_width_value,
     },
     builtin = {
-      border = constants.ui.border,
+      border = constants.window.border,
       min_width = window_min_width,
       win_options = {
-        winblend = constants.ui.winblend,
+        winblend = constants.window.blend,
       },
       mappings = close_mappings,
     },
