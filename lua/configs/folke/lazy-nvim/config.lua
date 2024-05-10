@@ -1,5 +1,4 @@
-local constants = require("builtin.utils.constants")
-local message = require("builtin.utils.message")
+local constants = require("builtin.constants")
 local uv = vim.uv or vim.loop
 
 local stdpath_config = vim.fn.stdpath("config")
@@ -24,10 +23,10 @@ local opts = {
   },
   ui = {
     size = {
-      width = constants.ui.layout.middle.scale,
-      height = constants.ui.layout.middle.scale,
+      width = constants.window.layout.middle.scale,
+      height = constants.window.layout.middle.scale,
     },
-    border = constants.ui.border,
+    border = constants.window.border,
   },
 }
 

@@ -7,9 +7,9 @@ require("mason").setup({
   },
   install_root_dir = vim.fn.stdpath("config") .. "/mason",
   ui = {
-    border = constants.ui.border,
-    width = constants.ui.layout.middle.scale,
-    height = constants.ui.layout.middle.scale,
+    border = constants.window.border,
+    width = constants.window.layout.middle.scale,
+    height = constants.window.layout.middle.scale,
     icons = {
       package_installed = "✓",
       package_pending = "➜",

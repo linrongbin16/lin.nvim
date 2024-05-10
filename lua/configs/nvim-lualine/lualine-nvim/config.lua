@@ -1,4 +1,4 @@
-local constants = require("builtin.utils.constants")
+local constants = require("builtin.constants")
 
 local function GetHl(...)
   for _, name in ipairs({ ... }) do
@@ -149,10 +149,10 @@ local config = {
       {
         "diagnostics",
         symbols = {
-          error = constants.diagnostic.sign.error .. " ",
-          warn = constants.diagnostic.sign.warning .. " ",
-          info = constants.diagnostic.sign.info .. " ",
-          hint = constants.diagnostic.sign.hint .. " ",
+          error = constants.diagnostic.signs.error .. " ",
+          warn = constants.diagnostic.signs.warning .. " ",
+          info = constants.diagnostic.signs.info .. " ",
+          hint = constants.diagnostic.signs.hint .. " ",
         },
       },
       "filetype",
