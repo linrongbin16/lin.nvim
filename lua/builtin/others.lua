@@ -65,5 +65,5 @@ vim.api.nvim_create_autocmd("BufReadPre", {
 })
 
 -- transparent
-vim.o.winblend = constants.ui.winblend
-vim.o.pumblend = constants.ui.pumblend
+vim.o.winblend = 15
+vim.o.pumblend = 15

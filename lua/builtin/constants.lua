@@ -12,10 +12,8 @@ M.diagnostic = {
   },
 }
 
-M.ui = {
+M.window = {
   border = "rounded", -- single,double,rounded,solid,shadow
-  winblend = 15,
-  pumblend = 15,
   layout = {
     middle = {
       scale = 0.85,
