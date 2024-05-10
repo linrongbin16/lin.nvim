@@ -10,106 +10,189 @@ vim.lsp.handlers["textDocument/hover"] =
 vim.lsp.handlers["textDocument/signatureHelp"] =
   vim.lsp.with(vim.lsp.handlers.signature_help, { border = constants.window.border })
 
+local function make_desc(value)
+  return { buffer = true, desc = value }
+end
+
+--- @param next boolean
+--- @param severity integer?
+local function goto_diag(next, severity)
+  local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
+  return function()
+    go({ severity = severity })
+  end
+end
+
+local lsp_goto_mapping = {
+  definition = {
+    mode = "n",
+    lhs = "gd",
+    rhs = {
+      "FzfxLspDefinitions",
+      { "Glance", "definitions" },
+      { "lua", "vim.lsp.buf.definition()" },
+    },
+    desc = "Go to LSP definitions",
+  },
+  type_definition = {
+    mode = "n",
+    lhs = "gt",
+    rhs = {
+      "FzfxLspTypeDefinitions",
+      { "Glance", "type_definitions" },
+      { "lua", "vim.lsp.buf.type_definition()" },
+    },
+    desc = "Go to LSP type definitions",
+  },
+  implementation = {
+    mode = "n",
+    lhs = "gi",
+    rhs = {
+      "FzfxLspImplementations",
+      { "Glance", "implementations" },
+      { "lua", "vim.lsp.buf.implementation()" },
+    },
+    desc = "Go to LSP implementations",
+  },
+  reference = {
+    mode = "n",
+    lhs = "gr",
+    rhs = {
+      "FzfxLspReferences",
+      { "Glance", "references" },
+      { "lua", "vim.lsp.buf.reference()" },
+    },
+    desc = "Go to LSP references",
+  },
+  incoming_calls = {
+    mode = "n",
+    lhs = "<leader>ic",
+    rhs = {
+      "FzfxLspIncomingCalls",
+      { "lua", "vim.lsp.buf.incoming_calls()" },
+    },
+    desc = "Go to LSP incoming calls",
+  },
+  outgoing_calls = {
+    mode = "n",
+    lhs = "<leader>og",
+    rhs = {
+      "FzfxLspOutgoingCalls",
+      { "lua", "vim.lsp.buf.outgoing_calls()" },
+    },
+    desc = "Go to LSP outgoing calls",
+  },
+  hover = {
+    mode = "n",
+    lhs = "K",
+    rhs = {
+      { "lua", "vim.lsp.buf.hover()" },
+    },
+    desc = "Show hover",
+  },
+  signature_help = {
+    mode = { "n", "i" },
+    lhs = "<C-k>",
+    rhs = {
+      { "lua", "vim.lsp.buf.signature_help()" },
+    },
+    desc = "Show signature help",
+  },
+  rename = {
+    mode = "n",
+    lhs = "<Leader>rn",
+    rhs = {
+      { "lua", "vim.lsp.buf.rename()" },
+    },
+    desc = "Rename symbol",
+  },
+  code_action = {
+    mode = "n",
+    lhs = "<Leader>ca",
+    rhs = {
+      { "lua", "vim.lsp.buf.code_action()" },
+    },
+    desc = "Run code actions",
+  },
+  range_code_action = {
+    mode = "x",
+    lhs = "<Leader>ca",
+    rhs = {
+      { "lua", "vim.lsp.buf.range_code_action()" },
+    },
+    desc = "Run code actions",
+  },
+  clangd_switch_source_header = {
+    mode = "n",
+    lhs = "<Leader>sw",
+    rhs = {
+      { "ClangdSwitchSourceHeader" },
+    },
+    desc = "Switch between C/C++ header and source files",
+  },
+}
+
+local function lsp_key(name, optional)
+  local configs = lsp_goto_mapping[name]
+  assert(type(configs) == "table")
+
+  local hit = 0
+  local right_hands = configs.rhs
+  for _, right_hand in ipairs(right_hands) do
+    if type(right_hand) == "string" and vim.fn.exists(":" .. right_hand) > 0 then
+      set_key(
+        configs.mode,
+        configs.lhs,
+        string.format("<CMD>%s<CR>", right_hand),
+        make_desc(configs.desc)
+      )
+      hit = hit + 1
+      break
+    elseif
+      type(right_hand) == "table"
+      and type(right_hand[1]) == "string"
+      and vim.fn.exists(":" .. right_hand[1]) > 0
+    then
+      set_key(
+        configs.mode,
+        configs.lhs,
+        string.format("<CMD>%s<CR>", table.concat(right_hand, " ")),
+        make_desc(configs.desc)
+      )
+      hit = hit + 1
+      break
+    end
+  end
+  if optional then
+    assert(hit <= 1)
+  else
+    assert(hit == 1)
+  end
+end
+
 vim.api.nvim_create_augroup("builtin_lsp_augroup", { clear = true })
 vim.api.nvim_create_autocmd("LspAttach", {
   group = "builtin_lsp_augroup",
-  callback = function()
-    local function make_desc(value)
-      return { buffer = true, desc = value }
-    end
+  callback = function(ev)
+    vim.bo[ev.buf].formatexpr = nil
+    vim.bo[ev.buf].omnifunc = nil
+    vim.bo[ev.buf].tagfunc = nil
 
-    --- @param next boolean
-    --- @param severity integer?
-    local function goto_diag(next, severity)
-      local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
-      return function()
-        go({ severity = severity })
-      end
-    end
+    lsp_key("definition")
+    lsp_key("type_definition")
+    lsp_key("implementation")
+    lsp_key("reference")
+    lsp_key("incoming_calls")
+    lsp_key("outgoing_calls")
 
-    -- lsp key mappings
-    -- navigation
+    lsp_key("hover")
+    lsp_key("signature_help")
 
-    -- definitions
-    local def
-    if vim.fn.exists(":FzfxLspDefinitions") > 0 then
-      def = "<CMD>FzfxLspDefinitions<CR>"
-    elseif vim.fn.exists(":Glance") > 0 then
-      def = "<CMD>Glance definitions<CR>"
-    else
-      def = "<cmd>lua vim.lsp.buf.definition()<cr>"
-    end
-    set_key("n", "gd", def, make_desc("Go to lsp definitions"))
+    lsp_key("rename")
+    lsp_key("code_action")
+    lsp_key("range_code_action")
 
-    -- type definitions
-    local type_def
-    if vim.fn.exists(":FzfxLspTypeDefinitions") > 0 then
-      type_def = "<CMD>FzfxLspTypeDefinitions<CR>"
-    elseif vim.fn.exists(":Glance") > 0 then
-      type_def = "<CMD>Glance type_definitions<CR>"
-    else
-      type_def = "<cmd>lua vim.lsp.buf.type_definition()<cr>"
-    end
-    set_key("n", "gt", type_def, make_desc("Go to lsp type definitions"))
-
-    -- implementations
-    local impl
-    if vim.fn.exists(":FzfxLspImplementations") > 0 then
-      impl = "<CMD>FzfxLspImplementations<CR>"
-    elseif vim.fn.exists(":Glance") > 0 then
-      impl = "<CMD>Glance implementations<CR>"
-    else
-      impl = "<cmd>lua vim.lsp.buf.implementation()<cr>"
-    end
-    set_key("n", "gi", impl, make_desc("Go to lsp implementations"))
-
-    -- references
-    local ref
-    if vim.fn.exists(":FzfxLspReferences") > 0 then
-      ref = "<CMD>FzfxLspReferences<CR>"
-    elseif vim.fn.exists(":Glance") > 0 then
-      ref = "<CMD>Glance references<CR>"
-    else
-      ref = "<cmd>lua vim.lsp.buf.references()<cr>"
-    end
-    set_key("n", "gr", ref, make_desc("Go to lsp references"))
-
-    -- incoming calls
-    local incoming
-    if vim.fn.exists(":FzfxLspIncomingCalls") > 0 then
-      incoming = "<CMD>FzfxLspIncomingCalls<CR>"
-    else
-      incoming = "<cmd>lua vim.lsp.buf.incoming_calls()<cr>"
-    end
-    set_key("n", "<leader>ic", incoming, make_desc("Go to lsp incoming calls"))
-
-    local outgoing
-    if vim.fn.exists(":FzfxLspOutgoingCalls") > 0 then
-      outgoing = "<CMD>FzfxLspOutgoingCalls<CR>"
-    else
-      outgoing = "<cmd>lua vim.lsp.buf.outgoing_calls()<cr>"
-    end
-    set_key("n", "<leader>og", outgoing, make_desc("Go to lsp outgoing calls"))
-
-    -- hover
-    set_key("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>", make_desc("Show hover"))
-
-    set_key(
-      { "n", "i" },
-      "<C-k>",
-      "<cmd>lua vim.lsp.buf.signature_help()<cr>",
-      make_desc("Show signature help")
-    )
-
-    -- operation
-    set_key("n", "<Leader>rn", "<cmd>lua vim.lsp.buf.rename()<cr>", make_desc("Rename symbol"))
-    set_key("n", "<Leader>ca", "<cmd>lua vim.lsp.buf.code_action()<cr>", make_desc("Code actions"))
-    set_key(
-      "x",
-      "<Leader>ca",
-      "<cmd>lua vim.lsp.buf.range_code_action()<cr>",
-      make_desc("Code actions")
-    )
+    lsp_key("clangd_switch_source_header", true)
 
     -- diagnostic
     set_key("n", "]d", goto_diag(true), make_desc("Next diagnostic item"))
@@ -138,37 +221,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
       goto_diag(false, vim.diagnostic.severity.WARN),
       make_desc("Previous diagnostic warning")
     )
-
-    -- switch header/source for c/c++
-    set_key(
-      "n",
-      "<leader>sw",
-      ":ClangdSwitchSourceHeader<CR>",
-      { silent = false, desc = "Switch between c/c++ header and source" }
-    )
-
-    -- (silently) detach lsp client when close buffer
-    -- for better lsp performance
-    -- vim.api.nvim_create_autocmd("BufDelete", {
-    --     buffer = vim.api.nvim_get_current_buf(),
-    --     callback = function(opts)
-    --         local bufnr = opts.buf
-    --         local clients = vim.lsp.get_active_clients({ bufnr = bufnr })
-    --         for client_id, _ in pairs(clients) do
-    --             -- quietly without warning
-    --             vim.cmd(
-    --                 string.format(
-    --                     "silent lua vim.lsp.buf_detach_client(%d,%d)",
-    --                     bufnr,
-    --                     client_id
-    --                 )
-    --             )
-    --         end
-    --     end,
-    -- })
-
-    -- disable tagfunc to fix workspace/symbol not support error
-    vim.bo.tagfunc = nil
   end,
 })
 
