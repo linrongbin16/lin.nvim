@@ -1,6 +1,6 @@
 " Please copy this file to 'preinit.vim' to enable it.
 
-let g:lin_nvim_options = {
+let g:lin_nvim_builtin_constants = {
             \ 'diagnostic': {
             \   'sign': {
             \       'error': '',
