@@ -10,10 +10,8 @@ let g:lin_nvim_builtin_constants = {
             \       'ok': '',
             \   },
             \ },
-            \ 'ui': {
+            \ 'window': {
             \   'border': 'rounded',
-            \   'winblend': 15,
-            \   'pumblend': 15,
             \   'layout': {
             \       'middle': { 'scale': 0.85 },
             \       'large': { 'scale': 0.9 },
