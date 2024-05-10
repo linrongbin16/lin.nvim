@@ -27,6 +27,7 @@ M.window = {
       max = 60,
     },
   },
+  blend = 15,
 }
 
 M.perf = {

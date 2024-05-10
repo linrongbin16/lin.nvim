@@ -1,14 +1,14 @@
 -- ---- LSP ----
 
-local constants = require("builtin.utils.constants")
+local constants = require("builtin.constants")
 local set_key = require("builtin.utils.keymap").set_key
 
 -- hover/signatureHelp
 vim.lsp.handlers["textDocument/hover"] =
-  vim.lsp.with(vim.lsp.handlers.hover, { border = constants.ui.border })
+  vim.lsp.with(vim.lsp.handlers.hover, { border = constants.window.border })
 
 vim.lsp.handlers["textDocument/signatureHelp"] =
-  vim.lsp.with(vim.lsp.handlers.signature_help, { border = constants.ui.border })
+  vim.lsp.with(vim.lsp.handlers.signature_help, { border = constants.window.border })
 
 vim.api.nvim_create_augroup("builtin_lsp_augroup", { clear = true })
 vim.api.nvim_create_autocmd("LspAttach", {
@@ -20,7 +20,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
     --- @param next boolean
     --- @param severity integer?
-    local function diagnostic_goto(next, severity)
+    local function goto_diag(next, severity)
       local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
       return function()
         go({ severity = severity })
@@ -31,62 +31,65 @@ vim.api.nvim_create_autocmd("LspAttach", {
     -- navigation
 
     -- definitions
-    local definition_cmd = nil
+    local def
     if vim.fn.exists(":FzfxLspDefinitions") > 0 then
-      definition_cmd = "<CMD>FzfxLspDefinitions<CR>"
+      def = "<CMD>FzfxLspDefinitions<CR>"
     elseif vim.fn.exists(":Glance") > 0 then
-      definition_cmd = "<CMD>Glance definitions<CR>"
+      def = "<CMD>Glance definitions<CR>"
     else
-      definition_cmd = "<cmd>lua vim.lsp.buf.definition()<cr>"
+      def = "<cmd>lua vim.lsp.buf.definition()<cr>"
     end
-    set_key("n", "gd", definition_cmd, make_desc("Go to lsp definitions"))
+    set_key("n", "gd", def, make_desc("Go to lsp definitions"))
 
     -- type definitions
-    local type_definition_cmd = nil
+    local type_def
     if vim.fn.exists(":FzfxLspTypeDefinitions") > 0 then
-      type_definition_cmd = "<CMD>FzfxLspTypeDefinitions<CR>"
+      type_def = "<CMD>FzfxLspTypeDefinitions<CR>"
     elseif vim.fn.exists(":Glance") > 0 then
-      type_definition_cmd = "<CMD>Glance type_definitions<CR>"
+      type_def = "<CMD>Glance type_definitions<CR>"
     else
-      type_definition_cmd = "<cmd>lua vim.lsp.buf.type_definition()<cr>"
+      type_def = "<cmd>lua vim.lsp.buf.type_definition()<cr>"
     end
-    set_key("n", "gt", type_definition_cmd, make_desc("Go to lsp type definitions"))
+    set_key("n", "gt", type_def, make_desc("Go to lsp type definitions"))
 
     -- implementations
-    local implementation_cmd = nil
+    local impl
     if vim.fn.exists(":FzfxLspImplementations") > 0 then
-      implementation_cmd = "<CMD>FzfxLspImplementations<CR>"
+      impl = "<CMD>FzfxLspImplementations<CR>"
     elseif vim.fn.exists(":Glance") > 0 then
-      implementation_cmd = "<CMD>Glance implementations<CR>"
+      impl = "<CMD>Glance implementations<CR>"
     else
-      implementation_cmd = "<cmd>lua vim.lsp.buf.implementation()<cr>"
+      impl = "<cmd>lua vim.lsp.buf.implementation()<cr>"
     end
-    set_key("n", "gi", implementation_cmd, make_desc("Go to lsp implementations"))
+    set_key("n", "gi", impl, make_desc("Go to lsp implementations"))
 
     -- references
-    local reference_cmd = nil
+    local ref
     if vim.fn.exists(":FzfxLspReferences") > 0 then
-      reference_cmd = "<CMD>FzfxLspReferences<CR>"
+      ref = "<CMD>FzfxLspReferences<CR>"
     elseif vim.fn.exists(":Glance") > 0 then
-      reference_cmd = "<CMD>Glance references<CR>"
+      ref = "<CMD>Glance references<CR>"
     else
-      reference_cmd = "<cmd>lua vim.lsp.buf.references()<cr>"
+      ref = "<cmd>lua vim.lsp.buf.references()<cr>"
     end
-    set_key("n", "gr", reference_cmd, make_desc("Go to lsp references"))
+    set_key("n", "gr", ref, make_desc("Go to lsp references"))
 
-    set_key("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>", make_desc("Go to declarations"))
-    set_key(
-      "n",
-      "<leader>ic",
-      "<cmd>lua vim.lsp.buf.incoming_calls()<cr>",
-      make_desc("Go to incoming calls")
-    )
-    set_key(
-      "n",
-      "<leader>og",
-      "<cmd>lua vim.lsp.buf.outgoing_calls()<cr>",
-      make_desc("Go to outgoing calls")
-    )
+    -- incoming calls
+    local incoming
+    if vim.fn.exists(":FzfxLspIncomingCalls") > 0 then
+      incoming = "<CMD>FzfxLspIncomingCalls<CR>"
+    else
+      incoming = "<cmd>lua vim.lsp.buf.incoming_calls()<cr>"
+    end
+    set_key("n", "<leader>ic", incoming, make_desc("Go to lsp incoming calls"))
+
+    local outgoing
+    if vim.fn.exists(":FzfxLspOutgoingCalls") > 0 then
+      outgoing = "<CMD>FzfxLspOutgoingCalls<CR>"
+    else
+      outgoing = "<cmd>lua vim.lsp.buf.outgoing_calls()<cr>"
+    end
+    set_key("n", "<leader>og", outgoing, make_desc("Go to lsp outgoing calls"))
 
     -- hover
     set_key("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>", make_desc("Show hover"))
@@ -109,30 +112,30 @@ vim.api.nvim_create_autocmd("LspAttach", {
     )
 
     -- diagnostic
-    set_key("n", "]d", diagnostic_goto(true), make_desc("Next diagnostic item"))
-    set_key("n", "[d", diagnostic_goto(false), make_desc("Previous diagnostic item"))
+    set_key("n", "]d", goto_diag(true), make_desc("Next diagnostic item"))
+    set_key("n", "[d", goto_diag(false), make_desc("Previous diagnostic item"))
     set_key(
       "n",
       "]e",
-      diagnostic_goto(true, vim.diagnostic.severity.ERROR),
+      goto_diag(true, vim.diagnostic.severity.ERROR),
       make_desc("Next diagnostic error")
     )
     set_key(
       "n",
       "[e",
-      diagnostic_goto(false, vim.diagnostic.severity.ERROR),
+      goto_diag(false, vim.diagnostic.severity.ERROR),
       make_desc("Previous diagnostic error")
     )
     set_key(
       "n",
       "]w",
-      diagnostic_goto(true, vim.diagnostic.severity.WARN),
+      goto_diag(true, vim.diagnostic.severity.WARN),
       make_desc("Next diagnostic warning")
     )
     set_key(
       "n",
       "[w",
-      diagnostic_goto(false, vim.diagnostic.severity.WARN),
+      goto_diag(false, vim.diagnostic.severity.WARN),
       make_desc("Previous diagnostic warning")
     )
 
@@ -193,27 +196,27 @@ local function setup_diagnostic()
     virtual_text = false,
     severity_sort = true,
     float = {
-      border = constants.ui.border,
+      border = constants.window.border,
       source = "always",
       header = "",
       prefix = "",
     },
     signs = {
       text = {
-        [vim.diagnostic.severity.ERROR] = constants.diagnostic.sign.error,
-        [vim.diagnostic.severity.WARN] = constants.diagnostic.sign.warning,
-        [vim.diagnostic.severity.INFO] = constants.diagnostic.sign.info,
-        [vim.diagnostic.severity.HINT] = constants.diagnostic.sign.hint,
+        [vim.diagnostic.severity.ERROR] = constants.diagnostic.signs.error,
+        [vim.diagnostic.severity.WARN] = constants.diagnostic.signs.warning,
+        [vim.diagnostic.severity.INFO] = constants.diagnostic.signs.info,
+        [vim.diagnostic.severity.HINT] = constants.diagnostic.signs.hint,
       },
     },
   })
 
   local signs = {
-    DiagnosticSignError = constants.diagnostic.sign.error,
-    DiagnosticSignWarn = constants.diagnostic.sign.warning,
-    DiagnosticSignInfo = constants.diagnostic.sign.info,
-    DiagnosticSignHint = constants.diagnostic.sign.hint,
-    DiagnosticSignOk = constants.diagnostic.sign.ok,
+    DiagnosticSignError = constants.diagnostic.signs.error,
+    DiagnosticSignWarn = constants.diagnostic.signs.warning,
+    DiagnosticSignInfo = constants.diagnostic.signs.info,
+    DiagnosticSignHint = constants.diagnostic.signs.hint,
+    DiagnosticSignOk = constants.diagnostic.signs.ok,
   }
   for name, text in pairs(signs) do
     vim.fn.sign_define(name, {

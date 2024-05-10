@@ -1,6 +1,6 @@
 -- ---- Other Options ----
 
-local constants = require("builtin.utils.constants")
+local constants = require("builtin.constants")
 local set_key = require("builtin.utils.keymap").set_key
 
 -- GUI font
@@ -54,7 +54,7 @@ vim.api.nvim_create_autocmd("BufReadPre", {
   group = "others_augroup",
   callback = function()
     local f = vim.fn.expand("<afile>")
-    if vim.fn.getfsize(f) > constants.perf.file.maxsize then
+    if vim.fn.getfsize(f) > constants.perf.maxfilesize then
       vim.cmd([[
                 syntax clear
                 setlocal eventignore+=FileType
@@ -65,5 +65,5 @@ vim.api.nvim_create_autocmd("BufReadPre", {
 })
 
 -- transparent
-vim.o.winblend = 15
-vim.o.pumblend = 15
+vim.o.winblend = constants.window.blend
+vim.o.pumblend = constants.window.blend
