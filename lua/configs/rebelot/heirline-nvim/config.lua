@@ -5,7 +5,7 @@ local color_hl = require("commons.color.hl")
 local color_hsl = require("commons.color.hsl")
 local spawn = require("commons.spawn")
 
-local constants = require("builtin.utils.constants")
+local constants = require("builtin.constants")
 
 local black = "#000000"
 local white = "#ffffff"
@@ -363,10 +363,10 @@ local SearchCount = {
 }
 
 local DiagnosticSigns = {
-  constants.diagnostic.sign.error,
-  constants.diagnostic.sign.warning,
-  constants.diagnostic.sign.info,
-  constants.diagnostic.sign.hint,
+  constants.diagnostic.signs.error,
+  constants.diagnostic.signs.warning,
+  constants.diagnostic.signs.info,
+  constants.diagnostic.signs.hint,
 }
 local DiagnosticColors = {
   "diagnostic_error",

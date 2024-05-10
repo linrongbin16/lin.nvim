@@ -1,4 +1,4 @@
-local constants = require("builtin.utils.constants")
+local constants = require("builtin.constants")
 local layout = require("builtin.utils.layout")
 
 local function trash_bin(state)
@@ -17,7 +17,7 @@ local function trash_bin(state)
 end
 
 require("neo-tree").setup({
-  popup_border_style = constants.ui.border,
+  popup_border_style = constants.window.border,
   default_component_configs = {
     icon = {
       folder_closed = "", -- nf-custom-folder \ue5ff
@@ -88,9 +88,9 @@ require("neo-tree").setup({
   },
   window = {
     width = layout.editor.width(
-      constants.ui.layout.sidebar.scale,
-      constants.ui.layout.sidebar.min,
-      constants.ui.layout.sidebar.max
+      constants.window.layout.sidebar.scale,
+      constants.window.layout.sidebar.min,
+      constants.window.layout.sidebar.max
     ),
     mappings = {
       -- open node
@@ -193,9 +193,9 @@ local function resize_sidebar()
   end
   if neo_tree_winnr then
     local new_width = layout.editor.width(
-      constants.ui.layout.sidebar.scale,
-      constants.ui.layout.sidebar.min,
-      constants.ui.layout.sidebar.max
+      constants.window.layout.sidebar.scale,
+      constants.window.layout.sidebar.min,
+      constants.window.layout.sidebar.max
     )
     vim.api.nvim_win_set_width(neo_tree_winnr, new_width)
   end

@@ -1,4 +1,4 @@
-local constants = require("builtin.utils.constants")
+local constants = require("builtin.constants")
 local BAT_PREVIEWER = not constants.os.is_windows
   and vim.fn.executable("bat") > 0
   and vim.fn.executable("less") > 0

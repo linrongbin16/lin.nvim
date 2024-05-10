@@ -1,8 +1,8 @@
-local constants = require("builtin.utils.constants")
 local layout = require("builtin.utils.layout")
+local constants = require("builtin.constants")
 
 vim.g.vista_sidebar_width = layout.editor.width(
-  constants.ui.layout.sidebar.scale,
-  constants.ui.layout.sidebar.min,
-  constants.ui.layout.sidebar.max
+  constants.window.layout.sidebar.scale,
+  constants.window.layout.sidebar.min,
+  constants.window.layout.sidebar.max
 )

@@ -1,13 +1,10 @@
-local constants = require("builtin.utils.constants")
+local constants = require("builtin.constants")
 
 require("fzfx").setup({
-  env = {
-    nvim = "nvim",
-  },
   popup = {
     win_opts = {
-      height = constants.ui.layout.middle.scale,
-      width = constants.ui.layout.middle.scale,
+      height = constants.window.layout.middle.scale,
+      width = constants.window.layout.middle.scale,
     },
   },
   debug = {
