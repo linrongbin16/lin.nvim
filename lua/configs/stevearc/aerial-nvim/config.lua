@@ -1,18 +1,18 @@
-local constants = require("builtin.utils.constants")
+local constants = require("builtin.constants")
 local layout = require("builtin.utils.layout")
 
 require("aerial").setup({
   layout = {
     max_width = {
-      constants.ui.layout.sidebar.max,
-      constants.ui.layout.sidebar.scale,
+      constants.window.layout.sidebar.max,
+      constants.window.layout.sidebar.scale,
     },
     width = layout.editor.width(
-      constants.ui.layout.sidebar.scale,
-      constants.ui.layout.sidebar.min,
-      constants.ui.layout.sidebar.max
+      constants.window.layout.sidebar.scale,
+      constants.window.layout.sidebar.min,
+      constants.window.layout.sidebar.max
     ),
-    min_width = constants.ui.layout.sidebar.min,
+    min_width = constants.window.layout.sidebar.min,
   },
   keymaps = {
     ["<C-w>v"] = "actions.jump_vsplit",

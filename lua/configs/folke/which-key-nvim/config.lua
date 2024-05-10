@@ -1,7 +1,7 @@
-local constants = require("builtin.utils.constants")
+local constants = require("builtin.constants")
 
 require("which-key").setup({
   window = {
-    border = constants.ui.border,
+    border = constants.window.border,
   },
 })

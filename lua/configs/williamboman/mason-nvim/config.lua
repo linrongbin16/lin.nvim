@@ -1,4 +1,4 @@
-local constants = require("builtin.utils.constants")
+local constants = require("builtin.constants")
 
 require("mason").setup({
   registries = {
