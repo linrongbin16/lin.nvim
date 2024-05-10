@@ -1,4 +1,4 @@
-local constants = require("builtin.utils.constants")
+local constants = require("builtin.constants")
 
 require("oil").setup({
   columns = {
@@ -31,12 +31,12 @@ require("oil").setup({
     show_hidden = true,
   },
   float = {
-    border = constants.ui.border,
+    border = constants.window.border,
   },
   preview = {
-    border = constants.ui.border,
+    border = constants.window.border,
   },
   progress = {
-    border = constants.ui.border,
+    border = constants.window.border,
   },
 })

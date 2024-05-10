@@ -1,4 +1,4 @@
-local constants = require("builtin.utils.constants")
+local constants = require("builtin.constants")
 local layout = require("builtin.utils.layout")
 
 -- Please see https://github.com/nvim-tree/nvim-tree.lua/wiki/Migrating-To-on_attach for assistance in migrating.
@@ -96,9 +96,9 @@ require("nvim-tree").setup({
   on_attach = on_attach,
   view = {
     width = layout.editor.width(
-      constants.ui.layout.sidebar.scale,
-      constants.ui.layout.sidebar.min,
-      constants.ui.layout.sidebar.max
+      constants.window.layout.sidebar.scale,
+      constants.window.layout.sidebar.min,
+      constants.window.layout.sidebar.max
     ),
   },
   renderer = {
@@ -127,10 +127,10 @@ require("nvim-tree").setup({
       max = vim.diagnostic.severity.ERROR,
     },
     icons = {
-      hint = constants.diagnostic.sign.hint,
-      info = constants.diagnostic.sign.info,
-      warning = constants.diagnostic.sign.warning,
-      error = constants.diagnostic.sign.error,
+      hint = constants.diagnostic.signs.hint,
+      info = constants.diagnostic.signs.info,
+      warning = constants.diagnostic.signs.warning,
+      error = constants.diagnostic.signs.error,
     },
   },
   modified = {

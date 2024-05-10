@@ -1,8 +1,8 @@
-local constants = require("builtin.utils.constants")
+local constants = require("builtin.constants")
 local layout = require("builtin.utils.layout")
 
 vim.g.undotree_SplitWidth = layout.editor.width(
-  constants.ui.layout.sidebar.scale,
-  constants.ui.layout.sidebar.min,
-  constants.ui.layout.sidebar.max
+  constants.window.layout.sidebar.scale,
+  constants.window.layout.sidebar.min,
+  constants.window.layout.sidebar.max
 )

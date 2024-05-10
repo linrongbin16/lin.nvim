@@ -1,4 +1,4 @@
-local constants = require("builtin.utils.constants")
+local constants = require("builtin.constants")
 local layout = require("builtin.utils.layout")
 
 local shell = vim.o.shell
@@ -9,14 +9,14 @@ end
 require("toggleterm").setup({
   direction = "float",
   float_opts = {
-    border = constants.ui.border,
+    border = constants.window.border,
     width = function()
-      return layout.editor.width(constants.ui.layout.middle.scale, nil, nil)
+      return layout.editor.width(constants.window.layout.middle.scale, nil, nil)
     end,
     height = function()
-      layout.editor.height(constants.ui.layout.middle.scale, nil, nil)
+      layout.editor.height(constants.window.layout.middle.scale, nil, nil)
     end,
-    winblend = constants.ui.winblend,
+    winblend = constants.window.blend,
   },
   shell = shell,
 })
