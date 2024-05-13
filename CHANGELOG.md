@@ -1,5 +1,27 @@
 # Changelog
 
+## [4.0.0](https://github.com/linrongbin16/lin.nvim/compare/v3.7.4...v4.0.0) (2024-05-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* **options:** use 2 spaces for indent width ([#557](https://github.com/linrongbin16/lin.nvim/issues/557))
+* **options:** use 2 spaces for ps1 indent width ([#566](https://github.com/linrongbin16/lin.nvim/issues/566))
+* **builtin:** refactor 'builtin.constants' ([#564](https://github.com/linrongbin16/lin.nvim/issues/564))
+
+### Performance Improvements
+
+* **bufdelete.nvim:** migrate to 'bufdelete.nvim' from 'vim-bbye' ([#560](https://github.com/linrongbin16/lin.nvim/issues/560)) ([8ed99e6](https://github.com/linrongbin16/lin.nvim/commit/8ed99e6ced3c86b161efec29edc83bdb2af7ee16))
+* **lazy.nvim:** reduce git timeout to 30s ([#563](https://github.com/linrongbin16/lin.nvim/issues/563)) ([5361d73](https://github.com/linrongbin16/lin.nvim/commit/5361d733d773f24cee75f84afb04a387c667393f))
+* **nvim-treesitter:** lazy initialize 'nvim-treesitter' ([#565](https://github.com/linrongbin16/lin.nvim/issues/565)) ([c7677a2](https://github.com/linrongbin16/lin.nvim/commit/c7677a2e2616f03c4a1d01f733a2377617f43ef0))
+
+
+### Code Refactoring
+
+* **builtin:** refactor 'builtin.constants' ([#564](https://github.com/linrongbin16/lin.nvim/issues/564)) ([e3805ce](https://github.com/linrongbin16/lin.nvim/commit/e3805ce3db27cf1904d51911ce0776f2bafe255c))
+* **options:** use 2 spaces for indent width ([#557](https://github.com/linrongbin16/lin.nvim/issues/557)) ([637cf37](https://github.com/linrongbin16/lin.nvim/commit/637cf37e53fdb71ce53f5fb7867da1548d52e265))
+* **options:** use 2 spaces for ps1 indent width ([#566](https://github.com/linrongbin16/lin.nvim/issues/566)) ([637cf37](https://github.com/linrongbin16/lin.nvim/commit/637cf37e53fdb71ce53f5fb7867da1548d52e265))
+
 ## [3.7.4](https://github.com/linrongbin16/lin.nvim/compare/v3.7.3...v3.7.4) (2024-05-09)
 
 
