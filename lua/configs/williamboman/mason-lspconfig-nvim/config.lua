@@ -10,7 +10,7 @@ if user_ensure_installed_ok then
   if type(user_ensure_installed) == "table" then
     ensure_installed = user_ensure_installed
   else
-    message.warn(string.format("Error loading '%s' lua module!", user_ensure_installed_module))
+    message.err(string.format("Error loading '%s' lua module!", user_ensure_installed_module))
   end
 end
 
@@ -32,7 +32,7 @@ if user_setup_handlers_ok then
       setup_handlers[name] = handler
     end
   else
-    message.warn(string.format("Error loading '%s' lua module!", user_setup_handlers_module))
+    message.err(string.format("Error loading '%s' lua module!", user_setup_handlers_module))
   end
 end
 
