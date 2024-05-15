@@ -3,7 +3,6 @@ vim.g.gitgutter_map_keys = 0
 
 -- don't clobber diagnostic sign
 vim.g.gitgutter_sign_allow_clobber = 0
--- vim.g.gitgutter_sign_priority = 1
 
 -- use rg to improve performance
 if vim.fn.executable("rg") > 0 then
