@@ -6,12 +6,17 @@ local M = {
   set_lazy_key("n", "[b", "<cmd>BufferLineCyclePrev<cr>", { desc = "Go to previous buffer" }),
 
   -- move/re-order buffer to next/previous position
-  set_lazy_key("n", "<leader>.", "<cmd>BufferLineMoveNext<cr>", { desc = "Move buffer to next" }),
+  set_lazy_key(
+    "n",
+    "<leader>.",
+    "<cmd>BufferLineMoveNext<cr>",
+    { desc = "Move buffer to next/right" }
+  ),
   set_lazy_key(
     "n",
     "<leader>,",
     "<cmd>BufferLineMovePrev<cr>",
-    { desc = "Move buffer to previous" }
+    { desc = "Move buffer to previous/left" }
   ),
 
   -- go to the last buffer
