@@ -407,6 +407,7 @@ local M = {
     "kylechui/nvim-surround",
     version = "*",
     event = { VeryLazy },
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
     config = lua_config("kylechui/nvim-surround"),
   },
   -- Structure outlines
