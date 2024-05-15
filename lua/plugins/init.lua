@@ -240,7 +240,7 @@ local M = {
       "NullLsLog",
     },
     dependencies = { "neovim/nvim-lspconfig" },
-    config = lua_config("jose-elias-alvarez/null-ls.nvim"),
+    config = lua_config("nvimtools/none-ls.nvim"),
   },
   {
     "jay-babu/mason-null-ls.nvim",
