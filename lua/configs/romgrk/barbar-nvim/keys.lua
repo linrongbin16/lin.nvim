@@ -19,6 +19,15 @@ local M = {
     { desc = "Move buffer to previous(left)" }
   ),
 
+  -- delete current buffer
+  set_lazy_key("n", "<leader>bd", "<cmd>BufferClose<cr>", { desc = "Close current buffer" }),
+  set_lazy_key(
+    "n",
+    "<leader>bD",
+    "<cmd>BufferClose!<cr>",
+    { desc = "Close current buffer forcibly!" }
+  ),
+
   -- go to the last buffer
   set_lazy_key("n", "<leader>0", "<cmd>BufferLast<cr>", { desc = "Go to last buffer" }),
 }
