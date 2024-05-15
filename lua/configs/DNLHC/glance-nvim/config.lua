@@ -4,9 +4,6 @@ local layout = require("builtin.utils.layout")
 
 glance.setup({
   height = layout.editor.height(0.99, 7, 18),
-  border = {
-    enable = false,
-  },
   mappings = {
     list = {
       -- open
