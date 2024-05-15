@@ -1,8 +1,6 @@
 local constants = require("builtin.constants")
 
 require("illuminate").configure({
-  -- delay: delay in milliseconds
-  delay = 300,
   -- disable cursor word for big file
   large_file_cutoff = constants.perf.maxfilesize,
 })
