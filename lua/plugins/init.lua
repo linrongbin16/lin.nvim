@@ -107,6 +107,13 @@ local M = {
     config = lua_config("akinsho/bufferline.nvim"),
     keys = lua_keys("akinsho/bufferline.nvim"),
   },
+  {
+    "romgrk/barbar.nvim",
+    event = { VeryLazy },
+    init = lua_init("romgrk/barbar.nvim"),
+    config = lua_config("romgrk/barbar.nvim"),
+    keys = lua_keys("romgrk/barbar.nvim"),
+  },
   -- Indentline
   {
     "lukas-reineke/indent-blankline.nvim",
