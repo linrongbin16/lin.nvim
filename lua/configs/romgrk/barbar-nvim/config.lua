@@ -10,4 +10,5 @@ require("barbar").setup({
       enabled = false,
     },
   },
+  no_name_title = "[No Name]",
 })
