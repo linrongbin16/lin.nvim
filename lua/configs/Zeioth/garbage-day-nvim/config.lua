@@ -1,1 +1,1 @@
-require("garbage-day").setup()
+require("garbage-day").setup({})
