@@ -94,6 +94,11 @@ local M = {
     keys = lua_keys("nvim-neo-tree/neo-tree.nvim"),
   },
   -- Tabline
+  -- {
+  --   "moll/vim-bbye",
+  --   cmd = { "Bdelete", "Bwipeout" },
+  --   keys = lua_keys("moll/vim-bbye"),
+  -- },
   {
     "romgrk/barbar.nvim",
     event = { VeryLazy },
