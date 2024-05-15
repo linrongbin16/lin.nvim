@@ -4,12 +4,9 @@ local str = require("commons.str")
 
 require("bufferline").setup({
   options = {
-    -- numbers = function(opts)
-    --     return string.format("%s.%s", opts.ordinal, opts.lower(opts.id))
-    -- end,
     numbers = "ordinal",
-    close_command = "Bdelete! %d", -- Bdelete: https://github.com/moll/vim-bbye
-    right_mouse_command = "Bdelete! %d",
+    close_command = "Bdelete! %d", -- vim-bbye
+    right_mouse_command = "Bdelete! %d", -- vim-bbye
     name_formatter = function(buf)
       local max_name_len = layout.editor.width(0.334, 60, nil)
       local name = buf.name
@@ -25,7 +22,6 @@ require("bufferline").setup({
     max_name_length = layout.editor.width(0.334, 60, nil),
     max_prefix_length = layout.editor.width(0.1, 10, 18),
     diagnostics = false,
-    -- separator_style = "slant",
     get_element_icon = function(element)
       local current_bufpath = vim.api.nvim_buf_get_name(0)
       local icon_text, icon_color =

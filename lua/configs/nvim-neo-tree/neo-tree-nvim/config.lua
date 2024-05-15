@@ -39,51 +39,8 @@ require("neo-tree").setup({
         conflict = "", -- nf-dev-git_merge \ue727
       },
     },
-  },
-  renderers = {
-    directory = {
-      { "indent" },
-      { "icon" },
-      { "current_filter" },
-      {
-        "container",
-        content = {
-          { "name", zindex = 10 },
-          {
-            "symlink_target",
-            zindex = 10,
-            highlight = "NeoTreeSymbolicLinkTarget",
-          },
-          { "clipboard", zindex = 10 },
-          {
-            "git_status",
-            zindex = 20,
-            align = "right",
-            hide_when_expanded = true,
-          },
-        },
-      },
-    },
-    file = {
-      { "indent" },
-      { "icon" },
-      {
-        "container",
-        content = {
-          {
-            "name",
-            zindex = 10,
-          },
-          {
-            "symlink_target",
-            zindex = 10,
-            highlight = "NeoTreeSymbolicLinkTarget",
-          },
-          { "clipboard", zindex = 10 },
-          { "modified", zindex = 20, align = "left" },
-          { "git_status", zindex = 20, align = "right" },
-        },
-      },
+    symlink_target = {
+      enabled = true,
     },
   },
   window = {
