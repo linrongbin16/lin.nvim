@@ -2,21 +2,21 @@ local set_lazy_key = require("builtin.utils.keymap").set_lazy_key
 
 local M = {
   -- go to next/previous buffer
-  set_lazy_key("n", "]b", "<cmd>BufferLineCycleNext<cr>", { desc = "Go to next buffer" }),
-  set_lazy_key("n", "[b", "<cmd>BufferLineCyclePrev<cr>", { desc = "Go to previous buffer" }),
+  set_lazy_key("n", "]b", "<cmd>BufferLineCycleNext<cr>", { desc = "Go to next(right) buffer" }),
+  set_lazy_key("n", "[b", "<cmd>BufferLineCyclePrev<cr>", { desc = "Go to previous(left) buffer" }),
 
   -- move/re-order buffer to next/previous position
   set_lazy_key(
     "n",
     "<leader>.",
     "<cmd>BufferLineMoveNext<cr>",
-    { desc = "Move buffer to next/right" }
+    { desc = "Move buffer to next(right)" }
   ),
   set_lazy_key(
     "n",
     "<leader>,",
     "<cmd>BufferLineMovePrev<cr>",
-    { desc = "Move buffer to previous/left" }
+    { desc = "Move buffer to previous(left)" }
   ),
 
   -- go to the last buffer
