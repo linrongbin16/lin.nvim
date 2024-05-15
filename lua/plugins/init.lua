@@ -280,15 +280,15 @@ local M = {
   },
   {
     "hrsh7th/cmp-nvim-lsp",
-    event = { InsertEnter },
+    lazy = true,
   },
   {
     "hrsh7th/cmp-buffer",
-    event = { InsertEnter },
+    lazy = true,
   },
   {
     "FelipeLema/cmp-async-path",
-    event = { InsertEnter, CmdlineEnter },
+    lazy = true,
   },
   {
     "rafamadriz/friendly-snippets",
@@ -296,19 +296,19 @@ local M = {
   },
   {
     "L3MON4D3/LuaSnip",
-    event = { InsertEnter },
+    lazy = true,
     dependencies = { "rafamadriz/friendly-snippets" },
     version = "v2.*",
     submodules = false,
   },
   {
     "saadparwaiz1/cmp_luasnip",
-    event = { InsertEnter },
+    lazy = true,
     dependencies = { "L3MON4D3/LuaSnip" },
   },
   {
     "hrsh7th/cmp-cmdline",
-    event = { CmdlineEnter },
+    lazy = true,
   },
   {
     "hrsh7th/nvim-cmp",
