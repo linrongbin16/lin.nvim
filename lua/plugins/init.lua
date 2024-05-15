@@ -431,8 +431,8 @@ local M = {
   {
     "chrishrb/gx.nvim",
     cmd = { "Browse" },
-    config = lua_config("chrishrb/gx.nvim"),
     init = lua_init("chrishrb/gx.nvim"),
+    config = lua_config("chrishrb/gx.nvim"),
     keys = lua_keys("chrishrb/gx.nvim"),
     submodules = false,
   },
