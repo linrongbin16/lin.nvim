@@ -19,7 +19,7 @@ local M = {
     "n",
     "<leader>0",
     "<cmd>lua require('bufferline').go_to(-1, true)<cr>",
-    { desc = "Go to the last buffer" }
+    { desc = "Go to last buffer" }
   ),
 }
 
@@ -31,7 +31,7 @@ for i = 1, 9 do
       "n",
       string.format("<leader>%d", i),
       string.format("<cmd>lua require('bufferline').go_to(%d, true)<cr>", i),
-      { desc = string.format("Go to buffer-%d", i) }
+      { desc = string.format("Go to %d buffer", i) }
     )
   )
 end
