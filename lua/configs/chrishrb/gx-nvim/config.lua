@@ -1,1 +1,1 @@
-require("gx").setup()
+require("gx").setup({})

@@ -39,51 +39,8 @@ require("neo-tree").setup({
         conflict = "", -- nf-dev-git_merge \ue727
       },
     },
-  },
-  renderers = {
-    directory = {
-      { "indent" },
-      { "icon" },
-      { "current_filter" },
-      {
-        "container",
-        content = {
-          { "name", zindex = 10 },
-          {
-            "symlink_target",
-            zindex = 10,
-            highlight = "NeoTreeSymbolicLinkTarget",
-          },
-          { "clipboard", zindex = 10 },
-          {
-            "git_status",
-            zindex = 20,
-            align = "right",
-            hide_when_expanded = true,
-          },
-        },
-      },
-    },
-    file = {
-      { "indent" },
-      { "icon" },
-      {
-        "container",
-        content = {
-          {
-            "name",
-            zindex = 10,
-          },
-          {
-            "symlink_target",
-            zindex = 10,
-            highlight = "NeoTreeSymbolicLinkTarget",
-          },
-          { "clipboard", zindex = 10 },
-          { "modified", zindex = 20, align = "left" },
-          { "git_status", zindex = 20, align = "right" },
-        },
-      },
+    symlink_target = {
+      enabled = true,
     },
   },
   window = {
@@ -155,10 +112,9 @@ require("neo-tree").setup({
   },
 })
 
-vim.api.nvim_create_augroup("neo_tree_augroup", { clear = true })
-
+local neo_tree_augroup = vim.api.nvim_create_augroup("neo_tree_augroup", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
-  group = "neo_tree_augroup",
+  group = neo_tree_augroup,
   pattern = "neo-tree",
   callback = function()
     local set_key = require("builtin.utils.keymap").set_key
@@ -205,7 +161,7 @@ local function resize_sidebar()
 end
 
 vim.api.nvim_create_autocmd({ "VimResized", "UIEnter" }, {
-  group = "neo_tree_augroup",
+  group = neo_tree_augroup,
   callback = resize_sidebar,
 })
 
