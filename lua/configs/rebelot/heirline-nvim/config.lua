@@ -1023,16 +1023,16 @@ require("heirline").setup({
   },
 })
 
-vim.api.nvim_create_augroup("heirline_augroup", { clear = true })
+local heirline_augroup = vim.api.nvim_create_augroup("heirline_augroup", { clear = true })
 vim.api.nvim_create_autocmd("ColorScheme", {
-  group = "heirline_augroup",
+  group = heirline_augroup,
   callback = function(event)
     local colorname = event.match
     require("heirline.utils").on_colorscheme(setup_colors(colorname))
   end,
 })
 vim.api.nvim_create_autocmd("VimEnter", {
-  group = "heirline_augroup",
+  group = heirline_augroup,
   callback = function()
     local colorname = vim.g.colors_name
     require("heirline.utils").on_colorscheme(setup_colors(colorname))
@@ -1129,7 +1129,7 @@ end
 vim.api.nvim_create_autocmd(
   { "FocusGained", "FocusLost", "TermLeave", "TermClose", "DirChanged", "BufEnter", "VimEnter" },
   {
-    group = "heirline_augroup",
+    group = heirline_augroup,
     callback = update_git_branch,
   }
 )

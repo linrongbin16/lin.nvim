@@ -170,9 +170,9 @@ local function lsp_key(name, optional)
   end
 end
 
-vim.api.nvim_create_augroup("builtin_lsp_augroup", { clear = true })
+local builtin_lsp_augroup = vim.api.nvim_create_augroup("builtin_lsp_augroup", { clear = true })
 vim.api.nvim_create_autocmd("LspAttach", {
-  group = "builtin_lsp_augroup",
+  group = builtin_lsp_augroup,
   callback = function(ev)
     vim.bo[ev.buf].formatexpr = nil
     vim.bo[ev.buf].omnifunc = nil

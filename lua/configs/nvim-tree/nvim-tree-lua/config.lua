@@ -141,9 +141,9 @@ require("nvim-tree").setup({
   },
 })
 
-vim.api.nvim_create_augroup("nvim_tree_augroup", { clear = true })
+local nvim_tree_augroup = vim.api.nvim_create_augroup("nvim_tree_augroup", { clear = true })
 vim.api.nvim_create_autocmd("VimEnter", {
-  group = "nvim_tree_augroup",
+  group = nvim_tree_augroup,
   callback = function(data)
     -- use defer_fn to open async
     local function open_impl()
@@ -166,7 +166,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
   end,
 })
 vim.api.nvim_create_autocmd("FileType", {
-  group = "nvim_tree_augroup",
+  group = nvim_tree_augroup,
   pattern = "NvimTree",
   callback = function(data)
     local set_key = require("builtin.utils.keymap").set_key

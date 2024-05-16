@@ -112,10 +112,9 @@ require("neo-tree").setup({
   },
 })
 
-vim.api.nvim_create_augroup("neo_tree_augroup", { clear = true })
-
+local neo_tree_augroup = vim.api.nvim_create_augroup("neo_tree_augroup", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
-  group = "neo_tree_augroup",
+  group = neo_tree_augroup,
   pattern = "neo-tree",
   callback = function()
     local set_key = require("builtin.utils.keymap").set_key
@@ -162,7 +161,7 @@ local function resize_sidebar()
 end
 
 vim.api.nvim_create_autocmd({ "VimResized", "UIEnter" }, {
-  group = "neo_tree_augroup",
+  group = neo_tree_augroup,
   callback = resize_sidebar,
 })
 
