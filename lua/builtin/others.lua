@@ -49,9 +49,10 @@ set_key(
 )
 
 -- large file performance
-vim.api.nvim_create_augroup("others_augroup", { clear = true })
+local builtin_others_augroup =
+  vim.api.nvim_create_augroup("builtin_others_augroup", { clear = true })
 vim.api.nvim_create_autocmd("BufReadPre", {
-  group = "others_augroup",
+  group = builtin_others_augroup,
   callback = function()
     local f = vim.fn.expand("<afile>")
     if vim.fn.getfsize(f) > constants.perf.maxfilesize then

@@ -6,7 +6,7 @@ require("barbecue").setup({
   create_autocmd = false,
 })
 
-vim.api.nvim_create_augroup("barbecue_augroup", { clear = true })
+local barbecue_augroup = vim.api.nvim_create_augroup("barbecue_augroup", { clear = true })
 vim.api.nvim_create_autocmd({
   "WinScrolled",
   "WinResized",
@@ -14,7 +14,7 @@ vim.api.nvim_create_autocmd({
   "CursorHold",
   "InsertLeave",
 }, {
-  group = "barbecue_augroup",
+  group = barbecue_augroup,
   callback = function()
     require("barbecue.ui").update()
   end,

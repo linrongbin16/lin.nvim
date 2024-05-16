@@ -1,11 +1,8 @@
 local constants = require("builtin.constants")
+local path = require("mason-core.path")
 
 require("mason").setup({
-  registries = {
-    "github:nvim-java/mason-registry",
-    "github:mason-org/mason-registry",
-  },
-  install_root_dir = vim.fn.stdpath("config") .. "/mason",
+  install_root_dir = path.concat({ vim.fn.stdpath("config"), "mason" }),
   ui = {
     border = constants.window.border,
     width = constants.window.layout.middle.scale,
