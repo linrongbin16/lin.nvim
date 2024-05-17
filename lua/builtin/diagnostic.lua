@@ -27,9 +27,10 @@ local function setup()
     severity_sort = true,
     float = {
       border = constants.window.border,
-      source = "always",
+      source = true,
       header = "",
       prefix = "",
+      suffix = "",
     },
     signs = {
       text = {
