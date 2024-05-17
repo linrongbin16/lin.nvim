@@ -2,7 +2,7 @@
 
 local constants = require("builtin.constants")
 
-local function setup()
+local function setup_diagnostic()
   local highlights_def = {
     DiagnosticError = { "ErrorMsg", "#ff0000" },
     DiagnosticWarn = { "WarningMsg", "#FFFF00" },
@@ -62,9 +62,9 @@ local builtin_diagnostic_augroup =
   vim.api.nvim_create_augroup("builtin_diagnostic_augroup", { clear = true })
 vim.api.nvim_create_autocmd("ColorScheme", {
   group = builtin_diagnostic_augroup,
-  callback = vim.schedule_wrap(setup),
+  callback = vim.schedule_wrap(setup_diagnostic),
 })
 vim.api.nvim_create_autocmd("VimEnter", {
   group = builtin_diagnostic_augroup,
-  callback = vim.schedule_wrap(setup),
+  callback = vim.schedule_wrap(setup_diagnostic),
 })
