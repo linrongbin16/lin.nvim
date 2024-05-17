@@ -1,4 +1,4 @@
-require("dropbar.configs").set({
+require("dropbar").setup({
   general = {
     update_interval = 100,
   },
