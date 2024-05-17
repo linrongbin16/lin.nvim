@@ -132,6 +132,7 @@ local M = {
   {
     "Bekaboo/dropbar.nvim",
     event = { VeryLazy },
+    config = lua_config("Bekaboo/dropbar.nvim"),
   },
   -- UI improvement
   {
