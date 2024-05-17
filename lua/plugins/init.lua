@@ -130,17 +130,8 @@ local M = {
   },
   -- Winbar
   {
-    "SmiteshP/nvim-navic",
-    lazy = true,
-    init = lua_init("SmiteshP/nvim-navic"),
-  },
-  {
-    "utilyre/barbecue.nvim",
-    name = "barbecue",
-    version = "*",
+    "Bekaboo/dropbar.nvim",
     event = { VeryLazy },
-    dependencies = { "SmiteshP/nvim-navic" },
-    config = lua_config("utilyre/barbecue.nvim"),
   },
   -- UI improvement
   {
