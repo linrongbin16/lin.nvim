@@ -10,13 +10,13 @@ vim.lsp.handlers["textDocument/hover"] =
 vim.lsp.handlers["textDocument/signatureHelp"] =
   vim.lsp.with(vim.lsp.handlers.signature_help, { border = constants.window.border })
 
-local function make_desc(value)
+local function make_opts(value)
   return { buffer = true, desc = value }
 end
 
 --- @param next boolean
 --- @param severity integer?
-local function goto_diag(next, severity)
+local function goto_diagnostic(next, severity)
   local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
   return function()
     go({ severity = severity })
@@ -144,7 +144,7 @@ local function lsp_key(name, optional)
         configs.mode,
         configs.lhs,
         string.format("<CMD>%s<CR>", right_hand),
-        make_desc(configs.desc)
+        make_opts(configs.desc)
       )
       hit = hit + 1
       break
@@ -157,7 +157,7 @@ local function lsp_key(name, optional)
         configs.mode,
         configs.lhs,
         string.format("<CMD>%s<CR>", table.concat(right_hand, " ")),
-        make_desc(configs.desc)
+        make_opts(configs.desc)
       )
       hit = hit + 1
       break
@@ -195,31 +195,31 @@ vim.api.nvim_create_autocmd("LspAttach", {
     lsp_key("clangd_switch_source_header", true)
 
     -- diagnostic
-    set_key("n", "]d", goto_diag(true), make_desc("Next diagnostic item"))
-    set_key("n", "[d", goto_diag(false), make_desc("Previous diagnostic item"))
+    set_key("n", "]d", goto_diagnostic(true), make_opts("Next diagnostic item"))
+    set_key("n", "[d", goto_diagnostic(false), make_opts("Previous diagnostic item"))
     set_key(
       "n",
       "]e",
-      goto_diag(true, vim.diagnostic.severity.ERROR),
-      make_desc("Next diagnostic error")
+      goto_diagnostic(true, vim.diagnostic.severity.ERROR),
+      make_opts("Go to next error")
     )
     set_key(
       "n",
       "[e",
-      goto_diag(false, vim.diagnostic.severity.ERROR),
-      make_desc("Previous diagnostic error")
+      goto_diagnostic(false, vim.diagnostic.severity.ERROR),
+      make_opts("Go to previous error")
     )
     set_key(
       "n",
       "]w",
-      goto_diag(true, vim.diagnostic.severity.WARN),
-      make_desc("Next diagnostic warning")
+      goto_diagnostic(true, vim.diagnostic.severity.WARN),
+      make_opts("Go to next warning")
     )
     set_key(
       "n",
       "[w",
-      goto_diag(false, vim.diagnostic.severity.WARN),
-      make_desc("Previous diagnostic warning")
+      goto_diagnostic(false, vim.diagnostic.severity.WARN),
+      make_opts("Go to previous warning")
     )
   end,
 })
