@@ -17,6 +17,7 @@ require("barbar").setup({
 
 local function setup_color()
   vim.api.nvim_set_hl(0, "BufferCurrentIndex", { link = "BufferCurrent" })
+  vim.api.nvim_set_hl(0, "BufferInactiveIndex", { link = "BufferInactive" })
 end
 
 local barbar_augroup = vim.api.nvim_create_augroup("barbar_augroup", { clear = true })

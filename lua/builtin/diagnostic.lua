@@ -2,7 +2,7 @@
 
 local constants = require("builtin.constants")
 
-local function setup()
+local function setup_diagnostic()
   local highlights_def = {
     DiagnosticError = { "ErrorMsg", "#ff0000" },
     DiagnosticWarn = { "WarningMsg", "#FFFF00" },
@@ -27,9 +27,10 @@ local function setup()
     severity_sort = true,
     float = {
       border = constants.window.border,
-      source = "always",
+      source = true,
       header = "",
       prefix = "",
+      suffix = "",
     },
     signs = {
       text = {
@@ -41,29 +42,29 @@ local function setup()
     },
   })
 
-  local signs_def = {
-    DiagnosticSignError = constants.diagnostic.signs.error,
-    DiagnosticSignWarn = constants.diagnostic.signs.warning,
-    DiagnosticSignInfo = constants.diagnostic.signs.info,
-    DiagnosticSignHint = constants.diagnostic.signs.hint,
-    DiagnosticSignOk = constants.diagnostic.signs.ok,
-  }
-  for name, text in pairs(signs_def) do
-    vim.fn.sign_define(name, {
-      texthl = name,
-      text = text,
-      numhl = "",
-    })
-  end
+  -- local signs_def = {
+  --   DiagnosticSignError = constants.diagnostic.signs.error,
+  --   DiagnosticSignWarn = constants.diagnostic.signs.warning,
+  --   DiagnosticSignInfo = constants.diagnostic.signs.info,
+  --   DiagnosticSignHint = constants.diagnostic.signs.hint,
+  --   DiagnosticSignOk = constants.diagnostic.signs.ok,
+  -- }
+  -- for name, text in pairs(signs_def) do
+  --   vim.fn.sign_define(name, {
+  --     texthl = name,
+  --     text = text,
+  --     numhl = "",
+  --   })
+  -- end
 end
 
 local builtin_diagnostic_augroup =
   vim.api.nvim_create_augroup("builtin_diagnostic_augroup", { clear = true })
 vim.api.nvim_create_autocmd("ColorScheme", {
   group = builtin_diagnostic_augroup,
-  callback = vim.schedule_wrap(setup),
+  callback = vim.schedule_wrap(setup_diagnostic),
 })
 vim.api.nvim_create_autocmd("VimEnter", {
   group = builtin_diagnostic_augroup,
-  callback = vim.schedule_wrap(setup),
+  callback = vim.schedule_wrap(setup_diagnostic),
 })
