@@ -20,7 +20,6 @@ require("bufferline").setup({
       return name
     end,
     max_name_length = layout.editor.width(0.334, 60, nil),
-    max_prefix_length = layout.editor.width(0.1, 10, 18),
     diagnostics = false,
     get_element_icon = function(element)
       local current_bufpath = vim.api.nvim_buf_get_name(0)
