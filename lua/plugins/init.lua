@@ -97,11 +97,16 @@ local M = {
   },
   -- Tabline
   {
-    "romgrk/barbar.nvim",
+    "moll/vim-bbye",
+    cmd = { "Bdelete", "Bwipeout" },
+    keys = lua_keys("moll/vim-bbye"),
+  },
+  {
+    "akinsho/bufferline.nvim",
     event = { VeryLazy },
-    init = lua_init("romgrk/barbar.nvim"),
-    config = lua_config("romgrk/barbar.nvim"),
-    keys = lua_keys("romgrk/barbar.nvim"),
+    dependencies = { "moll/vim-bbye" },
+    config = lua_config("akinsho/bufferline.nvim"),
+    keys = lua_keys("akinsho/bufferline.nvim"),
   },
   -- Indentline
   {
