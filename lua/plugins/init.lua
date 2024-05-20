@@ -101,7 +101,6 @@ local M = {
   },
   {
     "akinsho/bufferline.nvim",
-    version = "*",
     event = { VeryLazy },
     dependencies = { "moll/vim-bbye" },
     config = lua_config("akinsho/bufferline.nvim"),
