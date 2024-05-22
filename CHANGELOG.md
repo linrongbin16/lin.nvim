@@ -1,5 +1,24 @@
 # Changelog
 
+## [4.1.0](https://github.com/linrongbin16/lin.nvim/compare/v4.0.0...v4.1.0) (2024-05-20)
+
+
+### Features
+
+* **barbar.nvim:** migrate from 'bufferline.nvim' to 'barbar.nvim' ([#569](https://github.com/linrongbin16/lin.nvim/issues/569)) ([14b877d](https://github.com/linrongbin16/lin.nvim/commit/14b877d3b5fc0a8057524f51060d76a40f0a5762))
+* **dropbar.nvim:** migrate from 'barbecue.nvim' to 'dropbar.nvim' ([#571](https://github.com/linrongbin16/lin.nvim/issues/571)) ([b62c50f](https://github.com/linrongbin16/lin.nvim/commit/b62c50f35fe6466ef773d67c32947e5b80d634b6))
+* **nvim-treesitter:** add 'ensure_installed' sample module for treesitter parsers ([#567](https://github.com/linrongbin16/lin.nvim/issues/567)) ([443b0b2](https://github.com/linrongbin16/lin.nvim/commit/443b0b2611e352509e43c305a844e4e2f10ff99d))
+
+
+### Bug Fixes
+
+* **install:** deprecate brew install with --cask ([#570](https://github.com/linrongbin16/lin.nvim/issues/570)) ([47fae89](https://github.com/linrongbin16/lin.nvim/commit/47fae893f31ee67596d1354d3065647c3351d231))
+
+
+### Reverts
+
+* **bufferline.nvim:** revert back from 'barbar.nvim' to 'bufferline.nvim' ([#572](https://github.com/linrongbin16/lin.nvim/issues/572)) ([23a133d](https://github.com/linrongbin16/lin.nvim/commit/23a133dd9de09d0a7ba0cea3adca6a70e40f4ae9))
+
 ## [4.0.0](https://github.com/linrongbin16/lin.nvim/compare/v3.7.4...v4.0.0) (2024-05-11)
 
 
