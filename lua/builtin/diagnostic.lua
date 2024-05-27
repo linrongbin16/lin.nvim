@@ -42,20 +42,20 @@ local function setup_diagnostic()
     },
   })
 
-  -- local signs_def = {
-  --   DiagnosticSignError = constants.diagnostic.signs.error,
-  --   DiagnosticSignWarn = constants.diagnostic.signs.warning,
-  --   DiagnosticSignInfo = constants.diagnostic.signs.info,
-  --   DiagnosticSignHint = constants.diagnostic.signs.hint,
-  --   DiagnosticSignOk = constants.diagnostic.signs.ok,
-  -- }
-  -- for name, text in pairs(signs_def) do
-  --   vim.fn.sign_define(name, {
-  --     texthl = name,
-  --     text = text,
-  --     numhl = "",
-  --   })
-  -- end
+  local signs_def = {
+    DiagnosticSignError = constants.diagnostic.signs.error,
+    DiagnosticSignWarn = constants.diagnostic.signs.warning,
+    DiagnosticSignInfo = constants.diagnostic.signs.info,
+    DiagnosticSignHint = constants.diagnostic.signs.hint,
+    DiagnosticSignOk = constants.diagnostic.signs.ok,
+  }
+  for name, text in pairs(signs_def) do
+    vim.fn.sign_define(name, {
+      texthl = name,
+      text = text,
+      numhl = "",
+    })
+  end
 end
 
 local builtin_diagnostic_augroup =
