@@ -39,6 +39,18 @@ require("neo-tree").setup({
         conflict = "", -- nf-dev-git_merge \ue727
       },
     },
+    file_size = {
+      enabled = false,
+    },
+    type = {
+      enabled = false,
+    },
+    last_modified = {
+      enabled = false,
+    },
+    created = {
+      enabled = false,
+    },
     symlink_target = {
       enabled = true,
     },
