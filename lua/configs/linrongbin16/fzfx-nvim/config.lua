@@ -8,7 +8,7 @@ require("fzfx").setup({
     },
   },
   debug = {
-    enable = true,
+    enable = false,
     file_log = true,
   },
 })
