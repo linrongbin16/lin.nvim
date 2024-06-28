@@ -1,8 +1,17 @@
-# Welcome to lin.nvim's Documentation!
+# lin.nvim : Lin Rongbin's Neovim Distribution
+
+<p>
+<a href="https://github.com/neovim/neovim/releases/tag/stable"><img alt="Neovim-stable" src="https://img.shields.io/badge/require-stable-blue" /></a>
+<a href="https://github.com/linrongbin16/lin.nvim/search?l=lua"><img alt="Language" src="https://img.shields.io/github/languages/top/linrongbin16/lin.nvim" /></a>
+<a href="https://github.com/linrongbin16/lin.nvim/commits/main/"><img alt="CodeSize" src="https://img.shields.io/github/languages/code-size/linrongbin16/lin.nvim" /></a>
+<a href="https://github.com/linrongbin16/lin.nvim/actions/workflows/ci.yml"><img alt="ci.yml" src="https://img.shields.io/github/actions/workflow/status/linrongbin16/lin.nvim/ci.yml?label=ci" /></a>
+</p>
 
 > Leave Vim behind, this is the next generation of [lin.vim](https://github.com/linrongbin16/lin.vim).
 
 lin.nvim is a highly configured [Neovim](https://neovim.io/) distribution integrated with tons of utilities for development, inspired by [spf13-vim](https://github.com/spf13/spf13-vim).
+
+<img width="70%" alt="image" src="https://github.com/linrongbin16/lin.nvim/assets/6496887/41e72ef7-22ac-416d-aeef-9be9b720489c"/>
 
 ## Introduction
 
@@ -16,4 +25,65 @@ This ultra config solves below issues:
 - Naive UI? - File explorer, git status, tabs, icons and most popular colorschemes integrated (again, just like vscode).
 - More efficient editing? - Most popular editing improving plugins embedded, and well cooperated for best user experience and performance.
 
-Checkout [features](/features.md) for what it can do, and [colorschemes](/colorschemes.md) for pretty colorschemes/icons it contains.
+When maintaining this config, I always follow the [philosophy](/philosophy.md).
+
+Checkout [features](/features.md) for what it can do, and [colorschemes](/colorschemes.md) for pretty colorschemes and icons.
+
+## Get started
+
+### MacOS/Linux
+
+> [!NOTE]
+>
+> For MacOS please install [Xcode](https://developer.apple.com/xcode/) and [homebrew](https://brew.sh/) as pre-requirements.
+
+```bash
+git clone https://github.com/linrongbin16/lin.nvim ~/.nvim && cd ~/.nvim && ./install
+```
+
+And that's all of it.
+
+### Windows
+
+1. Enable [Windows developer mode](https://learn.microsoft.com/en-us/windows/apps/get-started/enable-your-device-for-development#activate-developer-mode) for Windows.
+
+2. Install [Visual Studio](https://www.visualstudio.com/) with MSVC components:
+
+   - .NET Desktop Development
+   - Desktop development with C++
+
+   ![image](https://github.com/linrongbin16/lin.nvim/assets/6496887/bca811b5-8b1a-42c0-9283-c38e75f2f06a)
+
+3. Run PowerShell command:
+
+   ```powershell
+   # scoop
+   Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+   irm get.scoop.sh | iex
+
+   git clone https://github.com/linrongbin16/lin.nvim $env:USERPROFILE\.nvim
+   cd $env:USERPROFILE\.nvim
+   .\install.ps1
+   ```
+
+For more details, please check out [Installation](https://github.com/linrongbin16/lin.nvim/wiki/Install,-Upgrade-&-Uninstall).
+
+### Patched GUI Font
+
+Patched GUI font is mandatory for icons.
+
+Even `install.sh` (`install.ps1`) already installed the [Hack Nerd Font](https://github.com/ryanoasis/nerd-fonts/tree/c173f661a0ed03bc537d31a79670bc03b586251d/patched-fonts/Hack), you still need to manually config it in your terminal, e.g. [gnome-terminal](https://help.gnome.org/users/gnome-terminal/stable/) (Ubuntu), [item2](https://iterm2.com/) (MacOS), [Windows Terminal](https://github.com/microsoft/terminal) (Windows), [kitty](https://sw.kovidgoyal.net/kitty/), [alacritty](https://github.com/alacritty/alacritty), [wezterm](https://wezfurlong.org/wezterm/), etc.
+
+## User guide
+
+Please check out [User Guide](https://github.com/linrongbin16/lin.nvim/wiki/User-Guide) for full features, key mappings and customizations.
+
+## Contribute
+
+Please open [issue](https://github.com/linrongbin16/lin.nvim/issues)/[PR](https://github.com/linrongbin16/lin.nvim/pulls) for anything about lin.nvim.
+
+Like lin.nvim? Consider
+
+[![Github Sponsor](https://img.shields.io/badge/-Sponsor%20Me%20on%20Github-magenta?logo=github&logoColor=white)](https://github.com/sponsors/linrongbin16)
+[![Wechat Pay](https://img.shields.io/badge/-Tip%20Me%20on%20WeChat-brightgreen?logo=wechat&logoColor=white)](https://github.com/linrongbin16/lin.nvim/wiki/Sponsor)
+[![Alipay](https://img.shields.io/badge/-Tip%20Me%20on%20Alipay-blue?logo=alipay&logoColor=white)](https://github.com/linrongbin16/lin.nvim/wiki/Sponsor)
