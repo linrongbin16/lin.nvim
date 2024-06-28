@@ -4,3 +4,4 @@
 - [Philosophy](/philosophy.md)
 - [Features](/features.md)
 - [Colorschemes](/colorschemes.md)
+- [Install, Uninstall & Update](/install.md)
