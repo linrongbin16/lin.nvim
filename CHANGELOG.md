@@ -1,5 +1,17 @@
 # Changelog
 
+## [4.1.1](https://github.com/linrongbin16/lin.nvim/compare/v4.1.0...v4.1.1) (2024-06-12)
+
+
+### Bug Fixes
+
+* **options:** disable macro recording ([#574](https://github.com/linrongbin16/lin.nvim/issues/574)) ([2acb22b](https://github.com/linrongbin16/lin.nvim/commit/2acb22bf5efe68f6712250894b45162ca829a262))
+
+
+### Performance Improvements
+
+* **loader:** add 'vim.loader' in preinit sample ([#577](https://github.com/linrongbin16/lin.nvim/issues/577)) ([b05f5f0](https://github.com/linrongbin16/lin.nvim/commit/b05f5f002dd5c4c0496005abe533b53cb5c5165b))
+
 ## [4.1.0](https://github.com/linrongbin16/lin.nvim/compare/v4.0.0...v4.1.0) (2024-05-20)
 
 
