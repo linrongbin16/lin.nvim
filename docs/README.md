@@ -33,9 +33,7 @@ Checkout [features](/features.md) for what it can do, and [colorschemes](/colors
 
 ### MacOS/Linux
 
-> [!NOTE]
->
-> For MacOS please install [Xcode](https://developer.apple.com/xcode/) and [homebrew](https://brew.sh/) as pre-requirements.
+?> For Mac OS, please install [Xcode](https://developer.apple.com/xcode/) and [homebrew](https://brew.sh/) as pre-requirements.
 
 ```bash
 git clone https://github.com/linrongbin16/lin.nvim ~/.nvim && cd ~/.nvim && ./install
@@ -45,14 +43,14 @@ And that's all of it.
 
 ### Windows
 
-1. Enable [Windows developer mode](https://learn.microsoft.com/en-us/windows/apps/get-started/enable-your-device-for-development#activate-developer-mode) for Windows.
+1. Enable [Windows developer mode](https://learn.microsoft.com/en-us/windows/apps/get-started/enable-your-device-for-development#activate-developer-mode).
 
 2. Install [Visual Studio](https://www.visualstudio.com/) with MSVC components:
 
    - .NET Desktop Development
    - Desktop development with C++
 
-   ![image](https://github.com/linrongbin16/lin.nvim/assets/6496887/bca811b5-8b1a-42c0-9283-c38e75f2f06a)
+   <img width="70%" alt="image" src="https://github.com/linrongbin16/lin.nvim/assets/6496887/bca811b5-8b1a-42c0-9283-c38e75f2f06a"/>
 
 3. Run PowerShell command:
 
@@ -66,7 +64,7 @@ And that's all of it.
    .\install.ps1
    ```
 
-For more details, please check out [Installation](https://github.com/linrongbin16/lin.nvim/wiki/Install,-Upgrade-&-Uninstall).
+For more details, please check out [Installation](/install.md).
 
 ### Patched GUI Font
 
