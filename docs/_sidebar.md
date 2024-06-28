@@ -2,3 +2,5 @@
 
 - [Home](/)
 - [Philosophy](/philosophy.md)
+- [Features](/features.md)
+- [Colorschemes](/colorschemes.md)

@@ -16,6 +16,4 @@ This ultra config solves below issues:
 - Naive UI? - File explorer, git status, tabs, icons and most popular colorschemes integrated (again, just like vscode).
 - More efficient editing? - Most popular editing improving plugins embedded, and well cooperated for best user experience and performance.
 
-## Table of Contents
-
-- [Philosophy](/philosophy.md)
+Checkout [features](/features.md) for what it can do, and [colorschemes](/colorschemes.md) for pretty colorschemes/icons it contains.
