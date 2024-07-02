@@ -62,11 +62,15 @@ jobs:
     name: Ubuntu Installer
     runs-on: ubuntu-latest
     steps:
+      - uses: mozilla-actions/sccache-action@v0.0.5
       - name: Get branch
         shell: bash
         run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
         id: extract_branch
       - name: Install lin.nvim
+        env:
+          SCCACHE_GHA_ENABLED: "true"
+          RUSTC_WRAPPER: "sccache"
         run: |
           set -x
           echo '${{ steps.extract_branch.outputs.branch }}'
