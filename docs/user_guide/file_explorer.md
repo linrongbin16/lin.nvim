@@ -2,7 +2,7 @@
 
 ?> Supported by [neo-tree.nvim](https://github.com/nvim-neo-tree/neo-tree.nvim).
 
-File explorer is a sidebar on the left side in Neovim editor.
+File explorer is a sidebar on the left side in Neovim editor, shows current working directory and let user easily operate the file systems.
 
 <img width="70%" alt="image" src="https://github.com/linrongbin16/lin.nvim/assets/6496887/76d06496-8e81-4efb-b928-f1ab0fa78f1e">
 
