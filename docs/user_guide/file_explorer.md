@@ -12,6 +12,8 @@ Here're some most useful keys:
 
 ## Editing
 
+- `<Leader>nt` 🄽 - Toggle file explorer by `:Neotree`.
+- `<Leader>nf` 🄽 - Find/locate current file in file explorer by `:Neotree reveal`.
 - `l` (new) 🄽 - Open file/directory.
 - `h` (new) 🄽 - Close directory.
 - `<C-w>t` (new, default `<C-t>` is removed) 🄽 - Open file in new tab.
