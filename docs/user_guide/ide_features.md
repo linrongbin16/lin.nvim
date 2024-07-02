@@ -30,3 +30,5 @@
 - `gt` 🄽 - Go to type definitions.
 - `<Leader>ic` 🄽 - Go to incoming calls.
 - `<Leader>og` 🄽 - Go to outgoing calls.
+
+?> For full key mappings, please refer to [fzfx's usage](https://github.com/linrongbin16/fzfx.nvim?#-usage).
