@@ -57,3 +57,7 @@
 ## Auto-pair & close-tags
 
 ?> Supported by [nvim-autopairs](https://github.com/windwp/nvim-autopairs) and [nvim-ts-autotag](https://github.com/windwp/nvim-ts-autotag).
+
+## Surroundings
+
+?> Supported by [nvim-surround](https://github.com/kylechui/nvim-surround).
