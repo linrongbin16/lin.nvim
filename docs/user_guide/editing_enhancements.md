@@ -61,3 +61,5 @@
 ## Surroundings
 
 ?> Supported by [nvim-surround](https://github.com/kylechui/nvim-surround).
+
+?> For full key mappings, please check out [surrounding's usage](https://github.com/kylechui/nvim-surround#rocket-usage).
