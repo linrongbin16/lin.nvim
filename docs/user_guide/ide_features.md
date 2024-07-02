@@ -20,6 +20,10 @@
 
 ?> Supported by [fzfx.nvim](https://github.com/linrongbin16/fzfx.nvim).
 
+<!-- Screenshots are recorded with 150x40 kitty terminal -->
+
+<img width="70%" alt="image" src="https://github.com/linrongbin16/lin.nvim/assets/6496887/0830c66c-cd97-41f5-b048-80a8d8d3462b">
+
 - `gd` 🄽 - Go to definitions. You can also use `gD` to go to declarations.
 - `gr` 🄽 - Go to references.
 - `gi` 🄽 - Go to implementations.
