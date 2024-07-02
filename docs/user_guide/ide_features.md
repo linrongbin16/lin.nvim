@@ -47,6 +47,8 @@ Code format runs on file save asynchronously by default. To manually trigger cod
 
 ## Diagnostics
 
+<img width="70%" alt="image" src="https://github.com/linrongbin16/lin.nvim/assets/6496887/0b81a34d-f1ab-49da-b36e-582087520780">
+
 Navigate different diagnostics:
 
 - `[d`/`]d` 🄽 - Go to previous(👆)/next(👇) diagnostic item.
