@@ -9,3 +9,4 @@ By following lazy's [Plugin Spec](https://lazy.folke.io/spec), all the plugins a
 - `keys`: Some key mappings related to the plugin. By specifying this option, the plugin will be lazy loaded when first pressing the keys.
 - `cmd`: Some command names provided by the plugin. By specifying this option, the plugin will be lazy loaded when first running the command.
 - `event`: Some Vim events to trigger the plugin loading. By specifying this option, the plugin will be lazy loaded until these events first been triggered.
+- And other options...
