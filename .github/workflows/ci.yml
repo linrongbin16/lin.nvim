@@ -83,6 +83,7 @@ jobs:
       - uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: latest-stable
+      - uses: mozilla-actions/sccache-action@v0.0.5
       - uses: Homebrew/actions/setup-homebrew@master
       - name: Get branch
         shell: bash
@@ -90,6 +91,9 @@ jobs:
         id: extract_branch
       - name: Install lin.nvim
         shell: bash
+        env:
+          SCCACHE_GHA_ENABLED: "true"
+          RUSTC_WRAPPER: "sccache"
         run: |
           set -x
           echo '${{ steps.extract_branch.outputs.branch }}'
