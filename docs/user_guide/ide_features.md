@@ -28,3 +28,5 @@
 - `gr` 🄽 - Go to references.
 - `gi` 🄽 - Go to implementations.
 - `gt` 🄽 - Go to type definitions.
+- `<Leader>ic` 🄽 - Go to incoming calls.
+- `<Leader>og` 🄽 - Go to outgoing calls.
