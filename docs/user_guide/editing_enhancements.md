@@ -17,3 +17,15 @@
 - `<Leader>gb` 🄽 - Toggle git blame info on current line.
 
 ?> Edit the plugin settings in [lua/configs/airblade/vim-gitgutter](https://github.com/linrongbin16/lin.nvim/tree/main/lua/configs/airblade/vim-gitgutter), [lua/configs/linrongbin16/gitlinker-nvim](https://github.com/linrongbin16/lin.nvim/tree/main/lua/configs/linrongbin16/gitlinker-nvim) and [lua/configs/f-person/git-blame-nvim](https://github.com/linrongbin16/lin.nvim/tree/main/lua/configs/f-person/git-blame-nvim) directory.
+
+## Comments
+
+?> Supported by [Comment.nvim](https://github.com/numToStr/Comment.nvim).
+
+?> For full key mappings, please check out [Comment's usage](https://github.com/numToStr/Comment.nvim#-usage).
+
+## Structure Outlines
+
+?> Supported by [aerial.nvim](https://github.com/stevearc/aerial.nvim).
+
+
