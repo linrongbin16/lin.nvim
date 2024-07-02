@@ -15,7 +15,7 @@ For specific functions (mostly supported by community plugins), please check out
 
 To customize plugins, treesitter parsers, LSP servers, and other settings, please check out:
 
+- [Plugin Management](/user_guide/plugin_management.md)
 - [Treesitter Parser Management](/user_guide/treesitter_parser_management.md)
 - [LSP Server Management](/user_guide/lsp_server_management.md)
-- [Plugin Management](/user_guide/plugin_management.md)
 - [Hooks](/user_guide/hooks.md)
