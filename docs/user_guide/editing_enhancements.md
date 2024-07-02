@@ -30,4 +30,28 @@
 
 <img width="70%" alt="image" src="https://github.com/linrongbin16/lin.nvim/assets/6496887/96c76e7a-ce08-418f-8c21-7b49e94fefda">
 
+- `<Leader>ar` 🄽 - Toggle structure outlines by `:AerialToggle!!`.
 
+## Open URLs in Browser
+
+?> Supported by [gx.nvim](https://github.com/chrishrb/gx.nvim).
+
+- `gx` 🄽 - Open urls under cursor in default browser.
+
+?> Edit the plugin settings in [lua/configs/chrishrb/gx-nvim](https://github.com/linrongbin16/lin.nvim/tree/main/lua/configs/chrishrb/gx-nvim).
+
+## Markdown Preview
+
+?> Supported by [markdown-preview.nvim](https://github.com/iamcco/markdown-preview.nvim).
+
+- `<Leader>mp` 🄽 - Start preview markdown file in default browser.
+
+?> Edit the plugin settings in [lua/configs/iamcco/markdown-preview-nvim](https://github.com/linrongbin16/lin.nvim/tree/main/lua/configs/iamcco/markdown-preview-nvim).
+
+## Enhanced Repeat (`.`)
+
+?> Supported by [vim-repeat](https://github.com/tpope/vim-repeat).
+
+## Auto-pair & close-tags
+
+?> Supported by [nvim-autopairs](https://github.com/windwp/nvim-autopairs) and [nvim-ts-autotag](https://github.com/windwp/nvim-ts-autotag).
