@@ -22,7 +22,7 @@ local M = {
   set_lazy_key("x", "<space>gf", "<cmd>FzfxGFiles visual<cr>", { desc = "Search git files" }),
   -- search buffers
   set_lazy_key("n", "<space>bf", "<cmd>FzfxBuffers<cr>", { desc = "Search buffers" }),
-  set_lazy_key("x", "<space>bf", "<cmd>FzfxBuffersV<cr>", { desc = "Search buffers" }),
+  set_lazy_key("x", "<space>bf", "<cmd>FzfxBuffers visual<cr>", { desc = "Search buffers" }),
   -- live grep
   set_lazy_key("n", "<space>l", "<cmd>FzfxLiveGrep<cr>", { desc = "Live grep" }),
   set_lazy_key("x", "<space>l", "<cmd>FzfxLiveGrep visual<cr>", { desc = "Live grep" }),
