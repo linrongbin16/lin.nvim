@@ -32,3 +32,29 @@
 - `<Leader>og` 🄽 - Go to outgoing calls.
 
 ?> For full key mappings, please refer to [fzfx's usage](https://github.com/linrongbin16/fzfx.nvim?#-usage).
+
+## Code Format
+
+?> Supported by [conform.nvim](https://github.com/stevearc/conform.nvim).
+
+Code format runs on file save asynchronously by default. To manually trigger code format:
+
+- `<Leader>cf` 🄽 🅇 - Synchronously format code on current buffer (normal mode) or on visual selections (visual mode).
+
+?> Edit the plugin settings in [lua/configs/stevearc/conform-nvim](https://github.com/linrongbin16/lin.nvim/tree/main/lua/configs/stevearc/conform-nvim) directory.
+
+?> Check out [LSP server management - Formatters](/user_guide/lsp_server_management.md#formatters) for how to configure code formatters.
+
+## Diagnostics
+
+Navigate different diagnostics:
+
+- `[d`/`]d` 🄽 - Go to previous(👆)/next(👇) diagnostic item.
+- `[e`/`]e` 🄽 - Go to previous(👆)/next(👇) error.
+- `[w`/`]w` 🄽 - Go to previous(👆)/next(👇) warning.
+
+Run code actions:
+
+- `<Leader>ca` 🄽 🅇 - Run code actions under cursor (normal mode) or on visual selections (visual mode).
+
+?> Check out [LSP server management](/user_guide/lsp_server_management.md) for how to configure LSP servers and linters.
