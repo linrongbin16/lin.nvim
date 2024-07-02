@@ -28,5 +28,3 @@
 - `gr` 🄽 - Go to references.
 - `gi` 🄽 - Go to implementations.
 - `gt` 🄽 - Go to type definitions.
-
-And there will popup a preview window, supported by [glance.nvim](https://github.com/DNLHC/glance.nvim) (please check out [Features - Symbol navigation](https://github.com/linrongbin16/lin.nvim/wiki/Features#symbol-navigation)).
