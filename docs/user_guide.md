@@ -1,6 +1,6 @@
 # User Guide
 
-For basic terminology and global key mappings, please check out:
+For basic concepts and global settings, please check out:
 
 - [Terminology](/user_guide/terminology.md)
 - [Global Key Mappings](/user_guide/global_key_mappings.md)
