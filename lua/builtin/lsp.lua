@@ -184,8 +184,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
     lsp_key("code_action")
     lsp_key("range_code_action")
 
-    lsp_key("clangd_switch_source_header", true)
-
     -- diagnostic
     set_key("n", "]d", goto_diagnostic(true), make_opts("Next diagnostic item"))
     set_key("n", "[d", goto_diagnostic(false), make_opts("Previous diagnostic item"))
