@@ -13,9 +13,9 @@ For specific functions (mostly supported by community plugins), please check out
 - [Global Search](/user_guide/global_search.md)
 - [Editing Enhancements](/user_guide/editing_enhancements.md)
 
-To customize plugins, treesitter parsers, LSP servers, and some personal settings, please check out:
+To customize plugins, treesitter parsers, LSP servers, and other settings, please check out:
 
 - [Treesitter Parser Management](/user_guide/treesitter_parser_management.md)
 - [LSP Server Management](/user_guide/lsp_server_management.md)
 - [Plugin Management](/user_guide/plugin_management.md)
-- [Customization](/user_guide/customization.md)
+- [Hooks](/user_guide/hooks.md)
