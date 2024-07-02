@@ -17,7 +17,10 @@ local M = {
     "<cmd>FzfxFiles resume<cr>",
     { desc = "Find files by resume last" }
   ),
-  -- search buffer
+  -- find git files
+  set_lazy_key("n", "<space>gf", "<cmd>FzfxGFiles<cr>", { desc = "Search git files" }),
+  set_lazy_key("x", "<space>gf", "<cmd>FzfxGFiles visual<cr>", { desc = "Search git files" }),
+  -- search buffers
   set_lazy_key("n", "<space>bf", "<cmd>FzfxBuffers<cr>", { desc = "Search buffers" }),
   set_lazy_key("x", "<space>bf", "<cmd>FzfxBuffersV<cr>", { desc = "Search buffers" }),
   -- live grep
@@ -36,7 +39,7 @@ local M = {
     "<cmd>FzfxLiveGrep resume<cr>",
     { desc = "Live grep by resume last" }
   ),
-  -- git
+  -- git live grep
   set_lazy_key("n", "<space>gr", "<cmd>FzfxGLiveGrep<cr>", { desc = "Git grep" }),
   set_lazy_key("x", "<space>gr", "<cmd>FzfxGLiveGrep visual<cr>", { desc = "Git grep" }),
   set_lazy_key(
@@ -52,17 +55,6 @@ local M = {
     "<cmd>FzfxGLiveGrep resume<cr>",
     { desc = "Git grep by resume last" }
   ),
-  set_lazy_key("n", "<space>gf", "<cmd>FzfxGFiles<cr>", { desc = "Search git files" }),
-  set_lazy_key(
-    "n",
-    "<space>gs",
-    "<cmd>FzfxGStatus<cr>",
-    { desc = "Search changed git files (status)" }
-  ),
-  set_lazy_key("n", "<space>gb", "<cmd>FzfxGBranches<cr>", { desc = "Search git branches" }),
-  set_lazy_key("n", "<space>gc", "<cmd>FzfxGCommits<cr>", { desc = "Search git commits" }),
-  -- vim commands
-  set_lazy_key("n", "<space>cm", "<cmd>FzfxCommands<cr>", { desc = "Search vim commands" }),
   -- diagnostics
   set_lazy_key(
     "n",
@@ -76,8 +68,6 @@ local M = {
     "<cmd>FzfxLspDiagnostics visual<cr>",
     { desc = "Search lsp diagnostics" }
   ),
-  -- file explorer
-  set_lazy_key("n", "<space>xp", "<cmd>FzfxFileExplorer<cr>", { desc = "File Explorer" }),
 }
 
 return M
