@@ -42,19 +42,6 @@ local M = {
   -- git live grep
   set_lazy_key("n", "<space>gr", "<cmd>FzfxGLiveGrep<cr>", { desc = "Git grep" }),
   set_lazy_key("x", "<space>gr", "<cmd>FzfxGLiveGrep visual<cr>", { desc = "Git grep" }),
-  set_lazy_key(
-    "n",
-    "<space>wgr",
-    "<cmd>FzfxGLiveGrep cword<cr>",
-    { desc = "Git grep by cursor word" }
-  ),
-  set_lazy_key("n", "<space>pgr", "<cmd>FzfxGLiveGrep put<cr>", { desc = "Git grep by yank text" }),
-  set_lazy_key(
-    "n",
-    "<space>rgr",
-    "<cmd>FzfxGLiveGrep resume<cr>",
-    { desc = "Git grep by resume last" }
-  ),
   -- diagnostics
   set_lazy_key(
     "n",
