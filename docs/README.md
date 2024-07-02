@@ -27,7 +27,7 @@ This ultra config solves below issues:
 
 When maintaining this config, I always follow the [philosophy](/philosophy.md).
 
-Checkout [features](/features.md) for what it can do, [colorschemes](/colorschemes.md) for pretty colorschemes and icons.
+Check out [features](/features.md) for what it can do, [colorschemes](/colorschemes.md) for pretty colorschemes and icons.
 
 ## Get started
 
@@ -70,11 +70,11 @@ For more details, please check out [Installation](/install.md).
 
 Patched GUI font is mandatory for displaying icons.
 
-Even `install.sh` (`install.ps1`) already installed the [Hack Nerd Font](https://github.com/ryanoasis/nerd-fonts/tree/c173f661a0ed03bc537d31a79670bc03b586251d/patched-fonts/Hack), you still need to manually config it in your terminal, e.g. [gnome-terminal](https://help.gnome.org/users/gnome-terminal/stable/) (Ubuntu), [item2](https://iterm2.com/) (MacOS), [Windows Terminal](https://github.com/microsoft/terminal) (Windows), [kitty](https://sw.kovidgoyal.net/kitty/), [alacritty](https://github.com/alacritty/alacritty), [wezterm](https://wezfurlong.org/wezterm/), etc.
+Even [Hack Nerd Font](https://github.com/ryanoasis/nerd-fonts/tree/c173f661a0ed03bc537d31a79670bc03b586251d/patched-fonts/Hack) is been installed during installation, you still need to manually config it in your terminal, such as [gnome-terminal](https://help.gnome.org/users/gnome-terminal/stable/) (Ubuntu), [item2](https://iterm2.com/) (MacOS), [Windows Terminal](https://github.com/microsoft/terminal) (Windows), [kitty](https://sw.kovidgoyal.net/kitty/), [alacritty](https://github.com/alacritty/alacritty), [wezterm](https://wezfurlong.org/wezterm/), etc.
 
 ## User guide
 
-Please check out [User Guide](https://github.com/linrongbin16/lin.nvim/wiki/User-Guide) for full features, key mappings and customizations.
+Check out [user guide](https://github.com/linrongbin16/lin.nvim/wiki/User-Guide) for full features, plugins, key mappings and customizations.
 
 ## Contribute
 
