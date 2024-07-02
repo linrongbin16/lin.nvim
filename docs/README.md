@@ -27,7 +27,7 @@ This ultra config solves below issues:
 
 When maintaining this config, I always follow the [philosophy](/philosophy.md).
 
-Checkout [features](/features.md) for what it can do, and [colorschemes](/colorschemes.md) for pretty colorschemes and icons.
+Checkout [features](/features.md) for what it can do, [colorschemes](/colorschemes.md) for pretty colorschemes and icons.
 
 ## Get started
 
