@@ -122,14 +122,6 @@ local lsp_goto_mapping = {
     },
     desc = "Run code actions",
   },
-  clangd_switch_source_header = {
-    mode = "n",
-    lhs = "<Leader>sw",
-    rhs = {
-      { "ClangdSwitchSourceHeader" },
-    },
-    desc = "Switch between C/C++ header and source files",
-  },
 }
 
 local function lsp_key(name, optional)
