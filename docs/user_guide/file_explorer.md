@@ -34,7 +34,7 @@ Here're some most useful keys:
 - `W` (new, default `z` is removed) 🄽 - Collapse all directories.
 - `E` (new, default `e` is removed) 🄽 - Expand all directories.
 - `<Leader>.`/`<Leader>,` (new) 🄽 - Resize explorer width bigger/smaller.
-- `]c`/`[c` (default) 🄽 - Go to next(👇)/previous(👆) git item. You can also use the default `]g`/`[g`.
+- `]c`/`[c` (new), `]g`/`[g` (default) 🄽 - Go to next(👇)/previous(👆) git item.
 - `q` (default) 🄽 - Quit.
 - `?` (default) 🄽 - Help.
 
