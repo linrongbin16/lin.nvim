@@ -44,6 +44,8 @@
 
 ?> Supported by [markdown-preview.nvim](https://github.com/iamcco/markdown-preview.nvim).
 
+<img width="100%" alt="image" src="https://github.com/linrongbin16/lin.nvim/assets/6496887/e4523d81-6ca4-42f1-a462-41f6ea7bde2e">
+
 - `<Leader>mp` 🄽 - Start preview markdown file in default browser.
 
 ?> Edit the plugin settings in [lua/configs/iamcco/markdown-preview-nvim](https://github.com/linrongbin16/lin.nvim/tree/main/lua/configs/iamcco/markdown-preview-nvim).
