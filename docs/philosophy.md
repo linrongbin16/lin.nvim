@@ -28,17 +28,9 @@ Support most popular desktop operating systems, i.e. Windows, Linux and Mac OS. 
 
 ## Keymap
 
-### Ctrl+? Keys
+### CTRL+? Keys
 
-> For Mac OS it's cmd+? keys.
-
-- `ctrl-a`: Select all.
-- `ctrl-c`: Copy.
-- `ctrl-v`: Paste.
-- `ctrl-x`: Cut.
-- `ctrl-s`: Save.
-- `ctrl-z`: Undo.
-- ...
+`CTRL+?` (and `CMD+?` for macOS) keys follow most editors' behavior, i.e. use `CTRL+A` to select all, `CTRL+C` to copy, `CTRL+P` to paste, `CTRL+S` to save file, `CTRL+Z` to undo, etc. And copy/paste work with system clipboard.
 
 ### Vim Keys
 
