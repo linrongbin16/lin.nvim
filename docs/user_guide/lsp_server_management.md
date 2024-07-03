@@ -1,8 +1,6 @@
 # LSP Server Management
 
-Unlike [coc.nvim](https://github.com/neoclide/coc.nvim), there's no such all-in-one framework in Neovim's world.
-
-But with the help of [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig), [mason.nvim](https://github.com/williamboman/mason.nvim), [none-ls.nvim](https://github.com/nvimtools/none-ls.nvim) and several other plugins, managing lsp servers is just a piece of cake now.
+Unlike [coc.nvim](https://github.com/neoclide/coc.nvim), there's no such all-in-one framework in Neovim's world. But with the help of a bunch of plugins, managing lsp servers is just a piece of cake now.
 
 ## Introduction
 
