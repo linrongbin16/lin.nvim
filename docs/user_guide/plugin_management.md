@@ -1,5 +1,7 @@
 # Plugin Management
 
+## Configurations
+
 This distro uses [lazy.nvim](https://github.com/folke/lazy.nvim) as its plugin manager, all plugins are listed in [lua/plugins/init.lua](https://github.com/linrongbin16/lin.nvim/tree/main/lua/plugins/init.lua).
 
 <!-- Screenshots are recorded with 150x40 kitty terminal -->
@@ -21,3 +23,11 @@ The hooks are doing several things for us:
 
 - For each plugin, it has a separated configuration directory, the file path follows the `organization/repository` format. Since lua syntax treats dot `.` as module separator (i.e. file path separator), all dots `.` in GitHub's organization and repository are replaced with dash `-`, for example the plugin `fzfx.nvim` are placed in [lua/configs/linrongbin16/fzfx-nvim](https://github.com/linrongbin16/lin.nvim/tree/main/lua/configs/linrongbin16/fzfx-nvim) directory.
 - The default `init`, `config`, `keys` configurations load either lua (`init.lua`, `config.lua`, `keys.lua`) or vim scripts (`init.vim`, `config.vim`, `keys.vim`). While user can replace these defaults with their own scripts with a `user_` prefix, i.e. `user_init.lua`, `user_config.lua`, `user_keys.lua` and `user_init.vim`, `user_config.vim`. The hooks will first try to load config files with `user_` prefix, then fallback to default config files.
+
+## Add/Disable Plugins
+
+This distro embedded a set of plugins by default, but a thousand (Neo)vim users will have a thousand (Neo)vim configurations, it allows users to add other plugins or disable the embedded plugins.
+
+To add a new plugin, please add a `lua/plugins/users.lua` file that follows the same structure of the `lua/plugins/init.lua`. You can simply copy and rename the sample file [lua/plugins/users_sample.lua](https://github.com/linrongbin16/lin.nvim/tree/main/lua/plugins/users_sample.lua) to enable it, it already has a lot of other recommended plugins, which may suit your needs.
+
+To disable an embedded plugin, please add a `lua/plugins_blacklist.lua` file that contains a set of plugin names formatted in `organization/repository`. You can simply copy and rename the sample file [lua/plugins_blacklist_sample.lua](https://github.com/linrongbin16/lin.nvim/tree/main/lua/plugins_blacklist_sample.lua) to enable it.
