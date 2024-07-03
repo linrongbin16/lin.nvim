@@ -32,4 +32,4 @@ To add a new plugin, please add a `lua/plugins/users.lua` file that follows the 
 
 To disable an embedded plugin, please add a `lua/plugins_blacklist.lua` file that contains a set of plugin names formatted in `organization/repository`. You can simply copy and rename the sample file [lua/plugins_blacklist_sample.lua](https://github.com/linrongbin16/lin.nvim/tree/main/lua/plugins_blacklist_sample.lua) to enable it.
 
-?> To understand how lazy loads the plugins list module? Check out [lua/configs/folke/lazy-nvim/config.lua](https://github.com/linrongbin16/lin.nvim/blob/d910b5e4209ebf414aefde5174f944ad5e18c82e/lua/configs/folke/lazy-nvim/config.lua?plain=1).
+?> To understand how lazy.nvim loading the plugins list module? Check out [lua/configs/folke/lazy-nvim/config.lua](https://github.com/linrongbin16/lin.nvim/blob/d910b5e4209ebf414aefde5174f944ad5e18c82e/lua/configs/folke/lazy-nvim/config.lua?plain=1).
