@@ -20,3 +20,4 @@
     - [Treesitter Parser Management](/user_guide/treesitter_parser_management.md)
     - [LSP Server Management](/user_guide/lsp_server_management.md)
     - [Other Settings](/user_guide/other_settings.md)
+- [Sponsor](/sponsor.md)
