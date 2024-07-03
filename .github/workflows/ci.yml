@@ -62,23 +62,25 @@ jobs:
     name: Ubuntu Installer
     runs-on: ubuntu-latest
     steps:
+      - uses: mozilla-actions/sccache-action@v0.0.5
       - name: Get branch
         shell: bash
         run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
         id: extract_branch
       - name: Install lin.nvim
+        env:
+          SCCACHE_GHA_ENABLED: "true"
+          RUSTC_WRAPPER: "sccache"
         run: |
           set -x
           echo '${{ steps.extract_branch.outputs.branch }}'
           export BRANCH_NAME=${{ steps.extract_branch.outputs.branch }}
-          sudo sh -c "git clone --single-branch --branch $BRANCH_NAME --depth=1 https://github.com/linrongbin16/lin.nvim ~/.nvim && cd ~/.nvim && sudo bash -euxo pipefail ./install"
+          sudo sh -c "git clone --single-branch --branch $BRANCH_NAME --depth=1 https://github.com/linrongbin16/lin.nvim ~/.nvim && cd ~/.nvim && bash -euxo pipefail ./install"
   macos_installer:
     name: MacOS Installer
     runs-on: macos-latest
     steps:
-      - uses: maxim-lobanov/setup-xcode@v1
-        with:
-          xcode-version: latest-stable
+      - uses: mozilla-actions/sccache-action@v0.0.5
       - uses: Homebrew/actions/setup-homebrew@master
       - name: Get branch
         shell: bash
@@ -86,6 +88,9 @@ jobs:
         id: extract_branch
       - name: Install lin.nvim
         shell: bash
+        env:
+          SCCACHE_GHA_ENABLED: "true"
+          RUSTC_WRAPPER: "sccache"
         run: |
           set -x
           echo '${{ steps.extract_branch.outputs.branch }}'

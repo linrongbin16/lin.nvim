@@ -28,7 +28,6 @@ lin.nvim is a highly configured [Neovim](https://neovim.io/) distribution integr
 ## Table of Contents
 
 - [Introduction](#introduction)
-- [Features](#features)
 - [Get started](#get-started)
   - [MacOS/Linux](#macoslinux)
   - [Windows](#windows)
@@ -41,17 +40,13 @@ Aim to be out-of-box, IDE-like editing experience, performant, lightweight and f
 
 This ultra config solves below issues:
 
-- Duplicate installation on different OS and machines? All done by one-line command (not on Windows for now), same behaviors on all platforms.
-- Time-costing configurations? All configs follow community best practice, vim tradition and most popular editors (just like [vscode](https://code.visualstudio.com/)).
-- Lack of IDE-like features (auto-complete, diagnostics, code-format, lint)? [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig), [nvim-cmp](https://github.com/hrsh7th/nvim-cmp), [mason.nvim](https://github.com/williamboman/mason.nvim), [none-ls.nvim](https://github.com/nvimtools/none-ls.nvim) and a bunch of language extensions are embedded.
-- Naive UI? File explorer, git status, tabs, icons and most popular colorschemes integrated (again, just like vscode).
-- More efficient editing? Most popular editing improving plugins embedded, and well cooperated for best user experience and performance.
+- Duplicate installation on different OS and machines? - All done by one-line command (not on Windows for now), same behaviors on all platforms.
+- Time-costing configurations? - All configs follow community best practice, vim tradition and most popular editors (just like [vscode](https://code.visualstudio.com/)).
+- Lack of IDE-like features (auto-complete, diagnostics, code-format, lint)? - [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig), [nvim-cmp](https://github.com/hrsh7th/nvim-cmp), [mason.nvim](https://github.com/williamboman/mason.nvim), [none-ls.nvim](https://github.com/nvimtools/none-ls.nvim) and a bunch of language extensions are embedded.
+- Naive UI? - File explorer, git status, tabs, icons and most popular colorschemes integrated (again, just like vscode).
+- More efficient editing? - Most popular editing improving plugins embedded, and well cooperated for best user experience and performance.
 
-When maintaining this config, I always follow the [philosophy](https://github.com/linrongbin16/lin.nvim/wiki/Philosophy).
-
-## Features
-
-Please check out [Features](https://github.com/linrongbin16/lin.nvim/wiki/Features) & [Colorschemes](https://github.com/linrongbin16/lin.nvim/wiki/Colorschemes).
+Check out [features](https://linrongbin16.github.io/lin.nvim/#/features) for what it can do, [colorschemes](https://linrongbin16.github.io/lin.nvim/#/colorschemes) for pretty colorschemes and icons, the [philosophy](https://linrongbin16.github.io/lin.nvim/#/philosophy) I follow when maintaining this distro.
 
 ## Get started
 
@@ -90,17 +85,17 @@ And that's all of it.
    .\install.ps1
    ```
 
-For more details, please check out [Installation](https://github.com/linrongbin16/lin.nvim/wiki/Install,-Upgrade-&-Uninstall).
+Check out [installation](https://linrongbin16.github.io/lin.nvim/#/install) for more details.
 
-### Patched GUI Font
+### Patched Font
 
-Patched GUI font is mandatory for icons.
+Patched font is mandatory for displaying icons.
 
-Even `install.sh` (`install.ps1`) already installed the [Hack Nerd Font](https://github.com/ryanoasis/nerd-fonts/tree/c173f661a0ed03bc537d31a79670bc03b586251d/patched-fonts/Hack), you still need to manually config it in your terminal, e.g. [gnome-terminal](https://help.gnome.org/users/gnome-terminal/stable/) (Ubuntu), [item2](https://iterm2.com/) (MacOS), [Windows Terminal](https://github.com/microsoft/terminal) (Windows), [kitty](https://sw.kovidgoyal.net/kitty/), [alacritty](https://github.com/alacritty/alacritty), [wezterm](https://wezfurlong.org/wezterm/), etc.
+Even [Hack Nerd Font](https://github.com/ryanoasis/nerd-fonts/tree/c173f661a0ed03bc537d31a79670bc03b586251d/patched-fonts/Hack) is been installed during installation, you still need to manually config it in your terminal, such as [gnome-terminal](https://help.gnome.org/users/gnome-terminal/stable/) (Ubuntu), [item2](https://iterm2.com/) (MacOS), [Windows Terminal](https://github.com/microsoft/terminal) (Windows), [kitty](https://sw.kovidgoyal.net/kitty/), [alacritty](https://github.com/alacritty/alacritty), [wezterm](https://wezfurlong.org/wezterm/), etc.
 
 ## User guide
 
-Please check out [User Guide](https://github.com/linrongbin16/lin.nvim/wiki/User-Guide) for full features, key mappings and customizations.
+Check out [user guide](https://linrongbin16.github.io/lin.nvim/#/user_guide) for full features, plugins, key mappings and customizations.
 
 ## Contribute
 
@@ -109,5 +104,5 @@ Please open [issue](https://github.com/linrongbin16/lin.nvim/issues)/[PR](https:
 Like lin.nvim? Consider
 
 [![Github Sponsor](https://img.shields.io/badge/-Sponsor%20Me%20on%20Github-magenta?logo=github&logoColor=white)](https://github.com/sponsors/linrongbin16)
-[![Wechat Pay](https://img.shields.io/badge/-Tip%20Me%20on%20WeChat-brightgreen?logo=wechat&logoColor=white)](https://github.com/linrongbin16/lin.nvim/wiki/Sponsor)
-[![Alipay](https://img.shields.io/badge/-Tip%20Me%20on%20Alipay-blue?logo=alipay&logoColor=white)](https://github.com/linrongbin16/lin.nvim/wiki/Sponsor)
+[![Wechat Pay](https://img.shields.io/badge/-Tip%20Me%20on%20WeChat-brightgreen?logo=wechat&logoColor=white)](https://linrongbin16.github.io/lin.nvim/#/sponsor?id=wechat-pay)
+[![Alipay](https://img.shields.io/badge/-Tip%20Me%20on%20Alipay-blue?logo=alipay&logoColor=white)](https://linrongbin16.github.io/lin.nvim/#/sponsor?id=alipay)

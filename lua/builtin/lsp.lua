@@ -122,14 +122,6 @@ local lsp_goto_mapping = {
     },
     desc = "Run code actions",
   },
-  clangd_switch_source_header = {
-    mode = "n",
-    lhs = "<Leader>sw",
-    rhs = {
-      { "ClangdSwitchSourceHeader" },
-    },
-    desc = "Switch between C/C++ header and source files",
-  },
 }
 
 local function lsp_key(name, optional)
@@ -191,8 +183,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
     lsp_key("rename")
     lsp_key("code_action")
     lsp_key("range_code_action")
-
-    lsp_key("clangd_switch_source_header", true)
 
     -- diagnostic
     set_key("n", "]d", goto_diagnostic(true), make_opts("Next diagnostic item"))
