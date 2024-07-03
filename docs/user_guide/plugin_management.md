@@ -26,7 +26,7 @@ The hooks are doing several things for us:
 
 ## Add/Disable Plugins
 
-This distro embedded a set of plugins by default, but a thousand (Neo)vim users will have a thousand (Neo)vim configurations, it allows users to add other plugins or disable the embedded plugins.
+This distro embedded a set of plugins by default, but a thousand (Neo)vim users will have a thousand (Neo)vim configurations, it allows users to add new and disable embedded.
 
 To add a new plugin, please add a `lua/plugins/users.lua` file that follows the same structure of the `lua/plugins/init.lua`. You can simply copy and rename the sample file [lua/plugins/users_sample.lua](https://github.com/linrongbin16/lin.nvim/tree/main/lua/plugins/users_sample.lua) to enable it, it already has a lot of other recommended plugins, which may suit your needs.
 
