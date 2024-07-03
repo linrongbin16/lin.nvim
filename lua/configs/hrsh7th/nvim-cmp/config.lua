@@ -9,17 +9,11 @@ lsp_defaults.capabilities = vim.tbl_deep_extend(
 )
 
 -- nvim-cmp
--- require('luasnip.loaders.from_vscode').lazy_load()
 local cmp = require("cmp")
 local luasnip = require("luasnip")
 require("luasnip.loaders.from_vscode").lazy_load()
 local select_opts = { behavior = cmp.SelectBehavior.Select }
-local setup_handler = {
-  -- performance = {
-  -- debounce = 50,
-  -- throttle = 50,
-  -- fetching_timeout = 50,
-  -- },
+local setup_opts = {
   completion = {
     completeopt = "menu,menuone,noinsert",
     keyword_length = 1,
@@ -41,7 +35,6 @@ local setup_handler = {
     documentation = cmp.config.window.bordered(),
   },
   formatting = {
-    -- fields = { "menu", "abbr", "kind" },
     format = require("lspkind").cmp_format({
       mode = "symbol",
       symbol_map = { Copilot = "", Codeium = "" },
@@ -104,13 +97,7 @@ local setup_handler = {
   }),
 }
 
-local ok, user_setup_handler = pcall(require, "configs.hrsh7th.nvim-cmp.setup_handler")
-
-if ok then
-  setup_handler = vim.tbl_deep_extend("force", vim.deepcopy(setup_handler), user_setup_handler)
-end
-
-cmp.setup(setup_handler)
+cmp.setup(setup_opts)
 
 -- Set configuration for specific filetype.
 cmp.setup.filetype("gitcommit", {
