@@ -12,8 +12,8 @@ To bring LSP based IDE features to user, quite a few plugins are assembled:
 - [mason.nvim](https://github.com/williamboman/mason.nvim): It helps manage all the lsp servers: install, remove and update. Usually you need to manually maintain lsp servers for programming language (`clangd`, `pyright`, `jsonls`, etc), but with this plugin, now you can just type `:Mason` to finish all these things.
 - [mason-lspconfig.nvim](https://github.com/williamboman/mason-lspconfig.nvim): It fills the gap between `mason.nvim` and `nvim-lspconfig.nvim`. And you can also:
   1. Ensure some lsp servers installed (please checkout [williamboman/mason-lspconfig-nvim/ensure_installed_sample.lua](https://github.com/linrongbin16/lin.nvim/blob/744e4c7fd9e0c55630a4881279eefe671bfcee43/lua/configs/williamboman/mason-lspconfig-nvim/ensure_installed_sample.lua)).
-  2. Avoid duplicated default setup handlers, e.g. `require('lspconfig')[server_name].setup()` (please checkout [williamboman/mason-lspconfig-nvim/setup_handlers_sample.lua](https://github.com/linrongbin16/lin.nvim/blob/744e4c7fd9e0c55630a4881279eefe671bfcee43/lua/configs/williamboman/mason-lspconfig-nvim/setup_handlers_sample.lua)).
-- [none-ls.nvim](https://github.com/nvimtools/none-ls.nvim)(null-ls.nvim reloaded): It provides extra formatter/linter/code actions/diagnostics by injecting lsp server. A single LSP server cannot meet in many developing scenarios, for example use `luacheck` as lua linter, . In this case, we can register them as null-ls sources, thus lint code through lsp methods. Others such as `pylint`, `eslint`, `prettier`, `grammarly` are the same.
+  2. Automatically setup LSP servers, i.e. avoid duplicated calls on `require('lspconfig')[server_name].setup()` API.
+- [none-ls.nvim](https://github.com/nvimtools/none-ls.nvim)(null-ls.nvim reloaded): It provides extra formatter/linter/code actions/diagnostics by injecting lsp server. A single LSP server cannot meet in many developing scenarios, for example use `luacheck` as lua linter, `eslint` as javascript linter. With this plugin, it registers them as none-ls sources, so the lint works through LSP protocols, and the same goes for code actions, diagnostics, formatters, etc.
 
   ?> This distro uses [conform.nvim](https://github.com/stevearc/conform.nvim) as code formatter, which works compatible with none-ls's sources, i.e. conform will use either an explicitly configured code formatter, or fallback to LSP formatting method including none-ls's sources.
 
@@ -27,22 +27,13 @@ To bring LSP based IDE features to user, quite a few plugins are assembled:
 
 ### LSP Server
 
-Usually all you need to install a lsp server is simply by one-line command `:Mason`, and that's all.
+With the `:Mason` command, it usually satisfies most use cases.
 
-But in case you want more control on lsp server, please check out the following sections.
+But in case you want to ensure some LSP servers installed, please add the `lua/configs/williamboman/mason-lspconfig-nvim/ensure_installed.lua` file that returns a list of LSP server names. You can simply copy and rename the sample file [lua/configs/williamboman/mason-lspconfig-nvim/ensure_installed_sample.lua](https://github.com/linrongbin16/lin.nvim/blob/744e4c7fd9e0c55630a4881279eefe671bfcee43/lua/configs/williamboman/mason-lspconfig-nvim/ensure_installed_sample.lua) to enable it.
 
-1. Ensure installed
+To customize a LSP server setup configuration, please add the `lua/configs/williamboman/mason-lspconfig-nvim/setup_handlers.lua` file that returns the `setup_handlers` table passed to `require("mason-lspconfig").setup_handlers()` API as parameter. You can simply copy and rename the sample file [lua/configs/williamboman/mason-lspconfig-nvim/setup_handlers_sample.lua](https://github.com/linrongbin16/lin.nvim/blob/744e4c7fd9e0c55630a4881279eefe671bfcee43/lua/configs/williamboman/mason-lspconfig-nvim/setup_handlers_sample.lua) to enable it.
 
-   To ensure a lsp server installed, configure the file [williamboman/mason-lspconfig-nvim/ensure_installed.lua](https://github.com/linrongbin16/lin.nvim/blob/744e4c7fd9e0c55630a4881279eefe671bfcee43/lua/configs/williamboman/mason-lspconfig-nvim/ensure_installed_sample.lua). Here's an example:
-
-   ```lua
-   local ensure_installed = {
-     "lua_ls", -- lua
-     "vimls", -- vim
-     "jsonls", -- json
-   }
-   return ensure_installed
-   ```
+?> Check out [mason-lspconfig's documentation]()
 
 2. Customize LSP server
 
