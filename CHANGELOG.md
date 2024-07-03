@@ -1,5 +1,13 @@
 # Changelog
 
+## [4.1.2](https://github.com/linrongbin16/lin.nvim/compare/v4.1.1...v4.1.2) (2024-07-03)
+
+
+### Bug Fixes
+
+* **fzfx.nvim:** fix 'FzfxBuffersV' to 'FzfxBuffers visual' ([#581](https://github.com/linrongbin16/lin.nvim/issues/581)) ([fbfc5b2](https://github.com/linrongbin16/lin.nvim/commit/fbfc5b23a47a30c89bee86a6ed729077bc72cd0f))
+* **lsp:** remove 'clangd_switch_source_header' ([#579](https://github.com/linrongbin16/lin.nvim/issues/579)) ([9cc7215](https://github.com/linrongbin16/lin.nvim/commit/9cc7215394f7bc75c17e0b75ddda4e521127ad48))
+
 ## [4.1.1](https://github.com/linrongbin16/lin.nvim/compare/v4.1.0...v4.1.1) (2024-06-12)
 
 
