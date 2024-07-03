@@ -64,9 +64,9 @@ And that's all of it.
 
 For more details, please check out [Installation](/install.md).
 
-### Patched GUI Font
+### Patched Font
 
-Patched GUI font is mandatory for displaying icons.
+Patched font is mandatory for displaying icons.
 
 Even [Hack Nerd Font](https://github.com/ryanoasis/nerd-fonts/tree/c173f661a0ed03bc537d31a79670bc03b586251d/patched-fonts/Hack) is been installed during installation, you still need to manually config it in your terminal, such as [gnome-terminal](https://help.gnome.org/users/gnome-terminal/stable/) (Ubuntu), [item2](https://iterm2.com/) (MacOS), [Windows Terminal](https://github.com/microsoft/terminal) (Windows), [kitty](https://sw.kovidgoyal.net/kitty/), [alacritty](https://github.com/alacritty/alacritty), [wezterm](https://wezfurlong.org/wezterm/), etc.
 
