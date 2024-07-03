@@ -2,65 +2,34 @@
 
 Unlike [coc.nvim](https://github.com/neoclide/coc.nvim), there's no such all-in-one framework in Neovim's world.
 
-But with the help of [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig), [mason.nvim](https://github.com/williamboman/mason.nvim), [none-ls.nvim](https://github.com/nvimtools/none-ls.nvim), [neoconf.nvim](https://github.com/folke/neoconf.nvim) and several other plugins, managing lsp servers is just a piece of cake now.
+But with the help of [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig), [mason.nvim](https://github.com/williamboman/mason.nvim), [none-ls.nvim](https://github.com/nvimtools/none-ls.nvim) and several other plugins, managing lsp servers is just a piece of cake now.
 
-## Plugins List
+## Introduction
 
-To bring lsp based auto-complete to user, quite a few plugins are assembled:
+To bring LSP based IDE features to user, quite a few plugins are assembled:
 
-### [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig)
+- [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig): Infrastructure for neovim lsp configurations, pre-requirement for all other lsp plugins.
+- [mason.nvim](https://github.com/williamboman/mason.nvim): It helps manage all the lsp servers: install, remove and update. Usually you need to manually maintain lsp servers for programming language (`clangd`, `pyright`, `jsonls`, etc), but with this plugin, now you can just type `:Mason` to finish all these things.
+- [mason-lspconfig.nvim](https://github.com/williamboman/mason-lspconfig.nvim): It fills the gap between `mason.nvim` and `nvim-lspconfig.nvim`. And you can also:
+  1. Ensure some lsp servers installed (please checkout [williamboman/mason-lspconfig-nvim/ensure_installed_sample.lua](https://github.com/linrongbin16/lin.nvim/blob/744e4c7fd9e0c55630a4881279eefe671bfcee43/lua/configs/williamboman/mason-lspconfig-nvim/ensure_installed_sample.lua)).
+  2. Avoid duplicated default setup handlers, e.g. `require('lspconfig')[server_name].setup()` (please checkout [williamboman/mason-lspconfig-nvim/setup_handlers_sample.lua](https://github.com/linrongbin16/lin.nvim/blob/744e4c7fd9e0c55630a4881279eefe671bfcee43/lua/configs/williamboman/mason-lspconfig-nvim/setup_handlers_sample.lua)).
+- [none-ls.nvim](https://github.com/nvimtools/none-ls.nvim)(null-ls.nvim reloaded): It provides extra formatter/linter/code actions/diagnostics by injecting lsp server. A single LSP server cannot meet in many developing scenarios, for example use `luacheck` as lua linter, . In this case, we can register them as null-ls sources, thus lint code through lsp methods. Others such as `pylint`, `eslint`, `prettier`, `grammarly` are the same.
 
-Infrastructure for neovim lsp configurations, pre-requirement for all other lsp plugins.
+  ?> This distro uses [conform.nvim](https://github.com/stevearc/conform.nvim) as code formatter, which works compatible with none-ls's sources, i.e. conform will use either an explicitly configured code formatter, or fallback to LSP formatting method including none-ls's sources.
 
-### [nvim-cmp](https://github.com/hrsh7th/nvim-cmp)
+- [mason-null-ls.nvim](https://github.com/jay-babu/mason-null-ls.nvim): It lets `none-ls.nvim` directly using packages managed by `mason.nvim`. And you can also:
+  1. Ensure `none-ls.nvim` sources installed via `mason.nvim` (please checkout [jay-babu/mason-null-ls-nvim/ensure_installed_sample.lua](https://github.com/linrongbin16/lin.nvim/blob/744e4c7fd9e0c55630a4881279eefe671bfcee43/lua/configs/jay-babu/mason-null-ls-nvim/ensure_installed_sample.lua)).
+  2. Automatically register them as `none-ls.nvim` sources (please checkout [jay-babu/mason-null-ls-nvim/setup_handlers_sample.lua](https://github.com/linrongbin16/lin.nvim/blob/744e4c7fd9e0c55630a4881279eefe671bfcee43/lua/configs/jay-babu/mason-null-ls-nvim/setup_handlers_sample.lua)).
 
-Auto-complete engine, it collects complete sources from other extensions, then provides suggestions when user typing:
-
-- [cmp-nvim-lsp](https://github.com/hrsh7th/cmp-nvim-lsp): collect from lsp servers.
-- [cmp-buffer](https://github.com/hrsh7th/cmp-buffer): collect from vim buffers.
-- [cmp-async-path](https://github.com/FelipeLema/cmp-async-path): collect from filesystem path.
-- [cmp-cmdline](https://github.com/hrsh7th/cmp-cmdline): collect from vim command-line.
-- [LuaSnip](https://github.com/L3MON4D3/LuaSnip) and [cmp_luasnip](https://github.com/saadparwaiz1/cmp_luasnip): collect from snippet.
-
-### [mason.nvim](https://github.com/williamboman/mason.nvim)/[mason-lspconfig.nvim](https://github.com/williamboman/mason-lspconfig.nvim)
-
-`mason` helps manage all the lsp servers: install, remove and update. Usually you need to manually maintain lsp servers for programming language (`clangd`, `pyright`, `jsonls`, etc), but with this plugin, now you can just type `:Mason` to finish all these things.
-
-`mason-lspconfig` fills the gap between `mason.nvim` and `nvim-lspconfig.nvim`. With this plugin, now you can:
-
-1. Ensure some lsp servers installed (please checkout [williamboman/mason-lspconfig-nvim/ensure_installed_sample.lua](https://github.com/linrongbin16/lin.nvim/blob/744e4c7fd9e0c55630a4881279eefe671bfcee43/lua/configs/williamboman/mason-lspconfig-nvim/ensure_installed_sample.lua)).
-2. Avoid duplicated default setup handlers, e.g. `require('lspconfig')[server_name].setup()` (please checkout [williamboman/mason-lspconfig-nvim/setup_handlers_sample.lua](https://github.com/linrongbin16/lin.nvim/blob/744e4c7fd9e0c55630a4881279eefe671bfcee43/lua/configs/williamboman/mason-lspconfig-nvim/setup_handlers_sample.lua)).
-
-### [none-ls.nvim](https://github.com/nvimtools/none-ls.nvim)(null-ls.nvim reloaded)/[mason-null-ls.nvim](https://github.com/jay-babu/mason-null-ls.nvim)
-
-`none-ls` (null-ls) provide extra formatter/linter/code actions/diagnostics by injecting lsp server, with its sources.
-
-> [!IMPORTANT]
->
-> In this nvim configuration, we're using [conform.nvim](https://github.com/stevearc/conform.nvim) as formatter instead of none-ls, because it's much more performant and can correctly handle the confliction when multiple lsp servers trying to format the same buffer.
-
-Sometimes just a lsp server is not enough, for example usually I use `luacheck` as an extra static lua syntax checker on a lua project, while it cannot be registered as a lsp server. In this case, we can register them as null-ls sources, thus lint code through lsp methods. Others such as `pylint`, `eslint`, `prettier`, `grammarly` are the same.
-
-`mason-null-ls` can let `none-ls.nvim` use packages from `mason.nvim`, with this plugin you can:
-
-1. Ensure `none-ls.nvim` sources installed via `mason.nvim` (please checkout [jay-babu/mason-null-ls-nvim/ensure_installed_sample.lua](https://github.com/linrongbin16/lin.nvim/blob/744e4c7fd9e0c55630a4881279eefe671bfcee43/lua/configs/jay-babu/mason-null-ls-nvim/ensure_installed_sample.lua)).
-2. Automatically register them as `none-ls.nvim` sources (please checkout [jay-babu/mason-null-ls-nvim/setup_handlers_sample.lua](https://github.com/linrongbin16/lin.nvim/blob/744e4c7fd9e0c55630a4881279eefe671bfcee43/lua/configs/jay-babu/mason-null-ls-nvim/setup_handlers_sample.lua)).
-
-### [Neoconf.nvim](https://github.com/folke/neoconf.nvim)
-
-Configure lsp servers like [coc.nvim](https://github.com/neoclide/coc.nvim), also provide project-wise lsp configurations.
-
-The global configuration is [neoconf.json](https://github.com/linrongbin16/lin.nvim/blob/744e4c7fd9e0c55630a4881279eefe671bfcee43/neoconf_sample.json).
-
-> There're more UI improvement plugins leave to you to find out.
+?> There're more UI improving plugins, I leave them to you to find out.
 
 ## Configuration
+
+### LSP Server
 
 Usually all you need to install a lsp server is simply by one-line command `:Mason`, and that's all.
 
 But in case you want more control on lsp server, please check out the following sections.
-
-### LSP Server
 
 1. Ensure installed
 
