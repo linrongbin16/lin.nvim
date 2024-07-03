@@ -2,6 +2,8 @@
 
 This distro uses [lazy.nvim](https://github.com/folke/lazy.nvim) as its plugin manager, all plugins are listed in [lua/plugins/init.lua](https://github.com/linrongbin16/lin.nvim/tree/main/lua/plugins/init.lua).
 
+<!-- Screenshots are recorded with 150x40 kitty terminal -->
+
 <img width="70%" alt="image" src="https://github.com/linrongbin16/lin.nvim/assets/6496887/81e18da9-d3d8-498a-b76d-7d02cdb90dd7">
 
 By following lazy's [Plugin Spec](https://lazy.folke.io/spec), all the plugins are specified with several options such as `init`, `config`, `keys`, `cmd`, `event`, etc. Here we need to specifically pay attention to several below options, which wrapped with hook functions:
@@ -12,10 +14,10 @@ By following lazy's [Plugin Spec](https://lazy.folke.io/spec), all the plugins a
 
 The hooks are doing several things for us:
 
-- Split configurations into multiple files, every config option is a single lua/vim script file, and been loaded by the hook. All these configuration files are placed in [lua/configs](https://github.com/linrongbin16/lin.nvim/tree/main/lua/configs) directory.
+- Split configurations into multiple files, every option is a single lua/vim script file, and been loaded by the hook. All these configuration files are placed in [lua/configs](https://github.com/linrongbin16/lin.nvim/tree/main/lua/configs) directory.
 
+  <!-- Screenshots are recorded with 150x40 kitty terminal -->
   <img width="70%" alt="image" src="https://github.com/linrongbin16/lin.nvim/assets/6496887/bb97b89d-26f9-46ea-8402-edbe51ef9492">
-  
+
 - For each plugin, it has a separated configuration directory, the file path follows the `organization/repository` format. Since lua syntax treats dot `.` as module separator (i.e. file path separator), all dots `.` in GitHub's organization and repository are replaced with dash `-`, for example the plugin `fzfx.nvim` are placed in [lua/configs/linrongbin16/fzfx-nvim](https://github.com/linrongbin16/lin.nvim/tree/main/lua/configs/linrongbin16/fzfx-nvim) directory.
 - The default `init`, `config`, `keys` configurations load either lua (`init.lua`, `config.lua`, `keys.lua`) or vim scripts (`init.vim`, `config.vim`, `keys.vim`). While user can replace these defaults with their own scripts with a `user_` prefix, i.e. `user_init.lua`, `user_config.lua`, `user_keys.lua`. The hooks will first try to load config files with `user_` prefix, then fallback to default config files.
-
