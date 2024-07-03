@@ -18,8 +18,8 @@ To bring LSP based IDE features to user, quite a few plugins are assembled:
   ?> This distro uses [conform.nvim](https://github.com/stevearc/conform.nvim) as code formatter, which works compatible with none-ls's sources, i.e. conform will use either an explicitly configured code formatter, or fallback to LSP formatting method including none-ls's sources.
 
 - [mason-null-ls.nvim](https://github.com/jay-babu/mason-null-ls.nvim): It lets `none-ls.nvim` directly using packages managed by `mason.nvim`. And you can also:
-  1. Ensure `none-ls.nvim` sources installed via `mason.nvim` (please checkout [jay-babu/mason-null-ls-nvim/ensure_installed_sample.lua](https://github.com/linrongbin16/lin.nvim/blob/744e4c7fd9e0c55630a4881279eefe671bfcee43/lua/configs/jay-babu/mason-null-ls-nvim/ensure_installed_sample.lua)).
-  2. Automatically register them as `none-ls.nvim` sources (please checkout [jay-babu/mason-null-ls-nvim/setup_handlers_sample.lua](https://github.com/linrongbin16/lin.nvim/blob/744e4c7fd9e0c55630a4881279eefe671bfcee43/lua/configs/jay-babu/mason-null-ls-nvim/setup_handlers_sample.lua)).
+  1. Ensure none-ls sources installed via mason.nvim.
+  2. Automatically register them as none-ls sources.
 
 ?> There're more UI improving plugins, leave them to you to find out.
 
