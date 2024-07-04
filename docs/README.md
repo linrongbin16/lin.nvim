@@ -2,11 +2,12 @@
 
 # Welcome to lin.nvim's Documentation!
 
-- [Philosophy](/philosophy.md)
-- [Features](/features.md)
-- [Colorschemes](/colorschemes.md)
+- Introduction
+  - [Philosophy](/philosophy.md)
+  - [Features](/features.md)
+  - [Colorschemes](/colorschemes.md)
 - [Install, Uninstall & Update](/install.md)
-- [User Guide](/user_guide.md)
+- User Guide
   - Basic concepts & global settings
     - [Terminology](/user_guide/terminology.md)
     - [Global Key Mappings](/user_guide/global_key_mappings.md)
