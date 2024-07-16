@@ -251,13 +251,6 @@ local M = {
     },
     config = lua_config("jay-babu/mason-null-ls.nvim"),
   },
-  -- Lsp server GC
-  {
-    "Zeioth/garbage-day.nvim",
-    event = { VeryLazy },
-    dependencies = { "neovim/nvim-lspconfig" },
-    config = lua_config("Zeioth/garbage-day.nvim"),
-  },
   -- Symbol navigation
   {
     "DNLHC/glance.nvim",
