@@ -1,7 +1,7 @@
 local constants = require("builtin.constants")
 
 require("which-key").setup({
-  delay = 200,
+  delay = 300,
   win = {
     border = constants.window.border,
     wo = {
