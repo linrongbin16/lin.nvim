@@ -63,6 +63,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: mozilla-actions/sccache-action@v0.0.5
+      - uses: cargo-bins/cargo-binstall@main
+      - name: Install Cargo Commands
+        run: |
+          cargo binstall --no-confirm fd-find
+          cargo binstall --no-confirm ripgrep
+          cargo binstall --no-confirm bat
+          cargo binstall --no-confirm eza
       - name: Get branch
         shell: bash
         run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
