@@ -1,8 +1,10 @@
 local constants = require("builtin.constants")
 
 require("which-key").setup({
-  window = {
+  win = {
     border = constants.window.border,
-    winblend = constants.window.blend,
+    wo = {
+      winblend = constants.window.blend,
+    },
   },
 })

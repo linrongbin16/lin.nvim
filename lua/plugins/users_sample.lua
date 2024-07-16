@@ -201,6 +201,13 @@
 --     dependencies = { "folke/neoconf.nvim" }, -- neoconf must be setup before neodev
 --     config = lua_config("folke/neodev.nvim"),
 --   },
+--   -- Lsp server GC
+--   {
+--     "Zeioth/garbage-day.nvim",
+--     event = { VeryLazy },
+--     dependencies = { "neovim/nvim-lspconfig" },
+--     config = lua_config("Zeioth/garbage-day.nvim"),
+--   },
 --   -- Mark word
 --   {
 --     "inkarkat/vim-ingo-library",

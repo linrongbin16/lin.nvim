@@ -8,7 +8,7 @@ on:
       - main
 concurrency:
   group: ${{ github.ref }}
-  cancel-in-progress: ${{ !contains(github.ref, 'main') }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 jobs:
   commits:
     name: Commits
@@ -51,8 +51,6 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           version: latest
           args: --config-path .stylua.toml ./lua
-      - uses: mfinelli/setup-shfmt@v3
-      - run: shfmt -d ./install
       - name: Auto commit
         if: ${{ github.ref != 'refs/heads/main' }}
         uses: stefanzweifel/git-auto-commit-action@v5
@@ -63,6 +61,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: mozilla-actions/sccache-action@v0.0.5
+      - uses: cargo-bins/cargo-binstall@main
+      - name: Install Cargo Commands
+        run: |
+          cargo binstall --no-confirm fd-find
+          cargo binstall --no-confirm ripgrep
+          cargo binstall --no-confirm bat
+          cargo binstall --no-confirm eza
       - name: Get branch
         shell: bash
         run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
@@ -75,7 +80,8 @@ jobs:
           set -x
           echo '${{ steps.extract_branch.outputs.branch }}'
           export BRANCH_NAME=${{ steps.extract_branch.outputs.branch }}
-          sudo sh -c "git clone --single-branch --branch $BRANCH_NAME --depth=1 https://github.com/linrongbin16/lin.nvim ~/.nvim && cd ~/.nvim && bash -euxo pipefail ./install"
+          export PATH="$PATH:$HOME/.cargo/bin"
+          sudo sh -c "export PATH=$PATH && git clone --single-branch --branch $BRANCH_NAME --depth=1 https://github.com/linrongbin16/lin.nvim ~/.nvim && cd ~/.nvim && bash -euxo pipefail ./install"
   macos_installer:
     name: MacOS Installer
     runs-on: macos-latest
