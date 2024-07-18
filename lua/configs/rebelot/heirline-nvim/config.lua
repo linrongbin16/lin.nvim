@@ -45,22 +45,6 @@ end
 
 local OS_UNAME = uv.os_uname()
 
-local function GetOsIcon()
-  local uname = OS_UNAME.sysname
-  if uname:match("Darwin") then
-    return ""
-  elseif uname:match("Windows") then
-    return ""
-  elseif uname:match("Linux") then
-    if type(OS_UNAME.release) == "string" and OS_UNAME.release:find("arch") then
-      return ""
-    end
-    return ""
-  else
-    return "󱚟"
-  end
-end
-
 local ModeNames = {
   ["n"] = "NORMAL",
   ["no"] = "O-PENDING",
@@ -122,6 +106,22 @@ local ModeHighlights = {
 
 local function GetModeName(mode)
   return ModeNames[mode] or "???"
+end
+
+local function GetOsIcon()
+  local uname = OS_UNAME.sysname
+  if uname:match("Darwin") then
+    return ""
+  elseif uname:match("Windows") then
+    return ""
+  elseif uname:match("Linux") then
+    if type(OS_UNAME.release) == "string" and OS_UNAME.release:find("arch") then
+      return ""
+    end
+    return ""
+  else
+    return "󱚟"
+  end
 end
 
 local Mode = {
