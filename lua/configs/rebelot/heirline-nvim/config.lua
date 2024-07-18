@@ -214,11 +214,7 @@ local FileName = {
       local fsize_format = i == 1 and "[%d %s] " or "[%.1f %s] "
       return string.format(fsize_format, fsize_value, suffixes[i])
     end,
-    update = {
-      "BufWritePost",
-      "BufEnter",
-      "WinEnter",
-    },
+    update = { "OptionSet", "BufWritePost", "BufEnter", "WinEnter" },
   },
   {
     provider = right_slant,
