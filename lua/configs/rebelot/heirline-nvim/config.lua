@@ -293,30 +293,33 @@ local GitDiff = {
   {
     provider = function(self)
       local value = self.summary[1] or 0
-      if value > 0 then
-        return string.format(" +%d", value)
-      end
-      return ""
+      return string.format(" +%d", value)
+    end,
+    condition = function(self)
+      local value = self.summary[1] or 0
+      return value > 0
     end,
     hl = { fg = "git_add", bg = "normal_bg4" },
   },
   {
     provider = function(self)
       local value = self.summary[2] or 0
-      if value > 0 then
-        return string.format(" ~%d", value)
-      end
-      return ""
+      return string.format(" ~%d", value)
+    end,
+    condition = function(self)
+      local value = self.summary[2] or 0
+      return value > 0
     end,
     hl = { fg = "git_change", bg = "normal_bg4" },
   },
   {
     provider = function(self)
       local value = self.summary[3] or 0
-      if value > 0 then
-        return string.format(" -%d", value)
-      end
-      return ""
+      return string.format(" -%d", value)
+    end,
+    condition = function(self)
+      local value = self.summary[3] or 0
+      return value > 0
     end,
     hl = { fg = "git_delete", bg = "normal_bg4" },
   },
