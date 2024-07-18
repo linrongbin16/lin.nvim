@@ -224,16 +224,17 @@ local FileName = {
 
 local git_branch_name_cache = nil
 local git_branch_status_cache = nil
+
 local GitBranch = {
   hl = { fg = "normal_fg3", bg = "normal_bg3" },
   update = { "User", pattern = "HeirlineGitBranchUpdated" },
 
   {
     provider = function(self)
-      if str.not_empty(git_branch_name_cache) then
-        return "  " .. git_branch_name_cache .. " "
-      end
-      return ""
+      return "  " .. git_branch_name_cache .. " "
+    end,
+    condition = function(self)
+      return str.not_empty(git_branch_name_cache)
     end,
   },
   {
