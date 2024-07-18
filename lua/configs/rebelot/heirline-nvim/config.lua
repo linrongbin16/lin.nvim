@@ -180,12 +180,12 @@ local FileName = {
       if str.empty(self.filename) then
         return ""
       end
-      local readonly = not vim.api.nvim_buf_get_option(0, "modifiable")
-        or vim.api.nvim_buf_get_option(0, "readonly")
-      if readonly then
+      local modifiable = vim.api.nvim_get_option_value("modifiable", { buf = 0 })
+      local readonly = vim.api.nvim_get_option_value("readonly", { buf = 0 })
+      if not modifiable or readonly then
         return "[] "
       end
-      local modified = vim.api.nvim_buf_get_option(0, "modified")
+      local modified = vim.api.nvim_get_option_value("modified", { buf = 0 })
       if modified then
         return "[] "
       end
