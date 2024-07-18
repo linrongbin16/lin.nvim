@@ -231,18 +231,20 @@ local GitBranch = {
 
   {
     provider = function(self)
-      return "  " .. git_branch_name_cache .. " "
-    end,
-    condition = function(self)
-      return str.not_empty(git_branch_name_cache)
+      if str.not_empty(git_branch_name_cache) then
+        return "  " .. git_branch_name_cache .. " "
+      else
+        return ""
+      end
     end,
   },
   {
     provider = function(self)
-      return "* "
-    end,
-    condition = function(self)
-      return type(git_branch_status_cache) == "table" and git_branch_status_cache["changed"] ~= nil
+      if type(git_branch_status_cache) == "table" and git_branch_status_cache["changed"] ~= nil then
+        return "* "
+      else
+        return ""
+      end
     end,
     hl = function(self)
       return { fg = "git_dirty", bg = "normal_bg3" }
@@ -250,12 +252,14 @@ local GitBranch = {
   },
   {
     provider = function(self)
-      ---@diagnostic disable-next-line: need-check-nil
-      return string.format("↑[%d] ", git_branch_status_cache["ahead"])
-    end,
-    condition = function(self)
-      return type(git_branch_status_cache) == "table"
+      if
+        type(git_branch_status_cache) == "table"
         and type(git_branch_status_cache["ahead"]) == "number"
+      then
+        return string.format("↑[%d] ", git_branch_status_cache["ahead"])
+      else
+        return ""
+      end
     end,
     hl = function(self)
       return { fg = "git_ahead", bg = "normal_bg3" }
@@ -263,12 +267,14 @@ local GitBranch = {
   },
   {
     provider = function(self)
-      ---@diagnostic disable-next-line: need-check-nil
-      return string.format("↓[%d] ", git_branch_status_cache["behind"])
-    end,
-    condition = function(self)
-      return type(git_branch_status_cache) == "table"
+      if
+        type(git_branch_status_cache) == "table"
         and type(git_branch_status_cache["behind"]) == "number"
+      then
+        return string.format("↓[%d] ", git_branch_status_cache["behind"])
+      else
+        return ""
+      end
     end,
     hl = function(self)
       return { fg = "git_behind", bg = "normal_bg3" }
