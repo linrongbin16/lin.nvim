@@ -108,6 +108,15 @@ local function GetModeName(mode)
   return ModeNames[mode] or "???"
 end
 
+local function GetModeHighlight(mode)
+  local mode_name = GetModeName(mode)
+  if type(mode_name) == "string" and ModeHighlights[mode_name] then
+    return ModeHighlights[mode_name]
+  else
+    return ModeHighlights.NORMAL
+  end
+end
+
 local function GetOsIcon()
   local uname = OS_UNAME.sysname
   if uname:match("Darwin") then
@@ -129,8 +138,7 @@ local Mode = {
     self.mode = vim.api.nvim_get_mode().mode
   end,
   hl = function(self)
-    local mode_name = GetModeName(self.mode)
-    local mode_hl = ModeHighlights[mode_name] or ModeHighlights.NORMAL
+    local mode_hl = GetModeHighlight(self.mode)
     return { fg = mode_hl.fg, bg = mode_hl.bg, bold = true }
   end,
   update = { "ModeChanged" },
@@ -151,8 +159,7 @@ local Mode = {
   {
     provider = right_slant,
     hl = function(self)
-      local mode_name = GetModeName(self.mode)
-      local mode_hl = ModeHighlights[mode_name] or ModeHighlights.NORMAL
+      local mode_hl = GetModeHighlight(self.mode)
       return { fg = mode_hl.bg, bg = "normal_bg2" }
     end,
   },
@@ -531,16 +538,14 @@ local Location = {
     self.mode = vim.fn.mode(1)
   end,
   hl = function(self)
-    local mode_name = GetModeName(self.mode)
-    local mode_hl = ModeHighlights[mode_name] or ModeHighlights.NORMAL
+    local mode_hl = GetModeHighlight(self.mode)
     return { fg = mode_hl.fg, bg = mode_hl.bg, bold = true }
   end,
 
   {
     provider = left_slant,
     hl = function(self)
-      local mode_name = GetModeName(self.mode)
-      local mode_hl = ModeHighlights[mode_name] or ModeHighlights.NORMAL
+      local mode_hl = GetModeHighlight(self.mode)
       return { fg = mode_hl.bg, bg = "normal_bg2", bold = true }
     end,
   },
@@ -554,8 +559,7 @@ local Progress = {
     self.mode = vim.api.nvim_get_mode().mode
   end,
   hl = function(self)
-    local mode_name = GetModeName(self.mode)
-    local mode_hl = ModeHighlights[mode_name] or ModeHighlights.NORMAL
+    local mode_hl = GetModeHighlight(self.mode)
     return { fg = mode_hl.fg, bg = mode_hl.bg, bold = true }
   end,
   provider = "  %P ",
