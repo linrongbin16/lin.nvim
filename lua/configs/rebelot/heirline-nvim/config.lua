@@ -191,7 +191,7 @@ local FileName = {
       end
       return ""
     end,
-    update = { "OptionSet" },
+    update = { "OptionSet", "BufWritePost", "BufEnter", "WinEnter" },
   },
   -- file size
   {
@@ -200,20 +200,19 @@ local FileName = {
         return ""
       end
       local fstat = uv.fs_stat(self.filename)
-      local filesize = tbl.tbl_get(fstat, "size")
-      if type(filesize) ~= "number" or filesize <= 0 then
+      local fsize_value = tbl.tbl_get(fstat, "size")
+      if type(fsize_value) ~= "number" or fsize_value <= 0 then
         return ""
       end
-      local suffixes = { "b", "k", "m", "g" }
+      local suffixes = { "B", "KB", "MB", "GB" }
       local i = 1
-      while filesize > 1024 and i < #suffixes do
-        filesize = filesize / 1024
+      while fsize_value > 1024 and i < #suffixes do
+        fsize_value = fsize_value / 1024
         i = i + 1
       end
 
-      local fsize_fmt = i == 1 and "[%d%s] " or "[%.1f%s] "
-      local fsize_value = string.format(fsize_fmt, filesize, suffixes[i])
-      return fsize_value
+      local fsize_format = i == 1 and "[%d%s] " or "[%.1f%s] "
+      return string.format(fsize_format, fsize_value, suffixes[i])
     end,
     update = {
       "BufWritePost",
