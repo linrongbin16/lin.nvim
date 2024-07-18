@@ -7,28 +7,28 @@ local spawn = require("commons.spawn")
 
 local constants = require("builtin.constants")
 
-local BLACK = "#000000"
-local WHITE = "#ffffff"
-local RED = "#FF0000"
-local GREEN = "#008000"
-local BLUE = "#0000FF"
-local CYAN = "#00FFFF"
-local GREY = "#808080"
-local ORANGE = "#D2691E"
-local YELLOW = "#FFFF00"
-local PURPLE = "#800080"
-local MAGENTA = "#FF00FF"
-local BRIGHT_BLACK = "#808080"
-local BRIGHT_RED = "#CD5C5C"
-local BRIGHT_GREEN = "#90EE90"
-local BRIGHT_YELLOW = "#FFFFE0"
-local BRIGHT_BLUE = "#ADD8E6"
-local BRIGHT_MAGENTA = "#EE82EE"
-local BRIGHT_CYAN = "#E0FFFF"
-local BRIGHT_WHITE = "#C0C0C0"
+local black = "#000000"
+local white = "#ffffff"
+local red = "#FF0000"
+local green = "#008000"
+local blue = "#0000FF"
+local cyan = "#00FFFF"
+local grey = "#808080"
+local orange = "#D2691E"
+local yellow = "#FFFF00"
+local purple = "#800080"
+local magenta = "#FF00FF"
+local bright_black = "#808080"
+local bright_red = "#CD5C5C"
+local bright_green = "#90EE90"
+local bright_yellow = "#FFFFE0"
+local bright_blue = "#ADD8E6"
+local bright_magenta = "#EE82EE"
+local bright_cyan = "#E0FFFF"
+local bright_white = "#C0C0C0"
 
-local LEFT_SLANT = ""
-local RIGHT_SLANT = ""
+local left_slant = ""
+local right_slant = ""
 
 local function rgb_to_hsl(rgb)
   local h, s, l = color_hsl.rgb_string_to_hsl(rgb)
@@ -157,7 +157,7 @@ local Mode = {
   },
   -- separator
   {
-    provider = RIGHT_SLANT,
+    provider = right_slant,
     hl = function(self)
       local mode_hl = GetModeHighlight(self.mode)
       return { fg = mode_hl.bg, bg = "normal_bg2" }
@@ -217,7 +217,7 @@ local FileName = {
     update = { "OptionSet", "BufWritePost", "BufEnter", "WinEnter" },
   },
   {
-    provider = RIGHT_SLANT,
+    provider = right_slant,
     hl = { fg = "normal_bg2", bg = "normal_bg3" },
   },
 }
@@ -275,7 +275,7 @@ local GitBranch = {
     end,
   },
   {
-    provider = RIGHT_SLANT,
+    provider = right_slant,
     hl = { fg = "normal_bg3", bg = "normal_bg4" },
   },
 }
@@ -438,7 +438,7 @@ local FileEncoding = {
   hl = { fg = "normal_fg3", bg = "normal_bg3" },
 
   {
-    provider = LEFT_SLANT,
+    provider = left_slant,
     hl = { fg = "normal_bg3", bg = "normal_bg4" },
   },
   {
@@ -492,7 +492,7 @@ local FileType = {
   hl = { fg = "normal_fg2", bg = "normal_bg2" },
 
   {
-    provider = LEFT_SLANT,
+    provider = left_slant,
     hl = { fg = "normal_bg2", bg = "normal_bg3" },
   },
   {
@@ -542,7 +542,7 @@ local Location = {
   end,
 
   {
-    provider = LEFT_SLANT,
+    provider = left_slant,
     hl = function(self)
       local mode_hl = GetModeHighlight(self.mode)
       return { fg = mode_hl.bg, bg = "normal_bg2", bold = true }
@@ -677,31 +677,31 @@ local function setup_colors(colorname)
   local shade_level3 = 0.8
 
   local diagnostic_error =
-    color_hl.get_color_with_fallback({ "DiagnosticSignError", "ErrorMsg" }, "fg", RED)
+    color_hl.get_color_with_fallback({ "DiagnosticSignError", "ErrorMsg" }, "fg", red)
   local diagnostic_warn =
-    color_hl.get_color_with_fallback({ "DiagnosticSignWarn", "WarningMsg" }, "fg", YELLOW)
+    color_hl.get_color_with_fallback({ "DiagnosticSignWarn", "WarningMsg" }, "fg", yellow)
   local diagnostic_info =
-    color_hl.get_color_with_fallback({ "DiagnosticSignInfo", "None" }, "fg", CYAN)
+    color_hl.get_color_with_fallback({ "DiagnosticSignInfo", "None" }, "fg", cyan)
   local diagnostic_hint =
-    color_hl.get_color_with_fallback({ "DiagnosticSignHint", "Comment" }, "fg", GREY)
+    color_hl.get_color_with_fallback({ "DiagnosticSignHint", "Comment" }, "fg", grey)
   local git_add = color_hl.get_color_with_fallback(
     { "GitSignsAdd", "GitGutterAdd", "diffAdded", "DiffAdd" },
     "fg",
-    GREEN
+    green
   )
   local git_change = color_hl.get_color_with_fallback(
     { "GitSignsChange", "GitGutterChange", "diffChanged", "DiffChange" },
     "fg",
-    YELLOW
+    yellow
   )
   local git_delete = color_hl.get_color_with_fallback(
     { "GitSignsDelete", "GitGutterDelete", "diffRemoved", "DiffDelete" },
     "fg",
-    RED
+    red
   )
-  local git_ahead = get_terminal_color_with_fallback(3, YELLOW)
-  local git_behind = get_terminal_color_with_fallback(3, YELLOW)
-  local git_dirty = get_terminal_color_with_fallback(1, MAGENTA)
+  local git_ahead = get_terminal_color_with_fallback(3, yellow)
+  local git_behind = get_terminal_color_with_fallback(3, yellow)
+  local git_dirty = get_terminal_color_with_fallback(1, magenta)
 
   local text_bg, text_fg
   local normal_bg, normal_fg
@@ -734,7 +734,7 @@ local function setup_colors(colorname)
     "bg",
     { "Normal" },
     "bg",
-    BLACK
+    black
   )
   text_fg = get_color_with_lualine(
     has_lualine,
@@ -746,7 +746,7 @@ local function setup_colors(colorname)
     "fg",
     { "Normal" },
     "fg",
-    WHITE
+    white
   )
   normal_bg = get_color_with_lualine(
     has_lualine,
@@ -758,7 +758,7 @@ local function setup_colors(colorname)
     "bg",
     { "StatusLine", "PmenuSel", "PmenuThumb", "TabLineSel" },
     "bg",
-    get_terminal_color_with_fallback(0, MAGENTA)
+    get_terminal_color_with_fallback(0, magenta)
   )
   normal_fg = get_color_with_lualine(
     has_lualine,
@@ -784,7 +784,7 @@ local function setup_colors(colorname)
     "bg",
     {},
     "bg",
-    shade_rgb(get_terminal_color_with_fallback(0, MAGENTA), shade_level1)
+    shade_rgb(get_terminal_color_with_fallback(0, magenta), shade_level1)
   )
   normal_fg2 = get_color_with_lualine(
     has_lualine,
@@ -825,9 +825,9 @@ local function setup_colors(colorname)
     normal_bg4 = brightness_modifier(normal_bg3, parameter)
     normal_fg4 = normal_fg3
   else
-    normal_bg3 = shade_rgb(get_terminal_color_with_fallback(0, MAGENTA), shade_level2)
+    normal_bg3 = shade_rgb(get_terminal_color_with_fallback(0, magenta), shade_level2)
     normal_fg3 = text_fg
-    normal_bg4 = shade_rgb(get_terminal_color_with_fallback(0, MAGENTA), shade_level3)
+    normal_bg4 = shade_rgb(get_terminal_color_with_fallback(0, magenta), shade_level3)
     normal_fg4 = text_fg
   end
   insert_bg = get_color_with_lualine(
@@ -840,7 +840,7 @@ local function setup_colors(colorname)
     "bg",
     { "String", "MoreMsg" },
     "fg",
-    get_terminal_color_with_fallback(2, GREEN)
+    get_terminal_color_with_fallback(2, green)
   )
   insert_fg = get_color_with_lualine(
     has_lualine,
@@ -864,7 +864,7 @@ local function setup_colors(colorname)
     "bg",
     { "Special", "Boolean", "Constant" },
     "fg",
-    get_terminal_color_with_fallback(3, YELLOW)
+    get_terminal_color_with_fallback(3, yellow)
   )
   visual_fg = get_color_with_lualine(
     has_lualine,
@@ -888,7 +888,7 @@ local function setup_colors(colorname)
     "bg",
     { "Number", "Type" },
     "fg",
-    get_terminal_color_with_fallback(4, BLUE)
+    get_terminal_color_with_fallback(4, blue)
   )
   replace_fg = get_color_with_lualine(
     has_lualine,
@@ -912,7 +912,7 @@ local function setup_colors(colorname)
     "bg",
     { "Identifier" },
     "fg",
-    get_terminal_color_with_fallback(1, RED)
+    get_terminal_color_with_fallback(1, red)
   )
   command_fg = get_color_with_lualine(
     has_lualine,
@@ -971,25 +971,25 @@ local function setup_colors(colorname)
   return {
     text_bg = text_bg,
     text_fg = text_fg,
-    black = BLACK,
-    white = WHITE,
-    red = RED,
-    green = GREEN,
-    blue = BLUE,
-    cyan = CYAN,
-    grey = GREY,
-    orange = ORANGE,
-    yellow = YELLOW,
-    purple = PURPLE,
-    magenta = MAGENTA,
-    bright_black = BRIGHT_BLACK,
-    bright_red = BRIGHT_RED,
-    bright_green = BRIGHT_GREEN,
-    bright_yellow = BRIGHT_YELLOW,
-    bright_blue = BRIGHT_BLUE,
-    bright_magenta = BRIGHT_MAGENTA,
-    bright_cyan = BRIGHT_CYAN,
-    bright_white = BRIGHT_WHITE,
+    black = black,
+    white = white,
+    red = red,
+    green = green,
+    blue = blue,
+    cyan = cyan,
+    grey = grey,
+    orange = orange,
+    yellow = yellow,
+    purple = purple,
+    magenta = magenta,
+    bright_black = bright_black,
+    bright_red = bright_red,
+    bright_green = bright_green,
+    bright_yellow = bright_yellow,
+    bright_blue = bright_blue,
+    bright_magenta = bright_magenta,
+    bright_cyan = bright_cyan,
+    bright_white = bright_white,
     normal_bg1 = normal_bg1,
     normal_fg1 = normal_fg1,
     normal_bg2 = normal_bg2,
