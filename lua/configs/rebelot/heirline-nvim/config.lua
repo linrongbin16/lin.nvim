@@ -328,7 +328,7 @@ local GitDiff = {
 local LspStatus = {
   hl = { fg = "normal_fg4", bg = "normal_bg4" },
   provider = function()
-    local width = math.max(vim.o.columns - 100, 5)
+    local width = math.max(vim.o.columns - math.max(100, math.floor(vim.o.columns / 2)), 3)
     local result = require("lsp-progress").progress({
       max_size = width,
     })
