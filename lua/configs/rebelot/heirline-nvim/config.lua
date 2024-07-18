@@ -211,7 +211,7 @@ local FileName = {
         i = i + 1
       end
 
-      local fsize_format = i == 1 and "[%d%s] " or "[%.1f%s] "
+      local fsize_format = i == 1 and "[%d %s] " or "[%.1f %s] "
       return string.format(fsize_format, fsize_value, suffixes[i])
     end,
     update = {
