@@ -442,7 +442,7 @@ local FileEncoding = {
     hl = { fg = "normal_bg3", bg = "normal_bg4" },
   },
   {
-    provider = function(self)
+    provider = function()
       local text = (vim.bo.fenc ~= "" and vim.bo.fenc) or vim.o.enc
       if str.empty(text) then
         return ""
