@@ -350,7 +350,7 @@ local LspStatus = {
 
 local SearchCount = {
   hl = { fg = "normal_fg4", bg = "normal_bg4" },
-  provider = function(self)
+  provider = function()
     if vim.v.hlsearch == 0 then
       return ""
     end
