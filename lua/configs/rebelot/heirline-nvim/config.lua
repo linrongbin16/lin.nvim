@@ -374,31 +374,34 @@ local SearchCount = {
   },
 }
 
-local function GetDiagnosticText(level)
-  local severity = { "ERROR", "WARN", "INFO", "HINT" }
-  local signs = {
-    constants.diagnostic.signs.error,
-    constants.diagnostic.signs.warning,
-    constants.diagnostic.signs.info,
-    constants.diagnostic.signs.hint,
-  }
+local DiagnosticSeverity = { "ERROR", "WARN", "INFO", "HINT" }
 
-  local value = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity[severity[level]] })
+local DiagnosticSigns = {
+  constants.diagnostic.signs.error,
+  constants.diagnostic.signs.warning,
+  constants.diagnostic.signs.info,
+  constants.diagnostic.signs.hint,
+}
+
+local function GetDiagnosticText(level)
+  local value =
+    #vim.diagnostic.get(0, { severity = vim.diagnostic.severity[DiagnosticSeverity[level]] })
   if value <= 0 then
     return ""
   else
-    return string.format("%s %d ", signs[level], value)
+    return string.format("%s %d ", DiagnosticSigns[level], value)
   end
 end
 
+local DiagnosticColors = {
+  "diagnostic_error",
+  "diagnostic_warn",
+  "diagnostic_info",
+  "diagnostic_hint",
+}
+
 local function GetDiagnosticHighlight(level)
-  local hls = {
-    "diagnostic_error",
-    "diagnostic_warn",
-    "diagnostic_info",
-    "diagnostic_hint",
-  }
-  return { fg = hls[level], bg = "normal_bg4" }
+  return { fg = DiagnosticColors[level], bg = "normal_bg4" }
 end
 
 local Diagnostic = {
@@ -431,6 +434,15 @@ local Diagnostic = {
   },
 }
 
+local FileEncodingIcons = {
+  ["utf-8"] = "󰉿",
+  ["utf-16"] = "󰊀",
+  ["utf-32"] = "󰊁",
+  ["utf-8mb4"] = "󰊂",
+  ["utf-16le"] = "󰊃",
+  ["utf-16be"] = "󰊄",
+}
+
 local FileEncoding = {
   hl = { fg = "normal_fg3", bg = "normal_bg3" },
 
@@ -440,24 +452,17 @@ local FileEncoding = {
   },
   {
     provider = function()
-      local icons = {
-        ["utf-8"] = "󰉿",
-        ["utf-16"] = "󰊀",
-        ["utf-32"] = "󰊁",
-        ["utf-8mb4"] = "󰊂",
-        ["utf-16le"] = "󰊃",
-        ["utf-16be"] = "󰊄",
-      }
-
       local text = (vim.bo.fenc ~= "" and vim.bo.fenc) or vim.o.enc
       if str.empty(text) then
         return ""
       end
-      local icon = icons[text]
+
+      local icon = FileEncodingIcons[text]
       if str.empty(icon) then
         return " " .. text .. " "
+      else
+        return " " .. icon .. " " .. text .. " "
       end
-      return " " .. icon .. " " .. text .. " "
     end,
     update = {
       "BufEnter",
@@ -478,11 +483,13 @@ local FileFormat = {
     if str.empty(text) then
       return ""
     end
+
     local icon = FileFormatIcons[text]
     if str.empty(icon) then
       return " " .. text .. " "
+    else
+      return " " .. icon .. " "
     end
-    return " " .. icon .. " "
   end,
   update = {
     "BufEnter",
