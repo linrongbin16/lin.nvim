@@ -590,7 +590,7 @@ local StatusLine = {
 ---@param has_lualine boolean If have a lualine theme.
 ---@param lualine_theme table The lualine theme.
 ---@param has_airline boolean If have an airline theme.
----@param airline_theme table The airline theme.
+---@param airline_theme table? The airline theme.
 ---@param mode_name "normal"|"insert"|"visual"|"replace"|"command"|"inactive" Mode name that use to retrieve from lualine/airline.
 ---@param section "a"|"b"|"c" Section name that use to retrieve from lualine/airline.
 ---@param attribute "fg"|"bg" Foreground/background attribute that use to retrieve from lualine/airline.
@@ -623,6 +623,7 @@ local function retrieve_color(
     result = lualine_theme[mode_name][section][attribute]
     source = "lualine"
   elseif has_airline and tbl.tbl_get(airline_theme, air_mode_name, air_section, air_attribute) then
+    ---@diagnostic disable-next-line: need-check-nil
     result = airline_theme[air_mode_name][air_section][air_attribute]
     source = "airline"
   end
