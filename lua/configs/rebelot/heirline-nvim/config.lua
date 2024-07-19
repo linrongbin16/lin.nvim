@@ -45,22 +45,6 @@ end
 
 local OS_UNAME = uv.os_uname()
 
-local function GetOsIcon()
-  local uname = OS_UNAME.sysname
-  if uname:match("Darwin") then
-    return ""
-  elseif uname:match("Windows") then
-    return ""
-  elseif uname:match("Linux") then
-    if type(OS_UNAME.release) == "string" and OS_UNAME.release:find("arch") then
-      return ""
-    end
-    return ""
-  else
-    return "󱚟"
-  end
-end
-
 local ModeNames = {
   ["n"] = "NORMAL",
   ["no"] = "O-PENDING",
@@ -124,13 +108,37 @@ local function GetModeName(mode)
   return ModeNames[mode] or "???"
 end
 
+local function GetModeHighlight(mode)
+  local mode_name = GetModeName(mode)
+  if type(mode_name) == "string" and ModeHighlights[mode_name] then
+    return ModeHighlights[mode_name]
+  else
+    return ModeHighlights.NORMAL
+  end
+end
+
+local function GetOsIcon()
+  local uname = OS_UNAME.sysname
+  if uname:match("Darwin") then
+    return ""
+  elseif uname:match("Windows") then
+    return ""
+  elseif uname:match("Linux") then
+    if type(OS_UNAME.release) == "string" and OS_UNAME.release:find("arch") then
+      return ""
+    end
+    return ""
+  else
+    return "󱚟"
+  end
+end
+
 local Mode = {
   init = function(self)
     self.mode = vim.api.nvim_get_mode().mode
   end,
   hl = function(self)
-    local mode_name = GetModeName(self.mode)
-    local mode_hl = ModeHighlights[mode_name] or ModeHighlights.NORMAL
+    local mode_hl = GetModeHighlight(self.mode)
     return { fg = mode_hl.fg, bg = mode_hl.bg, bold = true }
   end,
   update = { "ModeChanged" },
@@ -151,8 +159,7 @@ local Mode = {
   {
     provider = right_slant,
     hl = function(self)
-      local mode_name = GetModeName(self.mode)
-      local mode_hl = ModeHighlights[mode_name] or ModeHighlights.NORMAL
+      local mode_hl = GetModeHighlight(self.mode)
       return { fg = mode_hl.bg, bg = "normal_bg2" }
     end,
   },
@@ -173,18 +180,18 @@ local FileName = {
       if str.empty(self.filename) then
         return ""
       end
-      local readonly = not vim.api.nvim_buf_get_option(0, "modifiable")
-        or vim.api.nvim_buf_get_option(0, "readonly")
-      if readonly then
+      local modifiable = vim.api.nvim_get_option_value("modifiable", { buf = 0 })
+      local readonly = vim.api.nvim_get_option_value("readonly", { buf = 0 })
+      if not modifiable or readonly then
         return "[] "
       end
-      local modified = vim.api.nvim_buf_get_option(0, "modified")
+      local modified = vim.api.nvim_get_option_value("modified", { buf = 0 })
       if modified then
         return "[] "
       end
       return ""
     end,
-    update = { "OptionSet" },
+    update = { "OptionSet", "BufWritePost", "BufEnter", "WinEnter" },
   },
   -- file size
   {
@@ -193,26 +200,21 @@ local FileName = {
         return ""
       end
       local fstat = uv.fs_stat(self.filename)
-      local filesize = tbl.tbl_get(fstat, "size")
-      if type(filesize) ~= "number" or filesize <= 0 then
+      local fsize_value = tbl.tbl_get(fstat, "size")
+      if type(fsize_value) ~= "number" or fsize_value <= 0 then
         return ""
       end
-      local suffixes = { "b", "k", "m", "g" }
+      local suffixes = { "B", "KB", "MB", "GB" }
       local i = 1
-      while filesize > 1024 and i < #suffixes do
-        filesize = filesize / 1024
+      while fsize_value > 1024 and i < #suffixes do
+        fsize_value = fsize_value / 1024
         i = i + 1
       end
 
-      local fsize_fmt = i == 1 and "[%d%s] " or "[%.1f%s] "
-      local fsize_value = string.format(fsize_fmt, filesize, suffixes[i])
-      return fsize_value
+      local fsize_format = i == 1 and "[%d %s] " or "[%.1f %s] "
+      return string.format(fsize_format, fsize_value, suffixes[i])
     end,
-    update = {
-      "BufWritePost",
-      "BufEnter",
-      "WinEnter",
-    },
+    update = { "OptionSet", "BufWritePost", "BufEnter", "WinEnter" },
   },
   {
     provider = right_slant,
@@ -222,6 +224,7 @@ local FileName = {
 
 local git_branch_name_cache = nil
 local git_branch_status_cache = nil
+
 local GitBranch = {
   hl = { fg = "normal_fg3", bg = "normal_bg3" },
   update = { "User", pattern = "HeirlineGitBranchUpdated" },
@@ -230,16 +233,18 @@ local GitBranch = {
     provider = function(self)
       if str.not_empty(git_branch_name_cache) then
         return "  " .. git_branch_name_cache .. " "
+      else
+        return ""
       end
-      return ""
     end,
   },
   {
     provider = function(self)
-      return "* "
-    end,
-    condition = function(self)
-      return type(git_branch_status_cache) == "table" and git_branch_status_cache["changed"] ~= nil
+      if type(git_branch_status_cache) == "table" and git_branch_status_cache["changed"] ~= nil then
+        return "* "
+      else
+        return ""
+      end
     end,
     hl = function(self)
       return { fg = "git_dirty", bg = "normal_bg3" }
@@ -247,12 +252,14 @@ local GitBranch = {
   },
   {
     provider = function(self)
-      ---@diagnostic disable-next-line: need-check-nil
-      return string.format("↑[%d] ", git_branch_status_cache["ahead"])
-    end,
-    condition = function(self)
-      return type(git_branch_status_cache) == "table"
+      if
+        type(git_branch_status_cache) == "table"
         and type(git_branch_status_cache["ahead"]) == "number"
+      then
+        return string.format("↑[%d] ", git_branch_status_cache["ahead"])
+      else
+        return ""
+      end
     end,
     hl = function(self)
       return { fg = "git_ahead", bg = "normal_bg3" }
@@ -260,12 +267,14 @@ local GitBranch = {
   },
   {
     provider = function(self)
-      ---@diagnostic disable-next-line: need-check-nil
-      return string.format("↓[%d] ", git_branch_status_cache["behind"])
-    end,
-    condition = function(self)
-      return type(git_branch_status_cache) == "table"
+      if
+        type(git_branch_status_cache) == "table"
         and type(git_branch_status_cache["behind"]) == "number"
+      then
+        return string.format("↓[%d] ", git_branch_status_cache["behind"])
+      else
+        return ""
+      end
     end,
     hl = function(self)
       return { fg = "git_behind", bg = "normal_bg3" }
@@ -292,8 +301,9 @@ local GitDiff = {
       local value = self.summary[1] or 0
       if value > 0 then
         return string.format(" +%d", value)
+      else
+        return ""
       end
-      return ""
     end,
     hl = { fg = "git_add", bg = "normal_bg4" },
   },
@@ -302,8 +312,9 @@ local GitDiff = {
       local value = self.summary[2] or 0
       if value > 0 then
         return string.format(" ~%d", value)
+      else
+        return ""
       end
-      return ""
     end,
     hl = { fg = "git_change", bg = "normal_bg4" },
   },
@@ -312,8 +323,9 @@ local GitDiff = {
       local value = self.summary[3] or 0
       if value > 0 then
         return string.format(" -%d", value)
+      else
+        return ""
       end
-      return ""
     end,
     hl = { fg = "git_delete", bg = "normal_bg4" },
   },
@@ -322,7 +334,7 @@ local GitDiff = {
 local LspStatus = {
   hl = { fg = "normal_fg4", bg = "normal_bg4" },
   provider = function()
-    local width = math.max(vim.o.columns - 100, 5)
+    local width = math.max(vim.o.columns - math.max(100, math.floor(vim.o.columns / 2)), 3)
     local result = require("lsp-progress").progress({
       max_size = width,
     })
@@ -344,7 +356,7 @@ local LspStatus = {
 
 local SearchCount = {
   hl = { fg = "normal_fg4", bg = "normal_bg4" },
-  provider = function(self)
+  provider = function()
     if vim.v.hlsearch == 0 then
       return ""
     end
@@ -436,7 +448,7 @@ local FileEncoding = {
     hl = { fg = "normal_bg3", bg = "normal_bg4" },
   },
   {
-    provider = function(self)
+    provider = function()
       local text = (vim.bo.fenc ~= "" and vim.bo.fenc) or vim.o.enc
       if str.empty(text) then
         return ""
@@ -531,16 +543,14 @@ local Location = {
     self.mode = vim.fn.mode(1)
   end,
   hl = function(self)
-    local mode_name = GetModeName(self.mode)
-    local mode_hl = ModeHighlights[mode_name] or ModeHighlights.NORMAL
+    local mode_hl = GetModeHighlight(self.mode)
     return { fg = mode_hl.fg, bg = mode_hl.bg, bold = true }
   end,
 
   {
     provider = left_slant,
     hl = function(self)
-      local mode_name = GetModeName(self.mode)
-      local mode_hl = ModeHighlights[mode_name] or ModeHighlights.NORMAL
+      local mode_hl = GetModeHighlight(self.mode)
       return { fg = mode_hl.bg, bg = "normal_bg2", bold = true }
     end,
   },
@@ -554,8 +564,7 @@ local Progress = {
     self.mode = vim.api.nvim_get_mode().mode
   end,
   hl = function(self)
-    local mode_name = GetModeName(self.mode)
-    local mode_hl = ModeHighlights[mode_name] or ModeHighlights.NORMAL
+    local mode_hl = GetModeHighlight(self.mode)
     return { fg = mode_hl.fg, bg = mode_hl.bg, bold = true }
   end,
   provider = "  %P ",
