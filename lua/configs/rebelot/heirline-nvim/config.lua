@@ -30,23 +30,6 @@ local bright_white = "#C0C0C0"
 local left_slant = ""
 local right_slant = ""
 
-local function rgb_to_hsl(rgb)
-  local h, s, l = color_hsl.rgb_string_to_hsl(rgb)
-  return color_hsl.new(h, s, l, rgb)
-end
-
--- Shade RGB color code with a 0.0 ~ 1.0 parameter.
---
---- @param rgb string The RGB color code.
---- @param value number The 0.0 ~ 1.0 parameter.
-local function shade_rgb(rgb, value)
-  if vim.o.background == "light" then
-    return rgb_to_hsl(rgb):tint(value):to_rgb()
-  else
-    return rgb_to_hsl(rgb):shade(value):to_rgb()
-  end
-end
-
 local OS_UNAME = uv.os_uname()
 
 local ModeNames = {
@@ -712,13 +695,30 @@ local function brightness_modifier(rgb_color, percentage)
   return rgb_num2str(color)
 end
 
+local function rgb_to_hsl(rgb)
+  local h, s, l = color_hsl.rgb_string_to_hsl(rgb)
+  return color_hsl.new(h, s, l, rgb)
+end
+
+-- Shade RGB color code with a 0.0 ~ 1.0 parameter.
+--
+--- @param rgb string The RGB color code.
+--- @param value number The 0.0 ~ 1.0 parameter.
+local function shade_rgb(rgb, value)
+  if vim.o.background == "light" then
+    return rgb_to_hsl(rgb):tint(value):to_rgb()
+  else
+    return rgb_to_hsl(rgb):shade(value):to_rgb()
+  end
+end
+
 -- Derives a RGB color code into several other colors by shades/tints.
 --
 --- @param rgb string The RGB color code.
 --- @param count integer The count of derives from the RGB color.
 --- @return string[]
 local function derive_rgb(rgb, count)
-  local hsl_color = color_hsl.new(rgb)
+  local hsl_color = rgb_to_hsl(rgb)
   local derives
   if vim.o.background == "light" then
     derives = hsl_color:tints(count)
