@@ -695,6 +695,7 @@ local function brightness_modifier(rgb_color, percentage)
   return rgb_num2str(color)
 end
 
+-- Convert RGB color code into HSL color object.
 local function rgb_to_hsl(rgb)
   local h, s, l = color_hsl.rgb_string_to_hsl(rgb)
   return color_hsl.new(h, s, l, rgb)
@@ -736,8 +737,8 @@ end
 ---@return table<string, string>
 local function setup_colors(colorname)
   local shade_level1 = 0.3
-  local shade_level2 = 0.55
-  local shade_level3 = 0.75
+  local shade_level2 = 0.5
+  local shade_level3 = 0.7
 
   local diagnostic_error =
     color_hl.get_color_with_fallback({ "DiagnosticSignError", "ErrorMsg" }, "fg", red)
@@ -829,7 +830,7 @@ local function setup_colors(colorname)
   )
   -- print(string.format("text bg/fg:%s/%s", vim.inspect(text_bg), vim.inspect(text_fg)))
 
-  local normal_bg_derives = derive_rgb(get_terminal_color(0, magenta), 6)
+  -- local normal_bg_derives = derive_rgb(get_terminal_color(0, magenta), 6)
   local normal_bg_source
 
   normal_bg, normal_bg_source = retrieve_color(
@@ -908,13 +909,13 @@ local function setup_colors(colorname)
     text_fg -- or white
   )
   if normal_bg_source ~= "fallback" then
-    normal_bg4 = shade_rgb(normal_bg3, shade_level3)
+    normal_bg4 = shade_rgb(normal_bg3, shade_level1)
   else
     normal_bg4 = shade_rgb(get_terminal_color(0, magenta), shade_level3)
   end
   normal_fg4 = normal_fg3
 
-  -- print(string.format("1-normal source:%s", vim.inspect(normal_bg_source)))
+  print(string.format("1-normal source:%s", vim.inspect(normal_bg_source)))
 
   insert_bg = retrieve_color(
     has_lualine,
@@ -1025,7 +1026,7 @@ local function setup_colors(colorname)
         normal_fg1 = text_fg
       end
 
-      local normal_bg_derives2 = derive_rgb(normal_bg1, 6)
+      -- local normal_bg_derives2 = derive_rgb(normal_bg1, 6)
       -- print(
       --   string.format(
       --     "2-normal source:%s, derives2:%s",
