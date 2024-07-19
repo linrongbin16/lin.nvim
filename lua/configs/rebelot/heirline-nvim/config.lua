@@ -431,15 +431,6 @@ local Diagnostic = {
   },
 }
 
-local FileEncodingIcons = {
-  ["utf-8"] = "󰉿",
-  ["utf-16"] = "󰊀",
-  ["utf-32"] = "󰊁",
-  ["utf-8mb4"] = "󰊂",
-  ["utf-16le"] = "󰊃",
-  ["utf-16be"] = "󰊄",
-}
-
 local FileEncoding = {
   hl = { fg = "normal_fg3", bg = "normal_bg3" },
 
@@ -449,11 +440,20 @@ local FileEncoding = {
   },
   {
     provider = function()
+      local icons = {
+        ["utf-8"] = "󰉿",
+        ["utf-16"] = "󰊀",
+        ["utf-32"] = "󰊁",
+        ["utf-8mb4"] = "󰊂",
+        ["utf-16le"] = "󰊃",
+        ["utf-16be"] = "󰊄",
+      }
+
       local text = (vim.bo.fenc ~= "" and vim.bo.fenc) or vim.o.enc
       if str.empty(text) then
         return ""
       end
-      local icon = FileEncodingIcons[text]
+      local icon = icons[text]
       if str.empty(icon) then
         return " " .. text .. " "
       end
