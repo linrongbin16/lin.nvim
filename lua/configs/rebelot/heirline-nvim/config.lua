@@ -1165,12 +1165,13 @@ local function get_buffer_dir()
   return nil
 end
 
-local running_git_branch_info = false
+local updating_git_branch = false
+
 local function update_git_branch()
-  if running_git_branch_info then
+  if updating_git_branch then
     return
   end
-  running_git_branch_info = true
+  updating_git_branch = true
 
   local cwd = get_buffer_dir()
   local status_info = {}
@@ -1185,20 +1186,20 @@ local function update_git_branch()
     on_stderr = function()
       status_info = nil
     end,
-  }, function(git_completed)
+  }, function(completed)
     if
       not failed_get_status
-      and tbl.tbl_get(git_completed, "code") == 0
+      and tbl.tbl_get(completed, "code") == 0
       and tbl.list_not_empty(status_info)
     then
       local branch_status = {}
-      for _, sinfo in ipairs(status_info) do
-        if str.startswith(sinfo, "# branch.head") then
-          local branch_name = string.sub(sinfo, 14)
+      for _, line in ipairs(status_info) do
+        if str.startswith(line, "# branch.head") then
+          local branch_name = string.sub(line, 14)
           git_branch_name_cache = str.trim(branch_name)
         end
-        if str.startswith(sinfo, "# branch.ab") then
-          local ab_splits = str.split(sinfo, " ", { trimempty = true })
+        if str.startswith(line, "# branch.ab") then
+          local ab_splits = str.split(line, " ", { trimempty = true })
           if tbl.list_not_empty(ab_splits) then
             for _, ab in ipairs(ab_splits) do
               if str.startswith(ab, "+") and string.len(ab) > 1 then
@@ -1216,9 +1217,9 @@ local function update_git_branch()
             end
           end
         end
-        if not str.startswith(sinfo, "# branch") then
-          local sinfo_splits = str.split(sinfo, " ", { trimempty = true })
-          if tbl.list_not_empty(sinfo_splits) and tonumber(sinfo_splits[1]) ~= nil then
+        if not str.startswith(line, "# branch") then
+          local splits = str.split(line, " ", { plain = true, trimempty = true })
+          if tbl.list_not_empty(splits) and tonumber(splits[1]) ~= nil then
             branch_status["changed"] = true
           end
         end
@@ -1231,7 +1232,7 @@ local function update_git_branch()
         modeline = false,
       })
       vim.schedule(function()
-        running_git_branch_info = false
+        updating_git_branch = false
       end)
     end)
   end)
