@@ -374,31 +374,31 @@ local SearchCount = {
   },
 }
 
-local DiagnosticSigns = {
-  constants.diagnostic.signs.error,
-  constants.diagnostic.signs.warning,
-  constants.diagnostic.signs.info,
-  constants.diagnostic.signs.hint,
-}
-local DiagnosticColors = {
-  "diagnostic_error",
-  "diagnostic_warn",
-  "diagnostic_info",
-  "diagnostic_hint",
-}
-local DiagnosticSeverity = { "ERROR", "WARN", "INFO", "HINT" }
-
 local function GetDiagnosticText(level)
-  local value =
-    #vim.diagnostic.get(0, { severity = vim.diagnostic.severity[DiagnosticSeverity[level]] })
+  local severity = { "ERROR", "WARN", "INFO", "HINT" }
+  local signs = {
+    constants.diagnostic.signs.error,
+    constants.diagnostic.signs.warning,
+    constants.diagnostic.signs.info,
+    constants.diagnostic.signs.hint,
+  }
+
+  local value = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity[severity[level]] })
   if value <= 0 then
     return ""
+  else
+    return string.format("%s %d ", signs[level], value)
   end
-  return string.format("%s %d ", DiagnosticSigns[level], value)
 end
 
 local function GetDiagnosticHighlight(level)
-  return { fg = DiagnosticColors[level], bg = "normal_bg4" }
+  local hls = {
+    "diagnostic_error",
+    "diagnostic_warn",
+    "diagnostic_info",
+    "diagnostic_hint",
+  }
+  return { fg = hls[level], bg = "normal_bg4" }
 end
 
 local Diagnostic = {
@@ -406,25 +406,25 @@ local Diagnostic = {
   update = { "DiagnosticChanged" },
 
   {
-    provider = function(self)
+    provider = function()
       return GetDiagnosticText(1)
     end,
     hl = GetDiagnosticHighlight(1),
   },
   {
-    provider = function(self)
+    provider = function()
       return GetDiagnosticText(2)
     end,
     hl = GetDiagnosticHighlight(2),
   },
   {
-    provider = function(self)
+    provider = function()
       return GetDiagnosticText(3)
     end,
     hl = GetDiagnosticHighlight(3),
   },
   {
-    provider = function(self)
+    provider = function()
       return GetDiagnosticText(4)
     end,
     hl = GetDiagnosticHighlight(4),
