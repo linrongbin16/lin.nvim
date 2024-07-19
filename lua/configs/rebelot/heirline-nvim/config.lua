@@ -915,7 +915,7 @@ local function setup_colors(colorname)
   end
   normal_fg4 = normal_fg3
 
-  print(string.format("1-normal source:%s", vim.inspect(normal_bg_source)))
+  -- print(string.format("1-normal source:%s", vim.inspect(normal_bg_source)))
 
   insert_bg = retrieve_color(
     has_lualine,
@@ -1027,13 +1027,13 @@ local function setup_colors(colorname)
       end
 
       local normal_bg_derives2 = derive_rgb(normal_bg1, 6)
-      print(
-        string.format(
-          "2-normal source:%s, derives2:%s",
-          vim.inspect(normal_bg_source),
-          vim.inspect(normal_bg_derives2)
-        )
-      )
+      -- print(
+      --   string.format(
+      --     "2-normal source:%s, derives2:%s",
+      --     vim.inspect(normal_bg_source),
+      --     vim.inspect(normal_bg_derives2)
+      --   )
+      -- )
       -- print(string.format("normal bg derives2:%s", vim.inspect(normal_bg_derives2)))
       normal_bg2 = normal_bg_derives2[1]
       if get_color_brightness(normal_bg2) > 0.5 then
