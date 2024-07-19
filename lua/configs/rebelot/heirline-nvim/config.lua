@@ -735,9 +735,9 @@ end
 ---@param colorname string?
 ---@return table<string, string>
 local function setup_colors(colorname)
-  local shade_level1 = 0.5
-  local shade_level2 = 0.65
-  local shade_level3 = 0.8
+  local shade_level1 = 0.3
+  local shade_level2 = 0.55
+  local shade_level3 = 0.75
 
   local diagnostic_error =
     color_hl.get_color_with_fallback({ "DiagnosticSignError", "ErrorMsg" }, "fg", red)
@@ -842,7 +842,7 @@ local function setup_colors(colorname)
     "bg",
     { "StatusLine", "PmenuSel", "PmenuThumb", "TabLineSel" },
     "bg",
-    normal_bg_derives[1]
+    get_terminal_color(0, magenta)
   )
   normal_fg = retrieve_color(
     has_lualine,
@@ -869,7 +869,7 @@ local function setup_colors(colorname)
     "bg",
     {},
     "bg",
-    normal_bg_derives[2]
+    shade_rgb(get_terminal_color(0, magenta), shade_level1)
   )
   normal_fg2 = retrieve_color(
     has_lualine,
@@ -893,7 +893,7 @@ local function setup_colors(colorname)
     "bg",
     {},
     "bg",
-    normal_bg_derives[3]
+    shade_rgb(get_terminal_color(0, magenta), shade_level2)
   )
   normal_fg3 = retrieve_color(
     has_lualine,
@@ -908,10 +908,9 @@ local function setup_colors(colorname)
     text_fg -- or white
   )
   if normal_bg_source ~= "fallback" then
-    local normal_bg_derives_from_theme = derive_rgb(normal_bg3, 3)
-    normal_bg4 = normal_bg_derives_from_theme[2]
+    normal_bg4 = shade_rgb(normal_bg3, shade_level3)
   else
-    normal_bg4 = normal_bg_derives[4]
+    normal_bg4 = shade_rgb(get_terminal_color(0, magenta), shade_level3)
   end
   normal_fg4 = normal_fg3
 
@@ -1035,15 +1034,15 @@ local function setup_colors(colorname)
       --   )
       -- )
       -- print(string.format("normal bg derives2:%s", vim.inspect(normal_bg_derives2)))
-      normal_bg2 = normal_bg_derives2[1]
+      normal_bg2 = shade_rgb(normal_bg, shade_level1)
       if get_color_brightness(normal_bg2) > 0.5 then
         normal_fg2 = text_bg
       end
-      normal_bg3 = normal_bg_derives2[2]
+      normal_bg3 = shade_rgb(normal_bg, shade_level2)
       if get_color_brightness(normal_bg3) > 0.5 then
         normal_fg3 = text_bg
       end
-      normal_bg4 = normal_bg_derives2[3]
+      normal_bg4 = shade_rgb(normal_bg, shade_level3)
       if get_color_brightness(normal_bg4) > 0.5 then
         normal_fg4 = text_bg
       end
