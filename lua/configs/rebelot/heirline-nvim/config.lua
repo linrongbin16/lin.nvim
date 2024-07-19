@@ -35,12 +35,16 @@ local function rgb_to_hsl(rgb)
   return color_hsl.new(h, s, l, rgb)
 end
 
--- value 0.0-1.0
+-- Shade RGB color code with a 0.0 ~ 1.0 parameter.
+--
+--- @param rgb string The RGB color code.
+--- @param value number The 0.0 ~ 1.0 parameter.
 local function shade_rgb(rgb, value)
   if vim.o.background == "light" then
     return rgb_to_hsl(rgb):tint(value):to_rgb()
+  else
+    return rgb_to_hsl(rgb):shade(value):to_rgb()
   end
-  return rgb_to_hsl(rgb):shade(value):to_rgb()
 end
 
 local OS_UNAME = uv.os_uname()
@@ -610,6 +614,7 @@ local StatusLine = {
 ---@param fallback_hls string|string[] Fallback highlighting groups.
 ---@param fallback_attribute "fg"|"bg" Fallback foreground/background attribute that use to retrieve from the highlighting groups.
 ---@param fallback_color string? Fallback default color, if none of lualine/airline themes and highlighting groups exists.
+---@return string, "lualine"|"airline"|"fallback"
 local function retrieve_color(
   has_lualine,
   lualine_theme,
@@ -625,13 +630,26 @@ local function retrieve_color(
   local air_section = "airline_" .. section
   local air_attribute = attribute == "fg" and 1 or 2
   local air_mode_name = mode_name == "command" and "terminal" or mode_name
+
+  --- @type string
+  local result
+  --- @type "lualine"|"airline"|"fallback"
+  local source
+
   if has_lualine and tbl.tbl_get(lualine_theme, mode_name, section, attribute) then
-    return lualine_theme[mode_name][section][attribute]
+    result = lualine_theme[mode_name][section][attribute]
+    source = "lualine"
   elseif has_airline and tbl.tbl_get(airline_theme, air_mode_name, air_section, air_attribute) then
-    return airline_theme[air_mode_name][air_section][air_attribute]
-  else
-    return color_hl.get_color_with_fallback(fallback_hls, fallback_attribute, fallback_color)
+    result = airline_theme[air_mode_name][air_section][air_attribute]
+    source = "airline"
   end
+
+  if type(result) ~= "string" then
+    result = color_hl.get_color_with_fallback(fallback_hls, fallback_attribute, fallback_color) --[[@as string]]
+    source = "fallback"
+  end
+
+  return result, source
 end
 
 -- Get RGB color code from `g:terminal_color_0` ~ `g:terminal_color_10`, or fallback to default color.
@@ -692,6 +710,26 @@ local function brightness_modifier(rgb_color, percentage)
   color.green = clamp(color.green + (color.green * percentage / 100), 0, 255)
   color.blue = clamp(color.blue + (color.blue * percentage / 100), 0, 255)
   return rgb_num2str(color)
+end
+
+-- Derives a RGB color code into several other colors by shades/tints.
+--
+--- @param rgb string The RGB color code.
+--- @param count integer The count of derives from the RGB color.
+--- @return string[]
+local function derive_rgb(rgb, count)
+  local hsl_color = color_hsl.new(rgb)
+  local derives
+  if vim.o.background == "light" then
+    derives = hsl_color:tints(count)
+  else
+    derives = hsl_color:shades(count)
+  end
+  local results = {}
+  for _, d in ipairs(derives) do
+    table.insert(results, d:to_rgb())
+  end
+  return results
 end
 
 ---@param colorname string?
@@ -789,7 +827,12 @@ local function setup_colors(colorname)
     "fg",
     white
   )
-  normal_bg = retrieve_color(
+  -- print(string.format("text bg/fg:%s/%s", vim.inspect(text_bg), vim.inspect(text_fg)))
+
+  local normal_bg_derives = derive_rgb(get_terminal_color(0, magenta), 7)
+  local normal_bg_source
+
+  normal_bg, normal_bg_source = retrieve_color(
     has_lualine,
     lualine_theme,
     has_airline,
@@ -799,7 +842,7 @@ local function setup_colors(colorname)
     "bg",
     { "StatusLine", "PmenuSel", "PmenuThumb", "TabLineSel" },
     "bg",
-    get_terminal_color(0, magenta)
+    normal_bg_derives[1]
   )
   normal_fg = retrieve_color(
     has_lualine,
@@ -815,6 +858,7 @@ local function setup_colors(colorname)
   )
   normal_bg1 = normal_bg
   normal_fg1 = normal_fg
+
   normal_bg2 = retrieve_color(
     has_lualine,
     lualine_theme,
@@ -825,7 +869,7 @@ local function setup_colors(colorname)
     "bg",
     {},
     "bg",
-    shade_rgb(get_terminal_color(0, magenta), shade_level1)
+    normal_bg_derives[2]
   )
   normal_fg2 = retrieve_color(
     has_lualine,
@@ -848,7 +892,8 @@ local function setup_colors(colorname)
     "c",
     "bg",
     {},
-    shade_rgb(get_terminal_color(0, magenta), shade_level2)
+    "bg",
+    normal_bg_derives[3]
   )
   normal_fg3 = retrieve_color(
     has_lualine,
@@ -859,18 +904,19 @@ local function setup_colors(colorname)
     "c",
     "fg",
     {},
+    "fg",
     text_fg -- or white
   )
-  if normal_bg3 and normal_fg3 then
-    local parameter = get_color_brightness(normal_bg3) > 0.5 and 8 or -8
-    normal_bg4 = brightness_modifier(normal_bg3, parameter)
-    normal_fg4 = normal_fg3
+  if normal_bg_source ~= "fallback" then
+    local normal_bg_derives_from_theme = derive_rgb(normal_bg3, 3)
+    normal_bg4 = normal_bg_derives_from_theme[2]
   else
-    normal_bg3 = shade_rgb(get_terminal_color(0, magenta), shade_level2)
-    normal_fg3 = text_fg
-    normal_bg4 = shade_rgb(get_terminal_color(0, magenta), shade_level3)
-    normal_fg4 = text_fg
+    normal_bg4 = normal_bg_derives[4]
   end
+  normal_fg4 = normal_fg3
+
+  print(string.format("1-normal source:%s", vim.inspect(normal_bg_source)))
+
   insert_bg = retrieve_color(
     has_lualine,
     lualine_theme,
@@ -967,6 +1013,7 @@ local function setup_colors(colorname)
     "fg",
     text_bg
   )
+  -- print(string.format("1-text bg/fg:%s/%s", vim.inspect(text_bg), vim.inspect(text_fg)))
 
   if not has_lualine and not has_airline then
     local background_color = color_hl.get_color("Normal", "bg")
@@ -978,18 +1025,58 @@ local function setup_colors(colorname)
         normal_fg = text_fg
         normal_fg1 = text_fg
       end
-      normal_bg2 = shade_rgb(normal_bg, 0.5)
+
+      local normal_bg_derives2 = derive_rgb(normal_bg1, 7)
+      print(
+        string.format(
+          "2-normal source:%s, derives2:%s",
+          vim.inspect(normal_bg_source),
+          vim.inspect(normal_bg_derives2)
+        )
+      )
+      -- print(string.format("normal bg derives2:%s", vim.inspect(normal_bg_derives2)))
+      normal_bg2 = normal_bg_derives2[1]
       if get_color_brightness(normal_bg2) > 0.5 then
         normal_fg2 = text_bg
       end
-      normal_bg3 = shade_rgb(normal_bg, shade_level2)
+      normal_bg3 = normal_bg_derives2[2]
       if get_color_brightness(normal_bg3) > 0.5 then
         normal_fg3 = text_bg
       end
-      normal_bg4 = shade_rgb(normal_bg, shade_level3)
+      normal_bg4 = normal_bg_derives2[3]
       if get_color_brightness(normal_bg4) > 0.5 then
         normal_fg4 = text_bg
       end
+      -- print(string.format("2-text bg/fg:%s/%s", vim.inspect(text_bg), vim.inspect(text_fg)))
+      -- print(
+      --   string.format(
+      --     "text bg/fg:%s/%s, normal bg1/fg1:%s/%s,bg2/fg2:%s/%s,bg3/fg3:%s/%s,bg4/fg4:%s/%s",
+      --     vim.inspect(text_bg),
+      --     vim.inspect(text_fg),
+      --     vim.inspect(normal_bg1),
+      --     vim.inspect(normal_fg1),
+      --     vim.inspect(normal_bg2),
+      --     vim.inspect(normal_fg2),
+      --     vim.inspect(normal_bg3),
+      --     vim.inspect(normal_fg3),
+      --     vim.inspect(normal_bg4),
+      --     vim.inspect(normal_fg4)
+      --   )
+      -- )
+
+      -- normal_bg2 = shade_rgb(normal_bg, 0.5)
+      -- if get_color_brightness(normal_bg2) > 0.5 then
+      --   normal_fg2 = text_bg
+      -- end
+      -- normal_bg3 = shade_rgb(normal_bg, shade_level2)
+      -- if get_color_brightness(normal_bg3) > 0.5 then
+      --   normal_fg3 = text_bg
+      -- end
+      -- normal_bg4 = shade_rgb(normal_bg, shade_level3)
+      -- if get_color_brightness(normal_bg4) > 0.5 then
+      --   normal_fg4 = text_bg
+      -- end
+
       insert_bg = brightness_modifier(insert_bg, parameter)
       if get_color_brightness(insert_bg) < 0.5 then
         insert_fg = text_fg
