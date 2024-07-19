@@ -1150,6 +1150,8 @@ vim.api.nvim_create_autocmd("VimEnter", {
   end,
 })
 
+-- When current buffer is a file, get its directory.
+--- @return string?
 local function get_buffer_dir()
   local bufnr = vim.api.nvim_get_current_buf()
   if type(bufnr) == "number" and bufnr > 0 then
@@ -1163,6 +1165,52 @@ local function get_buffer_dir()
   end
 
   return nil
+end
+
+-- Parse the output lines of `git status -b --porcelain=v2`.
+-- Get the branch name, ahead count, behind count, and if changed.
+--
+--- @param status_lines string[]
+--- @return {branch:string?,ahead:integer?,behind:integer?,changed:boolean?}?
+local function parse_git_status(status_lines)
+  local result = {}
+  for _, line in ipairs(status_lines) do
+    if str.startswith(line, "# branch.head") then
+      local branch_name = string.sub(line, 14)
+      result["branch"] = str.trim(branch_name)
+    end
+    if str.startswith(line, "# branch.ab") then
+      local ab_splits = str.split(line, " ", { trimempty = true })
+      if tbl.list_not_empty(ab_splits) then
+        for _, ab in ipairs(ab_splits) do
+          if str.startswith(ab, "+") and string.len(ab) > 1 then
+            local a_count = tonumber(string.sub(ab, 2))
+            if type(a_count) == "number" and a_count > 0 then
+              result["ahead"] = a_count
+            end
+          end
+          if str.startswith(ab, "-") and string.len(ab) > 1 then
+            local b_count = tonumber(string.sub(ab, 2))
+            if type(b_count) == "number" and b_count > 0 then
+              result["behind"] = b_count
+            end
+          end
+        end
+      end
+    end
+    if not str.startswith(line, "# branch") then
+      local changed_splits = str.split(line, " ", { plain = true, trimempty = true })
+      if tbl.list_not_empty(changed_splits) and tonumber(changed_splits[1]) ~= nil then
+        result["changed"] = true
+      end
+    end
+  end
+
+  if tbl.tbl_not_empty(result) then
+    return result
+  else
+    return nil
+  end
 end
 
 local updating_git_branch = false
@@ -1192,38 +1240,16 @@ local function update_git_branch()
       and tbl.tbl_get(completed, "code") == 0
       and tbl.list_not_empty(status_info)
     then
-      local branch_status = {}
-      for _, line in ipairs(status_info) do
-        if str.startswith(line, "# branch.head") then
-          local branch_name = string.sub(line, 14)
-          git_branch_name_cache = str.trim(branch_name)
-        end
-        if str.startswith(line, "# branch.ab") then
-          local ab_splits = str.split(line, " ", { trimempty = true })
-          if tbl.list_not_empty(ab_splits) then
-            for _, ab in ipairs(ab_splits) do
-              if str.startswith(ab, "+") and string.len(ab) > 1 then
-                local a_count = tonumber(string.sub(ab, 2))
-                if type(a_count) == "number" and a_count > 0 then
-                  branch_status["ahead"] = a_count
-                end
-              end
-              if str.startswith(ab, "-") and string.len(ab) > 1 then
-                local b_count = tonumber(string.sub(ab, 2))
-                if type(b_count) == "number" and b_count > 0 then
-                  branch_status["behind"] = b_count
-                end
-              end
-            end
-          end
-        end
-        if not str.startswith(line, "# branch") then
-          local splits = str.split(line, " ", { plain = true, trimempty = true })
-          if tbl.list_not_empty(splits) and tonumber(splits[1]) ~= nil then
-            branch_status["changed"] = true
-          end
-        end
+      local branch_status = parse_git_status(status_info)
+
+      if
+        type(branch_status) == "table"
+        and type(branch_status.branch) == "string"
+        and string.len(branch_status.branch) > 0
+      then
+        git_branch_name_cache = branch_status.branch
       end
+
       if tbl.tbl_not_empty(branch_status) then
         git_branch_status_cache = branch_status
       else
