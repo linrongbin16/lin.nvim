@@ -829,7 +829,7 @@ local function setup_colors(colorname)
   )
   -- print(string.format("text bg/fg:%s/%s", vim.inspect(text_bg), vim.inspect(text_fg)))
 
-  local normal_bg_derives = derive_rgb(get_terminal_color(0, magenta), 7)
+  local normal_bg_derives = derive_rgb(get_terminal_color(0, magenta), 6)
   local normal_bg_source
 
   normal_bg, normal_bg_source = retrieve_color(
@@ -1026,7 +1026,7 @@ local function setup_colors(colorname)
         normal_fg1 = text_fg
       end
 
-      local normal_bg_derives2 = derive_rgb(normal_bg1, 7)
+      local normal_bg_derives2 = derive_rgb(normal_bg1, 6)
       print(
         string.format(
           "2-normal source:%s, derives2:%s",
