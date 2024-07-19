@@ -1224,7 +1224,11 @@ local function update_git_branch()
           end
         end
       end
-      git_branch_status_cache = tbl.tbl_not_empty(branch_status) and branch_status or nil
+      if tbl.tbl_not_empty(branch_status) then
+        git_branch_status_cache = branch_status
+      else
+        git_branch_status_cache = nil
+      end
     end
     vim.schedule(function()
       vim.api.nvim_exec_autocmds("User", {
