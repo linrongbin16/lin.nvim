@@ -30,36 +30,7 @@ local bright_white = "#C0C0C0"
 local left_slant = ""
 local right_slant = ""
 
-local function rgb_to_hsl(rgb)
-  local h, s, l = color_hsl.rgb_string_to_hsl(rgb)
-  return color_hsl.new(h, s, l, rgb)
-end
-
--- value 0.0-1.0
-local function shade_rgb(rgb, value)
-  if vim.o.background == "light" then
-    return rgb_to_hsl(rgb):tint(value):to_rgb()
-  end
-  return rgb_to_hsl(rgb):shade(value):to_rgb()
-end
-
 local OS_UNAME = uv.os_uname()
-
-local function GetOsIcon()
-  local uname = OS_UNAME.sysname
-  if uname:match("Darwin") then
-    return ""
-  elseif uname:match("Windows") then
-    return ""
-  elseif uname:match("Linux") then
-    if type(OS_UNAME.release) == "string" and OS_UNAME.release:find("arch") then
-      return ""
-    end
-    return ""
-  else
-    return "󱚟"
-  end
-end
 
 local ModeNames = {
   ["n"] = "NORMAL",
@@ -124,13 +95,37 @@ local function GetModeName(mode)
   return ModeNames[mode] or "???"
 end
 
+local function GetModeHighlight(mode)
+  local mode_name = GetModeName(mode)
+  if type(mode_name) == "string" and ModeHighlights[mode_name] then
+    return ModeHighlights[mode_name]
+  else
+    return ModeHighlights.NORMAL
+  end
+end
+
+local function GetOsIcon()
+  local uname = OS_UNAME.sysname
+  if uname:match("Darwin") then
+    return ""
+  elseif uname:match("Windows") then
+    return ""
+  elseif uname:match("Linux") then
+    if type(OS_UNAME.release) == "string" and OS_UNAME.release:find("arch") then
+      return ""
+    end
+    return ""
+  else
+    return "󱚟"
+  end
+end
+
 local Mode = {
   init = function(self)
     self.mode = vim.api.nvim_get_mode().mode
   end,
   hl = function(self)
-    local mode_name = GetModeName(self.mode)
-    local mode_hl = ModeHighlights[mode_name] or ModeHighlights.NORMAL
+    local mode_hl = GetModeHighlight(self.mode)
     return { fg = mode_hl.fg, bg = mode_hl.bg, bold = true }
   end,
   update = { "ModeChanged" },
@@ -151,8 +146,7 @@ local Mode = {
   {
     provider = right_slant,
     hl = function(self)
-      local mode_name = GetModeName(self.mode)
-      local mode_hl = ModeHighlights[mode_name] or ModeHighlights.NORMAL
+      local mode_hl = GetModeHighlight(self.mode)
       return { fg = mode_hl.bg, bg = "normal_bg2" }
     end,
   },
@@ -173,18 +167,18 @@ local FileName = {
       if str.empty(self.filename) then
         return ""
       end
-      local readonly = not vim.api.nvim_buf_get_option(0, "modifiable")
-        or vim.api.nvim_buf_get_option(0, "readonly")
-      if readonly then
+      local modifiable = vim.api.nvim_get_option_value("modifiable", { buf = 0 })
+      local readonly = vim.api.nvim_get_option_value("readonly", { buf = 0 })
+      if not modifiable or readonly then
         return "[] "
       end
-      local modified = vim.api.nvim_buf_get_option(0, "modified")
+      local modified = vim.api.nvim_get_option_value("modified", { buf = 0 })
       if modified then
         return "[] "
       end
       return ""
     end,
-    update = { "OptionSet" },
+    update = { "OptionSet", "BufWritePost", "BufEnter", "WinEnter" },
   },
   -- file size
   {
@@ -193,26 +187,21 @@ local FileName = {
         return ""
       end
       local fstat = uv.fs_stat(self.filename)
-      local filesize = tbl.tbl_get(fstat, "size")
-      if type(filesize) ~= "number" or filesize <= 0 then
+      local fsize_value = tbl.tbl_get(fstat, "size")
+      if type(fsize_value) ~= "number" or fsize_value <= 0 then
         return ""
       end
-      local suffixes = { "b", "k", "m", "g" }
+      local suffixes = { "B", "KB", "MB", "GB" }
       local i = 1
-      while filesize > 1024 and i < #suffixes do
-        filesize = filesize / 1024
+      while fsize_value > 1024 and i < #suffixes do
+        fsize_value = fsize_value / 1024
         i = i + 1
       end
 
-      local fsize_fmt = i == 1 and "[%d%s] " or "[%.1f%s] "
-      local fsize_value = string.format(fsize_fmt, filesize, suffixes[i])
-      return fsize_value
+      local fsize_format = i == 1 and "[%d %s] " or "[%.1f %s] "
+      return string.format(fsize_format, fsize_value, suffixes[i])
     end,
-    update = {
-      "BufWritePost",
-      "BufEnter",
-      "WinEnter",
-    },
+    update = { "OptionSet", "BufWritePost", "BufEnter", "WinEnter" },
   },
   {
     provider = right_slant,
@@ -222,6 +211,7 @@ local FileName = {
 
 local git_branch_name_cache = nil
 local git_branch_status_cache = nil
+
 local GitBranch = {
   hl = { fg = "normal_fg3", bg = "normal_bg3" },
   update = { "User", pattern = "HeirlineGitBranchUpdated" },
@@ -230,16 +220,18 @@ local GitBranch = {
     provider = function(self)
       if str.not_empty(git_branch_name_cache) then
         return "  " .. git_branch_name_cache .. " "
+      else
+        return ""
       end
-      return ""
     end,
   },
   {
     provider = function(self)
-      return "* "
-    end,
-    condition = function(self)
-      return type(git_branch_status_cache) == "table" and git_branch_status_cache["changed"] ~= nil
+      if type(git_branch_status_cache) == "table" and git_branch_status_cache["changed"] ~= nil then
+        return "* "
+      else
+        return ""
+      end
     end,
     hl = function(self)
       return { fg = "git_dirty", bg = "normal_bg3" }
@@ -247,12 +239,14 @@ local GitBranch = {
   },
   {
     provider = function(self)
-      ---@diagnostic disable-next-line: need-check-nil
-      return string.format("↑[%d] ", git_branch_status_cache["ahead"])
-    end,
-    condition = function(self)
-      return type(git_branch_status_cache) == "table"
+      if
+        type(git_branch_status_cache) == "table"
         and type(git_branch_status_cache["ahead"]) == "number"
+      then
+        return string.format("↑[%d] ", git_branch_status_cache["ahead"])
+      else
+        return ""
+      end
     end,
     hl = function(self)
       return { fg = "git_ahead", bg = "normal_bg3" }
@@ -260,12 +254,14 @@ local GitBranch = {
   },
   {
     provider = function(self)
-      ---@diagnostic disable-next-line: need-check-nil
-      return string.format("↓[%d] ", git_branch_status_cache["behind"])
-    end,
-    condition = function(self)
-      return type(git_branch_status_cache) == "table"
+      if
+        type(git_branch_status_cache) == "table"
         and type(git_branch_status_cache["behind"]) == "number"
+      then
+        return string.format("↓[%d] ", git_branch_status_cache["behind"])
+      else
+        return ""
+      end
     end,
     hl = function(self)
       return { fg = "git_behind", bg = "normal_bg3" }
@@ -292,8 +288,9 @@ local GitDiff = {
       local value = self.summary[1] or 0
       if value > 0 then
         return string.format(" +%d", value)
+      else
+        return ""
       end
-      return ""
     end,
     hl = { fg = "git_add", bg = "normal_bg4" },
   },
@@ -302,8 +299,9 @@ local GitDiff = {
       local value = self.summary[2] or 0
       if value > 0 then
         return string.format(" ~%d", value)
+      else
+        return ""
       end
-      return ""
     end,
     hl = { fg = "git_change", bg = "normal_bg4" },
   },
@@ -312,8 +310,9 @@ local GitDiff = {
       local value = self.summary[3] or 0
       if value > 0 then
         return string.format(" -%d", value)
+      else
+        return ""
       end
-      return ""
     end,
     hl = { fg = "git_delete", bg = "normal_bg4" },
   },
@@ -322,7 +321,7 @@ local GitDiff = {
 local LspStatus = {
   hl = { fg = "normal_fg4", bg = "normal_bg4" },
   provider = function()
-    local width = math.max(vim.o.columns - 100, 5)
+    local width = math.max(vim.o.columns - math.max(100, math.floor(vim.o.columns / 2)), 3)
     local result = require("lsp-progress").progress({
       max_size = width,
     })
@@ -344,7 +343,7 @@ local LspStatus = {
 
 local SearchCount = {
   hl = { fg = "normal_fg4", bg = "normal_bg4" },
-  provider = function(self)
+  provider = function()
     if vim.v.hlsearch == 0 then
       return ""
     end
@@ -362,28 +361,31 @@ local SearchCount = {
   },
 }
 
+local DiagnosticSeverity = { "ERROR", "WARN", "INFO", "HINT" }
+
 local DiagnosticSigns = {
   constants.diagnostic.signs.error,
   constants.diagnostic.signs.warning,
   constants.diagnostic.signs.info,
   constants.diagnostic.signs.hint,
 }
-local DiagnosticColors = {
-  "diagnostic_error",
-  "diagnostic_warn",
-  "diagnostic_info",
-  "diagnostic_hint",
-}
-local DiagnosticSeverity = { "ERROR", "WARN", "INFO", "HINT" }
 
 local function GetDiagnosticText(level)
   local value =
     #vim.diagnostic.get(0, { severity = vim.diagnostic.severity[DiagnosticSeverity[level]] })
   if value <= 0 then
     return ""
+  else
+    return string.format("%s %d ", DiagnosticSigns[level], value)
   end
-  return string.format("%s %d ", DiagnosticSigns[level], value)
 end
+
+local DiagnosticColors = {
+  "diagnostic_error",
+  "diagnostic_warn",
+  "diagnostic_info",
+  "diagnostic_hint",
+}
 
 local function GetDiagnosticHighlight(level)
   return { fg = DiagnosticColors[level], bg = "normal_bg4" }
@@ -394,25 +396,25 @@ local Diagnostic = {
   update = { "DiagnosticChanged" },
 
   {
-    provider = function(self)
+    provider = function()
       return GetDiagnosticText(1)
     end,
     hl = GetDiagnosticHighlight(1),
   },
   {
-    provider = function(self)
+    provider = function()
       return GetDiagnosticText(2)
     end,
     hl = GetDiagnosticHighlight(2),
   },
   {
-    provider = function(self)
+    provider = function()
       return GetDiagnosticText(3)
     end,
     hl = GetDiagnosticHighlight(3),
   },
   {
-    provider = function(self)
+    provider = function()
       return GetDiagnosticText(4)
     end,
     hl = GetDiagnosticHighlight(4),
@@ -436,16 +438,18 @@ local FileEncoding = {
     hl = { fg = "normal_bg3", bg = "normal_bg4" },
   },
   {
-    provider = function(self)
+    provider = function()
       local text = (vim.bo.fenc ~= "" and vim.bo.fenc) or vim.o.enc
       if str.empty(text) then
         return ""
       end
+
       local icon = FileEncodingIcons[text]
       if str.empty(icon) then
         return " " .. text .. " "
+      else
+        return " " .. icon .. " " .. text .. " "
       end
-      return " " .. icon .. " " .. text .. " "
     end,
     update = {
       "BufEnter",
@@ -466,11 +470,13 @@ local FileFormat = {
     if str.empty(text) then
       return ""
     end
+
     local icon = FileFormatIcons[text]
     if str.empty(icon) then
       return " " .. text .. " "
+    else
+      return " " .. icon .. " "
     end
-    return " " .. icon .. " "
   end,
   update = {
     "BufEnter",
@@ -494,17 +500,19 @@ local FileType = {
       if str.empty(self.filename_ext) then
         return ""
       end
-      local icon_text, icon_color = self.devicons.get_icon_color(self.filename, self.filename_ext)
-      if str.not_empty(icon_text) then
-        return " " .. icon_text .. " "
+      local text, _ =
+        self.devicons.get_icon_color(self.filename, self.filename_ext, { default = true })
+      if str.not_empty(text) then
+        return " " .. text .. " "
       else
         return "  "
       end
     end,
     hl = function(self)
-      local icon_text, icon_color = self.devicons.get_icon_color(self.filename, self.filename_ext)
-      if str.not_empty(icon_color) then
-        return { fg = icon_color, bg = "normal_bg2" }
+      local _, color =
+        self.devicons.get_icon_color(self.filename, self.filename_ext, { default = true })
+      if str.not_empty(color) then
+        return { fg = color, bg = "normal_bg2" }
       else
         return { fg = "normal_fg2", bg = "normal_bg2" }
       end
@@ -531,16 +539,14 @@ local Location = {
     self.mode = vim.fn.mode(1)
   end,
   hl = function(self)
-    local mode_name = GetModeName(self.mode)
-    local mode_hl = ModeHighlights[mode_name] or ModeHighlights.NORMAL
+    local mode_hl = GetModeHighlight(self.mode)
     return { fg = mode_hl.fg, bg = mode_hl.bg, bold = true }
   end,
 
   {
     provider = left_slant,
     hl = function(self)
-      local mode_name = GetModeName(self.mode)
-      local mode_hl = ModeHighlights[mode_name] or ModeHighlights.NORMAL
+      local mode_hl = GetModeHighlight(self.mode)
       return { fg = mode_hl.bg, bg = "normal_bg2", bold = true }
     end,
   },
@@ -554,8 +560,7 @@ local Progress = {
     self.mode = vim.api.nvim_get_mode().mode
   end,
   hl = function(self)
-    local mode_name = GetModeName(self.mode)
-    local mode_hl = ModeHighlights[mode_name] or ModeHighlights.NORMAL
+    local mode_hl = GetModeHighlight(self.mode)
     return { fg = mode_hl.fg, bg = mode_hl.bg, bold = true }
   end,
   provider = "  %P ",
@@ -577,17 +582,23 @@ local StatusLine = {
   Progress,
 }
 
----@param has_lualine boolean
----@param lualine_theme table
----@param has_airline boolean
----@param airline_theme table?
----@param mode_name "normal"|"insert"|"visual"|"replace"|"command"|"inactive"
----@param section "a"|"b"|"c"
----@param attribute "fg"|"bg"
----@param fallback_hls string|string[]
----@param fallback_attribute 'fg'|'bg'
----@param fallback_color string?
-local function get_color_with_lualine(
+-- Get RGB color code from either lualine/airline theme, or fallback to highlighting group, or fallback to default color.
+-- A lualine/airline theme usually contains several components:
+-- 1. It supports different color on different VIM mode, i.e. it shows different colors on normal/visual/insert/etc modes.
+-- 2. It supports 3 color on 3 sections, i.e. the most left/right side, the most center part, and the other two parts between them.
+--
+---@param has_lualine boolean If have a lualine theme.
+---@param lualine_theme table The lualine theme.
+---@param has_airline boolean If have an airline theme.
+---@param airline_theme table? The airline theme.
+---@param mode_name "normal"|"insert"|"visual"|"replace"|"command"|"inactive" Mode name that use to retrieve from lualine/airline.
+---@param section "a"|"b"|"c" Section name that use to retrieve from lualine/airline.
+---@param attribute "fg"|"bg" Foreground/background attribute that use to retrieve from lualine/airline.
+---@param fallback_hls string|string[] Fallback highlighting groups.
+---@param fallback_attribute "fg"|"bg" Fallback foreground/background attribute that use to retrieve from the highlighting groups.
+---@param fallback_color string? Fallback default color, if none of lualine/airline themes and highlighting groups exists.
+---@return string, "lualine"|"airline"|"fallback"
+local function retrieve_color(
   has_lualine,
   lualine_theme,
   has_airline,
@@ -599,22 +610,41 @@ local function get_color_with_lualine(
   fallback_attribute,
   fallback_color
 )
-  local a_section = "airline_" .. section
-  local a_attribute = attribute == "fg" and 1 or 2
-  local a_mode_name = mode_name == "command" and "terminal" or mode_name
+  local air_section = "airline_" .. section
+  local air_attribute = attribute == "fg" and 1 or 2
+  local air_mode_name = mode_name == "command" and "terminal" or mode_name
+
+  --- @type string
+  local result
+  --- @type "lualine"|"airline"|"fallback"
+  local source
+
   if has_lualine and tbl.tbl_get(lualine_theme, mode_name, section, attribute) then
-    return lualine_theme[mode_name][section][attribute]
-  elseif has_airline and tbl.tbl_get(airline_theme, a_mode_name, a_section, a_attribute) then
+    result = lualine_theme[mode_name][section][attribute]
+    source = "lualine"
+  elseif has_airline and tbl.tbl_get(airline_theme, air_mode_name, air_section, air_attribute) then
     ---@diagnostic disable-next-line: need-check-nil
-    return airline_theme[a_mode_name][a_section][a_attribute]
-  else
-    return color_hl.get_color_with_fallback(fallback_hls, fallback_attribute, fallback_color)
+    result = airline_theme[air_mode_name][air_section][air_attribute]
+    source = "airline"
   end
+
+  if type(result) ~= "string" then
+    result = color_hl.get_color_with_fallback(fallback_hls, fallback_attribute, fallback_color) --[[@as string]]
+    source = "fallback"
+  end
+
+  return result, source
 end
 
-local function get_terminal_color_with_fallback(number, fallback)
-  if str.not_empty(vim.g[string.format("terminal_color_%d", number)]) then
-    return vim.g[string.format("terminal_color_%d", number)]
+-- Get RGB color code from `g:terminal_color_0` ~ `g:terminal_color_10`, or fallback to default color.
+--- @param number integer
+--- @param fallback string
+--- @return string
+local function get_terminal_color(number, fallback)
+  local color_name = string.format("terminal_color_%d", number)
+  local color = vim.g[color_name]
+  if str.not_empty(color) then
+    return color
   else
     return fallback
   end
@@ -666,12 +696,30 @@ local function brightness_modifier(rgb_color, percentage)
   return rgb_num2str(color)
 end
 
+-- Convert RGB color code into HSL color object.
+local function rgb_to_hsl(rgb)
+  local h, s, l = color_hsl.rgb_string_to_hsl(rgb)
+  return color_hsl.new(h, s, l, rgb)
+end
+
+-- Darker/lighter RGB color code with a 0.0 ~ 1.0 parameter.
+--
+--- @param rgb string The RGB color code.
+--- @param value number The 0.0 ~ 1.0 parameter.
+local function shade_rgb(rgb, value)
+  if vim.o.background == "light" then
+    return rgb_to_hsl(rgb):tint(value):to_rgb()
+  else
+    return rgb_to_hsl(rgb):shade(value):to_rgb()
+  end
+end
+
 ---@param colorname string?
 ---@return table<string, string>
 local function setup_colors(colorname)
-  local shade_level1 = 0.5
-  local shade_level2 = 0.65
-  local shade_level3 = 0.8
+  local shade_level1 = 0.3
+  local shade_level2 = 0.5
+  local shade_level3 = 0.7
 
   local diagnostic_error =
     color_hl.get_color_with_fallback({ "DiagnosticSignError", "ErrorMsg" }, "fg", red)
@@ -696,9 +744,9 @@ local function setup_colors(colorname)
     "fg",
     red
   )
-  local git_ahead = get_terminal_color_with_fallback(3, yellow)
-  local git_behind = get_terminal_color_with_fallback(3, yellow)
-  local git_dirty = get_terminal_color_with_fallback(1, magenta)
+  local git_ahead = get_terminal_color(3, yellow)
+  local git_behind = get_terminal_color(3, yellow)
+  local git_dirty = get_terminal_color(1, magenta)
 
   local text_bg, text_fg
   local normal_bg, normal_fg
@@ -711,7 +759,22 @@ local function setup_colors(colorname)
   local replace_bg, replace_fg
   local command_bg, command_fg
 
+  -- The `lualine` is the most popular statusline plugin in Neovim community.
+  -- The `airline` is the one of the most popular statusline plugin in Vim community.
+  -- Both of them provide a way to integrate with third-party colorschemes.
+  --
+  -- See:
+  -- * [lualine doc - SETTING A THEME](https://github.com/nvim-lualine/lualine.nvim/blob/544dd1583f9bb27b393f598475c89809c4d5e86b/doc/lualine.txt#L178-L205)
+  -- * [lualine wiki - Writing a theme](https://github.com/nvim-lualine/lualine.nvim/wiki/Writing-a-theme)
+  -- * [airline doc - WRITING THEMES](https://github.com/vim-airline/vim-airline/blob/02894b6ef4752afd8579fc837aec5fb4f62409f7/doc/airline.txt#L2099-L2111)
+  --
+  -- So if a colorscheme provides either lualine or airline theme, let's directly use them.
+  -- Since they're carefully designed by the author of the colorscheme.
+
+  -- If current colorscheme provides a lualine theme.
   local has_lualine, lualine_theme = pcall(require, string.format("lualine.themes.%s", colorname))
+
+  -- If current colorscheme provides an airline theme.
   local has_airline = false
   local airline_theme_name = string.format("airline#themes#%s#palette", colorname)
   local airline_theme = nil
@@ -721,7 +784,8 @@ local function setup_colors(colorname)
     airline_theme = vim.g[airline_theme_name]
   end
 
-  text_bg = get_color_with_lualine(
+  -- Retrieve RGB color from lualine/airline, or fallback to a highlighting group, or fallback to a default color.
+  text_bg = retrieve_color(
     has_lualine,
     lualine_theme,
     has_airline,
@@ -733,7 +797,7 @@ local function setup_colors(colorname)
     "bg",
     black
   )
-  text_fg = get_color_with_lualine(
+  text_fg = retrieve_color(
     has_lualine,
     lualine_theme,
     has_airline,
@@ -745,7 +809,12 @@ local function setup_colors(colorname)
     "fg",
     white
   )
-  normal_bg = get_color_with_lualine(
+  -- print(string.format("text bg/fg:%s/%s", vim.inspect(text_bg), vim.inspect(text_fg)))
+
+  -- local normal_bg_derives = derive_rgb(get_terminal_color(0, magenta), 6)
+  local normal_bg_source
+
+  normal_bg, normal_bg_source = retrieve_color(
     has_lualine,
     lualine_theme,
     has_airline,
@@ -755,9 +824,9 @@ local function setup_colors(colorname)
     "bg",
     { "StatusLine", "PmenuSel", "PmenuThumb", "TabLineSel" },
     "bg",
-    get_terminal_color_with_fallback(0, magenta)
+    get_terminal_color(0, magenta)
   )
-  normal_fg = get_color_with_lualine(
+  normal_fg = retrieve_color(
     has_lualine,
     lualine_theme,
     has_airline,
@@ -771,7 +840,8 @@ local function setup_colors(colorname)
   )
   normal_bg1 = normal_bg
   normal_fg1 = normal_fg
-  normal_bg2 = get_color_with_lualine(
+
+  normal_bg2 = retrieve_color(
     has_lualine,
     lualine_theme,
     has_airline,
@@ -781,9 +851,9 @@ local function setup_colors(colorname)
     "bg",
     {},
     "bg",
-    shade_rgb(get_terminal_color_with_fallback(0, magenta), shade_level1)
+    shade_rgb(get_terminal_color(0, magenta), shade_level1)
   )
-  normal_fg2 = get_color_with_lualine(
+  normal_fg2 = retrieve_color(
     has_lualine,
     lualine_theme,
     has_airline,
@@ -795,7 +865,7 @@ local function setup_colors(colorname)
     "fg",
     text_fg -- or white
   )
-  normal_bg3 = get_color_with_lualine(
+  normal_bg3 = retrieve_color(
     has_lualine,
     lualine_theme,
     has_airline,
@@ -804,9 +874,10 @@ local function setup_colors(colorname)
     "c",
     "bg",
     {},
-    "bg"
+    "bg",
+    shade_rgb(get_terminal_color(0, magenta), shade_level2)
   )
-  normal_fg3 = get_color_with_lualine(
+  normal_fg3 = retrieve_color(
     has_lualine,
     lualine_theme,
     has_airline,
@@ -815,19 +886,19 @@ local function setup_colors(colorname)
     "c",
     "fg",
     {},
-    "fg"
+    "fg",
+    text_fg -- or white
   )
-  if normal_bg3 and normal_fg3 then
-    local parameter = get_color_brightness(normal_bg3) > 0.5 and 8 or -8
-    normal_bg4 = brightness_modifier(normal_bg3, parameter)
-    normal_fg4 = normal_fg3
+  if normal_bg_source ~= "fallback" then
+    normal_bg4 = shade_rgb(normal_bg3, shade_level1)
   else
-    normal_bg3 = shade_rgb(get_terminal_color_with_fallback(0, magenta), shade_level2)
-    normal_fg3 = text_fg
-    normal_bg4 = shade_rgb(get_terminal_color_with_fallback(0, magenta), shade_level3)
-    normal_fg4 = text_fg
+    normal_bg4 = shade_rgb(get_terminal_color(0, magenta), shade_level3)
   end
-  insert_bg = get_color_with_lualine(
+  normal_fg4 = normal_fg3
+
+  print(string.format("1-normal source:%s", vim.inspect(normal_bg_source)))
+
+  insert_bg = retrieve_color(
     has_lualine,
     lualine_theme,
     has_airline,
@@ -837,9 +908,9 @@ local function setup_colors(colorname)
     "bg",
     { "String", "MoreMsg" },
     "fg",
-    get_terminal_color_with_fallback(2, green)
+    get_terminal_color(2, green)
   )
-  insert_fg = get_color_with_lualine(
+  insert_fg = retrieve_color(
     has_lualine,
     lualine_theme,
     has_airline,
@@ -851,7 +922,7 @@ local function setup_colors(colorname)
     "fg",
     text_bg
   )
-  visual_bg = get_color_with_lualine(
+  visual_bg = retrieve_color(
     has_lualine,
     lualine_theme,
     has_airline,
@@ -861,9 +932,9 @@ local function setup_colors(colorname)
     "bg",
     { "Special", "Boolean", "Constant" },
     "fg",
-    get_terminal_color_with_fallback(3, yellow)
+    get_terminal_color(3, yellow)
   )
-  visual_fg = get_color_with_lualine(
+  visual_fg = retrieve_color(
     has_lualine,
     lualine_theme,
     has_airline,
@@ -875,7 +946,7 @@ local function setup_colors(colorname)
     "fg",
     text_bg
   )
-  replace_bg = get_color_with_lualine(
+  replace_bg = retrieve_color(
     has_lualine,
     lualine_theme,
     has_airline,
@@ -885,9 +956,9 @@ local function setup_colors(colorname)
     "bg",
     { "Number", "Type" },
     "fg",
-    get_terminal_color_with_fallback(4, blue)
+    get_terminal_color(4, blue)
   )
-  replace_fg = get_color_with_lualine(
+  replace_fg = retrieve_color(
     has_lualine,
     lualine_theme,
     has_airline,
@@ -899,7 +970,7 @@ local function setup_colors(colorname)
     "fg",
     text_bg
   )
-  command_bg = get_color_with_lualine(
+  command_bg = retrieve_color(
     has_lualine,
     lualine_theme,
     has_airline,
@@ -909,9 +980,9 @@ local function setup_colors(colorname)
     "bg",
     { "Identifier" },
     "fg",
-    get_terminal_color_with_fallback(1, red)
+    get_terminal_color(1, red)
   )
-  command_fg = get_color_with_lualine(
+  command_fg = retrieve_color(
     has_lualine,
     lualine_theme,
     has_airline,
@@ -923,6 +994,7 @@ local function setup_colors(colorname)
     "fg",
     text_bg
   )
+  -- print(string.format("1-text bg/fg:%s/%s", vim.inspect(text_bg), vim.inspect(text_fg)))
 
   if not has_lualine and not has_airline then
     local background_color = color_hl.get_color("Normal", "bg")
@@ -934,7 +1006,17 @@ local function setup_colors(colorname)
         normal_fg = text_fg
         normal_fg1 = text_fg
       end
-      normal_bg2 = shade_rgb(normal_bg, 0.5)
+
+      -- local normal_bg_derives2 = derive_rgb(normal_bg1, 6)
+      -- print(
+      --   string.format(
+      --     "2-normal source:%s, derives2:%s",
+      --     vim.inspect(normal_bg_source),
+      --     vim.inspect(normal_bg_derives2)
+      --   )
+      -- )
+      -- print(string.format("normal bg derives2:%s", vim.inspect(normal_bg_derives2)))
+      normal_bg2 = shade_rgb(normal_bg, shade_level1)
       if get_color_brightness(normal_bg2) > 0.5 then
         normal_fg2 = text_bg
       end
@@ -946,6 +1028,36 @@ local function setup_colors(colorname)
       if get_color_brightness(normal_bg4) > 0.5 then
         normal_fg4 = text_bg
       end
+      -- print(string.format("2-text bg/fg:%s/%s", vim.inspect(text_bg), vim.inspect(text_fg)))
+      -- print(
+      --   string.format(
+      --     "text bg/fg:%s/%s, normal bg1/fg1:%s/%s,bg2/fg2:%s/%s,bg3/fg3:%s/%s,bg4/fg4:%s/%s",
+      --     vim.inspect(text_bg),
+      --     vim.inspect(text_fg),
+      --     vim.inspect(normal_bg1),
+      --     vim.inspect(normal_fg1),
+      --     vim.inspect(normal_bg2),
+      --     vim.inspect(normal_fg2),
+      --     vim.inspect(normal_bg3),
+      --     vim.inspect(normal_fg3),
+      --     vim.inspect(normal_bg4),
+      --     vim.inspect(normal_fg4)
+      --   )
+      -- )
+
+      -- normal_bg2 = shade_rgb(normal_bg, 0.5)
+      -- if get_color_brightness(normal_bg2) > 0.5 then
+      --   normal_fg2 = text_bg
+      -- end
+      -- normal_bg3 = shade_rgb(normal_bg, shade_level2)
+      -- if get_color_brightness(normal_bg3) > 0.5 then
+      --   normal_fg3 = text_bg
+      -- end
+      -- normal_bg4 = shade_rgb(normal_bg, shade_level3)
+      -- if get_color_brightness(normal_bg4) > 0.5 then
+      --   normal_fg4 = text_bg
+      -- end
+
       insert_bg = brightness_modifier(insert_bg, parameter)
       if get_color_brightness(insert_bg) < 0.5 then
         insert_fg = text_fg
@@ -1039,6 +1151,8 @@ vim.api.nvim_create_autocmd("VimEnter", {
   end,
 })
 
+-- When current buffer is a file, get its directory.
+--- @return string?
 local function get_buffer_dir()
   local bufnr = vim.api.nvim_get_current_buf()
   if type(bufnr) == "number" and bufnr > 0 then
@@ -1054,12 +1168,59 @@ local function get_buffer_dir()
   return nil
 end
 
-local running_git_branch_info = false
+-- Parse the output lines of `git status -b --porcelain=v2`.
+-- Get the branch name, ahead count, behind count, and if changed.
+--
+--- @param status_lines string[]
+--- @return {branch:string?,ahead:integer?,behind:integer?,changed:boolean?}?
+local function parse_git_status(status_lines)
+  local result = {}
+  for _, line in ipairs(status_lines) do
+    if str.startswith(line, "# branch.head") then
+      local branch_name = string.sub(line, 14)
+      result["branch"] = str.trim(branch_name)
+    end
+    if str.startswith(line, "# branch.ab") then
+      local ab_splits = str.split(line, " ", { trimempty = true })
+      if tbl.list_not_empty(ab_splits) then
+        for _, ab in ipairs(ab_splits) do
+          if str.startswith(ab, "+") and string.len(ab) > 1 then
+            local a_count = tonumber(string.sub(ab, 2))
+            if type(a_count) == "number" and a_count > 0 then
+              result["ahead"] = a_count
+            end
+          end
+          if str.startswith(ab, "-") and string.len(ab) > 1 then
+            local b_count = tonumber(string.sub(ab, 2))
+            if type(b_count) == "number" and b_count > 0 then
+              result["behind"] = b_count
+            end
+          end
+        end
+      end
+    end
+    if not str.startswith(line, "# branch") then
+      local changed_splits = str.split(line, " ", { plain = true, trimempty = true })
+      if tbl.list_not_empty(changed_splits) and tonumber(changed_splits[1]) ~= nil then
+        result["changed"] = true
+      end
+    end
+  end
+
+  if tbl.tbl_not_empty(result) then
+    return result
+  else
+    return nil
+  end
+end
+
+local updating_git_branch = false
+
 local function update_git_branch()
-  if running_git_branch_info then
+  if updating_git_branch then
     return
   end
-  running_git_branch_info = true
+  updating_git_branch = true
 
   local cwd = get_buffer_dir()
   local status_info = {}
@@ -1074,45 +1235,27 @@ local function update_git_branch()
     on_stderr = function()
       status_info = nil
     end,
-  }, function(git_completed)
+  }, function(completed)
     if
       not failed_get_status
-      and tbl.tbl_get(git_completed, "code") == 0
+      and tbl.tbl_get(completed, "code") == 0
       and tbl.list_not_empty(status_info)
     then
-      local branch_status = {}
-      for _, sinfo in ipairs(status_info) do
-        if str.startswith(sinfo, "# branch.head") then
-          local branch_name = string.sub(sinfo, 14)
-          git_branch_name_cache = str.trim(branch_name)
-        end
-        if str.startswith(sinfo, "# branch.ab") then
-          local ab_splits = str.split(sinfo, " ", { trimempty = true })
-          if tbl.list_not_empty(ab_splits) then
-            for _, ab in ipairs(ab_splits) do
-              if str.startswith(ab, "+") and string.len(ab) > 1 then
-                local a_count = tonumber(string.sub(ab, 2))
-                if type(a_count) == "number" and a_count > 0 then
-                  branch_status["ahead"] = a_count
-                end
-              end
-              if str.startswith(ab, "-") and string.len(ab) > 1 then
-                local b_count = tonumber(string.sub(ab, 2))
-                if type(b_count) == "number" and b_count > 0 then
-                  branch_status["behind"] = b_count
-                end
-              end
-            end
-          end
-        end
-        if not str.startswith(sinfo, "# branch") then
-          local sinfo_splits = str.split(sinfo, " ", { trimempty = true })
-          if tbl.list_not_empty(sinfo_splits) and tonumber(sinfo_splits[1]) ~= nil then
-            branch_status["changed"] = true
-          end
-        end
+      local branch_status = parse_git_status(status_info)
+
+      if
+        type(branch_status) == "table"
+        and type(branch_status.branch) == "string"
+        and string.len(branch_status.branch) > 0
+      then
+        git_branch_name_cache = branch_status.branch
       end
-      git_branch_status_cache = tbl.tbl_not_empty(branch_status) and branch_status or nil
+
+      if tbl.tbl_not_empty(branch_status) then
+        git_branch_status_cache = branch_status
+      else
+        git_branch_status_cache = nil
+      end
     end
     vim.schedule(function()
       vim.api.nvim_exec_autocmds("User", {
@@ -1120,7 +1263,7 @@ local function update_git_branch()
         modeline = false,
       })
       vim.schedule(function()
-        running_git_branch_info = false
+        updating_git_branch = false
       end)
     end)
   end)
