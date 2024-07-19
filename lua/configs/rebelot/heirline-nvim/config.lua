@@ -595,17 +595,21 @@ local StatusLine = {
   Progress,
 }
 
--- Get RGB color code from either preconfigured lualine/airline theme, or fallback to highlighting group.
----@param has_lualine boolean
----@param lualine_theme table
----@param has_airline boolean
----@param airline_theme table
----@param mode_name "normal"|"insert"|"visual"|"replace"|"command"|"inactive"
----@param section "a"|"b"|"c"
----@param attribute "fg"|"bg"
----@param fallback_hls string|string[]
----@param fallback_attribute "fg"|"bg"
----@param fallback_color string?
+-- Get RGB color code from either lualine/airline theme, or fallback to highlighting group, or fallback to default color.
+-- A lualine/airline theme usually contains several components:
+-- 1. It supports different color on different VIM mode, i.e. it shows different colors on normal/visual/insert/etc modes.
+-- 2. It supports 3 color on 3 sections, i.e. the most left/right side, the most center part, and the other two parts between them.
+--
+---@param has_lualine boolean If have a lualine theme.
+---@param lualine_theme table The lualine theme.
+---@param has_airline boolean If have an airline theme.
+---@param airline_theme table The airline theme.
+---@param mode_name "normal"|"insert"|"visual"|"replace"|"command"|"inactive" Mode name that use to retrieve from lualine/airline.
+---@param section "a"|"b"|"c" Section name that use to retrieve from lualine/airline.
+---@param attribute "fg"|"bg" Foreground/background attribute that use to retrieve from lualine/airline.
+---@param fallback_hls string|string[] Fallback highlighting groups.
+---@param fallback_attribute "fg"|"bg" Fallback foreground/background attribute that use to retrieve from the highlighting groups.
+---@param fallback_color string? Fallback default color, if none of lualine/airline themes and highlighting groups exists.
 local function retrieve_color(
   has_lualine,
   lualine_theme,
@@ -735,7 +739,22 @@ local function setup_colors(colorname)
   local replace_bg, replace_fg
   local command_bg, command_fg
 
+  -- The `lualine` is the most popular statusline plugin in Neovim community.
+  -- The `airline` is the one of the most popular statusline plugin in Vim community.
+  -- Both of them provide a way to integrate with third-party colorschemes.
+  --
+  -- See:
+  -- * [lualine doc - SETTING A THEME](https://github.com/nvim-lualine/lualine.nvim/blob/544dd1583f9bb27b393f598475c89809c4d5e86b/doc/lualine.txt#L178-L205)
+  -- * [lualine wiki - Writing a theme](https://github.com/nvim-lualine/lualine.nvim/wiki/Writing-a-theme)
+  -- * [airline doc - WRITING THEMES](https://github.com/vim-airline/vim-airline/blob/02894b6ef4752afd8579fc837aec5fb4f62409f7/doc/airline.txt#L2099-L2111)
+  --
+  -- So if a colorscheme provides either lualine or airline theme, let's directly use them.
+  -- Since they're carefully designed by the author of the colorscheme.
+
+  -- If current colorscheme provides a lualine theme.
   local has_lualine, lualine_theme = pcall(require, string.format("lualine.themes.%s", colorname))
+
+  -- If current colorscheme provides an airline theme.
   local has_airline = false
   local airline_theme_name = string.format("airline#themes#%s#palette", colorname)
   local airline_theme = nil
@@ -745,6 +764,7 @@ local function setup_colors(colorname)
     airline_theme = vim.g[airline_theme_name]
   end
 
+  -- Retrieve RGB color from lualine/airline, or fallback to a highlighting group, or fallback to a default color.
   text_bg = retrieve_color(
     has_lualine,
     lualine_theme,
