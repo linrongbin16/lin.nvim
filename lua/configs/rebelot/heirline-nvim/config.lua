@@ -848,7 +848,7 @@ local function setup_colors(colorname)
     "c",
     "bg",
     {},
-    "bg"
+    shade_rgb(get_terminal_color(0, magenta), shade_level2)
   )
   normal_fg3 = retrieve_color(
     has_lualine,
@@ -859,7 +859,7 @@ local function setup_colors(colorname)
     "c",
     "fg",
     {},
-    "fg"
+    text_fg -- or white
   )
   if normal_bg3 and normal_fg3 then
     local parameter = get_color_brightness(normal_bg3) > 0.5 and 8 or -8
