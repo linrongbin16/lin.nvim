@@ -700,7 +700,7 @@ local function rgb_to_hsl(rgb)
   return color_hsl.new(h, s, l, rgb)
 end
 
--- Shade RGB color code with a 0.0 ~ 1.0 parameter.
+-- Darker/lighter RGB color code with a 0.0 ~ 1.0 parameter.
 --
 --- @param rgb string The RGB color code.
 --- @param value number The 0.0 ~ 1.0 parameter.
