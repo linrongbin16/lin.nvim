@@ -513,7 +513,7 @@ local FileType = {
       if str.empty(self.filename_ext) then
         return ""
       end
-      local text, color =
+      local text, _ =
         self.devicons.get_icon_color(self.filename, self.filename_ext, { default = true })
       if str.not_empty(text) then
         return " " .. text .. " "
@@ -522,7 +522,7 @@ local FileType = {
       end
     end,
     hl = function(self)
-      local text, color =
+      local _, color =
         self.devicons.get_icon_color(self.filename, self.filename_ext, { default = true })
       if str.not_empty(color) then
         return { fg = color, bg = "normal_bg2" }
