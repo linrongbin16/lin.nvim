@@ -713,26 +713,6 @@ local function shade_rgb(rgb, value)
   end
 end
 
--- Derives a RGB color code into several other colors by shades/tints.
---
---- @param rgb string The RGB color code.
---- @param count integer The count of derives from the RGB color.
---- @return string[]
-local function derive_rgb(rgb, count)
-  local hsl_color = rgb_to_hsl(rgb)
-  local derives
-  if vim.o.background == "light" then
-    derives = hsl_color:tints(count)
-  else
-    derives = hsl_color:shades(count)
-  end
-  local results = {}
-  for _, d in ipairs(derives) do
-    table.insert(results, d:to_rgb())
-  end
-  return results
-end
-
 ---@param colorname string?
 ---@return table<string, string>
 local function setup_colors(colorname)
