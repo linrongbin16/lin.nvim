@@ -896,7 +896,7 @@ local function setup_colors(colorname)
   end
   normal_fg4 = normal_fg3
 
-  print(string.format("1-normal source:%s", vim.inspect(normal_bg_source)))
+  -- print(string.format("1-normal source:%s", vim.inspect(normal_bg_source)))
 
   insert_bg = retrieve_color(
     has_lualine,
