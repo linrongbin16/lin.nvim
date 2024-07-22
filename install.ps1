@@ -103,10 +103,10 @@ function RustDependency()
     # rustc/cargo
     Install -command "scoop install rustup" -target "cargo"
     # modern commands
-    Install -command "scoop install ripgrep" -target "rg"
-    Install -command "scoop install fd" -target "fd"
-    Install -command "scoop install bat" -target "bat"
-    Install -command "scoop install eza" -target "eza"
+    Install -command "cargo install ripgrep" -target "rg"
+    Install -command "cargo install fd-find" -target "fd"
+    Install -command "cargo install --locked bat" -target "bat"
+    Install -command "cargo install eza" -target "eza"
 }
 
 function PythonDependency()
