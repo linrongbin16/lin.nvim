@@ -1,5 +1,13 @@
 # Changelog
 
+## [4.1.3](https://github.com/linrongbin16/lin.nvim/compare/v4.1.2...v4.1.3) (2024-07-22)
+
+
+### Bug Fixes
+
+* **heirline.nvim:** remove 'print' debugging info from statusline ([#591](https://github.com/linrongbin16/lin.nvim/issues/591)) ([3ab9fc3](https://github.com/linrongbin16/lin.nvim/commit/3ab9fc312178932ac1505a1fe4c561345eb6e3f9))
+* **install:** don't use 'scoop' or 'brew' to install cargo commands, use 'cargo' ([#591](https://github.com/linrongbin16/lin.nvim/issues/591)) ([3ab9fc3](https://github.com/linrongbin16/lin.nvim/commit/3ab9fc312178932ac1505a1fe4c561345eb6e3f9))
+
 ## [4.1.2](https://github.com/linrongbin16/lin.nvim/compare/v4.1.1...v4.1.2) (2024-07-03)
 
 
