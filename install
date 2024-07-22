@@ -225,11 +225,12 @@ install_brew() {
 	# ctags
 	install "brew install universal-ctags" "ctags"
 
-	# rust commands
-	install "brew install fd" "fd"
-	install "brew install ripgrep" "rg"
-	install "brew install bat" "bat"
-	install "brew install eza" "eza"
+	# # cargo commands
+	# # don't use 'brew' to install cargo commands, use 'cargo' to install them.
+	# install "brew install fd" "fd"
+	# install "brew install ripgrep" "rg"
+	# install "brew install bat" "bat"
+	# install "brew install eza" "eza"
 }
 
 # }
