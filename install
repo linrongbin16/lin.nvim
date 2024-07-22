@@ -342,6 +342,7 @@ install_pacman() {
 rust_dependency() {
 	info "install rust and modern commands"
 	install "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y" "cargo"
+	install "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y" "rustc"
 	if [ -f $HOME/.cargo/env ]; then
 		. "$HOME/.cargo/env"
 	fi
