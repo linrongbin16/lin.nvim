@@ -35,6 +35,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
       - uses: cargo-bins/cargo-binstall@main
       - name: Selene
         run: |
@@ -60,6 +61,7 @@ jobs:
     name: Ubuntu Installer
     runs-on: ubuntu-latest
     steps:
+      - uses: dtolnay/rust-toolchain@stable
       - uses: cargo-bins/cargo-binstall@main
       - name: Install Cargo Commands
         run: |
@@ -83,6 +85,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: Homebrew/actions/setup-homebrew@master
+      - uses: dtolnay/rust-toolchain@stable
       - uses: cargo-bins/cargo-binstall@main
       - name: Install Cargo Commands
         run: |
