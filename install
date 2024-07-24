@@ -238,7 +238,7 @@ install_dnf_ctags() {
 }
 
 install_dnf() {
-	message "install dependencies with dnf"
+	info "install dependencies with dnf"
 	sudo dnf check-update
 
 	# neovim
@@ -285,7 +285,7 @@ install_dnf() {
 # packman: manjaro/archlinux {
 
 install_pacman() {
-	message "install dependencies with pacman"
+	info "install dependencies with pacman"
 	sudo pacman -Syy
 
 	# neovim
