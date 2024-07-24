@@ -79,6 +79,7 @@ jobs:
           echo '${{ steps.extract_branch.outputs.branch }}'
           export BRANCH_NAME=${{ steps.extract_branch.outputs.branch }}
           export PATH="$PATH:$HOME/.cargo/bin"
+          rustup default stable
           sudo sh -c "export PATH=$PATH && git clone --single-branch --branch $BRANCH_NAME --depth=1 https://github.com/linrongbin16/lin.nvim ~/.nvim && cd ~/.nvim && bash -euxo pipefail ./install"
   macos_installer:
     name: MacOS Installer
