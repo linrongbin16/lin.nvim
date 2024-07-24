@@ -62,8 +62,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: dtolnay/rust-toolchain@stable
+        if: ${{ github.ref != 'refs/heads/main' }}
       - uses: cargo-bins/cargo-binstall@main
+        if: ${{ github.ref != 'refs/heads/main' }}
       - name: Install Cargo Commands
+        if: ${{ github.ref != 'refs/heads/main' }}
         run: |
           cargo binstall --no-confirm fd-find
           cargo binstall --no-confirm ripgrep
@@ -86,7 +89,9 @@ jobs:
     steps:
       - uses: Homebrew/actions/setup-homebrew@master
       - uses: dtolnay/rust-toolchain@stable
+        if: ${{ github.ref != 'refs/heads/main' }}
       - name: Install Cargo Commands
+        if: ${{ github.ref != 'refs/heads/main' }}
         run: |
           brew install cargo-binstall
           cargo binstall --no-confirm fd-find
