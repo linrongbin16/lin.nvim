@@ -35,6 +35,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
       - uses: cargo-bins/cargo-binstall@main
       - name: Selene
         run: |
@@ -60,9 +61,12 @@ jobs:
     name: Ubuntu Installer
     runs-on: ubuntu-latest
     steps:
-      - uses: mozilla-actions/sccache-action@v0.0.5
+      - uses: dtolnay/rust-toolchain@stable
+        if: ${{ github.ref != 'refs/heads/main' }}
       - uses: cargo-bins/cargo-binstall@main
+        if: ${{ github.ref != 'refs/heads/main' }}
       - name: Install Cargo Commands
+        if: ${{ github.ref != 'refs/heads/main' }}
         run: |
           cargo binstall --no-confirm fd-find
           cargo binstall --no-confirm ripgrep
@@ -73,9 +77,6 @@ jobs:
         run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
         id: extract_branch
       - name: Install lin.nvim
-        env:
-          SCCACHE_GHA_ENABLED: "true"
-          RUSTC_WRAPPER: "sccache"
         run: |
           set -x
           echo '${{ steps.extract_branch.outputs.branch }}'
@@ -86,17 +87,23 @@ jobs:
     name: MacOS Installer
     runs-on: macos-latest
     steps:
-      - uses: mozilla-actions/sccache-action@v0.0.5
       - uses: Homebrew/actions/setup-homebrew@master
+      - uses: dtolnay/rust-toolchain@stable
+        if: ${{ github.ref != 'refs/heads/main' }}
+      - name: Install Cargo Commands
+        if: ${{ github.ref != 'refs/heads/main' }}
+        run: |
+          brew install cargo-binstall
+          cargo binstall --no-confirm fd-find
+          cargo binstall --no-confirm ripgrep
+          cargo binstall --no-confirm bat
+          cargo binstall --no-confirm eza
       - name: Get branch
         shell: bash
         run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
         id: extract_branch
       - name: Install lin.nvim
         shell: bash
-        env:
-          SCCACHE_GHA_ENABLED: "true"
-          RUSTC_WRAPPER: "sccache"
         run: |
           set -x
           echo '${{ steps.extract_branch.outputs.branch }}'
