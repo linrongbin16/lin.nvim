@@ -86,9 +86,9 @@ jobs:
     steps:
       - uses: Homebrew/actions/setup-homebrew@master
       - uses: dtolnay/rust-toolchain@stable
-      - uses: cargo-bins/cargo-binstall@main
       - name: Install Cargo Commands
         run: |
+          brew install cargo-binstall
           cargo binstall --no-confirm fd-find
           cargo binstall --no-confirm ripgrep
           cargo binstall --no-confirm bat
