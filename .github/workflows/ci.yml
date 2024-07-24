@@ -60,15 +60,6 @@ jobs:
     name: Ubuntu Installer
     runs-on: ubuntu-latest
     steps:
-      - uses: cargo-bins/cargo-binstall@main
-        if: ${{ github.ref != 'refs/heads/main' }}
-      - name: Install Cargo Commands
-        if: ${{ github.ref != 'refs/heads/main' }}
-        run: |
-          cargo binstall --no-confirm fd-find
-          cargo binstall --no-confirm ripgrep
-          cargo binstall --no-confirm bat
-          cargo binstall --no-confirm eza
       - name: Get branch
         shell: bash
         run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
@@ -79,22 +70,13 @@ jobs:
           echo '${{ steps.extract_branch.outputs.branch }}'
           export BRANCH_NAME=${{ steps.extract_branch.outputs.branch }}
           export PATH="$PATH:$HOME/.cargo/bin"
+          rustup default stable
           sudo sh -c "export PATH=$PATH && git clone --single-branch --branch $BRANCH_NAME --depth=1 https://github.com/linrongbin16/lin.nvim ~/.nvim && cd ~/.nvim && bash -euxo pipefail ./install"
   macos_installer:
     name: MacOS Installer
     runs-on: macos-latest
     steps:
       - uses: Homebrew/actions/setup-homebrew@master
-      - uses: dtolnay/rust-toolchain@stable
-        if: ${{ github.ref != 'refs/heads/main' }}
-      - name: Install Cargo Commands
-        if: ${{ github.ref != 'refs/heads/main' }}
-        run: |
-          brew install cargo-binstall
-          cargo binstall --no-confirm fd-find
-          cargo binstall --no-confirm ripgrep
-          cargo binstall --no-confirm bat
-          cargo binstall --no-confirm eza
       - name: Get branch
         shell: bash
         run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT

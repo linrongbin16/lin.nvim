@@ -103,6 +103,8 @@ function RustDependency()
   Info 'install rust and modern commands'
   # rustc/cargo
   Install -command "scoop install rustup" -target "cargo"
+  Install -command "scoop install rustup" -target "rustc"
+	rustup default stable
   # modern commands
   Install -command "cargo install ripgrep" -target "rg"
   Install -command "cargo install fd-find" -target "fd"
