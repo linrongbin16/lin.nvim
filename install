@@ -70,29 +70,21 @@ latest_github_release_tag() {
 }
 
 install_linux_ctags() {
-	# info "install universal-ctags from source"
+	local CTAGS_HOME=$NVIM_HOME/universal-ctags
 	local org="universal-ctags"
-	local repo="ctags-nightly-build"
-	local ctags_version=$(latest_github_release_tag $org $repo)
-	local ctags_file="uctags-${ctags_version:0:10}-linux-x86_64.tar.xz"
-	local ctags_dir="uctags-${ctags_version:0:10}-linux-x86_64"
-	local ctags_url="https://github.com/$org/$repo/releases/download/$ctags_version/$ctags_file"
+	local repo="ctags"
+	local CTAGS_VERSION=$(latest_github_release_tag $org $repo)
+	info "install universal-ctags($CTAGS_VERSION) from source"
 	cd $NVIM_HOME
-	info "install $ctags_file($ctags_version) ctags from github"
-	if [ -f $ctags_file ]; then
-		rm -rf $ctags_file
+	if [ ! -d $CTAGS_HOME ]; then
+		git clone https://github.com/universal-ctags/ctags.git $CTAGS_HOME
 	fi
-	curl -s -L $ctags_url -o $ctags_file
-	if [ $? -ne 0 ]; then
-		info "failed to download $ctags_file, skip..."
-	else
-		tar -xf $ctags_file
-		chmod u+x $ctags_dir/bin/ctags
-		chmod u+x $ctags_dir/bin/readtags
-		sudo mv $ctags_dir/bin/ctags /usr/local/bin/ctags
-		sudo mv $ctags_dir/bin/readtags /usr/local/bin/readtags
-		info "install $ctags_file($ctags_version) ctags from github - done"
-	fi
+	cd $CTAGS_HOME
+	git checkout $CTAGS_VERSION
+	./autogen.sh
+	./configure
+	make
+	sudo make install
 }
 
 # }
@@ -246,7 +238,7 @@ install_dnf_ctags() {
 }
 
 install_dnf() {
-	message "install dependencies with dnf"
+	info "install dependencies with dnf"
 	sudo dnf check-update
 
 	# neovim
@@ -293,7 +285,7 @@ install_dnf() {
 # packman: manjaro/archlinux {
 
 install_pacman() {
-	message "install dependencies with pacman"
+	info "install dependencies with pacman"
 	sudo pacman -Syy
 
 	# neovim

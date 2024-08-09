@@ -103,6 +103,7 @@ function RustDependency()
   Info 'install rust and modern commands'
   # rustc/cargo
   Install -command "scoop install rustup" -target "cargo"
+  Install -command "scoop install rustup" -target "rustc"
   # modern commands
   Install -command "cargo install ripgrep" -target "rg"
   Install -command "cargo install fd-find" -target "fd"
@@ -129,7 +130,7 @@ function NodejsDependency()
 {
   Info "install node and npm packages"
   # nodejs
-  Install -command "scoop install nodejs-lts" -target "node"
+  Install -command "scoop install nodejs" -target "node"
   # npm
   npm install --silent -g neovim
   Install -command "npm install --silent -g trash-cli" -target "trash"
