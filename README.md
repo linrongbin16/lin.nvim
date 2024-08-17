@@ -86,6 +86,8 @@ And that's all of it.
    3. Un-select"Install Python x.xx for all users", select "Add Python to environment variables" and "Precompile standard library". Choose the install directory in your user directory (for example `C:\Users\linrongbin\opt\Python312`).
 
       <img width="70%" alt="image" src="https://github.com/user-attachments/assets/ed464de3-342a-472c-ac12-80eab7aa3ac0"/>
+      ![image](https://github.com/user-attachments/assets/0a6daa0f-4c5d-42f6-a0f1-f5e3eda5fd7b)
+
 
 4. Run PowerShell command:
 
