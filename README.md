@@ -90,6 +90,8 @@ And that's all of it.
 
      <img width="70%" alt="image" src="https://github.com/user-attachments/assets/568773e3-be4b-4b19-b444-c4880437a521"/>
 
+   - Go to the install directory (`C:\Users\linrongbin\opt\Python312`) and copy `python.exe` to `python3.exe`, and you will have `python3.exe` command in Windows PowerShell/cmd.
+
    - Disable "python.exe" and "python3.exe" app aliases for Windows 10+. Go to Windows "Settings" => "Apps" => "App execution aliases", unselect "python.exe" and "python3.exe".
 
      <img width="80%" alt="image" src="https://github.com/user-attachments/assets/e6e2422d-953d-44b5-8f5e-820e2f355680"/>
