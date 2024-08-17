@@ -77,12 +77,15 @@ And that's all of it.
 
    1. Select "Customize Installation".
 
-   <img width="70%" alt="image" src="https://github.com/user-attachments/assets/dccab1b3-067e-40bc-97b7-46366ac054cb"/>
+      <img width="70%" alt="image" src="https://github.com/user-attachments/assets/dccab1b3-067e-40bc-97b7-46366ac054cb"/>
 
-   - Select "Optional Features" without "for all users (requires admin privileges)".
-  
-   ![image](https://github.com/user-attachments/assets/ed464de3-342a-472c-ac12-80eab7aa3ac0)
+   2. Select "Optional Features" without "for all users (requires admin privileges)".
 
+      <img width="70%" alt="image" src="https://github.com/user-attachments/assets/ed464de3-342a-472c-ac12-80eab7aa3ac0"/>
+
+   3. Un-select"Install Python x.xx for all users", select "Add Python to environment variables" and "Precompile standard library". Choose the install directory in your user directory (for example `C:\Users\linrongbin\opt\Python312`).
+
+      <img width="70%" alt="image" src="https://github.com/user-attachments/assets/ed464de3-342a-472c-ac12-80eab7aa3ac0"/>
 
 4. Run PowerShell command:
 
