@@ -80,6 +80,9 @@ And that's all of it.
    <img width="70%" alt="image" src="https://github.com/user-attachments/assets/dccab1b3-067e-40bc-97b7-46366ac054cb"/>
 
    - Select "Optional Features" without "for all users (requires admin privileges)".
+  
+   ![image](https://github.com/user-attachments/assets/ed464de3-342a-472c-ac12-80eab7aa3ac0)
+
 
 4. Run PowerShell command:
 
