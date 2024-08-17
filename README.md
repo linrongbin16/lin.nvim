@@ -86,11 +86,9 @@ And that's all of it.
 
      <img width="70%" alt="image" src="https://github.com/user-attachments/assets/648ec440-b0ec-4373-9c66-7bf32e48d899"/>
 
-   - Unselect"Install Python 3.12 for all users", select "Add Python to environment variables" and "Precompile standard library". Choose the install directory in your user directory (for example `C:\Users\linrongbin\opt\Python312`).
+   - Unselect "Install Python 3.12 for all users", select "Add Python to environment variables" and "Precompile standard library", choose the install directory in your user directory (for example `C:\Users\linrongbin\opt\Python312`).
 
-     ![image](https://github.com/user-attachments/assets/568773e3-be4b-4b19-b444-c4880437a521)
-
-     <img width="70%" alt="image" src="https://github.com/user-attachments/assets/f2895cde-553f-4e85-94cb-3df1257b2d7e"/>
+     <img width="70%" alt="image" src="https://github.com/user-attachments/assets/568773e3-be4b-4b19-b444-c4880437a521"/>
 
    - Disable "python.exe" and "python3.exe" app aliases for Windows 10+. Go to Windows "Settings" => "Apps" => "App execution aliases", unselect "python.exe" and "python3.exe".
 
