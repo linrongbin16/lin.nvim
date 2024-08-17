@@ -78,7 +78,7 @@ And that's all of it.
    <details>
    <summary>Click here to see how to install python3 only for current user.</summary>
 
-   - Select "Customize Installation".
+   - Select "Customize Installation", unselect "Use admin privileges when installing py.exe".
 
      <img width="70%" alt="image" src="https://github.com/user-attachments/assets/dccab1b3-067e-40bc-97b7-46366ac054cb"/>
 
