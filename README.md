@@ -105,6 +105,8 @@ And that's all of it.
    <details>
    <summary>Click here to see how to install node.js with recommended options</summary>
 
+   ![image](https://github.com/user-attachments/assets/abccc9b6-2b42-4679-a182-420554a6483b)
+
    </details>
 
 5. Run PowerShell command:
