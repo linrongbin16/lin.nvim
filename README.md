@@ -80,9 +80,7 @@ And that's all of it.
 
    - Select "Customize Installation", unselect "Use admin privileges when installing py.exe".
 
-     ![image](https://github.com/user-attachments/assets/e8aa9163-459e-4741-8561-c46efc2efdb5)
-
-     <img width="70%" alt="image" src="https://github.com/user-attachments/assets/dccab1b3-067e-40bc-97b7-46366ac054cb"/>
+     <img width="70%" alt="image" src="https://github.com/user-attachments/assets/e8aa9163-459e-4741-8561-c46efc2efdb5"/>
 
    - Select "Optional Features" without "for all users (requires admin privileges)".
 
