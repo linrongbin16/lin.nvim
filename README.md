@@ -88,8 +88,13 @@ And that's all of it.
       <img width="70%" alt="image" src="https://github.com/user-attachments/assets/f2895cde-553f-4e85-94cb-3df1257b2d7e"/>
 
    4. Disable Windows "python.exe" and "python3.exe" aliases.
+  
+      ![image](https://github.com/user-attachments/assets/a35fb036-7eef-4871-9ddd-b5a1c5e6e6aa)
 
-      
+      ![image](https://github.com/user-attachments/assets/e880eac6-78d1-4c19-9875-b0578fe91709)
+
+      ![image](https://github.com/user-attachments/assets/40a17317-c7b3-46d6-999b-dfb924836293)
+
 
 4. Run PowerShell command:
 
