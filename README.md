@@ -78,25 +78,27 @@ And that's all of it.
    <details>
    <summary>Click here to see how to install python3 only for current user.</summary>
 
-   - Select "Customize Installation".
+   - Select "Customize Installation", unselect "Use admin privileges when installing py.exe".
 
-     <img width="70%" alt="image" src="https://github.com/user-attachments/assets/dccab1b3-067e-40bc-97b7-46366ac054cb"/>
+     <img width="70%" alt="image" src="https://github.com/user-attachments/assets/e8aa9163-459e-4741-8561-c46efc2efdb5"/>
 
-   - Select "Optional Features" without "for all users (requires admin privileges)".
+   - Select all optional features without "for all users (requires admin privileges)".
 
-     <img width="70%" alt="image" src="https://github.com/user-attachments/assets/ed464de3-342a-472c-ac12-80eab7aa3ac0"/>
+     <img width="70%" alt="image" src="https://github.com/user-attachments/assets/648ec440-b0ec-4373-9c66-7bf32e48d899"/>
 
-   - Unselect"Install Python 3.12 for all users", select "Add Python to environment variables" and "Precompile standard library". Choose the install directory in your user directory (for example `C:\Users\linrongbin\opt\Python312`).
+   - Unselect "Install Python 3.12 for all users", select "Add Python to environment variables" and "Precompile standard library", choose the install directory in your user directory (for example `C:\Users\linrongbin\opt\Python312`).
 
-     <img width="70%" alt="image" src="https://github.com/user-attachments/assets/f2895cde-553f-4e85-94cb-3df1257b2d7e"/>
+     <img width="70%" alt="image" src="https://github.com/user-attachments/assets/568773e3-be4b-4b19-b444-c4880437a521"/>
+
+   - Go to the install directory (`C:\Users\linrongbin\opt\Python312`) and copy `python.exe` to `python3.exe`, and you will have `python3.exe` command in Windows PowerShell/cmd.
 
    - Disable "python.exe" and "python3.exe" app aliases for Windows 10+. Go to Windows "Settings" => "Apps" => "App execution aliases", unselect "python.exe" and "python3.exe".
 
-     <img width="75%" alt="image" src="https://github.com/user-attachments/assets/a35fb036-7eef-4871-9ddd-b5a1c5e6e6aa"/>
+     <img width="80%" alt="image" src="https://github.com/user-attachments/assets/e6e2422d-953d-44b5-8f5e-820e2f355680"/>
 
-     <img width="75%" alt="image" src="https://github.com/user-attachments/assets/e880eac6-78d1-4c19-9875-b0578fe91709"/>
+     <img width="80%" alt="image" src="https://github.com/user-attachments/assets/f78d4dc2-b167-4981-9fa0-598edf8af0d5"/>
 
-     <img width="75%" alt="image" src="https://github.com/user-attachments/assets/40a17317-c7b3-46d6-999b-dfb924836293"/>
+     <img width="80%" alt="image" src="https://github.com/user-attachments/assets/17baf876-e072-49eb-bed2-4b2436d85ad1"/>
 
    </details>
 
