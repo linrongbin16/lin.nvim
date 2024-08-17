@@ -84,6 +84,8 @@ And that's all of it.
 
    - Select "Optional Features" without "for all users (requires admin privileges)".
 
+     ![image](https://github.com/user-attachments/assets/648ec440-b0ec-4373-9c66-7bf32e48d899)
+
      <img width="70%" alt="image" src="https://github.com/user-attachments/assets/ed464de3-342a-472c-ac12-80eab7aa3ac0"/>
 
    - Unselect"Install Python 3.12 for all users", select "Add Python to environment variables" and "Precompile standard library". Choose the install directory in your user directory (for example `C:\Users\linrongbin\opt\Python312`).
