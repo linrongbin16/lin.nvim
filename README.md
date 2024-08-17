@@ -73,7 +73,45 @@ And that's all of it.
 
    ![image](https://github.com/linrongbin16/lin.nvim/assets/6496887/bca811b5-8b1a-42c0-9283-c38e75f2f06a)
 
-3. Run PowerShell command:
+3. Install [Python3](https://www.python.org/downloads/) only for current user.
+
+   <details>
+   <summary>Click here to see how to install python3 only for current user.</summary>
+
+   - Select "Customize Installation".
+
+     <img width="70%" alt="image" src="https://github.com/user-attachments/assets/dccab1b3-067e-40bc-97b7-46366ac054cb"/>
+
+   - Select "Optional Features" without "for all users (requires admin privileges)".
+
+     <img width="70%" alt="image" src="https://github.com/user-attachments/assets/ed464de3-342a-472c-ac12-80eab7aa3ac0"/>
+
+   - Unselect"Install Python 3.12 for all users", select "Add Python to environment variables" and "Precompile standard library". Choose the install directory in your user directory (for example `C:\Users\linrongbin\opt\Python312`).
+
+     <img width="70%" alt="image" src="https://github.com/user-attachments/assets/f2895cde-553f-4e85-94cb-3df1257b2d7e"/>
+
+   - Disable "python.exe" and "python3.exe" app aliases for Windows 10+. Go to Windows "Settings" => "Apps" => "App execution aliases", unselect "python.exe" and "python3.exe".
+
+     <img width="75%" alt="image" src="https://github.com/user-attachments/assets/a35fb036-7eef-4871-9ddd-b5a1c5e6e6aa"/>
+
+     <img width="75%" alt="image" src="https://github.com/user-attachments/assets/e880eac6-78d1-4c19-9875-b0578fe91709"/>
+
+     <img width="75%" alt="image" src="https://github.com/user-attachments/assets/40a17317-c7b3-46d6-999b-dfb924836293"/>
+
+   </details>
+
+4. Install [Node.js](https://nodejs.org/) only for current user.
+
+   <details>
+   <summary>Click here to see how to install node.js only for current user.</summary>
+
+   - In "Destination Folder" step, choose the install directory in you user directory (for example `C:\Users\linrongbin\opt\nodejs\`).
+
+     <img width="70%" alt="image" src="https://github.com/user-attachments/assets/abccc9b6-2b42-4679-a182-420554a6483b"/>
+
+   </details>
+
+5. Run PowerShell command:
 
    ```powershell
    # scoop
