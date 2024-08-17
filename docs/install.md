@@ -22,7 +22,7 @@
   - [Node.js](https://nodejs.org/) and npm packages: [neovim](https://github.com/neovim/node-client), [trash-cli](https://github.com/sindresorhus/trash).
 - Download tools: [curl](https://curl.se/), [wget](https://www.gnu.org/software/wget/).
 - Decompression tools: [unzip](https://linux.die.net/man/1/unzip), [gzip](https://www.gnu.org/software/gzip/), [7-zip](https://www.7-zip.org/).
-- Tags: [universal-ctags](https://github.com/universal-ctags/ctags).
+<!-- - Tags: [universal-ctags](https://github.com/universal-ctags/ctags). -->
 - Patched-fonts: [hack nerd font](https://github.com/ryanoasis/nerd-fonts/releases/latest).
 
 ## Installation
