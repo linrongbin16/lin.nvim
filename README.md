@@ -75,12 +75,13 @@ And that's all of it.
 
 3. Install [Python3](https://www.python.org/downloads/) with recommended options:
 
-   - Select "Customize Installation".
-   
-   ![image](https://github.com/user-attachments/assets/dccab1b3-067e-40bc-97b7-46366ac054cb)
+   1. Select "Customize Installation".
 
+   <img width="70%" alt="image" src="https://github.com/user-attachments/assets/dccab1b3-067e-40bc-97b7-46366ac054cb"/>
 
-3. Run PowerShell command:
+   - Select "Optional Features" without "for all users (requires admin privileges)".
+
+4. Run PowerShell command:
 
    ```powershell
    # scoop
