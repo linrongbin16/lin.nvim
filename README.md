@@ -73,30 +73,41 @@ And that's all of it.
 
    ![image](https://github.com/linrongbin16/lin.nvim/assets/6496887/bca811b5-8b1a-42c0-9283-c38e75f2f06a)
 
-3. Install [Python3](https://www.python.org/downloads/) with recommended options:
+3. Install [Python3](https://www.python.org/downloads/) only for current user.
 
-   1. Select "Customize Installation".
+   <details>
+   <summary>Click here to see how to install python3 with recommended options</summary>
 
-      <img width="70%" alt="image" src="https://github.com/user-attachments/assets/dccab1b3-067e-40bc-97b7-46366ac054cb"/>
+   - Select "Customize Installation".
 
-   2. Select "Optional Features" without "for all users (requires admin privileges)".
+     <img width="70%" alt="image" src="https://github.com/user-attachments/assets/dccab1b3-067e-40bc-97b7-46366ac054cb"/>
 
-      <img width="70%" alt="image" src="https://github.com/user-attachments/assets/ed464de3-342a-472c-ac12-80eab7aa3ac0"/>
+   - Select "Optional Features" without "for all users (requires admin privileges)".
 
-   3. Unselect"Install Python 3.12 for all users", select "Add Python to environment variables" and "Precompile standard library". Choose the install directory in your user directory (for example `C:\Users\linrongbin\opt\Python312`).
+     <img width="70%" alt="image" src="https://github.com/user-attachments/assets/ed464de3-342a-472c-ac12-80eab7aa3ac0"/>
 
-      <img width="70%" alt="image" src="https://github.com/user-attachments/assets/f2895cde-553f-4e85-94cb-3df1257b2d7e"/>
+   - Unselect"Install Python 3.12 for all users", select "Add Python to environment variables" and "Precompile standard library". Choose the install directory in your user directory (for example `C:\Users\linrongbin\opt\Python312`).
 
-   4. Disable Windows "python.exe" and "python3.exe" aliases.
-  
-      ![image](https://github.com/user-attachments/assets/a35fb036-7eef-4871-9ddd-b5a1c5e6e6aa)
+     <img width="70%" alt="image" src="https://github.com/user-attachments/assets/f2895cde-553f-4e85-94cb-3df1257b2d7e"/>
 
-      ![image](https://github.com/user-attachments/assets/e880eac6-78d1-4c19-9875-b0578fe91709)
+   - Disable "python.exe" and "python3.exe" app aliases for Windows 10+. Go to Windows "Settings" => "Apps" => "App execution aliases", unselect "python.exe" and "python3.exe".
 
-      ![image](https://github.com/user-attachments/assets/40a17317-c7b3-46d6-999b-dfb924836293)
+     <img width="75%" alt="image" src="https://github.com/user-attachments/assets/a35fb036-7eef-4871-9ddd-b5a1c5e6e6aa"/>
 
+     <img width="75%" alt="image" src="https://github.com/user-attachments/assets/e880eac6-78d1-4c19-9875-b0578fe91709"/>
 
-4. Run PowerShell command:
+     <img width="75%" alt="image" src="https://github.com/user-attachments/assets/40a17317-c7b3-46d6-999b-dfb924836293"/>
+
+   </details>
+
+4. Install [Node.js](https://nodejs.org/) only for current user.
+
+   <details>
+   <summary>Click here to see how to install node.js with recommended options</summary>
+
+   </details>
+
+5. Run PowerShell command:
 
    ```powershell
    # scoop
