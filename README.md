@@ -76,7 +76,7 @@ And that's all of it.
 3. Install [Python3](https://www.python.org/downloads/) only for current user.
 
    <details>
-   <summary>Click here to see how to install python3 with recommended options</summary>
+   <summary>Click here to see how to install python3</summary>
 
    - Select "Customize Installation".
 
@@ -103,7 +103,7 @@ And that's all of it.
 4. Install [Node.js](https://nodejs.org/) only for current user.
 
    <details>
-   <summary>Click here to see how to install node.js with recommended options</summary>
+   <summary>Click here to see how to install node.js</summary>
 
    - In "Destination Folder" step, choose the install directory in you user directory (for example `C:\Users\linrongbin\opt\nodejs\`).
 
