@@ -81,11 +81,11 @@ function CoreDependency()
   Install -command "scoop install gzip" -target "gzip"
   Install -command "scoop install unzip" -target "unzip"
 
-  # luarocks
-  Install -command "scoop install luarocks" -target "luarocks"
+  # # luarocks
+  # Install -command "scoop install luarocks" -target "luarocks"
 
-  # ctags
-  Install -command "scoop install universal-ctags" -target "ctags"
+  # # ctags
+  # Install -command "scoop install universal-ctags" -target "ctags"
 
   # # rust commands
   # # don't use 'scoop' to install cargo commands, use 'cargo' to install them.
