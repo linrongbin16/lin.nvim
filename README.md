@@ -92,11 +92,11 @@ And that's all of it.
 
    - Disable "python.exe" and "python3.exe" app aliases for Windows 10+. Go to Windows "Settings" => "Apps" => "App execution aliases", unselect "python.exe" and "python3.exe".
 
-     <img width="75%" alt="image" src="https://github.com/user-attachments/assets/a35fb036-7eef-4871-9ddd-b5a1c5e6e6aa"/>
+     ![image](https://github.com/user-attachments/assets/e6e2422d-953d-44b5-8f5e-820e2f355680)
 
-     <img width="75%" alt="image" src="https://github.com/user-attachments/assets/e880eac6-78d1-4c19-9875-b0578fe91709"/>
+     ![image](https://github.com/user-attachments/assets/f78d4dc2-b167-4981-9fa0-598edf8af0d5)
 
-     <img width="75%" alt="image" src="https://github.com/user-attachments/assets/40a17317-c7b3-46d6-999b-dfb924836293"/>
+     ![image](https://github.com/user-attachments/assets/17baf876-e072-49eb-bed2-4b2436d85ad1)
 
    </details>
 
