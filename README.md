@@ -73,6 +73,10 @@ And that's all of it.
 
    ![image](https://github.com/linrongbin16/lin.nvim/assets/6496887/bca811b5-8b1a-42c0-9283-c38e75f2f06a)
 
+3. Install [Python3](https://www.python.org/downloads/) with recommended options:
+
+   - Select "Customize Installation".
+
 3. Run PowerShell command:
 
    ```powershell
