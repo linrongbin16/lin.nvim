@@ -73,7 +73,47 @@ And that's all of it.
 
    ![image](https://github.com/linrongbin16/lin.nvim/assets/6496887/bca811b5-8b1a-42c0-9283-c38e75f2f06a)
 
-3. Run PowerShell command:
+3. Install [Python3](https://www.python.org/downloads/) only for current user.
+
+   <details>
+   <summary>Click here to see how to install python3 only for current user.</summary>
+
+   - Select "Customize Installation", unselect "Use admin privileges when installing py.exe".
+
+     <img width="70%" alt="image" src="https://github.com/user-attachments/assets/e8aa9163-459e-4741-8561-c46efc2efdb5"/>
+
+   - Select all optional features without "for all users (requires admin privileges)".
+
+     <img width="70%" alt="image" src="https://github.com/user-attachments/assets/648ec440-b0ec-4373-9c66-7bf32e48d899"/>
+
+   - Unselect "Install Python 3.12 for all users", select "Add Python to environment variables" and "Precompile standard library", choose the install directory in your user directory (for example `C:\Users\linrongbin\opt\Python312`).
+
+     <img width="70%" alt="image" src="https://github.com/user-attachments/assets/568773e3-be4b-4b19-b444-c4880437a521"/>
+
+   - Go to the install directory (`C:\Users\linrongbin\opt\Python312`) and copy `python.exe` to `python3.exe`, and you will have `python3.exe` command in Windows PowerShell/cmd.
+
+   - Disable "python.exe" and "python3.exe" app aliases for Windows 10+. Go to Windows "Settings" => "Apps" => "App execution aliases", unselect "python.exe" and "python3.exe".
+
+     <img width="80%" alt="image" src="https://github.com/user-attachments/assets/e6e2422d-953d-44b5-8f5e-820e2f355680"/>
+
+     <img width="80%" alt="image" src="https://github.com/user-attachments/assets/f78d4dc2-b167-4981-9fa0-598edf8af0d5"/>
+
+     <img width="80%" alt="image" src="https://github.com/user-attachments/assets/17baf876-e072-49eb-bed2-4b2436d85ad1"/>
+
+   </details>
+
+4. Install [Node.js](https://nodejs.org/) only for current user.
+
+   <details>
+   <summary>Click here to see how to install node.js only for current user.</summary>
+
+   - In "Destination Folder" step, choose the install directory in you user directory (for example `C:\Users\linrongbin\opt\nodejs\`).
+
+     <img width="70%" alt="image" src="https://github.com/user-attachments/assets/abccc9b6-2b42-4679-a182-420554a6483b"/>
+
+   </details>
+
+5. Run PowerShell command:
 
    ```powershell
    # scoop

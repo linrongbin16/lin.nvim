@@ -153,9 +153,9 @@ install_apt() {
 	install "sudo apt-get -qq -y install gzip" "gzip"
 	install "sudo apt-get -qq -y install unzip" "unzip"
 
-	# luarocks
-	install "sudo apt-get -qq -y install luajit" "luajit"
-	install "sudo apt-get -qq -y install luarocks" "luarocks"
+	# # luarocks
+	# install "sudo apt-get -qq -y install luajit" "luajit"
+	# install "sudo apt-get -qq -y install luarocks" "luarocks"
 
 	# copy/paste tools
 	install "sudo apt-get -qq -y install xsel" "xsel"
@@ -168,8 +168,8 @@ install_apt() {
 	# nodejs
 	install_func "install_apt_node" "node"
 
-	# ctags
-	install_func "install_apt_ctags" "ctags"
+	# # ctags
+	# install_func "install_apt_ctags" "ctags"
 }
 
 # }
@@ -205,8 +205,8 @@ install_brew() {
 	install "brew install p7zip" "7z"
 	install "brew install unzip" "unzip"
 
-	# luarocks
-	install "brew install luarocks" "luarocks"
+	# # luarocks
+	# install "brew install luarocks" "luarocks"
 
 	# python3
 	install "brew install python3" "python3"
@@ -214,8 +214,8 @@ install_brew() {
 	# nodejs
 	install "brew install node" "node"
 
-	# ctags
-	install "brew install universal-ctags" "ctags"
+	# # ctags
+	# install "brew install universal-ctags" "ctags"
 
 	# # cargo commands
 	# # don't use 'brew' to install cargo commands, use 'cargo' to install them.
@@ -262,8 +262,8 @@ install_dnf() {
 	install "sudo dnf install -y p7zip" "7z"
 	install "sudo dnf install -y unzip" "unzip"
 
-	# luarocks
-	install "sudo dnf install -y luarocks" "luarocks"
+	# # luarocks
+	# install "sudo dnf install -y luarocks" "luarocks"
 
 	# copy/paste tools
 	install "sudo dnf install -y xsel" "xsel"
@@ -276,8 +276,8 @@ install_dnf() {
 	# nodejs
 	install "sudo dnf install -y nodejs npm" "node"
 
-	# ctags
-	install_func "install_dnf_ctags" "ctags"
+	# # ctags
+	# install_func "install_dnf_ctags" "ctags"
 }
 
 # }
@@ -309,8 +309,8 @@ install_pacman() {
 	install "yes | sudo pacman -S p7zip" "7z"
 	install "yes | sudo pacman -S unzip" "unzip"
 
-	# luarocks
-	install "yes | sudo pacman -S luarocks" "luarocks"
+	# # luarocks
+	# install "yes | sudo pacman -S luarocks" "luarocks"
 
 	# copy/paste tools
 	install "yes | sudo pacman -S xsel" "xsel"
@@ -323,8 +323,8 @@ install_pacman() {
 	# node
 	install "yes | sudo pacman -S nodejs npm" "node"
 
-	# ctags
-	install "yes | sudo pacman -S ctags" "ctags"
+	# # ctags
+	# install "yes | sudo pacman -S ctags" "ctags"
 }
 
 # }
