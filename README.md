@@ -33,7 +33,9 @@ lin.nvim is a highly configured [Neovim](https://neovim.io/) distribution integr
   - [Windows](#windows)
     - [Enable developer mode](#enable-developer-mode)
     - [Install Visual Studio](#install-visual-studio)
-    - [Install Python 3.x](#install-python-3.x)
+    - [Install Python 3.x](#install-python-3x)
+    - [Install Node.js](#install-nodejs)
+    - [Run PowerShell commands](#run-powershell-commands)
   - [Patched GUI Font](#patched-gui-font)
 - [User guide](#user-guide)
 
