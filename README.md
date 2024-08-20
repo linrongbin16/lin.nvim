@@ -31,6 +31,11 @@ lin.nvim is a highly configured [Neovim](https://neovim.io/) distribution integr
 - [Get started](#get-started)
   - [MacOS/Linux](#macoslinux)
   - [Windows](#windows)
+    - [Enable developer mode](#enable-developer-mode)
+    - [Install Visual Studio](#install-visual-studio)
+    - [Install Python 3.x](#install-python-3x)
+    - [Install Node.js](#install-nodejs)
+    - [Run PowerShell commands](#run-powershell-commands)
   - [Patched GUI Font](#patched-gui-font)
 - [User guide](#user-guide)
 
@@ -64,66 +69,74 @@ And that's all of it.
 
 ### Windows
 
-1. Enable [Windows developer mode](https://learn.microsoft.com/en-us/windows/apps/get-started/enable-your-device-for-development#activate-developer-mode) for Windows.
+#### Enable developer mode
 
-2. Install [Visual Studio](https://www.visualstudio.com/) with MSVC components:
+Please see: [Active developer mode](https://learn.microsoft.com/en-us/windows/apps/get-started/enable-your-device-for-development#activate-developer-mode).
 
-   - .NET Desktop Development
-   - Desktop development with C++
+#### Install Visual Studio
 
-   ![image](https://github.com/linrongbin16/lin.nvim/assets/6496887/bca811b5-8b1a-42c0-9283-c38e75f2f06a)
+Install [Visual Studio](https://www.visualstudio.com/) with MSVC components:
 
-3. Install [Python3](https://www.python.org/downloads/) only for current user.
+- .NET Desktop Development
+- Desktop development with C++
 
-   <details>
-   <summary>Click here to see how to install python3 only for current user.</summary>
+![image](https://github.com/linrongbin16/lin.nvim/assets/6496887/bca811b5-8b1a-42c0-9283-c38e75f2f06a)
 
-   - Select "Customize Installation", unselect "Use admin privileges when installing py.exe".
+#### Install Python 3.x
 
-     <img width="70%" alt="image" src="https://github.com/user-attachments/assets/e8aa9163-459e-4741-8561-c46efc2efdb5"/>
+Install [Python 3.x](https://www.python.org/downloads/) only for current user.
 
-   - Select all optional features without "for all users (requires admin privileges)".
+<details>
+<summary>Click here to see how to install python3 only for current user.</summary>
 
-     <img width="70%" alt="image" src="https://github.com/user-attachments/assets/648ec440-b0ec-4373-9c66-7bf32e48d899"/>
+- Select "Customize Installation", unselect "Use admin privileges when installing py.exe".
 
-   - Unselect "Install Python 3.12 for all users", select "Add Python to environment variables" and "Precompile standard library", choose the install directory in your user directory (for example `C:\Users\linrongbin\opt\Python312`).
+  <img width="70%" alt="image" src="https://github.com/user-attachments/assets/e8aa9163-459e-4741-8561-c46efc2efdb5"/>
 
-     <img width="70%" alt="image" src="https://github.com/user-attachments/assets/568773e3-be4b-4b19-b444-c4880437a521"/>
+- Select all optional features without "for all users (requires admin privileges)".
 
-   - Go to the install directory (`C:\Users\linrongbin\opt\Python312`) and copy `python.exe` to `python3.exe`, and you will have `python3.exe` command in Windows PowerShell/cmd.
+  <img width="70%" alt="image" src="https://github.com/user-attachments/assets/648ec440-b0ec-4373-9c66-7bf32e48d899"/>
 
-   - Disable "python.exe" and "python3.exe" app aliases for Windows 10+. Go to Windows "Settings" => "Apps" => "App execution aliases", unselect "python.exe" and "python3.exe".
+- Unselect "Install Python 3.12 for all users", select "Add Python to environment variables" and "Precompile standard library", choose the install directory in your user directory (for example `C:\Users\linrongbin\opt\Python312`).
 
-     <img width="80%" alt="image" src="https://github.com/user-attachments/assets/e6e2422d-953d-44b5-8f5e-820e2f355680"/>
+  <img width="70%" alt="image" src="https://github.com/user-attachments/assets/568773e3-be4b-4b19-b444-c4880437a521"/>
 
-     <img width="80%" alt="image" src="https://github.com/user-attachments/assets/f78d4dc2-b167-4981-9fa0-598edf8af0d5"/>
+- Go to the install directory (`C:\Users\linrongbin\opt\Python312`) and copy `python.exe` to `python3.exe`, and you will have `python3.exe` command in Windows PowerShell/cmd.
 
-     <img width="80%" alt="image" src="https://github.com/user-attachments/assets/17baf876-e072-49eb-bed2-4b2436d85ad1"/>
+- Disable "python.exe" and "python3.exe" app aliases for Windows 10+. Go to Windows "Settings" => "Apps" => "App execution aliases", unselect "python.exe" and "python3.exe".
 
-   </details>
+  <img width="80%" alt="image" src="https://github.com/user-attachments/assets/e6e2422d-953d-44b5-8f5e-820e2f355680"/>
 
-4. Install [Node.js](https://nodejs.org/) only for current user.
+  <img width="80%" alt="image" src="https://github.com/user-attachments/assets/f78d4dc2-b167-4981-9fa0-598edf8af0d5"/>
 
-   <details>
-   <summary>Click here to see how to install node.js only for current user.</summary>
+  <img width="80%" alt="image" src="https://github.com/user-attachments/assets/17baf876-e072-49eb-bed2-4b2436d85ad1"/>
 
-   - In "Destination Folder" step, choose the install directory in you user directory (for example `C:\Users\linrongbin\opt\nodejs\`).
+</details>
 
-     <img width="70%" alt="image" src="https://github.com/user-attachments/assets/abccc9b6-2b42-4679-a182-420554a6483b"/>
+#### Install Node.js
 
-   </details>
+Install [Node.js](https://nodejs.org/) only for current user.
 
-5. Run PowerShell command:
+<details>
+<summary>Click here to see how to install node only for current user.</summary>
 
-   ```powershell
-   # scoop
-   Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
-   irm get.scoop.sh | iex
+- In "Destination Folder", choose the install directory in you user directory (for example `C:\Users\linrongbin\opt\nodejs\`).
 
-   git clone https://github.com/linrongbin16/lin.nvim $env:USERPROFILE\.nvim
-   cd $env:USERPROFILE\.nvim
-   .\install.ps1
-   ```
+  <img width="70%" alt="image" src="https://github.com/user-attachments/assets/abccc9b6-2b42-4679-a182-420554a6483b"/>
+
+</details>
+
+#### Run PowerShell commands
+
+```powershell
+# scoop
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+irm get.scoop.sh | iex
+
+git clone https://github.com/linrongbin16/lin.nvim $env:USERPROFILE\.nvim
+cd $env:USERPROFILE\.nvim
+.\install.ps1
+```
 
 Check out [installation](https://linrongbin16.github.io/lin.nvim/#/install) for more details.
 
