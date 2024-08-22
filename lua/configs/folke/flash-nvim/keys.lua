@@ -1,12 +1,12 @@
-local keymap = require("builtin.utils.keymap")
+local set_lazy_key = require("builtin.utils.keymap").set_lazy_key
 
 local M = {
-  keymap.set_lazy_key({ "n", "x", "o" }, "s", function()
+  set_lazy_key({ "n", "x", "o" }, "s", function()
     require("flash").jump()
-  end, { desc = "Flash jump" }),
-  keymap.set_lazy_key({ "n", "x", "o" }, "S", function()
-    require("flash").treesitter()
-  end, { desc = "Flash treesitter" }),
+  end, { desc = "Jump forward" }),
+  set_lazy_key({ "o" }, "r", function()
+    require("flash").remote()
+  end, { desc = "Remote flash" }),
 }
 
 return M
