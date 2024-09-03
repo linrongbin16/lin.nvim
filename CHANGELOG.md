@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.1.4](https://github.com/linrongbin16/lin.nvim/compare/v4.1.3...v4.1.4) (2024-09-03)
+
+
+### Reverts
+
+* **install:** revert node/python install on Windows ([#602](https://github.com/linrongbin16/lin.nvim/issues/602)) ([1aa5789](https://github.com/linrongbin16/lin.nvim/commit/1aa57894961c0e34c9ef259847a2f407955c22d4))
+
 ## [4.1.3](https://github.com/linrongbin16/lin.nvim/compare/v4.1.2...v4.1.3) (2024-07-22)
 
 
