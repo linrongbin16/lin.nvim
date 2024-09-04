@@ -96,6 +96,11 @@ require("neo-tree").setup({
     },
   },
   filesystem = {
+    bind_to_cwd = false, -- disable 2-way binding
+    -- cwd_target = {
+    --   sidebar = "tab", -- sidebar is when position = left or right
+    --   current = "window", -- current is when position = current
+    -- },
     filtered_items = {
       visible = true,
     },
