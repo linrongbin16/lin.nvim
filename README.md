@@ -143,7 +143,7 @@ Even [Hack Nerd Font](https://github.com/ryanoasis/nerd-fonts/tree/c173f661a0ed0
 
 ## User guide
 
-Check out [user guide](https://linrongbin16.github.io/lin.nvim/#/user_guide) for full features, plugins, key mappings and customizations.
+Check out [user guide](https://linrongbin16.github.io/lin.nvim/#/) for full features, plugins, key mappings and customizations.
 
 ## Contribute
 
