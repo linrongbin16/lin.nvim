@@ -555,6 +555,17 @@ local Location = {
   },
 }
 
+local CursorHex = {
+  init = function(self)
+    self.mode = vim.api.nvim_get_mode().mode
+  end,
+  hl = function(self)
+    local mode_hl = GetModeHighlight(self.mode)
+    return { fg = mode_hl.fg, bg = mode_hl.bg, bold = true }
+  end,
+  provider = " 0x%04B",
+}
+
 local Progress = {
   init = function(self)
     self.mode = vim.api.nvim_get_mode().mode
@@ -579,6 +590,7 @@ local StatusLine = {
   FileFormat,
   FileType,
   Location,
+  CursorHex,
   Progress,
 }
 
