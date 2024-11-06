@@ -271,7 +271,7 @@ local M = {
     "saghen/blink.cmp",
     lazy = false,
     dependencies = "rafamadriz/friendly-snippets",
-    version = "*",
+    version = "v0.*",
     config = lua_config("saghen/blink.cmp"),
   },
 
