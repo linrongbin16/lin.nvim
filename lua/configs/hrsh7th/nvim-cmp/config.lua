@@ -30,10 +30,6 @@ local setup_opts = {
     { name = "buffer" },
     { name = "async_path" },
   }),
-  window = {
-    completion = cmp.config.window.bordered(),
-    documentation = cmp.config.window.bordered(),
-  },
   formatting = {
     format = require("lspkind").cmp_format({
       mode = "symbol",
