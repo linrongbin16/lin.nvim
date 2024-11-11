@@ -1,9 +1,5 @@
 require("blink.cmp").setup({
   keymap = {
-    ["<C-k>"] = { "fallback" },
-    ["<C-e>"] = { "fallback" },
-    ["<C-space>"] = { "fallback" },
-
     ["<CR>"] = { "accept", "fallback" },
     ["<Tab>"] = { "accept", "fallback" },
     ["<S-Tab>"] = { "fallback" },
