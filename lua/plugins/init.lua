@@ -260,10 +260,6 @@ local M = {
 
   -- ---- AUTO-COMPLETE ----
   {
-    "onsails/lspkind.nvim",
-    lazy = true,
-  },
-  {
     "rafamadriz/friendly-snippets",
     lazy = true,
   },
