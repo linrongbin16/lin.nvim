@@ -111,30 +111,30 @@ function RustDependency()
   Install -command "cargo install eza" -target "eza"
 }
 
-function PythonDependency()
-{
-  Info "install python3/pip packages"
-  # python
-  Install -command "scoop install python" -target "python3"
-  Install -command "scoop install python" -target "pip3"
+# function PythonDependency()
+# {
+#   Info "install python3/pip packages"
+#   # python
+#   Install -command "scoop install python" -target "python3"
+#   Install -command "scoop install python" -target "pip3"
+#
+#   # $PythonHasPep668 = python3 -c 'import sys; major=sys.version_info.major; minor=sys.version_info.minor; micro=sys.version_info.micro; r1=major >= 3 and minor > 11; r2=major >= 3 and minor == 11 and micro >= 1; print(1 if r1 or r2 else 0)'
+#   # if ($PythonHasPep668 -eq 1) {
+#   #     python3 -m pip install pynvim --user --break-system-packages
+#   # } else {
+#   python3 -m pip install pynvim --user
+#   # }
+# }
 
-  # $PythonHasPep668 = python3 -c 'import sys; major=sys.version_info.major; minor=sys.version_info.minor; micro=sys.version_info.micro; r1=major >= 3 and minor > 11; r2=major >= 3 and minor == 11 and micro >= 1; print(1 if r1 or r2 else 0)'
-  # if ($PythonHasPep668 -eq 1) {
-  #     python3 -m pip install pynvim --user --break-system-packages
-  # } else {
-  python3 -m pip install pynvim --user
-  # }
-}
-
-function NodejsDependency()
-{
-  Info "install node/npm packages"
-  # nodejs
-  Install -command "scoop install nodejs" -target "node"
-  # npm
-  npm install --silent -g neovim
-  Install -command "npm install --silent -g trash-cli" -target "trash"
-}
+# function NodejsDependency()
+# {
+#   Info "install node/npm packages"
+#   # nodejs
+#   Install -command "scoop install nodejs" -target "node"
+#   # npm
+#   npm install --silent -g neovim
+#   Install -command "npm install --silent -g trash-cli" -target "trash"
+# }
 
 function NerdFontDependency()
 {
@@ -217,8 +217,8 @@ Info "install dependencies with scoop"
 
 CoreDependency
 RustDependency
-PythonDependency
-NodejsDependency
+# PythonDependency
+# NodejsDependency
 NerdFontDependency
 NvimConfig
 
