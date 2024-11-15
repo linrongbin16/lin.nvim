@@ -100,17 +100,17 @@ install_apt_nvim() {
 	sudo mv nvim.appimage /usr/local/bin/nvim
 }
 
-install_apt_node() {
-	# see: https://github.com/nodesource/distributions
-	info "install nodejs from deb.nodesource.com"
-	sudo apt-get -qq -y install ca-certificates gnupg
-	sudo mkdir -p /etc/apt/keyrings
-	curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
-	NODE_MAJOR=20
-	echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
-	sudo apt-get -qq update
-	sudo apt-get -qq -y install nodejs
-}
+# install_apt_node() {
+# 	# see: https://github.com/nodesource/distributions
+# 	info "install nodejs from deb.nodesource.com"
+# 	sudo apt-get -qq -y install ca-certificates gnupg
+# 	sudo mkdir -p /etc/apt/keyrings
+# 	curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
+# 	NODE_MAJOR=20
+# 	echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
+# 	sudo apt-get -qq update
+# 	sudo apt-get -qq -y install nodejs
+# }
 
 install_apt_ctags() {
 	sudo apt-get -qq -y install libseccomp-dev
@@ -161,12 +161,12 @@ install_apt() {
 	install "sudo apt-get -qq -y install xsel" "xsel"
 	install "sudo apt-get -qq -y install xclip" "xclip"
 
-	# python3
-	install "sudo apt-get -qq -y install python3 python3-dev python3-venv python3-pip python3-docutils" "python3"
-	install "sudo apt-get -qq -y install python3 python3-dev python3-venv python3-pip python3-docutils" "pip3"
+	# # python3
+	# install "sudo apt-get -qq -y install python3 python3-dev python3-venv python3-pip python3-docutils" "python3"
+	# install "sudo apt-get -qq -y install python3 python3-dev python3-venv python3-pip python3-docutils" "pip3"
 
-	# nodejs
-	install_func "install_apt_node" "node"
+	# # nodejs
+	# install_func "install_apt_node" "node"
 
 	# # ctags
 	# install_func "install_apt_ctags" "ctags"
@@ -208,11 +208,11 @@ install_brew() {
 	# # luarocks
 	# install "brew install luarocks" "luarocks"
 
-	# python3
-	install "brew install python3" "python3"
+	# # python3
+	# install "brew install python3" "python3"
 
-	# nodejs
-	install "brew install node" "node"
+	# # nodejs
+	# install "brew install node" "node"
 
 	# # ctags
 	# install "brew install universal-ctags" "ctags"
@@ -269,12 +269,12 @@ install_dnf() {
 	install "sudo dnf install -y xsel" "xsel"
 	install "sudo dnf install -y xclip" "xclip"
 
-	# python3
-	install "sudo dnf install -y python3 python3-devel python3-pip python3-docutils" "python3"
-	install "sudo dnf install -y python3 python3-devel python3-pip python3-docutils" "pip3"
+	# # python3
+	# install "sudo dnf install -y python3 python3-devel python3-pip python3-docutils" "python3"
+	# install "sudo dnf install -y python3 python3-devel python3-pip python3-docutils" "pip3"
 
-	# nodejs
-	install "sudo dnf install -y nodejs npm" "node"
+	# # nodejs
+	# install "sudo dnf install -y nodejs npm" "node"
 
 	# # ctags
 	# install_func "install_dnf_ctags" "ctags"
@@ -316,12 +316,12 @@ install_pacman() {
 	install "yes | sudo pacman -S xsel" "xsel"
 	install "yes | sudo pacman -S xclip" "xclip"
 
-	# python3
-	install "yes | sudo pacman -S python python-pip" "python3"
-	install "yes | sudo pacman -S python python-pip" "pip3"
+	# # python3
+	# install "yes | sudo pacman -S python python-pip" "python3"
+	# install "yes | sudo pacman -S python python-pip" "pip3"
 
-	# node
-	install "yes | sudo pacman -S nodejs npm" "node"
+	# # node
+	# install "yes | sudo pacman -S nodejs npm" "node"
 
 	# # ctags
 	# install "yes | sudo pacman -S ctags" "ctags"
@@ -344,23 +344,23 @@ rust_dependency() {
 	install "cargo install eza" "eza"
 }
 
-pip_dependency() {
-	info "install python packages with pip3"
-	local python_has_pep668=$(python3 -c 'import sys; major=sys.version_info.major; minor=sys.version_info.minor; micro=sys.version_info.micro; r1=major >= 3 and minor > 11; r2=major >= 3 and minor == 11 and micro >= 1; print(1 if r1 or r2 else 0)')
+# pip_dependency() {
+# 	info "install python packages with pip3"
+# 	local python_has_pep668=$(python3 -c 'import sys; major=sys.version_info.major; minor=sys.version_info.minor; micro=sys.version_info.micro; r1=major >= 3 and minor > 11; r2=major >= 3 and minor == 11 and micro >= 1; print(1 if r1 or r2 else 0)')
+#
+# 	python3 --version
+# 	if [ $python_has_pep668 -eq 1 ]; then
+# 		python3 -m pip install pynvim --user --upgrade --break-system-packages
+# 	else
+# 		python3 -m pip install pynvim --user --upgrade
+# 	fi
+# }
 
-	python3 --version
-	if [ $python_has_pep668 -eq 1 ]; then
-		python3 -m pip install pynvim --user --upgrade --break-system-packages
-	else
-		python3 -m pip install pynvim --user --upgrade
-	fi
-}
-
-npm_dependency() {
-	info "install node packages with npm"
-	sudo npm install --silent -g neovim
-	install "sudo npm install --silent -g trash-cli" "trash"
-}
+# npm_dependency() {
+# 	info "install node packages with npm"
+# 	sudo npm install --silent -g neovim
+# 	install "sudo npm install --silent -g trash-cli" "trash"
+# }
 
 install_nerdfont() {
 	if [ "$OS" = "Darwin" ]; then
@@ -487,8 +487,8 @@ FreeBSD | NetBSD | OpenBSD)
 esac
 
 rust_dependency
-pip_dependency
-npm_dependency
+# pip_dependency
+# npm_dependency
 nerdfont_dependency
 nvim_config
 

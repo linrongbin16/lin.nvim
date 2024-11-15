@@ -1,5 +1,13 @@
 # Changelog
 
+## [4.2.0](https://github.com/linrongbin16/lin.nvim/compare/v4.1.4...v4.2.0) (2024-11-11)
+
+
+### Features
+
+* **blink.cmp:** migrate "nvim-cmp" to "blink.cmp" ([#612](https://github.com/linrongbin16/lin.nvim/issues/612)) ([a304391](https://github.com/linrongbin16/lin.nvim/commit/a30439167e2e2b947873152d8efbfb9299cd831e))
+* **statusline:** add cursor hex ([#608](https://github.com/linrongbin16/lin.nvim/issues/608)) ([696e1fd](https://github.com/linrongbin16/lin.nvim/commit/696e1fd56f1586d08e427e4f7f22d7587dd0201f))
+
 ## [4.1.4](https://github.com/linrongbin16/lin.nvim/compare/v4.1.3...v4.1.4) (2024-09-03)
 
 
