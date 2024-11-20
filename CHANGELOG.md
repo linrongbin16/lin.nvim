@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.2.1](https://github.com/linrongbin16/lin.nvim/compare/v4.2.0...v4.2.1) (2024-11-19)
+
+
+### Reverts
+
+* **nvim-cmp:** revert to "nvim-cmp" since blink has crash bugs ([#616](https://github.com/linrongbin16/lin.nvim/issues/616)) ([a0a4945](https://github.com/linrongbin16/lin.nvim/commit/a0a49454e0a04ec3fabc312ef658f6c89ebb8acf))
+
 ## [4.2.0](https://github.com/linrongbin16/lin.nvim/compare/v4.1.4...v4.2.0) (2024-11-11)
 
 
