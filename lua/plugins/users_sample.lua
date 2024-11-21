@@ -152,7 +152,7 @@
 --     "toppair/peek.nvim",
 --     build = "deno task --quiet build:fast",
 --     config = lua_config("toppair/peek.nvim"),
---     -- keys = lua_keys("toppair/peek.nvim"),
+--     keys = lua_keys("toppair/peek.nvim"),
 --   },
 --   -- Vim/Neovim api version helper
 --   {
