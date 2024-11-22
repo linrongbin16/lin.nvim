@@ -152,7 +152,16 @@
 --     "toppair/peek.nvim",
 --     build = "deno task --quiet build:fast",
 --     config = lua_config("toppair/peek.nvim"),
---     -- keys = lua_keys("toppair/peek.nvim"),
+--     keys = lua_keys("toppair/peek.nvim"),
+--   },
+--   {
+--     "iamcco/markdown-preview.nvim",
+--     build = function()
+--       vim.fn["mkdp#util#install"]()
+--     end,
+--     ft = { "markdown" },
+--     init = lua_init("iamcco/markdown-preview.nvim"),
+--     keys = lua_keys("iamcco/markdown-preview.nvim"),
 --   },
 --   -- Vim/Neovim api version helper
 --   {
