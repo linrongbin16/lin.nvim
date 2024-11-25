@@ -259,24 +259,12 @@ local M = {
   },
 
   -- ---- AUTO-COMPLETE ----
-  {
-    "onsails/lspkind.nvim",
-    lazy = true,
-  },
+  -- {
+  --   "onsails/lspkind.nvim",
+  --   lazy = true,
+  -- },
   {
     "rafamadriz/friendly-snippets",
-    lazy = true,
-  },
-  {
-    "hrsh7th/cmp-nvim-lsp",
-    lazy = true,
-  },
-  {
-    "hrsh7th/cmp-buffer",
-    lazy = true,
-  },
-  {
-    "FelipeLema/cmp-async-path",
     lazy = true,
   },
   {
@@ -287,28 +275,11 @@ local M = {
     submodules = false,
   },
   {
-    "saadparwaiz1/cmp_luasnip",
-    lazy = true,
-    dependencies = { "L3MON4D3/LuaSnip" },
-  },
-  {
-    "hrsh7th/cmp-cmdline",
-    lazy = true,
-  },
-  {
-    "hrsh7th/nvim-cmp",
-    event = { InsertEnter, CmdlineEnter },
-    dependencies = {
-      "neovim/nvim-lspconfig",
-      "onsails/lspkind.nvim",
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-buffer",
-      "FelipeLema/cmp-async-path",
-      "L3MON4D3/LuaSnip",
-      "saadparwaiz1/cmp_luasnip",
-      "hrsh7th/cmp-cmdline",
-    },
-    config = lua_config("hrsh7th/nvim-cmp"),
+    "saghen/blink.cmp",
+    lazy = false,
+    dependencies = "rafamadriz/friendly-snippets",
+    version = "v0.*",
+    config = lua_config("saghen/blink.cmp"),
   },
 
   -- ---- KEY BINDING ----
