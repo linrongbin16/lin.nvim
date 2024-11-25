@@ -267,13 +267,13 @@ local M = {
     "rafamadriz/friendly-snippets",
     lazy = true,
   },
-  {
-    "L3MON4D3/LuaSnip",
-    lazy = true,
-    dependencies = { "rafamadriz/friendly-snippets" },
-    version = "v2.*",
-    submodules = false,
-  },
+  -- {
+  --   "L3MON4D3/LuaSnip",
+  --   lazy = true,
+  --   dependencies = { "rafamadriz/friendly-snippets" },
+  --   version = "v2.*",
+  --   submodules = false,
+  -- },
   {
     "saghen/blink.cmp",
     lazy = false,
@@ -316,19 +316,19 @@ local M = {
 
   -- ---- ENHANCEMENT ----
 
-  -- Auto pair/close
-  {
-    "windwp/nvim-autopairs",
-    event = { VeryLazy, InsertEnter },
-    dependencies = { "nvim-treesitter/nvim-treesitter" },
-    config = lua_config("windwp/nvim-autopairs"),
-  },
-  {
-    "windwp/nvim-ts-autotag",
-    event = { VeryLazy, InsertEnter },
-    dependencies = { "nvim-treesitter/nvim-treesitter" },
-    config = lua_config("windwp/nvim-ts-autotag"),
-  },
+  -- -- Auto pair/close
+  -- {
+  --   "windwp/nvim-autopairs",
+  --   event = { VeryLazy, InsertEnter },
+  --   dependencies = { "nvim-treesitter/nvim-treesitter" },
+  --   config = lua_config("windwp/nvim-autopairs"),
+  -- },
+  -- {
+  --   "windwp/nvim-ts-autotag",
+  --   event = { VeryLazy, InsertEnter },
+  --   dependencies = { "nvim-treesitter/nvim-treesitter" },
+  --   config = lua_config("windwp/nvim-ts-autotag"),
+  -- },
   -- Repeat
   {
     "tpope/vim-repeat",
