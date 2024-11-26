@@ -317,18 +317,12 @@ local M = {
   -- ---- ENHANCEMENT ----
 
   -- -- Auto pair/close
-  -- {
-  --   "windwp/nvim-autopairs",
-  --   event = { VeryLazy, InsertEnter },
-  --   dependencies = { "nvim-treesitter/nvim-treesitter" },
-  --   config = lua_config("windwp/nvim-autopairs"),
-  -- },
-  -- {
-  --   "windwp/nvim-ts-autotag",
-  --   event = { VeryLazy, InsertEnter },
-  --   dependencies = { "nvim-treesitter/nvim-treesitter" },
-  --   config = lua_config("windwp/nvim-ts-autotag"),
-  -- },
+  {
+    "windwp/nvim-autopairs",
+    event = { VeryLazy, InsertEnter },
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    config = lua_config("windwp/nvim-autopairs"),
+  },
   -- Repeat
   {
     "tpope/vim-repeat",

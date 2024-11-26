@@ -174,13 +174,6 @@
 --     event = { VeryLazy, BufReadPre, BufNewFile },
 --     config = lua_config("folke/todo-comments.nvim"),
 --   },
---   -- Url viewer
---   {
---     "axieax/urlview.nvim",
---     cmd = { "UrlView" },
---     config = lua_config("axieax/urlview.nvim"),
---     keys = lua_keys("axieax/urlview.nvim"),
---   },
 --   -- Tags generator
 --   {
 --     "linrongbin16/gentags.nvim",
@@ -194,11 +187,6 @@
 --     config = lua_config("folke/trouble.nvim"),
 --     keys = lua_keys("folke/trouble.nvim"),
 --   },
---   -- Json schema
---   {
---     "b0o/SchemaStore.nvim",
---     lazy = true,
---   },
 --   -- Search and replace
 --   {
 --     "nvim-pack/nvim-spectre",
@@ -210,11 +198,11 @@
 --     "folke/neoconf.nvim",
 --     config = lua_config("folke/neoconf.nvim"),
 --   },
---   -- Lsp configuration
+--   -- Neovim builtin lsp
 --   {
---     "folke/neodev.nvim",
---     dependencies = { "folke/neoconf.nvim" }, -- neoconf must be setup before neodev
---     config = lua_config("folke/neodev.nvim"),
+--     "folke/lazydev.nvim",
+--     ft = "lua", -- only load on lua files
+--     opts = {},
 --   },
 --   -- Lsp server GC
 --   {
@@ -234,6 +222,12 @@
 --     dependencies = { "inkarkat/vim-ingo-library" },
 --     init = lua_init("inkarkat/vim-mark"),
 --     keys = lua_keys("inkarkat/vim-mark"),
+--   },
+--   {
+--     "windwp/nvim-ts-autotag",
+--     event = { VeryLazy, InsertEnter },
+--     dependencies = { "nvim-treesitter/nvim-treesitter" },
+--     config = lua_config("windwp/nvim-ts-autotag"),
 --   },
 -- }
 
