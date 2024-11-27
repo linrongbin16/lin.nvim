@@ -1,5 +1,19 @@
 # Changelog
 
+## [4.3.0](https://github.com/linrongbin16/lin.nvim/compare/v4.2.1...v4.3.0) (2024-11-27)
+
+
+### Features
+
+* **blink.cmp:** migrate from "nvim-cmp" to "blink.cmp" ([#620](https://github.com/linrongbin16/lin.nvim/issues/620)) ([0193e23](https://github.com/linrongbin16/lin.nvim/commit/0193e231a8ffd323041f3a2511680a448aa582df))
+* **peek.nvim:** add key mappings for "peek.nvim"  ([#618](https://github.com/linrongbin16/lin.nvim/issues/618)) ([ce52f9d](https://github.com/linrongbin16/lin.nvim/commit/ce52f9dc58a0b5847358de9542e4e26d3aae6186))
+
+
+### Bug Fixes
+
+* **crash:** move "nvim-ts-autotag" to user plugins list for it crashes nvim ([#621](https://github.com/linrongbin16/lin.nvim/issues/621)) ([9c29e7d](https://github.com/linrongbin16/lin.nvim/commit/9c29e7d81cfc068fca0b53b6673723bf3255033a))
+* **markdown-preview.nvim:** move "markdown-preview.nvim" to user plugins list ([#618](https://github.com/linrongbin16/lin.nvim/issues/618)) ([ce52f9d](https://github.com/linrongbin16/lin.nvim/commit/ce52f9dc58a0b5847358de9542e4e26d3aae6186))
+
 ## [4.2.1](https://github.com/linrongbin16/lin.nvim/compare/v4.2.0...v4.2.1) (2024-11-19)
 
 
