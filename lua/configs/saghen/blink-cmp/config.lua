@@ -16,6 +16,7 @@ require("blink.cmp").setup({
     ["<C-d>"] = { "scroll_documentation_down", "fallback" },
   },
   trigger = {
+    accept = { auto_brackets = { enabled = true } },
     signature_help = {
       enabled = true,
     },
