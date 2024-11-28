@@ -347,11 +347,11 @@ rust_dependency() {
 # 	fi
 # }
 
-npm_dependency() {
-	info "install node packages with npm"
-	sudo npm install --silent -g neovim
-	install "sudo npm install --silent -g trash-cli" "trash"
-}
+# npm_dependency() {
+# 	info "install node packages with npm"
+# 	sudo npm install --silent -g neovim
+# 	install "sudo npm install --silent -g trash-cli" "trash"
+# }
 
 install_nerdfont() {
 	if [ "$OS" = "Darwin" ]; then
@@ -479,7 +479,7 @@ esac
 
 rust_dependency
 # pip_dependency
-npm_dependency
+# npm_dependency
 nerdfont_dependency
 nvim_config
 
