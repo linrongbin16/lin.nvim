@@ -126,15 +126,15 @@ function RustDependency()
 #   # }
 # }
 
-# function NodejsDependency()
-# {
-#   Info "install node/npm packages"
-#   # nodejs
-#   Install -command "scoop install nodejs" -target "node"
-#   # npm
-#   npm install --silent -g neovim
-#   Install -command "npm install --silent -g trash-cli" -target "trash"
-# }
+function NodejsDependency()
+{
+  Info "install node/npm packages"
+  # nodejs
+  Install -command "scoop install nodejs" -target "node"
+  # npm
+  npm install --silent -g neovim
+  Install -command "npm install --silent -g trash-cli" -target "trash"
+}
 
 function NerdFontDependency()
 {
@@ -218,7 +218,7 @@ Info "install dependencies with scoop"
 CoreDependency
 RustDependency
 # PythonDependency
-# NodejsDependency
+NodejsDependency
 NerdFontDependency
 NvimConfig
 
