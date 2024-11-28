@@ -100,17 +100,15 @@ install_apt_nvim() {
 	sudo mv nvim.appimage /usr/local/bin/nvim
 }
 
-# install_apt_node() {
-# 	# see: https://github.com/nodesource/distributions
-# 	info "install nodejs from deb.nodesource.com"
-# 	sudo apt-get -qq -y install ca-certificates gnupg
-# 	sudo mkdir -p /etc/apt/keyrings
-# 	curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
-# 	NODE_MAJOR=20
-# 	echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
-# 	sudo apt-get -qq update
-# 	sudo apt-get -qq -y install nodejs
-# }
+install_apt_node() {
+	# see: https://github.com/nodesource/distributions
+	info "install nodejs-lts from NodeSource"
+	sudo apt-get install -y curl
+	curl -fsSL https://deb.nodesource.com/setup_lts.x -o nodesource_setup.sh
+	sudo -E bash nodesource_setup.sh
+	sudo apt-get -qq update
+	sudo apt-get -qq -y install nodejs
+}
 
 install_apt_ctags() {
 	sudo apt-get -qq -y install libseccomp-dev
@@ -162,11 +160,11 @@ install_apt() {
 	install "sudo apt-get -qq -y install xclip" "xclip"
 
 	# # python3
-	# install "sudo apt-get -qq -y install python3 python3-dev python3-venv python3-pip python3-docutils" "python3"
-	# install "sudo apt-get -qq -y install python3 python3-dev python3-venv python3-pip python3-docutils" "pip3"
+	install "sudo apt-get -qq -y install python3 python3-dev python3-venv python3-pip python3-docutils" "python3"
+	install "sudo apt-get -qq -y install python3 python3-dev python3-venv python3-pip python3-docutils" "pip3"
 
 	# # nodejs
-	# install_func "install_apt_node" "node"
+	install_func "install_apt_node" "node"
 
 	# # ctags
 	# install_func "install_apt_ctags" "ctags"
@@ -209,20 +207,13 @@ install_brew() {
 	# install "brew install luarocks" "luarocks"
 
 	# # python3
-	# install "brew install python3" "python3"
+	install "brew install python3" "python3"
 
 	# # nodejs
-	# install "brew install node" "node"
+	install "brew install node" "node"
 
 	# # ctags
 	# install "brew install universal-ctags" "ctags"
-
-	# # cargo commands
-	# # don't use 'brew' to install cargo commands, use 'cargo' to install them.
-	# install "brew install fd" "fd"
-	# install "brew install ripgrep" "rg"
-	# install "brew install bat" "bat"
-	# install "brew install eza" "eza"
 }
 
 # }
@@ -270,11 +261,11 @@ install_dnf() {
 	install "sudo dnf install -y xclip" "xclip"
 
 	# # python3
-	# install "sudo dnf install -y python3 python3-devel python3-pip python3-docutils" "python3"
-	# install "sudo dnf install -y python3 python3-devel python3-pip python3-docutils" "pip3"
+	install "sudo dnf install -y python3 python3-devel python3-pip python3-docutils" "python3"
+	install "sudo dnf install -y python3 python3-devel python3-pip python3-docutils" "pip3"
 
 	# # nodejs
-	# install "sudo dnf install -y nodejs npm" "node"
+	install "sudo dnf install -y nodejs npm" "node"
 
 	# # ctags
 	# install_func "install_dnf_ctags" "ctags"
@@ -317,11 +308,11 @@ install_pacman() {
 	install "yes | sudo pacman -S xclip" "xclip"
 
 	# # python3
-	# install "yes | sudo pacman -S python python-pip" "python3"
-	# install "yes | sudo pacman -S python python-pip" "pip3"
+	install "yes | sudo pacman -S python python-pip" "python3"
+	install "yes | sudo pacman -S python python-pip" "pip3"
 
 	# # node
-	# install "yes | sudo pacman -S nodejs npm" "node"
+	install "yes | sudo pacman -S nodejs npm" "node"
 
 	# # ctags
 	# install "yes | sudo pacman -S ctags" "ctags"
