@@ -28,7 +28,7 @@ local function load_vim_script(name, key)
   if uv.fs_stat(user_path) then
     vim.cmd(string.format([[source %s]], user_path))
   else
-    local default_path = filepath_base .. string.format("/%s,vim", key)
+    local default_path = filepath_base .. string.format("/%s.vim", key)
     vim.cmd(string.format([[source %s]], default_path))
   end
 end
