@@ -44,17 +44,10 @@ local M = {
   -- ---- HIGHLIGHT ----
 
   {
-    "nvim-treesitter/nvim-treesitter",
-    event = { VeryLazy, CmdlineEnter },
-    build = ":TSUpdate",
-    config = lua_config("nvim-treesitter/nvim-treesitter"),
-  },
-  {
     "RRethy/vim-illuminate",
     event = { VeryLazy },
     dependencies = {
       "neovim/nvim-lspconfig",
-      "nvim-treesitter/nvim-treesitter",
     },
     config = lua_config("RRethy/vim-illuminate"),
   },
@@ -64,15 +57,8 @@ local M = {
     config = lua_config("brenoprata10/nvim-highlight-colors"),
   },
   {
-    "nvim-treesitter/nvim-treesitter-context",
-    event = { VeryLazy },
-    dependencies = { "nvim-treesitter/nvim-treesitter" },
-    config = lua_config("nvim-treesitter/nvim-treesitter-context"),
-  },
-  {
     "andymass/vim-matchup",
     event = { VeryLazy },
-    dependencies = { "nvim-treesitter/nvim-treesitter" },
     init = lua_init("andymass/vim-matchup"),
   },
   -- Range/substitude
@@ -276,17 +262,17 @@ local M = {
     "rafamadriz/friendly-snippets",
     lazy = true,
   },
-  -- {
-  --   "L3MON4D3/LuaSnip",
-  --   lazy = true,
-  --   dependencies = { "rafamadriz/friendly-snippets" },
-  --   version = "v2.*",
-  --   submodules = false,
-  -- },
+  {
+    "L3MON4D3/LuaSnip",
+    lazy = true,
+    dependencies = { "rafamadriz/friendly-snippets" },
+    version = "v2.*",
+    submodules = false,
+  },
   {
     "saghen/blink.cmp",
     lazy = false,
-    dependencies = "rafamadriz/friendly-snippets",
+    dependencies = { "rafamadriz/friendly-snippets", "L3MON4D3/LuaSnip" },
     version = "v0.*",
     config = lua_config("saghen/blink.cmp"),
   },
@@ -330,7 +316,6 @@ local M = {
   {
     "windwp/nvim-autopairs",
     event = { VeryLazy, InsertEnter },
-    dependencies = { "nvim-treesitter/nvim-treesitter" },
     config = lua_config("windwp/nvim-autopairs"),
   },
   -- Repeat
@@ -349,7 +334,6 @@ local M = {
     "kylechui/nvim-surround",
     version = "*",
     event = { VeryLazy },
-    dependencies = { "nvim-treesitter/nvim-treesitter" },
     config = lua_config("kylechui/nvim-surround"),
   },
   -- Structure outlines
@@ -364,7 +348,6 @@ local M = {
     },
     dependencies = {
       "neovim/nvim-lspconfig",
-      "nvim-treesitter/nvim-treesitter",
     },
     keys = lua_keys("stevearc/aerial.nvim"),
     config = lua_config("stevearc/aerial.nvim"),

@@ -1,5 +1,21 @@
 # Changelog
 
+## [5.0.0](https://github.com/linrongbin16/lin.nvim/compare/v4.3.0...v5.0.0) (2024-12-03)
+
+
+### ⚠ BREAKING CHANGES
+
+* **nvim-treesitter:** drop "nvim-treesitter" to avoid freeze nvim ([#625](https://github.com/linrongbin16/lin.nvim/issues/625))
+
+### Features
+
+* **LuaSnip.nvim:** use "LuaSnip.nvim" for snippet ([#624](https://github.com/linrongbin16/lin.nvim/issues/624)) ([2c4dcc3](https://github.com/linrongbin16/lin.nvim/commit/2c4dcc37952fd9d1e0c74f9833a3a0bdbd8df369))
+
+
+### Code Refactoring
+
+* **nvim-treesitter:** drop "nvim-treesitter" to avoid freeze nvim ([#625](https://github.com/linrongbin16/lin.nvim/issues/625)) ([99caea9](https://github.com/linrongbin16/lin.nvim/commit/99caea9424f608255e6f6cc305a3bb7f3e951d5a))
+
 ## [4.3.0](https://github.com/linrongbin16/lin.nvim/compare/v4.2.1...v4.3.0) (2024-11-27)
 
 
