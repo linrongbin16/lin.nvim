@@ -26,11 +26,11 @@
 
 ## Structure Outlines
 
-?> Supported by [aerial.nvim](https://github.com/stevearc/aerial.nvim).
+?> Supported by [outline.nvim](https://github.com/hedyhli/outline.nvim).
 
 <img width="70%" alt="image" src="https://github.com/linrongbin16/lin.nvim/assets/6496887/96c76e7a-ce08-418f-8c21-7b49e94fefda">
 
-- `<Leader>ar` 🄽 - Toggle structure outlines by `:AerialToggle!!`.
+- `<Leader>ol` 🄽 - Toggle structure outlines by `:Outline!!`.
 
 ## Open URLs in Browser
 
@@ -54,9 +54,9 @@
 
 ?> Supported by [vim-repeat](https://github.com/tpope/vim-repeat).
 
-## Auto-pair & close-tags
+## Auto-pair
 
-?> Supported by [nvim-autopairs](https://github.com/windwp/nvim-autopairs) and [nvim-ts-autotag](https://github.com/windwp/nvim-ts-autotag).
+?> Supported by [nvim-autopairs](https://github.com/windwp/nvim-autopairs).
 
 ## Surroundings
 
