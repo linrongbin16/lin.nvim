@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.1.0](https://github.com/linrongbin16/lin.nvim/compare/v5.0.0...v5.1.0) (2024-12-04)
+
+
+### Features
+
+* **outline.nvim:** migrate "aerial.nvim" to "outline.nvim" ([#628](https://github.com/linrongbin16/lin.nvim/issues/628)) ([896ad59](https://github.com/linrongbin16/lin.nvim/commit/896ad5999e768e01f4c5890c4a11b4c0182f178b))
+
 ## [5.0.0](https://github.com/linrongbin16/lin.nvim/compare/v4.3.0...v5.0.0) (2024-12-03)
 
 
