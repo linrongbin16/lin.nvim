@@ -31,8 +31,9 @@ require("blink.cmp").setup({
   },
   completion = {
     accept = { auto_brackets = { enabled = true } },
-    signature_help = {
-      enabled = true,
-    },
+    documentation = { auto_show = true },
+  },
+  signature_help = {
+    enabled = true,
   },
 })
