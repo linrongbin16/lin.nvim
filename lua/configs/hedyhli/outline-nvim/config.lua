@@ -5,6 +5,6 @@ require("outline").setup({
     width = constants.window.layout.sidebar.scale * 100,
   },
   symbol_folding = {
-    autofold_depth = 5,
+    autofold_depth = 3,
   },
 })
