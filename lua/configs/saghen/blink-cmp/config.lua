@@ -17,7 +17,7 @@ require("blink.cmp").setup({
   },
   snippets = {
     expand = function(snippet)
-      require("luasnip").lsp_extend(snippet)
+      require("luasnip").lsp_expand(snippet)
     end,
     active = function(filter)
       if filter and filter.direction then
@@ -29,10 +29,11 @@ require("blink.cmp").setup({
       require("luasnip").jump(direction)
     end,
   },
-  trigger = {
+  completion = {
     accept = { auto_brackets = { enabled = true } },
-    signature_help = {
-      enabled = true,
-    },
+    documentation = { auto_show = true },
+  },
+  signature_help = {
+    enabled = true,
   },
 })
