@@ -119,12 +119,6 @@ local M = {
     },
     config = lua_config("rebelot/heirline.nvim"),
   },
-  -- Winbar
-  {
-    "Bekaboo/dropbar.nvim",
-    event = { VeryLazy },
-    config = lua_config("Bekaboo/dropbar.nvim"),
-  },
   -- UI improvement
   {
     "stevearc/dressing.nvim",
