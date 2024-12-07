@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.1.1](https://github.com/linrongbin16/lin.nvim/compare/v5.1.0...v5.1.1) (2024-12-06)
+
+
+### Bug Fixes
+
+* **flash.nvim:** disable search mode since it has letter confliction ([#633](https://github.com/linrongbin16/lin.nvim/issues/633)) ([1b37df8](https://github.com/linrongbin16/lin.nvim/commit/1b37df8cf1b257c4e0779a59162608c5201813d9))
+
 ## [5.1.0](https://github.com/linrongbin16/lin.nvim/compare/v5.0.0...v5.1.0) (2024-12-04)
 
 
