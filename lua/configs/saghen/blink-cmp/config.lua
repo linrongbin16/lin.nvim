@@ -1,8 +1,24 @@
 require("blink.cmp").setup({
   keymap = {
     ["<CR>"] = { "accept", "fallback" },
-    ["<Tab>"] = { "accept", "fallback" },
-    ["<S-Tab>"] = { "fallback" },
+
+    -- ["<Tab>"] = { "accept", "fallback" },
+    -- ["<S-Tab>"] = { "fallback" },
+
+    -- Use <Tab> to accept if there are suggestions, or jump to next placeholder if already in an expanded snippet.
+    ["<Tab>"] = {
+      function(cmp)
+        if cmp.snippet_active() then
+          return cmp.accept()
+        else
+          return cmp.select_and_accept()
+        end
+      end,
+      "snippet_forward",
+      "fallback",
+    },
+    -- Use <S-Tab> to jump to previous placeholder if already in an expanded snippet.
+    ["<S-Tab>"] = { "snippet_backward", "fallback" },
 
     ["<Up>"] = { "select_prev", "fallback" },
     ["<Down>"] = { "select_next", "fallback" },
