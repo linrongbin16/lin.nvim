@@ -25,9 +25,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - uses: mrcjkb/lua-typecheck-action@v0
+      - uses: stevearc/nvim-typecheck-action@v2
         with:
-          directories: lua
+          path: lua
           configpath: ".luarc.json"
   selene:
     name: Selene
