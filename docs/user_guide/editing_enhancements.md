@@ -1,0 +1,65 @@
+# Editing Enhancements
+
+## Key Bindings
+
+?> Supported by [which-key.nvim](https://github.com/folke/which-key.nvim).
+
+- `<Leader>wk` 🄽 - Open _which-key_ by `:WhichKey`.
+
+?> Edit the plugin settings in [lua/configs/folke/which-key-nvim](https://github.com/linrongbin16/lin.nvim/tree/main/lua/configs/folke/which-key-nvim) directory.
+
+## Git Integration
+
+?> Supported by [vim-gitgutter](https://github.com/airblade/vim-gitgutter), [gitlinker.nvim](https://github.com/linrongbin16/gitlinker.nvim) and [git-blame.nvim](https://github.com/f-person/git-blame.nvim).
+
+- `]c`/`[c` 🄽 - Go to next(👇)/previous(👆) git hunk in current buffer.
+- `<Leader>gl`/`<Leader>gL` 🄽 🅇 - Copy git permlink to clipboard, or open in default browser.
+- `<Leader>gb` 🄽 - Toggle git blame info on current line.
+
+?> Edit the plugin settings in [lua/configs/airblade/vim-gitgutter](https://github.com/linrongbin16/lin.nvim/tree/main/lua/configs/airblade/vim-gitgutter), [lua/configs/linrongbin16/gitlinker-nvim](https://github.com/linrongbin16/lin.nvim/tree/main/lua/configs/linrongbin16/gitlinker-nvim) and [lua/configs/f-person/git-blame-nvim](https://github.com/linrongbin16/lin.nvim/tree/main/lua/configs/f-person/git-blame-nvim) directory.
+
+## Comments
+
+?> Supported by [Comment.nvim](https://github.com/numToStr/Comment.nvim).
+
+?> For full key mappings, please check out [Comment's usage](https://github.com/numToStr/Comment.nvim#-usage).
+
+## Structure Outlines
+
+?> Supported by [outline.nvim](https://github.com/hedyhli/outline.nvim).
+
+<img width="70%" alt="image" src="https://github.com/linrongbin16/lin.nvim/assets/6496887/96c76e7a-ce08-418f-8c21-7b49e94fefda">
+
+- `<Leader>ol` 🄽 - Toggle structure outlines by `:Outline!!`.
+
+## Open URLs in Browser
+
+?> Supported by [gx.nvim](https://github.com/chrishrb/gx.nvim).
+
+- `gx` 🄽 - Open urls under cursor in default browser.
+
+?> Edit the plugin settings in [lua/configs/chrishrb/gx-nvim](https://github.com/linrongbin16/lin.nvim/tree/main/lua/configs/chrishrb/gx-nvim).
+
+## Markdown Preview
+
+?> Supported by [markdown-preview.nvim](https://github.com/iamcco/markdown-preview.nvim).
+
+<img width="100%" alt="image" src="https://github.com/linrongbin16/lin.nvim/assets/6496887/e4523d81-6ca4-42f1-a462-41f6ea7bde2e">
+
+- `<Leader>mp` 🄽 - Start preview markdown file in default browser.
+
+?> Edit the plugin settings in [lua/configs/iamcco/markdown-preview-nvim](https://github.com/linrongbin16/lin.nvim/tree/main/lua/configs/iamcco/markdown-preview-nvim).
+
+## Enhanced Repeat (`.`)
+
+?> Supported by [vim-repeat](https://github.com/tpope/vim-repeat).
+
+## Auto-pair
+
+?> Supported by [nvim-autopairs](https://github.com/windwp/nvim-autopairs).
+
+## Surroundings
+
+?> Supported by [nvim-surround](https://github.com/kylechui/nvim-surround).
+
+?> For full key mappings, please check out [surround's usage](https://github.com/kylechui/nvim-surround#rocket-usage).

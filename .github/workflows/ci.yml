@@ -9,6 +9,11 @@ on:
 concurrency:
   group: ${{ github.ref }}
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+env:
+  CARGO_INCREMENTAL: 0
+  CARGO_NET_GIT_FETCH_WITH_CLI: true
+  CARGO_NET_RETRY: 3
+  CARGO_TERM_COLOR: always
 jobs:
   commits:
     name: Commits
@@ -25,9 +30,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - uses: mrcjkb/lua-typecheck-action@v0
+      - uses: stevearc/nvim-typecheck-action@v2
         with:
-          directories: lua
+          path: lua
           configpath: ".luarc.json"
   selene:
     name: Selene
@@ -60,11 +65,16 @@ jobs:
     name: Ubuntu Installer
     runs-on: ubuntu-latest
     steps:
+      - uses: Swatinem/rust-cache@v2
+      - uses: mozilla-actions/sccache-action@v0.0.6
       - name: Get branch
         shell: bash
         run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
         id: extract_branch
       - name: Install lin.nvim
+        env:
+          SCCACHE_GHA_ENABLED: "true"
+          RUSTC_WRAPPER: "sccache"
         run: |
           set -x
           echo '${{ steps.extract_branch.outputs.branch }}'
@@ -75,12 +85,17 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: Homebrew/actions/setup-homebrew@master
+      - uses: Swatinem/rust-cache@v2
+      - uses: mozilla-actions/sccache-action@v0.0.6
       - name: Get branch
         shell: bash
         run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
         id: extract_branch
       - name: Install lin.nvim
         shell: bash
+        env:
+          SCCACHE_GHA_ENABLED: "true"
+          RUSTC_WRAPPER: "sccache"
         run: |
           set -x
           echo '${{ steps.extract_branch.outputs.branch }}'
