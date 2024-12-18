@@ -85,6 +85,9 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: Homebrew/actions/setup-homebrew@master
+        with:
+          core: true
+          stable: true
       - uses: Swatinem/rust-cache@v2
       - uses: mozilla-actions/sccache-action@v0.0.6
       - name: Get branch
