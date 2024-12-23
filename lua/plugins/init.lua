@@ -329,7 +329,15 @@ local M = {
   -- Structure outlines
   {
     "stevearc/aerial.nvim",
+    cmd = {
+      "AerialToggle",
+      "AerialOpen",
+      "AerialOpenAll",
+      "AerialClose",
+      "AerialInfo",
+    },
     dependencies = {
+      "neovim/nvim-lspconfig",
       "nvim-treesitter/nvim-treesitter",
       "nvim-tree/nvim-web-devicons",
     },
