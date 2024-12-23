@@ -48,6 +48,8 @@ require("blink.cmp").setup({
   completion = {
     accept = { auto_brackets = { enabled = true } },
     documentation = { auto_show = true },
+  },
+  sources = {
     -- Disable cmdline completions
     cmdline = {},
   },
