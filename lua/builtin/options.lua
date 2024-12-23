@@ -139,6 +139,9 @@ vim.opt.selectmode = "mouse,key"
 
 -- folding
 vim.opt.foldenable = true
-vim.opt.foldlevel = 100
+vim.opt.foldlevel = 5
 vim.opt.foldnestmax = 100
 vim.opt.foldmethod = "indent"
+
+-- jump
+vim.opt.jumpoptions = "stack,view"
