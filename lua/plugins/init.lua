@@ -43,6 +43,7 @@ local M = {
 
   {
     "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
     event = { VimEnter },
     config = lua_config("nvim-treesitter/nvim-treesitter"),
   },
