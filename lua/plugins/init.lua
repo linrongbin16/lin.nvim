@@ -42,6 +42,11 @@ local M = {
   -- ---- HIGHLIGHT ----
 
   {
+    "nvim-treesitter/nvim-treesitter",
+    event = { VimEnter },
+    config = lua_config("nvim-treesitter/nvim-treesitter"),
+  },
+  {
     "RRethy/vim-illuminate",
     event = { VeryLazy },
     dependencies = {
@@ -322,16 +327,13 @@ local M = {
   },
   -- Structure outlines
   {
-    "hedyhli/outline.nvim",
-    cmd = {
-      "Outline",
-      "OutlineOpen",
-    },
+    "stevearc/aerial.nvim",
     dependencies = {
-      "neovim/nvim-lspconfig",
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-tree/nvim-web-devicons",
     },
-    keys = lua_keys("hedyhli/outline.nvim"),
-    config = lua_config("hedyhli/outline.nvim"),
+    config = lua_config("stevearc/aerial.nvim"),
+    keys = lua_keys("stevearc/aerial.nvim"),
   },
   -- Open Url
   {
