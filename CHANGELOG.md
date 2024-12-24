@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.2.1](https://github.com/linrongbin16/lin.nvim/compare/v5.2.0...v5.2.1) (2024-12-24)
+
+
+### Reverts
+
+* **outline.nvim:** revert back to "outline.nvim" for structure outlines ([#646](https://github.com/linrongbin16/lin.nvim/issues/646)) ([fe9b2e2](https://github.com/linrongbin16/lin.nvim/commit/fe9b2e2da012124e29e2bd4315bf78112232c496))
+
 ## [5.2.0](https://github.com/linrongbin16/lin.nvim/compare/v5.1.1...v5.2.0) (2024-12-24)
 
 
