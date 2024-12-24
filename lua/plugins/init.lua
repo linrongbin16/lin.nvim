@@ -321,18 +321,6 @@ local M = {
     config = lua_config("kylechui/nvim-surround"),
   },
   -- Structure outlines
-  -- {
-  --   "hedyhli/outline.nvim",
-  --   cmd = {
-  --     "Outline",
-  --     "OutlineOpen",
-  --   },
-  --   dependencies = {
-  --     "neovim/nvim-lspconfig",
-  --   },
-  --   keys = lua_keys("hedyhli/outline.nvim"),
-  --   config = lua_config("hedyhli/outline.nvim"),
-  -- },
   {
     "stevearc/aerial.nvim",
     cmd = {
