@@ -12,6 +12,10 @@ require("outline").setup({
     filter = {
       "Property",
       "Field",
+      "String",
+      "Number",
+      "Boolean",
+      "Null",
       exclude = true,
     },
   },
