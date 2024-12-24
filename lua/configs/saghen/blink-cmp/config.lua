@@ -47,7 +47,7 @@ require("blink.cmp").setup({
   },
   completion = {
     list = {
-      -- Use "auto_insert" for cmdline/popup/prompt, otherwise use "preselect".
+      -- Use "auto_insert" for specific buf/win, otherwise use "preselect".
       selection = function(ctx)
         if ctx.mode == "cmdline" then
           return "auto_insert"
