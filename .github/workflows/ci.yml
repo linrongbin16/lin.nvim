@@ -103,20 +103,3 @@ jobs:
           export HOMEBREW_NO_AUTO_UPDATE=1
           export HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK=1
           git clone --single-branch --branch ${{ steps.extract_branch.outputs.branch }} --depth=1 https://github.com/linrongbin16/lin.nvim ~/.nvim && cd ~/.nvim && bash -euxo pipefail ./install
-  release:
-    name: Release
-    if: ${{ github.ref == 'refs/heads/main' }}
-    needs:
-      - typecheck
-      - selene
-      - code_format
-      - ubuntu_installer
-      - macos_installer
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: google-github-actions/release-please-action@v3
-        id: release
-        with:
-          release-type: simple
-          package-name: lin.nvim
