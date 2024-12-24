@@ -2,7 +2,6 @@ local constants = require("builtin.constants")
 local layout = require("builtin.utils.layout")
 
 require("aerial").setup({
-  backends = { "lsp", "markdown", "asciidoc", "man" },
   layout = {
     max_width = {
       constants.window.layout.sidebar.max,

@@ -42,6 +42,12 @@ local M = {
   -- ---- HIGHLIGHT ----
 
   {
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    event = { VimEnter },
+    config = lua_config("nvim-treesitter/nvim-treesitter"),
+  },
+  {
     "RRethy/vim-illuminate",
     event = { VeryLazy },
     dependencies = {
@@ -331,6 +337,7 @@ local M = {
       "AerialInfo",
     },
     dependencies = {
+      "nvim-treesitter/nvim-treesitter",
       "neovim/nvim-lspconfig",
       "nvim-tree/nvim-web-devicons",
     },
