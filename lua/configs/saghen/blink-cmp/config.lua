@@ -46,12 +46,19 @@ require("blink.cmp").setup({
     end,
   },
   completion = {
+    list = {
+      -- Use "auto_insert" for cmdline, otherwise use "preselect".
+      selection = function(ctx)
+        return ctx.mode == "cmdline" and "auto_insert" or "preselect"
+      end,
+    },
     accept = { auto_brackets = { enabled = true } },
     documentation = { auto_show = true },
   },
   sources = {
-    -- Disable cmdline completions
-    cmdline = {},
+    min_keyword_length = function()
+      return 1
+    end,
   },
   signature = {
     enabled = true,
