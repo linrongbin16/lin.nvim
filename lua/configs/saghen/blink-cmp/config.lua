@@ -47,9 +47,24 @@ require("blink.cmp").setup({
   },
   completion = {
     list = {
-      -- Use "auto_insert" for cmdline, otherwise use "preselect".
+      -- Use "auto_insert" for cmdline/popup/prompt, otherwise use "preselect".
       selection = function(ctx)
-        return ctx.mode == "cmdline" and "auto_insert" or "preselect"
+        if ctx.mode == "cmdline" then
+          return "auto_insert"
+        end
+        if
+          type(ctx.bufnr) == "number"
+          and ctx.bufnr >= 0
+          and vim.api.nvim_buf_is_valid(ctx.bufnr)
+          and vim.api.nvim_get_option_value("buftype", { buf = ctx.bufnr }) == "prompt"
+        then
+          return "auto_insert"
+        end
+        local cur_win = vim.api.nvim_get_current_win()
+        if vim.fn.win_gettype(cur_win) == "popup" then
+          return "auto_insert"
+        end
+        return "preselect"
       end,
     },
     accept = { auto_brackets = { enabled = true } },
