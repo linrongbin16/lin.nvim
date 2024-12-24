@@ -8,4 +8,11 @@ require("outline").setup({
   symbol_folding = {
     autofold_depth = 2,
   },
+  symbols = {
+    filter = {
+      "Property",
+      "Field",
+      exclude = true,
+    },
+  },
 })
