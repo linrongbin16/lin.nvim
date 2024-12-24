@@ -64,9 +64,9 @@ local M = {
     "markonm/traces.vim",
     event = { CmdlineEnter },
   },
-  
+
   -- ---- Specific Support ----
-  
+
   {
     "iamcco/markdown-preview.nvim",
     build = function()
