@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.2.0](https://github.com/linrongbin16/lin.nvim/compare/v5.1.1...v5.2.0) (2024-12-24)
+
+
+### Features
+
+* **aerial.nvim:** migrate back to "aerial.nvim" for structure outlines without treesitter ([#643](https://github.com/linrongbin16/lin.nvim/issues/643)) ([097572a](https://github.com/linrongbin16/lin.nvim/commit/097572af1159960270ea5b194bcd64e446ae3ad4))
+
 ## [5.1.1](https://github.com/linrongbin16/lin.nvim/compare/v5.1.0...v5.1.1) (2024-12-06)
 
 
