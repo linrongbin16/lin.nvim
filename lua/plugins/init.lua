@@ -322,16 +322,20 @@ local M = {
   },
   -- Structure outlines
   {
-    "hedyhli/outline.nvim",
+    "stevearc/aerial.nvim",
     cmd = {
-      "Outline",
-      "OutlineOpen",
+      "AerialToggle",
+      "AerialOpen",
+      "AerialOpenAll",
+      "AerialClose",
+      "AerialInfo",
     },
     dependencies = {
       "neovim/nvim-lspconfig",
+      "nvim-tree/nvim-web-devicons",
     },
-    keys = lua_keys("hedyhli/outline.nvim"),
-    config = lua_config("hedyhli/outline.nvim"),
+    config = lua_config("stevearc/aerial.nvim"),
+    keys = lua_keys("stevearc/aerial.nvim"),
   },
   -- Open Url
   {
