@@ -1,16 +1,5 @@
 # Global Key Mappings
 
-## System Keys
-
-- `<C-A>` 🄽 🅇 - Select all.
-- `<C-C>` 🄽 🅇 - Copy.
-- `<C-V>` 🄽 🅇 - Paste.
-- `<C-X>` 🄽 🅇 - Cut.
-- `<C-S>` 🄽 🅇 - Save.
-- `<C-Z>` 🄽 🅇 - Undo.
-- `<C-Y>` 🄽 🅇 - Redo.
-- And more...
-
 ## Plugin Keys
 
 - `<Leader>nt` 🄽 - Toggle file explorer by `:Neotree`.
