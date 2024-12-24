@@ -8,4 +8,16 @@ require("outline").setup({
   symbol_folding = {
     autofold_depth = 2,
   },
+  symbols = {
+    filter = {
+      "Class",
+      "Constructor",
+      "Enum",
+      "Function",
+      "Interface",
+      "Module",
+      "Method",
+      "Struct",
+    },
+  },
 })
