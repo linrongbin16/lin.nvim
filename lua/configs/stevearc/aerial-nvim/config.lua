@@ -2,6 +2,7 @@ local constants = require("builtin.constants")
 local layout = require("builtin.utils.layout")
 
 require("aerial").setup({
+  backends = { "lsp", "markdown", "asciidoc", "man" },
   layout = {
     max_width = {
       constants.window.layout.sidebar.max,
@@ -21,5 +22,39 @@ require("aerial").setup({
     ["<C-s>"] = "false",
     ["W"] = "actions.tree_close_recursive",
     ["E"] = "actions.tree_open_recursive",
+  },
+  filter_kind = {
+    "File",
+    "Module",
+    "Namespace",
+    "Package",
+    "Class",
+    "Method",
+    -- "Property",
+    -- "Field",
+    "Constructor",
+    "Enum",
+    "Interface",
+    "Function",
+    -- "Variable",
+    -- "Constant",
+    -- "String",
+    -- "Number",
+    -- "Boolean",
+    -- "Array",
+    "Object",
+    -- "Key",
+    -- "Null",
+    "EnumMember",
+    "Struct",
+    "Event",
+    "Operator",
+    "TypeParameter",
+    "Component",
+    "Fragment",
+    "TypeAlias",
+    "Parameter",
+    "StaticMethod",
+    "Macro",
   },
 })
