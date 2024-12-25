@@ -42,6 +42,12 @@ local M = {
   -- ---- HIGHLIGHT ----
 
   {
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    event = { VimEnter },
+    config = lua_config("nvim-treesitter/nvim-treesitter"),
+  },
+  {
     "RRethy/vim-illuminate",
     event = { VeryLazy },
     dependencies = {
