@@ -7,6 +7,9 @@ require("outline").setup({
   },
   symbol_folding = {
     autofold_depth = 2,
+    auto_unfold = {
+      hovered = false,
+    },
   },
   symbols = {
     filter = {
