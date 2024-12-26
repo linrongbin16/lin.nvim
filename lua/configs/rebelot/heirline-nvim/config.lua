@@ -662,15 +662,22 @@ local function get_terminal_color(number, fallback)
   end
 end
 
+-- lualine auto-theme utils {
+
+-- fg and bg must have this much contrast range 0 < contrast_threshold < 0.5
+local contrast_threshold = 0.3
+-- how much brightness is changed in percentage for light and dark themes
+local brightness_modifier_parameter = 10
+
 -- Turns #rrggbb -> { red, green, blue }
 local function rgb_str2num(rgb_color_str)
   if rgb_color_str:find("#") == 1 then
     rgb_color_str = rgb_color_str:sub(2, #rgb_color_str)
   end
-  local r = tonumber(rgb_color_str:sub(1, 2), 16)
-  local g = tonumber(rgb_color_str:sub(3, 4), 16)
-  local b = tonumber(rgb_color_str:sub(5, 6), 16)
-  return { red = r, green = g, blue = b }
+  local red = tonumber(rgb_color_str:sub(1, 2), 16)
+  local green = tonumber(rgb_color_str:sub(3, 4), 16)
+  local blue = tonumber(rgb_color_str:sub(5, 6), 16)
+  return { red = red, green = green, blue = blue }
 end
 
 -- Turns { red, green, blue } -> #rrggbb
@@ -686,6 +693,13 @@ local function get_color_brightness(rgb_color)
   local color = rgb_str2num(rgb_color)
   local brightness = (color.red * 2 + color.green * 3 + color.blue) / 6
   return brightness / 256
+end
+
+-- returns average of colors in range 0 to 1
+-- used to determine contrast level
+local function get_color_avg(rgb_color)
+  local color = rgb_str2num(rgb_color)
+  return (color.red + color.green + color.blue) / 3 / 256
 end
 
 -- Clamps the val between left and right
@@ -708,6 +722,17 @@ local function brightness_modifier(rgb_color, percentage)
   return rgb_num2str(color)
 end
 
+-- Changes contrast of rgb_color by amount
+local function contrast_modifier(rgb_color, amount)
+  local color = rgb_str2num(rgb_color)
+  color.red = clamp(color.red + amount, 0, 255)
+  color.green = clamp(color.green + amount, 0, 255)
+  color.blue = clamp(color.blue + amount, 0, 255)
+  return rgb_num2str(color)
+end
+
+-- lualine auto-theme utils }
+
 -- Convert RGB color code into HSL color object.
 local function rgb_to_hsl(rgb)
   local h, s, l = color_hsl.rgb_string_to_hsl(rgb)
@@ -724,6 +749,78 @@ local function shade_rgb(rgb, value)
   else
     return rgb_to_hsl(rgb):shade(value):to_rgb()
   end
+end
+
+---@param lualine_theme table
+---@return table<string, string>
+local function setup_colors_from_lualine(lualine_theme)
+  assert(type(lualine_theme) == "table")
+
+  local diagnostic_error =
+    color_hl.get_color_with_fallback({ "DiagnosticSignError", "ErrorMsg" }, "fg", red)
+  local diagnostic_warn =
+    color_hl.get_color_with_fallback({ "DiagnosticSignWarn", "WarningMsg" }, "fg", yellow)
+  local diagnostic_info =
+    color_hl.get_color_with_fallback({ "DiagnosticSignInfo", "None" }, "fg", cyan)
+  local diagnostic_hint =
+    color_hl.get_color_with_fallback({ "DiagnosticSignHint", "Comment" }, "fg", grey)
+  local git_add = color_hl.get_color_with_fallback(
+    { "GitSignsAdd", "GitGutterAdd", "diffAdded", "DiffAdd" },
+    "fg",
+    green
+  )
+  local git_change = color_hl.get_color_with_fallback(
+    { "GitSignsChange", "GitGutterChange", "diffChanged", "DiffChange" },
+    "fg",
+    yellow
+  )
+  local git_delete = color_hl.get_color_with_fallback(
+    { "GitSignsDelete", "GitGutterDelete", "diffRemoved", "DiffDelete" },
+    "fg",
+    red
+  )
+  local git_ahead = get_terminal_color(3, yellow)
+  local git_behind = get_terminal_color(3, yellow)
+  local git_dirty = get_terminal_color(1, magenta)
+
+  local normal_bg, normal_fg
+  local normal_bg1, normal_fg1
+  local normal_bg2, normal_fg2
+  local normal_bg3, normal_fg3
+  local normal_bg4, normal_fg4
+  local insert_bg, insert_fg
+  local visual_bg, visual_fg
+  local replace_bg, replace_fg
+  local command_bg, command_fg
+
+  return {
+    normal_bg1 = normal_bg1,
+    normal_fg1 = normal_fg1,
+    normal_bg2 = normal_bg2,
+    normal_fg2 = normal_fg2,
+    normal_bg3 = normal_bg3,
+    normal_fg3 = normal_fg3,
+    normal_bg4 = normal_bg4,
+    normal_fg4 = normal_fg4,
+    insert_bg = insert_bg,
+    insert_fg = insert_fg,
+    visual_bg = visual_bg,
+    visual_fg = visual_fg,
+    replace_bg = replace_bg,
+    replace_fg = replace_fg,
+    command_bg = command_bg,
+    command_fg = command_fg,
+    diagnostic_error = diagnostic_error,
+    diagnostic_warn = diagnostic_warn,
+    diagnostic_info = diagnostic_info,
+    diagnostic_hint = diagnostic_hint,
+    git_add = git_add,
+    git_change = git_change,
+    git_delete = git_delete,
+    git_ahead = git_ahead,
+    git_behind = git_behind,
+    git_dirty = git_dirty,
+  }
 end
 
 ---@param colorname string?
