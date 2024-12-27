@@ -26,7 +26,7 @@
 
 ## Structure Outlines
 
-?> Supported by [outline.nvim](https://github.com/hedyhli/outline.nvim).
+?> Supported by [aerial.nvim](https://github.com/stevearc/aerial.nvim).
 
 <img width="70%" alt="image" src="https://github.com/linrongbin16/lin.nvim/assets/6496887/96c76e7a-ce08-418f-8c21-7b49e94fefda">
 
