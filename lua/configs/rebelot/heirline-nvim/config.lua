@@ -812,6 +812,52 @@ local function setup_colors_from_lualine(lualine_theme)
   }
 end
 
+---@param airline_theme table
+---@return table<string, string>
+local function setup_colors_from_airline(airline_theme)
+  assert(type(airline_theme) == "table")
+
+  local shade_level1 = 0.3
+  -- local shade_level2 = 0.5
+  -- local shade_level3 = 0.7
+
+  local normal_bg1 = airline_theme.normal.airline_a[2]
+  local normal_fg1 = airline_theme.normal.airline_a[1]
+  local normal_bg2 = airline_theme.normal.airline_b[2]
+  local normal_fg2 = airline_theme.normal.airline_b[1]
+  local normal_bg3 = shade_rgb(normal_bg2, shade_level1)
+  local normal_fg3 = normal_fg2
+  local normal_bg4 = airline_theme.normal.airline_c[2]
+  local normal_fg4 = airline_theme.normal.airline_c[1]
+  local insert_bg = airline_theme.insert.airline_a[2]
+  local insert_fg = airline_theme.insert.airline_a[1]
+  local visual_bg = airline_theme.visual.airline_a[2]
+  local visual_fg = airline_theme.visual.airline_a[1]
+  local replace_bg = airline_theme.replace.airline_a[2]
+  local replace_fg = airline_theme.replace.airline_a[1]
+  local command_bg = airline_theme.terminal.airline_a[2]
+  local command_fg = airline_theme.terminal.airline_a[1]
+
+  return {
+    normal_bg1 = normal_bg1,
+    normal_fg1 = normal_fg1,
+    normal_bg2 = normal_bg2,
+    normal_fg2 = normal_fg2,
+    normal_bg3 = normal_bg3,
+    normal_fg3 = normal_fg3,
+    normal_bg4 = normal_bg4,
+    normal_fg4 = normal_fg4,
+    insert_bg = insert_bg,
+    insert_fg = insert_fg,
+    visual_bg = visual_bg,
+    visual_fg = visual_fg,
+    replace_bg = replace_bg,
+    replace_fg = replace_fg,
+    command_bg = command_bg,
+    command_fg = command_fg,
+  }
+end
+
 ---@param colorname string?
 ---@return table<string, string>
 local function setup_colors_from_auto_generating(colorname)
@@ -888,9 +934,17 @@ local function setup_colors(colorname)
   -- If current colorscheme provides a lualine theme.
   local has_lualine, lualine_theme = pcall(require, string.format("lualine.themes.%s", colorname))
 
+  -- If current colorscheme provides a airline theme.
+  local airline_theme_name = string.format("airline#themes#%s#palette", colorname)
+  local has_airline = vim.fn.exists("g:" .. airline_theme_name) > 0
+  vim.cmd("let heirline_tmp=g:" .. airline_theme_name)
+  local airline_theme = vim.g[airline_theme_name]
+
   local colors
   if has_lualine and type(lualine_theme) == "table" then
     colors = setup_colors_from_lualine(lualine_theme)
+  elseif has_airline and type(airline_theme) == "table" then
+    colors = setup_colors_from_airline(airline_theme)
   else
     colors = setup_colors_from_auto_generating(colorname)
   end
