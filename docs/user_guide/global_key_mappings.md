@@ -18,10 +18,7 @@
 
 ### Quit
 
-- `<Leader>qt` 🄽 - `:quit<CR>`.
-- `<Leader>qT` 🄽 - `:quit!<CR>`.
-- `<Leader>qa` 🄽 - `:qall<CR>`.
-- `<Leader>qA` 🄽 - `:qall!<CR>`.
+- `<Leader>qa` 🄽 - `:qall!<CR>`.
 
 ### Folding
 
