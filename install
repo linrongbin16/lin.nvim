@@ -51,17 +51,6 @@ install() {
 	fi
 }
 
-install_func() {
-	local func="$1"
-	local target="$2"
-	if ! type "$target" >/dev/null 2>&1; then
-		info "install '$target' with function: '$func'"
-		eval "$func"
-	else
-		skip_info $target
-	fi
-}
-
 latest_github_release_tag() {
 	local org="$1"
 	local repo="$2"
@@ -91,7 +80,7 @@ install_linux_ctags() {
 
 # apt: ubuntu/debian {
 
-install_apt_nvim() {
+install_neovim_with_apt() {
 	info "install 'nvim'(appimage) from github.com"
 	sudo apt-get -qq -y install fuse
 	wget https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
@@ -100,7 +89,7 @@ install_apt_nvim() {
 	sudo mv nvim.appimage /usr/local/bin/nvim
 }
 
-install_apt_node() {
+install_nodejs_with_apt() {
 	# see: https://github.com/nodesource/distributions
 	info "install nodejs-lts from NodeSource"
 	sudo apt-get install -y curl
@@ -110,7 +99,7 @@ install_apt_node() {
 	sudo apt-get -qq -y install nodejs
 }
 
-install_apt_ctags() {
+install_ctags_with_apt() {
 	sudo apt-get -qq -y install libseccomp-dev
 	sudo apt-get -qq -y install libjansson-dev
 	sudo apt-get -qq -y install libyaml-dev
@@ -118,20 +107,27 @@ install_apt_ctags() {
 	install_linux_ctags
 }
 
-install_apt_git() {
+install_git_with_apt() {
 	sudo apt-add-repository ppa:git-core/ppa
 	sudo apt-get -qq update
 	sudo apt-get -qq -y install git
 }
 
-install_apt() {
+install_lazygit_with_apt() {
+	LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | \grep -Po '"tag_name": *"v\K[^"]*')
+	curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+	tar xf lazygit.tar.gz lazygit
+	sudo install lazygit -D -t /usr/local/bin/
+}
+
+apt_depends() {
 	info "install dependencies with apt"
 	sudo locale-gen en_US
 	sudo locale-gen en_US.UTF-8
 	sudo update-locale
 
 	# neovim
-	install_func "install_apt_nvim" "nvim"
+	install "install_neovim_with_apt" "nvim"
 
 	# c++ toolchain
 	install "sudo apt-get -qq -y install build-essential" "gcc"
@@ -142,7 +138,7 @@ install_apt() {
 	install "sudo apt-get -qq -y install cmake" "cmake"
 
 	# download tools
-	install_func "install_apt_git" "git"
+	install "install_git_with_apt" "git"
 	install "sudo apt-get -qq -y install curl" "curl"
 	install "sudo apt-get -qq -y install wget" "wget"
 
@@ -159,68 +155,26 @@ install_apt() {
 	install "sudo apt-get -qq -y install xsel" "xsel"
 	install "sudo apt-get -qq -y install xclip" "xclip"
 
-	# # python3
+	# python3
 	install "sudo apt-get -qq -y install python3 python3-dev python3-venv python3-pip python3-docutils" "python3"
 	install "sudo apt-get -qq -y install python3 python3-dev python3-venv python3-pip python3-docutils" "pip3"
 
-	# # nodejs
-	install_func "install_apt_node" "node"
+	# nodejs
+	install "install_nodejs_with_apt" "node"
 
 	# # ctags
-	# install_func "install_apt_ctags" "ctags"
-}
+	# install "install_ctags_with_apt" "ctags"
 
-# }
+	# develop tools
+	install "install_lazygit_with_apt" "lazygit"
 
-# homebrew {
-
-install_brew() {
-	info "install dependencies with brew"
-
-	if ! type clang >/dev/null 2>&1; then
-		xcode-select --install
-	fi
-	if ! type brew >/dev/null 2>&1; then
-		/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-	fi
-
-	brew update
-
-	# neovim
-	install "brew install neovim" "nvim"
-
-	# c++ toolchain
-	install "brew install cmake" "cmake"
-	install "brew install pkg-config" "pkg-config"
-
-	# download tools
-	install "brew install git" "git"
-	install "brew install curl" "curl"
-	install "brew install wget" "wget"
-
-	# compress tools
-	install "brew install gzip" "gzip"
-	install "brew install p7zip" "7z"
-	install "brew install unzip" "unzip"
-
-	# # luarocks
-	# install "brew install luarocks" "luarocks"
-
-	# # python3
-	install "brew install python3" "python3"
-
-	# # nodejs
-	install "brew install node" "node"
-
-	# # ctags
-	# install "brew install universal-ctags" "ctags"
 }
 
 # }
 
 # dnf: fedora/centos {
 
-install_dnf_ctags() {
+install_ctags_with_dnf() {
 	sudo dnf install -y libseccomp-devel
 	sudo dnf install -y jansson-devel
 	sudo dnf install -y libyaml-devel
@@ -228,7 +182,12 @@ install_dnf_ctags() {
 	install_linux_ctags
 }
 
-install_dnf() {
+install_lazygit_with_dnf() {
+	sudo dnf copr enable atim/lazygit -y
+	sudo dnf install lazygit
+}
+
+dnf_depends() {
 	info "install dependencies with dnf"
 	sudo dnf check-update
 
@@ -260,22 +219,25 @@ install_dnf() {
 	install "sudo dnf install -y xsel" "xsel"
 	install "sudo dnf install -y xclip" "xclip"
 
-	# # python3
+	# python3
 	install "sudo dnf install -y python3 python3-devel python3-pip python3-docutils" "python3"
 	install "sudo dnf install -y python3 python3-devel python3-pip python3-docutils" "pip3"
 
-	# # nodejs
+	# nodejs
 	install "sudo dnf install -y nodejs npm" "node"
 
 	# # ctags
-	# install_func "install_dnf_ctags" "ctags"
+	# install "install_ctags_with_dnf" "ctags"
+
+	# develop tools
+	install "install_lazygit_with_dnf" "lazygit"
 }
 
 # }
 
 # packman: manjaro/archlinux {
 
-install_pacman() {
+pacman_depends() {
 	info "install dependencies with pacman"
 	sudo pacman -Syy
 
@@ -307,15 +269,67 @@ install_pacman() {
 	install "yes | sudo pacman -S xsel" "xsel"
 	install "yes | sudo pacman -S xclip" "xclip"
 
-	# # python3
+	# python3
 	install "yes | sudo pacman -S python python-pip" "python3"
 	install "yes | sudo pacman -S python python-pip" "pip3"
 
-	# # node
+	# node
 	install "yes | sudo pacman -S nodejs npm" "node"
 
 	# # ctags
 	# install "yes | sudo pacman -S ctags" "ctags"
+
+	# develop tools
+	install "yes | sudo pacman -S lazygit" "lazygit"
+}
+
+# }
+
+# homebrew: macos {
+
+brew_depends() {
+	info "install dependencies with brew"
+
+	if ! type clang >/dev/null 2>&1; then
+		xcode-select --install
+	fi
+	if ! type brew >/dev/null 2>&1; then
+		/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+	fi
+
+	brew update
+
+	# neovim
+	install "brew install neovim" "nvim"
+
+	# c++ toolchain
+	install "brew install cmake" "cmake"
+	install "brew install pkg-config" "pkg-config"
+
+	# download tools
+	install "brew install git" "git"
+	install "brew install curl" "curl"
+	install "brew install wget" "wget"
+
+	# compress tools
+	install "brew install gzip" "gzip"
+	install "brew install p7zip" "7z"
+	install "brew install unzip" "unzip"
+
+	# # luarocks
+	# install "brew install luarocks" "luarocks"
+
+	# python3
+	install "brew install python3" "python3"
+
+	# nodejs
+	install "brew install node" "node"
+
+	# # ctags
+	# install "brew install universal-ctags" "ctags"
+
+	# develop tools
+	install "brew install jesseduffield/lazygit/lazygit" "lazygit"
 }
 
 # }
@@ -449,22 +463,22 @@ info "install for $OS"
 case "$OS" in
 Linux)
 	if [ -f "/etc/arch-release" ] || [ -f "/etc/artix-release" ]; then
-		install_pacman
+		pacman_depends
 		IS_PACMAN=1
 	elif [ -f "/etc/fedora-release" ] || [ -f "/etc/redhat-release" ]; then
-		install_dnf
+		dnf_depends
 		IS_DNF=1
 	elif [ -f "/etc/gentoo-release" ]; then
 		info "gentoo ($OS) is not supported, exit..."
 		exit 1
 	else
 		# assume apt
-		install_apt
+		apt_depends
 		IS_APT=1
 	fi
 	;;
 Darwin)
-	install_brew
+	brew_depends
 	IS_BREW=1
 	;;
 FreeBSD | NetBSD | OpenBSD)
