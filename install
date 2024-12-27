@@ -142,9 +142,6 @@ apt_depends() {
 	install "sudo apt-get -qq -y install curl" "curl"
 	install "sudo apt-get -qq -y install wget" "wget"
 
-	# git tools
-	install "install_lazygit_with_apt" "lazygit"
-
 	# compress tools
 	install "sudo apt-get -qq -y install p7zip" "7z"
 	install "sudo apt-get -qq -y install gzip" "gzip"
@@ -167,6 +164,10 @@ apt_depends() {
 
 	# # ctags
 	# install "install_ctags_with_apt" "ctags"
+
+	# develop tools
+	install "install_lazygit_with_apt" "lazygit"
+
 }
 
 # }
@@ -206,9 +207,6 @@ dnf_depends() {
 	install "sudo dnf install -y curl" "curl"
 	install "sudo dnf install -y wget" "wget"
 
-	# lazygit
-	install "install_lazygit_with_dnf" "lazygit"
-
 	# compress tools
 	install "sudo dnf install -y gzip" "gzip"
 	install "sudo dnf install -y p7zip" "7z"
@@ -230,6 +228,9 @@ dnf_depends() {
 
 	# # ctags
 	# install "install_ctags_with_dnf" "ctags"
+
+	# develop tools
+	install "install_lazygit_with_dnf" "lazygit"
 }
 
 # }
@@ -256,9 +257,6 @@ pacman_depends() {
 	install "yes | sudo pacman -S curl" "curl"
 	install "yes | sudo pacman -S wget" "wget"
 
-	# lazygit
-	install "yes | sudo pacman -S lazygit" "lazygit"
-
 	# compress tools
 	install "yes | sudo pacman -S gzip" "gzip"
 	install "yes | sudo pacman -S p7zip" "7z"
@@ -280,6 +278,9 @@ pacman_depends() {
 
 	# # ctags
 	# install "yes | sudo pacman -S ctags" "ctags"
+
+	# develop tools
+	install "yes | sudo pacman -S lazygit" "lazygit"
 }
 
 # }
@@ -310,9 +311,6 @@ brew_depends() {
 	install "brew install curl" "curl"
 	install "brew install wget" "wget"
 
-	# lazygit
-	install "brew install jesseduffield/lazygit/lazygit" "lazygit"
-
 	# compress tools
 	install "brew install gzip" "gzip"
 	install "brew install p7zip" "7z"
@@ -329,6 +327,9 @@ brew_depends() {
 
 	# # ctags
 	# install "brew install universal-ctags" "ctags"
+
+	# develop tools
+	install "brew install jesseduffield/lazygit/lazygit" "lazygit"
 }
 
 # }
