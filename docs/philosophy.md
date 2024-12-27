@@ -26,13 +26,7 @@ No effort is spent on maintaining Neovim's backward compatibility, this config a
 
 Support most popular desktop operating systems, i.e. Windows, Linux and Mac OS. For Linux, support the latest LTS distributions, for example the latest ubuntu-lts.
 
-## Keymap
-
-### CTRL+? Keys
-
-`CTRL+?` (and `CMD+?` for macOS) keys follow most editors' behavior, i.e. use `CTRL+A` to select all, `CTRL+C` to copy, `CTRL+P` to paste, `CTRL+S` to save file, `CTRL+Z` to undo, etc. And copy/paste work with system clipboard.
-
-### Vim Keys
+## Key Mappings
 
 - Initial letter of each word as key mapping sequence.
 - Same prefix for the same group of functionality.
