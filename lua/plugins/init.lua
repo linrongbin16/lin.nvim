@@ -117,6 +117,11 @@ local M = {
     init = lua_init("airblade/vim-gitgutter"),
     keys = lua_keys("airblade/vim-gitgutter"),
   },
+  {
+    "kdheepak/lazygit.nvim",
+    init = lua_init("kdheepak/lazygit.nvim"),
+    keys = lua_keys("kdheepak/lazygit.nvim"),
+  },
   -- Statusline
   {
     "linrongbin16/lsp-progress.nvim",
