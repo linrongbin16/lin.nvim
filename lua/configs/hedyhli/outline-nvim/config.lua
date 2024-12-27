@@ -19,6 +19,8 @@ require("outline").setup({
       "Number",
       "Boolean",
       "Null",
+      "Variable",
+      "Constant",
       exclude = true,
     },
   },
