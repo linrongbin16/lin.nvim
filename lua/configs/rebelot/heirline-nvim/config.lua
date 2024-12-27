@@ -620,10 +620,10 @@ local function rgb_str2num(rgb_color_str)
   if rgb_color_str:find("#") == 1 then
     rgb_color_str = rgb_color_str:sub(2, #rgb_color_str)
   end
-  local red = tonumber(rgb_color_str:sub(1, 2), 16)
-  local green = tonumber(rgb_color_str:sub(3, 4), 16)
-  local blue = tonumber(rgb_color_str:sub(5, 6), 16)
-  return { red = red, green = green, blue = blue }
+  local r = tonumber(rgb_color_str:sub(1, 2), 16)
+  local g = tonumber(rgb_color_str:sub(3, 4), 16)
+  local b = tonumber(rgb_color_str:sub(5, 6), 16)
+  return { red = r, green = g, blue = b }
 end
 
 -- Turns { red, green, blue } -> #rrggbb
