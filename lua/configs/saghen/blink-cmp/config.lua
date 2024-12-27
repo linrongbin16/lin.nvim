@@ -70,11 +70,6 @@ require("blink.cmp").setup({
     accept = { auto_brackets = { enabled = true } },
     documentation = { auto_show = true },
   },
-  sources = {
-    min_keyword_length = function()
-      return 1
-    end,
-  },
   signature = {
     enabled = true,
   },
