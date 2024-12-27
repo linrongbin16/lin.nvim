@@ -87,14 +87,8 @@ function CoreDependency()
   # # ctags
   # Install -command "scoop install universal-ctags" -target "ctags"
 
-  # # rust commands
-  # # don't use 'scoop' to install cargo commands, use 'cargo' to install them.
-  # Install -command "scoop install fd" -target "fd"
-  # Install -command "scoop install ripgrep" -target "rg"
-  # Install -command "scoop install bat" -target "bat"
-  # Install -command "scoop install eza" -target "eza"
-
-  # fzf
+  # develop tools
+  Install -command "scoop install lazygit" -target "lazygit"
   Install -command "scoop install fzf" -target "fzf"
 }
 
