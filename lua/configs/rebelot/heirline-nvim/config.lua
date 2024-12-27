@@ -935,10 +935,13 @@ local function setup_colors(colorname)
   local has_lualine, lualine_theme = pcall(require, string.format("lualine.themes.%s", colorname))
 
   -- If current colorscheme provides a airline theme.
+  local airline_theme
   local airline_theme_name = string.format("airline#themes#%s#palette", colorname)
   local has_airline = vim.fn.exists("g:" .. airline_theme_name) > 0
-  vim.cmd("let heirline_tmp=g:" .. airline_theme_name)
-  local airline_theme = vim.g[airline_theme_name]
+  if has_airline then
+    vim.cmd("let heirline_tmp=g:" .. airline_theme_name)
+    airline_theme = vim.g[airline_theme_name]
+  end
 
   local colors
   if has_lualine and type(lualine_theme) == "table" then
