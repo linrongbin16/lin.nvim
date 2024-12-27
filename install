@@ -137,13 +137,13 @@ apt_depends() {
 	install "sudo apt-get -qq -y install pkg-config" "pkg-config"
 	install "sudo apt-get -qq -y install cmake" "cmake"
 
-	# git tools
-	install "install_lazygit_with_apt" "lazygit"
-
 	# download tools
 	install "install_git_with_apt" "git"
 	install "sudo apt-get -qq -y install curl" "curl"
 	install "sudo apt-get -qq -y install wget" "wget"
+
+	# git tools
+	install "install_lazygit_with_apt" "lazygit"
 
 	# compress tools
 	install "sudo apt-get -qq -y install p7zip" "7z"
@@ -201,13 +201,13 @@ dnf_depends() {
 	install "sudo dnf install -y pkg-config" "pkg-config"
 	install "sudo dnf install -y cmake" "cmake"
 
-	# lazygit
-	install "install_lazygit_with_dnf" "lazygit"
-
 	# download tools
 	install "sudo dnf install -y git" "git"
 	install "sudo dnf install -y curl" "curl"
 	install "sudo dnf install -y wget" "wget"
+
+	# lazygit
+	install "install_lazygit_with_dnf" "lazygit"
 
 	# compress tools
 	install "sudo dnf install -y gzip" "gzip"
@@ -251,13 +251,13 @@ pacman_depends() {
 	install "yes | sudo pacman -S pkg-config" "pkg-config"
 	install "yes | sudo pacman -S cmake" "cmake"
 
-	# lazygit
-	install "yes | sudo pacman -S lazygit" "lazygit"
-
 	# download tools
 	install "yes | sudo pacman -S git" "git"
 	install "yes | sudo pacman -S curl" "curl"
 	install "yes | sudo pacman -S wget" "wget"
+
+	# lazygit
+	install "yes | sudo pacman -S lazygit" "lazygit"
 
 	# compress tools
 	install "yes | sudo pacman -S gzip" "gzip"
@@ -301,9 +301,6 @@ brew_depends() {
 	# neovim
 	install "brew install neovim" "nvim"
 
-	# lazygit
-	install "brew install jesseduffield/lazygit/lazygit" "lazygit"
-
 	# c++ toolchain
 	install "brew install cmake" "cmake"
 	install "brew install pkg-config" "pkg-config"
@@ -312,6 +309,9 @@ brew_depends() {
 	install "brew install git" "git"
 	install "brew install curl" "curl"
 	install "brew install wget" "wget"
+
+	# lazygit
+	install "brew install jesseduffield/lazygit/lazygit" "lazygit"
 
 	# compress tools
 	install "brew install gzip" "gzip"
