@@ -594,60 +594,6 @@ local StatusLine = {
   Progress,
 }
 
--- Get RGB color code from either lualine/airline theme, or fallback to highlighting group, or fallback to default color.
--- A lualine/airline theme usually contains several components:
--- 1. It supports different color on different VIM mode, i.e. it shows different colors on normal/visual/insert/etc modes.
--- 2. It supports 3 color on 3 sections, i.e. the most left/right side, the most center part, and the other two parts between them.
---
----@param has_lualine boolean If have a lualine theme.
----@param lualine_theme table The lualine theme.
----@param has_airline boolean If have an airline theme.
----@param airline_theme table? The airline theme.
----@param mode_name "normal"|"insert"|"visual"|"replace"|"command"|"inactive" Mode name that use to retrieve from lualine/airline.
----@param section "a"|"b"|"c" Section name that use to retrieve from lualine/airline.
----@param attribute "fg"|"bg" Foreground/background attribute that use to retrieve from lualine/airline.
----@param fallback_hls string|string[] Fallback highlighting groups.
----@param fallback_attribute "fg"|"bg" Fallback foreground/background attribute that use to retrieve from the highlighting groups.
----@param fallback_color string? Fallback default color, if none of lualine/airline themes and highlighting groups exists.
----@return string, "lualine"|"airline"|"fallback"
-local function retrieve_color(
-  has_lualine,
-  lualine_theme,
-  has_airline,
-  airline_theme,
-  mode_name,
-  section,
-  attribute,
-  fallback_hls,
-  fallback_attribute,
-  fallback_color
-)
-  local air_section = "airline_" .. section
-  local air_attribute = attribute == "fg" and 1 or 2
-  local air_mode_name = mode_name == "command" and "terminal" or mode_name
-
-  --- @type string
-  local result
-  --- @type "lualine"|"airline"|"fallback"
-  local source
-
-  if has_lualine and tbl.tbl_get(lualine_theme, mode_name, section, attribute) then
-    result = lualine_theme[mode_name][section][attribute]
-    source = "lualine"
-  elseif has_airline and tbl.tbl_get(airline_theme, air_mode_name, air_section, air_attribute) then
-    ---@diagnostic disable-next-line: need-check-nil
-    result = airline_theme[air_mode_name][air_section][air_attribute]
-    source = "airline"
-  end
-
-  if type(result) ~= "string" then
-    result = color_hl.get_color_with_fallback(fallback_hls, fallback_attribute, fallback_color) --[[@as string]]
-    source = "fallback"
-  end
-
-  return result, source
-end
-
 -- Get RGB color code from `g:terminal_color_0` ~ `g:terminal_color_10`, or fallback to default color.
 --- @param number integer
 --- @param fallback string
@@ -661,6 +607,13 @@ local function get_terminal_color(number, fallback)
     return fallback
   end
 end
+
+-- lualine auto-theme utils {
+
+-- fg and bg must have this much contrast range 0 < contrast_threshold < 0.5
+local contrast_threshold = 0.3
+-- how much brightness is changed in percentage for light and dark themes
+local brightness_modifier_parameter = 10
 
 -- Turns #rrggbb -> { red, green, blue }
 local function rgb_str2num(rgb_color_str)
@@ -688,6 +641,13 @@ local function get_color_brightness(rgb_color)
   return brightness / 256
 end
 
+-- returns average of colors in range 0 to 1
+-- used to determine contrast level
+local function get_color_avg(rgb_color)
+  local color = rgb_str2num(rgb_color)
+  return (color.red + color.green + color.blue) / 3 / 256
+end
+
 -- Clamps the val between left and right
 local function clamp(val, left, right)
   if val > right then
@@ -708,6 +668,38 @@ local function brightness_modifier(rgb_color, percentage)
   return rgb_num2str(color)
 end
 
+-- Changes contrast of rgb_color by amount
+local function contrast_modifier(rgb_color, amount)
+  local color = rgb_str2num(rgb_color)
+  color.red = clamp(color.red + amount, 0, 255)
+  color.green = clamp(color.green + amount, 0, 255)
+  color.blue = clamp(color.blue + amount, 0, 255)
+  return rgb_num2str(color)
+end
+
+-- Changes brightness of foreground color to achieve contrast
+-- without changing the color
+local function apply_contrast(highlight)
+  local highlight_bg_avg = get_color_avg(highlight.bg)
+  local contrast_threshold_config = clamp(contrast_threshold, 0, 0.5)
+  local contrast_change_step = 5
+  if highlight_bg_avg > 0.5 then
+    contrast_change_step = -contrast_change_step
+  end
+
+  -- Don't waste too much time here max 25 iteration should be more than enough
+  local iteration_count = 1
+  while
+    math.abs(get_color_avg(highlight.fg) - highlight_bg_avg) < contrast_threshold_config
+    and iteration_count < 25
+  do
+    highlight.fg = contrast_modifier(highlight.fg, contrast_change_step)
+    iteration_count = iteration_count + 1
+  end
+end
+
+-- lualine auto-theme utils }
+
 -- Convert RGB color code into HSL color object.
 local function rgb_to_hsl(rgb)
   local h, s, l = color_hsl.rgb_string_to_hsl(rgb)
@@ -726,13 +718,9 @@ local function shade_rgb(rgb, value)
   end
 end
 
----@param colorname string?
----@return table<string, string>
-local function setup_colors(colorname)
-  local shade_level1 = 0.3
-  local shade_level2 = 0.5
-  local shade_level3 = 0.7
-
+---@return table
+local function setup_common_colors()
+  -- diagnostics
   local diagnostic_error =
     color_hl.get_color_with_fallback({ "DiagnosticSignError", "ErrorMsg" }, "fg", red)
   local diagnostic_warn =
@@ -741,6 +729,8 @@ local function setup_colors(colorname)
     color_hl.get_color_with_fallback({ "DiagnosticSignInfo", "None" }, "fg", cyan)
   local diagnostic_hint =
     color_hl.get_color_with_fallback({ "DiagnosticSignHint", "Comment" }, "fg", grey)
+
+  -- git diff
   local git_add = color_hl.get_color_with_fallback(
     { "GitSignsAdd", "GitGutterAdd", "diffAdded", "DiffAdd" },
     "fg",
@@ -756,361 +746,53 @@ local function setup_colors(colorname)
     "fg",
     red
   )
+
+  -- git summary
   local git_ahead = get_terminal_color(3, yellow)
   local git_behind = get_terminal_color(3, yellow)
   local git_dirty = get_terminal_color(1, magenta)
 
-  local text_bg, text_fg
-  local normal_bg, normal_fg
-  local normal_bg1, normal_fg1
-  local normal_bg2, normal_fg2
-  local normal_bg3, normal_fg3
-  local normal_bg4, normal_fg4
-  local insert_bg, insert_fg
-  local visual_bg, visual_fg
-  local replace_bg, replace_fg
-  local command_bg, command_fg
+  return {
+    diagnostic_error = diagnostic_error,
+    diagnostic_warn = diagnostic_warn,
+    diagnostic_info = diagnostic_info,
+    diagnostic_hint = diagnostic_hint,
+    git_add = git_add,
+    git_change = git_change,
+    git_delete = git_delete,
+    git_ahead = git_ahead,
+    git_behind = git_behind,
+    git_dirty = git_dirty,
+  }
+end
 
-  -- The `lualine` is the most popular statusline plugin in Neovim community.
-  -- The `airline` is the one of the most popular statusline plugin in Vim community.
-  -- Both of them provide a way to integrate with third-party colorschemes.
-  --
-  -- See:
-  -- * [lualine doc - SETTING A THEME](https://github.com/nvim-lualine/lualine.nvim/blob/544dd1583f9bb27b393f598475c89809c4d5e86b/doc/lualine.txt#L178-L205)
-  -- * [lualine wiki - Writing a theme](https://github.com/nvim-lualine/lualine.nvim/wiki/Writing-a-theme)
-  -- * [airline doc - WRITING THEMES](https://github.com/vim-airline/vim-airline/blob/02894b6ef4752afd8579fc837aec5fb4f62409f7/doc/airline.txt#L2099-L2111)
-  --
-  -- So if a colorscheme provides either lualine or airline theme, let's directly use them.
-  -- Since they're carefully designed by the author of the colorscheme.
+---@param lualine_theme table
+---@return table<string, string>
+local function setup_colors_from_lualine(lualine_theme)
+  assert(type(lualine_theme) == "table")
 
-  -- If current colorscheme provides a lualine theme.
-  local has_lualine, lualine_theme = pcall(require, string.format("lualine.themes.%s", colorname))
+  local shade_level1 = 0.3
+  -- local shade_level2 = 0.5
+  -- local shade_level3 = 0.7
 
-  -- If current colorscheme provides an airline theme.
-  local has_airline = false
-  local airline_theme_name = string.format("airline#themes#%s#palette", colorname)
-  local airline_theme = nil
-  if not has_lualine and vim.fn.exists("g:" .. airline_theme_name) > 0 then
-    has_airline = true
-    vim.cmd("let heirline_tmp=g:" .. airline_theme_name)
-    airline_theme = vim.g[airline_theme_name]
-  end
-
-  -- Retrieve RGB color from lualine/airline, or fallback to a highlighting group, or fallback to a default color.
-  text_bg = retrieve_color(
-    has_lualine,
-    lualine_theme,
-    has_airline,
-    airline_theme,
-    "normal",
-    "a",
-    "bg",
-    { "Normal" },
-    "bg",
-    black
-  )
-  text_fg = retrieve_color(
-    has_lualine,
-    lualine_theme,
-    has_airline,
-    airline_theme,
-    "normal",
-    "a",
-    "fg",
-    { "Normal" },
-    "fg",
-    white
-  )
-  -- print(string.format("text bg/fg:%s/%s", vim.inspect(text_bg), vim.inspect(text_fg)))
-
-  -- local normal_bg_derives = derive_rgb(get_terminal_color(0, magenta), 6)
-  local normal_bg_source
-
-  normal_bg, normal_bg_source = retrieve_color(
-    has_lualine,
-    lualine_theme,
-    has_airline,
-    airline_theme,
-    "normal",
-    "a",
-    "bg",
-    { "StatusLine", "PmenuSel", "PmenuThumb", "TabLineSel" },
-    "bg",
-    get_terminal_color(0, magenta)
-  )
-  normal_fg = retrieve_color(
-    has_lualine,
-    lualine_theme,
-    has_airline,
-    airline_theme,
-    "normal",
-    "a",
-    "fg",
-    {},
-    "fg",
-    text_bg -- or black
-  )
-  normal_bg1 = normal_bg
-  normal_fg1 = normal_fg
-
-  normal_bg2 = retrieve_color(
-    has_lualine,
-    lualine_theme,
-    has_airline,
-    airline_theme,
-    "normal",
-    "b",
-    "bg",
-    {},
-    "bg",
-    shade_rgb(get_terminal_color(0, magenta), shade_level1)
-  )
-  normal_fg2 = retrieve_color(
-    has_lualine,
-    lualine_theme,
-    has_airline,
-    airline_theme,
-    "normal",
-    "b",
-    "fg",
-    {},
-    "fg",
-    text_fg -- or white
-  )
-  normal_bg3 = retrieve_color(
-    has_lualine,
-    lualine_theme,
-    has_airline,
-    airline_theme,
-    "normal",
-    "c",
-    "bg",
-    {},
-    "bg",
-    shade_rgb(get_terminal_color(0, magenta), shade_level2)
-  )
-  normal_fg3 = retrieve_color(
-    has_lualine,
-    lualine_theme,
-    has_airline,
-    airline_theme,
-    "normal",
-    "c",
-    "fg",
-    {},
-    "fg",
-    text_fg -- or white
-  )
-  if normal_bg_source ~= "fallback" then
-    normal_bg4 = shade_rgb(normal_bg3, shade_level1)
-  else
-    normal_bg4 = shade_rgb(get_terminal_color(0, magenta), shade_level3)
-  end
-  normal_fg4 = normal_fg3
-
-  -- print(string.format("1-normal source:%s", vim.inspect(normal_bg_source)))
-
-  insert_bg = retrieve_color(
-    has_lualine,
-    lualine_theme,
-    has_airline,
-    airline_theme,
-    "insert",
-    "a",
-    "bg",
-    { "String", "MoreMsg" },
-    "fg",
-    get_terminal_color(2, green)
-  )
-  insert_fg = retrieve_color(
-    has_lualine,
-    lualine_theme,
-    has_airline,
-    airline_theme,
-    "insert",
-    "a",
-    "fg",
-    {},
-    "fg",
-    text_bg
-  )
-  visual_bg = retrieve_color(
-    has_lualine,
-    lualine_theme,
-    has_airline,
-    airline_theme,
-    "visual",
-    "a",
-    "bg",
-    { "Special", "Boolean", "Constant" },
-    "fg",
-    get_terminal_color(3, yellow)
-  )
-  visual_fg = retrieve_color(
-    has_lualine,
-    lualine_theme,
-    has_airline,
-    airline_theme,
-    "visual",
-    "a",
-    "fg",
-    {},
-    "fg",
-    text_bg
-  )
-  replace_bg = retrieve_color(
-    has_lualine,
-    lualine_theme,
-    has_airline,
-    airline_theme,
-    "replace",
-    "a",
-    "bg",
-    { "Number", "Type" },
-    "fg",
-    get_terminal_color(4, blue)
-  )
-  replace_fg = retrieve_color(
-    has_lualine,
-    lualine_theme,
-    has_airline,
-    airline_theme,
-    "replace",
-    "a",
-    "fg",
-    {},
-    "fg",
-    text_bg
-  )
-  command_bg = retrieve_color(
-    has_lualine,
-    lualine_theme,
-    has_airline,
-    airline_theme,
-    "command",
-    "a",
-    "bg",
-    { "Identifier" },
-    "fg",
-    get_terminal_color(1, red)
-  )
-  command_fg = retrieve_color(
-    has_lualine,
-    lualine_theme,
-    has_airline,
-    airline_theme,
-    "command",
-    "a",
-    "fg",
-    {},
-    "fg",
-    text_bg
-  )
-  -- print(string.format("1-text bg/fg:%s/%s", vim.inspect(text_bg), vim.inspect(text_fg)))
-
-  if not has_lualine and not has_airline then
-    local background_color = color_hl.get_color("Normal", "bg")
-    if background_color then
-      local parameter = get_color_brightness(background_color) > 0.5 and -10 or 10
-      normal_bg = brightness_modifier(normal_bg, parameter)
-      normal_bg1 = normal_bg
-      if get_color_brightness(normal_bg1) < 0.5 then
-        normal_fg = text_fg
-        normal_fg1 = text_fg
-      end
-
-      -- local normal_bg_derives2 = derive_rgb(normal_bg1, 6)
-      -- print(
-      --   string.format(
-      --     "2-normal source:%s, derives2:%s",
-      --     vim.inspect(normal_bg_source),
-      --     vim.inspect(normal_bg_derives2)
-      --   )
-      -- )
-      -- print(string.format("normal bg derives2:%s", vim.inspect(normal_bg_derives2)))
-      normal_bg2 = shade_rgb(normal_bg, shade_level1)
-      if get_color_brightness(normal_bg2) > 0.5 then
-        normal_fg2 = text_bg
-      end
-      normal_bg3 = shade_rgb(normal_bg, shade_level2)
-      if get_color_brightness(normal_bg3) > 0.5 then
-        normal_fg3 = text_bg
-      end
-      normal_bg4 = shade_rgb(normal_bg, shade_level3)
-      if get_color_brightness(normal_bg4) > 0.5 then
-        normal_fg4 = text_bg
-      end
-      -- print(string.format("2-text bg/fg:%s/%s", vim.inspect(text_bg), vim.inspect(text_fg)))
-      -- print(
-      --   string.format(
-      --     "text bg/fg:%s/%s, normal bg1/fg1:%s/%s,bg2/fg2:%s/%s,bg3/fg3:%s/%s,bg4/fg4:%s/%s",
-      --     vim.inspect(text_bg),
-      --     vim.inspect(text_fg),
-      --     vim.inspect(normal_bg1),
-      --     vim.inspect(normal_fg1),
-      --     vim.inspect(normal_bg2),
-      --     vim.inspect(normal_fg2),
-      --     vim.inspect(normal_bg3),
-      --     vim.inspect(normal_fg3),
-      --     vim.inspect(normal_bg4),
-      --     vim.inspect(normal_fg4)
-      --   )
-      -- )
-
-      -- normal_bg2 = shade_rgb(normal_bg, 0.5)
-      -- if get_color_brightness(normal_bg2) > 0.5 then
-      --   normal_fg2 = text_bg
-      -- end
-      -- normal_bg3 = shade_rgb(normal_bg, shade_level2)
-      -- if get_color_brightness(normal_bg3) > 0.5 then
-      --   normal_fg3 = text_bg
-      -- end
-      -- normal_bg4 = shade_rgb(normal_bg, shade_level3)
-      -- if get_color_brightness(normal_bg4) > 0.5 then
-      --   normal_fg4 = text_bg
-      -- end
-
-      insert_bg = brightness_modifier(insert_bg, parameter)
-      if get_color_brightness(insert_bg) < 0.5 then
-        insert_fg = text_fg
-      end
-      visual_bg = brightness_modifier(visual_bg, parameter)
-      if get_color_brightness(visual_bg) < 0.5 then
-        visual_fg = text_fg
-      end
-      replace_bg = brightness_modifier(replace_bg, parameter)
-      if get_color_brightness(replace_bg) < 0.5 then
-        replace_fg = text_fg
-      end
-      command_bg = brightness_modifier(command_bg, parameter)
-      if get_color_brightness(command_bg) < 0.5 then
-        command_fg = text_fg
-      end
-    end
-  end
+  local normal_bg1 = lualine_theme.normal.a.bg
+  local normal_fg1 = lualine_theme.normal.a.fg
+  local normal_bg2 = lualine_theme.normal.b.bg
+  local normal_fg2 = lualine_theme.normal.b.fg
+  local normal_bg3 = shade_rgb(normal_bg2, shade_level1)
+  local normal_fg3 = normal_fg2
+  local normal_bg4 = lualine_theme.normal.c.bg
+  local normal_fg4 = lualine_theme.normal.c.fg
+  local insert_bg = lualine_theme.insert.a.bg
+  local insert_fg = lualine_theme.insert.a.fg
+  local visual_bg = lualine_theme.visual.a.bg
+  local visual_fg = lualine_theme.visual.a.fg
+  local replace_bg = lualine_theme.replace.a.bg
+  local replace_fg = lualine_theme.replace.a.fg
+  local command_bg = lualine_theme.command.a.bg
+  local command_fg = lualine_theme.command.a.fg
 
   return {
-    text_bg = text_bg,
-    text_fg = text_fg,
-    black = black,
-    white = white,
-    red = red,
-    green = green,
-    blue = blue,
-    cyan = cyan,
-    grey = grey,
-    orange = orange,
-    yellow = yellow,
-    purple = purple,
-    magenta = magenta,
-    bright_black = bright_black,
-    bright_red = bright_red,
-    bright_green = bright_green,
-    bright_yellow = bright_yellow,
-    bright_blue = bright_blue,
-    bright_magenta = bright_magenta,
-    bright_cyan = bright_cyan,
-    bright_white = bright_white,
     normal_bg1 = normal_bg1,
     normal_fg1 = normal_fg1,
     normal_bg2 = normal_bg2,
@@ -1127,17 +809,153 @@ local function setup_colors(colorname)
     replace_fg = replace_fg,
     command_bg = command_bg,
     command_fg = command_fg,
-    diagnostic_error = diagnostic_error,
-    diagnostic_warn = diagnostic_warn,
-    diagnostic_info = diagnostic_info,
-    diagnostic_hint = diagnostic_hint,
-    git_add = git_add,
-    git_change = git_change,
-    git_delete = git_delete,
-    git_ahead = git_ahead,
-    git_behind = git_behind,
-    git_dirty = git_dirty,
   }
+end
+
+---@param airline_theme table
+---@return table<string, string>
+local function setup_colors_from_airline(airline_theme)
+  assert(type(airline_theme) == "table")
+
+  local shade_level1 = 0.3
+  -- local shade_level2 = 0.5
+  -- local shade_level3 = 0.7
+
+  local normal_bg1 = airline_theme.normal.airline_a[2]
+  local normal_fg1 = airline_theme.normal.airline_a[1]
+  local normal_bg2 = airline_theme.normal.airline_b[2]
+  local normal_fg2 = airline_theme.normal.airline_b[1]
+  local normal_bg3 = shade_rgb(normal_bg2, shade_level1)
+  local normal_fg3 = normal_fg2
+  local normal_bg4 = airline_theme.normal.airline_c[2]
+  local normal_fg4 = airline_theme.normal.airline_c[1]
+  local insert_bg = airline_theme.insert.airline_a[2]
+  local insert_fg = airline_theme.insert.airline_a[1]
+  local visual_bg = airline_theme.visual.airline_a[2]
+  local visual_fg = airline_theme.visual.airline_a[1]
+  local replace_bg = airline_theme.replace.airline_a[2]
+  local replace_fg = airline_theme.replace.airline_a[1]
+  local command_bg = airline_theme.terminal.airline_a[2]
+  local command_fg = airline_theme.terminal.airline_a[1]
+
+  return {
+    normal_bg1 = normal_bg1,
+    normal_fg1 = normal_fg1,
+    normal_bg2 = normal_bg2,
+    normal_fg2 = normal_fg2,
+    normal_bg3 = normal_bg3,
+    normal_fg3 = normal_fg3,
+    normal_bg4 = normal_bg4,
+    normal_fg4 = normal_fg4,
+    insert_bg = insert_bg,
+    insert_fg = insert_fg,
+    visual_bg = visual_bg,
+    visual_fg = visual_fg,
+    replace_bg = replace_bg,
+    replace_fg = replace_fg,
+    command_bg = command_bg,
+    command_fg = command_fg,
+  }
+end
+
+---@param colorname string?
+---@return table<string, string>
+local function setup_colors_from_auto_generating(colorname)
+  -- Lualine auto theme
+  -- See: https://github.com/nvim-lualine/lualine.nvim/blob/master/lua/lualine/themes/auto.lua
+  local colors = {
+    normal = color_hl.get_color_with_fallback(
+      { "PmenuSel", "PmenuThumb", "TabLineSel" },
+      "bg",
+      black
+    ),
+    insert = color_hl.get_color_with_fallback({ "String", "MoreMsg" }, "fg", black),
+    replace = color_hl.get_color_with_fallback({ "Number", "Type" }, "fg", black),
+    visual = color_hl.get_color_with_fallback({ "Special", "Boolean", "Constant" }, "fg", black),
+    command = color_hl.get_color_with_fallback({ "Identifier" }, "fg", black),
+    back1 = color_hl.get_color_with_fallback({ "Normal", "StatusLineNC" }, "bg", black),
+    fore = color_hl.get_color_with_fallback({ "Normal", "StatusLine" }, "fg", black),
+    back2 = color_hl.get_color_with_fallback({ "StatusLine" }, "bg", black),
+  }
+
+  local normal_color = color_hl.get_color_with_fallback({ "Normal" }, "bg", black)
+  if normal_color ~= nil then
+    if get_color_brightness(normal_color) > 0.5 then
+      brightness_modifier_parameter = -brightness_modifier_parameter
+    end
+    for name, color in pairs(colors) do
+      colors[name] = brightness_modifier(color, brightness_modifier_parameter)
+    end
+  end
+
+  local lualine_auto_theme = {
+    normal = {
+      a = { bg = colors.normal, fg = colors.back1, gui = "bold" },
+      b = { bg = colors.back1, fg = colors.normal },
+      c = { bg = colors.back2, fg = colors.fore },
+    },
+    insert = {
+      a = { bg = colors.insert, fg = colors.back1, gui = "bold" },
+      b = { bg = colors.back1, fg = colors.insert },
+      c = { bg = colors.back2, fg = colors.fore },
+    },
+    replace = {
+      a = { bg = colors.replace, fg = colors.back1, gui = "bold" },
+      b = { bg = colors.back1, fg = colors.replace },
+      c = { bg = colors.back2, fg = colors.fore },
+    },
+    visual = {
+      a = { bg = colors.visual, fg = colors.back1, gui = "bold" },
+      b = { bg = colors.back1, fg = colors.visual },
+      c = { bg = colors.back2, fg = colors.fore },
+    },
+    command = {
+      a = { bg = colors.command, fg = colors.back1, gui = "bold" },
+      b = { bg = colors.back1, fg = colors.command },
+      c = { bg = colors.back2, fg = colors.fore },
+    },
+  }
+
+  lualine_auto_theme.terminal = lualine_auto_theme.command
+  lualine_auto_theme.inactive = lualine_auto_theme.normal
+
+  for _, section in pairs(lualine_auto_theme) do
+    for _, highlight in pairs(section) do
+      apply_contrast(highlight)
+    end
+  end
+
+  return setup_colors_from_lualine(lualine_auto_theme)
+end
+
+---@param colorname string?
+---@return table<string, string>
+local function setup_colors(colorname)
+  -- If current colorscheme provides a lualine theme.
+  local has_lualine, lualine_theme = pcall(require, string.format("lualine.themes.%s", colorname))
+
+  -- If current colorscheme provides a airline theme.
+  local has_airline, airline_theme
+  if not has_lualine or type(lualine_theme) ~= "table" then
+    local airline_theme_name = string.format("airline#themes#%s#palette", colorname)
+    has_airline = vim.fn.exists("g:" .. airline_theme_name) > 0
+    if has_airline then
+      vim.cmd("let heirline_tmp=g:" .. airline_theme_name)
+      airline_theme = vim.g[airline_theme_name]
+    end
+  end
+
+  local colors
+  if has_lualine and type(lualine_theme) == "table" then
+    colors = setup_colors_from_lualine(lualine_theme)
+  elseif has_airline and type(airline_theme) == "table" then
+    colors = setup_colors_from_airline(airline_theme)
+  else
+    colors = setup_colors_from_auto_generating(colorname)
+  end
+
+  local common_colors = setup_common_colors()
+  return vim.tbl_extend("force", common_colors, colors)
 end
 
 require("heirline").setup({
