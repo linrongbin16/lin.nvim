@@ -25,7 +25,7 @@ set_key(
   ":noa w<CR>",
   { silent = false, desc = "Save file without formatting" }
 )
-set_key({ "n", "x" }, "<leader>qq", ":qall<CR>", { silent = false, desc = ":qall" })
+set_key({ "n", "x" }, "<leader>qq", ":qall!<CR>", { silent = false, desc = ":qall!" })
 set_key(
   { "n", "x" },
   "<leader>zz",
