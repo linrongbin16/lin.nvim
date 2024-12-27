@@ -10,6 +10,8 @@ local VeryLazy = "VeryLazy"
 local BufEnter = "BufEnter"
 local BufWritePre = "BufWritePre"
 local BufWritePost = "BufWritePost"
+local BufReadPre = "BufReadPre"
+local BufNewFile = "BufNewFile"
 local CmdlineEnter = "CmdlineEnter"
 local VimEnter = "VimEnter"
 local InsertEnter = "InsertEnter"
@@ -332,19 +334,19 @@ local M = {
   -- Repeat
   {
     "tpope/vim-repeat",
-    event = { VeryLazy },
+    event = { BufReadPre, BufNewFile, VeryLazy },
   },
   -- Comment
   {
     "numToStr/Comment.nvim",
-    event = { VeryLazy },
-    config = lua_config("numToStr/Comment.nvim"),
+    event = { BufReadPre, BufNewFile, VeryLazy },
+    -- config = lua_config("numToStr/Comment.nvim"),
   },
   -- Surround
   {
     "kylechui/nvim-surround",
     version = "*",
-    event = { VeryLazy },
+    event = { BufReadPre, BufNewFile, VeryLazy },
     config = lua_config("kylechui/nvim-surround"),
   },
   -- Structure outlines
