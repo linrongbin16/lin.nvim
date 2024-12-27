@@ -6,7 +6,7 @@ require("outline").setup({
     focus_on_open = false,
   },
   symbol_folding = {
-    autofold_depth = false,
+    autofold_depth = 4,
     auto_unfold = {
       hovered = false,
     },
