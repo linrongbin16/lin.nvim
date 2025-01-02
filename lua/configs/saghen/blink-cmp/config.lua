@@ -27,9 +27,6 @@ require("blink.cmp").setup({
   keymap = {
     ["<CR>"] = { "accept", "fallback" },
 
-    -- ["<Tab>"] = { "accept", "fallback" },
-    -- ["<S-Tab>"] = { "fallback" },
-
     -- Use <Tab> to accept if there are suggestions, or jump to next placeholder if already in an expanded snippet.
     ["<Tab>"] = {
       function(cmp)
