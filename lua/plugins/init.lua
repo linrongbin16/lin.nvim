@@ -42,7 +42,12 @@ local M = {
   },
 
   -- ---- HIGHLIGHT ----
-
+  {
+    "nvim-treesitter/nvim-treesitter",
+    event = { BufReadPre, BufNewFile, VeryLazy, CmdlineEnter },
+    build = ":TSUpdate",
+    config = lua_config("nvim-treesitter/nvim-treesitter"),
+  },
   {
     "RRethy/vim-illuminate",
     event = { VeryLazy },
