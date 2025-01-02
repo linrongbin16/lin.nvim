@@ -1,9 +1,31 @@
 require("blink.cmp").setup({
+  completion = {
+    list = {
+      -- Use "auto_insert" for specific buf/win, otherwise use "preselect".
+      selection = function(ctx)
+        if ctx.mode == "cmdline" then
+          return "auto_insert"
+        end
+        if
+          type(ctx.bufnr) == "number"
+          and ctx.bufnr >= 0
+          and vim.api.nvim_buf_is_valid(ctx.bufnr)
+          and vim.api.nvim_get_option_value("buftype", { buf = ctx.bufnr }) == "prompt"
+        then
+          return "auto_insert"
+        end
+        local cur_win = vim.api.nvim_get_current_win()
+        if vim.fn.win_gettype(cur_win) == "popup" then
+          return "auto_insert"
+        end
+        return "preselect"
+      end,
+    },
+    accept = { auto_brackets = { enabled = true } },
+    documentation = { auto_show = true },
+  },
   keymap = {
     ["<CR>"] = { "accept", "fallback" },
-
-    -- ["<Tab>"] = { "accept", "fallback" },
-    -- ["<S-Tab>"] = { "fallback" },
 
     -- Use <Tab> to accept if there are suggestions, or jump to next placeholder if already in an expanded snippet.
     ["<Tab>"] = {
@@ -31,6 +53,12 @@ require("blink.cmp").setup({
     ["<C-u>"] = { "scroll_documentation_up", "fallback" },
     ["<C-d>"] = { "scroll_documentation_down", "fallback" },
   },
+  signature = {
+    enabled = true,
+  },
+  sources = {
+    default = { "lsp", "path", "luasnip", "buffer" },
+  },
   snippets = {
     expand = function(snippet)
       require("luasnip").lsp_expand(snippet)
@@ -44,33 +72,5 @@ require("blink.cmp").setup({
     jump = function(direction)
       require("luasnip").jump(direction)
     end,
-  },
-  completion = {
-    list = {
-      -- Use "auto_insert" for specific buf/win, otherwise use "preselect".
-      selection = function(ctx)
-        if ctx.mode == "cmdline" then
-          return "auto_insert"
-        end
-        if
-          type(ctx.bufnr) == "number"
-          and ctx.bufnr >= 0
-          and vim.api.nvim_buf_is_valid(ctx.bufnr)
-          and vim.api.nvim_get_option_value("buftype", { buf = ctx.bufnr }) == "prompt"
-        then
-          return "auto_insert"
-        end
-        local cur_win = vim.api.nvim_get_current_win()
-        if vim.fn.win_gettype(cur_win) == "popup" then
-          return "auto_insert"
-        end
-        return "preselect"
-      end,
-    },
-    accept = { auto_brackets = { enabled = true } },
-    documentation = { auto_show = true },
-  },
-  signature = {
-    enabled = true,
   },
 })
