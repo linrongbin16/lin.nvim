@@ -30,7 +30,6 @@ local M = {
   },
   {
     "onsails/lspkind.nvim",
-    dependencies = "nvim-tree/nvim-web-devicons",
     lazy = true,
     config = lua_config("onsails/lspkind.nvim"),
   },
@@ -373,11 +372,7 @@ local M = {
       "AerialClose",
       "AerialInfo",
     },
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-      "nvim-tree/nvim-web-devicons",
-      "onsails/lspkind.nvim",
-    },
+    dependencies = "nvim-treesitter/nvim-treesitter",
     config = lua_config("stevearc/aerial.nvim"),
     keys = lua_keys("stevearc/aerial.nvim"),
   },
