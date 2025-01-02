@@ -4,7 +4,7 @@
 
 - `<Leader>nt` 🄽 - Toggle file explorer by `:Neotree`.
 - `<Leader>nf` 🄽 - Find/locate current file in file explorer by `:Neotree reveal`.
-- `<Leader>ol` 🄽 - Toggle structure/symbols outlines by `:Outline!!`.
+- `<Leader>ar` 🄽 - Toggle structure/symbols outlines by `:AerialToggle!!`.
 - `<Leader>mp` 🄽 - Open markdown preview by `:MarkdownPreview`.
 - `<Leader>ms` 🄽 - Open lsp server manager by `:Mason`.
 - `<Leader>lz` 🄽 - Open plugin manager by `:Lazy`.
