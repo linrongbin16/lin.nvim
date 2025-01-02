@@ -31,6 +31,9 @@ require("blink.cmp").setup({
     ["<C-u>"] = { "scroll_documentation_up", "fallback" },
     ["<C-d>"] = { "scroll_documentation_down", "fallback" },
   },
+  sources = {
+    default = { "lsp", "path", "luasnip", "buffer" },
+  },
   snippets = {
     expand = function(snippet)
       require("luasnip").lsp_expand(snippet)
