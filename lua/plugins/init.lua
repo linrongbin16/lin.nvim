@@ -29,6 +29,11 @@ local M = {
     lazy = true,
   },
   {
+    "onsails/lspkind.nvim",
+    lazy = true,
+    config = lua_config("onsails/lspkind.nvim"),
+  },
+  {
     "linrongbin16/commons.nvim",
     lazy = true,
   },
@@ -42,11 +47,17 @@ local M = {
   },
 
   -- ---- HIGHLIGHT ----
-
+  {
+    "nvim-treesitter/nvim-treesitter",
+    event = { BufReadPre, BufNewFile, VeryLazy, CmdlineEnter },
+    build = ":TSUpdate",
+    config = lua_config("nvim-treesitter/nvim-treesitter"),
+  },
   {
     "RRethy/vim-illuminate",
     event = { VeryLazy },
     dependencies = {
+      "nvim-treesitter/nvim-treesitter",
       "neovim/nvim-lspconfig",
     },
     config = lua_config("RRethy/vim-illuminate"),
@@ -330,7 +341,7 @@ local M = {
   {
     "numToStr/Comment.nvim",
     event = { BufReadPre, BufNewFile, VeryLazy },
-    -- config = lua_config("numToStr/Comment.nvim"),
+    config = lua_config("numToStr/Comment.nvim"),
   },
   -- Surround
   {
@@ -340,17 +351,30 @@ local M = {
     config = lua_config("kylechui/nvim-surround"),
   },
   -- Structure outlines
+  -- {
+  --   "hedyhli/outline.nvim",
+  --   cmd = {
+  --     "Outline",
+  --     "OutlineOpen",
+  --   },
+  --   dependencies = {
+  --     "neovim/nvim-lspconfig",
+  --   },
+  --   keys = lua_keys("hedyhli/outline.nvim"),
+  --   config = lua_config("hedyhli/outline.nvim"),
+  -- },
   {
-    "hedyhli/outline.nvim",
+    "stevearc/aerial.nvim",
     cmd = {
-      "Outline",
-      "OutlineOpen",
+      "AerialToggle",
+      "AerialOpen",
+      "AerialOpenAll",
+      "AerialClose",
+      "AerialInfo",
     },
-    dependencies = {
-      "neovim/nvim-lspconfig",
-    },
-    keys = lua_keys("hedyhli/outline.nvim"),
-    config = lua_config("hedyhli/outline.nvim"),
+    dependencies = "nvim-treesitter/nvim-treesitter",
+    config = lua_config("stevearc/aerial.nvim"),
+    keys = lua_keys("stevearc/aerial.nvim"),
   },
   -- Open Url
   {

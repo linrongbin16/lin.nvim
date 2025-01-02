@@ -19,9 +19,6 @@ end
 require("nvim-treesitter.configs").setup({
   ensure_installed = ensure_installed,
   auto_install = true,
-  matchup = { -- for vim-matchup
-    enable = true,
-  },
   highlight = {
     enable = true,
     -- disable for super large file
