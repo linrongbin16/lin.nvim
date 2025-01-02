@@ -56,4 +56,5 @@ require("aerial").setup({
     "StaticMethod",
     "Macro",
   },
+  show_guides = true,
 })

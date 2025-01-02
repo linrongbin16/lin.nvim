@@ -29,6 +29,12 @@ local M = {
     lazy = true,
   },
   {
+    "onsails/lspkind.nvim",
+    dependencies = "nvim-tree/nvim-web-devicons",
+    lazy = true,
+    config = lua_config("onsails/lspkind.nvim"),
+  },
+  {
     "linrongbin16/commons.nvim",
     lazy = true,
   },
@@ -52,6 +58,7 @@ local M = {
     "RRethy/vim-illuminate",
     event = { VeryLazy },
     dependencies = {
+      "nvim-treesitter/nvim-treesitter",
       "neovim/nvim-lspconfig",
     },
     config = lua_config("RRethy/vim-illuminate"),
@@ -369,6 +376,7 @@ local M = {
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
       "nvim-tree/nvim-web-devicons",
+      "onsails/lspkind.nvim",
     },
     config = lua_config("stevearc/aerial.nvim"),
     keys = lua_keys("stevearc/aerial.nvim"),
