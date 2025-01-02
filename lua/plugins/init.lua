@@ -341,7 +341,7 @@ local M = {
   {
     "numToStr/Comment.nvim",
     event = { BufReadPre, BufNewFile, VeryLazy },
-    -- config = lua_config("numToStr/Comment.nvim"),
+    config = lua_config("numToStr/Comment.nvim"),
   },
   -- Surround
   {
