@@ -1,6 +1,9 @@
 local constants = require("builtin.constants")
 
 require("outline").setup({
+  providers = {
+    priority = { "lsp", "markdown", "treesitter" },
+  },
   outline_window = {
     width = constants.window.layout.sidebar.scale * 100,
     focus_on_open = false,

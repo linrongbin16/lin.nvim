@@ -341,6 +341,10 @@ local M = {
   },
   -- Structure outlines
   {
+    "epheien/outline-treesitter-provider.nvim",
+    lazy = true,
+  },
+  {
     "hedyhli/outline.nvim",
     cmd = {
       "Outline",
@@ -348,6 +352,7 @@ local M = {
     },
     dependencies = {
       "neovim/nvim-lspconfig",
+      "epheien/outline-treesitter-provider.nvim",
     },
     keys = lua_keys("hedyhli/outline.nvim"),
     config = lua_config("hedyhli/outline.nvim"),
