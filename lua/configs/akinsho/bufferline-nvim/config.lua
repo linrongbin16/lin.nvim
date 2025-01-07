@@ -5,8 +5,14 @@ local str = require("commons.str")
 require("bufferline").setup({
   options = {
     numbers = "ordinal",
-    close_command = "lua require('snacks').bufdelete({buf=%d,force=true})", -- snacks
-    right_mouse_command = "lua require('snacks').bufdelete({buf=%d,force=true})", -- snacks
+    close_command = function(bufnr)
+      -- snacks
+      require("snacks").bufdelete({ buf = bufnr, force = true })
+    end,
+    right_mouse_command = function(bufnr)
+      -- snacks
+      require("snacks").bufdelete({ buf = bufnr, force = true })
+    end,
     name_formatter = function(buf)
       local max_name_len = layout.editor.width(0.334, 60, nil)
       local name = buf.name
