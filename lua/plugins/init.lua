@@ -107,11 +107,11 @@ local M = {
     keys = lua_keys("akinsho/bufferline.nvim"),
   },
   -- Indentline
-  {
-    "lukas-reineke/indent-blankline.nvim",
-    event = { VeryLazy },
-    config = lua_config("lukas-reineke/indent-blankline.nvim"),
-  },
+  -- {
+  --   "lukas-reineke/indent-blankline.nvim",
+  --   event = { VeryLazy },
+  --   config = lua_config("lukas-reineke/indent-blankline.nvim"),
+  -- },
   {
     "nvimdev/indentmini.nvim",
     event = { BufReadPre, BufNewFile, VeryLazy },
