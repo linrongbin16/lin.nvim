@@ -26,6 +26,11 @@ M.window = {
       min = 20,
       max = 60,
     },
+    prompt = {
+      scale = 0.3,
+      min = 20,
+      max = 60,
+    },
   },
   blend = 15,
 }
