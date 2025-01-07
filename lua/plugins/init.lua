@@ -40,6 +40,12 @@ local M = {
       require("colorbox").update()
     end,
   },
+  {
+    "folke/snacks.nvim",
+    priority = 1000,
+    lazy = false,
+    config = lua_config("folke/snacks.nvim"),
+  },
 
   -- ---- HIGHLIGHT ----
 
@@ -106,12 +112,12 @@ local M = {
     config = lua_config("akinsho/bufferline.nvim"),
     keys = lua_keys("akinsho/bufferline.nvim"),
   },
-  -- Indentline
-  {
-    "lukas-reineke/indent-blankline.nvim",
-    event = { VeryLazy },
-    config = lua_config("lukas-reineke/indent-blankline.nvim"),
-  },
+  -- -- Indentline
+  -- {
+  --   "lukas-reineke/indent-blankline.nvim",
+  --   event = { VeryLazy },
+  --   config = lua_config("lukas-reineke/indent-blankline.nvim"),
+  -- },
   -- Git
   {
     "airblade/vim-gitgutter",
