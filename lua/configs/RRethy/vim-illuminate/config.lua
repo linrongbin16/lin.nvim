@@ -1,13 +1,11 @@
-local constants = require("builtin.constants")
-
 require("illuminate").configure({
   providers = {
     "regex",
   },
   -- disable for big file
   should_enable = function(bufnr)
-    local f = vim.api.nvim_buf_get_name(bufnr)
-    return vim.fn.getfsize(f) <= constants.perf.maxfilesize
+    local performance = require("builtin.utils.performance")
+    return not performance.file_too_big(bufnr)
   end,
 })
 

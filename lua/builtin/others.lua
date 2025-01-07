@@ -53,7 +53,7 @@ vim.api.nvim_create_autocmd("BufReadPre", {
   callback = function(event)
     if type(event) == "table" and type(event.buf) == "number" then
       local bufnr = event.buf
-      local performance = require("builtin.performance")
+      local performance = require("builtin.utils.performance")
       if performance.file_too_big(bufnr) then
         vim.cmd([[
                 syntax clear

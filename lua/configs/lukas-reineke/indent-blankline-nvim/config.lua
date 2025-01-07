@@ -4,6 +4,6 @@ require("ibl").setup({
 
 local hooks = require("ibl.hooks")
 hooks.register(hooks.type.ACTIVE, function(bufnr)
-  local performance = require("builtin.performance")
+  local performance = require("builtin.utils.performance")
   return not performance.file_too_big(bufnr)
 end)
