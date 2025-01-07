@@ -51,16 +51,14 @@
 
 ?> Edit the plugin settings in [lua/configs/iamcco/markdown-preview-nvim](https://github.com/linrongbin16/lin.nvim/tree/main/lua/configs/iamcco/markdown-preview-nvim).
 
-## Enhanced Repeat (`.`)
-
-?> Supported by [vim-repeat](https://github.com/tpope/vim-repeat).
-
 ## Auto-pair
 
 ?> Supported by [nvim-autopairs](https://github.com/windwp/nvim-autopairs).
 
+## Enhanced Repeat (`.`)
+
+?> Supported by [vim-repeat](https://github.com/tpope/vim-repeat).
+
 ## Surroundings
 
-?> Supported by [nvim-surround](https://github.com/kylechui/nvim-surround).
-
-?> For full key mappings, please check out [surround's usage](https://github.com/kylechui/nvim-surround#rocket-usage).
+?> Supported by [vim-surround](https://github.com/tpope/vim-surround).
