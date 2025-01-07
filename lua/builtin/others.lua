@@ -45,6 +45,23 @@ set_key(
   { silent = false, desc = "Paste from cache" }
 )
 
+-- large file performance
+local builtin_others_augroup =
+  vim.api.nvim_create_augroup("builtin_others_augroup", { clear = true })
+vim.api.nvim_create_autocmd("BufReadPre", {
+  group = builtin_others_augroup,
+  callback = function()
+    local f = vim.fn.expand("<afile>")
+    if vim.fn.getfsize(f) > constants.perf.maxfilesize then
+      vim.cmd([[
+                syntax clear
+                setlocal eventignore+=FileType
+                setlocal undolevels=-1
+            ]])
+    end
+  end,
+})
+
 -- transparent
 vim.o.winblend = constants.window.blend
 vim.o.pumblend = constants.window.blend

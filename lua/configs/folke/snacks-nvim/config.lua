@@ -3,7 +3,7 @@ local constants = require("builtin.constants")
 require("snacks").setup({
   bigfile = {
     enabled = true,
-    notify = true,
+    notify = false,
     size = constants.perf.maxfilesize,
   },
   indent = {
