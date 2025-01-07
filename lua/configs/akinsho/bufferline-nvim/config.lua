@@ -5,8 +5,8 @@ local str = require("commons.str")
 require("bufferline").setup({
   options = {
     numbers = "ordinal",
-    close_command = "Bdelete! %d", -- vim-bbye
-    right_mouse_command = "Bdelete! %d", -- vim-bbye
+    close_command = "lua require('snacks').bufdelete({buf=%d,force=true})", -- snacks
+    right_mouse_command = "lua require('snacks').bufdelete({buf=%d,force=true})", -- snacks
     name_formatter = function(buf)
       local max_name_len = layout.editor.width(0.334, 60, nil)
       local name = buf.name
