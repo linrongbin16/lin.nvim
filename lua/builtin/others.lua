@@ -53,6 +53,7 @@ vim.api.nvim_create_autocmd("BufReadPre", {
   callback = function(event)
     local f = vim.fn.expand("<afile>")
     if vim.fn.getfsize(f) > constants.perf.maxfilesize then
+      -- vim.b.file_size_is_too_big = true
       vim.cmd([[
                 syntax clear
                 setlocal eventignore+=FileType
@@ -62,7 +63,7 @@ vim.api.nvim_create_autocmd("BufReadPre", {
         vim.treesitter.stop(event.buf)
         vim.diagnostic.enable(false, { bufnr = event.buf })
         local tick = 1
-        for cli in vim.lsp.get_clients({ bufnr = event.buf }) do
+        for cli in ipairs(vim.lsp.get_clients({ bufnr = event.buf })) do
           vim.defer_fn(function()
             vim.lsp.semantic_tokens.stop(event.buf, cli.id)
           end, tick)
