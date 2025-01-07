@@ -62,13 +62,6 @@ vim.api.nvim_create_autocmd("BufReadPre", {
       if type(event) == "table" and type(event.buf) == "number" then
         vim.treesitter.stop(event.buf)
         vim.diagnostic.enable(false, { bufnr = event.buf })
-        local tick = 1
-        for cli in ipairs(vim.lsp.get_clients({ bufnr = event.buf })) do
-          vim.defer_fn(function()
-            vim.lsp.semantic_tokens.stop(event.buf, cli.id --[[@as integer]])
-          end, tick)
-          tick = tick + 1
-        end
       end
     end
   end,

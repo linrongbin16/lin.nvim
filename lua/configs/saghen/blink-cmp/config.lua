@@ -1,4 +1,10 @@
+local constants = require("builtin.constants")
+
 require("blink.cmp").setup({
+  enabled = function()
+    local f = vim.api.nvim_buf_get_name(0)
+    return vim.fn.getfsize(f) <= constants.perf.maxfilesize
+  end,
   completion = {
     list = {
       -- Use "auto_insert" for specific buf/win, otherwise use "preselect".
