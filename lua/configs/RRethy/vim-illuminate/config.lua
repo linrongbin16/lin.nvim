@@ -1,7 +1,9 @@
 local constants = require("builtin.constants")
 
 require("illuminate").configure({
-  delay = 300,
+  providers = {
+    "regex",
+  },
   -- disable for big file
   should_enable = function(bufnr)
     local f = vim.api.nvim_buf_get_name(bufnr)
