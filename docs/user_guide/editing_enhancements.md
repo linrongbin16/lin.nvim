@@ -10,13 +10,14 @@
 
 ## Git Integration
 
-?> Supported by [vim-gitgutter](https://github.com/airblade/vim-gitgutter), [gitlinker.nvim](https://github.com/linrongbin16/gitlinker.nvim) and [git-blame.nvim](https://github.com/f-person/git-blame.nvim).
+?> Supported by [lazygit.nvim](https://github.com/kdheepak/lazygit.nvim), [vim-gitgutter](https://github.com/airblade/vim-gitgutter), [gitlinker.nvim](https://github.com/linrongbin16/gitlinker.nvim) and [git-blame.nvim](https://github.com/f-person/git-blame.nvim).
 
+- `<Leader>lg` 🄽 - Open lazygit terminal.
 - `]c`/`[c` 🄽 - Go to next(👇)/previous(👆) git hunk in current buffer.
 - `<Leader>gl`/`<Leader>gL` 🄽 🅇 - Copy git permlink to clipboard, or open in default browser.
 - `<Leader>gb` 🄽 - Toggle git blame info on current line.
 
-?> Edit the plugin settings in [lua/configs/airblade/vim-gitgutter](https://github.com/linrongbin16/lin.nvim/tree/main/lua/configs/airblade/vim-gitgutter), [lua/configs/linrongbin16/gitlinker-nvim](https://github.com/linrongbin16/lin.nvim/tree/main/lua/configs/linrongbin16/gitlinker-nvim) and [lua/configs/f-person/git-blame-nvim](https://github.com/linrongbin16/lin.nvim/tree/main/lua/configs/f-person/git-blame-nvim) directory.
+?> Edit the plugin settings in [lua/configs/kdheepak/lazygit-nvim](https://github.com/linrongbin16/lin.nvim/tree/main/lua/configs/kdheepak/lazygit-nvim), [lua/configs/airblade/vim-gitgutter](https://github.com/linrongbin16/lin.nvim/tree/main/lua/configs/airblade/vim-gitgutter), [lua/configs/linrongbin16/gitlinker-nvim](https://github.com/linrongbin16/lin.nvim/tree/main/lua/configs/linrongbin16/gitlinker-nvim) and [lua/configs/f-person/git-blame-nvim](https://github.com/linrongbin16/lin.nvim/tree/main/lua/configs/f-person/git-blame-nvim) directory.
 
 ## Comments
 
