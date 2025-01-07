@@ -50,7 +50,7 @@ local builtin_others_augroup =
   vim.api.nvim_create_augroup("builtin_others_augroup", { clear = true })
 vim.api.nvim_create_autocmd("BufReadPre", {
   group = builtin_others_augroup,
-  callback = function()
+  callback = function(event)
     local f = vim.fn.expand("<afile>")
     if vim.fn.getfsize(f) > constants.perf.maxfilesize then
       vim.cmd([[
@@ -58,6 +58,17 @@ vim.api.nvim_create_autocmd("BufReadPre", {
                 setlocal eventignore+=FileType
                 setlocal undolevels=-1
             ]])
+      if type(event) == "table" and type(event.buf) == "number" then
+        vim.treesitter.stop(event.buf)
+        vim.diagnostic.enable(false, { bufnr = event.buf })
+        local tick = 1
+        for cli in vim.lsp.get_clients({ bufnr = event.buf }) do
+          vim.defer_fn(function()
+            vim.lsp.semantic_tokens.stop(event.buf, cli.id)
+          end, tick)
+          tick = tick + 1
+        end
+      end
     end
   end,
 })
