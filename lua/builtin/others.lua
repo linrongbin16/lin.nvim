@@ -62,6 +62,7 @@ vim.api.nvim_create_autocmd("BufReadPre", {
       if type(event) == "table" and type(event.buf) == "number" then
         vim.treesitter.stop(event.buf)
         vim.diagnostic.enable(false, { bufnr = event.buf })
+        vim.lsp.stop_client(vim.lsp.get_clients({ bufnr = event.buf }))
       end
     end
   end,
