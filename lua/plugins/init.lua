@@ -112,6 +112,11 @@ local M = {
     event = { VeryLazy },
     config = lua_config("lukas-reineke/indent-blankline.nvim"),
   },
+  {
+    "nvimdev/indentmini.nvim",
+    event = { BufReadPre, BufNewFile, VeryLazy },
+    config = lua_config("nvimdev/indentmini.nvim"),
+  },
   -- Git
   {
     "airblade/vim-gitgutter",
