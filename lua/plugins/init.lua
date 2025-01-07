@@ -60,7 +60,6 @@ local M = {
     "andymass/vim-matchup",
     event = { VeryLazy },
     init = lua_init("andymass/vim-matchup"),
-    config = lua_config("andymass/vim-matchup"),
   },
   -- Range/substitude
   {
