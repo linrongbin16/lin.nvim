@@ -265,10 +265,6 @@ local M = {
   },
 
   -- ---- AUTO-COMPLETE ----
-  -- {
-  --   "onsails/lspkind.nvim",
-  --   lazy = true,
-  -- },
   {
     "rafamadriz/friendly-snippets",
     lazy = true,
@@ -322,7 +318,13 @@ local M = {
 
   -- ---- ENHANCEMENT ----
 
-  -- -- Auto pair/close
+  -- Comment
+  {
+    "numToStr/Comment.nvim",
+    event = { BufReadPre, BufNewFile, VeryLazy },
+    config = lua_config("numToStr/Comment.nvim"),
+  },
+  -- Auto pair/close
   {
     "windwp/nvim-autopairs",
     event = { VeryLazy, InsertEnter },
@@ -333,30 +335,12 @@ local M = {
     "tpope/vim-repeat",
     event = { BufReadPre, BufNewFile, VeryLazy },
   },
-  -- Comment
-  {
-    "numToStr/Comment.nvim",
-    event = { BufReadPre, BufNewFile, VeryLazy },
-    config = lua_config("numToStr/Comment.nvim"),
-  },
   -- Surround
   {
     "tpope/vim-surround",
     event = { BufReadPre, BufNewFile, VeryLazy },
   },
   -- Structure outlines
-  -- {
-  --   "hedyhli/outline.nvim",
-  --   cmd = {
-  --     "Outline",
-  --     "OutlineOpen",
-  --   },
-  --   dependencies = {
-  --     "neovim/nvim-lspconfig",
-  --   },
-  --   keys = lua_keys("hedyhli/outline.nvim"),
-  --   config = lua_config("hedyhli/outline.nvim"),
-  -- },
   {
     "stevearc/aerial.nvim",
     cmd = {
@@ -366,7 +350,7 @@ local M = {
       "AerialClose",
       "AerialInfo",
     },
-    dependencies = "nvim-treesitter/nvim-treesitter",
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
     config = lua_config("stevearc/aerial.nvim"),
     keys = lua_keys("stevearc/aerial.nvim"),
   },
