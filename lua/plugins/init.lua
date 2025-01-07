@@ -44,13 +44,18 @@ local M = {
   -- ---- HIGHLIGHT ----
 
   {
-    "RRethy/vim-illuminate",
-    event = { VeryLazy },
-    dependencies = {
-      "neovim/nvim-lspconfig",
-    },
-    config = lua_config("RRethy/vim-illuminate"),
+    "sontungexpt/stcursorword",
+    event = "VeryLazy",
+    config = lua_config("sontungexpt/stcursorword"),
   },
+  -- {
+  --   "RRethy/vim-illuminate",
+  --   event = { VeryLazy },
+  --   dependencies = {
+  --     "neovim/nvim-lspconfig",
+  --   },
+  --   config = lua_config("RRethy/vim-illuminate"),
+  -- },
   {
     "brenoprata10/nvim-highlight-colors",
     event = { VeryLazy },
