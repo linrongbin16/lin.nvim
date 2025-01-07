@@ -1,5 +1,3 @@
-local constants = require("builtin.constants")
-
 require("blink.cmp").setup({
   completion = {
     list = {
