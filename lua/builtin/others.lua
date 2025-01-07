@@ -53,7 +53,6 @@ vim.api.nvim_create_autocmd("BufReadPre", {
   callback = function(event)
     local f = vim.fn.expand("<afile>")
     if vim.fn.getfsize(f) > constants.perf.maxfilesize then
-      -- vim.b.file_size_is_too_big = true
       vim.cmd([[
                 syntax clear
                 setlocal eventignore+=FileType
