@@ -20,6 +20,6 @@ let g:lin_nvim_builtin_constants = {
             \   },
             \ },
             \ 'perf': {
-            \   'maxfilesize': 1024 * 1024 * 5,
+            \   'maxfilesize': 1024 * 1024 * 2,
             \ },
             \ }
