@@ -1,4 +1,7 @@
+local constants = require("builtin.constants")
+
 require("snacks").setup({
+  bigfile = { enabled = true, notify = false, size = constants.perf.maxfilesize },
   indent = {
     enabled = true,
     animate = {
@@ -8,4 +11,5 @@ require("snacks").setup({
       enabled = false,
     },
   },
+  quickfile = { enabled = true },
 })
