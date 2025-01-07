@@ -962,10 +962,6 @@ require("heirline").setup({
   statusline = StatusLine,
   opts = {
     colors = setup_colors(vim.g.colors_name),
-    disable_winbar_cb = function(args)
-      local f = vim.fn.expand("<afile>")
-      return vim.fn.getfsize(f) > constants.perf.maxfilesize
-    end,
   },
 })
 
