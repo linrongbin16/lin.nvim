@@ -2,8 +2,11 @@ local constants = require("builtin.constants")
 
 require("illuminate").configure({
   delay = 300,
-  -- disable cursor word for big file
-  large_file_cutoff = constants.perf.maxfilesize,
+  -- disable for big file
+  should_enable = function(bufnr)
+    local f = vim.api.nvim_buf_get_name(bufnr)
+    return vim.fn.getfsize(f) <= constants.perf.maxfilesize
+  end,
 })
 
 -- highlight style

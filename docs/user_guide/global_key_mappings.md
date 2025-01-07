@@ -8,6 +8,7 @@
 - `<Leader>mp` 🄽 - Open markdown preview by `:MarkdownPreview`.
 - `<Leader>ms` 🄽 - Open lsp server manager by `:Mason`.
 - `<Leader>lz` 🄽 - Open plugin manager by `:Lazy`.
+- `<Leader>lg` 🄽 - Open lazygit by `:LazyGit`.
 - `<Leader>wk` 🄽 - Open key bindings by `:WhichKey`.
 
 ## Vim Keys
