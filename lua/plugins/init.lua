@@ -338,6 +338,7 @@ local M = {
   -- Surround
   {
     "tpope/vim-surround",
+    dependencies = { "tpope/vim-repeat" },
     event = { BufReadPre, BufNewFile, VeryLazy },
   },
   -- Structure outlines
