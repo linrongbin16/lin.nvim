@@ -41,7 +41,7 @@ require("aerial").setup({
     -- "Number",
     -- "Boolean",
     -- "Array",
-    -- "Object",
+    "Object",
     "Key",
     -- "Null",
     "EnumMember",
