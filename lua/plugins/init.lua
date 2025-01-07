@@ -56,10 +56,6 @@ local M = {
   {
     "RRethy/vim-illuminate",
     event = { VeryLazy },
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-      "neovim/nvim-lspconfig",
-    },
     config = lua_config("RRethy/vim-illuminate"),
   },
   {
