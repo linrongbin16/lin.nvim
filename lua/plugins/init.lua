@@ -341,10 +341,8 @@ local M = {
   },
   -- Surround
   {
-    "kylechui/nvim-surround",
-    version = "*",
+    "tpope/vim-surround",
     event = { BufReadPre, BufNewFile, VeryLazy },
-    config = lua_config("kylechui/nvim-surround"),
   },
   -- Structure outlines
   -- {
