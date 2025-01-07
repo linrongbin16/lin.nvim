@@ -1,7 +1,7 @@
-local keymap = require("builtin.utils.keymap")
+local set_lazy_key = require("builtin.utils.keymap").set_lazy_key
 
 local M = {
-  keymap.set_lazy_key("n", "<leader>lg", "<cmd>LazyGit<cr>", { desc = "Open lazygit in terminal" }),
+  set_lazy_key("n", "<leader>lg", "<cmd>LazyGit<cr>", { desc = "Open lazygit in terminal" }),
 }
 
 return M
