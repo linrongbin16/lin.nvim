@@ -14,12 +14,4 @@ require("aerial").setup({
     ),
     min_width = constants.window.layout.sidebar.min,
   },
-  keymaps = {
-    ["<C-w>v"] = "actions.jump_vsplit",
-    ["<C-v>"] = "false",
-    ["<C-w>s"] = "actions.jump_split",
-    ["<C-s>"] = "false",
-    ["W"] = "actions.tree_close_recursive",
-    ["E"] = "actions.tree_open_recursive",
-  },
 })
