@@ -322,22 +322,17 @@ local M = {
 
   -- ---- ENHANCEMENT ----
 
-  -- -- Auto pair/close
-  {
-    "windwp/nvim-autopairs",
-    event = { VeryLazy, InsertEnter },
-    config = lua_config("windwp/nvim-autopairs"),
-  },
-  -- Repeat
-  {
-    "tpope/vim-repeat",
-    event = { BufReadPre, BufNewFile, VeryLazy },
-  },
   -- Comment
   {
     "numToStr/Comment.nvim",
     event = { BufReadPre, BufNewFile, VeryLazy },
     -- config = lua_config("numToStr/Comment.nvim"),
+  },
+  -- -- Auto pair/close
+  {
+    "windwp/nvim-autopairs",
+    event = { VeryLazy, InsertEnter },
+    config = lua_config("windwp/nvim-autopairs"),
   },
   -- Surround
   {
@@ -345,6 +340,11 @@ local M = {
     version = "*",
     event = { BufReadPre, BufNewFile, VeryLazy },
     config = lua_config("kylechui/nvim-surround"),
+  },
+  -- Repeat
+  {
+    "tpope/vim-repeat",
+    event = { BufReadPre, BufNewFile, VeryLazy },
   },
   -- Structure outlines
   {
