@@ -1,4 +1,4 @@
-local constants = require("builtin.constants")
+local bigfile = require("builtin.utils.bigfile")
 
 require("ibl").setup({
   scope = { enabled = false },
@@ -6,6 +6,5 @@ require("ibl").setup({
 
 local hooks = require("ibl.hooks")
 hooks.register(hooks.type.ACTIVE, function(bufnr)
-  local f = vim.api.nvim_buf_get_name(bufnr)
-  return vim.fn.getfsize(f) <= constants.perf.maxfilesize
+  return bigfile.is_too_big(bufnr)
 end)

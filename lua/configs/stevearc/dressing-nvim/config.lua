@@ -1,14 +1,15 @@
 local constants = require("builtin.constants")
 
 local close_mappings = { ["<ESC>"] = "Close", ["<C-[>"] = "Close", ["<C-c>"] = "Close" }
-local window_min_width_value = 50
-local window_min_width_rate = 0.2
-local window_min_width = { window_min_width_value, window_min_width_rate }
+local min_width_value = constants.window.layout.prompt.min
+local min_width_rate = constants.window.layout.prompt.scale
+local min_width = { min_width_value, min_width_rate }
 
 require("dressing").setup({
   input = {
     border = constants.window.border,
-    min_width = window_min_width,
+    prefer_width = min_width_rate,
+    min_width = min_width,
     win_options = {
       winblend = constants.window.blend,
     },
@@ -25,11 +26,11 @@ require("dressing").setup({
       win_options = {
         winblend = constants.window.blend,
       },
-      min_width = window_min_width_value,
+      min_width = min_width_value,
     },
     builtin = {
       border = constants.window.border,
-      min_width = window_min_width,
+      min_width = min_width,
       win_options = {
         winblend = constants.window.blend,
       },
