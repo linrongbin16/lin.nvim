@@ -1,4 +1,4 @@
-local constants = require("builtin.constants")
+local bigfile = require("builtin.utils.bigfile")
 local message = require("builtin.utils.message")
 local uv = vim.uv or vim.loop
 
@@ -23,9 +23,7 @@ require("nvim-treesitter.configs").setup({
     enable = true,
     -- disable for super large file
     disable = function(lang, buf)
-      local max_filesize = constants.perf.maxfilesize
-      local ok, stats = pcall(uv.fs_stat, vim.api.nvim_buf_get_name(buf))
-      return ok and stats and stats.size > max_filesize
+      return bigfile.is_too_big(buf)
     end,
     additional_vim_regex_highlighting = false,
   },
