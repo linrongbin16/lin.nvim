@@ -1,6 +1,6 @@
 # Global Key Mappings
 
-## OS Keys
+## OS Standards
 
 The **CTRL** keys is the popular standard in windows system (and also popular among linux desktops), all key mappings are avoid confliction from them:
 
@@ -24,11 +24,7 @@ And for the **CMD** keys in mac system, key mappings are avoid as well:
 
 > Use `source $VIMRUNTIME/mswin.vim` to enable windows standard keys, `source $VIMRUNTIME/macmap.vim` to enable mac standard keys.
 
-## Window-Split Keys
-
-Window-split (i.e. `:split`, `:vsplit`) are almost never used since [bufferline.nvim](https://github.com/akinsho/bufferline.nvim) is used to manage buffers/tabs. Thus all window-split key mappings in other plugins are been removed.
-
-## Plugin Keys
+## Plugin Commands
 
 - `<Leader>nt` 🄽 - Toggle file explorer by `:Neotree`.
 - `<Leader>nf` 🄽 - Find/locate current file in file explorer by `:Neotree reveal`.
@@ -39,7 +35,7 @@ Window-split (i.e. `:split`, `:vsplit`) are almost never used since [bufferline.
 - `<Leader>lg` 🄽 - Open lazygit by `:LazyGit`.
 - `<Leader>wk` 🄽 - Open key bindings by `:WhichKey`.
 
-## Vim Keys
+## Misc
 
 ### Save Files
 
@@ -55,7 +51,7 @@ Window-split (i.e. `:split`, `:vsplit`) are almost never used since [bufferline.
 
 ### Copy/Paste over SSH
 
-> Copy/paste over SSH can be difficult since system clipboard is not syncronized. Here introduce two shortcuts using local cache:
+> Copy/paste over SSH can be difficult since system clipboard is not synchronized. Here introduce two shortcuts using local cache:
 
 - `<Leader>yy` 🅇 - Copy visual selected to `~/.nvim/.copypaste`.
 - `<Leader>pp` 🄽 - Paste from `~/.nvim/.copypaste` to current cursor.
