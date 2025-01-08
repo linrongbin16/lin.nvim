@@ -1,4 +1,3 @@
----@return boolean
 local function choose_auto_insert(ctx)
   if ctx.mode == "cmdline" then
     return true
@@ -18,18 +17,18 @@ local function choose_auto_insert(ctx)
   return false
 end
 
+local function choose_preselect(ctx)
+  return not choose_auto_insert(ctx)
+end
+
 require("blink.cmp").setup({
   completion = {
     list = {
       selection = {
         -- Use "auto_insert" for specific buf/win.
-        auto_insert = function(ctx)
-          return choose_auto_insert(ctx)
-        end,
+        auto_insert = choose_auto_insert,
         -- Otherwise use "preselect".
-        preselect = function(ctx)
-          return not choose_auto_insert(ctx)
-        end,
+        preselect = choose_preselect,
       },
     },
     accept = { auto_brackets = { enabled = true } },
