@@ -64,24 +64,6 @@ local lsp_goto_mapping = {
     },
     desc = "Go to LSP references",
   },
-  incoming_calls = {
-    mode = "n",
-    lhs = "<leader>ic",
-    rhs = {
-      "FzfxLspIncomingCalls",
-      { "lua", "vim.lsp.buf.incoming_calls()" },
-    },
-    desc = "Go to LSP incoming calls",
-  },
-  outgoing_calls = {
-    mode = "n",
-    lhs = "<leader>og",
-    rhs = {
-      "FzfxLspOutgoingCalls",
-      { "lua", "vim.lsp.buf.outgoing_calls()" },
-    },
-    desc = "Go to LSP outgoing calls",
-  },
   hover = {
     mode = "n",
     lhs = "K",
@@ -174,8 +156,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
     lsp_key("type_definition")
     lsp_key("implementation")
     lsp_key("reference")
-    lsp_key("incoming_calls")
-    lsp_key("outgoing_calls")
 
     lsp_key("hover")
     lsp_key("signature_help")

@@ -73,23 +73,6 @@ require("neo-tree").setup({
           require("neo-tree.ui.renderer").focus_node(state, node:get_parent_id())
         end
       end,
-      ["C"] = "none",
-      ["<space>"] = "none",
-      ["w"] = "none",
-
-      -- open in split/vsplit/tab
-      ["<C-w>s"] = "open_split",
-      ["<C-w>v"] = "open_vsplit",
-      ["<C-w>t"] = "open_tabnew",
-      ["S"] = "none",
-      ["s"] = "none",
-      ["t"] = "none",
-
-      -- expand/collapse
-      ["W"] = "close_all_nodes",
-      ["E"] = "expand_all_nodes",
-      ["z"] = "none",
-      ["e"] = "none",
 
       -- delete
       ["d"] = vim.fn.executable("trash") > 0 and trash_bin or "delete",
@@ -111,15 +94,9 @@ require("neo-tree").setup({
     use_libuv_file_watcher = true,
     window = {
       mappings = {
-        ["f"] = "fuzzy_finder",
-        ["<C-f>"] = "clear_filter",
-        ["<C-x>"] = "none",
-        ["/"] = "none",
-        ["#"] = "none",
-        ["<C-]>"] = "set_root",
+        ["<C-f>"] = "fuzzy_finder",
         ["[c"] = "prev_git_modified",
         ["]c"] = "next_git_modified",
-        ["D"] = "delete",
       },
     },
   },
