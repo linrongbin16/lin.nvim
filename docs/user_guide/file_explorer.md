@@ -24,7 +24,7 @@ Neo-tree also provide a lot of buffer-local key mappings (which only works insid
 - `l` 🄽 - Open file/directory.
 - `h` 🄽 - Close directory.
 - `<C-f>` 🄽 - Fuzzy finder.
-- `]c`/`[c` 🄽 - Navigate to next(👉)/previous(👈) git changes.
+- `[c`/`]c` 🄽 - Navigate to previous(👆)/next(👇) git changes.
 
 ?> Edit the plugin settings in [lua/configs/nvim-neo-tree/neo-tree-nvim](https://github.com/linrongbin16/lin.nvim/tree/main/lua/configs/nvim-neo-tree/neo-tree-nvim) directory.
 
