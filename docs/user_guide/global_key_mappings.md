@@ -1,5 +1,31 @@
 # Global Key Mappings
 
+## OS Keys
+
+The **CTRL** keys is the popular standard in windows system (and also popular among linux desktops), all key mappings are avoid confliction from them:
+
+- `CTRL+A`: Select all.
+- `CTRL+C`: Copy.
+- `CTRL+V`: Paste.
+- `CTRL+X`: Cut.
+- `CTRL+S`: Save file.
+- `CTRL+Z`: Undo.
+- ...
+
+And for the **CMD** keys in mac system, key mappings are avoid as well:
+
+- `CMD+A`: Select all.
+- `CMD+C`: Copy.
+- `CMD+V`: Paste.
+- `CMD+X`: Cut.
+- `CMD+S`: Save file.
+- `CMD+Z`: Undo.
+- ...
+
+## Window-Split Keys
+
+Window-split (i.e. `:split`, `:vsplit`) are almost never used since [bufferline.nvim](https://github.com/akinsho/bufferline.nvim) is used to manage buffers/tabs. Thus all window-split key mappings in other plugins are been removed.
+
 ## Plugin Keys
 
 - `<Leader>nt` 🄽 - Toggle file explorer by `:Neotree`.
