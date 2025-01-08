@@ -10,11 +10,10 @@
 
 <img width="70%" alt="image" src="https://github.com/linrongbin16/lin.nvim/assets/6496887/fdd9a455-2583-4a77-b9b5-4c27bfa74667">
 
-- `<C-N>`/`<C-P>`, `<Down>`/`<Up>` 🄸 - Navigate to next(👇) suggestion.
-- `<C-U>`/`<C-D>` 🄸 - Scroll up(👆)/down(👇) the suggestion docs.
+- `<C-N>`/`<C-P>`, `<Down>`/`<Up>` 🄸 - Navigate to next(👇)/previous(👆) suggestion.
 - `<TAB>`/`<CR>` 🄸 - Confirm current suggestion.
 - `<ESC>`/`<C-[>` 🄸 - Close suggestion.
-- `<C-F>`/`<C-B>` 🄸 - Navigate to next(👉)/previous(👈) snippet placeholder.
+- `<TAB>`/`<S-TAB>` 🄸 - Navigate to next(👉)/previous(👈) snippet placeholder when already in expanded snippets.
 
 ## Symbol Navigation
 
