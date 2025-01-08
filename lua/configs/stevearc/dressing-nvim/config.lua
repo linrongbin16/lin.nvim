@@ -8,6 +8,7 @@ local min_width = { min_width_value, min_width_rate }
 require("dressing").setup({
   input = {
     border = constants.window.border,
+    prefer_width = min_width_rate,
     min_width = min_width,
     win_options = {
       winblend = constants.window.blend,
