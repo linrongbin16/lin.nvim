@@ -31,7 +31,8 @@
 
 <img width="70%" alt="image" src="https://github.com/linrongbin16/lin.nvim/assets/6496887/96c76e7a-ce08-418f-8c21-7b49e94fefda">
 
-- `<Leader>ol` 🄽 - Toggle structure outlines by `:Outline!!`.
+- `<Leader>ol` 🄽 - Toggle structure outlines by `:Outline`.
+- `<Leader>or` 🄽 - Refresh structure outlines by `:OutlineRefresh`.
 
 ## Open URLs in Browser
 
