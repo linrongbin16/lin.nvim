@@ -22,6 +22,7 @@ require("outline").setup({
       "Variable",
       "Constant",
       "Package",
+      "Array",
       exclude = true,
     },
   },
