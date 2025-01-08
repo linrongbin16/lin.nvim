@@ -1,25 +1,35 @@
+local function choose_auto_insert(ctx)
+  if ctx.mode == "cmdline" then
+    return true
+  end
+  if
+    type(ctx.bufnr) == "number"
+    and ctx.bufnr >= 0
+    and vim.api.nvim_buf_is_valid(ctx.bufnr)
+    and vim.api.nvim_get_option_value("buftype", { buf = ctx.bufnr }) == "prompt"
+  then
+    return true
+  end
+  local cur_win = vim.api.nvim_get_current_win()
+  if vim.fn.win_gettype(cur_win) == "popup" then
+    return true
+  end
+  return false
+end
+
+local function choose_preselect(ctx)
+  return not choose_auto_insert(ctx)
+end
+
 require("blink.cmp").setup({
   completion = {
     list = {
-      -- Use "auto_insert" for specific buf/win, otherwise use "preselect".
-      selection = function(ctx)
-        if ctx.mode == "cmdline" then
-          return "auto_insert"
-        end
-        if
-          type(ctx.bufnr) == "number"
-          and ctx.bufnr >= 0
-          and vim.api.nvim_buf_is_valid(ctx.bufnr)
-          and vim.api.nvim_get_option_value("buftype", { buf = ctx.bufnr }) == "prompt"
-        then
-          return "auto_insert"
-        end
-        local cur_win = vim.api.nvim_get_current_win()
-        if vim.fn.win_gettype(cur_win) == "popup" then
-          return "auto_insert"
-        end
-        return "preselect"
-      end,
+      selection = {
+        -- Use "auto_insert" for specific buf/win.
+        auto_insert = choose_auto_insert,
+        -- Otherwise use "preselect".
+        preselect = choose_preselect,
+      },
     },
     accept = { auto_brackets = { enabled = true } },
     documentation = { auto_show = true },
@@ -56,21 +66,5 @@ require("blink.cmp").setup({
   signature = {
     enabled = true,
   },
-  sources = {
-    default = { "lsp", "path", "luasnip", "buffer" },
-  },
-  snippets = {
-    expand = function(snippet)
-      require("luasnip").lsp_expand(snippet)
-    end,
-    active = function(filter)
-      if filter and filter.direction then
-        return require("luasnip").jumpable(filter.direction)
-      end
-      return require("luasnip").in_snippet()
-    end,
-    jump = function(direction)
-      require("luasnip").jump(direction)
-    end,
-  },
+  snippets = { preset = "luasnip" },
 })
