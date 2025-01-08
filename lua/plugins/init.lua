@@ -342,6 +342,9 @@ local M = {
     cmd = {
       "Outline",
       "OutlineOpen",
+      "OutlineStatus",
+      "OutlineFollow",
+      "OutlineRefresh",
     },
     dependencies = {
       "neovim/nvim-lspconfig",
