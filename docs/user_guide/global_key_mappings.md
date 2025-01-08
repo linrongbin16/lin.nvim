@@ -4,23 +4,25 @@
 
 The **CTRL** keys is the popular standard in windows system (and also popular among linux desktops), all key mappings are avoid confliction from them:
 
-- `CTRL+A`: Select all.
-- `CTRL+C`: Copy.
-- `CTRL+V`: Paste.
-- `CTRL+X`: Cut.
-- `CTRL+S`: Save file.
-- `CTRL+Z`: Undo.
+- `CTRL-A`: Select all.
+- `CTRL-C`: Copy.
+- `CTRL-V`: Paste.
+- `CTRL-X`: Cut.
+- `CTRL-S`: Save file.
+- `CTRL-Z`: Undo.
 - ...
 
 And for the **CMD** keys in mac system, key mappings are avoid as well:
 
-- `CMD+A`: Select all.
-- `CMD+C`: Copy.
-- `CMD+V`: Paste.
-- `CMD+X`: Cut.
-- `CMD+S`: Save file.
-- `CMD+Z`: Undo.
+- `CMD-A`: Select all.
+- `CMD-C`: Copy.
+- `CMD-V`: Paste.
+- `CMD-X`: Cut.
+- `CMD-S`: Save file.
+- `CMD-Z`: Undo.
 - ...
+
+> Use `source $VIMRUNTIME/mswin.vim` to enable windows standard keys, `source $VIMRUNTIME/macmap.vim` to enable mac standard keys.
 
 ## Window-Split Keys
 
