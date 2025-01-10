@@ -176,6 +176,7 @@ local M = {
     },
     dependencies = { "junegunn/fzf" },
     config = lua_config("linrongbin16/fzfx.nvim"),
+    init = lua_init("linrongbin16/fzfx.nvim"),
     keys = lua_keys("linrongbin16/fzfx.nvim"),
     init = function()
       vim.g.fzfx_disable_buffer_previewer = 1

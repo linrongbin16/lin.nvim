@@ -95,6 +95,7 @@ require("neo-tree").setup({
     window = {
       mappings = {
         ["<C-f>"] = "fuzzy_finder",
+        ["/"] = "none",
         ["[c"] = "prev_git_modified",
         ["]c"] = "next_git_modified",
       },
