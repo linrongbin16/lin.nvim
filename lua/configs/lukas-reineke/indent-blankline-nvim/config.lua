@@ -6,5 +6,5 @@ require("ibl").setup({
 
 local hooks = require("ibl.hooks")
 hooks.register(hooks.type.ACTIVE, function(bufnr)
-  return bigfile.is_too_big(bufnr)
+  return not bigfile.is_too_big(bufnr)
 end)
