@@ -1055,7 +1055,7 @@ local function update_git_branch()
   local cwd = get_buffer_dir()
   local status_info = {}
   local failed_get_status = false
-  spawn.run({ "git", "-c", "color.status=never", "status", "-b", "--porcelain=v2" }, {
+  spawn.linewise({ "git", "-c", "color.status=never", "status", "-b", "--porcelain=v2" }, {
     cwd = cwd,
     on_stdout = function(line)
       if type(line) == "string" then
@@ -1065,38 +1065,39 @@ local function update_git_branch()
     on_stderr = function()
       status_info = nil
     end,
-  }, function(completed)
-    if
-      not failed_get_status
-      and tbl.tbl_get(completed, "code") == 0
-      and tbl.list_not_empty(status_info)
-    then
-      local branch_status = parse_git_status(status_info)
-
+    on_exit = function(completed)
       if
-        type(branch_status) == "table"
-        and type(branch_status.branch) == "string"
-        and string.len(branch_status.branch) > 0
+        not failed_get_status
+        and tbl.tbl_get(completed, "code") == 0
+        and tbl.list_not_empty(status_info)
       then
-        git_branch_name_cache = branch_status.branch
-      end
+        local branch_status = parse_git_status(status_info)
 
-      if tbl.tbl_not_empty(branch_status) then
-        git_branch_status_cache = branch_status
-      else
-        git_branch_status_cache = nil
+        if
+          type(branch_status) == "table"
+          and type(branch_status.branch) == "string"
+          and string.len(branch_status.branch) > 0
+        then
+          git_branch_name_cache = branch_status.branch
+        end
+
+        if tbl.tbl_not_empty(branch_status) then
+          git_branch_status_cache = branch_status
+        else
+          git_branch_status_cache = nil
+        end
       end
-    end
-    vim.schedule(function()
-      vim.api.nvim_exec_autocmds("User", {
-        pattern = "HeirlineGitBranchUpdated",
-        modeline = false,
-      })
       vim.schedule(function()
-        updating_git_branch = false
+        vim.api.nvim_exec_autocmds("User", {
+          pattern = "HeirlineGitBranchUpdated",
+          modeline = false,
+        })
+        vim.schedule(function()
+          updating_git_branch = false
+        end)
       end)
-    end)
-  end)
+    end,
+  })
 end
 
 vim.api.nvim_create_autocmd(
