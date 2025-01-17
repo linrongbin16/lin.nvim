@@ -1096,6 +1096,12 @@ local function update_git_branch()
         updating_git_branch = false
       end)
     end)
+
+
+
+
+
+
   end)
 end
 
