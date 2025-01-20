@@ -1068,7 +1068,7 @@ local function update_git_branch()
   }, function(completed)
     if
       not failed_get_status
-      and tbl.tbl_get(completed, "code") == 0
+      and tbl.tbl_get(completed, "exitcode") == 0
       and tbl.list_not_empty(status_info)
     then
       local branch_status = parse_git_status(status_info)
