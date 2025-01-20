@@ -3,7 +3,7 @@ require("colorbox").setup({
   filter = {
     "primary",
     function(color, spec)
-      return spec.github_stars >= 800
+      return spec.github_stars >= 900
     end,
     function(color, spec)
       return spec.handle ~= "navarasu/onedark.nvim"
