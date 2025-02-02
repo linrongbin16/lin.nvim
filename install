@@ -82,17 +82,21 @@ install_linux_ctags() {
 
 install_neovim_with_apt() {
 	info "install 'nvim'(appimage) from github.com"
-	sudo apt-get -qq -y install fuse
-	wget https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
-	sudo mkdir -p /usr/local/bin
-	chmod u+x nvim.appimage
-	sudo mv nvim.appimage /usr/local/bin/nvim
+	local arch=$(uname -m)
+	if [ "$arch" == "x86_64" ]; then
+		local appname="nvim-linux-x86_64.appimage"
+	else
+		local appname="nvim-linux-arm64.appimage"
+	fi
+	wget -q https://github.com/neovim/neovim/releases/download/stable/$appname
+	chmod u+x $appname
+	sudo mv $appname /usr/local/bin/nvim
 }
 
 install_nodejs_with_apt() {
 	# see: https://github.com/nodesource/distributions
 	info "install nodejs-lts from NodeSource"
-	sudo apt-get install -y curl
+	sudo apt-get -qq -y install curl
 	curl -fsSL https://deb.nodesource.com/setup_lts.x -o nodesource_setup.sh
 	sudo -E bash nodesource_setup.sh
 	sudo apt-get -qq update
@@ -115,7 +119,7 @@ install_git_with_apt() {
 
 install_lazygit_with_apt() {
 	LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | \grep -Po '"tag_name": *"v\K[^"]*')
-	curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+	curl -s -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
 	tar xf lazygit.tar.gz lazygit
 	sudo install lazygit -D -t /usr/local/bin/
 }
