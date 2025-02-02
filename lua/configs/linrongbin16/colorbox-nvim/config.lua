@@ -1,3 +1,8 @@
+local disabled_colors = {
+  ["navarasu/onedark.nvim"] = true,
+  ["zenbones-theme/zenbones.nvim"] = true,
+}
+
 require("colorbox").setup({
   background = "dark",
   filter = {
@@ -6,7 +11,7 @@ require("colorbox").setup({
       return spec.github_stars >= 800
     end,
     function(color, spec)
-      return spec.handle ~= "navarasu/onedark.nvim"
+      return type(spec.handle) == "string" and not disabled_colors[spec.handle]
     end,
   },
 })
