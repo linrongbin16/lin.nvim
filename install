@@ -88,7 +88,7 @@ install_neovim_with_apt() {
 	else
 		local appname="nvim-linux-arm64.appimage"
 	fi
-	wget https://github.com/neovim/neovim/releases/download/stable/$appname
+	wget -q https://github.com/neovim/neovim/releases/download/stable/$appname
 	chmod u+x $appname
 	sudo mv $appname /usr/local/bin/nvim
 }
@@ -96,7 +96,7 @@ install_neovim_with_apt() {
 install_nodejs_with_apt() {
 	# see: https://github.com/nodesource/distributions
 	info "install nodejs-lts from NodeSource"
-	sudo apt-get install -y curl
+	sudo apt-get -qq -y install curl
 	curl -fsSL https://deb.nodesource.com/setup_lts.x -o nodesource_setup.sh
 	sudo -E bash nodesource_setup.sh
 	sudo apt-get -qq update
