@@ -83,7 +83,7 @@ install_linux_ctags() {
 install_neovim_with_apt() {
 	info "install 'nvim'(appimage) from github.com"
 	sudo apt-get -qq -y install fuse
-	wget https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
+	wget https://github.com/neovim/neovim/releases/download/stable/nvim-linux-x86_64.appimage
 	sudo mkdir -p /usr/local/bin
 	chmod u+x nvim.appimage
 	sudo mv nvim.appimage /usr/local/bin/nvim
