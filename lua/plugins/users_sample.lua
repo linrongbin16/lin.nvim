@@ -23,7 +23,12 @@
 --     config = lua_config("gbprod/yanky.nvim"),
 --     keys = lua_keys("gbprod/yanky.nvim"),
 --   },
---
+--   -- Cursor column
+--   {
+--     "Bekaboo/deadcolumn.nvim",
+--     event = { VeryLazy, BufReadPre, BufNewFile },
+--     opts = {},
+--   },
 --   -- Cursor motion
 --   {
 --     "smoka7/hop.nvim",
@@ -33,64 +38,10 @@
 --     keys = lua_keys("smoka7/hop.nvim"),
 --   },
 --   {
---     "ggandor/leap.nvim",
---     event = { VeryLazy, BufReadPre, BufNewFile },
---     dependencies = { "tpope/vim-repeat" },
---     config = lua_config("ggandor/leap.nvim"),
---   },
---   {
 --     "folke/flash.nvim",
 --     event = { VeryLazy, BufReadPre, BufNewFile },
 --     config = lua_config("folke/flash.nvim"),
 --     keys = lua_keys("folke/flash.nvim"),
---   },
---   -- Java
---   {
---     "nvim-java/nvim-java",
---     dependencies = {
---       "nvim-java/lua-async-await",
---       "nvim-java/nvim-java-core",
---       "nvim-java/nvim-java-test",
---       "nvim-java/nvim-java-dap",
---       "MunifTanjim/nui.nvim",
---       "neovim/nvim-lspconfig",
---       "mfussenegger/nvim-dap",
---       "williamboman/mason.nvim",
---     },
---     event = { VeryLazy, InsertEnter, CmdlineEnter },
---     config = lua_config("nvim-java/nvim-java"),
---   },
---   -- Copilot
---   {
---     "zbirenbaum/copilot-cmp",
---     event = { VeryLazy, InsertEnter, CmdlineEnter },
---     config = lua_config("zbirenbaum/copilot-cmp"),
---   },
---   {
---     "zbirenbaum/copilot.lua",
---     event = { VeryLazy, InsertEnter, CmdlineEnter },
---     config = lua_config("zbirenbaum/copilot.lua"),
---   },
---   -- Codeium
---   {
---     "Exafunction/codeium.nvim",
---     event = { VeryLazy, BufReadPre, BufNewFile, CmdlineEnter },
---     config = lua_config("Exafunction/codeium.nvim"),
---   },
---   -- UI improved
---   {
---     "folke/noice.nvim",
---     event = { VimEnter },
---     dependencies = {
---       "MunifTanjim/nui.nvim",
---       "rcarriga/nvim-notify",
---     },
---     config = lua_config("folke/noice.nvim"),
---   },
---   {
---     "rcarriga/nvim-notify",
---     config = lua_config("rcarriga/nvim-notify"),
---     lazy = true,
 --   },
 --   -- Oil file manager
 --   {
@@ -172,23 +123,16 @@
 --     cmd = { "Spectre" },
 --     config = lua_config("nvim-pack/nvim-spectre"),
 --   },
---   -- Project/local configuration
---   {
---     "folke/neoconf.nvim",
---     config = lua_config("folke/neoconf.nvim"),
---   },
---   -- Neovim builtin lsp
+--   -- Neovim development
 --   {
 --     "folke/lazydev.nvim",
 --     ft = "lua", -- only load on lua files
---     opts = {},
---   },
---   -- Lsp server GC
---   {
---     "Zeioth/garbage-day.nvim",
---     event = { VeryLazy },
---     dependencies = { "neovim/nvim-lspconfig" },
---     config = lua_config("Zeioth/garbage-day.nvim"),
+--     dependencies = { "Bilal2453/luvit-meta" },
+--     opts = {
+--       library = {
+--         "Bilal2453/luvit-meta",
+--       },
+--     },
 --   },
 --   -- Mark word
 --   {
