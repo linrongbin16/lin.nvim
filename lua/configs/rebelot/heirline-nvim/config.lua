@@ -767,6 +767,33 @@ local function setup_common_colors()
 end
 
 ---@param lualine_theme table
+---@return boolean
+local function validate_lualine_theme(lualine_theme)
+  if tbl.tbl_empty(lualine_theme) then
+    return false
+  end
+  local check_list = {
+    { "normal", "a" },
+    { "normal", "b" },
+    { "normal", "c" },
+    { "insert", "a" },
+    { "visual", "a" },
+    { "replace", "a" },
+    { "command", "a" },
+  }
+  for _, c in ipairs(check_list) do
+    local mode = c[1]
+    local section = c[2]
+    for _, attr in ipairs({ "bg", "fg" }) do
+      if str.empty(tbl.tbl_get(lualine_theme, mode, section, attr)) then
+        return false
+      end
+    end
+  end
+  return true
+end
+
+---@param lualine_theme table
 ---@return table<string, string>
 local function setup_colors_from_lualine(lualine_theme)
   assert(type(lualine_theme) == "table")
@@ -810,6 +837,37 @@ local function setup_colors_from_lualine(lualine_theme)
     command_bg = command_bg,
     command_fg = command_fg,
   }
+end
+
+---@param airline_theme table
+---@return boolean
+local function validate_airline_theme(airline_theme)
+  if tbl.tbl_empty(airline_theme) then
+    return false
+  end
+  local check_list = {
+    { "normal", "a", 2 },
+    { "normal", "b", 2 },
+    { "normal", "c" },
+    { "insert", "a" },
+    { "visual", "a" },
+    { "replace", "a" },
+    { "terminal", "a" },
+  }
+  for _, c in ipairs(check_list) do
+    local mode = c[1]
+    local section = "airline_" .. c[2]
+    local value = tbl.tbl_get(airline_theme, mode, section)
+    if tbl.list_empty(value) then
+      return false
+    end
+    for _, attr in ipairs({ 1, 2 }) do
+      if str.empty(value[attr]) then
+        return false
+      end
+    end
+  end
+  return true
 end
 
 ---@param airline_theme table
@@ -946,9 +1004,9 @@ local function setup_colors(colorname)
   end
 
   local colors
-  if has_lualine and type(lualine_theme) == "table" then
+  if has_lualine and validate_lualine_theme(lualine_theme) then
     colors = setup_colors_from_lualine(lualine_theme)
-  elseif has_airline and type(airline_theme) == "table" then
+  elseif has_airline and validate_airline_theme(airline_theme) then
     colors = setup_colors_from_airline(airline_theme)
   else
     colors = setup_colors_from_auto_generating(colorname)
