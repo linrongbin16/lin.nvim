@@ -1,4 +1,5 @@
 vim.g.cursorword_highlight = 0
+vim.g.cursorword_delay = 100
 
 local cursorword_augroup = vim.api.nvim_create_augroup("cursorword_augroup", { clear = true })
 
