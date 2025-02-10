@@ -46,9 +46,9 @@ local M = {
   -- ---- HIGHLIGHT ----
 
   {
-    "itchyny/vim-cursorword",
+    "RRethy/vim-illuminate",
     event = { VeryLazy },
-    init = lua_init("itchyny/vim-cursorword"),
+    config = lua_config("RRethy/vim-illuminate"),
   },
   {
     "brenoprata10/nvim-highlight-colors",
