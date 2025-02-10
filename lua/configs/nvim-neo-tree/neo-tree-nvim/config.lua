@@ -62,6 +62,9 @@ require("neo-tree").setup({
       constants.window.layout.sidebar.max
     ),
     mappings = {
+      -- window pick
+      ["w"] = "none",
+
       -- open node
       ["l"] = "open",
       -- close node
