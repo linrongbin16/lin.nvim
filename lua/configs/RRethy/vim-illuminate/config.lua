@@ -9,11 +9,21 @@ require("illuminate").configure({
 })
 
 -- highlight style
-local vim_illuminate_augroup =
-  vim.api.nvim_create_augroup("vim_illuminate_augroup", { clear = true })
-vim.api.nvim_create_autocmd({ "UIEnter", "BufReadPre", "BufNewFile" }, {
-  group = vim_illuminate_augroup,
+local illuminate_augroup = vim.api.nvim_create_augroup("illuminate_augroup", { clear = true })
+vim.api.nvim_create_autocmd({ "UIEnter", "VimEnter", "Colorscheme" }, {
+  group = illuminate_augroup,
   callback = function()
-    vim.cmd([[hi illuminatedWord cterm=underline gui=underline]])
+    vim.schedule(function()
+      local cl = vim.api.nvim_get_hl(0, { name = "CursorLine", link = false }) --[[@as table]]
+      cl.bold = true
+      cl.underline = true
+      if type(cl.cterm) ~= "table" then
+        cl.cterm = {}
+      end
+      cl.cterm.bold = true
+      cl.cterm.underline = true
+      cl.force = true
+      vim.api.nvim_set_hl(0, "illuminatedWord", cl)
+    end)
   end,
 })
