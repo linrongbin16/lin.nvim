@@ -124,7 +124,7 @@
 --     dependencies = { "Bilal2453/luvit-meta" },
 --     opts = {
 --       library = {
---         "Bilal2453/luvit-meta",
+--         { path = "luvit-meta/library", words = { "vim%.uv", "uv%." } },
 --       },
 --     },
 --   },
