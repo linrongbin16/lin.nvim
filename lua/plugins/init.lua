@@ -254,10 +254,6 @@ local M = {
   },
 
   -- ---- AUTO-COMPLETE ----
-  -- {
-  --   "onsails/lspkind.nvim",
-  --   lazy = true,
-  -- },
   {
     "rafamadriz/friendly-snippets",
     lazy = true,
@@ -270,9 +266,17 @@ local M = {
     submodules = false,
   },
   {
+    "mikavilpas/blink-ripgrep.nvim",
+    lazy = true,
+  },
+  {
     "saghen/blink.cmp",
     lazy = false,
-    dependencies = { "rafamadriz/friendly-snippets", "L3MON4D3/LuaSnip" },
+    dependencies = {
+      "rafamadriz/friendly-snippets",
+      "L3MON4D3/LuaSnip",
+      "mikavilpas/blink-ripgrep.nvim",
+    },
     version = "v0.*",
     config = lua_config("saghen/blink.cmp"),
   },
