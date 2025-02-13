@@ -17,6 +17,12 @@
 -- local UIEnter = "UIEnter"
 --
 -- return {
+--   -- UI
+--   {
+--     "folke/noice.nvim",
+--     lazy = false,
+--     config = lua_config("folke/noice.nvim"),
+--   },
 --   -- Yank
 --   {
 --     "gbprod/yanky.nvim",
