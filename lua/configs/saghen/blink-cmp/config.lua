@@ -123,6 +123,7 @@ require("blink.cmp").setup({
             "composer.json", -- php
           },
           search_casing = "--case-sensitive",
+          additional_rg_options = { "--max-depth=5", "--max-columns=1000" },
         },
       },
     },
