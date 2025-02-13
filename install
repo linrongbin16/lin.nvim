@@ -81,16 +81,7 @@ install_linux_ctags() {
 # apt: ubuntu/debian {
 
 install_neovim_with_apt() {
-	info "install 'nvim'(appimage) from github.com"
-	local arch=$(uname -m)
-	if [ "$arch" == "x86_64" ]; then
-		local appname="nvim-linux-x86_64.appimage"
-	else
-		local appname="nvim-linux-arm64.appimage"
-	fi
-	wget -q https://github.com/neovim/neovim/releases/download/stable/$appname
-	chmod u+x $appname
-	sudo mv $appname /usr/local/bin/nvim
+	sudo snap install nvim --classic
 }
 
 install_nodejs_with_apt() {
@@ -117,11 +108,17 @@ install_git_with_apt() {
 	sudo apt-get -qq -y install git
 }
 
+install_golang_with_apt() {
+	git clone --depth=1 https://github.com/kerolloz/go-installer
+	export GOROOT="$HOME/.go" # where go is installed
+	export GOPATH="$HOME/go"  # user workspace
+	bash ./go-installer/go.sh
+	export PATH="$PATH:$GOROOT/bin"
+	export PATH="$PATH:$GOPATH/bin"
+}
+
 install_lazygit_with_apt() {
-	LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | \grep -Po '"tag_name": *"v\K[^"]*')
-	curl -s -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
-	tar xf lazygit.tar.gz lazygit
-	sudo install lazygit -D -t /usr/local/bin/
+	go install github.com/jesseduffield/lazygit@latest
 }
 
 apt_depends() {
@@ -140,6 +137,7 @@ apt_depends() {
 	install "sudo apt-get -qq -y install automake" "automake"
 	install "sudo apt-get -qq -y install pkg-config" "pkg-config"
 	install "sudo apt-get -qq -y install cmake" "cmake"
+	install "install_golang_with_apt" "go"
 
 	# download tools
 	install "install_git_with_apt" "git"
@@ -166,12 +164,9 @@ apt_depends() {
 	# nodejs
 	install "install_nodejs_with_apt" "node"
 
-	# # ctags
+	# dev tools
 	# install "install_ctags_with_apt" "ctags"
-
-	# develop tools
 	install "install_lazygit_with_apt" "lazygit"
-
 }
 
 # }
@@ -205,6 +200,7 @@ dnf_depends() {
 	install "sudo dnf install -y automake" "automake"
 	install "sudo dnf install -y pkg-config" "pkg-config"
 	install "sudo dnf install -y cmake" "cmake"
+	install "sudo dnf install -y golang" "go"
 
 	# download tools
 	install "sudo dnf install -y git" "git"
@@ -230,10 +226,8 @@ dnf_depends() {
 	# nodejs
 	install "sudo dnf install -y nodejs npm" "node"
 
-	# # ctags
+	# dev tools
 	# install "install_ctags_with_dnf" "ctags"
-
-	# develop tools
 	install "install_lazygit_with_dnf" "lazygit"
 }
 
@@ -255,6 +249,7 @@ pacman_depends() {
 	install "yes | sudo pacman -S automake" "automake"
 	install "yes | sudo pacman -S pkg-config" "pkg-config"
 	install "yes | sudo pacman -S cmake" "cmake"
+	install "yes | sudo pacman -S go" "go"
 
 	# download tools
 	install "yes | sudo pacman -S git" "git"
@@ -280,10 +275,8 @@ pacman_depends() {
 	# node
 	install "yes | sudo pacman -S nodejs npm" "node"
 
-	# # ctags
+	# dev tools
 	# install "yes | sudo pacman -S ctags" "ctags"
-
-	# develop tools
 	install "yes | sudo pacman -S lazygit" "lazygit"
 }
 
@@ -309,6 +302,7 @@ brew_depends() {
 	# c++ toolchain
 	install "brew install cmake" "cmake"
 	install "brew install pkg-config" "pkg-config"
+	install "brew install go" "go"
 
 	# download tools
 	install "brew install git" "git"
@@ -329,10 +323,8 @@ brew_depends() {
 	# nodejs
 	install "brew install node" "node"
 
-	# # ctags
+	# dev tools
 	# install "brew install universal-ctags" "ctags"
-
-	# develop tools
 	install "brew install jesseduffield/lazygit/lazygit" "lazygit"
 }
 
