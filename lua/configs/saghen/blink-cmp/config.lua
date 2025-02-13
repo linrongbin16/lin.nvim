@@ -33,6 +33,24 @@ require("blink.cmp").setup({
     },
     accept = { auto_brackets = { enabled = true } },
     documentation = { auto_show = true },
+    menu = {
+      draw = {
+        columns = {
+          { "kind_icon" },
+          { "label", "label_description", gap = 1 },
+          { "source_name" },
+        },
+        components = {
+          source_name = {
+            width = { max = 10 },
+            text = function(ctx)
+              return "[" .. ctx.source_name .. "]"
+            end,
+            highlight = "BlinkCmpSource",
+          },
+        },
+      },
+    },
   },
   keymap = {
     ["<CR>"] = { "accept", "fallback" },
@@ -65,6 +83,42 @@ require("blink.cmp").setup({
   },
   signature = {
     enabled = true,
+  },
+  sources = {
+    default = { "lsp", "path", "snippets", "buffer", "ripgrep" },
+    providers = {
+      ripgrep = {
+        module = "blink-ripgrep",
+        name = "RG",
+        opts = {
+          project_root_marker = {
+            ".git", -- git
+            "README.md", -- open source
+            "LICENSE",
+            ".editorconfig",
+            ".vimrc", -- vim/nvim
+            ".nvimrc",
+            ".idea", -- jetbrains
+            "Makefile", -- c/c++
+            "CMakeLists.txt",
+            "Cargo.toml", -- cargo/rust
+            "webpack.config.js", -- webpack
+            "package.json", -- nodejs
+            "deno.json", -- deno
+            "pom.xml", -- maven
+            "build.gradle", -- gradle
+            "pyproject.toml", -- python
+            "go.mod", -- golang
+            "go.sum",
+            "Gemfile", -- ruby
+            "Dockerfile", -- docker
+            "composer.json", -- php
+          },
+          search_casing = "--case-sensitive",
+          additional_rg_options = { "--max-depth=5", "--max-columns=1000", "--max-count=3000" },
+        },
+      },
+    },
   },
   snippets = { preset = "luasnip" },
 })
