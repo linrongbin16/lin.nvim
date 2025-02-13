@@ -33,6 +33,24 @@ require("blink.cmp").setup({
     },
     accept = { auto_brackets = { enabled = true } },
     documentation = { auto_show = true },
+    menu = {
+      draw = {
+        columns = {
+          { "kind_icon" },
+          { "label", "label_description", gap = 1 },
+          { "source_name" },
+        },
+        components = {
+          source_name = {
+            width = { max = 10 },
+            text = function(ctx)
+              return "[" .. ctx.source_name .. "]"
+            end,
+            highlight = "BlinkCmpSource",
+          },
+        },
+      },
+    },
   },
   keymap = {
     ["<CR>"] = { "accept", "fallback" },
