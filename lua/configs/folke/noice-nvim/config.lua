@@ -17,4 +17,12 @@ require("noice").setup({
     bottom_search = false,
     command_palette = false,
   },
+  views = {
+    cmdline_popup = {
+      size = {
+        width = 80,
+        height = 1,
+      },
+    },
+  },
 })
