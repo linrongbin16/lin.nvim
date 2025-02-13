@@ -20,7 +20,16 @@ require("snacks").setup({
     },
   },
   indent = { enabled = true, animate = { enabled = false }, scope = { enabled = false } },
-  input = {
+  input = { enabled = true },
+  picker = {
     enabled = true,
+    ui_select = true,
+    win = {
+      input = {
+        keys = {
+          ["<Esc>"] = { "close", mode = { "n", "i" } },
+        },
+      },
+    },
   },
 })
