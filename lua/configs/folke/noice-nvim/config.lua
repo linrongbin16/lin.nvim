@@ -1,35 +1,38 @@
--- shorter messages
-vim.opt.shortmess:append("sWAq")
+local constants = require("builtin.constants")
+local layout = require("builtin.utils.layout")
 
 require("noice").setup({
-  cmdline = {
-    view = "cmdline",
+  messages = {
+    enabled = false,
+  },
+  notify = {
+    enabled = false,
   },
   lsp = {
-    -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
-    override = {
-      ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-      ["vim.lsp.util.stylize_markdown"] = true,
-      ["cmp.entry.get_documentation"] = true,
-    },
     progress = { enabled = false },
+    hover = { enabled = false },
+    signature = { enabled = true },
+    message = { enabled = false },
   },
+  health = { checker = false },
   -- you can enable a preset for easier configuration
   presets = {
-    bottom_search = true, -- use a classic bottom cmdline for search
-    command_palette = true, -- position the cmdline and popupmenu together
-    long_message_to_split = false, -- long messages will be sent to a split
-    inc_rename = false, -- enables an input dialog for inc-rename.nvim
-    lsp_doc_border = true, -- add a border to hover docs and signature help
+    bottom_search = false,
+    command_palette = false,
   },
-  routes = {
-    {
-      filter = {
-        event = "msg_show",
-        kind = "",
-        find = "noeol",
+  views = {
+    cmdline_popup = {
+      size = {
+        width = layout.editor.width(
+          constants.window.layout.cmdline.scale,
+          constants.window.layout.cmdline.min,
+          constants.window.layout.cmdline.max
+        ),
+        height = 1,
       },
-      opts = { skip = true },
+      border = {
+        style = constants.window.border,
+      },
     },
   },
 })

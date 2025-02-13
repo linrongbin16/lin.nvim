@@ -38,6 +38,7 @@ local M = {
     "linrongbin16/colorbox.nvim",
     dev = true,
     priority = 1000,
+    lazy = false,
     config = lua_config("linrongbin16/colorbox.nvim"),
     build = function()
       require("colorbox").update()
@@ -46,10 +47,14 @@ local M = {
   -- UI improvements
   {
     "folke/snacks.nvim",
-    priority = 1000,
     lazy = false,
     config = lua_config("folke/snacks.nvim"),
     keys = lua_keys("folke/snacks.nvim"),
+  },
+  {
+    "folke/noice.nvim",
+    lazy = false,
+    config = lua_config("folke/noice.nvim"),
   },
 
   -- ---- HIGHLIGHT ----

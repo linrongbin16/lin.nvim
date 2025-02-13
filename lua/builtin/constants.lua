@@ -26,10 +26,15 @@ M.window = {
       min = 20,
       max = 60,
     },
-    prompt = {
+    input = {
       scale = 0.3,
       min = 20,
       max = 60,
+    },
+    cmdline = {
+      scale = 0.4,
+      min = 30,
+      max = 80,
     },
   },
   blend = 15,
