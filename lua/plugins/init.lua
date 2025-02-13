@@ -45,14 +45,12 @@ local M = {
   -- UI improvements
   {
     "folke/snacks.nvim",
-    priority = 500,
     lazy = false,
     config = lua_config("folke/snacks.nvim"),
     keys = lua_keys("folke/snacks.nvim"),
   },
   {
     "folke/noice.nvim",
-    priority = 500,
     lazy = false,
     config = lua_config("folke/noice.nvim"),
   },
