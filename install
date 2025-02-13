@@ -200,6 +200,7 @@ dnf_depends() {
 	install "sudo dnf install -y automake" "automake"
 	install "sudo dnf install -y pkg-config" "pkg-config"
 	install "sudo dnf install -y cmake" "cmake"
+	install "sudo dnf install -y golang" "go"
 
 	# download tools
 	install "sudo dnf install -y git" "git"
@@ -248,6 +249,7 @@ pacman_depends() {
 	install "yes | sudo pacman -S automake" "automake"
 	install "yes | sudo pacman -S pkg-config" "pkg-config"
 	install "yes | sudo pacman -S cmake" "cmake"
+	install "yes | sudo pacman -S go" "go"
 
 	# download tools
 	install "yes | sudo pacman -S git" "git"
@@ -300,6 +302,7 @@ brew_depends() {
 	# c++ toolchain
 	install "brew install cmake" "cmake"
 	install "brew install pkg-config" "pkg-config"
+	install "brew install go" "go"
 
 	# download tools
 	install "brew install git" "git"
