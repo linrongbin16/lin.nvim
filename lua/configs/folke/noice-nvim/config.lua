@@ -1,3 +1,6 @@
+local constants = require("builtin.constants")
+local layout = require("builtin.utils.layout")
+
 require("noice").setup({
   messages = {
     enabled = false,
@@ -20,8 +23,15 @@ require("noice").setup({
   views = {
     cmdline_popup = {
       size = {
-        width = 80,
+        width = layout.editor.width(
+          constants.window.layout.cmdline.scale,
+          constants.window.layout.cmdline.min,
+          constants.window.layout.cmdline.max
+        ),
         height = 1,
+      },
+      border = {
+        style = constants.window.border,
       },
     },
   },

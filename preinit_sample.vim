@@ -23,7 +23,8 @@ let g:lin_nvim_builtin_constants = {
             \       'middle': { 'scale': 0.85 },
             \       'large': { 'scale': 0.9 },
             \       'sidebar': { 'scale': 0.2, 'min': 20, 'max': 60 },
-            \       'prompt': { 'scale': 0.3, 'min': 20, 'max': 60 },
+            \       'input': { 'scale': 0.3, 'min': 20, 'max': 60 },
+            \       'cmdline': { 'scale': 0.4, 'min': 30, 'max': 80 },
             \   },
             \ },
             \ 'perf': {
