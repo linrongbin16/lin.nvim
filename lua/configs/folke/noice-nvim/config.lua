@@ -22,10 +22,6 @@ require("noice").setup({
   },
   views = {
     cmdline_popup = {
-      position = {
-        row = "20%",
-        col = "50%",
-      },
       size = {
         width = layout.editor.width(
           constants.window.layout.cmdline.scale,

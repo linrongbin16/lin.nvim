@@ -24,6 +24,20 @@ require("snacks").setup({
   picker = {
     enabled = true,
     ui_select = true,
+    layouts = {
+      select = {
+        layout = {
+          backdrop = false,
+          width = layout.editor.width(
+            constants.window.layout.select.scale,
+            constants.window.layout.select.min,
+            constants.window.layout.select.max
+          ),
+          min_width = constants.window.layout.select.min,
+          border = constants.window.border,
+        },
+      },
+    },
     win = {
       input = {
         keys = {
