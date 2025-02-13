@@ -31,6 +31,11 @@ M.window = {
       min = 20,
       max = 60,
     },
+    select = {
+      scale = 0.4,
+      min = 30,
+      max = 80,
+    },
     cmdline = {
       scale = 0.4,
       min = 30,

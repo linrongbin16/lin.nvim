@@ -24,6 +24,7 @@ let g:lin_nvim_builtin_constants = {
             \       'large': { 'scale': 0.9 },
             \       'sidebar': { 'scale': 0.2, 'min': 20, 'max': 60 },
             \       'input': { 'scale': 0.3, 'min': 20, 'max': 60 },
+            \       'select': { 'scale': 0.4, 'min': 30, 'max': 80 },
             \       'cmdline': { 'scale': 0.4, 'min': 30, 'max': 80 },
             \   },
             \ },
