@@ -21,6 +21,14 @@ local function choose_preselect(ctx)
   return not choose_auto_insert(ctx)
 end
 
+local function get_sources()
+  local value = { "lsp", "path", "snippets", "buffer" }
+  if vim.fn.executable("rg") > 0 then
+    table.insert(value, "ripgrep")
+  end
+  return value
+end
+
 require("blink.cmp").setup({
   completion = {
     list = {
@@ -83,6 +91,27 @@ require("blink.cmp").setup({
   },
   signature = {
     enabled = true,
+  },
+  sources = {
+    default = get_sources(),
+    providers = {
+      ripgrep = {
+        module = "blink-ripgrep",
+        name = "RG",
+        opts = {
+          project_root_marker = {
+            ".git",
+            "Cargo.toml",
+            "package.json",
+            "README.md",
+            "LICENSE",
+            "Gemfile",
+            "Dockerfile",
+          },
+          search_casing = "--case-sensitive",
+        },
+      },
+    },
   },
   snippets = { preset = "luasnip" },
 })
