@@ -37,7 +37,7 @@ set updatetime=300
 " search
 set magic
 set smartcase
-set ignorecase
+" set ignorecase
 set hlsearch
 set incsearch
 
