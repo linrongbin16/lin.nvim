@@ -45,6 +45,7 @@ local M = {
   {
     "folke/snacks.nvim",
     priority = 1000,
+    lazy = false,
     config = lua_config("folke/snacks.nvim"),
     keys = lua_keys("folke/snacks.nvim"),
   },
