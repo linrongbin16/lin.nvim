@@ -32,6 +32,7 @@ local M = {
     "linrongbin16/commons.nvim",
     lazy = true,
   },
+  -- Colorschemes
   {
     "linrongbin16/colorbox.nvim",
     priority = 1000,
@@ -39,6 +40,13 @@ local M = {
     build = function()
       require("colorbox").update()
     end,
+  },
+  -- UI improvements
+  {
+    "folke/snacks.nvim",
+    priority = 1000,
+    config = lua_config("folke/snacks.nvim"),
+    keys = lua_keys("folke/snacks.nvim"),
   },
 
   -- ---- HIGHLIGHT ----
@@ -90,24 +98,11 @@ local M = {
     config = lua_config("nvim-neo-tree/neo-tree.nvim"),
     keys = lua_keys("nvim-neo-tree/neo-tree.nvim"),
   },
-  -- Tabline
-  {
-    "moll/vim-bbye",
-    cmd = { "Bdelete", "Bwipeout" },
-    keys = lua_keys("moll/vim-bbye"),
-  },
   {
     "akinsho/bufferline.nvim",
     event = { VeryLazy },
-    dependencies = { "moll/vim-bbye" },
     config = lua_config("akinsho/bufferline.nvim"),
     keys = lua_keys("akinsho/bufferline.nvim"),
-  },
-  -- Indentline
-  {
-    "lukas-reineke/indent-blankline.nvim",
-    event = { VeryLazy },
-    config = lua_config("lukas-reineke/indent-blankline.nvim"),
   },
   -- Git
   {
@@ -134,13 +129,6 @@ local M = {
       "linrongbin16/lsp-progress.nvim",
     },
     config = lua_config("rebelot/heirline.nvim"),
-  },
-  -- UI improvement
-  {
-    "stevearc/dressing.nvim",
-    event = { VeryLazy },
-    dependencies = { "junegunn/fzf" },
-    config = lua_config("stevearc/dressing.nvim"),
   },
   {
     "stevearc/stickybuf.nvim",
