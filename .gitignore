@@ -7,7 +7,7 @@
 /mason
 /lazy
 /universal-ctags
-/golang-tools-install-script
+/go-installer
 
 # hooks
 /preinit.vim
