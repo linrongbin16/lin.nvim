@@ -23,24 +23,24 @@ require("snacks").setup({
   input = { enabled = true },
   picker = {
     enabled = true,
+    layouts = {
+      select = {
+        layout = {
+          width = layout.editor.width(
+            constants.window.layout.select.scale,
+            constants.window.layout.select.min,
+            constants.window.layout.select.max
+          ),
+          min_width = constants.window.layout.select.min,
+          border = constants.window.border,
+        },
+      },
+    },
     win = {
       input = {
         keys = {
           ["<Esc>"] = { "close", mode = { "n", "i" } },
         },
-      },
-    },
-    sources = {
-      select = {
-        config = function(opts)
-          opts.layout.layout.width = layout.editor.width(
-            constants.window.layout.select.scale,
-            constants.window.layout.select.min,
-            constants.window.layout.select.max
-          )
-          opts.layout.layout.min_width = constants.window.layout.select.min
-          opts.layout.layout.border = constants.window.border
-        end,
       },
     },
   },
