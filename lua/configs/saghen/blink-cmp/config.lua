@@ -100,13 +100,27 @@ require("blink.cmp").setup({
         name = "RG",
         opts = {
           project_root_marker = {
-            ".git",
-            "Cargo.toml",
-            "package.json",
-            "README.md",
+            ".git", -- git
+            "README.md", -- open source
             "LICENSE",
-            "Gemfile",
-            "Dockerfile",
+            ".editorconfig",
+            ".vimrc", -- vim/nvim
+            ".nvimrc",
+            ".idea", -- jetbrains
+            "Makefile", -- c/c++
+            "CMakeLists.txt",
+            "Cargo.toml", -- cargo/rust
+            "webpack.config.js", -- webpack
+            "package.json", -- nodejs
+            "deno.json", -- deno
+            "pom.xml", -- maven
+            "build.gradle", -- gradle
+            "pyproject.toml", -- python
+            "go.mod", -- golang
+            "go.sum",
+            "Gemfile", -- ruby
+            "Dockerfile", -- docker
+            "composer.json", -- php
           },
           search_casing = "--case-sensitive",
         },
