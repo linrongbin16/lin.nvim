@@ -7,7 +7,7 @@ vim.api.nvim_create_autocmd({ "UIEnter", "Colorscheme" }, {
   group = cursorword_augroup,
   callback = function()
     vim.schedule(function()
-      local cl = vim.api.nvim_get_hl(0, { name = "CursorLine", link = false }) --[[@as table]]
+      local cl = vim.api.nvim_get_hl(0, { name = "CursorLine", link = false })
       cl.bold = true
       cl.underline = true
       if type(cl.cterm) ~= "table" then
