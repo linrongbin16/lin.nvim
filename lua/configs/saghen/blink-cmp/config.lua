@@ -1,3 +1,5 @@
+local str = require("commons.str")
+
 local function choose_auto_insert(ctx)
   if ctx.mode == "cmdline" then
     return true
@@ -55,8 +57,34 @@ require("blink.cmp").setup({
   keymap = {
     ["<CR>"] = { "accept", "fallback" },
 
-    -- Use <Tab> to jump to next placeholder if already in an expanded snippet.
-    ["<Tab>"] = { "snippet_forward", "fallback" },
+    -- Use <Tab> to accept if there are suggestions, jump to next placeholder if already in an expanded snippet.
+    ["<Tab>"] = {
+      function(cmp)
+        if cmp.snippet_active() then
+          return cmp.accept()
+        else
+          -- Previous char index before cursor, start from 1.
+          local col = vim.fn.col(".") - 1
+
+          -- If previous char is not the beginning of the line.
+          if col > 0 then
+            local line = vim.fn.getline(".")
+            if string.len(line) >= col then
+              local char = string.sub(line, col, col) --[[@as string]]
+
+              -- If previous char is not whitespace, then accept the suggestion.
+              if str.not_empty(char) and not str.isspace(char) then
+                return cmp.select_and_accept()
+              end
+            end
+          end
+
+          -- Otherwise don't accept the suggestion, since user wants to input the <Tab>.
+        end
+      end,
+      "snippet_forward",
+      "fallback",
+    },
     -- Use <S-Tab> to jump to previous placeholder if already in an expanded snippet.
     ["<S-Tab>"] = { "snippet_backward", "fallback" },
 
