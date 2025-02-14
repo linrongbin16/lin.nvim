@@ -1,3 +1,5 @@
+local str = require("commons.str")
+
 local function choose_auto_insert(ctx)
   if ctx.mode == "cmdline" then
     return true
@@ -61,7 +63,15 @@ require("blink.cmp").setup({
         if cmp.snippet_active() then
           return cmp.accept()
         else
-          return cmp.select_and_accept()
+          -- Char index before cursor, start from 1.
+          local col = vim.fn.col(".") - 1
+          -- If previous char is not the beginning of the line.
+          if col > 0 then
+            local previous_char = vim.fn.getline(".")[col - 1] --[[@as string]]
+            if str.not_empty(previous_char) and str.isspace(vim.fn.getline(".")[col - 1]) then
+              return cmp.select_and_accept()
+            end
+          end
         end
       end,
       "snippet_forward",
