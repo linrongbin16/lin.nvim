@@ -1,5 +1,3 @@
-local str = require("commons.str")
-
 local function choose_auto_insert(ctx)
   if ctx.mode == "cmdline" then
     return true
@@ -70,16 +68,16 @@ require("blink.cmp").setup({
           if col > 0 then
             local line = vim.fn.getline(".")
             if string.len(line) >= col then
-              local char = string.sub(line, col, col) --[[@as string]]
+              local ch = string.sub(line, col, col)
 
               -- If previous char is not whitespace, then accept the suggestion.
-              if str.not_empty(char) and not str.isspace(char) then
+              if type(ch) == "string" and string.match(ch, "%s") == nil then
                 return cmp.select_and_accept()
               end
             end
           end
 
-          -- Otherwise don't accept the suggestion, since user wants to input the <Tab>.
+          -- Otherwise don't accept the suggestion, since user wants to input the <tab> character.
         end
       end,
       "snippet_forward",
