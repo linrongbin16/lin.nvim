@@ -143,7 +143,7 @@ function NvimConfig()
 {
   Info "install $env:USERPROFILE\.nvim neovim on windows"
   Backup $env:USERPROFILE\.nvim
-  Start-Process powershell "cmd /c mklink $NVIM_HOME $env:USERPROFILE\.nvim /D" -Verb RunAs -Wait
+  Start-Process powershell "cmd /c mklink /d  $env:USERPROFILE\.nvim $NVIM_HOME" -Verb RunAs -Wait
 
   # # nvim-treesitter
   # $NvimTreesitterHome = "$NVIM_HOME\lua\configs\nvim-treesitter\nvim-treesitter"
