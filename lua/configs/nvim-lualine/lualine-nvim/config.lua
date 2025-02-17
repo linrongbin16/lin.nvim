@@ -1,47 +1,36 @@
+local str = require("commons.str")
+local tbl = require("commons.tbl")
+local spawn = require("commons.spawn")
+
 local constants = require("builtin.constants")
 
-local function GetHl(...)
-  for _, name in ipairs({ ... }) do
-    if vim.fn.hlexists(name) > 0 then
-      local hl = vim.api.nvim_get_hl(0, { name = name, link = false })
-      if type(hl) == "table" and hl.fg ~= nil then
-        return tostring(hl.fg)
-      end
+local git_branch_name_cache = nil
+local git_branch_status_cache = nil
+
+local function GitBranchCondition()
+  return str.not_empty(git_branch_name_cache)
+end
+
+local function GitBranch()
+  -- if str.empty(git_branch_name_cache) then
+  --   return ""
+  -- end
+
+  local branch = "  " .. git_branch_name_cache .. " "
+
+  if type(git_branch_status_cache) == "table" then
+    if git_branch_status_cache["changed"] ~= nil then
+      branch = branch .. "* "
+    end
+    if type(git_branch_status_cache["ahead"]) == "number" then
+      branch = branch .. string.format("↑[%d] ", git_branch_status_cache["ahead"])
+    end
+    if type(git_branch_status_cache["behind"]) == "number" then
+      branch = branch .. string.format("↓[%d] ", git_branch_status_cache["behind"])
     end
   end
-  return nil
-end
 
-local function OsName()
-  if constants.os.is_windows then
-    return ""
-  elseif constants.os.is_macos then
-    return ""
-  else
-    return "󰣠"
-  end
-end
-
-local function FileSize()
-  local file = vim.fn.expand("%:p")
-  if file == nil or #file == 0 then
-    return ""
-  end
-  local size = vim.fn.getfsize(file)
-  if size <= 0 then
-    return ""
-  end
-
-  local suffixes = { "b", "k", "m", "g" }
-
-  local i = 1
-  while size > 1024 and i < #suffixes do
-    size = size / 1024
-    i = i + 1
-  end
-
-  local format = i == 1 and "[%d%s]" or "[%.1f%s]"
-  return string.format(format, size, suffixes[i])
+  return branch
 end
 
 local function GitDiffCondition()
@@ -65,6 +54,7 @@ end
 local function Location()
   return " %3l:%-2v"
 end
+
 local function Progress()
   local bar = " "
   local line_fraction = math.floor(vim.fn.line(".") / vim.fn.line("$") * 100)
@@ -77,22 +67,9 @@ local function Progress()
   end
 end
 
--- local SCROLL_BAR = { "▁", "▂", "▃", "▄", "▅", "▆", "▇", "█" }
---
--- local function ScrollBar()
---     local curr_line = vim.api.nvim_win_get_cursor(0)[1]
---     local lines = vim.api.nvim_buf_line_count(0)
---     local i = math.floor((curr_line - 1) / lines * #SCROLL_BAR) + 1
---     return string.rep(SCROLL_BAR[i], 2)
--- end
---
--- local ScrollBarColor = GetHl(
---     "LuaLineDiffDelete",
---     "GitSignsDelete",
---     "GitGutterDelete",
---     "DiffRemoved",
---     "DiffDelete"
--- ) or "#ff0038"
+local function CursorHex()
+  return " 0x%04B"
+end
 
 local empty_component_separators = { left = "", right = "" }
 
@@ -116,26 +93,19 @@ local config = {
     },
   },
   sections = {
-    lualine_a = {
-      OsName,
-      { "mode", padding = { left = 0, right = 1 } },
-    },
+    lualine_a = { "mode" },
     lualine_b = {
-      "branch",
+      "filename",
+      file_status = true,
+      symbols = {
+        modified = "[]", -- Text to show when the file is modified.
+        readonly = "[]", -- Text to show when the file is non-modifiable or readonly.
+        unnamed = "[No Name]", -- Text to show for unnamed buffers.
+        newfile = "[New]", -- Text to show for newly created file before first write
+      },
     },
     lualine_c = {
-      {
-        "filename",
-        file_status = true,
-        path = constants.os.is_windows and 0 or 4,
-        symbols = {
-          modified = "[]", -- Text to show when the file is modified.
-          readonly = "[]", -- Text to show when the file is non-modifiable or readonly.
-          unnamed = "[No Name]", -- Text to show for unnamed buffers.
-          newfile = "[New]", -- Text to show for newly created file before first write
-        },
-      },
-      { FileSize, padding = { left = 0, right = 1 } },
+      { GitBranch, cond = GitBranchCondition },
       {
         "diff",
         cond = GitDiffCondition,
@@ -169,6 +139,7 @@ local config = {
       "encoding",
     },
     lualine_z = {
+      { CursorHex, padding = { left = 1, right = 0 } },
       { Location, padding = { left = 1, right = 0 } },
       { Progress, padding = { left = 1, right = 0 } },
     },
@@ -188,3 +159,130 @@ vim.api.nvim_create_autocmd("User", {
     })
   end,
 })
+
+-- git branch info
+
+-- When current buffer is a file, get its directory.
+--- @return string?
+local function get_buffer_dir()
+  local bufnr = vim.api.nvim_get_current_buf()
+  if type(bufnr) == "number" and bufnr > 0 then
+    local bufname = vim.api.nvim_buf_get_name(bufnr)
+    if type(bufname) == "string" and string.len(bufname) > 0 then
+      local bufdir = vim.fn.fnamemodify(bufname, ":h")
+      if type(bufdir) == "string" and string.len(bufdir) > 0 and vim.fn.isdirectory(bufdir) > 0 then
+        return bufdir
+      end
+    end
+  end
+
+  return nil
+end
+
+-- Parse the output lines of `git status -b --porcelain=v2`.
+-- Get the branch name, ahead count, behind count, and if changed.
+--
+--- @param status_lines string[]
+--- @return {branch:string?,ahead:integer?,behind:integer?,changed:boolean?}?
+local function parse_git_status(status_lines)
+  local result = {}
+  for _, line in ipairs(status_lines) do
+    if str.startswith(line, "# branch.head") then
+      local branch_name = string.sub(line, 14)
+      result["branch"] = str.trim(branch_name)
+    end
+    if str.startswith(line, "# branch.ab") then
+      local ab_splits = str.split(line, " ", { trimempty = true })
+      if tbl.list_not_empty(ab_splits) then
+        for _, ab in ipairs(ab_splits) do
+          if str.startswith(ab, "+") and string.len(ab) > 1 then
+            local a_count = tonumber(string.sub(ab, 2))
+            if type(a_count) == "number" and a_count > 0 then
+              result["ahead"] = a_count
+            end
+          end
+          if str.startswith(ab, "-") and string.len(ab) > 1 then
+            local b_count = tonumber(string.sub(ab, 2))
+            if type(b_count) == "number" and b_count > 0 then
+              result["behind"] = b_count
+            end
+          end
+        end
+      end
+    end
+    if not str.startswith(line, "# branch") then
+      local changed_splits = str.split(line, " ", { plain = true, trimempty = true })
+      if tbl.list_not_empty(changed_splits) and tonumber(changed_splits[1]) ~= nil then
+        result["changed"] = true
+      end
+    end
+  end
+
+  if tbl.tbl_not_empty(result) then
+    return result
+  else
+    return nil
+  end
+end
+
+local updating_git_branch = false
+local function update_git_branch()
+  if updating_git_branch then
+    return
+  end
+  updating_git_branch = true
+
+  local cwd = get_buffer_dir()
+  local status_info = {}
+  local failed_get_status = false
+  spawn.detached({ "git", "-c", "color.status=never", "status", "-b", "--porcelain=v2" }, {
+    cwd = cwd,
+    on_stdout = function(line)
+      if type(line) == "string" then
+        table.insert(status_info, line)
+      end
+    end,
+    on_stderr = function()
+      status_info = nil
+    end,
+  }, function(completed)
+    if
+      not failed_get_status
+      and tbl.tbl_get(completed, "exitcode") == 0
+      and tbl.list_not_empty(status_info)
+    then
+      local branch_status = parse_git_status(status_info)
+
+      if
+        type(branch_status) == "table"
+        and type(branch_status.branch) == "string"
+        and string.len(branch_status.branch) > 0
+      then
+        git_branch_name_cache = branch_status.branch
+      end
+
+      if tbl.tbl_not_empty(branch_status) then
+        git_branch_status_cache = branch_status
+      else
+        git_branch_status_cache = nil
+      end
+    end
+    vim.schedule(function()
+      vim.api.nvim_exec_autocmds("User", {
+        pattern = "HeirlineGitBranchUpdated",
+        modeline = false,
+      })
+      vim.schedule(function()
+        updating_git_branch = false
+      end)
+    end)
+  end)
+end
+
+vim.api.nvim_create_autocmd(
+  { "FocusGained", "FocusLost", "TermLeave", "TermClose", "DirChanged", "BufEnter", "VimEnter" },
+  {
+    group = lualine_augroup,
+    callback = update_git_branch,
+  }
+)
