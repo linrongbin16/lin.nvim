@@ -4,8 +4,6 @@
 
 <p>
 <a href="https://github.com/neovim/neovim/releases/tag/stable"><img alt="Neovim-stable" src="https://img.shields.io/badge/require-stable-blue" /></a>
-<a href="https://github.com/linrongbin16/lin.nvim/search?l=lua"><img alt="Language" src="https://img.shields.io/github/languages/top/linrongbin16/lin.nvim" /></a>
-<a href="https://github.com/linrongbin16/lin.nvim/commits/main/"><img alt="CodeSize" src="https://img.shields.io/github/languages/code-size/linrongbin16/lin.nvim" /></a>
 <a href="https://github.com/linrongbin16/lin.nvim/actions/workflows/ci.yml"><img alt="ci.yml" src="https://img.shields.io/github/actions/workflow/status/linrongbin16/lin.nvim/ci.yml?label=ci" /></a>
 </p>
 
