@@ -16,17 +16,17 @@ local function GitBranch()
   --   return ""
   -- end
 
-  local branch = "  " .. git_branch_name_cache .. " "
+  local branch = " " .. git_branch_name_cache
 
   if type(git_branch_status_cache) == "table" then
     if git_branch_status_cache["changed"] ~= nil then
-      branch = branch .. "* "
+      branch = branch .. " *"
     end
     if type(git_branch_status_cache["ahead"]) == "number" then
-      branch = branch .. string.format("↑[%d] ", git_branch_status_cache["ahead"])
+      branch = branch .. string.format(" ↑[%d]", git_branch_status_cache["ahead"])
     end
     if type(git_branch_status_cache["behind"]) == "number" then
-      branch = branch .. string.format("↓[%d] ", git_branch_status_cache["behind"])
+      branch = branch .. string.format(" ↓[%d]", git_branch_status_cache["behind"])
     end
   end
 
