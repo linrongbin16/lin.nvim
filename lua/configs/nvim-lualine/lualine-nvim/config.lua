@@ -87,14 +87,17 @@ local config = {
     component_separators = empty_component_separators,
     section_separators = slash_section_separators,
     refresh = {
-      statusline = 3000,
-      tabline = 10000,
-      winbar = 10000,
+      statusline = 5000,
+      tabline = 100000,
+      winbar = 100000,
     },
   },
   sections = {
     lualine_a = { "mode" },
     lualine_b = {
+      { GitBranch, cond = GitBranchCondition },
+    },
+    lualine_c = {
       {
         "filename",
         file_status = true,
@@ -105,9 +108,6 @@ local config = {
           newfile = "[New]", -- Text to show for newly created file before first write
         },
       },
-    },
-    lualine_c = {
-      { GitBranch, cond = GitBranchCondition },
       {
         "diff",
         cond = GitDiffCondition,
@@ -173,6 +173,14 @@ local lualine_augroup = vim.api.nvim_create_augroup("lualine_augroup", { clear =
 vim.api.nvim_create_autocmd("User", {
   group = lualine_augroup,
   pattern = { "LspProgressStatusUpdated", "GitGutter", "LualineGitBranchUpdated" },
+  callback = function()
+    require("lualine").refresh({
+      place = { "statusline" },
+    })
+  end,
+})
+vim.api.nvim_create_autocmd({ "ModeChanged", "BufReadPre", "BufNewFile", "WinEnter" }, {
+  group = lualine_augroup,
   callback = function()
     require("lualine").refresh({
       place = { "statusline" },
