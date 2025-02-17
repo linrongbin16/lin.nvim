@@ -23,126 +23,86 @@ local function goto_diagnostic(next, severity)
   end
 end
 
-local lsp_goto_mapping = {
-  definition = {
-    mode = "n",
-    lhs = "gd",
-    rhs = {
-      "FzfxLspDefinitions",
-      { "Glance", "definitions" },
-      { "lua", "vim.lsp.buf.definition()" },
-    },
-    desc = "Go to LSP definitions",
-  },
-  type_definition = {
-    mode = "n",
-    lhs = "gt",
-    rhs = {
-      "FzfxLspTypeDefinitions",
-      { "Glance", "type_definitions" },
-      { "lua", "vim.lsp.buf.type_definition()" },
-    },
-    desc = "Go to LSP type definitions",
-  },
-  implementation = {
-    mode = "n",
-    lhs = "gi",
-    rhs = {
-      "FzfxLspImplementations",
-      { "Glance", "implementations" },
-      { "lua", "vim.lsp.buf.implementation()" },
-    },
-    desc = "Go to LSP implementations",
-  },
-  reference = {
-    mode = "n",
-    lhs = "gr",
-    rhs = {
-      "FzfxLspReferences",
-      { "Glance", "references" },
-      { "lua", "vim.lsp.buf.reference()" },
-    },
-    desc = "Go to LSP references",
-  },
-  hover = {
-    mode = "n",
-    lhs = "K",
-    rhs = {
-      { "lua", "vim.lsp.buf.hover()" },
-    },
-    desc = "Show hover",
-  },
-  signature_help = {
-    mode = { "n", "i" },
-    lhs = "<C-k>",
-    rhs = {
-      { "lua", "vim.lsp.buf.signature_help()" },
-    },
-    desc = "Show signature help",
-  },
-  rename = {
-    mode = "n",
-    lhs = "<Leader>rn",
-    rhs = {
-      { "lua", "vim.lsp.buf.rename()" },
-    },
-    desc = "Rename symbol",
-  },
-  code_action = {
-    mode = "n",
-    lhs = "<Leader>ca",
-    rhs = {
-      { "lua", "vim.lsp.buf.code_action()" },
-    },
-    desc = "Run code actions",
-  },
-  range_code_action = {
-    mode = "x",
-    lhs = "<Leader>ca",
-    rhs = {
-      { "lua", "vim.lsp.buf.range_code_action()" },
-    },
-    desc = "Run code actions",
-  },
-}
+local lsp_goto_mapping = {}
 
-local function lsp_key(name, optional)
-  local configs = lsp_goto_mapping[name]
-  assert(type(configs) == "table")
-
-  local hit = 0
-  local right_hands = configs.rhs
-  for _, right_hand in ipairs(right_hands) do
-    if type(right_hand) == "string" and vim.fn.exists(":" .. right_hand) > 0 then
-      set_key(
-        configs.mode,
-        configs.lhs,
-        string.format("<CMD>%s<CR>", right_hand),
-        make_opts(configs.desc)
-      )
-      hit = hit + 1
-      break
-    elseif
-      type(right_hand) == "table"
-      and type(right_hand[1]) == "string"
-      and vim.fn.exists(":" .. right_hand[1]) > 0
-    then
-      set_key(
-        configs.mode,
-        configs.lhs,
-        string.format("<CMD>%s<CR>", table.concat(right_hand, " ")),
-        make_opts(configs.desc)
-      )
-      hit = hit + 1
-      break
-    end
-  end
-  if optional then
-    assert(hit <= 1)
+set_key("n", "gd", function()
+  if vim.fn.exists(":FzfxLspDefinitions") > 0 then
+    vim.cmd("FzfxLspDefinitions")
   else
-    assert(hit == 1)
+    vim.lsp.buf.definition()
   end
-end
+end, { desc = "Go to LSP definitions" })
+
+set_key("n", "gt", function()
+  if vim.fn.exists(":FzfxLspTypeDefinitions") > 0 then
+    vim.cmd("FzfxLspTypeDefinitions")
+  else
+    vim.lsp.buf.type_definition()
+  end
+end, { desc = "Go to LSP type definitions" })
+
+set_key("n", "gi", function()
+  if vim.fn.exists(":FzfxLspImplementations") > 0 then
+    vim.cmd("FzfxLspImplementations")
+  else
+    vim.lsp.buf.implementation()
+  end
+end, { desc = "Go to LSP implementations" })
+
+set_key("n", "gr", function()
+  if vim.fn.exists(":FzfxLspReferences") > 0 then
+    vim.cmd("FzfxLspReferences")
+  else
+    vim.lsp.buf.references()
+  end
+end, { desc = "Go to LSP references" })
+
+set_key("n", "K", function()
+  vim.lsp.buf.hover()
+end, { desc = "Show LSP hover" })
+
+set_key({ "n", "i" }, "<C-k>", function()
+  vim.lsp.buf.signature_help()
+end, { desc = "Show LSP signature help" })
+
+set_key("n", "<Leader>rn", function()
+  vim.lsp.buf.rename()
+end, { desc = "Rename LSP symbol" })
+
+set_key("n", "<Leader>ca", function()
+  vim.lsp.buf.code_action()
+end, { desc = "Run LSP code action" })
+
+set_key("x", "<Leader>ca", function()
+  vim.lsp.buf.range_code_action()
+end, { desc = "Run LSP code action on visual selection" })
+
+set_key("n", "]d", goto_diagnostic(true), make_opts("Next diagnostic item"))
+set_key("n", "[d", goto_diagnostic(false), make_opts("Previous diagnostic item"))
+set_key(
+  "n",
+  "]e",
+  goto_diagnostic(true, vim.diagnostic.severity.ERROR),
+  make_opts("Go to next error")
+)
+set_key(
+  "n",
+  "[e",
+  goto_diagnostic(false, vim.diagnostic.severity.ERROR),
+  make_opts("Go to previous error")
+)
+set_key(
+  "n",
+  "]w",
+  goto_diagnostic(true, vim.diagnostic.severity.WARN),
+  make_opts("Go to next warning")
+)
+set_key(
+  "n",
+  "[w",
+  goto_diagnostic(false, vim.diagnostic.severity.WARN),
+  make_opts("Go to previous warning")
+)
 
 local builtin_lsp_augroup = vim.api.nvim_create_augroup("builtin_lsp_augroup", { clear = true })
 vim.api.nvim_create_autocmd("LspAttach", {
@@ -151,45 +111,5 @@ vim.api.nvim_create_autocmd("LspAttach", {
     vim.bo[ev.buf].formatexpr = nil
     vim.bo[ev.buf].omnifunc = nil
     vim.bo[ev.buf].tagfunc = nil
-
-    lsp_key("definition")
-    lsp_key("type_definition")
-    lsp_key("implementation")
-    lsp_key("reference")
-
-    lsp_key("hover")
-    lsp_key("signature_help")
-
-    lsp_key("rename")
-    lsp_key("code_action")
-    lsp_key("range_code_action")
-
-    -- diagnostic
-    set_key("n", "]d", goto_diagnostic(true), make_opts("Next diagnostic item"))
-    set_key("n", "[d", goto_diagnostic(false), make_opts("Previous diagnostic item"))
-    set_key(
-      "n",
-      "]e",
-      goto_diagnostic(true, vim.diagnostic.severity.ERROR),
-      make_opts("Go to next error")
-    )
-    set_key(
-      "n",
-      "[e",
-      goto_diagnostic(false, vim.diagnostic.severity.ERROR),
-      make_opts("Go to previous error")
-    )
-    set_key(
-      "n",
-      "]w",
-      goto_diagnostic(true, vim.diagnostic.severity.WARN),
-      make_opts("Go to next warning")
-    )
-    set_key(
-      "n",
-      "[w",
-      goto_diagnostic(false, vim.diagnostic.severity.WARN),
-      make_opts("Go to previous warning")
-    )
   end,
 })
