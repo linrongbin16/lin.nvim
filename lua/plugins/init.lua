@@ -127,13 +127,13 @@ local M = {
     config = lua_config("linrongbin16/lsp-progress.nvim"),
   },
   {
-    "rebelot/heirline.nvim",
+    "nvim-lualine/lualine.nvim",
     event = { VeryLazy },
     dependencies = {
       "linrongbin16/lsp-progress.nvim",
       dev = true,
     },
-    config = lua_config("rebelot/heirline.nvim"),
+    config = lua_config("nvim-lualine/lualine.nvim"),
   },
   {
     "stevearc/stickybuf.nvim",
