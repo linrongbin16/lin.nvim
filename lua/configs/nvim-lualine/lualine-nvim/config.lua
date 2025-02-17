@@ -95,13 +95,15 @@ local config = {
   sections = {
     lualine_a = { "mode" },
     lualine_b = {
-      "filename",
-      file_status = true,
-      symbols = {
-        modified = "[]", -- Text to show when the file is modified.
-        readonly = "[]", -- Text to show when the file is non-modifiable or readonly.
-        unnamed = "[No Name]", -- Text to show for unnamed buffers.
-        newfile = "[New]", -- Text to show for newly created file before first write
+      {
+        "filename",
+        file_status = true,
+        symbols = {
+          modified = "[]", -- Text to show when the file is modified.
+          readonly = "[]", -- Text to show when the file is non-modifiable or readonly.
+          unnamed = "[No Name]", -- Text to show for unnamed buffers.
+          newfile = "[New]", -- Text to show for newly created file before first write
+        },
       },
     },
     lualine_c = {
@@ -139,7 +141,7 @@ local config = {
       "encoding",
     },
     lualine_z = {
-      { CursorHex, padding = { left = 1, right = 0 } },
+      { CursorHex, padding = { right = 0 } },
       { Location, padding = { left = 1, right = 0 } },
       { Progress, padding = { left = 1, right = 0 } },
     },
