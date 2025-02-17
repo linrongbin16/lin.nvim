@@ -138,7 +138,25 @@ local config = {
           mac = " CR", -- e711
         },
       },
-      "encoding",
+      {
+        "encoding",
+        fmt = function(text)
+          local FileEncodingIcons = {
+            ["utf-8"] = "󰉿",
+            ["utf-16"] = "󰊀",
+            ["utf-32"] = "󰊁",
+            ["utf-8mb4"] = "󰊂",
+            ["utf-16le"] = "󰊃",
+            ["utf-16be"] = "󰊄",
+          }
+          local icon = FileEncodingIcons[text]
+          if str.empty(icon) then
+            return text
+          else
+            return icon .. " " .. text
+          end
+        end,
+      },
     },
     lualine_z = {
       { CursorHex, padding = { right = 0 } },
