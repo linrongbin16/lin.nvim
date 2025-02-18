@@ -10,10 +10,6 @@ vim.lsp.handlers["textDocument/hover"] =
 vim.lsp.handlers["textDocument/signatureHelp"] =
   vim.lsp.with(vim.lsp.handlers.signature_help, { border = constants.window.border })
 
-local function make_opts(value)
-  return { buffer = true, desc = value }
-end
-
 --- @param next boolean
 --- @param severity integer?
 local function goto_diagnostic(next, severity)
@@ -22,8 +18,6 @@ local function goto_diagnostic(next, severity)
     go({ severity = severity })
   end
 end
-
-local lsp_goto_mapping = {}
 
 set_key("n", "gd", function()
   if vim.fn.exists(":FzfxLspDefinitions") > 0 then
@@ -77,31 +71,31 @@ set_key("x", "<Leader>ca", function()
   vim.lsp.buf.range_code_action()
 end, { desc = "Run LSP code action on visual selection" })
 
-set_key("n", "]d", goto_diagnostic(true), make_opts("Next diagnostic item"))
-set_key("n", "[d", goto_diagnostic(false), make_opts("Previous diagnostic item"))
+set_key("n", "]d", goto_diagnostic(true), { desc = "Next diagnostic item" })
+set_key("n", "[d", goto_diagnostic(false), { desc = "Previous diagnostic item" })
 set_key(
   "n",
   "]e",
   goto_diagnostic(true, vim.diagnostic.severity.ERROR),
-  make_opts("Go to next error")
+  { desc = "Go to next error" }
 )
 set_key(
   "n",
   "[e",
   goto_diagnostic(false, vim.diagnostic.severity.ERROR),
-  make_opts("Go to previous error")
+  { desc = "Go to previous error" }
 )
 set_key(
   "n",
   "]w",
   goto_diagnostic(true, vim.diagnostic.severity.WARN),
-  make_opts("Go to next warning")
+  { desc = "Go to next warning" }
 )
 set_key(
   "n",
   "[w",
   goto_diagnostic(false, vim.diagnostic.severity.WARN),
-  make_opts("Go to previous warning")
+  { desc = "Go to previous warning" }
 )
 
 local builtin_lsp_augroup = vim.api.nvim_create_augroup("builtin_lsp_augroup", { clear = true })
