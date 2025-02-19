@@ -241,12 +241,6 @@ local M = {
     },
     config = lua_config("jay-babu/mason-null-ls.nvim"),
   },
-  -- Symbol navigation
-  {
-    "DNLHC/glance.nvim",
-    cmd = { "Glance" },
-    config = lua_config("DNLHC/glance.nvim"),
-  },
 
   -- ---- AUTO-COMPLETE ----
   {
