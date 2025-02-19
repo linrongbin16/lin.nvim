@@ -23,6 +23,12 @@
 --     lazy = false,
 --     config = lua_config("folke/noice.nvim"),
 --   },
+--   -- Symbol navigation
+--   {
+--     "DNLHC/glance.nvim",
+--     cmd = { "Glance" },
+--     config = lua_config("DNLHC/glance.nvim"),
+--   },
 --   -- Yank
 --   {
 --     "gbprod/yanky.nvim",
