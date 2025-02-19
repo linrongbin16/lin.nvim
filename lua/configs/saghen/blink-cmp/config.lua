@@ -1,34 +1,15 @@
-local function choose_auto_insert(ctx)
-  if ctx.mode == "cmdline" then
-    return true
-  end
-  if
-    type(ctx.bufnr) == "number"
-    and ctx.bufnr >= 0
-    and vim.api.nvim_buf_is_valid(ctx.bufnr)
-    and vim.api.nvim_get_option_value("buftype", { buf = ctx.bufnr }) == "prompt"
-  then
-    return true
-  end
-  local cur_win = vim.api.nvim_get_current_win()
-  if vim.fn.win_gettype(cur_win) == "popup" then
-    return true
-  end
-  return false
-end
-
-local function choose_preselect(ctx)
-  return not choose_auto_insert(ctx)
-end
-
 require("blink.cmp").setup({
   completion = {
     list = {
       selection = {
-        -- Use "auto_insert" for specific buf/win.
-        auto_insert = choose_auto_insert,
+        -- Use "auto_insert" for cmdline.
+        auto_insert = function(ctx)
+          return ctx.mode == "cmdline"
+        end,
         -- Otherwise use "preselect".
-        preselect = choose_preselect,
+        preselect = function(ctx)
+          return ctx.mode ~= "cmdline"
+        end,
       },
     },
     accept = { auto_brackets = { enabled = true } },
