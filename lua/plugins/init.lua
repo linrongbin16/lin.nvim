@@ -255,16 +255,11 @@ local M = {
     submodules = false,
   },
   {
-    "mikavilpas/blink-ripgrep.nvim",
-    lazy = true,
-  },
-  {
     "saghen/blink.cmp",
     lazy = false,
     dependencies = {
       "rafamadriz/friendly-snippets",
       "L3MON4D3/LuaSnip",
-      "mikavilpas/blink-ripgrep.nvim",
     },
     version = "v0.*",
     config = lua_config("saghen/blink.cmp"),
@@ -305,6 +300,20 @@ local M = {
 
   -- ---- ENHANCEMENT ----
 
+  -- Cursor motion
+  {
+    "smoka7/hop.nvim",
+    event = { VeryLazy, BufReadPre, BufNewFile },
+    version = "*",
+    config = lua_config("smoka7/hop.nvim"),
+    keys = lua_keys("smoka7/hop.nvim"),
+  },
+  {
+    "folke/flash.nvim",
+    event = { VeryLazy, BufReadPre, BufNewFile },
+    config = lua_config("folke/flash.nvim"),
+    keys = lua_keys("folke/flash.nvim"),
+  },
   -- Comment
   {
     "numToStr/Comment.nvim",
