@@ -65,8 +65,5 @@ require("blink.cmp").setup({
   signature = {
     enabled = true,
   },
-  sources = {
-    default = { "lsp", "path", "snippets", "buffer" },
-  },
   snippets = { preset = "luasnip" },
 })
