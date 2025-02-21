@@ -22,28 +22,18 @@
   <source src="https://github.com/linrongbin16/lin.nvim/assets/6496887/ac082f93-b60d-452a-a339-bad30a08bca0" type="video/mp4">
 </video>
 
-## Outline Structure and Undotree
+## Outline Structure
 
 <video width="70%" controls>
   <source src="https://github.com/linrongbin16/lin.nvim/assets/6496887/0adf8628-ccba-4082-a4ca-12490fce26b1" type="video/mp4">
 </video>
 
-## Float Terminal
-
-<video width="70%" controls>
-  <source src="https://github.com/linrongbin16/lin.nvim/assets/6496887/ac1a98da-a56f-4396-a938-0c447f57f358" type="video/mp4">
-</video>
+> Warning: The `undotree` feature is not a built-in feature.
 
 ## Tabline/Buffers
 
 <video width="70%" controls>
   <source src="https://github.com/linrongbin16/lin.nvim/assets/6496887/7fbbb203-7591-4dc6-97b8-eaa21b2172ec" type="video/mp4">
-</video>
-
-## Highlight Words
-
-<video width="70%" controls>
-  <source src="https://github.com/linrongbin16/lin.nvim/assets/6496887/30d12964-ac78-41e8-bb56-2f6f00ae6831" type="video/mp4">
 </video>
 
 ## CSS Color
