@@ -294,6 +294,20 @@ local M = {
 
   -- ---- ENHANCEMENT ----
 
+  -- Cursor motion
+  {
+    "smoka7/hop.nvim",
+    event = { VeryLazy, BufReadPre, BufNewFile },
+    version = "*",
+    config = lua_config("smoka7/hop.nvim"),
+    keys = lua_keys("smoka7/hop.nvim"),
+  },
+  {
+    "folke/flash.nvim",
+    event = { VeryLazy, BufReadPre, BufNewFile },
+    config = lua_config("folke/flash.nvim"),
+    keys = lua_keys("folke/flash.nvim"),
+  },
   -- Comment
   {
     "numToStr/Comment.nvim",
