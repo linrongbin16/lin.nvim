@@ -6,7 +6,7 @@ local stdpath_config = vim.fn.stdpath("config")
 local function vimloader(handle)
   local vimfile = stdpath_config .. string.format("/%s.vim", handle)
   if uv.fs_stat(vimfile) then
-    vim.fn.execute(string.format("source %s", vimfile), true)
+    vim.fn.execute(string.format("source %s", vimfile), "silent!")
   end
 end
 
