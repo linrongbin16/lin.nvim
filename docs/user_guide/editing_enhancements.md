@@ -19,6 +19,15 @@
 
 ?> Edit the plugin settings in [lua/configs/kdheepak/lazygit-nvim](https://github.com/linrongbin16/lin.nvim/tree/main/lua/configs/kdheepak/lazygit-nvim), [lua/configs/airblade/vim-gitgutter](https://github.com/linrongbin16/lin.nvim/tree/main/lua/configs/airblade/vim-gitgutter), [lua/configs/linrongbin16/gitlinker-nvim](https://github.com/linrongbin16/lin.nvim/tree/main/lua/configs/linrongbin16/gitlinker-nvim) and [lua/configs/f-person/git-blame-nvim](https://github.com/linrongbin16/lin.nvim/tree/main/lua/configs/f-person/git-blame-nvim) directory.
 
+## Cursor Motion
+
+?> Supported by [flash.nvim](https://github.com/folke/flash.nvim) and [hop.nvim](https://github.com/smoka7/hop.nvim).
+
+- `<Leader>j` 🄽 🅇 - Jump forward(👇) lines.
+- `<Leader>k` 🄽 🅇 - Jump backward(👆) lines.
+- `s` 🄽 🅇 - Jump to specific chars.
+- `f`/`F`/`t`/`T` 🄽 🅇 - Improved forward(👉)/backward(👈) motion, with `;` repeat supported.
+
 ## Comments
 
 ?> Supported by [Comment.nvim](https://github.com/numToStr/Comment.nvim).
