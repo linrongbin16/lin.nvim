@@ -22,7 +22,7 @@ And for the **CMD** keys in mac system, key mappings are avoid as well:
 - `CMD-Z`: Undo.
 - ...
 
-> Use `source $VIMRUNTIME/mswin.vim` to enable windows standard keys, `source $VIMRUNTIME/macmap.vim` to enable mac standard keys.
+> You can use `source $VIMRUNTIME/mswin.vim` to enable windows standard keys, `source $VIMRUNTIME/macmap.vim` to enable mac standard keys.
 
 ## Plugin Commands
 
