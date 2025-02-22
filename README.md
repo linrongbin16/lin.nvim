@@ -66,6 +66,8 @@ And that's all of it.
 
   ![image](https://github.com/linrongbin16/lin.nvim/assets/6496887/bca811b5-8b1a-42c0-9283-c38e75f2f06a)
 
+- Install [7-zip](https://www.7-zip.org/).
+
 - Install [Python 3](https://www.python.org/downloads/) (Note: python 2 is no longer supported).
 
 - Install [Node.js](https://nodejs.org/en/download/package-manager).
