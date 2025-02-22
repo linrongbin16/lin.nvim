@@ -102,8 +102,8 @@ Run below PowerShell commands:
 Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
 irm get.scoop.sh | iex
 
-git clone https://github.com/linrongbin16/lin.nvim $env:USERPROFILE\AppData\Local\nvim
-cd $env:USERPROFILE\AppData\Local\nvim
+git clone https://github.com/linrongbin16/lin.nvim $env:USERPROFILE\.nvim
+cd $env:USERPROFILE\.nvim
 .\install.ps1
 ```
 

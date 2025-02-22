@@ -1,7 +1,7 @@
 # Debug
 # Set-PSDebug -Trace 1
 
-$NVIM_HOME = "$env:LOCALAPPDATA\nvim"
+$NVIM_HOME = "$env:USERPROFILE\.nvim"
 
 # utils
 
@@ -141,9 +141,9 @@ function NerdFontDependency()
 
 function NvimConfig()
 {
-  Info "install $env:USERPROFILE\.nvim neovim on windows"
-  Backup $env:USERPROFILE\.nvim
-  Start-Process powershell "cmd /c mklink /d  $env:USERPROFILE\.nvim $NVIM_HOME" -Verb RunAs -Wait
+  Info "install $env:LOCALAPPDATA\nvim\init.lua for neovim on windows"
+  Backup $env:LOCALAPPDATA\nvim
+  Start-Process powershell "cmd /c mklink $env:LOCALAPPDATA\nvim $NVIM_HOME /D" -Verb RunAs -Wait
 
   # # nvim-treesitter
   # $NvimTreesitterHome = "$NVIM_HOME\lua\configs\nvim-treesitter\nvim-treesitter"
