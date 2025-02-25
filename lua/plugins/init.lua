@@ -316,9 +316,9 @@ local M = {
   },
   -- -- Auto pair/close
   {
-    "windwp/nvim-autopairs",
+    "cohama/lexima.vim",
     event = { VeryLazy, InsertEnter },
-    config = lua_config("windwp/nvim-autopairs"),
+    init = lua_init("cohama/lexima.vim"),
   },
   -- Surround
   {

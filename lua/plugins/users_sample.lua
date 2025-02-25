@@ -17,6 +17,12 @@
 -- local UIEnter = "UIEnter"
 --
 -- return {
+--   -- Auto-pairs
+--   {
+--     "windwp/nvim-autopairs",
+--     event = { VeryLazy, InsertEnter },
+--     config = lua_config("windwp/nvim-autopairs"),
+--   },
 --   -- UI
 --   {
 --     "folke/noice.nvim",
