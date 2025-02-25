@@ -17,6 +17,11 @@
 -- local UIEnter = "UIEnter"
 --
 -- return {
+--   -- Split-join
+--   {
+--     "AndrewRadev/splitjoin.vim",
+--     event = { BufReadPre, BufNewFile, VeryLazy },
+--   },
 --   -- Surround
 --   {
 --     "kylechui/nvim-surround",
