@@ -17,6 +17,13 @@
 -- local UIEnter = "UIEnter"
 --
 -- return {
+--   -- Surround
+--   {
+--     "kylechui/nvim-surround",
+--     version = "*",
+--     event = { BufReadPre, BufNewFile, VeryLazy },
+--     config = lua_config("kylechui/nvim-surround"),
+--   },
 --   -- Comment
 --   {
 --     "numToStr/Comment.nvim",

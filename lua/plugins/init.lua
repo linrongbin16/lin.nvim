@@ -319,17 +319,16 @@ local M = {
     event = { VeryLazy, InsertEnter },
     init = lua_init("cohama/lexima.vim"),
   },
-  -- Surround
-  {
-    "kylechui/nvim-surround",
-    version = "*",
-    event = { BufReadPre, BufNewFile, VeryLazy },
-    config = lua_config("kylechui/nvim-surround"),
-  },
   -- Repeat
   {
     "tpope/vim-repeat",
     event = { BufReadPre, BufNewFile, VeryLazy },
+  },
+  -- Surround
+  {
+    "tpope/vim-surround",
+    event = { BufReadPre, BufNewFile, VeryLazy },
+    dependencies = { "tpope/vim-repeat" },
   },
   -- Structure outlines
   {
