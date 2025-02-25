@@ -17,6 +17,11 @@
 -- local UIEnter = "UIEnter"
 --
 -- return {
+--   -- No-highlight
+--   {
+--     "romainl/vim-cool",
+--     event = { BufReadPre, BufNewFile, VeryLazy },
+--   },
 --   -- Split-join
 --   {
 --     "AndrewRadev/splitjoin.vim",
