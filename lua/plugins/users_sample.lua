@@ -21,6 +21,7 @@
 --   {
 --     "AndrewRadev/splitjoin.vim",
 --     event = { BufReadPre, BufNewFile, VeryLazy },
+--     submodules = false,
 --   },
 --   -- Surround
 --   {
