@@ -310,9 +310,8 @@ local M = {
   },
   -- Comment
   {
-    "numToStr/Comment.nvim",
+    "tomtom/tcomment_vim",
     event = { BufReadPre, BufNewFile, VeryLazy },
-    -- config = lua_config("numToStr/Comment.nvim"),
   },
   -- -- Auto pair/close
   {

@@ -17,6 +17,12 @@
 -- local UIEnter = "UIEnter"
 --
 -- return {
+--   -- Comment
+--   {
+--     "numToStr/Comment.nvim",
+--     event = { BufReadPre, BufNewFile, VeryLazy },
+--     config = lua_config("numToStr/Comment.nvim"),
+--   },
 --   -- Auto-pairs
 --   {
 --     "windwp/nvim-autopairs",
