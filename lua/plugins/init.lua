@@ -313,11 +313,11 @@ local M = {
     "tomtom/tcomment_vim",
     event = { BufReadPre, BufNewFile, VeryLazy },
   },
-  -- Auto pair/close
+  -- Auto-pairs
   {
-    "cohama/lexima.vim",
+    "windwp/nvim-autopairs",
     event = { VeryLazy, InsertEnter },
-    init = lua_init("cohama/lexima.vim"),
+    config = lua_config("windwp/nvim-autopairs"),
   },
   -- Repeat
   {
