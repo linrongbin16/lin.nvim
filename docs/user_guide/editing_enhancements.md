@@ -64,7 +64,7 @@
 
 ## Auto-pair
 
-?> Supported by [lexima.vim](https://github.com/cohama/lexima.vim).
+?> Supported by [nvim-autopairs](https://github.com/windwp/nvim-autopairs).
 
 ## Surroundings
 
