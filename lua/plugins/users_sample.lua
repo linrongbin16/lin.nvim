@@ -17,6 +17,30 @@
 -- local UIEnter = "UIEnter"
 --
 -- return {
+--   -- No-highlight
+--   {
+--     "romainl/vim-cool",
+--     event = { BufReadPre, BufNewFile, VeryLazy },
+--   },
+--   -- Split-join
+--   {
+--     "AndrewRadev/splitjoin.vim",
+--     event = { BufReadPre, BufNewFile, VeryLazy },
+--     submodules = false,
+--   },
+--   -- Surround
+--   {
+--     "kylechui/nvim-surround",
+--     version = "*",
+--     event = { BufReadPre, BufNewFile, VeryLazy },
+--     config = lua_config("kylechui/nvim-surround"),
+--   },
+--   -- Comment
+--   {
+--     "numToStr/Comment.nvim",
+--     event = { BufReadPre, BufNewFile, VeryLazy },
+--     config = lua_config("numToStr/Comment.nvim"),
+--   },
 --   -- UI
 --   {
 --     "folke/noice.nvim",

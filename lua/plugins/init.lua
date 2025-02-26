@@ -316,27 +316,25 @@ local M = {
   },
   -- Comment
   {
-    "numToStr/Comment.nvim",
+    "tomtom/tcomment_vim",
     event = { BufReadPre, BufNewFile, VeryLazy },
-    -- config = lua_config("numToStr/Comment.nvim"),
   },
-  -- -- Auto pair/close
+  -- Auto-pairs
   {
     "windwp/nvim-autopairs",
     event = { VeryLazy, InsertEnter },
     config = lua_config("windwp/nvim-autopairs"),
   },
-  -- Surround
-  {
-    "kylechui/nvim-surround",
-    version = "*",
-    event = { BufReadPre, BufNewFile, VeryLazy },
-    config = lua_config("kylechui/nvim-surround"),
-  },
   -- Repeat
   {
     "tpope/vim-repeat",
     event = { BufReadPre, BufNewFile, VeryLazy },
+  },
+  -- Surround
+  {
+    "tpope/vim-surround",
+    event = { BufReadPre, BufNewFile, VeryLazy },
+    dependencies = { "tpope/vim-repeat" },
   },
   -- Structure outlines
   {

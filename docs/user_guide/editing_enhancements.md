@@ -30,9 +30,7 @@
 
 ## Comments
 
-?> Supported by [Comment.nvim](https://github.com/numToStr/Comment.nvim).
-
-?> For full key mappings, please check out [Comment's usage](https://github.com/numToStr/Comment.nvim#-usage).
+?> Supported by [tcomment_vim](https://github.com/tomtom/tcomment_vim).
 
 ## Structure Outlines
 
@@ -70,6 +68,4 @@
 
 ## Surroundings
 
-?> Supported by [nvim-surround](https://github.com/kylechui/nvim-surround).
-
-?> For full key mappings, please check out [surround's usage](https://github.com/kylechui/nvim-surround#rocket-usage).
+?> Supported by [vim-surround](https://github.com/tpope/vim-surround).
