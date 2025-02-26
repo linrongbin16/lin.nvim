@@ -313,7 +313,7 @@ local M = {
     "tomtom/tcomment_vim",
     event = { BufReadPre, BufNewFile, VeryLazy },
   },
-  -- -- Auto pair/close
+  -- Auto pair/close
   {
     "cohama/lexima.vim",
     event = { VeryLazy, InsertEnter },
