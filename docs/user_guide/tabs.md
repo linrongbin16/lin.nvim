@@ -1,6 +1,6 @@
 # Tabs
 
-?> Supported by [bufferline.nvim](https://github.com/akinsho/bufferline.nvim) and [vim-bbye](https://github.com/moll/vim-bbye).
+?> Supported by [bufferline.nvim](https://github.com/akinsho/bufferline.nvim) and [snacks.nvim](https://github.com/folke/snacks.nvim).
 
 Tabs is the tabline at the top of the Neovim editor, shows opened buffers/files.
 
@@ -14,7 +14,7 @@ Here're some most useful keys:
 
 - `<Leader>1` ~ `<Leader>9`, `<Leader>0` 🄽 - Go to the 1st ~ 9th buffer, and the last buffer.
 - `]b`/`[b` 🄽 - Go to next(👉)/previous(👈) buffer.
-- `<Leader>bd`/`<Leader>bD` 🄽 - Close current buffer by `:Bdelete`, or forcibly by `:Bdelete!`.
+- `<Leader>bd`/`<Leader>bD` 🄽 - Close current buffer by `require("snacks").bufdelete()`, or forcibly with `{force=true}` option.
 
 ## Move/Re-order
 
