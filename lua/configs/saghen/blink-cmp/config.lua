@@ -1,17 +1,34 @@
 require("blink.cmp").setup({
-  completion = {
-    list = {
-      selection = {
-        -- Use "auto_insert" for cmdline.
-        auto_insert = function(ctx)
-          return ctx.mode == "cmdline"
-        end,
-        -- Otherwise use "preselect".
-        preselect = function(ctx)
-          return ctx.mode ~= "cmdline"
-        end,
-      },
+  cmdline = {
+    completion = {
+      list = { selection = { preselect = false } },
+      menu = { auto_show = true },
     },
+    enabled = true,
+    keymap = {
+      ["<CR>"] = { "accept", "fallback" },
+
+      -- Use <Tab> to accept if there are suggestions, or select next.
+      ["<Tab>"] = {
+        function(cmp)
+          if cmp.is_ghost_text_visible() and not cmp.is_menu_visible() then
+            return cmp.accept()
+          end
+        end,
+        "show_and_insert",
+        "select_next",
+        "fallback",
+      },
+      -- Use <S-Tab> to select previous.
+      ["<S-Tab>"] = { "select_prev", "fallback" },
+
+      ["<Up>"] = { "select_prev", "fallback" },
+      ["<Down>"] = { "select_next", "fallback" },
+      ["<C-p>"] = { "select_prev", "fallback" },
+      ["<C-n>"] = { "select_next", "fallback" },
+    },
+  },
+  completion = {
     accept = { auto_brackets = { enabled = true } },
     documentation = { auto_show = true },
     menu = {
