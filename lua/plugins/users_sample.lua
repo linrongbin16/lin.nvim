@@ -28,6 +28,12 @@
 --     event = { BufReadPre, BufNewFile, VeryLazy },
 --     submodules = false,
 --   },
+--   -- Auto-pairs
+--   {
+--     "windwp/nvim-autopairs",
+--     event = { VeryLazy, InsertEnter },
+--     config = lua_config("windwp/nvim-autopairs"),
+--   },
 --   -- Surround
 --   {
 --     "kylechui/nvim-surround",
