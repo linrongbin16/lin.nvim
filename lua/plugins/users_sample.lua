@@ -17,6 +17,11 @@
 -- local UIEnter = "UIEnter"
 --
 -- return {
+--   -- Vim editing behavior
+--   {
+--     "m4xshen/hardtime.nvim",
+--     dependencies = { "MunifTanjim/nui.nvim" },
+--   },
 --   -- No-highlight
 --   {
 --     "romainl/vim-cool",
