@@ -90,7 +90,7 @@ apt_install_lazygit() {
 	go install github.com/jesseduffield/lazygit@latest
 }
 
-apt_install_deps() {
+apt_deps() {
 	info "apt install dependencies"
 	sudo locale-gen en_US
 	sudo locale-gen en_US.UTF-8
@@ -142,7 +142,7 @@ dnf_install_lazygit() {
 	sudo dnf install lazygit
 }
 
-dnf_install_deps() {
+dnf_deps() {
 	info "dnf install dependencies"
 	sudo dnf check-update
 
@@ -190,7 +190,7 @@ dnf_install_deps() {
 
 # packman: manjaro/archlinux {
 
-pacman_install_deps() {
+pacman_deps() {
 	info "pacman install dependencies"
 	sudo pacman -Syy
 
@@ -235,7 +235,7 @@ pacman_install_deps() {
 
 # homebrew: macos {
 
-brew_install_deps() {
+brew_deps() {
 	info "brew install dependencies"
 
 	if ! type clang >/dev/null 2>&1; then
@@ -273,6 +273,7 @@ brew_install_deps() {
 
 	# dev tools
 	install "brew install jesseduffield/lazygit/lazygit" "lazygit"
+	install "brew install fzf" "fzf"
 }
 
 # }
@@ -392,19 +393,19 @@ info "install for $OS"
 case "$OS" in
 Linux)
 	if [ -f "/etc/arch-release" ] || [ -f "/etc/artix-release" ]; then
-		pacman_install_deps
+		pacman_deps
 	elif [ -f "/etc/fedora-release" ] || [ -f "/etc/redhat-release" ]; then
-		dnf_install_deps
+		dnf_deps
 	elif [ -f "/etc/gentoo-release" ]; then
 		info "gentoo ($OS) is not supported, exit..."
 		exit 1
 	else
 		# otherwise, assume it is apt
-		apt_install_deps
+		apt_deps
 	fi
 	;;
 Darwin)
-	brew_install_deps
+	brew_deps
 	;;
 FreeBSD | NetBSD | OpenBSD)
 	info "$OS is not supported, exit..."

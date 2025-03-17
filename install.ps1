@@ -3,7 +3,7 @@
 
 $NVIM_HOME = "$env:USERPROFILE\.nvim"
 
-# utils
+# utils {
 
 function Info([string]$content)
 {
@@ -50,9 +50,11 @@ function Backup([string]$src)
   }
 }
 
-# dependency
+# utils }
 
-function CoreDependency()
+# dependencies {
+
+function CoreDeps()
 {
   scoop bucket add extras
   scoop install mingw
@@ -81,18 +83,12 @@ function CoreDependency()
   Install -command "scoop install gzip" -target "gzip"
   Install -command "scoop install unzip" -target "unzip"
 
-  # # luarocks
-  # Install -command "scoop install luarocks" -target "luarocks"
-
-  # # ctags
-  # Install -command "scoop install universal-ctags" -target "ctags"
-
   # develop tools
   Install -command "scoop install lazygit" -target "lazygit"
   Install -command "scoop install fzf" -target "fzf"
 }
 
-function RustDependency()
+function RustDeps()
 {
   Info 'install rust and modern commands'
   # rustc/cargo
@@ -105,32 +101,17 @@ function RustDependency()
   Install -command "cargo install eza" -target "eza"
 }
 
-# function PythonDependency()
-# {
-#   Info "install python3/pip packages"
-#   # python
-#   Install -command "scoop install python" -target "python3"
-#   Install -command "scoop install python" -target "pip3"
-#
-#   # $PythonHasPep668 = python3 -c 'import sys; major=sys.version_info.major; minor=sys.version_info.minor; micro=sys.version_info.micro; r1=major >= 3 and minor > 11; r2=major >= 3 and minor == 11 and micro >= 1; print(1 if r1 or r2 else 0)'
-#   # if ($PythonHasPep668 -eq 1) {
-#   #     python3 -m pip install pynvim --user --break-system-packages
-#   # } else {
-#   python3 -m pip install pynvim --user
-#   # }
-# }
+function NpmDeps()
+{
+  Info "install node/npm packages"
+  # nodejs
+  Install -command "scoop install nodejs" -target "node"
+  # npm
+  npm install --silent -g neovim
+  Install -command "npm install --silent -g trash-cli" -target "trash"
+}
 
-# function NodejsDependency()
-# {
-#   Info "install node/npm packages"
-#   # nodejs
-#   Install -command "scoop install nodejs" -target "node"
-#   # npm
-#   npm install --silent -g neovim
-#   Install -command "npm install --silent -g trash-cli" -target "trash"
-# }
-
-function NerdFontDependency()
+function FontDeps()
 {
   Info "install 'Hack' nerd font"
   scoop bucket add nerd-fonts
@@ -204,16 +185,17 @@ function NvimConfig()
   # }
 }
 
+# dependencies }
+
 Info "install for Windows"
 
 # dependency
 Info "install dependencies with scoop"
 
-CoreDependency
-RustDependency
-# PythonDependency
-# NodejsDependency
-NerdFontDependency
+CoreDeps
+RustDeps
+NpmDeps
+FontDeps
 NvimConfig
 
 Info "install for Windows - done"
