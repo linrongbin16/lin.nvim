@@ -4,40 +4,54 @@ local spawn = require("commons.spawn")
 
 local constants = require("builtin.constants")
 
-local git_branch_name_cache = nil
-local git_branch_status_cache = nil
+local git_branch_cache = nil
+local git_status_cache = nil
 
 local function GitBranchCondition()
-  return str.not_empty(git_branch_name_cache)
+  return str.not_empty(git_branch_cache)
 end
 
 local function GitBranch()
-  -- if str.empty(git_branch_name_cache) then
-  --   return ""
-  -- end
+  local branch = " " .. git_branch_cache
+  if git_status_cache and git_status_cache["changed"] then
+    branch = branch .. "*"
+  end
+  return branch
+end
 
-  local branch = " " .. git_branch_name_cache
+local function GitStatusCondition()
+  return tbl.tbl_not_empty(git_status_cache)
+end
 
-  if type(git_branch_status_cache) == "table" then
-    if git_branch_status_cache["changed"] ~= nil then
-      branch = branch .. " *"
-    end
-    if type(git_branch_status_cache["ahead"]) == "number" then
-      branch = branch .. string.format(" ↑[%d]", git_branch_status_cache["ahead"])
-    end
-    if type(git_branch_status_cache["behind"]) == "number" then
-      branch = branch .. string.format(" ↓[%d]", git_branch_status_cache["behind"])
-    end
+local function GitStatus()
+  local status = ""
+  if git_status_cache and type(git_status_cache["ahead"]) == "number" then
+    status = status .. string.format(" ↑[%d]", git_status_cache["ahead"])
+  end
+  if git_status_cache and type(git_status_cache["behind"]) == "number" then
+    status = status .. string.format(" ↓[%d]", git_status_cache["behind"])
   end
 
-  return branch
+  return str.trim(status)
+end
+
+local function GitStatusColor()
+  for i = 1, 3 do
+    local name = string.format("terminal_color_%d", i)
+    local color = vim.g[name]
+    if str.not_empty(color) then
+      return { fg = color }
+    end
+  end
+  local yellow = "#FFFF00"
+  return { fg = yellow }
 end
 
 local function GitDiffCondition()
   return vim.fn.exists("*GitGutterGetHunkSummary") > 0
 end
 
-local function GitDiffSource()
+local function GitDiff()
   local changes = vim.fn.GitGutterGetHunkSummary() or {}
   return {
     added = changes[1] or 0,
@@ -89,14 +103,18 @@ local config = {
     section_separators = slash_section_separators,
     refresh = {
       statusline = 5000,
-      tabline = 100000,
-      winbar = 100000,
     },
   },
   sections = {
     lualine_a = { "mode" },
     lualine_b = {
       { GitBranch, cond = GitBranchCondition },
+      {
+        GitStatus,
+        cond = GitStatusCondition,
+        color = GitStatusColor,
+        padding = { left = 0, right = 1 },
+      },
     },
     lualine_c = {
       {
@@ -112,8 +130,8 @@ local config = {
       {
         "diff",
         cond = GitDiffCondition,
-        source = GitDiffSource,
-        padding = { left = 1, right = 1 },
+        source = GitDiff,
+        padding = 1,
       },
       LspStatus,
     },
@@ -160,7 +178,7 @@ local config = {
       },
     },
     lualine_z = {
-      { CursorHex, padding = { right = 0 } },
+      { CursorHex, padding = 0 },
       { Location, padding = { left = 1, right = 0 } },
       { Progress, padding = { left = 1, right = 0 } },
     },
@@ -280,20 +298,18 @@ local function update_git_branch()
       and tbl.tbl_get(completed, "exitcode") == 0
       and tbl.list_not_empty(status_info)
     then
-      local branch_status = parse_git_status(status_info)
+      local branch_status = parse_git_status(status_info) --[[@as table]]
 
-      if
-        type(branch_status) == "table"
-        and type(branch_status.branch) == "string"
-        and string.len(branch_status.branch) > 0
-      then
-        git_branch_name_cache = branch_status.branch
+      -- branch name
+      if tbl.tbl_not_empty(branch_status) and str.not_empty(branch_status.branch) then
+        git_branch_cache = branch_status.branch --[[@as string]]
       end
 
+      -- status info
       if tbl.tbl_not_empty(branch_status) then
-        git_branch_status_cache = branch_status
+        git_status_cache = branch_status
       else
-        git_branch_status_cache = nil
+        git_status_cache = nil
       end
     end
     vim.schedule(function()
@@ -308,10 +324,17 @@ local function update_git_branch()
   end)
 end
 
-vim.api.nvim_create_autocmd(
-  { "FocusGained", "FocusLost", "TermLeave", "TermClose", "DirChanged", "BufEnter", "VimEnter" },
-  {
-    group = lualine_augroup,
-    callback = update_git_branch,
-  }
-)
+vim.api.nvim_create_autocmd({
+  "FocusGained",
+  "FocusLost",
+  "TermLeave",
+  "TermClose",
+  "DirChanged",
+  "BufWritePost",
+  "FileWritePost",
+  "BufEnter",
+  "VimEnter",
+}, {
+  group = lualine_augroup,
+  callback = update_git_branch,
+})
