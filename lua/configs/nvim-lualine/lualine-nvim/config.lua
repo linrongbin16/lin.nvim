@@ -36,7 +36,6 @@ local function GitStatus()
 end
 
 local function GitStatusColor()
-  local yellow = "#FFFF00"
   for i = 1, 3 do
     local name = string.format("terminal_color_%d", i)
     local color = vim.g[name]
@@ -44,6 +43,7 @@ local function GitStatusColor()
       return { fg = color }
     end
   end
+  local yellow = "#FFFF00"
   return { fg = yellow }
 end
 
@@ -340,8 +340,8 @@ vim.api.nvim_create_autocmd({
   "TermLeave",
   "TermClose",
   "DirChanged",
-  "BufReadPre",
-  "BufNewFile",
+  "BufWritePost",
+  "FileWritePost",
   "BufEnter",
   "VimEnter",
 }, {
