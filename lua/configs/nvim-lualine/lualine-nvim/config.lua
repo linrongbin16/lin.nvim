@@ -298,26 +298,16 @@ local function update_git_branch()
       and tbl.tbl_get(completed, "exitcode") == 0
       and tbl.list_not_empty(status_info)
     then
-      local branch_status = parse_git_status(status_info)
+      local branch_status = parse_git_status(status_info) --[[@as table]]
 
-      if
-        type(branch_status) == "table"
-        and type(branch_status.branch) == "string"
-        and string.len(branch_status.branch) > 0
-      then
-        git_branch_cache = branch_status.branch
+      -- branch name
+      if tbl.tbl_not_empty(branch_status) and str.not_empty(branch_status.branch) then
+        git_branch_cache = branch_status.branch --[[@as string]]
       end
 
+      -- status info
       if tbl.tbl_not_empty(branch_status) then
         git_status_cache = branch_status
-        -- print(
-        --   string.format(
-        --     "changed:%s,ahead:%s,behind:%s",
-        --     vim.inspect(git_status_cache["changed"]),
-        --     vim.inspect(git_status_cache["ahead"]),
-        --     vim.inspect(git_status_cache["behind"])
-        --   )
-        -- )
       else
         git_status_cache = nil
       end
