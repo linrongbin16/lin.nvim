@@ -4,40 +4,67 @@ local spawn = require("commons.spawn")
 
 local constants = require("builtin.constants")
 
-local git_branch_name_cache = nil
-local git_branch_status_cache = nil
+local git_branch_cache = nil
 
 local function GitBranchCondition()
-  return str.not_empty(git_branch_name_cache)
+  return str.not_empty(git_branch_cache)
 end
 
 local function GitBranch()
-  -- if str.empty(git_branch_name_cache) then
-  --   return ""
-  -- end
+  return " " .. git_branch_cache
+end
 
-  local branch = " " .. git_branch_name_cache
+local git_status_cache = nil
 
-  if type(git_branch_status_cache) == "table" then
-    if git_branch_status_cache["changed"] ~= nil then
-      branch = branch .. " *"
-    end
-    if type(git_branch_status_cache["ahead"]) == "number" then
-      branch = branch .. string.format(" ↑[%d]", git_branch_status_cache["ahead"])
-    end
-    if type(git_branch_status_cache["behind"]) == "number" then
-      branch = branch .. string.format(" ↓[%d]", git_branch_status_cache["behind"])
-    end
+local function terminal_color(n, fallback)
+  local color_name = string.format("terminal_color_%d", n)
+  local color = vim.g[color_name]
+  if str.not_empty(color) then
+    return color
+  else
+    return fallback
   end
+end
 
-  return branch
+local function GitStatusChangedCondition()
+  return tbl.tbl_not_empty(git_status_cache) and git_status_cache["changed"]
+end
+
+local function GitStatusChanged()
+  return "*"
+end
+
+local function GitStatusChangedColor()
+  local magenta = "#FF00FF"
+  return { fg = terminal_color(1, magenta) }
+end
+
+local function GitStatusAheadCondition()
+  return tbl.tbl_not_empty(git_status_cache) and type(git_status_cache["ahead"]) == "number"
+end
+
+local function GitStatusAhead()
+  return string.format("↑[%d]", git_status_cache["ahead"])
+end
+
+local function GitStatusBehindCondition()
+  return tbl.tbl_not_empty(git_status_cache) and type(git_status_cache["behind"]) == "number"
+end
+
+local function GitStatusBehind()
+  return string.format("↓[%d]", git_status_cache["behind"])
+end
+
+local function GitStatusColor()
+  local yellow = "#FFFF00"
+  return { fg = terminal_color(3, yellow) }
 end
 
 local function GitDiffCondition()
   return vim.fn.exists("*GitGutterGetHunkSummary") > 0
 end
 
-local function GitDiffSource()
+local function GitDiff()
   local changes = vim.fn.GitGutterGetHunkSummary() or {}
   return {
     added = changes[1] or 0,
@@ -95,6 +122,14 @@ local config = {
     lualine_a = { "mode" },
     lualine_b = {
       { GitBranch, cond = GitBranchCondition },
+      {
+        GitStatusChanged,
+        cond = GitStatusChangedCondition,
+        color = GitStatusChangedColor,
+        padding = { left_padding = 0 },
+      },
+      { GitStatusAhead, cond = GitStatusAheadCondition, color = GitStatusColor },
+      { GitStatusBehind, cond = GitStatusBehindCondition, color = GitStatusColor },
     },
     lualine_c = {
       {
@@ -110,7 +145,7 @@ local config = {
       {
         "diff",
         cond = GitDiffCondition,
-        source = GitDiffSource,
+        source = GitDiff,
         padding = { left = 1, right = 1 },
       },
       LspStatus,
@@ -285,13 +320,13 @@ local function update_git_branch()
         and type(branch_status.branch) == "string"
         and string.len(branch_status.branch) > 0
       then
-        git_branch_name_cache = branch_status.branch
+        git_branch_cache = branch_status.branch
       end
 
       if tbl.tbl_not_empty(branch_status) then
-        git_branch_status_cache = branch_status
+        git_status_cache = branch_status
       else
-        git_branch_status_cache = nil
+        git_status_cache = nil
       end
     end
     vim.schedule(function()
