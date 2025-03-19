@@ -89,8 +89,6 @@ local config = {
     section_separators = slash_section_separators,
     refresh = {
       statusline = 5000,
-      tabline = 100000,
-      winbar = 100000,
     },
   },
   sections = {
@@ -308,10 +306,17 @@ local function update_git_branch()
   end)
 end
 
-vim.api.nvim_create_autocmd(
-  { "FocusGained", "FocusLost", "TermLeave", "TermClose", "DirChanged", "BufEnter", "VimEnter" },
-  {
-    group = lualine_augroup,
-    callback = update_git_branch,
-  }
-)
+vim.api.nvim_create_autocmd({
+  "FocusGained",
+  "FocusLost",
+  "TermLeave",
+  "TermClose",
+  "DirChanged",
+  "BufReadPre",
+  "BufNewFile",
+  "BufEnter",
+  "VimEnter",
+}, {
+  group = lualine_augroup,
+  callback = update_git_branch,
+})
