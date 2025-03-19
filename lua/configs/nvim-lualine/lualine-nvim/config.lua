@@ -5,16 +5,19 @@ local spawn = require("commons.spawn")
 local constants = require("builtin.constants")
 
 local git_branch_cache = nil
+local git_status_cache = nil
 
 local function GitBranchCondition()
   return str.not_empty(git_branch_cache)
 end
 
 local function GitBranch()
-  return " " .. git_branch_cache
+  local branch = " " .. git_branch_cache
+  if git_status_cache and git_status_cache["changed"] then
+    branch = branch .. "*"
+  end
+  return branch
 end
-
-local git_status_cache = nil
 
 local function GitStatusCondition()
   return tbl.tbl_not_empty(git_status_cache)
@@ -22,9 +25,6 @@ end
 
 local function GitStatus()
   local status = ""
-  if git_status_cache and git_status_cache["changed"] then
-    status = status .. "*"
-  end
   if git_status_cache and type(git_status_cache["ahead"]) == "number" then
     status = status .. string.format(" ↑[%d]", git_status_cache["ahead"])
   end
