@@ -22,13 +22,13 @@ end
 
 local function GitStatus()
   local status = ""
-  if git_status_cache["changed"] then
+  if git_status_cache and git_status_cache["changed"] then
     status = status .. "*"
   end
-  if type(git_status_cache["ahead"]) == "number" then
+  if git_status_cache and type(git_status_cache["ahead"]) == "number" then
     status = status .. string.format(" ↑[%d]", git_status_cache["ahead"])
   end
-  if type(git_status_cache["behind"]) == "number" then
+  if git_status_cache and type(git_status_cache["behind"]) == "number" then
     status = status .. string.format(" ↓[%d]", git_status_cache["behind"])
   end
 
