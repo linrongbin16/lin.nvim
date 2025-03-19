@@ -37,12 +37,14 @@ end
 
 local function GitStatusColor()
   local yellow = "#FFFF00"
-  local name = "terminal_color_3"
-  local color = vim.g[name]
-  if str.empty(color) then
-    color = yellow
+  for i = 1, 3 do
+    local name = string.format("terminal_color_%d", i)
+    local color = vim.g[name]
+    if str.not_empty(color) then
+      return { fg = color }
+    end
   end
-  return { fg = color }
+  return { fg = yellow }
 end
 
 local function GitDiffCondition()
