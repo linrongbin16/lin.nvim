@@ -6,11 +6,6 @@
 NVIM_HOME=$HOME/.nvim
 OS="$(uname -s)"
 
-IS_APT=0
-IS_DNF=0
-IS_PACMAN=0
-IS_BREW=0
-
 # utils {
 
 info() {
@@ -58,33 +53,15 @@ latest_github_release_tag() {
 	curl -s -f -L $uri | grep "href=\"/$org/$repo/releases/tag" | grep -Eo 'href="/[a-zA-Z0-9#~.*,/!?=+&_%:-]*"' | head -n 1 | cut -d '"' -f2 | cut -d "/" -f6
 }
 
-install_linux_ctags() {
-	local CTAGS_HOME=$NVIM_HOME/universal-ctags
-	local org="universal-ctags"
-	local repo="ctags"
-	local CTAGS_VERSION=$(latest_github_release_tag $org $repo)
-	info "install universal-ctags($CTAGS_VERSION) from source"
-	cd $NVIM_HOME
-	if [ ! -d $CTAGS_HOME ]; then
-		git clone https://github.com/universal-ctags/ctags.git $CTAGS_HOME
-	fi
-	cd $CTAGS_HOME
-	git checkout $CTAGS_VERSION
-	./autogen.sh
-	./configure
-	make
-	sudo make install
-}
-
-# }
+# utils }
 
 # apt: ubuntu/debian {
 
-install_neovim_with_apt() {
+apt_install_neovim() {
 	sudo snap install nvim --classic
 }
 
-install_nodejs_with_apt() {
+apt_install_nodejs() {
 	# see: https://github.com/nodesource/distributions
 	info "install nodejs-lts from NodeSource"
 	sudo apt-get -qq -y install curl
@@ -94,21 +71,13 @@ install_nodejs_with_apt() {
 	sudo apt-get -qq -y install nodejs
 }
 
-install_ctags_with_apt() {
-	sudo apt-get -qq -y install libseccomp-dev
-	sudo apt-get -qq -y install libjansson-dev
-	sudo apt-get -qq -y install libyaml-dev
-	sudo apt-get -qq -y install libxml2-dev
-	install_linux_ctags
-}
-
-install_git_with_apt() {
+apt_install_git() {
 	sudo apt-add-repository ppa:git-core/ppa
 	sudo apt-get -qq update
 	sudo apt-get -qq -y install git
 }
 
-install_golang_with_apt() {
+apt_install_go() {
 	git clone --depth=1 https://github.com/kerolloz/go-installer
 	export GOROOT="$HOME/.go" # where go is installed
 	export GOPATH="$HOME/go"  # user workspace
@@ -117,18 +86,18 @@ install_golang_with_apt() {
 	export PATH="$PATH:$GOPATH/bin"
 }
 
-install_lazygit_with_apt() {
+apt_install_lazygit() {
 	go install github.com/jesseduffield/lazygit@latest
 }
 
-apt_depends() {
-	info "install dependencies with apt"
+apt_deps() {
+	info "apt install dependencies"
 	sudo locale-gen en_US
 	sudo locale-gen en_US.UTF-8
 	sudo update-locale
 
 	# neovim
-	install "install_neovim_with_apt" "nvim"
+	install "apt_install_neovim" "nvim"
 
 	# c++ toolchain
 	install "sudo apt-get -qq -y install build-essential" "gcc"
@@ -137,10 +106,10 @@ apt_depends() {
 	install "sudo apt-get -qq -y install automake" "automake"
 	install "sudo apt-get -qq -y install pkg-config" "pkg-config"
 	install "sudo apt-get -qq -y install cmake" "cmake"
-	install "install_golang_with_apt" "go"
+	install "apt_install_go" "go"
 
 	# download tools
-	install "install_git_with_apt" "git"
+	install "apt_install_git" "git"
 	install "sudo apt-get -qq -y install curl" "curl"
 	install "sudo apt-get -qq -y install wget" "wget"
 
@@ -148,10 +117,6 @@ apt_depends() {
 	install "sudo apt-get -qq -y install p7zip" "7z"
 	install "sudo apt-get -qq -y install gzip" "gzip"
 	install "sudo apt-get -qq -y install unzip" "unzip"
-
-	# # luarocks
-	# install "sudo apt-get -qq -y install luajit" "luajit"
-	# install "sudo apt-get -qq -y install luarocks" "luarocks"
 
 	# copy/paste tools
 	install "sudo apt-get -qq -y install xsel" "xsel"
@@ -162,32 +127,23 @@ apt_depends() {
 	install "sudo apt-get -qq -y install python3 python3-dev python3-venv python3-pip python3-docutils" "pip3"
 
 	# nodejs
-	install "install_nodejs_with_apt" "node"
+	install "apt_install_nodejs" "node"
 
 	# dev tools
-	# install "install_ctags_with_apt" "ctags"
-	install "install_lazygit_with_apt" "lazygit"
+	install "apt_install_lazygit" "lazygit"
 }
 
 # }
 
 # dnf: fedora/centos {
 
-install_ctags_with_dnf() {
-	sudo dnf install -y libseccomp-devel
-	sudo dnf install -y jansson-devel
-	sudo dnf install -y libyaml-devel
-	sudo dnf install -y libxml2-devel
-	install_linux_ctags
-}
-
-install_lazygit_with_dnf() {
+dnf_install_lazygit() {
 	sudo dnf copr enable atim/lazygit -y
 	sudo dnf install lazygit
 }
 
-dnf_depends() {
-	info "install dependencies with dnf"
+dnf_deps() {
+	info "dnf install dependencies"
 	sudo dnf check-update
 
 	# neovim
@@ -227,16 +183,15 @@ dnf_depends() {
 	install "sudo dnf install -y nodejs npm" "node"
 
 	# dev tools
-	# install "install_ctags_with_dnf" "ctags"
-	install "install_lazygit_with_dnf" "lazygit"
+	install "dnf_install_lazygit" "lazygit"
 }
 
 # }
 
 # packman: manjaro/archlinux {
 
-pacman_depends() {
-	info "install dependencies with pacman"
+pacman_deps() {
+	info "pacman install dependencies"
 	sudo pacman -Syy
 
 	# neovim
@@ -261,9 +216,6 @@ pacman_depends() {
 	install "yes | sudo pacman -S p7zip" "7z"
 	install "yes | sudo pacman -S unzip" "unzip"
 
-	# # luarocks
-	# install "yes | sudo pacman -S luarocks" "luarocks"
-
 	# copy/paste tools
 	install "yes | sudo pacman -S xsel" "xsel"
 	install "yes | sudo pacman -S xclip" "xclip"
@@ -276,7 +228,6 @@ pacman_depends() {
 	install "yes | sudo pacman -S nodejs npm" "node"
 
 	# dev tools
-	# install "yes | sudo pacman -S ctags" "ctags"
 	install "yes | sudo pacman -S lazygit" "lazygit"
 }
 
@@ -284,8 +235,8 @@ pacman_depends() {
 
 # homebrew: macos {
 
-brew_depends() {
-	info "install dependencies with brew"
+brew_deps() {
+	info "brew install dependencies"
 
 	if ! type clang >/dev/null 2>&1; then
 		xcode-select --install
@@ -314,9 +265,6 @@ brew_depends() {
 	install "brew install p7zip" "7z"
 	install "brew install unzip" "unzip"
 
-	# # luarocks
-	# install "brew install luarocks" "luarocks"
-
 	# python3
 	install "brew install python3" "python3"
 
@@ -324,15 +272,15 @@ brew_depends() {
 	install "brew install node" "node"
 
 	# dev tools
-	# install "brew install universal-ctags" "ctags"
 	install "brew install jesseduffield/lazygit/lazygit" "lazygit"
+	install "brew install fzf" "fzf"
 }
 
 # }
 
 # dependency
 
-rust_dependency() {
+rust_deps() {
 	info "install rust and modern commands"
 	install "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y" "cargo"
 	install "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y" "rustc"
@@ -345,25 +293,12 @@ rust_dependency() {
 	install "cargo install eza" "eza"
 }
 
-# pip_dependency() {
-# 	info "install python packages with pip3"
-# 	local python_has_pep668=$(python3 -c 'import sys; major=sys.version_info.major; minor=sys.version_info.minor; micro=sys.version_info.micro; r1=major >= 3 and minor > 11; r2=major >= 3 and minor == 11 and micro >= 1; print(1 if r1 or r2 else 0)')
-#
-# 	python3 --version
-# 	if [ $python_has_pep668 -eq 1 ]; then
-# 		python3 -m pip install pynvim --user --upgrade --break-system-packages
-# 	else
-# 		python3 -m pip install pynvim --user --upgrade
-# 	fi
-# }
+npm_deps() {
+	info "npm install packages"
+	install "sudo npm install --silent -g trash-cli" "trash"
+}
 
-# npm_dependency() {
-# 	info "install node packages with npm"
-# 	sudo npm install --silent -g neovim
-# 	install "sudo npm install --silent -g trash-cli" "trash"
-# }
-
-install_nerdfont() {
+github_install_nerdfont() {
 	if [ "$OS" = "Darwin" ]; then
 		local font_name=$2
 		info "install $font_name nerd fonts with brew"
@@ -390,9 +325,8 @@ install_nerdfont() {
 	fi
 }
 
-nerdfont_dependency() {
-	install_nerdfont "Hack.zip" "font-hack-nerd-font"
-	# install_nerdfont "FiraCode.zip" "font-fira-code-nerd-font"
+font_deps() {
+	github_install_nerdfont "Hack.zip" "font-hack-nerd-font"
 	info "please set 'Hack NFM' (or 'Hack Nerd Font Mono') as your terminal font"
 }
 
@@ -459,23 +393,19 @@ info "install for $OS"
 case "$OS" in
 Linux)
 	if [ -f "/etc/arch-release" ] || [ -f "/etc/artix-release" ]; then
-		pacman_depends
-		IS_PACMAN=1
+		pacman_deps
 	elif [ -f "/etc/fedora-release" ] || [ -f "/etc/redhat-release" ]; then
-		dnf_depends
-		IS_DNF=1
+		dnf_deps
 	elif [ -f "/etc/gentoo-release" ]; then
 		info "gentoo ($OS) is not supported, exit..."
 		exit 1
 	else
-		# assume apt
-		apt_depends
-		IS_APT=1
+		# otherwise, assume it is apt
+		apt_deps
 	fi
 	;;
 Darwin)
-	brew_depends
-	IS_BREW=1
+	brew_deps
 	;;
 FreeBSD | NetBSD | OpenBSD)
 	info "$OS is not supported, exit..."
@@ -487,10 +417,9 @@ FreeBSD | NetBSD | OpenBSD)
 	;;
 esac
 
-rust_dependency
-# pip_dependency
-# npm_dependency
-nerdfont_dependency
+rust_deps
+npm_deps
+font_deps
 nvim_config
 
 info "install for $OS - done"
