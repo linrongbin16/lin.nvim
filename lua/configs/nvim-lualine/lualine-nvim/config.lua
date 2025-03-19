@@ -16,48 +16,33 @@ end
 
 local git_status_cache = nil
 
-local function terminal_color(n, fallback)
-  local color_name = string.format("terminal_color_%d", n)
-  local color = vim.g[color_name]
-  if str.not_empty(color) then
-    return color
-  else
-    return fallback
+local function GitStatusCondition()
+  return tbl.tbl_not_empty(git_status_cache)
+end
+
+local function GitStatus()
+  local status = ""
+  if git_status_cache["changed"] then
+    status = status .. "*"
   end
-end
+  if type(git_status_cache["ahead"]) == "number" then
+    status = status .. string.format(" ↑[%d]", git_status_cache["ahead"])
+  end
+  if type(git_status_cache["behind"]) == "number" then
+    status = status .. string.format(" ↓[%d]", git_status_cache["behind"])
+  end
 
-local function GitStatusChangedCondition()
-  return tbl.tbl_not_empty(git_status_cache) and git_status_cache["changed"]
-end
-
-local function GitStatusChanged()
-  return "*"
-end
-
-local function GitStatusChangedColor()
-  local magenta = "#FF00FF"
-  return { fg = terminal_color(1, magenta) }
-end
-
-local function GitStatusAheadCondition()
-  return tbl.tbl_not_empty(git_status_cache) and type(git_status_cache["ahead"]) == "number"
-end
-
-local function GitStatusAhead()
-  return string.format("↑[%d]", git_status_cache["ahead"])
-end
-
-local function GitStatusBehindCondition()
-  return tbl.tbl_not_empty(git_status_cache) and type(git_status_cache["behind"]) == "number"
-end
-
-local function GitStatusBehind()
-  return string.format("↓[%d]", git_status_cache["behind"])
+  return str.trim(status)
 end
 
 local function GitStatusColor()
   local yellow = "#FFFF00"
-  return { fg = terminal_color(3, yellow) }
+  local name = "terminal_color_3"
+  local color = vim.g[name]
+  if str.empty(color) then
+    color = yellow
+  end
+  return { fg = color }
 end
 
 local function GitDiffCondition()
@@ -123,13 +108,11 @@ local config = {
     lualine_b = {
       { GitBranch, cond = GitBranchCondition },
       {
-        GitStatusChanged,
-        cond = GitStatusChangedCondition,
-        color = GitStatusChangedColor,
-        padding = { left_padding = 0 },
+        GitStatus,
+        cond = GitStatusCondition,
+        color = GitStatusColor,
+        padding = { left = 0, right = 1 },
       },
-      { GitStatusAhead, cond = GitStatusAheadCondition, color = GitStatusColor },
-      { GitStatusBehind, cond = GitStatusBehindCondition, color = GitStatusColor },
     },
     lualine_c = {
       {
@@ -146,7 +129,7 @@ local config = {
         "diff",
         cond = GitDiffCondition,
         source = GitDiff,
-        padding = { left = 1, right = 1 },
+        padding = 1,
       },
       LspStatus,
     },
@@ -193,7 +176,7 @@ local config = {
       },
     },
     lualine_z = {
-      { CursorHex, padding = { right = 0 } },
+      { CursorHex, padding = 0 },
       { Location, padding = { left = 1, right = 0 } },
       { Progress, padding = { left = 1, right = 0 } },
     },
@@ -325,6 +308,14 @@ local function update_git_branch()
 
       if tbl.tbl_not_empty(branch_status) then
         git_status_cache = branch_status
+        -- print(
+        --   string.format(
+        --     "changed:%s,ahead:%s,behind:%s",
+        --     vim.inspect(git_status_cache["changed"]),
+        --     vim.inspect(git_status_cache["ahead"]),
+        --     vim.inspect(git_status_cache["behind"])
+        --   )
+        -- )
       else
         git_status_cache = nil
       end
