@@ -131,6 +131,7 @@ apt_deps() {
 
 	# dev tools
 	install "apt_install_lazygit" "lazygit"
+	install "sudo apt-get -qq -y install fzf" "fzf"
 }
 
 # }
@@ -184,6 +185,7 @@ dnf_deps() {
 
 	# dev tools
 	install "dnf_install_lazygit" "lazygit"
+	install "sudo dnf install -y fzf" "fzf"
 }
 
 # }
@@ -229,6 +231,7 @@ pacman_deps() {
 
 	# dev tools
 	install "yes | sudo pacman -S lazygit" "lazygit"
+	install "yes | sudo pacman -S fzf" "fzf"
 }
 
 # }
