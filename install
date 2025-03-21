@@ -90,13 +90,6 @@ apt_install_lazygit() {
 	go install github.com/jesseduffield/lazygit@latest
 }
 
-apt_install_fzf() {
-	git clone --depth=1 https://github.com/junegunn/fzf
-	bash ./fzf/install --bin
-	sudo mv ./fzf/bin/fzf /usr/local/bin/fzf
-	rm -rf ./fzf
-}
-
 apt_deps() {
 	info "apt install dependencies"
 	sudo locale-gen en_US
@@ -138,7 +131,7 @@ apt_deps() {
 
 	# dev tools
 	install "apt_install_lazygit" "lazygit"
-	install "apt_install_fzf" "fzf"
+	install "sudo apt-get -qq -y install fzf" "fzf"
 }
 
 # }
