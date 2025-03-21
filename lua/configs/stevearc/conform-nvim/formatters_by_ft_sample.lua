@@ -22,7 +22,7 @@ local formatters_by_ft = {
   -- typescriptreact = { "prettier" },
   -- xhtml = { "prettier" },
   -- xml = { "prettier" },
-  -- rust = { "rustfmt" },
+  -- rust = { inherit = false, command = "cargo", args = { "fmt" } }, -- use 'cargo fmt' instead of 'rustfmt'
 }
 
 return formatters_by_ft
