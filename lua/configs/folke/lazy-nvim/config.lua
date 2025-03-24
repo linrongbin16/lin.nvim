@@ -19,7 +19,7 @@ vim.opt.rtp:prepend(lazypath)
 local opts = {
   root = stdpath_config .. "/lazy",
   git = {
-    timeout = 30,
+    timeout = 300,
   },
   ui = {
     size = {
