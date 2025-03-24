@@ -1,6 +1,7 @@
 local disabled_colors = {
   ["navarasu/onedark.nvim"] = true,
   ["zenbones-theme/zenbones.nvim"] = true,
+  ["rrethy/base16-nvim"] = true,
 }
 
 require("colorbox").setup({
