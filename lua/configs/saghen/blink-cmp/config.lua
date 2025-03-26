@@ -29,7 +29,6 @@ require("blink.cmp").setup({
     },
   },
   completion = {
-    accept = { auto_brackets = { enabled = true } },
     documentation = { auto_show = true },
     menu = {
       draw = {
@@ -51,7 +50,7 @@ require("blink.cmp").setup({
     },
   },
   fuzzy = {
-    implementation = "rust",
+    implementation = "prefer_rust_with_warning",
   },
   keymap = {
     ["<CR>"] = { "accept", "fallback" },
