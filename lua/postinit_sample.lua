@@ -13,4 +13,5 @@ if vim.g.neovide then
   vim.o.guifont = "Monaco Nerd Font Mono:h12"
   vim.g.neovide_scroll_animation_length = 0.0
   vim.g.neovide_position_animation_length = 0.0
+  vim.g.neovide_hide_mouse_when_typing = true
 end
