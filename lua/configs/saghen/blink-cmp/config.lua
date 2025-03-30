@@ -1,4 +1,5 @@
----@return boolean whether previous char on current cursor is whitespace.
+-- Whether previous char is whitespace.
+---@return boolean
 local function checkspace()
   local col = vim.fn.col(".") - 1
   -- If previous char is not the beginning of the line.
@@ -6,13 +7,13 @@ local function checkspace()
     local line = vim.fn.getline(".")
     if type(line) == "string" and string.len(line) >= col then
       local ch = string.sub(line, col, col)
-      -- If previous char is not whitespace, then accept the suggestion.
-      if type(ch) == "string" and string.match(ch, "%s") == nil then
-        return false
+      -- If previous char is whitespace.
+      if type(ch) == "string" and string.match(ch, "%s") ~= nil then
+        return true
       end
     end
   end
-  return true
+  return false
 end
 
 require("blink.cmp").setup({
