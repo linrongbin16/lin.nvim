@@ -90,6 +90,10 @@ apt_install_lazygit() {
 	go install github.com/jesseduffield/lazygit@latest
 }
 
+apt_install_fzf() {
+	go install github.com/junegunn/fzf@latest
+}
+
 apt_deps() {
 	info "apt install dependencies"
 	sudo locale-gen en_US
@@ -131,7 +135,7 @@ apt_deps() {
 
 	# dev tools
 	install "apt_install_lazygit" "lazygit"
-	install "sudo apt-get -qq -y install fzf" "fzf"
+	install "apt_install_fzf" "fzf"
 }
 
 # }
