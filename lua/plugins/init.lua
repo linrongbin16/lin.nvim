@@ -256,7 +256,7 @@ local M = {
   },
   {
     "saghen/blink.cmp",
-    lazy = false,
+    event = { VeryLazy, CmdlineEnter, InsertEnter },
     dependencies = {
       "rafamadriz/friendly-snippets",
       "L3MON4D3/LuaSnip",
