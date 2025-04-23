@@ -1,0 +1,90 @@
+name: Nightly Installer
+permissions:
+  contents: write
+on:
+  schedule:
+    - cron: "0 0 * * 1"
+  workflow_dispatch:
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+jobs:
+  ubuntu_installer:
+    name: Ubuntu Installer
+    runs-on: ubuntu-latest
+    steps:
+      - uses: Swatinem/rust-cache@v2
+      - uses: mozilla-actions/sccache-action@v0.0.9
+      - name: Get branch
+        shell: bash
+        run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+        id: extract_branch
+      - name: Install lin.nvim
+        env:
+          SCCACHE_GHA_ENABLED: "true"
+          RUSTC_WRAPPER: "sccache"
+        run: |
+          set -x
+          sudo apt-get install -q -y fd-find
+          sudo apt-get install -q -y batcat
+          sudo apt-get install -q -y ripgrep
+          sudo apt-get install -q -y eza
+          echo '${{ steps.extract_branch.outputs.branch }}'
+          export BRANCH_NAME=${{ steps.extract_branch.outputs.branch }}
+          git clone --single-branch --branch $BRANCH_NAME --depth=1 https://github.com/linrongbin16/lin.nvim ~/.nvim && cd ~/.nvim && bash -euxo pipefail ./install
+  macos_installer:
+    name: MacOS Installer
+    runs-on: macos-latest
+    steps:
+      - uses: Homebrew/actions/setup-homebrew@master
+      - uses: Swatinem/rust-cache@v2
+      - uses: mozilla-actions/sccache-action@v0.0.9
+      - name: Get branch
+        shell: bash
+        run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+        id: extract_branch
+      - name: Install lin.nvim
+        shell: bash
+        env:
+          SCCACHE_GHA_ENABLED: "true"
+          RUSTC_WRAPPER: "sccache"
+        run: |
+          set -x
+          echo '${{ steps.extract_branch.outputs.branch }}'
+          echo ${{ steps.extract_branch.outputs.branch }}
+          export HOMEBREW_NO_AUTO_UPDATE=1
+          export HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK=1
+          brew install fd
+          brew install bat
+          brew install ripgrep
+          brew install eza
+          git clone --single-branch --branch ${{ steps.extract_branch.outputs.branch }} --depth=1 https://github.com/linrongbin16/lin.nvim ~/.nvim && cd ~/.nvim && bash -euxo pipefail ./install
+  windows_installer:
+    name: Windows Installer
+    runs-on: windows-latest
+    steps:
+      - uses: ilammy/msvc-dev-cmd@v1
+      - uses: Swatinem/rust-cache@v2
+      - uses: mozilla-actions/sccache-action@v0.0.9
+      - uses: MinoruSekine/setup-scoop@v4.0.1
+        with:
+          buckets: extras
+      - name: Get branch
+        run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+        shell: bash
+        id: extract_branch
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: amd64_x86
+      - name: Install lin.nvim
+        env:
+          SCCACHE_GHA_ENABLED: "true"
+          RUSTC_WRAPPER: "sccache"
+        run: |
+          echo '${{ steps.extract_branch.outputs.branch }}'
+          echo ${{ steps.extract_branch.outputs.branch }}
+          scoop install fd
+          scoop install bat
+          scoop install ripgrep
+          scoop install eza
+          git clone --single-branch --branch ${{ steps.extract_branch.outputs.branch }} --depth=1 https://github.com/linrongbin16/lin.nvim $env:USERPROFILE\.nvim && cd $env:USERPROFILE\.nvim && pwsh .\install.ps1
