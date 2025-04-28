@@ -57,7 +57,3 @@ vim.api.nvim_create_autocmd("BufReadPre", {
     end
   end,
 })
-
--- transparent
-vim.o.winblend = constants.window.blend
-vim.o.pumblend = constants.window.blend
