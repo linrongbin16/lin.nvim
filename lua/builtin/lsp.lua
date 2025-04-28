@@ -1,21 +1,13 @@
 -- ---- LSP ----
 
-local constants = require("builtin.constants")
 local set_key = require("builtin.utils.keymap").set_key
-
--- hover/signatureHelp
-vim.lsp.handlers["textDocument/hover"] =
-  vim.lsp.with(vim.lsp.handlers.hover, { border = constants.window.border })
-
-vim.lsp.handlers["textDocument/signatureHelp"] =
-  vim.lsp.with(vim.lsp.handlers.signature_help, { border = constants.window.border })
 
 --- @param next boolean
 --- @param severity integer?
 local function goto_diagnostic(next, severity)
-  local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
+  local count = next and 1 or -1
   return function()
-    go({ severity = severity })
+    vim.diagnostic.jump({ severity = severity, count = count, float = true })
   end
 end
 
