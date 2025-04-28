@@ -25,10 +25,28 @@ local setup_handlers = {
   --     lspconfig["tsserver"].setup({})
   -- end,
   -- clangd = function()
-  --     require("clangd_extensions").setup({})
+  --   local capabilities = vim.lsp.protocol.make_client_capabilities()
+  --   capabilities = vim.tbl_deep_extend("force", capabilities, {
+  --     offsetEncoding = { "utf-16" },
+  --     general = {
+  --       positionEncodings = { "utf-16" },
+  --     },
+  --   })
+  --   lspconfig["clangd"].setup({
+  --     capabilities = capabilities,
+  --   })
   -- end,
   -- ["rust_analyzer"] = function()
-  --     require("rust-tools").setup({})
+  --   local capabilities = vim.lsp.protocol.make_client_capabilities()
+  --   capabilities = vim.tbl_deep_extend("force", capabilities, {
+  --     offsetEncoding = { "utf-16" },
+  --     general = {
+  --       positionEncodings = { "utf-16" },
+  --     },
+  --   })
+  --   lspconfig["rust_analyzer"].setup({
+  --     capabilities = capabilities,
+  --   })
   -- end,
 }
 

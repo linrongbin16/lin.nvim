@@ -24,14 +24,7 @@ local function setup_diagnostic()
 
   vim.diagnostic.config({
     virtual_text = false,
-    severity_sort = true,
-    float = {
-      border = constants.window.border,
-      source = true,
-      header = "",
-      prefix = "",
-      suffix = "",
-    },
+    virtual_lines = false,
     signs = {
       text = {
         [vim.diagnostic.severity.ERROR] = constants.diagnostic.signs.error,
@@ -39,6 +32,27 @@ local function setup_diagnostic()
         [vim.diagnostic.severity.INFO] = constants.diagnostic.signs.info,
         [vim.diagnostic.severity.HINT] = constants.diagnostic.signs.hint,
       },
+      linehl = {
+        [vim.diagnostic.severity.ERROR] = "DiagnosticError",
+        [vim.diagnostic.severity.WARN] = "DiagnosticWarn",
+        [vim.diagnostic.severity.INFO] = "DiagnosticInfo",
+        [vim.diagnostic.severity.HINT] = "DiagnosticHint",
+      },
+      numhl = {
+        [vim.diagnostic.severity.ERROR] = "DiagnosticError",
+        [vim.diagnostic.severity.WARN] = "DiagnosticWarn",
+        [vim.diagnostic.severity.INFO] = "DiagnosticInfo",
+        [vim.diagnostic.severity.HINT] = "DiagnosticHint",
+      },
+    },
+    severity_sort = true,
+    float = {
+      border = constants.window.border,
+      severity_sort = true,
+      source = true,
+      header = "",
+      prefix = "",
+      suffix = "",
     },
   })
 
