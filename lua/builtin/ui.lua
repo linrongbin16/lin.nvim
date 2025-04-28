@@ -1,4 +1,4 @@
-" ---- UI Options ----
+-- ---- UI Options ----
 
 local constants = require("builtin.constants")
 
