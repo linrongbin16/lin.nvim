@@ -38,12 +38,6 @@ local function setup_diagnostic()
         [vim.diagnostic.severity.INFO] = "DiagnosticInfo",
         [vim.diagnostic.severity.HINT] = "DiagnosticHint",
       },
-      numhl = {
-        [vim.diagnostic.severity.ERROR] = "DiagnosticError",
-        [vim.diagnostic.severity.WARN] = "DiagnosticWarn",
-        [vim.diagnostic.severity.INFO] = "DiagnosticInfo",
-        [vim.diagnostic.severity.HINT] = "DiagnosticHint",
-      },
     },
     severity_sort = true,
     float = {
