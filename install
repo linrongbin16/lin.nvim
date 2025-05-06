@@ -65,7 +65,7 @@ apt_install_nodejs() {
 	# see: https://github.com/nodesource/distributions
 	info "install nodejs-lts from NodeSource"
 	sudo apt-get -qq -y install curl
-	curl -fsSL https://deb.nodesource.com/setup_lts.x -o nodesource_setup.sh
+	curl -fsSL https://deb.nodesource.com/setup_22.x -o nodesource_setup.sh
 	sudo -E bash nodesource_setup.sh
 	sudo apt-get -qq update
 	sudo apt-get -qq -y install nodejs
