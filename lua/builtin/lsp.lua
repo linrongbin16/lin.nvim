@@ -13,6 +13,7 @@ local function goto_diagnostic(next, severity)
       vim.diagnostic.jump({ severity = severity, count = count, float = true })
     end
   else
+    ---@diagnostic disable-next-line: deprecated
     local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
     return function()
       go({ severity = severity })
