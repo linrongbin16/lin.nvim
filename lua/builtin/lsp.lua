@@ -1,18 +1,8 @@
 -- ---- LSP ----
 
-local constants = require("builtin.constants")
 local set_key = require("builtin.utils.keymap").set_key
 
 local NVIM_VERSION_0_11_0 = vim.fn.has("nvim-0.11.0") > 0
-
-if not NVIM_VERSION_0_11_0 then
-  -- hover/signatureHelp
-  vim.lsp.handlers["textDocument/hover"] =
-    vim.lsp.with(vim.lsp.handlers.hover, { border = constants.window.border })
-
-  vim.lsp.handlers["textDocument/signatureHelp"] =
-    vim.lsp.with(vim.lsp.handlers.signature_help, { border = constants.window.border })
-end
 
 --- @param next boolean
 --- @param severity integer?
