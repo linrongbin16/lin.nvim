@@ -2,7 +2,6 @@ local bigfile = require("builtin.utils.bigfile")
 
 ---@diagnostic disable-next-line: missing-fields
 require("nvim-treesitter.configs").setup({
-  ensure_installed = {},
   auto_install = true,
   highlight = {
     enable = true,
