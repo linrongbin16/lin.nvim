@@ -149,11 +149,6 @@ function NvimConfig()
   {
     Copy-Item -Path "$MasonLspconfigHome\ensure_installed_sample.lua" -Destination "$MasonLspconfigEnsureInstalled"
   }
-  $MasonLspconfigSetupHandlers = "$MasonLspconfigHome\setup_handlers.lua"
-  if (-not(TestReparsePoint $MasonLspconfigSetupHandlers) -and -not(Test-Path $MasonLspconfigSetupHandlers))
-  {
-    Copy-Item -Path "$MasonLspconfigHome\setup_handlers_sample.lua" -Destination "$MasonLspconfigSetupHandlers"
-  }
 
   # mason-null-ls.nvim
   $MasonNulllsHome = "$NVIM_HOME\lua\configs\jay-babu\mason-null-ls-nvim"
