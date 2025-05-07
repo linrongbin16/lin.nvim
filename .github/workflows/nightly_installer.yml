@@ -26,7 +26,7 @@ jobs:
         run: |
           set -x
           sudo apt-get install -q -y fd-find
-          sudo apt-get install -q -y batcat
+          sudo apt-get install -q -y bat
           sudo apt-get install -q -y ripgrep
           sudo apt-get install -q -y eza
           echo '${{ steps.extract_branch.outputs.branch }}'
