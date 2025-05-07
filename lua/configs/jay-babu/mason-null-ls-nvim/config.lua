@@ -14,6 +14,5 @@ if user_setup_handlers_ok then
 end
 
 require("mason-null-ls").setup({
-  ensure_installed = {},
   handlers = setup_handlers,
 })
