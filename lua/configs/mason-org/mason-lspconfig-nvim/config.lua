@@ -16,27 +16,5 @@ end
 
 require("mason-lspconfig").setup({
   ensure_installed = ensure_installed,
-  automatic_enable = false,
+  automatic_enable = true,
 })
-
-local setup_handlers = {
-  -- use default setup for all lsp servers
-  function(server)
-    lspconfig[server].setup({})
-  end,
-}
-
-local user_setup_handlers_module = "configs.mason-org.mason-lspconfig-nvim.setup_handlers"
-local user_setup_handlers_ok, user_setup_handlers = pcall(require, user_setup_handlers_module)
-
-if user_setup_handlers_ok then
-  if type(user_setup_handlers) == "table" then
-    for name, handler in pairs(user_setup_handlers) do
-      setup_handlers[name] = handler
-    end
-  else
-    message.err(string.format("Error loading '%s' lua module!", user_setup_handlers_module))
-  end
-end
-
-require("mason-lspconfig").setup_handlers(setup_handlers)
