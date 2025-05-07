@@ -343,13 +343,6 @@ nvim_config() {
 	backup $HOME/.config/nvim
 	ln -s $NVIM_HOME $HOME/.config/nvim
 
-	# # nvim-treesitter
-	# local nvim_treesitter_home="$NVIM_HOME/lua/configs/nvim-treesitter/nvim-treesitter"
-	# local nvim_treesitter_ensure_installed="$nvim_treesitter_home/ensure_installed.lua"
-	# if [ ! -f $nvim_treesitter_ensure_installed ]; then
-	#     cp $nvim_treesitter_home/ensure_installed_sample.lua $nvim_treesitter_ensure_installed
-	# fi
-
 	# nvim-lspconfig
 	local nvim_lspconfig_home="$NVIM_HOME/lua/configs/neovim/nvim-lspconfig"
 	local nvim_lspconfig_setup_handlers="$nvim_lspconfig_home/setup_handlers.lua"
@@ -357,19 +350,8 @@ nvim_config() {
 		cp $nvim_lspconfig_home/setup_handlers_sample.lua $nvim_lspconfig_setup_handlers
 	fi
 
-	# mason-lspconfig.nvim
-	local mason_lspconfig_home="$NVIM_HOME/lua/configs/mason-org/mason-lspconfig-nvim"
-	local mason_lspconfig_ensure_installed="$mason_lspconfig_home/ensure_installed.lua"
-	if [ ! -f $mason_lspconfig_ensure_installed ]; then
-		cp $mason_lspconfig_home/ensure_installed_sample.lua $mason_lspconfig_ensure_installed
-	fi
-
 	# mason-null-ls.nvim
 	local mason_null_ls_home="$NVIM_HOME/lua/configs/jay-babu/mason-null-ls-nvim"
-	local mason_null_ls_ensure_installed="$mason_null_ls_home/ensure_installed.lua"
-	if [ ! -f $mason_null_ls_ensure_installed ]; then
-		cp $mason_null_ls_home/ensure_installed_sample.lua $mason_null_ls_ensure_installed
-	fi
 	local mason_null_ls_setup_handlers="$mason_null_ls_home/setup_handlers.lua"
 	if [ ! -f $mason_null_ls_setup_handlers ]; then
 		cp $mason_null_ls_home/setup_handlers_sample.lua $mason_null_ls_setup_handlers
