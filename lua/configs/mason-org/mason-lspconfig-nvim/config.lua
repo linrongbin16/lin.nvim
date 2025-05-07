@@ -14,7 +14,10 @@ if user_ensure_installed_ok then
   end
 end
 
-require("mason-lspconfig").setup({ ensure_installed = ensure_installed })
+require("mason-lspconfig").setup({
+  ensure_installed = ensure_installed,
+  automatic_enable = false,
+})
 
 local setup_handlers = {
   -- use default setup for all lsp servers
