@@ -176,7 +176,7 @@ local M = {
   },
   -- Lsp server management
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     event = { VeryLazy },
     cmd = {
       "Mason",
@@ -188,18 +188,18 @@ local M = {
     },
     dependencies = { "neovim/nvim-lspconfig" },
     build = ":MasonUpdate",
-    config = lua_config("williamboman/mason.nvim"),
-    keys = lua_keys("williamboman/mason.nvim"),
+    config = lua_config("mason-org/mason.nvim"),
+    keys = lua_keys("mason-org/mason.nvim"),
   },
   {
-    "williamboman/mason-lspconfig.nvim",
+    "mason-org/mason-lspconfig.nvim",
     event = { VeryLazy },
     cmd = {
       "LspInstall",
       "LspUninstall",
     },
-    dependencies = { "neovim/nvim-lspconfig", "williamboman/mason.nvim" },
-    config = lua_config("williamboman/mason-lspconfig.nvim"),
+    dependencies = { "neovim/nvim-lspconfig", "mason-org/mason.nvim" },
+    config = lua_config("mason-org/mason-lspconfig.nvim"),
   },
   {
     "stevearc/conform.nvim",
@@ -207,8 +207,8 @@ local M = {
     cmd = { "ConformInfo" },
     dependencies = {
       "neovim/nvim-lspconfig",
-      "williamboman/mason.nvim",
-      "williamboman/mason-lspconfig.nvim",
+      "mason-org/mason.nvim",
+      "mason-org/mason-lspconfig.nvim",
     },
     config = lua_config("stevearc/conform.nvim"),
     keys = lua_keys("stevearc/conform.nvim"),
@@ -234,8 +234,8 @@ local M = {
     },
     dependencies = {
       "neovim/nvim-lspconfig",
-      "williamboman/mason.nvim",
-      "williamboman/mason-lspconfig.nvim",
+      "mason-org/mason.nvim",
+      "mason-org/mason-lspconfig.nvim",
       "nvimtools/none-ls.nvim",
     },
     config = lua_config("jay-babu/mason-null-ls.nvim"),

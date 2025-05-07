@@ -126,14 +126,6 @@ function NvimConfig()
   Backup $env:LOCALAPPDATA\nvim
   Start-Process powershell "cmd /c mklink $env:LOCALAPPDATA\nvim $NVIM_HOME /D" -Verb RunAs -Wait
 
-  # # nvim-treesitter
-  # $NvimTreesitterHome = "$NVIM_HOME\lua\configs\nvim-treesitter\nvim-treesitter"
-  # $NvimTreesitterEnsureInstalled = "$NvimTreesitterHome\ensure_installed.lua"
-  # if (-not(TestReparsePoint $NvimTreesitterEnsureInstalled) -and -not(Test-Path $NvimTreesitterEnsureInstalled))
-  # {
-  #     Copy-Item -Path "$NvimTreesitterHome\ensure_installed_sample.lua" -Destination "$NvimTreesitterEnsureInstalled"
-  # }
-
   # nvim-lspconfig
   $NvimLspconfigHome = "$NVIM_HOME\lua\configs\neovim\nvim-lspconfig"
   $NvimLspconfigSetupHandlers = "$NvimLspconfigHome\setup_handlers.lua"
@@ -142,26 +134,8 @@ function NvimConfig()
     Copy-Item -Path "$NvimLspconfigHome\setup_handlers_sample.lua" -Destination "$NvimLspconfigSetupHandlers"
   }
 
-  # mason-lspconfig.nvim
-  $MasonLspconfigHome = "$NVIM_HOME\lua\configs\williamboman\mason-lspconfig-nvim"
-  $MasonLspconfigEnsureInstalled = "$MasonLspconfigHome\ensure_installed.lua"
-  if (-not(TestReparsePoint $MasonLspconfigEnsureInstalled) -and -not(Test-Path $MasonLspconfigEnsureInstalled))
-  {
-    Copy-Item -Path "$MasonLspconfigHome\ensure_installed_sample.lua" -Destination "$MasonLspconfigEnsureInstalled"
-  }
-  $MasonLspconfigSetupHandlers = "$MasonLspconfigHome\setup_handlers.lua"
-  if (-not(TestReparsePoint $MasonLspconfigSetupHandlers) -and -not(Test-Path $MasonLspconfigSetupHandlers))
-  {
-    Copy-Item -Path "$MasonLspconfigHome\setup_handlers_sample.lua" -Destination "$MasonLspconfigSetupHandlers"
-  }
-
   # mason-null-ls.nvim
   $MasonNulllsHome = "$NVIM_HOME\lua\configs\jay-babu\mason-null-ls-nvim"
-  $MasonNulllsEnsureInstalled = "$MasonNulllsHome\ensure_installed.lua"
-  if (-not(TestReparsePoint $MasonNulllsEnsureInstalled) -and -not(Test-Path $MasonNulllsEnsureInstalled))
-  {
-    Copy-Item -Path "$MasonNulllsHome\ensure_installed_sample.lua" -Destination "$MasonNulllsEnsureInstalled"
-  }
   $MasonNulllsSetupHandlers = "$MasonNulllsHome\setup_handlers.lua"
   if (-not(TestReparsePoint $MasonNulllsSetupHandlers) -and -not(Test-Path $MasonNulllsSetupHandlers))
   {

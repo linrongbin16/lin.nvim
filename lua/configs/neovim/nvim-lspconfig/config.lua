@@ -8,6 +8,6 @@ if not setup_handlers_ok then
   setup_handlers = {}
 end
 
-for name, config in pairs(setup_handlers) do
-  lspconfig[name].setup(config)
+for name, conf in pairs(setup_handlers) do
+  vim.lsp.config(name, conf)
 end
