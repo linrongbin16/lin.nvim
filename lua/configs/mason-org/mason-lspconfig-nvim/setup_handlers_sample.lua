@@ -3,7 +3,7 @@
 -- Configure lsp server setup handlers.
 -- This module will be passed to `require("mason-lspconfig").setup_handlers(setup_handlers)`.
 -- For automatic lsp server setup, please refer to:
---  * [mason-lspconfig's Automatic server setup](https://github.com/williamboman/mason-lspconfig.nvim#automatic-server-setup-advanced-feature).
+--  * [mason-lspconfig's Automatic server setup](https://github.com/mason-org/mason-lspconfig.nvim#automatic-server-setup-advanced-feature).
 
 local lspconfig = require("lspconfig")
 

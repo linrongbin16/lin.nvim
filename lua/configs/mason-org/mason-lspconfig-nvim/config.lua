@@ -3,7 +3,7 @@ local message = require("builtin.utils.message")
 
 local ensure_installed = {}
 
-local user_ensure_installed_module = "configs.williamboman.mason-lspconfig-nvim.ensure_installed"
+local user_ensure_installed_module = "configs.mason-org.mason-lspconfig-nvim.ensure_installed"
 local user_ensure_installed_ok, user_ensure_installed = pcall(require, user_ensure_installed_module)
 
 if user_ensure_installed_ok then
@@ -23,7 +23,7 @@ local setup_handlers = {
   end,
 }
 
-local user_setup_handlers_module = "configs.williamboman.mason-lspconfig-nvim.setup_handlers"
+local user_setup_handlers_module = "configs.mason-org.mason-lspconfig-nvim.setup_handlers"
 local user_setup_handlers_ok, user_setup_handlers = pcall(require, user_setup_handlers_module)
 
 if user_setup_handlers_ok then

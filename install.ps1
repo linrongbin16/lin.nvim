@@ -143,7 +143,7 @@ function NvimConfig()
   }
 
   # mason-lspconfig.nvim
-  $MasonLspconfigHome = "$NVIM_HOME\lua\configs\williamboman\mason-lspconfig-nvim"
+  $MasonLspconfigHome = "$NVIM_HOME\lua\configs\mason-org\mason-lspconfig-nvim"
   $MasonLspconfigEnsureInstalled = "$MasonLspconfigHome\ensure_installed.lua"
   if (-not(TestReparsePoint $MasonLspconfigEnsureInstalled) -and -not(Test-Path $MasonLspconfigEnsureInstalled))
   {

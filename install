@@ -358,7 +358,7 @@ nvim_config() {
 	fi
 
 	# mason-lspconfig.nvim
-	local mason_lspconfig_home="$NVIM_HOME/lua/configs/williamboman/mason-lspconfig-nvim"
+	local mason_lspconfig_home="$NVIM_HOME/lua/configs/mason-org/mason-lspconfig-nvim"
 	local mason_lspconfig_ensure_installed="$mason_lspconfig_home/ensure_installed.lua"
 	if [ ! -f $mason_lspconfig_ensure_installed ]; then
 		cp $mason_lspconfig_home/ensure_installed_sample.lua $mason_lspconfig_ensure_installed

@@ -3,7 +3,7 @@
 -- Ensure installed lsp servers.
 -- This module will be passed to `require("mason-lspconfig").setup({ ensure_installed = ... })`.
 -- For full available lsp servers list, please checkout:
---  * [mason-lspconfig Available LSP servers](https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers) for more LSP servers.
+--  * [mason-lspconfig Available LSP servers](https://github.com/mason-org/mason-lspconfig.nvim#available-lsp-servers) for more LSP servers.
 
 local ensure_installed = {
   -- "lua_ls", -- lua
