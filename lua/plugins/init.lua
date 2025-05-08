@@ -176,13 +176,13 @@ local M = {
 
   {
     "neovim/nvim-lspconfig",
-    event = { VeryLazy },
+    event = { VeryLazy, BufReadPre, BufNewFile },
     config = lua_config("neovim/nvim-lspconfig"),
   },
   -- Lsp server management
   {
     "mason-org/mason.nvim",
-    event = { VeryLazy },
+    event = { VeryLazy, BufReadPre, BufNewFile },
     cmd = {
       "Mason",
       "MasonUpdate",
@@ -198,7 +198,7 @@ local M = {
   },
   {
     "mason-org/mason-lspconfig.nvim",
-    event = { VeryLazy },
+    event = { VeryLazy, BufReadPre, BufNewFile },
     cmd = {
       "LspInstall",
       "LspUninstall",
@@ -220,7 +220,7 @@ local M = {
   },
   {
     "nvimtools/none-ls.nvim",
-    event = { VeryLazy },
+    event = { VeryLazy, BufReadPre, BufNewFile },
     cmd = {
       "NullLsInfo",
       "NullLsLog",
@@ -230,7 +230,7 @@ local M = {
   },
   {
     "jay-babu/mason-null-ls.nvim",
-    event = { VeryLazy },
+    event = { VeryLazy, BufReadPre, BufNewFile },
     cmd = {
       "NullLsInstall",
       "NoneLsInstall",
