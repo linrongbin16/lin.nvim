@@ -171,7 +171,7 @@ local M = {
 
   {
     "neovim/nvim-lspconfig",
-    event = { VeryLazy },
+    event = { VeryLazy, BufReadPre, BufNewFile },
     config = lua_config("neovim/nvim-lspconfig"),
   },
   -- Lsp server management

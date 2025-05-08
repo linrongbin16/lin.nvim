@@ -1,4 +1,4 @@
-local lspconfig = require("lspconfig")
+require("lspconfig")
 
 -- user setup handlers
 local setup_handlers_ok, setup_handlers =
