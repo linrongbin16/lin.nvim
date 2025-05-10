@@ -173,8 +173,8 @@ local M = {
   -- Lsp server management
   {
     "mason-org/mason.nvim",
-    version = "v1.*",
     event = { VeryLazy, BufReadPre, BufNewFile },
+    version = "v1.*",
     cmd = {
       "Mason",
       "MasonUpdate",
@@ -191,6 +191,7 @@ local M = {
   {
     "mason-org/mason-lspconfig.nvim",
     event = { VeryLazy, BufReadPre, BufNewFile },
+    version = "v1.*",
     cmd = {
       "LspInstall",
       "LspUninstall",
