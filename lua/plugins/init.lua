@@ -173,6 +173,7 @@ local M = {
   -- Lsp server management
   {
     "mason-org/mason.nvim",
+    version = "v1.*",
     event = { VeryLazy, BufReadPre, BufNewFile },
     cmd = {
       "Mason",
