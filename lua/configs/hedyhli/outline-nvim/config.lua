@@ -35,7 +35,7 @@ vim.api.nvim_create_autocmd("FileType", {
   callback = function()
     local set_key = require("builtin.utils.keymap").set_key
     local opts = { buffer = true }
-    set_key("n", "<leader>.", "<cmd>vertical resize +10<cr>", opts)
-    set_key("n", "<leader>,", "<cmd>vertical resize -10<cr>", opts)
+    set_key("n", "<leader>.", "<cmd>vertical resize -10<cr>", opts)
+    set_key("n", "<leader>,", "<cmd>vertical resize +10<cr>", opts)
   end,
 })
