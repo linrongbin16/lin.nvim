@@ -87,7 +87,7 @@ local function CursorHex()
 end
 
 local empty_component_separators = { left = "", right = "" }
-local empty_section_separators = { left = " ", right = " " }
+local empty_section_separators = { left = "", right = "" }
 
 -- style-1: A > B > C ---- X < Y < Z
 local angle_component_separators = { left = "", right = "" }
