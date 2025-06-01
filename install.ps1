@@ -124,7 +124,7 @@ function NvimConfig()
 {
   Info "install $env:LOCALAPPDATA\nvim\init.lua for neovim on windows"
   Backup $env:LOCALAPPDATA\nvim
-  Start-Process powershell "cmd /c mklink $env:LOCALAPPDATA\nvim $NVIM_HOME /D" -Verb RunAs -Wait
+  cmd /c mklink $env:LOCALAPPDATA\nvim $NVIM_HOME /D
 
   # nvim-lspconfig
   $NvimLspconfigHome = "$NVIM_HOME\lua\configs\neovim\nvim-lspconfig"
