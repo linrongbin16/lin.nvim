@@ -72,7 +72,7 @@ And that's all of it.
 
 - Install [Node.js](https://nodejs.org/en/download/package-manager).
 
-- Run below PowerShell commands:
+- Run below PowerShell commands with **Administration** permission:
 
   ```powershell
   # scoop
