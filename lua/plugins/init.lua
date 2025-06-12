@@ -49,7 +49,6 @@ local M = {
     "folke/snacks.nvim",
     lazy = false,
     config = lua_config("folke/snacks.nvim"),
-    keys = lua_keys("folke/snacks.nvim"),
   },
 
   -- ---- HIGHLIGHT ----
@@ -102,8 +101,13 @@ local M = {
     keys = lua_keys("nvim-neo-tree/neo-tree.nvim"),
   },
   {
+    "moll/vim-bbye",
+    keys = lua_keys("moll/vim-bbye"),
+  },
+  {
     "akinsho/bufferline.nvim",
     event = { VeryLazy },
+    dependencies = { "moll/vim-bbye" },
     config = lua_config("akinsho/bufferline.nvim"),
     keys = lua_keys("akinsho/bufferline.nvim"),
   },
