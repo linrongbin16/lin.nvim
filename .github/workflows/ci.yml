@@ -84,8 +84,8 @@ jobs:
           sudo apt-get install -q -y bat
           sudo apt-get install -q -y ripgrep
           sudo apt-get install -q -y eza
-          ln -s $(which fdfind) ~/.local/bin/fd
-          ln -s $(which batcat) ~/.local/bin/bat
+          ln -s ~/.local/bin/fd $(which fdfind)
+          ln -s ~/.local/bin/bat $(which batcat)
           export PATH="$PATH:~/.local/bin"
           echo '${{ steps.extract_branch.outputs.branch }}'
           export BRANCH_NAME=${{ steps.extract_branch.outputs.branch }}
