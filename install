@@ -46,13 +46,6 @@ install() {
 	fi
 }
 
-latest_github_release_tag() {
-	local org="$1"
-	local repo="$2"
-	local uri="https://github.com/$org/$repo/releases/latest"
-	curl -s -f -L $uri | grep "href=\"/$org/$repo/releases/tag" | grep -Eo 'href="/[a-zA-Z0-9#~.*,/!?=+&_%:-]*"' | head -n 1 | cut -d '"' -f2 | cut -d "/" -f6
-}
-
 # utils }
 
 # apt: ubuntu/debian {
@@ -63,9 +56,9 @@ apt_install_neovim() {
 
 apt_install_nodejs() {
 	# see: https://github.com/nodesource/distributions
-	info "install nodejs-lts from NodeSource"
+	info "install nodejs-lts from github NodeSource"
 	sudo apt-get -qq -y install curl
-	curl -fsSL https://deb.nodesource.com/setup_22.x -o nodesource_setup.sh
+	curl -fsSL https://deb.nodesource.com/setup_lts.x -o nodesource_setup.sh
 	sudo -E bash nodesource_setup.sh
 	sudo apt-get -qq update
 	sudo apt-get -qq -y install nodejs
@@ -87,10 +80,15 @@ apt_install_go() {
 }
 
 apt_install_lazygit() {
-	LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | \grep -Po '"tag_name": *"v\K[^"]*')
+	local LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | \grep -Po '"tag_name": *"v\K[^"]*')
 	curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
 	tar xf lazygit.tar.gz lazygit
 	sudo install lazygit -D -t /usr/local/bin/
+}
+
+apt_install_fzf() {
+	git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+	~/.fzf/install
 }
 
 apt_deps() {
@@ -134,7 +132,7 @@ apt_deps() {
 
 	# dev tools
 	install "apt_install_lazygit" "lazygit"
-	install "sudo apt-get -qq -y install fzf" "fzf"
+	install "apt_install_fzf" "fzf"
 }
 
 # }
@@ -304,38 +302,6 @@ npm_deps() {
 	install "sudo npm install --silent -g trash-cli" "trash"
 }
 
-github_install_nerdfont() {
-	if [ "$OS" = "Darwin" ]; then
-		local font_name=$2
-		info "install $font_name nerd fonts with brew"
-		brew install $font_name
-	else
-		mkdir -p ~/.local/share/fonts && cd ~/.local/share/fonts
-		local org="ryanoasis"
-		local repo="nerd-fonts"
-		local font_file=$1
-		local font_version=$(latest_github_release_tag $org $repo)
-		local font_url="https://github.com/$org/$repo/releases/download/$font_version/$font_file"
-		info "install $font_file($font_version) nerd fonts from github"
-		if [ -f $font_file ]; then
-			rm -rf $font_file
-		fi
-		curl -s -L $font_url -o $font_file
-		if [ $? -ne 0 ]; then
-			info "failed to download $font_file, skip..."
-		else
-			unzip -q -o $font_file
-			info "install $font_file($font_version) nerd font from github - done"
-		fi
-		sudo fc-cache -f
-	fi
-}
-
-font_deps() {
-	github_install_nerdfont "Hack.zip" "font-hack-nerd-font"
-	info "please set 'Hack NFM' (or 'Hack Nerd Font Mono') as your terminal font"
-}
-
 nvim_config() {
 	info "install ~/.config/nvim/init.lua for neovim"
 	mkdir -p $HOME/.config
@@ -403,7 +369,6 @@ esac
 
 rust_deps
 npm_deps
-font_deps
 nvim_config
 
 info "install for $OS - done"
