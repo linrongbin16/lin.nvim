@@ -89,6 +89,7 @@ apt_install_lazygit() {
 apt_install_fzf() {
 	git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 	~/.fzf/install
+	export PATH=$PATH:~/.fzf/bin
 }
 
 apt_deps() {
