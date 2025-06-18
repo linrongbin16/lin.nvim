@@ -88,9 +88,10 @@ Check out [installation](https://linrongbin16.github.io/lin.nvim/#/install) for 
 
 ### Patched Font
 
-Patched font is mandatory for displaying icons.
+Patched font is mandatory for displaying icons. Please following below steps:
 
-Even [Hack Nerd Font](https://github.com/ryanoasis/nerd-fonts/tree/c173f661a0ed03bc537d31a79670bc03b586251d/patched-fonts/Hack) is been installed during installation, you still need to manually config it in your terminal, such as [gnome-terminal](https://help.gnome.org/users/gnome-terminal/stable/) (Ubuntu), [item2](https://iterm2.com/) (MacOS), [Windows Terminal](https://github.com/microsoft/terminal) (Windows), [kitty](https://sw.kovidgoyal.net/kitty/), [alacritty](https://github.com/alacritty/alacritty), [wezterm](https://wezfurlong.org/wezterm/), etc.
+1. Install a [nerd font](https://www.nerdfonts.com/font-downloads).
+2. Configure the nerd font for your terminal, such as [gnome-terminal](https://help.gnome.org/users/gnome-terminal/stable/) (Ubuntu), [item2](https://iterm2.com/) (MacOS), [Windows Terminal](https://github.com/microsoft/terminal) (Windows), [kitty](https://sw.kovidgoyal.net/kitty/), [alacritty](https://github.com/alacritty/alacritty), [wezterm](https://wezfurlong.org/wezterm/), etc. Or set the [`guifont`](https://neovim.io/doc/user/options.html#'guifont') option for Neovim GUI client.
 
 ## User guide
 
