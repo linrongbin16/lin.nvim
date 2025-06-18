@@ -3,20 +3,6 @@
 local constants = require("builtin.constants")
 local set_key = require("builtin.utils.keymap").set_key
 
--- GUI font
-if constants.os.is_windows then
-  -- Windows
-  vim.o.guifont = "Hack Nerd Font Mono:h10"
-else
-  if constants.os.is_macos then
-    -- MacOS
-    vim.o.guifont = "Hack Nerd Font Mono:h13"
-  else
-    -- Linux
-    vim.o.guifont = "Hack Nerd Font Mono:h10"
-  end
-end
-
 -- biscuits
 set_key("n", "@", "<Noq>", { silent = true, desc = "Disable macro recording" })
 set_key(
