@@ -111,15 +111,6 @@ function NpmDeps()
   Install -command "npm install --silent -g trash-cli" -target "trash"
 }
 
-function FontDeps()
-{
-  Info "install 'Hack' nerd font"
-  scoop bucket add nerd-fonts
-  scoop install Hack-NF
-  scoop install Hack-NF-Mono
-  Info "please set 'Hack NFM' (or 'Hack Nerd Font Mono') as your terminal font"
-}
-
 function NvimConfig()
 {
   Info "install $env:LOCALAPPDATA\nvim\init.lua for neovim on windows"
@@ -169,7 +160,6 @@ Info "install dependencies with scoop"
 CoreDeps
 RustDeps
 NpmDeps
-FontDeps
 NvimConfig
 
 Info "install for Windows - done"
