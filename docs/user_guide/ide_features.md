@@ -17,7 +17,7 @@
 
 ## Symbol Navigation
 
-?> Supported by [fzfx.nvim](https://github.com/linrongbin16/fzfx.nvim).
+?> Supported by [glance.nvim](https://github.com/DNLHC/glance.nvim).
 
 <!-- Screenshots are recorded with 150x40 kitty terminal -->
 
@@ -28,7 +28,7 @@
 - `gi` 🄽 - Go to implementations.
 - `gt` 🄽 - Go to type definitions.
 
-?> For full key mappings, please refer to [fzfx's usage](https://github.com/linrongbin16/fzfx.nvim?#-usage).
+?> For full key mappings, please refer to [glance.nvim](https://github.com/DNLHC/glance.nvim).
 
 ## Code Format
 
