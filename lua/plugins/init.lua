@@ -240,6 +240,19 @@ local M = {
     },
     config = lua_config("jay-babu/mason-null-ls.nvim"),
   },
+  {
+    "DNLHC/glance.nvim",
+    event = { VeryLazy, BufReadPre, BufNewFile },
+    cmd = { "Glance" },
+    dependencies = {
+      "neovim/nvim-lspconfig",
+      "mason-org/mason.nvim",
+      "mason-org/mason-lspconfig.nvim",
+      "nvimtools/none-ls.nvim",
+    },
+    config = lua_config("DNLHC/glance.nvim"),
+    keys = lua_keys("DNLHC/glance.nvim"),
+  },
 
   -- ---- AUTO-COMPLETE ----
   {
