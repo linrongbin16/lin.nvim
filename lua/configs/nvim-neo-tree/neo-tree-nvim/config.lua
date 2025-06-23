@@ -7,12 +7,14 @@ local function trash_bin(state)
   local msg = "Are you sure you want to move '"
     .. vim.fn.fnamemodify(vim.fn.fnameescape(path), ":~:.")
     .. "' to trash bin?"
+  local state_name = state.name
   inputs.confirm(msg, function(confirmed)
     if not confirmed then
       return
     end
-    vim.fn.system({ "trash", vim.fn.fnameescape(path) })
-    require("neo-tree.sources.manager").refresh(state.name)
+    vim.system({ "trash", vim.fn.fnameescape(path) }, { text = true }, function(trash_completed)
+      require("neo-tree.sources.manager").refresh(state_name)
+    end)
   end)
 end
 
