@@ -21,38 +21,6 @@ local function goto_diagnostic(next, severity)
   end
 end
 
-set_key("n", "gd", function()
-  if vim.fn.exists(":FzfxLspDefinitions") > 0 then
-    vim.cmd("FzfxLspDefinitions")
-  else
-    vim.lsp.buf.definition()
-  end
-end, { desc = "Go to LSP definitions" })
-
-set_key("n", "gt", function()
-  if vim.fn.exists(":FzfxLspTypeDefinitions") > 0 then
-    vim.cmd("FzfxLspTypeDefinitions")
-  else
-    vim.lsp.buf.type_definition()
-  end
-end, { desc = "Go to LSP type definitions" })
-
-set_key("n", "gi", function()
-  if vim.fn.exists(":FzfxLspImplementations") > 0 then
-    vim.cmd("FzfxLspImplementations")
-  else
-    vim.lsp.buf.implementation()
-  end
-end, { desc = "Go to LSP implementations" })
-
-set_key("n", "gr", function()
-  if vim.fn.exists(":FzfxLspReferences") > 0 then
-    vim.cmd("FzfxLspReferences")
-  else
-    vim.lsp.buf.references()
-  end
-end, { desc = "Go to LSP references" })
-
 set_key("n", "K", function()
   vim.lsp.buf.hover()
 end, { desc = "Show LSP hover" })

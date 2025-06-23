@@ -55,6 +55,19 @@ local M = {
     "<cmd>FzfxLspDiagnostics visual<cr>",
     { desc = "Search lsp diagnostics" }
   ),
+  -- -- lsp
+  -- set_lazy_key("n", "gd", function()
+  --   vim.cmd("FzfxLspDefinitions")
+  -- end, { desc = "Go to LSP definition" }),
+  -- set_lazy_key("n", "gt", function()
+  --   vim.cmd("FzfxLspTypeDefinitions")
+  -- end, { desc = "Go to LSP type definition" }),
+  -- set_lazy_key("n", "gi", function()
+  --   vim.cmd("FzfxLspImplementations")
+  -- end, { desc = "Go to LSP implementation" }),
+  -- set_lazy_key("n", "gr", function()
+  --   vim.cmd("FzfxLspReferences")
+  -- end, { desc = "Go to LSP reference" }),
 }
 
 return M
