@@ -13,7 +13,9 @@ local function trash_bin(state)
       return
     end
     vim.system({ "trash", vim.fn.fnameescape(path) }, { text = true }, function(trash_completed)
-      require("neo-tree.sources.manager").refresh(state_name)
+      vim.schedule(function()
+        require("neo-tree.sources.manager").refresh(state_name)
+      end)
     end)
   end)
 end
