@@ -23,6 +23,7 @@ lualoader("preinit")
 
 -- options
 vimloader("lua/builtin/options")
+require("builtin.disabled")
 require("builtin.ui")
 require("builtin.lsp")
 require("builtin.diagnostic")
