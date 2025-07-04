@@ -17,6 +17,9 @@ local function lualoader(handle)
   end
 end
 
+-- disable useless builtin plugins
+require("builtin.disabled")
+
 -- preinit.vim and preinit.lua
 vimloader("preinit")
 lualoader("preinit")
