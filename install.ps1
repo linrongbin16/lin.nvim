@@ -60,9 +60,6 @@ function CoreDeps()
   scoop install mingw
   scoop install uutils-coreutils
 
-  # neovim
-  Install -command "scoop install neovim" -target "nvim"
-
   # shell
   Install -command "scoop install which" -target "which"
   Install -command "scoop install gawk" -target "awk"
@@ -95,10 +92,14 @@ function RustDeps()
   Install -command "scoop install rustup" -target "cargo"
   Install -command "scoop install rustup" -target "rustc"
   # modern commands
-  Install -command "cargo install ripgrep" -target "rg"
-  Install -command "cargo install fd-find" -target "fd"
-  Install -command "cargo install --locked bat" -target "bat"
-  Install -command "cargo install eza" -target "eza"
+  Install -command "scoop install fd" -target "fd"
+  Install -command "scoop install ripgrep" -target "rg"
+  Install -command "scoop install bat" -target "bat"
+  Install -command "scoop install eza" -target "eza"
+  # neovim
+  Install -command "cargo install --git https://github.com/MordechaiHadad/bob --locked" -target "bob"
+  Install -command "bob use stable" -target "nvim"
+  $env:PATH += ";$env:LOCALAPPDATA\bob\nvim-bin"
 }
 
 function NpmDeps()
