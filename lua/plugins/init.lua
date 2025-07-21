@@ -296,15 +296,21 @@ local M = {
   -- ---- GIT INTEGRATION ----
 
   -- Blame
+  -- {
+  --   "f-person/git-blame.nvim",
+  --   cmd = {
+  --     "GitBlameToggle",
+  --     "GitBlameEnable",
+  --     "GitBlameDisable",
+  --   },
+  --   config = lua_config("f-person/git-blame.nvim"),
+  --   keys = lua_keys("f-person/git-blame.nvim"),
+  -- },
   {
-    "f-person/git-blame.nvim",
-    cmd = {
-      "GitBlameToggle",
-      "GitBlameEnable",
-      "GitBlameDisable",
-    },
-    config = lua_config("f-person/git-blame.nvim"),
-    keys = lua_keys("f-person/git-blame.nvim"),
+    "FabijanZulj/blame.nvim",
+    cmd = { "BlameToggle" },
+    config = lua_config("FabijanZulj/blame.nvim"),
+    keys = lua_keys("FabijanZulj/blame.nvim"),
   },
   -- Permlink
   {
