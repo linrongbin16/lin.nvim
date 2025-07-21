@@ -78,6 +78,7 @@ jobs:
         env:
           SCCACHE_GHA_ENABLED: "true"
           RUSTC_WRAPPER: "sccache"
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -x
           echo '${{ steps.extract_branch.outputs.branch }}'
@@ -99,6 +100,7 @@ jobs:
         env:
           SCCACHE_GHA_ENABLED: "true"
           RUSTC_WRAPPER: "sccache"
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -x
           echo '${{ steps.extract_branch.outputs.branch }}'
@@ -127,6 +129,7 @@ jobs:
         env:
           SCCACHE_GHA_ENABLED: "true"
           RUSTC_WRAPPER: "sccache"
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo '${{ steps.extract_branch.outputs.branch }}'
           echo ${{ steps.extract_branch.outputs.branch }}
