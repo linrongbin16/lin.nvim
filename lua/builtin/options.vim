@@ -97,9 +97,9 @@ autocmd FocusGained,BufEnter,TermEnter,TermLeave * checktime
 set fileencoding=utf-8
 set fileencodings+=ucs-bom,utf-8,cp936,gb18030,gbk,big5,euc-jp,euc-kr,default,latin1
 set encoding=utf-8
-" set termencoding=utf-8
-" set fileformat=unix
-" set fileformats=unix,dos,mac
+set termencoding=utf-8
+set fileformat=unix
+set fileformats=unix,dos,mac
 
 " command history
 set history=1000
