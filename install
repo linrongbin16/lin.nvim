@@ -50,10 +50,6 @@ install() {
 
 # apt: ubuntu/debian {
 
-apt_install_neovim() {
-	sudo snap install nvim --classic
-}
-
 apt_install_nodejs() {
 	# see: https://github.com/nodesource/distributions
 	info "install nodejs-lts from github NodeSource"
@@ -98,9 +94,6 @@ apt_deps() {
 	sudo locale-gen en_US
 	sudo locale-gen en_US.UTF-8
 	sudo update-locale
-
-	# neovim
-	install "apt_install_neovim" "nvim"
 
 	# c++ toolchain
 	install "sudo apt-get -qq -y install build-essential" "gcc"
@@ -150,9 +143,6 @@ dnf_deps() {
 	info "dnf install dependencies"
 	sudo dnf check-update
 
-	# neovim
-	install "sudo dnf install -y neovim" "nvim"
-
 	# c++ toolchain
 	install "sudo dnf group install -y \"Development Tools\"" "gcc"
 	install "sudo dnf group install -y \"Development Tools\"" "make"
@@ -198,9 +188,6 @@ dnf_deps() {
 pacman_deps() {
 	info "pacman install dependencies"
 	sudo pacman -Syy
-
-	# neovim
-	install "yes | sudo pacman -S neovim" "nvim"
 
 	# c++ toolchain
 	install "yes | sudo pacman -S base-devel" "gcc"
@@ -253,9 +240,6 @@ brew_deps() {
 
 	brew update
 
-	# neovim
-	install "brew install neovim" "nvim"
-
 	# c++ toolchain
 	install "brew install cmake" "cmake"
 	install "brew install pkg-config" "pkg-config"
@@ -293,10 +277,16 @@ rust_deps() {
 	if [ -f $HOME/.cargo/env ]; then
 		. "$HOME/.cargo/env"
 	fi
-	install "cargo install fd-find" "fd"
-	install "cargo install ripgrep" "rg"
-	install "cargo install --locked bat" "bat"
-	install "cargo install eza" "eza"
+	install "curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash" "cargo-binstall"
+	install "cargo binstall -y --force fd-find" "fd"
+	install "cargo binstall -y --force ripgrep" "rg"
+	install "cargo binstall -y --force bat" "bat"
+	install "cargo binstall -y --force eza" "eza"
+
+	# neovim
+	install "cargo install --git https://github.com/MordechaiHadad/bob --locked" "bob"
+	export PATH="$PATH:$HOME/.local/share/bob/nvim-bin"
+	install "bob use stable" "nvim"
 }
 
 npm_deps() {
