@@ -81,6 +81,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -x
+          curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
+          cargo binstall -y --force fd-find
+          cargo binstall -y --force ripgrep
+          cargo binstall -y --force bat
+          cargo binstall -y --force eza
           echo '${{ steps.extract_branch.outputs.branch }}'
           export BRANCH_NAME=${{ steps.extract_branch.outputs.branch }}
           git clone --single-branch --branch $BRANCH_NAME --depth=1 https://github.com/linrongbin16/lin.nvim ~/.nvim && cd ~/.nvim && bash -euxo pipefail ./install
@@ -103,6 +108,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -x
+          brew install fd
+          brew install ripgrep
+          brew install bat
+          brew install eza
           echo '${{ steps.extract_branch.outputs.branch }}'
           echo ${{ steps.extract_branch.outputs.branch }}
           export HOMEBREW_NO_AUTO_UPDATE=1
