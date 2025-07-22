@@ -277,11 +277,10 @@ rust_deps() {
 	if [ -f $HOME/.cargo/env ]; then
 		. "$HOME/.cargo/env"
 	fi
-	install "curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash" "cargo-binstall"
-	install "cargo binstall -y --force fd-find" "fd"
-	install "cargo binstall -y --force ripgrep" "rg"
-	install "cargo binstall -y --force bat" "bat"
-	install "cargo binstall -y --force eza" "eza"
+	install "cargo install fd-find" "fd"
+	install "cargo install ripgrep" "rg"
+	install "cargo install --locked bat" "bat"
+	install "cargo install eza" "eza"
 
 	# neovim
 	install "cargo install --git https://github.com/MordechaiHadad/bob --locked" "bob"
