@@ -20,11 +20,12 @@ end
 
 require("blink.cmp").setup({
   cmdline = {
+    enabled = true,
     completion = {
       list = { selection = { preselect = false } },
       menu = { auto_show = true },
+      ghost_text = { enabled = false },
     },
-    enabled = true,
     keymap = {
       ["<CR>"] = { "accept", "fallback" },
 
@@ -140,4 +141,7 @@ require("blink.cmp").setup({
     enabled = true,
   },
   snippets = { preset = "luasnip" },
+  sources = {
+    default = { "lsp", "path", "snippets", "buffer" },
+  },
 })
