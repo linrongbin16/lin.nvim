@@ -1,3 +1,5 @@
+local str = require("commons.str")
+
 -- Whether previous char is whitespace.
 ---@return boolean
 local function checkspace()
@@ -18,11 +20,12 @@ end
 
 require("blink.cmp").setup({
   cmdline = {
+    enabled = true,
     completion = {
       list = { selection = { preselect = false } },
       menu = { auto_show = true },
+      ghost_text = { enabled = false },
     },
-    enabled = true,
     keymap = {
       ["<CR>"] = { "accept", "fallback" },
 
@@ -65,6 +68,39 @@ require("blink.cmp").setup({
             end,
             highlight = "BlinkCmpSource",
           },
+          -- lspkind, nvim-highlight-colors
+          kind_icon = {
+            text = function(ctx)
+              -- default kind icon
+              local icon = ctx.kind_icon
+              -- if LSP source, check for color derived from documentation
+              if str.find(ctx.item.source_name, "LSP") ~= nil then
+                local color_item = require("nvim-highlight-colors").format(
+                  ctx.item.documentation,
+                  { kind = ctx.kind }
+                )
+                if color_item and color_item.abbr ~= "" then
+                  icon = color_item.abbr
+                end
+              end
+              return icon .. ctx.icon_gap
+            end,
+            highlight = function(ctx)
+              -- default highlight group
+              local highlight = "BlinkCmpKind" .. ctx.kind
+              -- if LSP source, check for color derived from documentation
+              if str.find(ctx.item.source_name, "LSP") ~= nil then
+                local color_item = require("nvim-highlight-colors").format(
+                  ctx.item.documentation,
+                  { kind = ctx.kind }
+                )
+                if color_item and color_item.abbr_hl_group then
+                  highlight = color_item.abbr_hl_group
+                end
+              end
+              return highlight
+            end,
+          },
         },
       },
     },
@@ -105,4 +141,7 @@ require("blink.cmp").setup({
     enabled = true,
   },
   snippets = { preset = "luasnip" },
+  sources = {
+    default = { "lsp", "path", "snippets", "buffer" },
+  },
 })
