@@ -275,10 +275,11 @@ local M = {
     "saghen/blink.cmp",
     event = { VeryLazy, CmdlineEnter, InsertEnter },
     dependencies = {
+      "brenoprata10/nvim-highlight-colors",
       "rafamadriz/friendly-snippets",
       "L3MON4D3/LuaSnip",
     },
-    version = "v0.*",
+    version = "*",
     config = lua_config("saghen/blink.cmp"),
   },
 
