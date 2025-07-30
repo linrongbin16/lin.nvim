@@ -12,14 +12,13 @@ M.diagnostics = {
 
 M.window = {
   -- window border options: single,double,rounded,solid,shadow,bold,none
-  border = "none",
+  border = "single",
 
   -- single border chars
-  -- border_chars = { "┌", "─", "┐", "│", "┘", "─", "└", "│" },
   -- border_chars = { "╔", "═", "╗", "║", "╝", "═", "╚", "║" }, -- double
-  -- border_chars = { "┌", "─", "┐", "│", "┘", "─", "└", "│" }, -- single
+  border_chars = { "┌", "─", "┐", "│", "┘", "─", "└", "│" }, -- single
   -- border_chars = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }, -- rounded
-  border_chars = { " ", " ", " ", " ", " ", " ", " ", " " }, -- none
+  -- border_chars = { " ", " ", " ", " ", " ", " ", " ", " " }, -- none
   -- border_chars = { "┏", "━", "┓", "┃", "┛", "━", "┗", "┃" }, -- bold
 
   blend = 15,
