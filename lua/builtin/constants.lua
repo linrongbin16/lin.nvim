@@ -2,31 +2,37 @@
 
 local M = {}
 
-M.diagnostic = {
-  signs = {
-    error = "", -- nf-fa-times \uf00d
-    warning = "", -- nf-fa-warning \uf071
-    info = "", -- nf-fa-info_circle \uf05a
-    hint = "", -- nf-fa-bell \uf0f3
-    ok = "", -- nf-fa-check \uf00c
-  },
+M.diagnostics = {
+  error = "", -- nf-fa-times \uf00d
+  warning = "", -- nf-fa-warning \uf071
+  info = "", -- nf-fa-info_circle \uf05a
+  hint = "", -- nf-fa-bell \uf0f3
+  ok = "", -- nf-fa-check \uf00c
 }
 
 M.window = {
-  border = "rounded", -- single,double,rounded,solid,shadow
-  layout = {
-    middle = { scale = 0.85 },
-    large = { scale = 0.9 },
-    sidebar = { scale = 0.2, min = 20, max = 60 },
-    input = { scale = 0.3, min = 30, max = 60 },
-    select = { scale = 0.5, min = 40, max = 100 },
-    cmdline = { scale = 0.5, min = 40, max = 100 },
-  },
+  -- window border options: single,double,rounded,solid,shadow,bold,none
+  border = "rounded",
+
+  -- single border chars
+  -- border_chars = { "╔", "═", "╗", "║", "╝", "═", "╚", "║" }, -- double
+  -- border_chars = { "┌", "─", "┐", "│", "┘", "─", "└", "│" }, -- single
+  border_chars = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }, -- rounded
+  -- border_chars = { " ", " ", " ", " ", " ", " ", " ", " " }, -- none
+  -- border_chars = { "┏", "━", "┓", "┃", "┛", "━", "┗", "┃" }, -- bold
+
   blend = 15,
 }
 
+M.layout = {
+  window = { scale = 0.85 },
+  sidebar = { scale = 0.2, min = 20, max = 60 },
+  input = { scale = 0.3, min = 30, max = 60 },
+  select = { scale = 0.5, min = 40, max = 100 },
+}
+
 M.perf = {
-  maxfilesize = 1024 * 1024 * 2, -- 2 MB
+  maxfilesize = 1024 * 1024 * 5, -- 5 MB
 }
 
 M = vim.tbl_deep_extend("force", M, vim.g.lin_nvim_builtin_constants or {}) --[[@as table]]
