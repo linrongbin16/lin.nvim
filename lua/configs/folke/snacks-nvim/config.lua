@@ -27,11 +27,11 @@ require("snacks").setup({
       select = {
         layout = {
           width = layout.editor.width(
-            constants.window.layout.select.scale,
-            constants.window.layout.select.min,
-            constants.window.layout.select.max
+            constants.layout.select.scale,
+            constants.layout.select.min,
+            constants.layout.select.max
           ),
-          min_width = constants.window.layout.select.min,
+          min_width = constants.layout.select.min,
           border = constants.window.border,
         },
       },
