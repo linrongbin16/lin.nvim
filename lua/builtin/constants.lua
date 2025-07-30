@@ -11,7 +11,12 @@ M.diagnostics = {
 }
 
 M.window = {
-  border = "rounded", -- single,double,rounded,solid,shadow
+  -- window border options: single,double,rounded,solid,shadow,bold,none
+  border = "single",
+
+  -- single border chars
+  border_chars = { "┌", "─", "┐", "│", "┘", "─", "└", "│" },
+
   layout = {
     middle = { scale = 0.85 },
     large = { scale = 0.9 },
@@ -21,6 +26,14 @@ M.window = {
     cmdline = { scale = 0.5, min = 40, max = 100 },
   },
   blend = 15,
+}
+
+M.layout = {
+  window = { scale = 0.85 },
+  sidebar = { scale = 0.2, min = 20, max = 60 },
+  input = { scale = 0.3, min = 30, max = 60 },
+  select = { scale = 0.5, min = 40, max = 100 },
+  cmdline = { scale = 0.5, min = 40, max = 100 },
 }
 
 M.perf = {

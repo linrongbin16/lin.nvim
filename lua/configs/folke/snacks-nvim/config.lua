@@ -6,9 +6,9 @@ require("snacks").setup({
     input = {
       border = constants.window.border,
       width = layout.editor.width(
-        constants.window.layout.input.scale,
-        constants.window.layout.input.min,
-        constants.window.layout.input.max
+        constants.layout.input.scale,
+        constants.layout.input.min,
+        constants.layout.input.max
       ),
       height = 1,
       relative = "cursor",
