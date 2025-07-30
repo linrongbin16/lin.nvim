@@ -147,9 +147,9 @@ local function resize_sidebar()
   end
   if neo_tree_winnr then
     local new_width = layout.editor.width(
-      constants.window.layout.sidebar.scale,
-      constants.window.layout.sidebar.min,
-      constants.window.layout.sidebar.max
+      constants.layout.sidebar.scale,
+      constants.layout.sidebar.min,
+      constants.layout.sidebar.max
     )
     vim.api.nvim_win_set_width(neo_tree_winnr, new_width)
   end
