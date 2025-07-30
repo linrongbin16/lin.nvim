@@ -20,6 +20,6 @@ let g:lin_nvim_builtin_constants = {
             \   'select': { 'scale': 0.5, 'min': 40, 'max': 100 },
             \ },
             \ 'perf': {
-            \   'maxfilesize': 1024 * 1024 * 2,
+            \   'maxfilesize': 1024 * 1024 * 5,
             \ },
             \ }

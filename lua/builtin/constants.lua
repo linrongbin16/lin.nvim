@@ -32,7 +32,7 @@ M.layout = {
 }
 
 M.perf = {
-  maxfilesize = 1024 * 1024 * 2, -- 2 MB
+  maxfilesize = 1024 * 1024 * 5, -- 5 MB
 }
 
 M = vim.tbl_deep_extend("force", M, vim.g.lin_nvim_builtin_constants or {}) --[[@as table]]
