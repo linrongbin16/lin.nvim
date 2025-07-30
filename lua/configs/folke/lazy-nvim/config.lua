@@ -23,8 +23,8 @@ local opts = {
   },
   ui = {
     size = {
-      width = constants.window.layout.middle.scale,
-      height = constants.window.layout.middle.scale,
+      width = constants.layout.window.scale,
+      height = constants.layout.window.scale,
     },
     border = constants.window.border,
   },

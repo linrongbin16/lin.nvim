@@ -2,7 +2,7 @@ local constants = require("builtin.constants")
 
 require("outline").setup({
   outline_window = {
-    width = constants.window.layout.sidebar.scale * 100,
+    width = constants.layout.sidebar.scale * 100,
     focus_on_open = false,
   },
   symbol_folding = {

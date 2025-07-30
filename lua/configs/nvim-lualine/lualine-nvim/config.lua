@@ -141,10 +141,10 @@ local config = {
       {
         "diagnostics",
         symbols = {
-          error = constants.diagnostic.signs.error .. " ",
-          warn = constants.diagnostic.signs.warning .. " ",
-          info = constants.diagnostic.signs.info .. " ",
-          hint = constants.diagnostic.signs.hint .. " ",
+          error = constants.diagnostics.error .. " ",
+          warn = constants.diagnostics.warning .. " ",
+          info = constants.diagnostics.info .. " ",
+          hint = constants.diagnostics.hint .. " ",
         },
       },
       "filetype",

@@ -6,9 +6,9 @@ require("snacks").setup({
     input = {
       border = constants.window.border,
       width = layout.editor.width(
-        constants.window.layout.input.scale,
-        constants.window.layout.input.min,
-        constants.window.layout.input.max
+        constants.layout.input.scale,
+        constants.layout.input.min,
+        constants.layout.input.max
       ),
       height = 1,
       relative = "cursor",
@@ -27,11 +27,11 @@ require("snacks").setup({
       select = {
         layout = {
           width = layout.editor.width(
-            constants.window.layout.select.scale,
-            constants.window.layout.select.min,
-            constants.window.layout.select.max
+            constants.layout.select.scale,
+            constants.layout.select.min,
+            constants.layout.select.max
           ),
-          min_width = constants.window.layout.select.min,
+          min_width = constants.layout.select.min,
           border = constants.window.border,
         },
       },
