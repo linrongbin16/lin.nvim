@@ -1,14 +1,12 @@
 " Please copy this file to 'preinit.vim' to enable it.
 
 let g:lin_nvim_builtin_constants = {
-            \ 'diagnostic': {
-            \   'signs': {
-            \       'error': '',
-            \       'warning': '',
-            \       'info': '',
-            \       'hint': '',
-            \       'ok': '',
-            \   },
+            \ 'diagnostics': {
+            \   'error': '',
+            \   'warning': '',
+            \   'info': '',
+            \   'hint': '',
+            \   'ok': '',
             \ },
             \ 'window': {
             \   'border': 'rounded',

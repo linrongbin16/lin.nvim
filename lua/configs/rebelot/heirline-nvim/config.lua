@@ -364,10 +364,10 @@ local SearchCount = {
 local DiagnosticSeverity = { "ERROR", "WARN", "INFO", "HINT" }
 
 local DiagnosticSigns = {
-  constants.diagnostic.signs.error,
-  constants.diagnostic.signs.warning,
-  constants.diagnostic.signs.info,
-  constants.diagnostic.signs.hint,
+  constants.diagnostics.error,
+  constants.diagnostics.warning,
+  constants.diagnostics.info,
+  constants.diagnostics.hint,
 }
 
 local function GetDiagnosticText(level)

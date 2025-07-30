@@ -27,10 +27,10 @@ local function setup_diagnostic()
     virtual_lines = false,
     signs = {
       text = {
-        [vim.diagnostic.severity.ERROR] = constants.diagnostic.signs.error,
-        [vim.diagnostic.severity.WARN] = constants.diagnostic.signs.warning,
-        [vim.diagnostic.severity.INFO] = constants.diagnostic.signs.info,
-        [vim.diagnostic.severity.HINT] = constants.diagnostic.signs.hint,
+        [vim.diagnostic.severity.ERROR] = constants.diagnostics.error,
+        [vim.diagnostic.severity.WARN] = constants.diagnostics.warning,
+        [vim.diagnostic.severity.INFO] = constants.diagnostics.info,
+        [vim.diagnostic.severity.HINT] = constants.diagnostics.hint,
       },
       -- linehl = {
       --   [vim.diagnostic.severity.ERROR] = "DiagnosticError",
@@ -57,11 +57,11 @@ local function setup_diagnostic()
   })
 
   local signs_def = {
-    DiagnosticSignError = constants.diagnostic.signs.error,
-    DiagnosticSignWarn = constants.diagnostic.signs.warning,
-    DiagnosticSignInfo = constants.diagnostic.signs.info,
-    DiagnosticSignHint = constants.diagnostic.signs.hint,
-    DiagnosticSignOk = constants.diagnostic.signs.ok,
+    DiagnosticSignError = constants.diagnostics.error,
+    DiagnosticSignWarn = constants.diagnostics.warning,
+    DiagnosticSignInfo = constants.diagnostics.info,
+    DiagnosticSignHint = constants.diagnostics.hint,
+    DiagnosticSignOk = constants.diagnostics.ok,
   }
   for name, text in pairs(signs_def) do
     vim.fn.sign_define(name, {

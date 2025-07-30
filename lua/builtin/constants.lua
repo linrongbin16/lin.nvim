@@ -2,14 +2,12 @@
 
 local M = {}
 
-M.diagnostic = {
-  signs = {
-    error = "", -- nf-fa-times \uf00d
-    warning = "", -- nf-fa-warning \uf071
-    info = "", -- nf-fa-info_circle \uf05a
-    hint = "", -- nf-fa-bell \uf0f3
-    ok = "", -- nf-fa-check \uf00c
-  },
+M.diagnostics = {
+  error = "", -- nf-fa-times \uf00d
+  warning = "", -- nf-fa-warning \uf071
+  info = "", -- nf-fa-info_circle \uf05a
+  hint = "", -- nf-fa-bell \uf0f3
+  ok = "", -- nf-fa-check \uf00c
 }
 
 M.window = {
