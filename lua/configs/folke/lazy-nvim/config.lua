@@ -21,12 +21,28 @@ local opts = {
   git = {
     timeout = 300,
   },
+  rocks = {
+    enabled = false,
+  },
   ui = {
     size = {
       width = constants.layout.window.scale,
       height = constants.layout.window.scale,
     },
     border = constants.window.border,
+  },
+  performance = {
+    disabled_plugins = {
+      "netrwPlugin",
+      "matchit",
+      "matchparen",
+      "gzip",
+      "tarPlugin",
+      "zipPlugin",
+      "tutor",
+      "tohtml",
+      "man",
+    },
   },
 }
 
