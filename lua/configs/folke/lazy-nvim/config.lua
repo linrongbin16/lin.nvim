@@ -27,8 +27,8 @@ local opts = {
   },
   ui = {
     size = {
-      width = constants.layout.window.scale,
-      height = layout.editor.height(constants.layout.window.scale, 1) - 2,
+      width = layout.editor.width(constants.layout.window.scale, 1),
+      height = layout.editor.height(constants.layout.window.scale, 1),
     },
     border = constants.window.border,
   },
