@@ -5,17 +5,27 @@ require("snacks").setup({
   styles = {
     input = {
       border = constants.window.border,
-      width = layout.editor.width(
-        constants.layout.input.scale,
-        constants.layout.input.min,
-        constants.layout.input.max
-      ),
+      width = constants.layout.input.scale,
       height = 1,
       relative = "cursor",
       row = 1,
       col = 0,
       keys = {
         i_esc = { "<esc>", { "cmp_close", "cancel" }, mode = "i", expr = true },
+      },
+    },
+    lazygit = {
+      border = constants.window.border,
+      height = constants.layout.window.scale,
+      width = function()
+        local width = layout.editor.width(constants.layout.window.scale, 1)
+        return width + 1
+      end,
+      relative = "editor",
+      backdrop = false,
+      wo = {
+        spell = false,
+        wrap = false,
       },
     },
   },

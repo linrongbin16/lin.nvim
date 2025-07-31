@@ -49,6 +49,7 @@ local M = {
     "folke/snacks.nvim",
     lazy = false,
     config = lua_config("folke/snacks.nvim"),
+    keys = lua_keys("folke/snacks.nvim"),
   },
 
   -- ---- HIGHLIGHT ----
@@ -118,11 +119,11 @@ local M = {
     init = lua_init("airblade/vim-gitgutter"),
     keys = lua_keys("airblade/vim-gitgutter"),
   },
-  {
-    "kdheepak/lazygit.nvim",
-    init = lua_init("kdheepak/lazygit.nvim"),
-    keys = lua_keys("kdheepak/lazygit.nvim"),
-  },
+  -- {
+  --   "kdheepak/lazygit.nvim",
+  --   init = lua_init("kdheepak/lazygit.nvim"),
+  --   keys = lua_keys("kdheepak/lazygit.nvim"),
+  -- },
   -- Statusline
   {
     "linrongbin16/lsp-progress.nvim",
