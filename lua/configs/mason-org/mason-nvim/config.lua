@@ -7,7 +7,7 @@ require("mason").setup({
   ui = {
     border = constants.window.border,
     width = constants.layout.window.scale,
-    height = layout.editor.height(constants.layout.window.scale, 1) - 2,
+    height = layout.editor.height(constants.layout.window.scale, 1) - 1,
     icons = {
       package_installed = "✓",
       package_pending = "➜",
