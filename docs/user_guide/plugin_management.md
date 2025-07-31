@@ -30,6 +30,6 @@ This distro embedded a set of plugins by default, but a thousand (Neo)vim users 
 
 To add a new plugin, please add a `lua/plugins/users.lua` file that follows the same structure of the `lua/plugins/init.lua`. You can simply copy and rename the sample file [lua/plugins/users_sample.lua](https://github.com/linrongbin16/lin.nvim/tree/main/lua/plugins/users_sample.lua) to enable it, it already has a lot of other recommended plugins, which may suit your needs.
 
-To disable an embedded plugin, please add a `lua/plugins_blacklist.lua` file that contains a set of plugin names formatted in `organization/repository`. You can simply copy and rename the sample file [lua/plugins_blacklist_sample.lua](https://github.com/linrongbin16/lin.nvim/tree/main/lua/plugins_blacklist_sample.lua) to enable it.
+To disable an embedded plugin, please add a `lua/disabled_plugins.lua` file that contains a set of plugin names formatted in `organization/repository`. You can simply copy and rename the sample file [lua/disabled_plugins_sample.lua](https://github.com/linrongbin16/lin.nvim/tree/main/lua/disabled_plugins_sample.lua) to enable it.
 
 ?> Check out [lua/configs/folke/lazy-nvim/config.lua](https://github.com/linrongbin16/lin.nvim/blob/d910b5e4209ebf414aefde5174f944ad5e18c82e/lua/configs/folke/lazy-nvim/config.lua?plain=1) for how lazy.nvim loading the plugins list.
