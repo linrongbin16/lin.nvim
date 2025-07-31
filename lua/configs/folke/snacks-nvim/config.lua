@@ -16,10 +16,12 @@ require("snacks").setup({
     },
     lazygit = {
       border = constants.window.border,
-      height = constants.layout.window.scale,
+      -- height = constants.layout.window.scale,
+      height = function()
+        return layout.editor.height(constants.layout.window.scale, 1)
+      end,
       width = function()
-        local width = layout.editor.width(constants.layout.window.scale, 1)
-        return width + 1
+        return layout.editor.width(constants.layout.window.scale, 1)
       end,
       relative = "editor",
       backdrop = false,
@@ -36,11 +38,13 @@ require("snacks").setup({
     layouts = {
       select = {
         layout = {
-          width = layout.editor.width(
-            constants.layout.select.scale,
-            constants.layout.select.min,
-            constants.layout.select.max
-          ),
+          width = function()
+            return layout.editor.width(
+              constants.layout.select.scale,
+              constants.layout.select.min,
+              constants.layout.select.max
+            )
+          end,
           min_width = constants.layout.select.min,
           border = constants.window.border,
         },
