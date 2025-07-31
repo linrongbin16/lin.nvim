@@ -21,6 +21,9 @@ local opts = {
   git = {
     timeout = 300,
   },
+  rocks = {
+    enabled = false,
+  },
   ui = {
     size = {
       width = constants.layout.window.scale,
@@ -28,16 +31,29 @@ local opts = {
     },
     border = constants.window.border,
   },
+  performance = {
+    disabled_plugins = {
+      "netrwPlugin",
+      "matchit",
+      "matchparen",
+      "gzip",
+      "tarPlugin",
+      "zipPlugin",
+      "tutor",
+      "tohtml",
+      "man",
+    },
+  },
 }
 
-local plugins_blacklist_path = stdpath_config .. "/lua/plugins_blacklist.lua"
-if uv.fs_stat(plugins_blacklist_path) then
-  local plugins_blacklist = require("plugins_blacklist")
-  assert(type(plugins_blacklist) == "table")
+local disabled_plugins_entry = stdpath_config .. "/lua/disabled_plugins.lua"
+if uv.fs_stat(disabled_plugins_entry) then
+  local disabled_plugins = require("disabled_plugins")
+  assert(type(disabled_plugins) == "table")
   opts.defaults = {
     cond = function(plugin_spec)
       local uri = plugin_spec[1]
-      return not plugins_blacklist[uri]
+      return not disabled_plugins[uri]
     end,
   }
 end
