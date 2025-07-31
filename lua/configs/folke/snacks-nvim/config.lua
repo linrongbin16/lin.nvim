@@ -22,10 +22,7 @@ require("snacks").setup({
     },
     lazygit = {
       border = constants.window.border,
-      height = function()
-        local height = layout.editor.height(constants.layout.window.scale, 1)
-        return height + 1
-      end,
+      height = constants.layout.window.scale,
       width = function()
         local width = layout.editor.width(constants.layout.window.scale, 1)
         return width + 1
