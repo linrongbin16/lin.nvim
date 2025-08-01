@@ -6,11 +6,11 @@ Unlike [coc.nvim](https://github.com/neoclide/coc.nvim), there's no such all-in-
 
 To bring LSP based IDE features to user, quite a few plugins are assembled:
 
-- [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig): Infrastructure for neovim lsp configurations, pre-requirement for all other lsp plugins.
-- [mason.nvim](https://github.com/mason-org/mason.nvim): It helps manage all the lsp servers: install, remove and update. Usually you need to manually maintain lsp servers for programming language (`clangd`, `pyright`, `jsonls`, etc), but with this plugin, now you can just type `:Mason` to finish all these things.
-- [mason-lspconfig.nvim](https://github.com/mason-org/mason-lspconfig.nvim): It helps setup LSP servers automatically, i.e. you don't need to call `require("lspconfig")[server_name].setup()` (or `vim.lsp.enable()`) for every lsp server.
-- [none-ls.nvim](https://github.com/nvimtools/none-ls.nvim)(null-ls.nvim reloaded): It provides linters, code actions, diagnostics by injecting a lsp server. NOTE: This distro uses [conform.nvim](https://github.com/stevearc/conform.nvim) as code formatter, so none-ls doesn't format code.
-- [mason-null-ls.nvim](https://github.com/jay-babu/mason-null-ls.nvim): It lets none-ls directly using packages installed by `mason.nvim`, and automatically registered as none-ls's sources.
+- [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig): Pre-requirement infrastructure for other lsp plugins.
+- [mason.nvim](https://github.com/mason-org/mason.nvim): Manages all the lsp servers to avoid manual work, a simply `:Mason` command can finish all the tasks.
+- [mason-lspconfig.nvim](https://github.com/mason-org/mason-lspconfig.nvim): Set up LSP servers automatically, i.e. you don't need to call `require("lspconfig")[server_name].setup()` (or `vim.lsp.enable()`) for all lsp servers.
+- [none-ls.nvim](https://github.com/nvimtools/none-ls.nvim)(null-ls.nvim reloaded): Provides extra linters, code actions, diagnostics by injecting a lsp server. NOTE: This distro uses [conform.nvim](https://github.com/stevearc/conform.nvim) as code formatter, so none-ls doesn't format code.
+- [mason-null-ls.nvim](https://github.com/jay-babu/mason-null-ls.nvim): Lets none-ls directly use mason packages, and automatically registered as none-ls's sources.
 
 ## Configuration
 
