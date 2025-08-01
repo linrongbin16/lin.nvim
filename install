@@ -306,19 +306,19 @@ nvim_config() {
 		cp $nvim_lspconfig_home/setup_handlers_sample.lua $nvim_lspconfig_setup_handlers
 	fi
 
-	# mason-null-ls.nvim
-	local mason_null_ls_home="$NVIM_HOME/lua/configs/jay-babu/mason-null-ls-nvim"
-	local mason_null_ls_setup_handlers="$mason_null_ls_home/setup_handlers.lua"
-	if [ ! -f $mason_null_ls_setup_handlers ]; then
-		cp $mason_null_ls_home/setup_handlers_sample.lua $mason_null_ls_setup_handlers
-	fi
-
 	# conform.nvim
 	local conform_home="$NVIM_HOME/lua/configs/stevearc/conform-nvim"
 	local conform_formatters_by_ft="$conform_home/formatters_by_ft.lua"
 	if [ ! -f $conform_formatters_by_ft ]; then
 		cp $conform_home/formatters_by_ft_sample.lua $conform_formatters_by_ft
 	fi
+
+	# # mason-null-ls.nvim
+	# local mason_null_ls_home="$NVIM_HOME/lua/configs/jay-babu/mason-null-ls-nvim"
+	# local mason_null_ls_setup_handlers="$mason_null_ls_home/setup_handlers.lua"
+	# if [ ! -f $mason_null_ls_setup_handlers ]; then
+	# 	cp $mason_null_ls_home/setup_handlers_sample.lua $mason_null_ls_setup_handlers
+	# fi
 
 	# # nvim-lint
 	# local nvim_lint_home="$NVIM_HOME/lua/configs/mfussenegger/nvim-lint"
