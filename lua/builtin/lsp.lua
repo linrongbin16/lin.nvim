@@ -33,13 +33,13 @@ set_key("n", "<Leader>rn", function()
   vim.lsp.buf.rename()
 end, { desc = "Rename LSP symbol" })
 
-set_key("n", "<Leader>ca", function()
-  vim.lsp.buf.code_action()
-end, { desc = "Run LSP code action" })
-
-set_key("x", "<Leader>ca", function()
-  vim.lsp.buf.range_code_action()
-end, { desc = "Run LSP code action on visual selection" })
+-- set_key("n", "<Leader>ca", function()
+--   vim.lsp.buf.code_action()
+-- end, { desc = "Run LSP code action" })
+--
+-- set_key("x", "<Leader>ca", function()
+--   vim.lsp.buf.range_code_action()
+-- end, { desc = "Run LSP code action on visual selection" })
 
 set_key("n", "]d", goto_diagnostic(true), { desc = "Next diagnostic item" })
 set_key("n", "[d", goto_diagnostic(false), { desc = "Previous diagnostic item" })
