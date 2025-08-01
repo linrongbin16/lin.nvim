@@ -16,23 +16,7 @@ To bring LSP based IDE features to user, quite a few plugins are assembled:
 
 ### LSP Servers
 
-With the `:Mason` command, it usually satisfies most use cases.
-
-?> Check out [mason-lspconfig's Available LSP servers](https://github.com/mason-org/mason-lspconfig.nvim#available-lsp-servers) for available LSP servers.
-
-To customize a LSP server setup configuration, please add the `lua/configs/mason-org/mason-lspconfig-nvim/setup_handlers.lua` file that returns the `setup_handlers` table passed to `require("mason-lspconfig").setup_handlers()` API as parameter. You can simply copy and rename the sample file [lua/configs/mason-org/mason-lspconfig-nvim/setup_handlers_sample.lua](https://github.com/linrongbin16/lin.nvim/blob/744e4c7fd9e0c55630a4881279eefe671bfcee43/lua/configs/mason-org/mason-lspconfig-nvim/setup_handlers_sample.lua) to enable it.
-
-?> Check out [mason-lspconfig's documentation](https://github.com/mason-org/mason-lspconfig.nvim/blob/37a336b653f8594df75c827ed589f1c91d91ff6c/doc/mason-lspconfig.txt#L164) for how the setup handler works.
-
-### None-ls Sources
-
-Usually it works out of the box, without any additional configurations.
-
-?> Check out [none-ls's BUILTINS](https://github.com/nvimtools/none-ls.nvim/blob/main/doc/BUILTINS.md) for built-in sources.
-
-To customize a none-ls source setup configuration, please add the `lua/configs/jay-babu/mason-null-ls-nvim/setup_handlers.lua` file that returns the `handlers` table passed to `require("mason-null-ls").setup({})` API as the `handlers` option. You can simply copy and rename the sample file [lua/configs/jay-babu/mason-null-ls-nvim/setup_handlers_sample.lua](https://github.com/linrongbin16/lin.nvim/blob/744e4c7fd9e0c55630a4881279eefe671bfcee43/lua/configs/jay-babu/mason-null-ls-nvim/setup_handlers_sample.lua) to enable it.
-
-?> Check out [mason-null-ls's instructions](https://github.com/nvimtools/none-ls.nvim/blob/main/doc/BUILTIN_CONFIG.md) for how the setup handler works.
+To customize a LSP server configuration, please enable the [`lua/configs/neovim/nvim-lspconfig/setup_handlers.lua`](https://github.com/linrongbin16/lin.nvim/blob/59fcdd16024006796f0825794f3c2173a8a2a306/lua/configs/neovim/nvim-lspconfig/setup_handlers_sample.lua?plain=1) file, and edit the LSP server configuration.
 
 ### Nvim-lspconfig Setups
 
