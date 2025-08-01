@@ -126,14 +126,6 @@ function NvimConfig()
     Copy-Item -Path "$NvimLspconfigHome\setup_handlers_sample.lua" -Destination "$NvimLspconfigSetupHandlers"
   }
 
-  # mason-null-ls.nvim
-  $MasonNulllsHome = "$NVIM_HOME\lua\configs\jay-babu\mason-null-ls-nvim"
-  $MasonNulllsSetupHandlers = "$MasonNulllsHome\setup_handlers.lua"
-  if (-not(TestReparsePoint $MasonNulllsSetupHandlers) -and -not(Test-Path $MasonNulllsSetupHandlers))
-  {
-    Copy-Item -Path "$MasonNulllsHome\setup_handlers_sample.lua" -Destination "$MasonNulllsSetupHandlers"
-  }
-
   # conform.nvim
   $ConformHome = "$NVIM_HOME\lua\configs\stevearc\conform-nvim"
   $ConformFormattersByFt = "$ConformHome\formatters_by_ft.lua"
@@ -141,6 +133,14 @@ function NvimConfig()
   {
     Copy-Item -Path "$ConformHome\formatters_by_ft_sample.lua" -Destination "$ConformFormattersByFt"
   }
+
+  # # mason-null-ls.nvim
+  # $MasonNulllsHome = "$NVIM_HOME\lua\configs\jay-babu\mason-null-ls-nvim"
+  # $MasonNulllsSetupHandlers = "$MasonNulllsHome\setup_handlers.lua"
+  # if (-not(TestReparsePoint $MasonNulllsSetupHandlers) -and -not(Test-Path $MasonNulllsSetupHandlers))
+  # {
+  #   Copy-Item -Path "$MasonNulllsHome\setup_handlers_sample.lua" -Destination "$MasonNulllsSetupHandlers"
+  # }
 
   # # nvim-lint
   # $NvimLintHome="$NVIM_HOME\lua\configs\mfussenegger\nvim-lint"
