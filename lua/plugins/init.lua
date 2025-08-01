@@ -175,7 +175,6 @@ local M = {
     event = { VeryLazy, BufReadPre, BufNewFile },
     config = lua_config("neovim/nvim-lspconfig"),
   },
-  -- Lsp server management
   {
     "mason-org/mason.nvim",
     event = { VeryLazy, BufReadPre, BufNewFile },
