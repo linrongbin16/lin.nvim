@@ -25,9 +25,8 @@ To format code, please enable the [`lua/configs/stevearc/conform-nvim/formatters
 
 ## Reference
 
-- [nvim-lspconfig - LSP configurations](https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md)
-- [nvim-lspconfig - recommended specific language plugins](https://github.com/neovim/nvim-lspconfig/wiki/Language-specific-plugins): Enhancements for specific languages.
-- [mason.nvim - Mason Package Index](https://github.com/mason-org/mason.nvim/blob/main/PACKAGES.md): Full LSP servers registered in mason.
-- [mason-lspconfig.nvim - Available LSP servers](https://github.com/mason-org/mason-lspconfig.nvim#available-lsp-servers): Available mason LSP servers.
-- [none-ls - BUILTINS](https://github.com/nvimtools/none-ls.nvim/blob/main/doc/BUILTINS.md): None-ls built-in sources.
-- [none-ls - BUILTIN_CONFIGS](https://github.com/nvimtools/none-ls.nvim/blob/main/doc/BUILTIN_CONFIG.md): None-ls built-in sources usage and configurations.
+- [nvim-lspconfig - LSP configurations](https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md)
+- [nvim-lspconfig - recommended specific language plugins](https://github.com/neovim/nvim-lspconfig/wiki/Language-specific-plugins)
+- [mason.nvim - Mason Package Index](https://github.com/mason-org/mason.nvim/blob/main/PACKAGES.md)
+- [none-ls - BUILTINS](https://github.com/nvimtools/none-ls.nvim/blob/main/doc/BUILTINS.md)
+- [none-ls - BUILTIN_CONFIGS](https://github.com/nvimtools/none-ls.nvim/blob/main/doc/BUILTIN_CONFIG.md)
