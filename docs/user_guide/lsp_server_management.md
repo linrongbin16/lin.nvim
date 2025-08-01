@@ -8,11 +8,8 @@ To bring LSP based IDE features to user, quite a few plugins are assembled:
 
 - [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig): Infrastructure for neovim lsp configurations, pre-requirement for all other lsp plugins.
 - [mason.nvim](https://github.com/mason-org/mason.nvim): It helps manage all the lsp servers: install, remove and update. Usually you need to manually maintain lsp servers for programming language (`clangd`, `pyright`, `jsonls`, etc), but with this plugin, now you can just type `:Mason` to finish all these things.
-- [mason-lspconfig.nvim](https://github.com/mason-org/mason-lspconfig.nvim): It helps setup LSP servers automatically, i.e. avoid duplicated calls on `require("lspconfig")[server_name].setup()` (or `vim.lsp.enable()`) API.
-- [none-ls.nvim](https://github.com/nvimtools/none-ls.nvim)(null-ls.nvim reloaded): It provides extra formatter/linter/code actions/diagnostics by injecting lsp server. A single LSP server sometimes cannot meet the developer's needs, for example I use `luacheck` as lua linter, `eslint` as javascript linter. With this plugin, it registers them (they're called none-ls sources) as a `none-ls` LSP server, so they can work through LSP protocols. The same goes for code actions, diagnostics, formatters, etc.
-
-  ?> This distro uses [conform.nvim](https://github.com/stevearc/conform.nvim) as code formatter, which works compatible with none-ls's sources, i.e. conform will use either an explicitly configured code formatter, or fallback to LSP formatting methods provided by LSP servers or none-ls sources.
-
+- [mason-lspconfig.nvim](https://github.com/mason-org/mason-lspconfig.nvim): It helps setup LSP servers automatically, i.e. you don't need to call `require("lspconfig")[server_name].setup()` (or `vim.lsp.enable()`) for every lsp server.
+- [none-ls.nvim](https://github.com/nvimtools/none-ls.nvim)(null-ls.nvim reloaded): It provides linters, code actions, diagnostics by injecting a lsp server. NOTE: This distro uses [conform.nvim](https://github.com/stevearc/conform.nvim) as code formatter, so none-ls doesn't format code.
 - [mason-null-ls.nvim](https://github.com/jay-babu/mason-null-ls.nvim): It lets `none-ls.nvim` directly using packages managed by `mason.nvim`. And you can also:
   1. Ensure none-ls sources installed via mason.nvim.
   2. Automatically register them as none-ls sources.
