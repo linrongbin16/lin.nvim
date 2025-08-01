@@ -279,6 +279,18 @@ local M = {
     keys = lua_keys("stevearc/conform.nvim"),
   },
 
+  -- ---- CODE-ACTION ----
+  {
+    "rachartier/tiny-code-action.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "folke/snacks.nvim",
+    },
+    event = "LspAttach",
+    config = lua_config("rachartier/tiny-code-action.nvim"),
+    keys = lua_keys("rachartier/tiny-code-action.nvim"),
+  },
+
   -- ---- KEY BINDING ----
 
   -- Key mappings
