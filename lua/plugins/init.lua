@@ -202,18 +202,6 @@ local M = {
     config = lua_config("mason-org/mason-lspconfig.nvim"),
   },
   {
-    "stevearc/conform.nvim",
-    event = { BufWritePre, BufWritePost },
-    cmd = { "ConformInfo" },
-    dependencies = {
-      "neovim/nvim-lspconfig",
-      "mason-org/mason.nvim",
-      "mason-org/mason-lspconfig.nvim",
-    },
-    config = lua_config("stevearc/conform.nvim"),
-    keys = lua_keys("stevearc/conform.nvim"),
-  },
-  {
     "nvimtools/none-ls.nvim",
     event = { VeryLazy, BufReadPre, BufNewFile },
     cmd = {
@@ -275,6 +263,20 @@ local M = {
     },
     version = "*",
     config = lua_config("saghen/blink.cmp"),
+  },
+
+  -- ---- CODE-FORMATTER ----
+  {
+    "stevearc/conform.nvim",
+    event = { BufWritePre, BufWritePost },
+    cmd = { "ConformInfo" },
+    dependencies = {
+      "neovim/nvim-lspconfig",
+      "mason-org/mason.nvim",
+      "mason-org/mason-lspconfig.nvim",
+    },
+    config = lua_config("stevearc/conform.nvim"),
+    keys = lua_keys("stevearc/conform.nvim"),
   },
 
   -- ---- KEY BINDING ----
