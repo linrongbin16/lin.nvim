@@ -180,7 +180,6 @@ local M = {
     event = { VeryLazy, BufReadPre, BufNewFile },
     config = lua_config("neovim/nvim-lspconfig"),
   },
-  -- Lsp server management
   {
     "mason-org/mason.nvim",
     event = { VeryLazy, BufReadPre, BufNewFile },
@@ -206,18 +205,6 @@ local M = {
     },
     dependencies = { "neovim/nvim-lspconfig", "mason-org/mason.nvim" },
     config = lua_config("mason-org/mason-lspconfig.nvim"),
-  },
-  {
-    "stevearc/conform.nvim",
-    event = { BufWritePre, BufWritePost },
-    cmd = { "ConformInfo" },
-    dependencies = {
-      "neovim/nvim-lspconfig",
-      "mason-org/mason.nvim",
-      "mason-org/mason-lspconfig.nvim",
-    },
-    config = lua_config("stevearc/conform.nvim"),
-    keys = lua_keys("stevearc/conform.nvim"),
   },
   {
     "nvimtools/none-ls.nvim",
@@ -281,6 +268,32 @@ local M = {
     },
     version = "*",
     config = lua_config("saghen/blink.cmp"),
+  },
+
+  -- ---- CODE-FORMATTER ----
+  {
+    "stevearc/conform.nvim",
+    event = { BufWritePre, BufWritePost },
+    cmd = { "ConformInfo" },
+    dependencies = {
+      "neovim/nvim-lspconfig",
+      "mason-org/mason.nvim",
+      "mason-org/mason-lspconfig.nvim",
+    },
+    config = lua_config("stevearc/conform.nvim"),
+    keys = lua_keys("stevearc/conform.nvim"),
+  },
+
+  -- ---- CODE-ACTION ----
+  {
+    "rachartier/tiny-code-action.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "folke/snacks.nvim",
+    },
+    event = "LspAttach",
+    config = lua_config("rachartier/tiny-code-action.nvim"),
+    keys = lua_keys("rachartier/tiny-code-action.nvim"),
   },
 
   -- ---- KEY BINDING ----

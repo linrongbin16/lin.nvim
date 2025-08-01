@@ -1,1 +1,1 @@
-require("null-ls").setup({})
+require("null-ls").setup()

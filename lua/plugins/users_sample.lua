@@ -34,6 +34,12 @@
 --     config = lua_config("gbprod/yanky.nvim"),
 --     keys = lua_keys("gbprod/yanky.nvim"),
 --   },
+--   {
+--     "rachartier/tiny-glimmer.nvim",
+--     event = "VeryLazy",
+--     priority = 1, -- Needs to be a really low priority, to catch others plugins keybindings.
+--     opts = {},
+--   },
 --   -- Better markdown previewer for github
 --   {
 --     "wallpants/github-preview.nvim",
