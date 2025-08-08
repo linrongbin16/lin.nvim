@@ -99,6 +99,7 @@ function RustDeps()
   Install -command "scoop install ripgrep" -target "rg"
   Install -command "scoop install bat" -target "bat"
   Install -command "scoop install eza" -target "eza"
+  Install -command "cargo install trashy" -target "trashy"
   # neovim
   Install -command "cargo install --git https://github.com/MordechaiHadad/bob --locked" -target "bob"
   Install -command "bob use stable" -target "nvim"

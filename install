@@ -279,10 +279,11 @@ brew_deps() {
 	# nodejs
 	install "brew install node" "node"
 
-	# dev tools
+	# golang
 	install "brew install go" "go"
 	install "brew install jesseduffield/lazygit/lazygit" "lazygit"
 	install "brew install fzf" "fzf"
+	install "brew install umlx5h/tap/gtrash" "gtrash"
 }
 
 # }
