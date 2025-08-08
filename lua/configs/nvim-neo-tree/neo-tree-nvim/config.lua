@@ -1,7 +1,7 @@
 local constants = require("builtin.constants")
 local layout = require("builtin.utils.layout")
 
-local function decide_trash_bin()
+local function trash_bin()
   local function wrap(trash_exe)
     local function impl(state)
       local inputs = require("neo-tree.ui.inputs")
@@ -106,7 +106,7 @@ require("neo-tree").setup({
       end,
 
       -- delete
-      ["d"] = decide_trash_bin(),
+      ["d"] = trash_bin(),
     },
   },
   filesystem = {
