@@ -86,10 +86,6 @@ install_fzf() {
 	fzf --version
 }
 
-install_deno() {
-	curl -fsSL https://deno.land/install.sh | sh -s -- -y
-}
-
 install_bun() {
 	curl -fsSL https://bun.com/install | bash
 }
@@ -286,9 +282,8 @@ brew_deps() {
 
 # dependency
 
-bun_deno_deps() {
+bun_deps() {
 	install "install_bun" "bun"
-	install "install_deno" "deno"
 }
 
 go_deps() {
@@ -384,6 +379,8 @@ FreeBSD | NetBSD | OpenBSD)
 	;;
 esac
 
+bun_deps
+go_deps
 rust_deps
 npm_deps
 nvim_config
