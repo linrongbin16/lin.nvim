@@ -40,12 +40,14 @@
 --     priority = 1, -- Needs to be a really low priority, to catch others plugins keybindings.
 --     opts = {},
 --   },
---   -- Better markdown previewer for github
 --   {
---     "wallpants/github-preview.nvim",
---     cmd = { "GithubPreviewToggle" },
---     keys = lua_keys("wallpants/github-preview.nvim"),
---     config = lua_config("wallpants/github-preview.nvim"),
+--     "iamcco/markdown-preview.nvim",
+--     build = function()
+--       vim.fn["mkdp#util#install"]()
+--     end,
+--     ft = { "markdown" },
+--     init = lua_init("iamcco/markdown-preview.nvim"),
+--     keys = lua_keys("iamcco/markdown-preview.nvim"),
 --   },
 --   {
 --     "toppair/peek.nvim",
