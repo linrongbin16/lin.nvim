@@ -29,7 +29,7 @@ And for the **CMD** keys in mac system, key mappings are avoid as well:
 - `<Leader>nt` 🄽 - Toggle file explorer by `:Neotree`.
 - `<Leader>nf` 🄽 - Find/locate current file in file explorer by `:Neotree reveal`.
 - `<Leader>ol` 🄽 - Toggle structure/symbols outlines by `:Outline!!`.
-- `<Leader>mp` 🄽 - Open markdown preview by `:MarkdownPreview`.
+- `<Leader>gp` 🄽 - Open GitHub-style markdown preview by `:GithubPreviewToggle`.
 - `<Leader>ms` 🄽 - Open lsp server manager by `:Mason`.
 - `<Leader>lz` 🄽 - Open plugin manager by `:Lazy`.
 - `<Leader>lg` 🄽 - Open lazygit by `:LazyGit`.
