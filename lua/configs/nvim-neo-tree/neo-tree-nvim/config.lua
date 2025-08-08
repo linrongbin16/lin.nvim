@@ -35,10 +35,10 @@ local function trash_bin()
 
   if constants.os.is_macos and vim.fn.executable(MAC_TRASH) > 0 then
     return wrap({ MAC_TRASH })
-  elseif constants.os.is_windows and vim.fn.executable(TRASH) > 0 then
-    return wrap({ TRASH })
   elseif not constants.os.is_macos and vim.fn.executable(GTRASH) > 0 then
     return wrap({ GTRASH, "put" })
+  elseif vim.fn.executable(TRASH) > 0 then
+    return wrap({ TRASH })
   else
     return "delete"
   end
