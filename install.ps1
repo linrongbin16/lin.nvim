@@ -79,15 +79,19 @@ function CoreDeps()
   Install -command "scoop install 7zip" -target "7z"
   Install -command "scoop install gzip" -target "gzip"
   Install -command "scoop install unzip" -target "unzip"
+}
 
-  # develop tools
+function GoDeps()
+{
+  Info 'install golang modern commands'
+  Install -command "scoop install go" -target "go"
   Install -command "scoop install lazygit" -target "lazygit"
   Install -command "scoop install fzf" -target "fzf"
 }
 
 function RustDeps()
 {
-  Info 'install rust and modern commands'
+  Info 'install rust modern commands'
   # rustc/cargo
   Install -command "scoop install rustup" -target "cargo"
   Install -command "scoop install rustup" -target "rustc"
@@ -159,6 +163,7 @@ Info "install for Windows"
 Info "install dependencies with scoop"
 
 CoreDeps
+GoDeps
 RustDeps
 NpmDeps
 NvimConfig
