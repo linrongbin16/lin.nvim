@@ -1,23 +1,47 @@
 local constants = require("builtin.constants")
 local layout = require("builtin.utils.layout")
 
-local function trash_bin(state)
-  local inputs = require("neo-tree.ui.inputs")
-  local path = state.tree:get_node().path
-  local msg = "Are you sure you want to move '"
-    .. vim.fn.fnamemodify(vim.fn.fnameescape(path), ":~:.")
-    .. "' to trash bin?"
-  local state_name = state.name
-  inputs.confirm(msg, function(confirmed)
-    if not confirmed then
-      return
-    end
-    vim.system({ "trash", vim.fn.fnameescape(path) }, { text = true }, function(trash_completed)
-      vim.schedule(function()
-        require("neo-tree.sources.manager").refresh(state_name)
+local function trash_bin()
+  local function wrap(trash_exe)
+    local function impl(state)
+      local inputs = require("neo-tree.ui.inputs")
+      local path = state.tree:get_node().path
+      local msg = "Are you sure you want to move '"
+        .. vim.fn.fnamemodify(vim.fn.fnameescape(path), ":~:.")
+        .. "' to trash bin?"
+      local state_name = state.name
+      inputs.confirm(msg, function(confirmed)
+        if not confirmed then
+          return
+        end
+        local cmds = {}
+        for i, t in ipairs(trash_exe) do
+          table.insert(cmds, t)
+        end
+        table.insert(cmds, vim.fn.fnameescape(path))
+        vim.system(cmds, { text = true }, function(trash_completed)
+          vim.schedule(function()
+            require("neo-tree.sources.manager").refresh(state_name)
+          end)
+        end)
       end)
-    end)
-  end)
+    end
+    return impl
+  end
+
+  local MAC_TRASH = "/opt/homebrew/opt/trash/bin/trash" -- Only support MacOS
+  local GTRASH = "gtrash" -- Only support Linux/FreeDesktop
+  local TRASH = "trash" -- All platform supported, but performance is slowest
+
+  if constants.os.is_macos and vim.fn.executable(MAC_TRASH) > 0 then
+    return wrap({ MAC_TRASH })
+  elseif not constants.os.is_macos and vim.fn.executable(GTRASH) > 0 then
+    return wrap({ GTRASH, "put" })
+  elseif vim.fn.executable(TRASH) > 0 then
+    return wrap({ TRASH })
+  else
+    return "delete" -- by default 'rm' command
+  end
 end
 
 require("neo-tree").setup({
@@ -82,7 +106,7 @@ require("neo-tree").setup({
       end,
 
       -- delete
-      ["d"] = vim.fn.executable("trash") > 0 and trash_bin or "delete",
+      ["d"] = trash_bin(),
     },
   },
   filesystem = {

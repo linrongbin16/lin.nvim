@@ -75,16 +75,13 @@ local M = {
     event = { CmdlineEnter },
   },
 
-  -- ---- Specific Support ----
+  -- ---- Markdown Preview ----
 
   {
-    "iamcco/markdown-preview.nvim",
-    build = function()
-      vim.fn["mkdp#util#install"]()
-    end,
-    ft = { "markdown" },
-    init = lua_init("iamcco/markdown-preview.nvim"),
-    keys = lua_keys("iamcco/markdown-preview.nvim"),
+    "wallpants/github-preview.nvim",
+    cmd = { "GithubPreviewToggle" },
+    keys = lua_keys("wallpants/github-preview.nvim"),
+    config = lua_config("wallpants/github-preview.nvim"),
   },
 
   -- ---- UI ----
