@@ -73,7 +73,7 @@ local M = {
     event = { CmdlineEnter },
   },
 
-  -- ---- Specific Support ----
+  -- ---- Markdown Preview ----
 
   {
     "wallpants/github-preview.nvim",
