@@ -90,6 +90,14 @@ install_gtrash() {
 	go install github.com/umlx5h/gtrash@latest
 }
 
+install_deno() {
+	curl -fsSL https://deno.land/install.sh | sh -s -- -y
+}
+
+install_bun() {
+	curl -fsSL https://bun.com/install | bash
+}
+
 # utils }
 
 # apt: ubuntu/debian {
@@ -276,8 +284,10 @@ brew_deps() {
 	# python3
 	install "brew install python3" "python3"
 
-	# nodejs
+	# nodejs/bun/deno
 	install "brew install node" "node"
+	install "brew install deno" "deno"
+	install "brew install oven-sh/bun/bun" "bun"
 
 	# golang
 	install "brew install go" "go"
@@ -289,6 +299,12 @@ brew_deps() {
 # }
 
 # dependency
+
+bun_deno_deps() {
+	info "install bun/deno"
+	install "install_bun" "bun"
+	install "install_deno" "deno"
+}
 
 go_deps() {
 	info "install golang modern commands"
@@ -317,11 +333,6 @@ rust_deps() {
 	install "cargo install --git https://github.com/MordechaiHadad/bob --locked" "bob"
 	export PATH="$PATH:$HOME/.local/share/bob/nvim-bin"
 	install "bob use stable" "nvim"
-}
-
-npm_deps() {
-	info "npm install packages"
-	install "sudo npm install --silent -g trash-cli" "trash"
 }
 
 nvim_config() {
@@ -389,9 +400,9 @@ FreeBSD | NetBSD | OpenBSD)
 	;;
 esac
 
+bun_deno_deps
 go_deps
 rust_deps
-npm_deps
 nvim_config
 
 info "install for $OS - done"
