@@ -72,13 +72,6 @@ install() {
 	fi
 }
 
-install_lazygit() {
-	local LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | \grep -Po '"tag_name": *"v\K[^"]*')
-	curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
-	tar xf lazygit.tar.gz lazygit
-	sudo install lazygit -D -t /usr/local/bin/
-}
-
 install_fzf() {
 	git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 	~/.fzf/install --bin
@@ -147,13 +140,18 @@ apt_deps() {
 
 	# golang
 	install "sudo apt-get -qq -y install golang-go golang-src" "go"
-	install "install_lazygit" "lazygit"
+	install "sudo apt-get -qq -y install lazygit" "lazygit"
 	install "install_fzf" "fzf"
 }
 
 # }
 
 # dnf: fedora/centos {
+
+dnf_install_lazygit() {
+	sudo dnf copr enable dejan/lazygit
+	sudo dnf install -y lazygit
+}
 
 dnf_deps() {
 	info "dnf install dependencies"
@@ -193,6 +191,7 @@ dnf_deps() {
 
 	# golang
 	install "sudo dnf install -y golang" "go"
+	install "dnf_install_lazygit" "lazygit"
 }
 
 # }
@@ -234,6 +233,7 @@ pacman_deps() {
 
 	# golang
 	install "yes | sudo pacman -S go" "go"
+	install "yes | sudo pacman -S lazygit" "lazygit"
 }
 
 # }
@@ -287,7 +287,6 @@ bun_deps() {
 }
 
 go_deps() {
-	install_lazygit
 	install_fzf
 }
 
