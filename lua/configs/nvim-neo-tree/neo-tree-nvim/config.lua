@@ -14,15 +14,16 @@ local function decide_trash_cli()
         if not confirmed then
           return
         end
-        vim.system(
-          { trash_exe, vim.fn.fnameescape(path) },
-          { text = true },
-          function(trash_completed)
-            vim.schedule(function()
-              require("neo-tree.sources.manager").refresh(state_name)
-            end)
-          end
-        )
+        local cmds = {}
+        for i, t in ipairs(trash_exe) do
+          table.insert(cmds, t)
+        end
+        table.insert(cmds, vim.fn.fnameescape(path))
+        vim.system(cmds, { text = true }, function(trash_completed)
+          vim.schedule(function()
+            require("neo-tree.sources.manager").refresh(state_name)
+          end)
+        end)
       end)
     end
 
@@ -33,9 +34,9 @@ local function decide_trash_cli()
   local GTRASH = "gtrash"
 
   if vim.fn.executable(TRASHY) > 0 then
-    return wrap(TRASHY)
+    return wrap({ TRASHY, "put" })
   elseif vim.fn.executable(GTRASH) > 0 then
-    return wrap(GTRASH)
+    return wrap({ GTRASH, "put" })
   else
     return "delete"
   end
