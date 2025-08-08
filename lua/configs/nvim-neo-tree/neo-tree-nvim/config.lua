@@ -1,23 +1,44 @@
 local constants = require("builtin.constants")
 local layout = require("builtin.utils.layout")
 
-local function trash_bin(state)
-  local inputs = require("neo-tree.ui.inputs")
-  local path = state.tree:get_node().path
-  local msg = "Are you sure you want to move '"
-    .. vim.fn.fnamemodify(vim.fn.fnameescape(path), ":~:.")
-    .. "' to trash bin?"
-  local state_name = state.name
-  inputs.confirm(msg, function(confirmed)
-    if not confirmed then
-      return
-    end
-    vim.system({ "trash", vim.fn.fnameescape(path) }, { text = true }, function(trash_completed)
-      vim.schedule(function()
-        require("neo-tree.sources.manager").refresh(state_name)
+local function decide_trash_cli()
+  local function wrap(trash_exe)
+    local function trash_impl(state)
+      local inputs = require("neo-tree.ui.inputs")
+      local path = state.tree:get_node().path
+      local msg = "Are you sure you want to move '"
+        .. vim.fn.fnamemodify(vim.fn.fnameescape(path), ":~:.")
+        .. "' to trash bin?"
+      local state_name = state.name
+      inputs.confirm(msg, function(confirmed)
+        if not confirmed then
+          return
+        end
+        vim.system(
+          { trash_exe, vim.fn.fnameescape(path) },
+          { text = true },
+          function(trash_completed)
+            vim.schedule(function()
+              require("neo-tree.sources.manager").refresh(state_name)
+            end)
+          end
+        )
       end)
-    end)
-  end)
+    end
+
+    return trash_impl
+  end
+
+  local TRASHY = "trashy"
+  local GTRASH = "gtrash"
+
+  if vim.fn.executable(TRASHY) > 0 then
+    return wrap(TRASHY)
+  elseif vim.fn.executable(GTRASH) > 0 then
+    return wrap(GTRASH)
+  else
+    return "delete"
+  end
 end
 
 require("neo-tree").setup({
@@ -82,7 +103,7 @@ require("neo-tree").setup({
       end,
 
       -- delete
-      ["d"] = vim.fn.executable("trash") > 0 and trash_bin or "delete",
+      ["d"] = decide_trash_cli(),
     },
   },
   filesystem = {
