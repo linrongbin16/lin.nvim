@@ -30,10 +30,13 @@ local function decide_trash_cli()
     return trash_impl
   end
 
+  local MAC_TRASH = "/opt/homebrew/opt/trash/bin/trash"
   local TRASHY = "trashy"
   local GTRASH = "gtrash"
 
-  if vim.fn.executable(TRASHY) > 0 then
+  if constants.os.is_macos and vim.fn.executable(MAC_TRASH) > 0 then
+    return wrap({ MAC_TRASH })
+  elseif vim.fn.executable(TRASHY) > 0 then
     return wrap({ TRASHY, "put" })
   elseif vim.fn.executable(GTRASH) > 0 then
     return wrap({ GTRASH, "put" })
