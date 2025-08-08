@@ -40,7 +40,7 @@ local function trash_bin()
   elseif vim.fn.executable(TRASH) > 0 then
     return wrap({ TRASH })
   else
-    return "delete"
+    return "delete" -- by default 'rm' command
   end
 end
 
