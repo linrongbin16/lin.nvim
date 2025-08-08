@@ -86,6 +86,14 @@ install_fzf() {
 	fzf --version
 }
 
+install_deno() {
+	curl -fsSL https://deno.land/install.sh | sh -s -- -y
+}
+
+install_bun() {
+	curl -fsSL https://bun.com/install | bash
+}
+
 # utils }
 
 # apt: ubuntu/debian {
@@ -277,6 +285,11 @@ brew_deps() {
 # }
 
 # dependency
+
+bun_deno_deps() {
+	install "install_bun" "bun"
+	install "install_deno" "deno"
+}
 
 go_deps() {
 	install_lazygit
