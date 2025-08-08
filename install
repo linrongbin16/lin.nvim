@@ -86,6 +86,10 @@ install_fzf() {
 	fzf --version
 }
 
+install_gtrash() {
+	go install github.com/umlx5h/gtrash@latest
+}
+
 # utils }
 
 # apt: ubuntu/debian {
@@ -289,6 +293,7 @@ go_deps() {
 	info "install golang modern commands"
 	install "install_lazygit" "lazygit"
 	install "install_fzf" "fzf"
+	install "install_gtrash" "gtrash"
 }
 
 rust_deps() {
@@ -302,6 +307,10 @@ rust_deps() {
 	install "cargo install ripgrep" "rg"
 	install "cargo install --locked bat" "bat"
 	install "cargo install eza" "eza"
+
+	if [ "$IS_MAC" != "1" ]; then
+		install "cargo install trashy" "trashy"
+	fi
 
 	# neovim
 	install "cargo install --git https://github.com/MordechaiHadad/bob --locked" "bob"
