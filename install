@@ -103,6 +103,13 @@ apt_install_git() {
 	sudo apt-get -qq -y install git
 }
 
+apt_install_lazygit() {
+	LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | \grep -Po '"tag_name": *"v\K[^"]*')
+	curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+	tar xf lazygit.tar.gz lazygit
+	sudo install lazygit -D -t /usr/local/bin/
+}
+
 apt_deps() {
 	info "apt install dependencies"
 	sudo locale-gen en_US
@@ -140,8 +147,7 @@ apt_deps() {
 
 	# golang
 	install "sudo apt-get -qq -y install golang-go golang-src" "go"
-	install "sudo apt-get -qq -y install lazygit" "lazygit"
-	install "install_fzf" "fzf"
+	install "apt_install_lazygit" "lazygit"
 }
 
 # }
