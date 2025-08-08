@@ -6,6 +6,32 @@
 NVIM_HOME=$HOME/.nvim
 OS="$(uname -s)"
 
+IS_LINUX=0
+IS_MAC=0
+IS_FREEBSD=0
+IS_NETBSD=0
+IS_OPENBSD=0
+case "$OS" in
+Linux)
+	IS_LINUX=1
+	;;
+FreeBSD)
+	IS_FREEBSD=1
+	;;
+NetBSD)
+	IS_NETBSD=1
+	;;
+OpenBSD)
+	IS_OPENBSD=1
+	;;
+Darwin)
+	IS_MAC=1
+	;;
+*)
+	# Nothing
+	;;
+esac
+
 # utils {
 
 info() {
@@ -46,6 +72,20 @@ install() {
 	fi
 }
 
+install_lazygit() {
+	local LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | \grep -Po '"tag_name": *"v\K[^"]*')
+	curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+	tar xf lazygit.tar.gz lazygit
+	sudo install lazygit -D -t /usr/local/bin/
+}
+
+install_fzf() {
+	git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+	~/.fzf/install --bin
+	sudo cp ~/.fzf/bin/fzf /usr/local/bin/fzf
+	fzf --version
+}
+
 # utils }
 
 # apt: ubuntu/debian {
@@ -66,29 +106,6 @@ apt_install_git() {
 	sudo apt-get -qq -y install git
 }
 
-apt_install_go() {
-	git clone --depth=1 https://github.com/kerolloz/go-installer
-	export GOROOT="$HOME/.go" # where go is installed
-	export GOPATH="$HOME/go"  # user workspace
-	bash ./go-installer/go.sh
-	export PATH="$PATH:$GOROOT/bin"
-	export PATH="$PATH:$GOPATH/bin"
-}
-
-apt_install_lazygit() {
-	local LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | \grep -Po '"tag_name": *"v\K[^"]*')
-	curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
-	tar xf lazygit.tar.gz lazygit
-	sudo install lazygit -D -t /usr/local/bin/
-}
-
-apt_install_fzf() {
-	git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-	~/.fzf/install --bin
-	sudo cp ~/.fzf/bin/fzf /usr/local/bin/fzf
-	fzf --version
-}
-
 apt_deps() {
 	info "apt install dependencies"
 	sudo locale-gen en_US
@@ -102,7 +119,6 @@ apt_deps() {
 	install "sudo apt-get -qq -y install automake" "automake"
 	install "sudo apt-get -qq -y install pkg-config" "pkg-config"
 	install "sudo apt-get -qq -y install cmake" "cmake"
-	install "apt_install_go" "go"
 
 	# download tools
 	install "apt_install_git" "git"
@@ -125,19 +141,15 @@ apt_deps() {
 	# nodejs
 	install "apt_install_nodejs" "node"
 
-	# dev tools
-	install "apt_install_lazygit" "lazygit"
-	install "apt_install_fzf" "fzf"
+	# golang
+	install "sudo apt-get -qq -y install golang-go golang-src" "go"
+	install "install_lazygit" "lazygit"
+	install "install_fzf" "fzf"
 }
 
 # }
 
 # dnf: fedora/centos {
-
-dnf_install_lazygit() {
-	sudo dnf copr enable atim/lazygit -y
-	sudo dnf install lazygit
-}
 
 dnf_deps() {
 	info "dnf install dependencies"
@@ -150,7 +162,6 @@ dnf_deps() {
 	install "sudo dnf install -y automake" "automake"
 	install "sudo dnf install -y pkg-config" "pkg-config"
 	install "sudo dnf install -y cmake" "cmake"
-	install "sudo dnf install -y golang" "go"
 
 	# download tools
 	install "sudo dnf install -y git" "git"
@@ -176,9 +187,8 @@ dnf_deps() {
 	# nodejs
 	install "sudo dnf install -y nodejs npm" "node"
 
-	# dev tools
-	install "dnf_install_lazygit" "lazygit"
-	install "sudo dnf install -y fzf" "fzf"
+	# golang
+	install "sudo dnf install -y golang" "go"
 }
 
 # }
@@ -196,7 +206,6 @@ pacman_deps() {
 	install "yes | sudo pacman -S automake" "automake"
 	install "yes | sudo pacman -S pkg-config" "pkg-config"
 	install "yes | sudo pacman -S cmake" "cmake"
-	install "yes | sudo pacman -S go" "go"
 
 	# download tools
 	install "yes | sudo pacman -S git" "git"
@@ -219,9 +228,8 @@ pacman_deps() {
 	# node
 	install "yes | sudo pacman -S nodejs npm" "node"
 
-	# dev tools
-	install "yes | sudo pacman -S lazygit" "lazygit"
-	install "yes | sudo pacman -S fzf" "fzf"
+	# golang
+	install "yes | sudo pacman -S go" "go"
 }
 
 # }
@@ -243,7 +251,6 @@ brew_deps() {
 	# c++ toolchain
 	install "brew install cmake" "cmake"
 	install "brew install pkg-config" "pkg-config"
-	install "brew install go" "go"
 
 	# download tools
 	install "brew install git" "git"
@@ -261,7 +268,8 @@ brew_deps() {
 	# nodejs
 	install "brew install node" "node"
 
-	# dev tools
+	# golang
+	install "brew install go" "go"
 	install "brew install jesseduffield/lazygit/lazygit" "lazygit"
 	install "brew install fzf" "fzf"
 }
@@ -269,6 +277,11 @@ brew_deps() {
 # }
 
 # dependency
+
+go_deps() {
+	install_lazygit
+	install_fzf
+}
 
 rust_deps() {
 	info "install rust and modern commands"
