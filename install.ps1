@@ -81,6 +81,11 @@ function CoreDeps()
   Install -command "scoop install unzip" -target "unzip"
 }
 
+function BunDeps()
+{
+  Install -command "scoop install bun" -target "bun"
+}
+
 function GoDeps()
 {
   Info 'install golang modern commands'
@@ -163,6 +168,7 @@ Info "install for Windows"
 Info "install dependencies with scoop"
 
 CoreDeps
+BunDeps
 GoDeps
 RustDeps
 NpmDeps
