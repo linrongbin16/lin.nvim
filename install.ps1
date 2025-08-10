@@ -109,9 +109,7 @@ function RustDeps()
 
 function NeovimDeps()
 {
-  Install -command "cargo install --git https://github.com/MordechaiHadad/bob --locked" -target "bob"
-  Install -command "bob use stable" -target "nvim"
-  $env:PATH += ";$env:LOCALAPPDATA\bob\nvim-bin"
+  Install -command "scoop install neovim" -target "nvim"
 }
 
 function NvimConfig()
