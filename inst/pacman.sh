@@ -36,3 +36,6 @@ install "yes | sudo pacman -S nodejs npm" "node"
 
 # golang
 install "yes | sudo pacman -S go" "go"
+
+# neovim
+install "yes | sudo pacman -S neovim" "nvim"

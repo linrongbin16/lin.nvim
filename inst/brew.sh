@@ -42,3 +42,6 @@ install "brew install fzf" "fzf"
 
 # trash
 install "brew install trash" "/opt/homebrew/opt/trash/bin/trash"
+
+# neovim
+install "brew install neovim" "nvim"

@@ -17,7 +17,13 @@ install_git() {
 	sudo apt-get -q -y install git
 }
 
+install_neovim() {
+	sudo apt install snapd
+	sudo snap install nvim --classic
+}
+
 info "install deps with apt"
+sudo apt update
 sudo locale-gen en_US
 sudo locale-gen en_US.UTF-8
 sudo update-locale
@@ -53,3 +59,6 @@ install "install_nodejs" "node"
 
 # golang
 install "install_go" "go"
+
+# neovim
+install "install_neovim" "nvim"

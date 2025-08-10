@@ -9,8 +9,57 @@ NVIM_HOME=$HOME/.nvim
 
 # dependency
 
+OS="$(uname -s)"
+IS_LINUX=0
+IS_MAC=0
+case "$OS" in
+Linux)
+	IS_LINUX=1
+	;;
+Darwin)
+	IS_MAC=1
+	;;
+esac
+
+core_deps() {
+	info "install for $OS"
+
+	case "$OS" in
+	Linux)
+		if [ -f "/etc/arch-release" ] || [ -f "/etc/artix-release" ]; then
+			. "$NVIM_HOME/inst/pacman.sh"
+		elif [ -f "/etc/fedora-release" ] || [ -f "/etc/redhat-release" ]; then
+			. "$NVIM_HOME/inst/dnf.sh"
+		else
+			. "$NVIM_HOME/inst/apt.sh"
+		fi
+		;;
+	Darwin)
+		. "$NVIM_HOME/inst/brew.sh"
+		;;
+	*)
+		info "$OS is not supported, exit..."
+		exit 1
+		;;
+	esac
+}
+
+js_deps() {
+	install "install_bun" "bun"
+	install "install_deno" "deno"
+}
+
+go_deps() {
+	info "install go modern commands"
+	if [ "$IS_MAC" != "1" ]; then
+		install "install_gtrash" "gtrash"
+	fi
+	install "install_lazygit" "lazygit"
+	install "install_fzf" "fzf"
+}
+
 rust_deps() {
-	info "install rust and modern commands"
+	info "install rust modern commands"
 	install "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y" "cargo"
 	install "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y" "rustc"
 	if [ -f $HOME/.cargo/env ]; then
@@ -20,19 +69,9 @@ rust_deps() {
 	install "cargo install ripgrep" "rg"
 	install "cargo install --locked bat" "bat"
 	install "cargo install eza" "eza"
-
-	# neovim
-	install "cargo install --git https://github.com/MordechaiHadad/bob --locked" "bob"
-	export PATH="$PATH:$HOME/.local/share/bob/nvim-bin"
-	install "bob use stable" "nvim"
 }
 
-npm_deps() {
-	info "npm install packages"
-	install "sudo npm install --silent -g trash-cli" "trash"
-}
-
-nvim_config() {
+neovim_configs() {
 	info "install ~/.config/nvim/init.lua for neovim"
 	mkdir -p $HOME/.config
 	backup $HOME/.config/nvim
@@ -67,51 +106,12 @@ nvim_config() {
 	# fi
 }
 
-OS="$(uname -s)"
-IS_MAC=0
-
-core_deps() {
-	info "install for $OS"
-
-	case "$OS" in
-	Linux)
-		if [ -f "/etc/arch-release" ] || [ -f "/etc/artix-release" ]; then
-			. "$NVIM_HOME/inst/pacman.sh"
-		elif [ -f "/etc/fedora-release" ] || [ -f "/etc/redhat-release" ]; then
-			. "$NVIM_HOME/inst/dnf.sh"
-		else
-			. "$NVIM_HOME/inst/apt.sh"
-		fi
-		;;
-	Darwin)
-		IS_MAC=1
-		. "$NVIM_HOME/inst/brew.sh"
-		;;
-	*)
-		info "$OS is not supported, exit..."
-		exit 1
-		;;
-	esac
+main() {
+	core_deps
+	js_deps
+	go_deps
+	rust_deps
+	neovim_configs
 }
 
-js_deps() {
-	install "install_bun" "bun"
-	install "install_deno" "deno"
-}
-
-go_deps() {
-	if [ "$IS_MAC" != "1" ]; then
-		install "install_gtrash" "gtrash"
-	fi
-	install "install_lazygit" "lazygit"
-	install "install_fzf" "fzf"
-}
-
-core_deps
-js_deps
-go_deps
-rust_deps
-npm_deps
-nvim_config
-
-info "install for $OS - done"
+main

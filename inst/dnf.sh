@@ -36,3 +36,6 @@ install "sudo dnf install -y nodejs npm" "node"
 
 # golang
 install "install_go" "go"
+
+# neovim
+install "sudo dnf install -y neovim" "nvim"
