@@ -4,6 +4,9 @@
 # set -x
 
 NVIM_HOME=$HOME/.nvim
+
+. "$NVIM_HOME/inst/util.sh"
+
 OS="$(uname -s)"
 
 IS_LINUX=0
@@ -31,59 +34,6 @@ Darwin)
 	# Nothing
 	;;
 esac
-
-# utils {
-
-info() {
-	local content="$*"
-	printf "[lin.nvim] - %s\n" "$content"
-}
-
-err() {
-	local content="$*"
-	info "error! $content"
-}
-
-skip_info() {
-	local old="$IFS"
-	IFS='/'
-	local target="'$*'"
-	info "$target already exist, skip..."
-	IFS=$old
-}
-
-backup() {
-	local src=$1
-	if [[ -f "$src" || -d "$src" ]]; then
-		local target=$src.$(date +"%Y-%m-%d.%H-%M-%S")
-		info "backup '$src' to '$target'"
-		mv $src $target
-	fi
-}
-
-install() {
-	local command="$1"
-	local target="$2"
-	if ! type "$target" >/dev/null 2>&1; then
-		info "install '$target' with command: '$command'"
-		eval "$command"
-	else
-		skip_info $target
-	fi
-}
-
-install_fzf() {
-	git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-	~/.fzf/install --bin
-	sudo cp ~/.fzf/bin/fzf /usr/local/bin/fzf
-	fzf --version
-}
-
-install_bun() {
-	curl -fsSL https://bun.com/install | bash
-}
-
-# utils }
 
 # apt: ubuntu/debian {
 
