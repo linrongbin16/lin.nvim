@@ -97,6 +97,7 @@ js_deps() {
 }
 
 go_deps() {
+	install "install_gtrash" "gtrash"
 	install "install_lazygit" "lazygit"
 	install "install_fzf" "fzf"
 }
