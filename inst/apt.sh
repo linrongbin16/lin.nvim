@@ -29,30 +29,30 @@ sudo locale-gen en_US.UTF-8
 sudo update-locale
 
 # c++ toolchain
-install "sudo apt-get -qq -y install build-essential" "gcc"
-install "sudo apt-get -qq -y install build-essential" "make"
-install "sudo apt-get -qq -y install autoconf" "autoconf"
-install "sudo apt-get -qq -y install automake" "automake"
-install "sudo apt-get -qq -y install pkg-config" "pkg-config"
-install "sudo apt-get -qq -y install cmake" "cmake"
+install "sudo apt-get -q -y install build-essential" "gcc"
+install "sudo apt-get -q -y install build-essential" "make"
+install "sudo apt-get -q -y install autoconf" "autoconf"
+install "sudo apt-get -q -y install automake" "automake"
+install "sudo apt-get -q -y install pkg-config" "pkg-config"
+install "sudo apt-get -q -y install cmake" "cmake"
 
 # download tools
 install "install_git" "git"
-install "sudo apt-get -qq -y install curl" "curl"
-install "sudo apt-get -qq -y install wget" "wget"
+install "sudo apt-get -q -y install curl" "curl"
+install "sudo apt-get -q -y install wget" "wget"
 
 # compress tools
-install "sudo apt-get -qq -y install p7zip" "7z"
-install "sudo apt-get -qq -y install gzip" "gzip"
-install "sudo apt-get -qq -y install unzip" "unzip"
+install "sudo apt-get -q -y install p7zip" "7z"
+install "sudo apt-get -q -y install gzip" "gzip"
+install "sudo apt-get -q -y install unzip" "unzip"
 
 # copy/paste tools
-install "sudo apt-get -qq -y install xsel" "xsel"
-install "sudo apt-get -qq -y install xclip" "xclip"
+install "sudo apt-get -q -y install xsel" "xsel"
+install "sudo apt-get -q -y install xclip" "xclip"
 
 # python3
-install "sudo apt-get -qq -y install python3 python3-dev python3-venv python3-pip python3-docutils" "python3"
-install "sudo apt-get -qq -y install python3 python3-dev python3-venv python3-pip python3-docutils" "pip3"
+install "sudo apt-get -q -y install python3 python3-dev python3-venv python3-pip python3-docutils" "python3"
+install "sudo apt-get -q -y install python3 python3-dev python3-venv python3-pip python3-docutils" "pip3"
 
 # nodejs
 install "install_nodejs" "node"
