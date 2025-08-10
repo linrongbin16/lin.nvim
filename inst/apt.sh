@@ -17,41 +17,39 @@ install_git() {
 	sudo apt-get -q -y install git
 }
 
-apt_deps() {
-	info "apt install dependencies"
-	sudo locale-gen en_US
-	sudo locale-gen en_US.UTF-8
-	sudo update-locale
+info "install deps with apt"
+sudo locale-gen en_US
+sudo locale-gen en_US.UTF-8
+sudo update-locale
 
-	# c++ toolchain
-	install "sudo apt-get -qq -y install build-essential" "gcc"
-	install "sudo apt-get -qq -y install build-essential" "make"
-	install "sudo apt-get -qq -y install autoconf" "autoconf"
-	install "sudo apt-get -qq -y install automake" "automake"
-	install "sudo apt-get -qq -y install pkg-config" "pkg-config"
-	install "sudo apt-get -qq -y install cmake" "cmake"
+# c++ toolchain
+install "sudo apt-get -qq -y install build-essential" "gcc"
+install "sudo apt-get -qq -y install build-essential" "make"
+install "sudo apt-get -qq -y install autoconf" "autoconf"
+install "sudo apt-get -qq -y install automake" "automake"
+install "sudo apt-get -qq -y install pkg-config" "pkg-config"
+install "sudo apt-get -qq -y install cmake" "cmake"
 
-	# download tools
-	install "install_git" "git"
-	install "sudo apt-get -qq -y install curl" "curl"
-	install "sudo apt-get -qq -y install wget" "wget"
+# download tools
+install "install_git" "git"
+install "sudo apt-get -qq -y install curl" "curl"
+install "sudo apt-get -qq -y install wget" "wget"
 
-	# compress tools
-	install "sudo apt-get -qq -y install p7zip" "7z"
-	install "sudo apt-get -qq -y install gzip" "gzip"
-	install "sudo apt-get -qq -y install unzip" "unzip"
+# compress tools
+install "sudo apt-get -qq -y install p7zip" "7z"
+install "sudo apt-get -qq -y install gzip" "gzip"
+install "sudo apt-get -qq -y install unzip" "unzip"
 
-	# copy/paste tools
-	install "sudo apt-get -qq -y install xsel" "xsel"
-	install "sudo apt-get -qq -y install xclip" "xclip"
+# copy/paste tools
+install "sudo apt-get -qq -y install xsel" "xsel"
+install "sudo apt-get -qq -y install xclip" "xclip"
 
-	# python3
-	install "sudo apt-get -qq -y install python3 python3-dev python3-venv python3-pip python3-docutils" "python3"
-	install "sudo apt-get -qq -y install python3 python3-dev python3-venv python3-pip python3-docutils" "pip3"
+# python3
+install "sudo apt-get -qq -y install python3 python3-dev python3-venv python3-pip python3-docutils" "python3"
+install "sudo apt-get -qq -y install python3 python3-dev python3-venv python3-pip python3-docutils" "pip3"
 
-	# nodejs
-	install "install_nodejs" "node"
+# nodejs
+install "install_nodejs" "node"
 
-	# golang
-	install "install_go" "go"
-}
+# golang
+install "install_go" "go"
