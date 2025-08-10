@@ -7,43 +7,7 @@ NVIM_HOME=$HOME/.nvim
 
 . "$NVIM_HOME/inst/util.sh"
 
-OS="$(uname -s)"
-
-IS_LINUX=0
-IS_MAC=0
-IS_FREEBSD=0
-IS_NETBSD=0
-IS_OPENBSD=0
-case "$OS" in
-Linux)
-	IS_LINUX=1
-	;;
-FreeBSD)
-	IS_FREEBSD=1
-	;;
-NetBSD)
-	IS_NETBSD=1
-	;;
-OpenBSD)
-	IS_OPENBSD=1
-	;;
-Darwin)
-	IS_MAC=1
-	;;
-*)
-	# Nothing
-	;;
-esac
-
 # dependency
-
-bun_deps() {
-	install "install_bun" "bun"
-}
-
-go_deps() {
-	install_fzf
-}
 
 rust_deps() {
 	info "install rust and modern commands"
@@ -103,37 +67,42 @@ nvim_config() {
 	# fi
 }
 
-info "install for $OS"
+core_deps() {
+	OS="$(uname -s)"
+	info "install for $OS"
 
-# dependency
-case "$OS" in
-Linux)
-	if [ -f "/etc/arch-release" ] || [ -f "/etc/artix-release" ]; then
-		pacman_deps
-	elif [ -f "/etc/fedora-release" ] || [ -f "/etc/redhat-release" ]; then
-		dnf_deps
-	elif [ -f "/etc/gentoo-release" ]; then
-		info "gentoo ($OS) is not supported, exit..."
+	case "$OS" in
+	Linux)
+		if [ -f "/etc/arch-release" ] || [ -f "/etc/artix-release" ]; then
+			. "$NVIM_HOME/inst/pacman.sh"
+		elif [ -f "/etc/fedora-release" ] || [ -f "/etc/redhat-release" ]; then
+			. "$NVIM_HOME/inst/dnf.sh"
+		else
+			. "$NVIM_HOME/inst/apt.sh"
+		fi
+		;;
+	Darwin)
+		. "$NVIM_HOME/inst/brew.sh"
+		;;
+	*)
+		info "$OS is not supported, exit..."
 		exit 1
-	else
-		# otherwise, assume it is apt
-		apt_deps
-	fi
-	;;
-Darwin)
-	brew_deps
-	;;
-FreeBSD | NetBSD | OpenBSD)
-	info "$OS is not supported, exit..."
-	exit 1
-	;;
-*)
-	info "$OS is not supported, exit..."
-	exit 1
-	;;
-esac
+		;;
+	esac
+}
 
-bun_deps
+js_deps() {
+	install "install_bun" "bun"
+	install "install_deno" "deno"
+}
+
+go_deps() {
+	install "install_lazygit" "lazygit"
+	install "install_fzf" "fzf"
+}
+
+core_deps
+js_deps
 go_deps
 rust_deps
 npm_deps
