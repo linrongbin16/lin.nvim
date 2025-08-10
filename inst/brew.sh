@@ -2,7 +2,7 @@
 
 # set -x
 
-info "brew install dependencies"
+info "install deps with brew"
 
 if ! type clang >/dev/null 2>&1; then
 	xcode-select --install
