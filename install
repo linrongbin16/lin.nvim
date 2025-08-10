@@ -67,8 +67,10 @@ nvim_config() {
 	# fi
 }
 
+OS="$(uname -s)"
+IS_MAC=0
+
 core_deps() {
-	OS="$(uname -s)"
 	info "install for $OS"
 
 	case "$OS" in
@@ -82,6 +84,7 @@ core_deps() {
 		fi
 		;;
 	Darwin)
+		IS_MAC=1
 		. "$NVIM_HOME/inst/brew.sh"
 		;;
 	*)
@@ -97,7 +100,9 @@ js_deps() {
 }
 
 go_deps() {
-	install "install_gtrash" "gtrash"
+	if [ "$IS_MAC" != "1" ]; then
+		install "install_gtrash" "gtrash"
+	fi
 	install "install_lazygit" "lazygit"
 	install "install_fzf" "fzf"
 }
