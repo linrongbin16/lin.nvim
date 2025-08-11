@@ -129,7 +129,7 @@ jobs:
     steps:
       - uses: ilammy/msvc-dev-cmd@v1
       - uses: Swatinem/rust-cache@v2
-      - uses: MinoruSekine/setup-scoop@v4.0.1
+      - uses: MinoruSekine/setup-scoop@v4.0.2
         with:
           buckets: extras
       - name: Get branch
