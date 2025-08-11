@@ -4,300 +4,62 @@
 # set -x
 
 NVIM_HOME=$HOME/.nvim
-OS="$(uname -s)"
 
+. "$NVIM_HOME/inst/util.sh"
+
+# dependency
+
+OS="$(uname -s)"
 IS_LINUX=0
 IS_MAC=0
-IS_FREEBSD=0
-IS_NETBSD=0
-IS_OPENBSD=0
 case "$OS" in
 Linux)
 	IS_LINUX=1
 	;;
-FreeBSD)
-	IS_FREEBSD=1
-	;;
-NetBSD)
-	IS_NETBSD=1
-	;;
-OpenBSD)
-	IS_OPENBSD=1
-	;;
 Darwin)
 	IS_MAC=1
 	;;
-*)
-	# Nothing
-	;;
 esac
 
-# utils {
+core_deps() {
+	info "install for $OS"
 
-info() {
-	local content="$*"
-	printf "[lin.nvim] - %s\n" "$content"
+	case "$OS" in
+	Linux)
+		if [ -f "/etc/arch-release" ] || [ -f "/etc/artix-release" ]; then
+			. "$NVIM_HOME/inst/pacman.sh"
+		elif [ -f "/etc/fedora-release" ] || [ -f "/etc/redhat-release" ]; then
+			. "$NVIM_HOME/inst/dnf.sh"
+		else
+			. "$NVIM_HOME/inst/apt.sh"
+		fi
+		;;
+	Darwin)
+		. "$NVIM_HOME/inst/brew.sh"
+		;;
+	*)
+		info "$OS is not supported, exit..."
+		exit 1
+		;;
+	esac
 }
 
-err() {
-	local content="$*"
-	info "error! $content"
-}
-
-skip_info() {
-	local old="$IFS"
-	IFS='/'
-	local target="'$*'"
-	info "$target already exist, skip..."
-	IFS=$old
-}
-
-backup() {
-	local src=$1
-	if [[ -f "$src" || -d "$src" ]]; then
-		local target=$src.$(date +"%Y-%m-%d.%H-%M-%S")
-		info "backup '$src' to '$target'"
-		mv $src $target
-	fi
-}
-
-install() {
-	local command="$1"
-	local target="$2"
-	if ! type "$target" >/dev/null 2>&1; then
-		info "install '$target' with command: '$command'"
-		eval "$command"
-	else
-		skip_info $target
-	fi
-}
-
-install_fzf() {
-	git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-	~/.fzf/install --bin
-	sudo cp ~/.fzf/bin/fzf /usr/local/bin/fzf
-	fzf --version
-}
-
-install_bun() {
-	curl -fsSL https://bun.com/install | bash
-}
-
-# utils }
-
-# apt: ubuntu/debian {
-
-apt_install_nodejs() {
-	# see: https://github.com/nodesource/distributions
-	info "install nodejs-lts from github NodeSource"
-	sudo apt-get -qq -y install curl
-	curl -fsSL https://deb.nodesource.com/setup_lts.x -o nodesource_setup.sh
-	sudo -E bash nodesource_setup.sh
-	sudo apt-get -qq update
-	sudo apt-get -qq -y install nodejs
-}
-
-apt_install_git() {
-	sudo apt-add-repository ppa:git-core/ppa
-	sudo apt-get -qq update
-	sudo apt-get -qq -y install git
-}
-
-apt_install_lazygit() {
-	LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | \grep -Po '"tag_name": *"v\K[^"]*')
-	curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
-	tar xf lazygit.tar.gz lazygit
-	sudo install lazygit -D -t /usr/local/bin/
-}
-
-apt_deps() {
-	info "apt install dependencies"
-	sudo locale-gen en_US
-	sudo locale-gen en_US.UTF-8
-	sudo update-locale
-
-	# c++ toolchain
-	install "sudo apt-get -qq -y install build-essential" "gcc"
-	install "sudo apt-get -qq -y install build-essential" "make"
-	install "sudo apt-get -qq -y install autoconf" "autoconf"
-	install "sudo apt-get -qq -y install automake" "automake"
-	install "sudo apt-get -qq -y install pkg-config" "pkg-config"
-	install "sudo apt-get -qq -y install cmake" "cmake"
-
-	# download tools
-	install "apt_install_git" "git"
-	install "sudo apt-get -qq -y install curl" "curl"
-	install "sudo apt-get -qq -y install wget" "wget"
-
-	# compress tools
-	install "sudo apt-get -qq -y install p7zip" "7z"
-	install "sudo apt-get -qq -y install gzip" "gzip"
-	install "sudo apt-get -qq -y install unzip" "unzip"
-
-	# copy/paste tools
-	install "sudo apt-get -qq -y install xsel" "xsel"
-	install "sudo apt-get -qq -y install xclip" "xclip"
-
-	# python3
-	install "sudo apt-get -qq -y install python3 python3-dev python3-venv python3-pip python3-docutils" "python3"
-	install "sudo apt-get -qq -y install python3 python3-dev python3-venv python3-pip python3-docutils" "pip3"
-
-	# nodejs
-	install "apt_install_nodejs" "node"
-
-	# golang
-	install "sudo apt-get -qq -y install golang-go golang-src" "go"
-	install "apt_install_lazygit" "lazygit"
-}
-
-# }
-
-# dnf: fedora/centos {
-
-dnf_install_lazygit() {
-	sudo dnf copr enable dejan/lazygit
-	sudo dnf install -y lazygit
-}
-
-dnf_deps() {
-	info "dnf install dependencies"
-	sudo dnf check-update
-
-	# c++ toolchain
-	install "sudo dnf group install -y \"Development Tools\"" "gcc"
-	install "sudo dnf group install -y \"Development Tools\"" "make"
-	install "sudo dnf install -y autoconf" "autoconf"
-	install "sudo dnf install -y automake" "automake"
-	install "sudo dnf install -y pkg-config" "pkg-config"
-	install "sudo dnf install -y cmake" "cmake"
-
-	# download tools
-	install "sudo dnf install -y git" "git"
-	install "sudo dnf install -y curl" "curl"
-	install "sudo dnf install -y wget" "wget"
-
-	# compress tools
-	install "sudo dnf install -y gzip" "gzip"
-	install "sudo dnf install -y p7zip" "7z"
-	install "sudo dnf install -y unzip" "unzip"
-
-	# # luarocks
-	# install "sudo dnf install -y luarocks" "luarocks"
-
-	# copy/paste tools
-	install "sudo dnf install -y xsel" "xsel"
-	install "sudo dnf install -y xclip" "xclip"
-
-	# python3
-	install "sudo dnf install -y python3 python3-devel python3-pip python3-docutils" "python3"
-	install "sudo dnf install -y python3 python3-devel python3-pip python3-docutils" "pip3"
-
-	# nodejs
-	install "sudo dnf install -y nodejs npm" "node"
-
-	# golang
-	install "sudo dnf install -y golang" "go"
-	install "dnf_install_lazygit" "lazygit"
-}
-
-# }
-
-# packman: manjaro/archlinux {
-
-pacman_deps() {
-	info "pacman install dependencies"
-	sudo pacman -Syy
-
-	# c++ toolchain
-	install "yes | sudo pacman -S base-devel" "gcc"
-	install "yes | sudo pacman -S base-devel" "make"
-	install "yes | sudo pacman -S autoconf" "autoconf"
-	install "yes | sudo pacman -S automake" "automake"
-	install "yes | sudo pacman -S pkg-config" "pkg-config"
-	install "yes | sudo pacman -S cmake" "cmake"
-
-	# download tools
-	install "yes | sudo pacman -S git" "git"
-	install "yes | sudo pacman -S curl" "curl"
-	install "yes | sudo pacman -S wget" "wget"
-
-	# compress tools
-	install "yes | sudo pacman -S gzip" "gzip"
-	install "yes | sudo pacman -S p7zip" "7z"
-	install "yes | sudo pacman -S unzip" "unzip"
-
-	# copy/paste tools
-	install "yes | sudo pacman -S xsel" "xsel"
-	install "yes | sudo pacman -S xclip" "xclip"
-
-	# python3
-	install "yes | sudo pacman -S python python-pip" "python3"
-	install "yes | sudo pacman -S python python-pip" "pip3"
-
-	# node
-	install "yes | sudo pacman -S nodejs npm" "node"
-
-	# golang
-	install "yes | sudo pacman -S go" "go"
-	install "yes | sudo pacman -S lazygit" "lazygit"
-}
-
-# }
-
-# homebrew: macos {
-
-brew_deps() {
-	info "brew install dependencies"
-
-	if ! type clang >/dev/null 2>&1; then
-		xcode-select --install
-	fi
-	if ! type brew >/dev/null 2>&1; then
-		/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-	fi
-
-	brew update
-
-	# c++ toolchain
-	install "brew install cmake" "cmake"
-	install "brew install pkg-config" "pkg-config"
-
-	# download tools
-	install "brew install git" "git"
-	install "brew install curl" "curl"
-	install "brew install wget" "wget"
-
-	# compress tools
-	install "brew install gzip" "gzip"
-	install "brew install p7zip" "7z"
-	install "brew install unzip" "unzip"
-
-	# python3
-	install "brew install python3" "python3"
-
-	# nodejs
-	install "brew install node" "node"
-
-	# golang
-	install "brew install go" "go"
-	install "brew install jesseduffield/lazygit/lazygit" "lazygit"
-	install "brew install fzf" "fzf"
-}
-
-# }
-
-# dependency
-
-bun_deps() {
+js_deps() {
 	install "install_bun" "bun"
+	install "install_deno" "deno"
 }
 
 go_deps() {
-	install_fzf
+	info "install go modern commands"
+	if [ "$IS_MAC" != "1" ]; then
+		install "install_gtrash" "gtrash"
+	fi
+	install "install_lazygit" "lazygit"
+	install "install_fzf" "fzf"
 }
 
 rust_deps() {
-	info "install rust and modern commands"
+	info "install rust modern commands"
 	install "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y" "cargo"
 	install "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y" "rustc"
 	if [ -f $HOME/.cargo/env ]; then
@@ -307,19 +69,9 @@ rust_deps() {
 	install "cargo install ripgrep" "rg"
 	install "cargo install --locked bat" "bat"
 	install "cargo install eza" "eza"
-
-	# neovim
-	install "cargo install --git https://github.com/MordechaiHadad/bob --locked" "bob"
-	export PATH="$PATH:$HOME/.local/share/bob/nvim-bin"
-	install "bob use stable" "nvim"
 }
 
-npm_deps() {
-	info "npm install packages"
-	install "sudo npm install --silent -g trash-cli" "trash"
-}
-
-nvim_config() {
+neovim_configs() {
 	info "install ~/.config/nvim/init.lua for neovim"
 	mkdir -p $HOME/.config
 	backup $HOME/.config/nvim
@@ -354,40 +106,12 @@ nvim_config() {
 	# fi
 }
 
-info "install for $OS"
+main() {
+	core_deps
+	js_deps
+	go_deps
+	rust_deps
+	neovim_configs
+}
 
-# dependency
-case "$OS" in
-Linux)
-	if [ -f "/etc/arch-release" ] || [ -f "/etc/artix-release" ]; then
-		pacman_deps
-	elif [ -f "/etc/fedora-release" ] || [ -f "/etc/redhat-release" ]; then
-		dnf_deps
-	elif [ -f "/etc/gentoo-release" ]; then
-		info "gentoo ($OS) is not supported, exit..."
-		exit 1
-	else
-		# otherwise, assume it is apt
-		apt_deps
-	fi
-	;;
-Darwin)
-	brew_deps
-	;;
-FreeBSD | NetBSD | OpenBSD)
-	info "$OS is not supported, exit..."
-	exit 1
-	;;
-*)
-	info "$OS is not supported, exit..."
-	exit 1
-	;;
-esac
-
-bun_deps
-go_deps
-rust_deps
-npm_deps
-nvim_config
-
-info "install for $OS - done"
+main

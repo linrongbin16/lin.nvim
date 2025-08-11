@@ -75,13 +75,19 @@ local M = {
     event = { CmdlineEnter },
   },
 
-  -- ---- Markdown Preview ----
+  -- ---- MARKDOWN PREVIEW ----
 
   {
     "wallpants/github-preview.nvim",
     cmd = { "GithubPreviewToggle" },
     keys = lua_keys("wallpants/github-preview.nvim"),
     config = lua_config("wallpants/github-preview.nvim"),
+  },
+  {
+    "toppair/peek.nvim",
+    build = "deno task --quiet build:fast",
+    config = lua_config("toppair/peek.nvim"),
+    keys = lua_keys("toppair/peek.nvim"),
   },
 
   -- ---- UI ----

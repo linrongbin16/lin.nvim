@@ -52,13 +52,15 @@ function Backup([string]$src)
 
 # utils }
 
-# dependencies {
-
 function CoreDeps()
 {
+  Install -command "scoop install 7zip" -target "7z"
+  Install -command "scoop install gzip" -target "gzip"
+  Install -command "scoop install unzip" -target "unzip"
+
   scoop bucket add extras
   scoop install mingw
-  scoop install uutils-coreutils
+  scoop install coreutils
 
   # shell
   Install -command "scoop install which" -target "which"
@@ -74,16 +76,15 @@ function CoreDeps()
   Install -command "scoop install git" -target "git"
   Install -command "scoop install curl" -target "curl"
   Install -command "scoop install wget" -target "wget"
-
-  # compress tools
-  Install -command "scoop install 7zip" -target "7z"
-  Install -command "scoop install gzip" -target "gzip"
-  Install -command "scoop install unzip" -target "unzip"
 }
 
-function BunDeps()
+function JsDeps()
 {
+  Info 'install javascript runtimes'
+  Install -command "scoop install nodejs" -target "node"
+  Install -command "npm install --silent -g trash-cli" -target "trash"
   Install -command "scoop install bun" -target "bun"
+  Install -command "scoop install deno" -target "deno"
 }
 
 function GoDeps()
@@ -97,28 +98,17 @@ function GoDeps()
 function RustDeps()
 {
   Info 'install rust modern commands'
-  # rustc/cargo
   Install -command "scoop install rustup" -target "cargo"
   Install -command "scoop install rustup" -target "rustc"
-  # modern commands
   Install -command "scoop install fd" -target "fd"
   Install -command "scoop install ripgrep" -target "rg"
   Install -command "scoop install bat" -target "bat"
   Install -command "scoop install eza" -target "eza"
-  # neovim
-  Install -command "cargo install --git https://github.com/MordechaiHadad/bob --locked" -target "bob"
-  Install -command "bob use stable" -target "nvim"
-  $env:PATH += ";$env:LOCALAPPDATA\bob\nvim-bin"
 }
 
-function NpmDeps()
+function NeovimDeps()
 {
-  Info "install node/npm packages"
-  # nodejs
-  Install -command "scoop install nodejs" -target "node"
-  # npm
-  npm install --silent -g neovim
-  Install -command "npm install --silent -g trash-cli" -target "trash"
+  Install -command "scoop install neovim" -target "nvim"
 }
 
 function NvimConfig()
@@ -160,18 +150,15 @@ function NvimConfig()
   # }
 }
 
-# dependencies }
+function Main()
+{
+  Info "install for Windows"
+  CoreDeps
+  JsDeps
+  GoDeps
+  RustDeps
+  NeovimDeps
+  NvimConfig
+}
 
-Info "install for Windows"
-
-# dependency
-Info "install dependencies with scoop"
-
-CoreDeps
-BunDeps
-GoDeps
-RustDeps
-NpmDeps
-NvimConfig
-
-Info "install for Windows - done"
+Main
