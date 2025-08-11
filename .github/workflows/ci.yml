@@ -66,7 +66,10 @@ jobs:
           commit_message: "chore(pr): auto-commit"
   ubuntu_installer:
     name: Ubuntu Installer
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, ubuntu-24.04-arm]
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: Swatinem/rust-cache@v2
       - uses: mozilla-actions/sccache-action@v0.0.9
@@ -119,11 +122,13 @@ jobs:
           git clone --single-branch --branch ${{ steps.extract_branch.outputs.branch }} --depth=1 https://github.com/linrongbin16/lin.nvim ~/.nvim && cd ~/.nvim && bash -euxo pipefail ./install
   windows_installer:
     name: Windows Installer
-    runs-on: windows-latest
+    strategy:
+      matrix:
+        os: [windows-latest, windows-11-arm]
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: ilammy/msvc-dev-cmd@v1
       - uses: Swatinem/rust-cache@v2
-      - uses: mozilla-actions/sccache-action@v0.0.9
       - uses: MinoruSekine/setup-scoop@v4.0.1
         with:
           buckets: extras
@@ -136,8 +141,6 @@ jobs:
           arch: amd64_x86
       - name: Install lin.nvim
         env:
-          SCCACHE_GHA_ENABLED: "true"
-          RUSTC_WRAPPER: "sccache"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo '${{ steps.extract_branch.outputs.branch }}'
