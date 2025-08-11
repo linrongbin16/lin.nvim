@@ -54,9 +54,13 @@ function Backup([string]$src)
 
 function CoreDeps()
 {
+  Install -command "scoop install 7zip" -target "7z"
+  Install -command "scoop install gzip" -target "gzip"
+  Install -command "scoop install unzip" -target "unzip"
+
   scoop bucket add extras
   scoop install mingw
-  scoop install uutils-coreutils
+  scoop install coreutils
 
   # shell
   Install -command "scoop install which" -target "which"
@@ -72,11 +76,6 @@ function CoreDeps()
   Install -command "scoop install git" -target "git"
   Install -command "scoop install curl" -target "curl"
   Install -command "scoop install wget" -target "wget"
-
-  # compress tools
-  Install -command "scoop install 7zip" -target "7z"
-  Install -command "scoop install gzip" -target "gzip"
-  Install -command "scoop install unzip" -target "unzip"
 }
 
 function JsDeps()
