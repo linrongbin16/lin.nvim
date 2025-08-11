@@ -61,7 +61,7 @@ jobs:
           args: --config-path .stylua.toml ./lua
       - name: Auto commit
         if: ${{ github.ref != 'refs/heads/main' }}
-        uses: stefanzweifel/git-auto-commit-action@v5
+        uses: stefanzweifel/git-auto-commit-action@v6
         with:
           commit_message: "chore(pr): auto-commit"
   ubuntu_installer:
