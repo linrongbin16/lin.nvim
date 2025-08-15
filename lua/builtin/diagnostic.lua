@@ -67,6 +67,7 @@ local function setup_diagnostic()
         "FocusLost",
         "TermLeave",
         "TermClose",
+        "VimLeave",
       },
     },
   })
