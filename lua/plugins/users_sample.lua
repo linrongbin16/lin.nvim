@@ -84,6 +84,11 @@
 --     init = lua_init("inkarkat/vim-mark"),
 --     keys = lua_keys("inkarkat/vim-mark"),
 --   },
+--   {
+--     "mrcjkb/rustaceanvim",
+--     version = "*",
+--     lazy = false,
+--   },
 -- }
 
 return {}
