@@ -65,6 +65,8 @@ local function setup_diagnostic()
         "CursorMovedI",
         "InsertEnter",
         "FocusLost",
+        "TermLeave",
+        "TermClose",
       },
     },
   })
