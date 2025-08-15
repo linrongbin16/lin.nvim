@@ -53,6 +53,19 @@ local function setup_diagnostic()
       header = "",
       prefix = "",
       suffix = "",
+      focusable = true,
+      close_events = {
+        "BufLeave",
+        "WinLeave",
+        "TabLeave",
+        "CmdlineLeave",
+        "CmdwinLeave",
+        "CursorMoved",
+        "CursorMovedC",
+        "CursorMovedI",
+        "InsertEnter",
+        "FocusLost",
+      },
     },
   })
 
