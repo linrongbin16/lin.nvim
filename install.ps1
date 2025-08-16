@@ -82,7 +82,6 @@ function JsDeps()
 {
   Info 'install javascript runtimes'
   Install -command "scoop install nodejs" -target "node"
-  Install -command "npm install --silent -g trash-cli" -target "trash"
   Install -command "scoop install bun" -target "bun"
   Install -command "scoop install deno" -target "deno"
 }
@@ -104,6 +103,7 @@ function RustDeps()
   Install -command "scoop install ripgrep" -target "rg"
   Install -command "scoop install bat" -target "bat"
   Install -command "scoop install eza" -target "eza"
+  Install -command "scoop install trashy" -target "trash"
 }
 
 function NeovimDeps()
