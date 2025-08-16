@@ -29,16 +29,16 @@ local function trash_bin()
     return impl
   end
 
-  local MAC_TRASH = "/opt/homebrew/opt/trash/bin/trash" -- Only support MacOS
-  local GTRASH = "gtrash" -- Only support Linux/FreeDesktop
-  local TRASH = "trash" -- Trashy for Windows
+  local MAC_TRASH = "/opt/homebrew/opt/trash/bin/trash" -- Only for MacOS
+  local GTRASH = "gtrash" -- Only for Linux (FreeDesktop)
+  local TRASHY = "trashy" -- Trashy works for Windows/Linux
 
   if constants.os.is_macos and vim.fn.executable(MAC_TRASH) > 0 then
     return wrap({ MAC_TRASH })
   elseif not constants.os.is_macos and vim.fn.executable(GTRASH) > 0 then
     return wrap({ GTRASH, "put" })
-  elseif vim.fn.executable(TRASH) > 0 then
-    return wrap({ TRASH })
+  elseif vim.fn.executable(TRASHY) > 0 then
+    return wrap({ TRASHY, "put" })
   else
     return "delete" -- by default 'rm' command
   end
