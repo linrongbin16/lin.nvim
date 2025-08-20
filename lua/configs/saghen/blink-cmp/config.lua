@@ -1,23 +1,5 @@
 local str = require("commons.str")
 
--- Whether previous char is whitespace.
----@return boolean
-local function checkspace()
-  local col = vim.fn.col(".") - 1
-  -- If previous char is not the beginning of the line.
-  if col > 0 then
-    local line = vim.fn.getline(".")
-    if type(line) == "string" and string.len(line) >= col then
-      local ch = string.sub(line, col, col)
-      -- If previous char is whitespace.
-      if type(ch) == "string" and string.match(ch, "%s") ~= nil then
-        return true
-      end
-    end
-  end
-  return false
-end
-
 require("blink.cmp").setup({
   cmdline = {
     enabled = true,
@@ -32,10 +14,8 @@ require("blink.cmp").setup({
       -- Use <Tab> to accept if there are suggestions, or select next.
       ["<Tab>"] = {
         function(cmp)
-          if cmp.is_ghost_text_visible() and not cmp.is_menu_visible() then
-            if not checkspace() then
-              return cmp.accept()
-            end
+          if cmp.is_visible() then
+            return cmp.accept()
           end
         end,
         "show_and_insert",
@@ -116,7 +96,7 @@ require("blink.cmp").setup({
       function(cmp)
         if cmp.snippet_active() then
           return cmp.accept()
-        elseif not checkspace() then
+        else
           return cmp.select_and_accept()
         end
       end,
