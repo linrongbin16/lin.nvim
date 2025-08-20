@@ -21,4 +21,3 @@
     - [Plugin Management](/user_guide/plugin_management.md)
     - [LSP Server Management](/user_guide/lsp_server_management.md)
     - [Other Settings](/user_guide/other_settings.md)
-- [Sponsor](/sponsor.md)
