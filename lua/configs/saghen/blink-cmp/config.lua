@@ -32,10 +32,10 @@ require("blink.cmp").setup({
       -- Use <Tab> to accept if there are suggestions, or select next.
       ["<Tab>"] = {
         function(cmp)
-          if cmp.is_ghost_text_visible() and not cmp.is_menu_visible() then
-            if not checkspace() then
-              return cmp.accept()
-            end
+          if cmp.is_visible() then
+            -- if not checkspace() then
+            return cmp.accept()
+            -- end
           end
         end,
         "show_and_insert",
@@ -116,7 +116,8 @@ require("blink.cmp").setup({
       function(cmp)
         if cmp.snippet_active() then
           return cmp.accept()
-        elseif not checkspace() then
+        else
+          -- elseif not checkspace() then
           return cmp.select_and_accept()
         end
       end,
