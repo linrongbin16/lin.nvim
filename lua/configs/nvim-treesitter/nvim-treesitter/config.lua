@@ -14,7 +14,7 @@ vim.api.nvim_create_autocmd("FileType", {
     if event ~= nil and type(event.buf) == "number" and vim.api.nvim_buf_is_valid(event.buf) then
       local ft = vim.api.nvim_get_option_value("filetype", { buf = event.buf })
       if str.not_empty(ft) then
-        require("nvim-treesitter").install({ event.buf })
+        require("nvim-treesitter").install({ ft })
       end
     end
     vim.treesitter.start()
