@@ -8,6 +8,8 @@
 /lazy
 /universal-ctags
 /go-installer
+/treesitter
+/ts-install
 
 # hooks
 /preinit.vim
