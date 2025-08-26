@@ -1,14 +1,18 @@
-local bigfile = require("builtin.utils.bigfile")
+local stdpath_config = vim.fn.stdpath("config")
 
----@diagnostic disable-next-line: missing-fields
-require("nvim-treesitter.configs").setup({
-  auto_install = true,
-  highlight = {
-    enable = true,
-    -- disable for super large file
-    disable = function(lang, buf)
-      return bigfile.is_too_big(buf)
-    end,
-    additional_vim_regex_highlighting = false,
-  },
+require("nvim-treesitter").setup({
+  install_dir = stdpath_config .. "/treesitter",
 })
+
+-- local nvim_treesitter_augroup =
+--   vim.api.nvim_create_augroup("nvim_treesitter_augroup", { clear = true })
+-- vim.api.nvim_create_autocmd("FileType", {
+--   group = nvim_treesitter_augroup,
+--   pattern = { "<filetype>" },
+--   callback = function()
+--     vim.treesitter.start()
+--   end,
+-- })
+--
+-- vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+-- vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
