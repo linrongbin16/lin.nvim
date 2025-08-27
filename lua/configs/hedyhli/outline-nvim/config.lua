@@ -5,6 +5,27 @@ require("outline").setup({
     width = constants.layout.sidebar.scale * 100,
     focus_on_open = false,
   },
+  outline_items = {
+    auto_update_events = {
+      items = {
+        "InsertLeave",
+        "WinEnter",
+        "BufEnter",
+        "BufNewFile",
+        "BufReadPost",
+        "BufWinEnter",
+        "BufWinLeave",
+        "TabEnter",
+        "BufWritePost",
+        "CmdlineLeave",
+        "CmdwinLeave",
+        "TermLeave",
+        "TermClose",
+        "DirChanged",
+        "DiffUpdated",
+      },
+    },
+  },
   symbol_folding = {
     autofold_depth = 5,
     auto_unfold = {
