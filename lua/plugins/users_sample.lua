@@ -93,7 +93,7 @@
 --     "nvim-treesitter/nvim-treesitter",
 --     lazy = false,
 --     branch = "main",
---     build = ":TSUpdate",
+--     -- build = ":TSUpdate",
 --     init = lua_init("nvim-treesitter/nvim-treesitter"),
 --     config = lua_config("nvim-treesitter/nvim-treesitter"),
 --   },
