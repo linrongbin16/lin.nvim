@@ -92,6 +92,7 @@ require("neo-tree").setup({
     mappings = {
       -- window pick
       ["w"] = "none",
+      ["b"] = "none",
 
       -- open node
       ["l"] = "open",
