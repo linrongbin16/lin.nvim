@@ -103,6 +103,19 @@
 --     dependencies = { "nvim-treesitter/nvim-treesitter" },
 --     config = lua_config("lewis6991/ts-install.nvim"),
 --   },
+--   {
+--     "saecki/crates.nvim",
+--     version = "*",
+--     config = function()
+--       require("crates").setup()
+--     end,
+--   },
+--   {
+--     "vuki656/package-info.nvim",
+--     config = function()
+--       require("package-info").setup()
+--     end,
+--   },
 -- }
 
 return {}
