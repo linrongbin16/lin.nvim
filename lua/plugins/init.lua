@@ -104,14 +104,14 @@ local M = {
     config = lua_config("nvim-neo-tree/neo-tree.nvim"),
     keys = lua_keys("nvim-neo-tree/neo-tree.nvim"),
   },
-  {
-    "moll/vim-bbye",
-    keys = lua_keys("moll/vim-bbye"),
-  },
+  -- {
+  --   "moll/vim-bbye",
+  --   keys = lua_keys("moll/vim-bbye"),
+  -- },
   {
     "akinsho/bufferline.nvim",
     event = { VeryLazy },
-    dependencies = { "moll/vim-bbye" },
+    -- dependencies = { "moll/vim-bbye" },
     config = lua_config("akinsho/bufferline.nvim"),
     keys = lua_keys("akinsho/bufferline.nvim"),
   },
