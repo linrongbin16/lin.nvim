@@ -55,3 +55,8 @@ And for the **CMD** keys in mac system, key mappings are avoid as well:
 
 - `<Leader>yy` 🅇 - Copy visual selected to `~/.nvim/.copypaste`.
 - `<Leader>pp` 🄽 - Paste from `~/.nvim/.copypaste` to current cursor.
+
+### Adjust Window Width
+
+- `<Leader>>` 🄽 - Increase vertical width for 10 columns.
+- `<Leader><` 🄽 - Decrease vertical width for 10 columns.
