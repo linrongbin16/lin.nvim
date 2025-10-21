@@ -56,7 +56,7 @@ local M = {
     keys = lua_keys("mrjones2014/smart-splits.nvim"),
   },
 
-  -- ---- UI ----
+  -- ---- HIGHLIGHT ----
 
   {
     "nvim-treesitter/nvim-treesitter",
