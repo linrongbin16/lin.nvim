@@ -69,6 +69,7 @@ rust_deps() {
 	install "cargo install ripgrep" "rg"
 	install "cargo install --locked bat" "bat"
 	install "cargo install eza" "eza"
+	install "cargo install --locked tree-sitter-cli" "tree-sitter"
 }
 
 neovim_configs() {
