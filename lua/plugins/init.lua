@@ -55,7 +55,6 @@ local M = {
   {
     "nvim-treesitter/nvim-treesitter",
     branch = "main",
-    -- build = ":TSUpdate",
     init = lua_init("nvim-treesitter/nvim-treesitter"),
     config = lua_config("nvim-treesitter/nvim-treesitter"),
   },
