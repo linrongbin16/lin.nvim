@@ -49,15 +49,15 @@ local M = {
     config = lua_config("folke/snacks.nvim"),
     keys = lua_keys("folke/snacks.nvim"),
   },
-
-  -- ---- UI ----
-
   {
     "mrjones2014/smart-splits.nvim",
-    lazy = false,
+    event = { UIEnter },
     config = lua_config("mrjones2014/smart-splits.nvim"),
     keys = lua_keys("mrjones2014/smart-splits.nvim"),
   },
+
+  -- ---- UI ----
+
   {
     "nvim-treesitter/nvim-treesitter",
     branch = "main",
@@ -66,7 +66,7 @@ local M = {
   },
   {
     "lewis6991/ts-install.nvim",
-    lazy = false,
+    event = { UIEnter },
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     config = lua_config("lewis6991/ts-install.nvim"),
   },
