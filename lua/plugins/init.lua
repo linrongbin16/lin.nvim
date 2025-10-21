@@ -50,8 +50,11 @@ local M = {
     keys = lua_keys("folke/snacks.nvim"),
   },
 
-  -- ---- HIGHLIGHT ----
+  -- ---- UI ----
 
+  {
+    "mrjones2014/smart-splits.nvim",
+  },
   {
     "nvim-treesitter/nvim-treesitter",
     branch = "main",
