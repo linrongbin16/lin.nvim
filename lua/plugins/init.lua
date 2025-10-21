@@ -54,6 +54,9 @@ local M = {
 
   {
     "mrjones2014/smart-splits.nvim",
+    lazy = false,
+    config = lua_config("mrjones2014/smart-splits.nvim"),
+    keys = lua_keys("mrjones2014/smart-splits.nvim"),
   },
   {
     "nvim-treesitter/nvim-treesitter",
