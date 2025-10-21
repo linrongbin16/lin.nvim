@@ -49,9 +49,27 @@ local M = {
     config = lua_config("folke/snacks.nvim"),
     keys = lua_keys("folke/snacks.nvim"),
   },
+  {
+    "mrjones2014/smart-splits.nvim",
+    event = { UIEnter },
+    config = lua_config("mrjones2014/smart-splits.nvim"),
+    keys = lua_keys("mrjones2014/smart-splits.nvim"),
+  },
 
   -- ---- HIGHLIGHT ----
 
+  {
+    "nvim-treesitter/nvim-treesitter",
+    branch = "main",
+    init = lua_init("nvim-treesitter/nvim-treesitter"),
+    config = lua_config("nvim-treesitter/nvim-treesitter"),
+  },
+  {
+    "lewis6991/ts-install.nvim",
+    event = { UIEnter },
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    config = lua_config("lewis6991/ts-install.nvim"),
+  },
   {
     "itchyny/vim-cursorword",
     event = { VeryLazy },

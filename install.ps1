@@ -104,6 +104,8 @@ function RustDeps()
   Install -command "scoop install bat" -target "bat"
   Install -command "scoop install eza" -target "eza"
   Install -command "scoop install trashy" -target "trash"
+  Install -command "cargo install --locked tree-sitter-cli" -target "tree-sitter"
+
 }
 
 function NeovimDeps()
