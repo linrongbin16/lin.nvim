@@ -53,6 +53,19 @@ local M = {
   -- ---- HIGHLIGHT ----
 
   {
+    "nvim-treesitter/nvim-treesitter",
+    branch = "main",
+    -- build = ":TSUpdate",
+    init = lua_init("nvim-treesitter/nvim-treesitter"),
+    config = lua_config("nvim-treesitter/nvim-treesitter"),
+  },
+  {
+    "lewis6991/ts-install.nvim",
+    lazy = false,
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    config = lua_config("lewis6991/ts-install.nvim"),
+  },
+  {
     "itchyny/vim-cursorword",
     event = { VeryLazy },
     init = lua_init("itchyny/vim-cursorword"),
