@@ -23,6 +23,8 @@ require("outline").setup({
         "TermClose",
         "DirChanged",
         "DiffUpdated",
+        "FocusGained",
+        "FocusLost",
       },
     },
   },
