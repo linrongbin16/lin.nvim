@@ -37,7 +37,7 @@ install "brew install oven-sh/bun/bun" "bun"
 
 # go
 install "brew install go" "go"
-install "brew install jesseduffield/lazygit/lazygit" "lazygit"
+install "brew install lazygit" "lazygit"
 install "brew install fzf" "fzf"
 
 # trash
