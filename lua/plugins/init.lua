@@ -120,14 +120,9 @@ local M = {
     config = lua_config("nvim-neo-tree/neo-tree.nvim"),
     keys = lua_keys("nvim-neo-tree/neo-tree.nvim"),
   },
-  -- {
-  --   "moll/vim-bbye",
-  --   keys = lua_keys("moll/vim-bbye"),
-  -- },
   {
     "akinsho/bufferline.nvim",
     event = { VeryLazy },
-    -- dependencies = { "moll/vim-bbye" },
     config = lua_config("akinsho/bufferline.nvim"),
     keys = lua_keys("akinsho/bufferline.nvim"),
   },
@@ -138,11 +133,6 @@ local M = {
     init = lua_init("airblade/vim-gitgutter"),
     keys = lua_keys("airblade/vim-gitgutter"),
   },
-  -- {
-  --   "kdheepak/lazygit.nvim",
-  --   init = lua_init("kdheepak/lazygit.nvim"),
-  --   keys = lua_keys("kdheepak/lazygit.nvim"),
-  -- },
   -- Statusline
   {
     "linrongbin16/lsp-progress.nvim",
@@ -263,6 +253,7 @@ local M = {
   },
 
   -- ---- AUTO-COMPLETE ----
+
   {
     "rafamadriz/friendly-snippets",
     lazy = true,
@@ -287,6 +278,7 @@ local M = {
   },
 
   -- ---- CODE-FORMATTER ----
+
   {
     "stevearc/conform.nvim",
     event = { BufWritePre, BufWritePost },
@@ -301,6 +293,7 @@ local M = {
   },
 
   -- ---- CODE-ACTION ----
+
   {
     "rachartier/tiny-code-action.nvim",
     dependencies = {
@@ -326,16 +319,6 @@ local M = {
   -- ---- GIT INTEGRATION ----
 
   -- Blame
-  -- {
-  --   "f-person/git-blame.nvim",
-  --   cmd = {
-  --     "GitBlameToggle",
-  --     "GitBlameEnable",
-  --     "GitBlameDisable",
-  --   },
-  --   config = lua_config("f-person/git-blame.nvim"),
-  --   keys = lua_keys("f-person/git-blame.nvim"),
-  -- },
   {
     "FabijanZulj/blame.nvim",
     cmd = { "BlameToggle" },
