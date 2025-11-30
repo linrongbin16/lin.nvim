@@ -40,15 +40,6 @@ install() {
 	fi
 }
 
-install_go() {
-	git clone --depth=1 https://github.com/kerolloz/go-installer
-	export GOROOT="$HOME/.go" # where go is installed
-	export GOPATH="$HOME/go"  # user workspace
-	bash ./go-installer/go.sh
-	export PATH="$PATH:$GOROOT/bin"
-	export PATH="$PATH:$GOPATH/bin"
-}
-
 install_fzf() {
 	git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 	~/.fzf/install --bin
