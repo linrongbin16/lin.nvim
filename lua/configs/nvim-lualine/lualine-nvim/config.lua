@@ -72,8 +72,9 @@ local function GitDiff()
   }
 end
 
-local function LspStatus()
-  local status = require("lsp-progress").progress()
+local function LspProgress()
+  local max_size = math.max(10, (vim.o.columns + 2) / 2)
+  local status = require("lsp-progress").progress({ max_size = max_size })
   return type(status) == "string" and string.len(status) > 0 and status or ""
 end
 
@@ -165,7 +166,7 @@ local config = {
         cond = GitDiffCondition,
         source = GitDiff,
       },
-      LspStatus,
+      LspProgress,
     },
     lualine_x = {
       {
