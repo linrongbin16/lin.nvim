@@ -114,7 +114,7 @@ local function Progress()
 end
 
 local function CursorHex()
-  return " 0x%04B"
+  return "0x%04B"
 end
 
 local empty_component_separators = { left = "", right = "" }
@@ -211,8 +211,8 @@ local config = {
       },
     },
     lualine_z = {
-      { CursorHex, padding = 0 },
-      { Location, padding = { left = 1, right = 0 } },
+      CursorHex,
+      { Location, padding = 0 },
       Progress,
     },
   },
