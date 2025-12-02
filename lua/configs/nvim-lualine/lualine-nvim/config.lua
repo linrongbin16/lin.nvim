@@ -4,6 +4,18 @@ local spawn = require("commons.spawn")
 
 local constants = require("builtin.constants")
 
+local function FileFolder()
+  local folder = vim.fn.fnamemodify(vim.fn.getcwd(), ":~:.") --[[@as string]]
+  if str.empty(folder) then
+    return ""
+  end
+  local shorten_folder = vim.fn.pathshorten(folder) --[[@as string]]
+  if str.empty(shorten_folder) then
+    return ""
+  end
+  return " " .. shorten_folder
+end
+
 local git_branch_cache = nil
 local git_status_cache = nil
 
@@ -61,29 +73,48 @@ local function GitDiff()
 end
 
 local function LspStatus()
-  local max_size = math.max(10, (vim.o.columns + 2) / 2)
-  local status = require("lsp-progress").progress({ max_size = max_size })
+  local status = require("lsp-progress").progress()
   return type(status) == "string" and string.len(status) > 0 and status or ""
 end
 
+local function LspClients()
+  local bufnr = vim.api.nvim_get_current_buf()
+  local clients = vim.lsp.get_clients({ bufnr = bufnr })
+  local names = {}
+  if type(clients) == "table" then
+    for _, c in ipairs(clients) do
+      if type(c) == "table" and type(c.name) == "string" and str.not_empty(c.name) then
+        table.insert(names, c.name)
+      end
+    end
+  end
+  if tbl.list_empty(names) then
+    return ""
+  else
+    return table.concat(names, ",")
+  end
+end
+
 local function Location()
-  return " %3l:%-2v"
+  return " %2l:%-2v"
 end
 
 local function Progress()
   local bar = " "
   local line_fraction = math.floor(vim.fn.line(".") / vim.fn.line("$") * 100)
+  local value = ""
   if line_fraction >= 100 then
-    return bar .. "Bot "
+    value = "Bot"
   elseif line_fraction <= 0 then
-    return bar .. "Top "
+    value = "Top"
   else
-    return string.format("%s%2d%%%% ", bar, line_fraction)
+    value = string.format("%2d%%%%", line_fraction)
   end
+  return bar .. value
 end
 
 local function CursorHex()
-  return " 0x%04B"
+  return "0x%04B"
 end
 
 local empty_component_separators = { left = "", right = "" }
@@ -101,7 +132,7 @@ local config = {
   options = {
     icons_enabled = true,
     component_separators = empty_component_separators,
-    section_separators = empty_section_separators,
+    section_separators = slash_section_separators,
     refresh = {
       statusline = 5000,
     },
@@ -109,15 +140,6 @@ local config = {
   sections = {
     lualine_a = { "mode" },
     lualine_b = {
-      { GitBranch, cond = GitBranchCondition },
-      {
-        GitStatus,
-        cond = GitStatusCondition,
-        color = GitStatusColor,
-        padding = { left = 0, right = 1 },
-      },
-    },
-    lualine_c = {
       {
         "filename",
         file_status = true,
@@ -128,16 +150,24 @@ local config = {
           newfile = "[New]", -- Text to show for newly created file before first write
         },
       },
+      FileFolder,
+    },
+    lualine_c = {
+      { GitBranch, cond = GitBranchCondition },
+      {
+        GitStatus,
+        cond = GitStatusCondition,
+        color = GitStatusColor,
+        padding = { left = 0, right = 1 },
+      },
       {
         "diff",
         cond = GitDiffCondition,
         source = GitDiff,
-        padding = 1,
       },
       LspStatus,
     },
     lualine_x = {
-      { "searchcount", maxcount = 100, timeout = 300 },
       {
         "diagnostics",
         symbols = {
@@ -147,6 +177,7 @@ local config = {
           hint = constants.diagnostics.hint .. " ",
         },
       },
+      LspClients,
       "filetype",
     },
     lualine_y = {
@@ -179,9 +210,9 @@ local config = {
       },
     },
     lualine_z = {
-      { CursorHex, padding = 0 },
-      { Location, padding = { left = 1, right = 0 } },
-      { Progress, padding = { left = 1, right = 0 } },
+      -- CursorHex,
+      Location,
+      Progress,
     },
   },
 }
@@ -199,14 +230,17 @@ vim.api.nvim_create_autocmd("User", {
     })
   end,
 })
-vim.api.nvim_create_autocmd({ "ModeChanged", "BufReadPre", "BufNewFile", "WinEnter" }, {
-  group = lualine_augroup,
-  callback = function()
-    require("lualine").refresh({
-      place = { "statusline" },
-    })
-  end,
-})
+vim.api.nvim_create_autocmd(
+  { "ModeChanged", "BufReadPre", "BufNewFile", "WinEnter", "LspAttach" },
+  {
+    group = lualine_augroup,
+    callback = function()
+      require("lualine").refresh({
+        place = { "statusline" },
+      })
+    end,
+  }
+)
 
 -- git branch info
 

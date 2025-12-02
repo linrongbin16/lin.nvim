@@ -29,9 +29,9 @@ local function trash_bin()
     return impl
   end
 
-  local MAC_TRASH = "/opt/homebrew/opt/trash/bin/trash" -- Only for MacOS
+  local MAC_TRASH = "/opt/homebrew/opt/macos-trash/bin/trash" -- Only for MacOS
   local GTRASH = "gtrash" -- Only for Linux (FreeDesktop)
-  local TRASHY = "trash" -- Only for Windows (its executable is still 'trash')
+  local TRASHY = "trash" -- For Windows or linux (its executable is still 'trash')
 
   if constants.os.is_macos and vim.fn.executable(MAC_TRASH) > 0 then
     return wrap({ MAC_TRASH })
