@@ -215,21 +215,24 @@ require("lualine").setup(config)
 local lualine_augroup = vim.api.nvim_create_augroup("lualine_augroup", { clear = true })
 vim.api.nvim_create_autocmd("User", {
   group = lualine_augroup,
-  pattern = { "LspProgressStatusUpdated", "GitGutter", "LualineGitBranchUpdated", "LspAttach" },
+  pattern = { "LspProgressStatusUpdated", "GitGutter", "LualineGitBranchUpdated" },
   callback = function()
     require("lualine").refresh({
       place = { "statusline" },
     })
   end,
 })
-vim.api.nvim_create_autocmd({ "ModeChanged", "BufReadPre", "BufNewFile", "WinEnter" }, {
-  group = lualine_augroup,
-  callback = function()
-    require("lualine").refresh({
-      place = { "statusline" },
-    })
-  end,
-})
+vim.api.nvim_create_autocmd(
+  { "ModeChanged", "BufReadPre", "BufNewFile", "WinEnter", "LspAttach" },
+  {
+    group = lualine_augroup,
+    callback = function()
+      require("lualine").refresh({
+        place = { "statusline" },
+      })
+    end,
+  }
+)
 
 -- git branch info
 
