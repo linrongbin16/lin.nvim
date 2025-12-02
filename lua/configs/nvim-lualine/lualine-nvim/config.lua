@@ -6,7 +6,14 @@ local constants = require("builtin.constants")
 
 local function FileFolder()
   local folder = vim.fn.fnamemodify(vim.fn.getcwd(), ":~:.") --[[@as string]]
-  return vim.fn.pathshorten(folder) --[[@as string]]
+  if str.empty(folder) then
+    return ""
+  end
+  local shorten_folder = vim.fn.pathshorten(folder) --[[@as string]]
+  if str.empty(shorten_folder) then
+    return ""
+  end
+  return " " .. shorten_folder
 end
 
 local git_branch_cache = nil
@@ -123,7 +130,7 @@ local config = {
   options = {
     icons_enabled = true,
     component_separators = empty_component_separators,
-    section_separators = empty_section_separators,
+    section_separators = slash_section_separators,
     refresh = {
       statusline = 5000,
     },
@@ -131,7 +138,6 @@ local config = {
   sections = {
     lualine_a = { "mode" },
     lualine_b = {
-      FileFolder,
       {
         "filename",
         file_status = true,
@@ -142,6 +148,7 @@ local config = {
           newfile = "[New]", -- Text to show for newly created file before first write
         },
       },
+      FileFolder,
     },
     lualine_c = {
       { GitBranch, cond = GitBranchCondition },
