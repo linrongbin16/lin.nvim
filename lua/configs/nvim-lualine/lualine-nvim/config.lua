@@ -150,7 +150,7 @@ local config = {
           newfile = "[New]", -- Text to show for newly created file before first write
         },
       },
-      FileFolder,
+      { FileFolder, padding = { left = 0, right = 1 } },
     },
     lualine_c = {
       { GitBranch, cond = GitBranchCondition },
@@ -211,8 +211,8 @@ local config = {
       },
     },
     lualine_z = {
-      CursorHex,
-      { Location, padding = 0 },
+      -- CursorHex,
+      { Location, padding = { left = 1, right = 0 } },
       Progress,
     },
   },
