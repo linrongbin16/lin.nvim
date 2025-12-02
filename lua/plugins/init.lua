@@ -140,12 +140,12 @@ local M = {
     config = lua_config("linrongbin16/lsp-progress.nvim"),
   },
   {
-    "nvim-lualine/lualine.nvim",
+    "sschleemilch/slimline.nvim",
     event = { VeryLazy },
     dependencies = {
       "linrongbin16/lsp-progress.nvim",
     },
-    config = lua_config("nvim-lualine/lualine.nvim"),
+    config = lua_config("sschleemilch/slimline.nvim"),
   },
   {
     "stevearc/stickybuf.nvim",
