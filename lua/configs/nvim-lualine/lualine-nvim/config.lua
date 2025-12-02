@@ -4,6 +4,11 @@ local spawn = require("commons.spawn")
 
 local constants = require("builtin.constants")
 
+local function FileFolder()
+  local folder = vim.fn.fnamemodify(vim.fn.getcwd(), ":~:.") --[[@as string]]
+  return vim.fn.pathshorten(folder) --[[@as string]]
+end
+
 local git_branch_cache = nil
 local git_status_cache = nil
 
@@ -70,7 +75,7 @@ local function LspClients()
   local clients = vim.lsp.get_clients({ bufnr = bufnr })
   local names = {}
   if type(clients) == "table" then
-    for c in ipairs(clients) do
+    for _, c in ipairs(clients) do
       if type(c) == "table" and type(c.name) == "string" and str.not_empty(c.name) then
         table.insert(names, c.name)
       end
@@ -79,7 +84,7 @@ local function LspClients()
   if tbl.list_empty(names) then
     return ""
   else
-    return table.concat(names, ", ")
+    return table.concat(names, ",")
   end
 end
 
@@ -117,8 +122,8 @@ local slash_section_separators = { left = "", right = "" }
 local config = {
   options = {
     icons_enabled = true,
-    component_separators = empty_component_separators,
-    section_separators = empty_section_separators,
+    component_separators = slash_component_separators,
+    section_separators = slash_section_separators,
     refresh = {
       statusline = 5000,
     },
@@ -126,6 +131,7 @@ local config = {
   sections = {
     lualine_a = { "mode" },
     lualine_b = {
+      FileFolder,
       {
         "filename",
         file_status = true,
@@ -154,8 +160,6 @@ local config = {
       LspStatus,
     },
     lualine_x = {
-      { "searchcount", maxcount = 100, timeout = 300 },
-      LspClients,
       {
         "diagnostics",
         symbols = {
@@ -165,6 +169,7 @@ local config = {
           hint = constants.diagnostics.hint .. " ",
         },
       },
+      LspClients,
       "filetype",
     },
     lualine_y = {
@@ -210,7 +215,7 @@ require("lualine").setup(config)
 local lualine_augroup = vim.api.nvim_create_augroup("lualine_augroup", { clear = true })
 vim.api.nvim_create_autocmd("User", {
   group = lualine_augroup,
-  pattern = { "LspProgressStatusUpdated", "GitGutter", "LualineGitBranchUpdated" },
+  pattern = { "LspProgressStatusUpdated", "GitGutter", "LualineGitBranchUpdated", "LspAttach" },
   callback = function()
     require("lualine").refresh({
       place = { "statusline" },
