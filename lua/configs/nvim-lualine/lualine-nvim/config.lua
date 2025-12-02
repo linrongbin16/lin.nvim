@@ -102,13 +102,15 @@ end
 local function Progress()
   local bar = " "
   local line_fraction = math.floor(vim.fn.line(".") / vim.fn.line("$") * 100)
+  local value = ""
   if line_fraction >= 100 then
-    return bar .. "Bot "
+    value = "Bot"
   elseif line_fraction <= 0 then
-    return bar .. "Top "
+    value = "Top"
   else
-    return string.format("%s%2d%%%% ", bar, line_fraction)
+    value = string.format("%2d%%%%", line_fraction)
   end
+  return bar .. value
 end
 
 local function CursorHex()
@@ -211,7 +213,7 @@ local config = {
     lualine_z = {
       { CursorHex, padding = 0 },
       { Location, padding = { left = 1, right = 0 } },
-      { Progress, padding = { left = 1, right = 0 } },
+      Progress,
     },
   },
 }
