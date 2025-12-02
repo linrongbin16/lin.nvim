@@ -29,7 +29,7 @@ local function trash_bin()
     return impl
   end
 
-  local MAC_TRASH = "/opt/homebrew/opt/trash/bin/trash" -- Only for MacOS
+  local MAC_TRASH = "/opt/homebrew/opt/macos-trash/bin/trash" -- Only for MacOS
   local GTRASH = "gtrash" -- Only for Linux (FreeDesktop)
   local TRASHY = "trash" -- Only for Windows (its executable is still 'trash')
 
