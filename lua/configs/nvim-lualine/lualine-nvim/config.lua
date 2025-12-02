@@ -5,11 +5,20 @@ local spawn = require("commons.spawn")
 local constants = require("builtin.constants")
 
 local function FileFolder()
-  local folder = vim.fn.fnamemodify(vim.fn.getcwd(), ":~:.") --[[@as string]]
+  local bufnr = vim.api.nvim_get_current_buf()
+  local bufname = vim.api.nvim_buf_get_name(bufnr)
+  if str.empty(bufname) then
+    return ""
+  end
+  local folder = vim.fn.fnamemodify(bufname, ":h") --[[@as string]]
   if str.empty(folder) then
     return ""
   end
-  local shorten_folder = vim.fn.pathshorten(folder) --[[@as string]]
+  local reduced_folder = vim.fn.fnamemodify(folder, ":~:.") --[[@as string]]
+  if str.empty(reduced_folder) then
+    return ""
+  end
+  local shorten_folder = vim.fn.pathshorten(reduced_folder) --[[@as string]]
   if str.empty(shorten_folder) then
     return ""
   end
