@@ -28,9 +28,9 @@ require("slimline").setup({
     mode = {
       verbose = true,
     },
-  },
-  progress = {
-    column = true, -- Enables a secondary section with the cursor column
+    progress = {
+      column = true, -- Enables a secondary section with the cursor column
+    },
   },
   spaces = {
     components = "",
