@@ -22,6 +22,12 @@ install_neovim() {
 	sudo snap install nvim --classic
 }
 
+install_go() {
+    sudo add-apt-repository -y ppa:longsleep/golang-backports
+    sudo apt update
+    sudo apt-get install -q -y golang-go
+}
+
 info "install deps with apt"
 sudo apt update
 sudo locale-gen en_US

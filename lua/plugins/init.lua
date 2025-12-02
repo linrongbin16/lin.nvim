@@ -67,10 +67,10 @@ local M = {
     config = lua_config("nvim-treesitter/nvim-treesitter"),
   },
   {
-    "lewis6991/ts-install.nvim",
+    "MeanderingProgrammer/treesitter-modules.nvim",
     event = { UIEnter },
     dependencies = { "nvim-treesitter/nvim-treesitter" },
-    config = lua_config("lewis6991/ts-install.nvim"),
+    config = lua_config("MeanderingProgrammer/treesitter-modules.nvim"),
   },
   {
     "itchyny/vim-cursorword",
