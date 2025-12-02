@@ -122,8 +122,8 @@ local slash_section_separators = { left = "", right = "" }
 local config = {
   options = {
     icons_enabled = true,
-    component_separators = slash_component_separators,
-    section_separators = slash_section_separators,
+    component_separators = empty_component_separators,
+    section_separators = empty_section_separators,
     refresh = {
       statusline = 5000,
     },
