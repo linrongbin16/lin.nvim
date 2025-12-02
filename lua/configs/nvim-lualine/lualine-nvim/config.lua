@@ -1,15 +1,29 @@
 local str = require("commons.str")
 local tbl = require("commons.tbl")
 local spawn = require("commons.spawn")
+local path = require("commons.path")
 
 local constants = require("builtin.constants")
 
 local function FileFolder()
-  local folder = vim.fn.fnamemodify(vim.fn.getcwd(), ":~:.") --[[@as string]]
+  local bufnr = vim.api.nvim_get_current_buf()
+  local bufname = vim.api.nvim_buf_get_name(bufnr)
+  if str.empty(bufname) then
+    return ""
+  end
+  bufname = path.normalize(bufname, { double_backslash = true, expand = true })
+  if not path.isfile(bufname) then
+    return ""
+  end
+  local folder = vim.fn.fnamemodify(bufname, ":h") --[[@as string]]
   if str.empty(folder) then
     return ""
   end
-  local shorten_folder = vim.fn.pathshorten(folder) --[[@as string]]
+  local reduced_folder = vim.fn.fnamemodify(folder, ":~:.") --[[@as string]]
+  if str.empty(reduced_folder) then
+    return ""
+  end
+  local shorten_folder = vim.fn.pathshorten(reduced_folder) --[[@as string]]
   if str.empty(shorten_folder) then
     return ""
   end
@@ -72,8 +86,9 @@ local function GitDiff()
   }
 end
 
-local function LspStatus()
-  local status = require("lsp-progress").progress()
+local function LspProgress()
+  local max_size = math.max(10, (vim.o.columns + 2) / 2)
+  local status = require("lsp-progress").progress({ max_size = max_size })
   return type(status) == "string" and string.len(status) > 0 and status or ""
 end
 
@@ -165,7 +180,7 @@ local config = {
         cond = GitDiffCondition,
         source = GitDiff,
       },
-      LspStatus,
+      LspProgress,
     },
     lualine_x = {
       {
