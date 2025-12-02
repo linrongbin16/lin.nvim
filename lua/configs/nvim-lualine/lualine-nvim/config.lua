@@ -1,6 +1,7 @@
 local str = require("commons.str")
 local tbl = require("commons.tbl")
 local spawn = require("commons.spawn")
+local path = require("commons.path")
 
 local constants = require("builtin.constants")
 
@@ -8,6 +9,10 @@ local function FileFolder()
   local bufnr = vim.api.nvim_get_current_buf()
   local bufname = vim.api.nvim_buf_get_name(bufnr)
   if str.empty(bufname) then
+    return ""
+  end
+  bufname = path.normalize(bufname, { double_backslash = true, expand = true })
+  if not path.isfile(bufname) then
     return ""
   end
   local folder = vim.fn.fnamemodify(bufname, ":h") --[[@as string]]
