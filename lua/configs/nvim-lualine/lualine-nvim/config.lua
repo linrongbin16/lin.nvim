@@ -61,9 +61,26 @@ local function GitDiff()
 end
 
 local function LspStatus()
-  local max_size = math.max(10, (vim.o.columns + 2) / 2)
-  local status = require("lsp-progress").progress({ max_size = max_size })
+  local status = require("lsp-progress").progress()
   return type(status) == "string" and string.len(status) > 0 and status or ""
+end
+
+local function LspClients()
+  local bufnr = vim.api.nvim_get_current_buf()
+  local clients = vim.lsp.get_clients({ bufnr = bufnr })
+  local names = {}
+  if type(clients) == "table" then
+    for c in ipairs(clients) do
+      if type(c) == "table" and type(c.name) == "string" and str.not_empty(c.name) then
+        table.insert(names, c.name)
+      end
+    end
+  end
+  if tbl.list_empty(names) then
+    return ""
+  else
+    return table.concat(names, ", ")
+  end
 end
 
 local function Location()
@@ -109,15 +126,6 @@ local config = {
   sections = {
     lualine_a = { "mode" },
     lualine_b = {
-      { GitBranch, cond = GitBranchCondition },
-      {
-        GitStatus,
-        cond = GitStatusCondition,
-        color = GitStatusColor,
-        padding = { left = 0, right = 1 },
-      },
-    },
-    lualine_c = {
       {
         "filename",
         file_status = true,
@@ -127,6 +135,15 @@ local config = {
           unnamed = "[No Name]", -- Text to show for unnamed buffers.
           newfile = "[New]", -- Text to show for newly created file before first write
         },
+      },
+    },
+    lualine_c = {
+      { GitBranch, cond = GitBranchCondition },
+      {
+        GitStatus,
+        cond = GitStatusCondition,
+        color = GitStatusColor,
+        padding = { left = 0, right = 1 },
       },
       {
         "diff",
@@ -138,6 +155,7 @@ local config = {
     },
     lualine_x = {
       { "searchcount", maxcount = 100, timeout = 300 },
+      LspClients,
       {
         "diagnostics",
         symbols = {
