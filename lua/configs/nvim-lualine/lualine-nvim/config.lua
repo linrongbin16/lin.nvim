@@ -96,7 +96,7 @@ local function LspClients()
 end
 
 local function Location()
-  return " %3l:%-2v"
+  return " %2l:%-2v"
 end
 
 local function Progress()
