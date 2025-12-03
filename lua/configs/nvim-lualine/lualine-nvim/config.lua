@@ -106,7 +106,7 @@ local function LspClients()
   if tbl.list_empty(names) then
     return ""
   else
-    return table.concat(names, ",")
+    return " " .. table.concat(names, ",")
   end
 end
 
