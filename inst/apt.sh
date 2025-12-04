@@ -49,7 +49,7 @@ install_bat() {
 }
 
 install_fd() {
-	sudo apt-get install -q -y fdfind
+	sudo apt-get install -q -y fd-find
 	sudo ln -s $(which fdfind) /usr/bin/fd
 }
 
