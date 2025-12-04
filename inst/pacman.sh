@@ -37,5 +37,12 @@ install "yes | sudo pacman -S nodejs npm" "node"
 # golang
 install "yes | sudo pacman -S go" "go"
 
+# cli tools
+install "yes | sudo pacman -S lazygit" "lazygit"
+install "yes | sudo pacman -S ripgrep" "rg"
+install "yes | sudo pacman -S bat" "bat"
+install "yes | sudo pacman -S fd" "fd"
+install "yes | sudo pacman -S eza" "eza"
+
 # neovim
 install "yes | sudo pacman -S neovim" "nvim"

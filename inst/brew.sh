@@ -37,8 +37,15 @@ install "brew install oven-sh/bun/bun" "bun"
 
 # go
 install "brew install go" "go"
+
+# cli tools
+install "brew install macos-trash" "/opt/homebrew/opt/macos-trash/bin/trash"
 install "brew install lazygit" "lazygit"
-install "brew install fzf" "fzf"
+install "brew install ripgrep" "rg"
+install "brew install bat" "bat"
+install "brew install fd" "fd"
+install "brew install eza" "eza"
+install "brew install tree-sitter-cli" "tree-sitter"
 
 # trash
 install "brew install trash" "/opt/homebrew/opt/trash/bin/trash"
