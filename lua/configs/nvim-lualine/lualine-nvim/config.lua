@@ -132,7 +132,7 @@ require("lualine").setup(config)
 local lualine_augroup = vim.api.nvim_create_augroup("lualine_augroup", { clear = true })
 vim.api.nvim_create_autocmd("User", {
   group = lualine_augroup,
-  pattern = { "LspProgressStatusUpdated", "LualineGitBranchUpdated" },
+  pattern = { "LspProgressStatusUpdated", "LualineGitBranchUpdated", "GitGutter", "GitGutterStage" },
   callback = function()
     require("lualine").refresh({
       place = { "statusline" },
