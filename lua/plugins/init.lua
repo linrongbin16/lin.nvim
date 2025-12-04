@@ -128,13 +128,6 @@ local M = {
     config = lua_config("akinsho/bufferline.nvim"),
     keys = lua_keys("akinsho/bufferline.nvim"),
   },
-  -- Git
-  {
-    "airblade/vim-gitgutter",
-    event = { VeryLazy },
-    init = lua_init("airblade/vim-gitgutter"),
-    keys = lua_keys("airblade/vim-gitgutter"),
-  },
   -- Statusline
   {
     "linrongbin16/lsp-progress.nvim",
@@ -147,8 +140,9 @@ local M = {
     event = { VeryLazy },
     dependencies = {
       "linrongbin16/lsp-progress.nvim",
-      dev = true,
+      "airblade/vim-gitgutter",
     },
+    dev = true,
     config = lua_config("nvim-lualine/lualine.nvim"),
   },
   {
@@ -323,6 +317,13 @@ local M = {
 
   -- ---- GIT INTEGRATION ----
 
+  -- Diff
+  {
+    "airblade/vim-gitgutter",
+    event = { VeryLazy },
+    init = lua_init("airblade/vim-gitgutter"),
+    keys = lua_keys("airblade/vim-gitgutter"),
+  },
   -- Blame
   {
     "FabijanZulj/blame.nvim",
