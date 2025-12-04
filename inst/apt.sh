@@ -18,7 +18,7 @@ install_git() {
 }
 
 install_neovim() {
-	sudo apt install snapd
+	sudo apt install -y snapd
 	sudo snap install nvim --classic
 }
 
