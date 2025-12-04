@@ -47,7 +47,7 @@ install_eza() {
 }
 
 install_bat() {
-	sudo apt-get install -q -y batcat
+	sudo apt-get install -q -y bat
 	sudo ln -s $(which batcat) /usr/bin/bat
 }
 
