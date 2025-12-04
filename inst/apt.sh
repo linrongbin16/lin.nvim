@@ -88,8 +88,8 @@ install "install_nodejs" "node"
 install "install_go" "go"
 
 # cli tools
-install "sudo apt-get install -q -y lazygit" "lazygit"
-install "sudo apt-get install -q -y ripgrep" "rg"
+install "sudo apt-get -q -y install lazygit" "lazygit"
+install "sudo apt-get -q -y install ripgrep" "rg"
 install "install_bat" "bat"
 install "install_fd" "fd"
 install "install_eza" "eza"
