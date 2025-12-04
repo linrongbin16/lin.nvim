@@ -91,32 +91,14 @@ local config = {
       "filetype",
     },
     lualine_y = {
+      "encoding",
       {
         "fileformat",
         symbols = {
-          unix = " LF", -- e712
-          dos = " CRLF", -- e70f
-          mac = " CR", -- e711
+          unix = "unix",
+          dos = "dos",
+          mac = "mac",
         },
-      },
-      {
-        "encoding",
-        fmt = function(text)
-          local FileEncodingIcons = {
-            ["utf-8"] = "󰉿",
-            ["utf-16"] = "󰊀",
-            ["utf-32"] = "󰊁",
-            ["utf-8mb4"] = "󰊂",
-            ["utf-16le"] = "󰊃",
-            ["utf-16be"] = "󰊄",
-          }
-          local icon = FileEncodingIcons[text]
-          if str.empty(icon) then
-            return text
-          else
-            return icon .. " " .. text
-          end
-        end,
       },
     },
     lualine_z = {
