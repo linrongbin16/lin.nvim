@@ -93,10 +93,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -x
-          brew install fd
-          brew install ripgrep
-          brew install bat
-          brew install eza
           echo '${{ steps.extract_branch.outputs.branch }}'
           echo ${{ steps.extract_branch.outputs.branch }}
           export HOMEBREW_NO_AUTO_UPDATE=1
