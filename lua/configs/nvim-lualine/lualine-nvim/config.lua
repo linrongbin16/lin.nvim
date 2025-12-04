@@ -3,6 +3,19 @@ local tbl = require("commons.tbl")
 
 local constants = require("builtin.constants")
 
+local function GitDiffCondition()
+  return vim.fn.exists("*GitGutterGetHunkSummary") > 0
+end
+
+local function GitDiff()
+  local changes = vim.fn.GitGutterGetHunkSummary() or {}
+  return {
+    added = changes[1] or 0,
+    modified = changes[2] or 0,
+    removed = changes[3] or 0,
+  }
+end
+
 local function LspProgress()
   local max_size = math.max(10, (vim.o.columns + 2) / 2)
   local status = require("lsp-progress").progress({ max_size = max_size })
@@ -74,7 +87,11 @@ local config = {
     lualine_b = { "filename" },
     lualine_c = {
       "branch",
-      "diff",
+      {
+        "diff",
+        cond = GitDiffCondition,
+        source = GitDiff,
+      },
       LspProgress,
     },
     lualine_x = {
@@ -115,7 +132,7 @@ require("lualine").setup(config)
 local lualine_augroup = vim.api.nvim_create_augroup("lualine_augroup", { clear = true })
 vim.api.nvim_create_autocmd("User", {
   group = lualine_augroup,
-  pattern = { "LspProgressStatusUpdated", "LualineGitBranchUpdated" },
+  pattern = { "LspProgressStatusUpdated", "LualineGitBranchUpdated", "GitGutter", "GitGutterStage" },
   callback = function()
     require("lualine").refresh({
       place = { "statusline" },
