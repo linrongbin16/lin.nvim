@@ -40,19 +40,8 @@ install() {
 	fi
 }
 
-install_fzf() {
-	git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-	~/.fzf/install --bin
-	sudo cp ~/.fzf/bin/fzf /usr/local/bin/fzf
-	fzf --version
-}
-
 install_gtrash() {
 	go install github.com/umlx5h/gtrash@latest
-}
-
-install_lazygit() {
-	go install github.com/jesseduffield/lazygit@latest
 }
 
 install_bun() {

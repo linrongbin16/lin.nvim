@@ -54,8 +54,6 @@ go_deps() {
 	if [ "$IS_MAC" != "1" ]; then
 		install "install_gtrash" "gtrash"
 	fi
-	install "install_lazygit" "lazygit"
-	install "install_fzf" "fzf"
 }
 
 rust_deps() {

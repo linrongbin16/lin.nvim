@@ -23,9 +23,30 @@ install_neovim() {
 }
 
 install_go() {
-    sudo add-apt-repository -y ppa:longsleep/golang-backports
-    sudo apt update
-    sudo apt-get install -q -y golang-go
+	sudo add-apt-repository -y ppa:longsleep/golang-backports
+	sudo apt update
+	sudo apt-get install -q -y golang-go
+}
+
+install_eza() {
+	sudo apt update
+	sudo apt install -y gpg
+	sudo mkdir -p /etc/apt/keyrings
+	wget -qO- https://raw.githubusercontent.com/eza-community/eza/main/deb.asc | sudo gpg --dearmor -o /etc/apt/keyrings/gierens.gpg
+	echo "deb [signed-by=/etc/apt/keyrings/gierens.gpg] http://deb.gierens.de stable main" | sudo tee /etc/apt/sources.list.d/gierens.list
+	sudo chmod 644 /etc/apt/keyrings/gierens.gpg /etc/apt/sources.list.d/gierens.list
+	sudo apt update
+	sudo apt install -y eza
+}
+
+install_bat() {
+	sudo apt-get install -q -y batcat
+	sudo ln -s $(which batcat) /usr/bin/bat
+}
+
+install_fd() {
+	sudo apt-get install -q -y fdfind
+	sudo ln -s $(which fdfind) /usr/bin/fd
 }
 
 info "install deps with apt"
@@ -65,6 +86,13 @@ install "install_nodejs" "node"
 
 # golang
 install "install_go" "go"
+
+# cli tools
+install "sudo apt-get install -q -y lazygit" "lazygit"
+install "sudo apt-get install -q -y ripgrep" "rg"
+install "install_bat" "bat"
+install "install_fd" "fd"
+install "install_eza" "eza"
 
 # neovim
 install "install_neovim" "nvim"
