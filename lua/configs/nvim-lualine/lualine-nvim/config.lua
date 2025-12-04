@@ -1,34 +1,8 @@
 local str = require("commons.str")
 local tbl = require("commons.tbl")
 local spawn = require("commons.spawn")
-local path = require("commons.path")
 
 local constants = require("builtin.constants")
-
-local function FileFolder()
-  local bufnr = vim.api.nvim_get_current_buf()
-  local bufname = vim.api.nvim_buf_get_name(bufnr)
-  if str.empty(bufname) then
-    return ""
-  end
-  bufname = path.normalize(bufname, { double_backslash = true, expand = true })
-  if not path.isfile(bufname) then
-    return ""
-  end
-  local folder = vim.fn.fnamemodify(bufname, ":h") --[[@as string]]
-  if str.empty(folder) then
-    return ""
-  end
-  local reduced_folder = vim.fn.fnamemodify(folder, ":~:.") --[[@as string]]
-  if str.empty(reduced_folder) then
-    return ""
-  end
-  local shorten_folder = vim.fn.pathshorten(reduced_folder) --[[@as string]]
-  if str.empty(shorten_folder) then
-    return ""
-  end
-  return " " .. shorten_folder
-end
 
 local git_branch_cache = nil
 local git_status_cache = nil
@@ -154,32 +128,10 @@ local config = {
   },
   sections = {
     lualine_a = { "mode" },
-    lualine_b = {
-      {
-        "filename",
-        file_status = true,
-        symbols = {
-          modified = "[]", -- Text to show when the file is modified.
-          readonly = "[]", -- Text to show when the file is non-modifiable or readonly.
-          unnamed = "[No Name]", -- Text to show for unnamed buffers.
-          newfile = "[New]", -- Text to show for newly created file before first write
-        },
-      },
-      FileFolder,
-    },
+    lualine_b = { "filename" },
     lualine_c = {
-      { GitBranch, cond = GitBranchCondition },
-      {
-        GitStatus,
-        cond = GitStatusCondition,
-        color = GitStatusColor,
-        padding = { left = 0, right = 1 },
-      },
-      {
-        "diff",
-        cond = GitDiffCondition,
-        source = GitDiff,
-      },
+      "branch",
+      "diff",
       LspProgress,
     },
     lualine_x = {
