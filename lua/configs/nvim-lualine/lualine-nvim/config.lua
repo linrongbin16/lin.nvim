@@ -1,11 +1,7 @@
 local str = require("commons.str")
 local tbl = require("commons.tbl")
-local spawn = require("commons.spawn")
 
 local constants = require("builtin.constants")
-
-local git_branch_cache = nil
-local git_status_cache = nil
 
 local function LspProgress()
   local max_size = math.max(10, (vim.o.columns + 2) / 2)
