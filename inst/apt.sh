@@ -28,6 +28,13 @@ install_go() {
 	sudo apt-get install -q -y golang-go
 }
 
+install_lazygit() {
+	LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | \grep -Po '"tag_name": *"v\K[^"]*')
+	curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+	tar xf lazygit.tar.gz lazygit
+	sudo install lazygit -D -t /usr/local/bin/
+}
+
 install_eza() {
 	sudo apt update
 	sudo apt install -y gpg
@@ -88,7 +95,7 @@ install "install_nodejs" "node"
 install "install_go" "go"
 
 # cli tools
-install "sudo apt-get -q -y install lazygit" "lazygit"
+install "install_lazygit" "lazygit"
 install "sudo apt-get -q -y install ripgrep" "rg"
 install "install_bat" "bat"
 install "install_fd" "fd"
