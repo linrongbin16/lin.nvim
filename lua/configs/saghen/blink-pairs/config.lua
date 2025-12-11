@@ -1,1 +1,1 @@
-require("blink.pairs").setup()
+require("blink.pairs").setup({})
