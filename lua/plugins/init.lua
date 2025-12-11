@@ -58,14 +58,14 @@ local M = {
     config = lua_config("MeanderingProgrammer/treesitter-modules.nvim"),
   },
   {
-    "brenoprata10/nvim-highlight-colors",
-    event = { VeryLazy },
-    config = lua_config("brenoprata10/nvim-highlight-colors"),
-  },
-  {
     "itchyny/vim-cursorword",
     event = { VeryLazy },
     init = lua_init("itchyny/vim-cursorword"),
+  },
+  {
+    "brenoprata10/nvim-highlight-colors",
+    event = { VeryLazy },
+    config = lua_config("brenoprata10/nvim-highlight-colors"),
   },
   {
     "andymass/vim-matchup",
