@@ -42,7 +42,7 @@ require("minuet").setup({
 --
 -- Run (and initialize) llama.cpp with Qwen2.5-Coder model:
 --
--- For more performance/memory-usage:
+-- For better performance but more memory-usage:
 -- ```
 -- llama-server \
 --    -hf ggml-org/Qwen2.5-Coder-3B-Q8_0-GGUF \
@@ -50,7 +50,7 @@ require("minuet").setup({
 --    --ctx-size 0 --cache-reuse 1024
 -- ```
 --
--- For less performance/memory-usage:
+-- For worse performance but less memory-usage:
 -- ```
 -- llama-server \
 --    -hf ggml-org/Qwen2.5-Coder-1.5B-Q8_0-GGUF \
