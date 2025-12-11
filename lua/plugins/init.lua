@@ -81,14 +81,6 @@ local M = {
     event = { BufReadPre, BufNewFile, VeryLazy },
     config = lua_config("saghen/blink.indent"),
   },
-  {
-    "saghen/blink.pairs",
-    version = "*",
-    -- download prebuilt binaries from github releases
-    dependencies = "saghen/blink.download",
-    event = { BufReadPre, BufNewFile, VeryLazy },
-    config = lua_config("saghen/blink.pairs"),
-  },
 
   -- ---- MARKDOWN PREVIEW ----
 
@@ -353,6 +345,14 @@ local M = {
   {
     "tomtom/tcomment_vim",
     event = { BufReadPre, BufNewFile, VeryLazy },
+  },
+  {
+    "saghen/blink.pairs",
+    version = "*",
+    -- download prebuilt binaries from github releases
+    dependencies = "saghen/blink.download",
+    event = { BufReadPre, BufNewFile, VeryLazy },
+    config = lua_config("saghen/blink.pairs"),
   },
   -- Repeat
   {
