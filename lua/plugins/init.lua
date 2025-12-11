@@ -397,7 +397,7 @@ local M = {
     config = lua_config("folke/snacks.nvim"),
     keys = lua_keys("folke/snacks.nvim"),
   },
-  -- Window width adjust
+  -- Split window width
   {
     "mrjones2014/smart-splits.nvim",
     event = { UIEnter },
