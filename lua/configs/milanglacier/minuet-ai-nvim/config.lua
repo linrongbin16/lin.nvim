@@ -32,3 +32,20 @@ require("minuet").setup({
     },
   },
 })
+
+-- Use minuet-ai with llama.cpp local model:
+--
+-- Install llama.cpp with homebrew:
+-- ```
+-- brew install llama.cpp
+-- ```
+--
+-- Run (and initialize) llama.cpp with Qwen2.5-Coder model:
+-- ```
+-- llama-server \
+--    -hf ggml-org/Qwen2.5-Coder-3B-Q8_0-GGUF \
+--    --port 8012 -ngl 99 -fa=on -ub 2048 -b 2048 \
+--    --ctx-size 0 --cache-reuse 1024
+-- ```
+-- It starts an api server on "http://localhost:8012", so minuet-ai can query it and provide LSP completion sources for blink.cmp.
+-- More models list, please checkout here: https://huggingface.co/collections/ggml-org/llamavim
