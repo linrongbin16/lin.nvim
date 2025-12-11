@@ -41,11 +41,22 @@ require("minuet").setup({
 -- ```
 --
 -- Run (and initialize) llama.cpp with Qwen2.5-Coder model:
+--
+-- For better performance and more memory-usage:
 -- ```
 -- llama-server \
 --    -hf ggml-org/Qwen2.5-Coder-3B-Q8_0-GGUF \
---    --port 8012 -ngl 99 -fa=on -ub 2048 -b 2048 \
+--    --port 8012 -ngl 99 -fa on -ub 2048 -b 2048 \
 --    --ctx-size 0 --cache-reuse 1024
 -- ```
+--
+-- For worse performance but lower memory-usage:
+-- ```
+-- llama-server \
+--    -hf ggml-org/Qwen2.5-Coder-1.5B-Q8_0-GGUF \
+--    --port 8012 -ngl 99 -fa on -ub 1024 -b 1024 \
+--    --ctx-size 0 --cache-reuse 256
+-- ```
+--
 -- It starts an api server on "http://localhost:8012", so minuet-ai can query it and provide LSP completion sources for blink.cmp.
 -- More models list, please checkout here: https://huggingface.co/collections/ggml-org/llamavim
