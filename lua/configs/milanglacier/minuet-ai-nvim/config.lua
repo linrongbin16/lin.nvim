@@ -67,4 +67,4 @@ require("minuet").setup({
 -- ```
 --
 -- It starts an api server on "http://localhost:8012", so minuet-ai can query it and provide LSP completion sources for blink.cmp.
--- More models list, please checkout here: https://huggingface.co/collections/ggml-org/llamavim
+-- For full models list, please checkout here: https://huggingface.co/collections/ggml-org/llamavim
