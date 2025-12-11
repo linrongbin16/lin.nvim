@@ -92,15 +92,11 @@
 --   {
 --     "saecki/crates.nvim",
 --     version = "*",
---     config = function()
---       require("crates").setup()
---     end,
+--     opts = {},
 --   },
 --   {
 --     "vuki656/package-info.nvim",
---     config = function()
---       require("package-info").setup()
---     end,
+--     opts = {},
 --   },
 -- }
 
