@@ -42,7 +42,15 @@ require("minuet").setup({
 --
 -- Run (and initialize) llama.cpp with Qwen2.5-Coder model:
 --
--- For better performance but more memory-usage:
+-- For 32+GB memory machine, use 7B (7 billion parameters):
+-- ```
+-- llama-server \
+--    -hf ggml-org/Qwen2.5-Coder-7B-Q8_0-GGUF \
+--    --port 8012 -ngl 99 -fa on -ub 2048 -b 2048 \
+--    --ctx-size 0 --cache-reuse 1024
+-- ```
+--
+-- For 16+GB memory machine, use 3B:
 -- ```
 -- llama-server \
 --    -hf ggml-org/Qwen2.5-Coder-3B-Q8_0-GGUF \
@@ -50,7 +58,7 @@ require("minuet").setup({
 --    --ctx-size 0 --cache-reuse 1024
 -- ```
 --
--- For worse performance but less memory-usage:
+-- For 8+GB memory machine, use 1.5B:
 -- ```
 -- llama-server \
 --    -hf ggml-org/Qwen2.5-Coder-1.5B-Q8_0-GGUF \
