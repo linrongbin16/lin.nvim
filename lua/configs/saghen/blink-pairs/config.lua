@@ -1,0 +1,1 @@
+require("blink.pairs").setup()

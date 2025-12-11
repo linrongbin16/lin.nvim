@@ -42,19 +42,6 @@ local M = {
       require("colorbox").update()
     end,
   },
-  -- UI improvements
-  {
-    "folke/snacks.nvim",
-    lazy = false,
-    config = lua_config("folke/snacks.nvim"),
-    keys = lua_keys("folke/snacks.nvim"),
-  },
-  {
-    "mrjones2014/smart-splits.nvim",
-    event = { UIEnter },
-    config = lua_config("mrjones2014/smart-splits.nvim"),
-    keys = lua_keys("mrjones2014/smart-splits.nvim"),
-  },
 
   -- ---- HIGHLIGHT ----
 
@@ -71,21 +58,20 @@ local M = {
     config = lua_config("MeanderingProgrammer/treesitter-modules.nvim"),
   },
   {
-    "itchyny/vim-cursorword",
-    event = { VeryLazy },
-    init = lua_init("itchyny/vim-cursorword"),
-  },
-  {
     "brenoprata10/nvim-highlight-colors",
     event = { VeryLazy },
     config = lua_config("brenoprata10/nvim-highlight-colors"),
+  },
+  {
+    "itchyny/vim-cursorword",
+    event = { VeryLazy },
+    init = lua_init("itchyny/vim-cursorword"),
   },
   {
     "andymass/vim-matchup",
     event = { VeryLazy },
     init = lua_init("andymass/vim-matchup"),
   },
-  -- Range/substitude
   {
     "markonm/traces.vim",
     event = { CmdlineEnter },
@@ -94,6 +80,14 @@ local M = {
     "saghen/blink.indent",
     event = { BufReadPre, BufNewFile, VeryLazy },
     config = lua_config("saghen/blink.indent"),
+  },
+  {
+    "saghen/blink.pairs",
+    version = "*",
+    -- download prebuilt binaries from github releases
+    dependencies = "saghen/blink.download",
+    event = { BufReadPre, BufNewFile, VeryLazy },
+    config = lua_config("saghen/blink.pairs"),
   },
 
   -- ---- MARKDOWN PREVIEW ----
@@ -360,12 +354,6 @@ local M = {
     "tomtom/tcomment_vim",
     event = { BufReadPre, BufNewFile, VeryLazy },
   },
-  -- Auto-pairs
-  {
-    "cohama/lexima.vim",
-    event = { VeryLazy, InsertEnter },
-    init = lua_init("cohama/lexima.vim"),
-  },
   -- Repeat
   {
     "tpope/vim-repeat",
@@ -401,6 +389,20 @@ local M = {
     config = lua_config("chrishrb/gx.nvim"),
     keys = lua_keys("chrishrb/gx.nvim"),
     submodules = false,
+  },
+  -- vim.ui.select
+  {
+    "folke/snacks.nvim",
+    lazy = false,
+    config = lua_config("folke/snacks.nvim"),
+    keys = lua_keys("folke/snacks.nvim"),
+  },
+  -- Window width adjust
+  {
+    "mrjones2014/smart-splits.nvim",
+    event = { UIEnter },
+    config = lua_config("mrjones2014/smart-splits.nvim"),
+    keys = lua_keys("mrjones2014/smart-splits.nvim"),
   },
 }
 
