@@ -98,6 +98,11 @@
 --     "vuki656/package-info.nvim",
 --     opts = {},
 --   },
+--   {
+--     "milanglacier/minuet-ai.nvim",
+--     lazy = false,
+--     config = lua_config("milanglacier/minuet-ai.nvim")
+--   },
 -- }
 
 return {}
