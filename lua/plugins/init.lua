@@ -304,12 +304,6 @@ local M = {
 
   -- ---- GIT INTEGRATION ----
 
-  -- Git
-  {
-    "kdheepak/lazygit.nvim",
-    init = lua_init("kdheepak/lazygit.nvim"),
-    keys = lua_keys("kdheepak/lazygit.nvim"),
-  },
   -- Diff
   {
     "airblade/vim-gitgutter",
