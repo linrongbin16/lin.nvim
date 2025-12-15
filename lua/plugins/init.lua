@@ -304,12 +304,6 @@ local M = {
 
   -- ---- GIT INTEGRATION ----
 
-  -- Git
-  {
-    "kdheepak/lazygit.nvim",
-    init = lua_init("kdheepak/lazygit.nvim"),
-    keys = lua_keys("kdheepak/lazygit.nvim"),
-  },
   -- Diff
   {
     "airblade/vim-gitgutter",
@@ -402,6 +396,7 @@ local M = {
     "folke/snacks.nvim",
     lazy = false,
     config = lua_config("folke/snacks.nvim"),
+    keys = lua_keys("folke/snacks.nvim"),
   },
   -- Close buffer
   {
