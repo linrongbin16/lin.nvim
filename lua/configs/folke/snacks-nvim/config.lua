@@ -14,22 +14,22 @@ require("snacks").setup({
         i_esc = { "<esc>", { "cmp_close", "cancel" }, mode = "i", expr = true },
       },
     },
-    -- lazygit = {
-    --   border = constants.window.border,
-    --   -- height = constants.layout.window.scale,
-    --   height = function()
-    --     return layout.editor.height(constants.layout.window.scale, 1)
-    --   end,
-    --   width = function()
-    --     return layout.editor.width(constants.layout.window.scale, 1)
-    --   end,
-    --   relative = "editor",
-    --   backdrop = false,
-    --   wo = {
-    --     spell = false,
-    --     wrap = false,
-    --   },
-    -- },
+    lazygit = {
+      border = constants.window.border,
+      -- height = constants.layout.window.scale,
+      height = function()
+        return layout.editor.height(constants.layout.window.scale, 1)
+      end,
+      width = function()
+        return layout.editor.width(constants.layout.window.scale, 1)
+      end,
+      relative = "editor",
+      backdrop = false,
+      wo = {
+        spell = false,
+        wrap = false,
+      },
+    },
   },
   -- indent = { enabled = true, animate = { enabled = false }, scope = { enabled = false } },
   input = { enabled = true },
