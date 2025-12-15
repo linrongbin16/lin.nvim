@@ -6,7 +6,7 @@ require("bufferline").setup({
   options = {
     numbers = "ordinal",
     close_command = "Bdelete! %d", -- vim-bbye
-    right_mouse_command = "Bdelete! %s",
+    right_mouse_command = "Bdelete! %d",
     name_formatter = function(buf)
       local max_name_len = layout.editor.width(0.334, 60, nil)
       local name = buf.name
