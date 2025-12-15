@@ -5,14 +5,8 @@ local str = require("commons.str")
 require("bufferline").setup({
   options = {
     numbers = "ordinal",
-    close_command = function(bufnum)
-      local Snacks = require("snacks")
-      Snacks.bufdelete({ buf = bufnum })
-    end,
-    right_mouse_command = function(bufnum)
-      local Snacks = require("snacks")
-      Snacks.bufdelete({ buf = bufnum })
-    end,
+    close_command = "Bdelete! %d", -- vim-bbye
+    right_mouse_command = "Bdelete! %s",
     name_formatter = function(buf)
       local max_name_len = layout.editor.width(0.334, 60, nil)
       local name = buf.name
