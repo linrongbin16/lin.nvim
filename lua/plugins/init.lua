@@ -396,6 +396,7 @@ local M = {
     "folke/snacks.nvim",
     lazy = false,
     config = lua_config("folke/snacks.nvim"),
+    keys = lua_keys("folke/snacks.nvim"),
   },
   -- Close buffer
   {
