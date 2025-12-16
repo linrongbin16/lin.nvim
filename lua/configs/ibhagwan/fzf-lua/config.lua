@@ -16,4 +16,12 @@ require("fzf-lua").setup({
       border = constants.window.border,
     },
   },
+  files = {
+    cwd_header = true,
+  },
+  git = {
+    files = {
+      cwd_header = true,
+    },
+  },
 })
