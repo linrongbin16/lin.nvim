@@ -23,7 +23,7 @@ local M = {
     local cword = vim.fn.expand("<cword>")
     require("fzf-lua").files({ query = cword })
   end, { desc = "Find files by cword" }),
-  set_lazy_key("n", "<space>pf", "<cmd>FzfxFiles put<cr>", { desc = "Find files by yank text" }),
+  set_lazy_key("n", "<space>pf", "<cmd>FzfxFiles put<cr>", { desc = "Find files by yank" }),
   set_lazy_key("n", "<space>rf", function()
     require("fzf-lua").files({ resume = true })
   end, { desc = "Find files by resume" }),
@@ -58,14 +58,22 @@ local M = {
     local cword = vim.fn.expand("<cword>")
     require("fzf-lua").live_grep({ query = cword })
   end, { desc = "Live grep by cword" }),
-  set_lazy_key("n", "<space>pl", "<cmd>FzfxLiveGrep put<cr>", { desc = "Live grep by yank text" }),
+  set_lazy_key("n", "<space>pl", "<cmd>FzfxLiveGrep put<cr>", { desc = "Live grep by yank" }),
   set_lazy_key("n", "<space>rl", function()
     require("fzf-lua").live_grep({ resume = true })
   end, { desc = "Live grep by resume " }),
 
   -- git live grep
-  set_lazy_key("n", "<space>gr", "<cmd>FzfxGLiveGrep<cr>", { desc = "Git grep" }),
-  set_lazy_key("x", "<space>gr", "<cmd>FzfxGLiveGrep visual<cr>", { desc = "Git grep" }),
+  set_lazy_key("n", "<space>gr", function()
+    require("fzf-lua").live_grep({ cmd = "git grep --line-number --column --color=always" })
+  end, { desc = "Git live grep" }),
+  set_lazy_key("x", "<space>gr", function()
+    local selection = get_visual()
+    require("fzf-lua").live_grep({
+      cmd = "git grep --line-number --column --color=always",
+      query = selection,
+    })
+  end, { desc = "Git live grep" }),
 }
 
 return M
