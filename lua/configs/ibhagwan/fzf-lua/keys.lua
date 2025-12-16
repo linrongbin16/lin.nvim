@@ -30,7 +30,6 @@ local M = {
   set_lazy_key("n", "<space>wf", function()
     require("fzf-lua").files({ query = get_cword(), cwd = get_cwd() })
   end, { desc = "Find files by cword" }),
-  set_lazy_key("n", "<space>pf", "<cmd>FzfxFiles put<cr>", { desc = "Find files by yank" }),
   set_lazy_key("n", "<space>rf", function()
     require("fzf-lua").files({ resume = true })
   end, { desc = "Find files by resume" }),
@@ -62,7 +61,6 @@ local M = {
   set_lazy_key("n", "<space>wl", function()
     require("fzf-lua").live_grep({ query = get_cword() })
   end, { desc = "Live grep by cword" }),
-  set_lazy_key("n", "<space>pl", "<cmd>FzfxLiveGrep put<cr>", { desc = "Live grep by yank" }),
   set_lazy_key("n", "<space>rl", function()
     require("fzf-lua").live_grep({ resume = true })
   end, { desc = "Live grep by resume " }),
