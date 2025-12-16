@@ -29,6 +29,9 @@ local M = {
   set_lazy_key("n", "<space>wf", function()
     require("fzf-lua").files({ query = get_cword(), prompt = get_cwd() })
   end, { desc = "Find files by cword" }),
+  set_lazy_key("n", "<space>wf", function()
+    require("fzf-lua").files({ query = get_cword(), prompt = get_cwd() })
+  end, { desc = "Find files by cword" }),
   set_lazy_key("n", "<space>rf", function()
     require("fzf-lua").files({ resume = true, prompt = get_cwd() })
   end, { desc = "Find files by resume" }),
