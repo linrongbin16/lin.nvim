@@ -11,7 +11,7 @@ local function get_visual_select()
 end
 
 local function get_cwd()
-  return vim.fn.pathshorten(vim.fn.fnamemodify(vim.fn.getcwd(), ":~:."))
+  return vim.fn.pathshorten(vim.fn.fnamemodify(vim.fn.getcwd(), ":~:.")) .. " "
 end
 
 local function get_cword()
@@ -21,16 +21,16 @@ end
 local M = {
   -- find files
   set_lazy_key("n", "<space>f", function()
-    require("fzf-lua").files()
+    require("fzf-lua").files({ prompt = get_cwd() })
   end, { desc = "Find files" }),
   set_lazy_key("x", "<space>f", function()
-    require("fzf-lua").files({ query = get_visual_select() })
+    require("fzf-lua").files({ query = get_visual_select(), prompt = get_cwd() })
   end, { desc = "Find files" }),
   set_lazy_key("n", "<space>wf", function()
-    require("fzf-lua").files({ query = get_cword() })
+    require("fzf-lua").files({ query = get_cword(), prompt = get_cwd() })
   end, { desc = "Find files by cword" }),
   set_lazy_key("n", "<space>rf", function()
-    require("fzf-lua").files({ resume = true })
+    require("fzf-lua").files({ resume = true, prompt = get_cwd() })
   end, { desc = "Find files by resume" }),
 
   -- find git files
