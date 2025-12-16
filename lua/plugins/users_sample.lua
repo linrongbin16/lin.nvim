@@ -28,6 +28,12 @@
 --     "romainl/vim-cool",
 --     event = { BufReadPre, BufNewFile, VeryLazy },
 --   },
+--   -- Yank
+--   {
+--     "gbprod/yanky.nvim",
+--     config = lua_config("gbprod/yanky.nvim"),
+--     keys = lua_keys("gbprod/yanky.nvim"),
+--   },
 --   {
 --     "rachartier/tiny-glimmer.nvim",
 --     event = "VeryLazy",

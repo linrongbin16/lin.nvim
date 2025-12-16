@@ -152,7 +152,7 @@ local M = {
   {
     "ibhagwan/fzf-lua",
     event = { "CmdlineEnter" },
-    dependencies = { "junegunn/fzf", "gbprod/yanky.nvim" },
+    dependencies = { "junegunn/fzf" },
     config = lua_config("ibhagwan/fzf-lua"),
     keys = lua_keys("ibhagwan/fzf-lua"),
   },
@@ -401,12 +401,6 @@ local M = {
     event = { UIEnter },
     config = lua_config("mrjones2014/smart-splits.nvim"),
     keys = lua_keys("mrjones2014/smart-splits.nvim"),
-  },
-  -- Yank
-  {
-    "gbprod/yanky.nvim",
-    config = lua_config("gbprod/yanky.nvim"),
-    keys = lua_keys("gbprod/yanky.nvim"),
   },
 }
 
