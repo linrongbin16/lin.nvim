@@ -1,5 +1,4 @@
 local constants = require("builtin.constants")
-local layout = require("builtin.utils.layout")
 
 require("fzf-lua").setup({
   { "fzf-native" },
