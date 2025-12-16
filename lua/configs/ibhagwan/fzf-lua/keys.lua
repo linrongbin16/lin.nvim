@@ -38,10 +38,10 @@ local M = {
 
   -- find git files
   set_lazy_key("n", "<space>gf", function()
-    require("fzf-lua").git_files()
+    require("fzf-lua").git_files({ prompt = get_cwd() })
   end, { desc = "Search git files" }),
   set_lazy_key("x", "<space>gf", function()
-    require("fzf-lua").git_files({ query = get_visual_select() })
+    require("fzf-lua").git_files({ query = get_visual_select(), prompt = get_cwd() })
   end, { desc = "Search git files" }),
 
   -- search buffers
