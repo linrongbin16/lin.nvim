@@ -9,6 +9,9 @@ require("fzf-lua").setup({
     -- col = 0.50, -- window col position (0=left, 1=right)
     border = constants.window.border,
     backdrop = constants.window.blend,
+    treesitter = {
+      enabled = false,
+    },
     preview = {
       default = "bat",
       border = constants.window.border,
