@@ -11,8 +11,7 @@ local function get_visual_select()
 end
 
 local function get_cwd()
-  local cwd = vim.fn.fnamemodify(vim.fn.getcwd(), ":~:.")
-  return vim.fn.pathshorten(cwd)
+  return vim.fn.pathshorten(vim.fn.fnamemodify(vim.fn.getcwd(), ":~:."))
 end
 
 local function get_cword()
