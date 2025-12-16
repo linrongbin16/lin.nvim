@@ -1,15 +1,28 @@
 local set_lazy_key = require("builtin.utils.keymap").set_lazy_key
 
+local function get_visual()
+  return table.concat(
+    vim.fn.getregion(
+      vim.fn.getpos("."),
+      vim.fn.getpos("v"),
+      { type = vim.api.nvim_get_mode().mode }
+    )
+  )
+end
+
 local M = {
   -- find files
-  set_lazy_key("n", "<space>f", "<cmd>FzfxFiles<cr>", { desc = "Find files" }),
-  set_lazy_key("x", "<space>f", "<cmd>FzfxFiles visual<cr>", { desc = "Find files" }),
-  set_lazy_key(
-    "n",
-    "<space>wf",
-    "<cmd>FzfxFiles cword<cr>",
-    { desc = "Find files by cursor word" }
-  ),
+  set_lazy_key("n", "<space>f", function()
+    require("fzf-lua").files()
+  end, { desc = "Find files" }),
+  set_lazy_key("x", "<space>f", function()
+    local selection = get_visual()
+    require("fzf-lua").files({ query = selection })
+  end, { desc = "Find files" }),
+  set_lazy_key("n", "<space>wf", function()
+    local cword = vim.fn.expand("<cword>")
+    require("fzf-lua").files({ query = cword })
+  end, { desc = "Find files by cword" }),
   set_lazy_key("n", "<space>pf", "<cmd>FzfxFiles put<cr>", { desc = "Find files by yank text" }),
   set_lazy_key(
     "n",
