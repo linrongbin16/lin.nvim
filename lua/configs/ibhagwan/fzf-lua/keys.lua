@@ -21,15 +21,12 @@ end
 local M = {
   -- find files
   set_lazy_key("n", "<space>f", function()
-    -- require("fzf-lua").files({ cwd = get_cwd() })
     require("fzf-lua").files()
   end, { desc = "Find files" }),
   set_lazy_key("x", "<space>f", function()
-    -- require("fzf-lua").files({ query = get_visual_select(), cwd = get_cwd() })
     require("fzf-lua").files({ query = get_visual_select() })
   end, { desc = "Find files" }),
   set_lazy_key("n", "<space>wf", function()
-    -- require("fzf-lua").files({ query = get_cword(), cwd = get_cwd() })
     require("fzf-lua").files({ query = get_cword() })
   end, { desc = "Find files by cword" }),
   set_lazy_key("n", "<space>rf", function()
@@ -38,11 +35,9 @@ local M = {
 
   -- find git files
   set_lazy_key("n", "<space>gf", function()
-    -- require("fzf-lua").git_files({ cwd = get_cwd() })
     require("fzf-lua").git_files()
   end, { desc = "Search git files" }),
   set_lazy_key("x", "<space>gf", function()
-    -- require("fzf-lua").git_files({ query = get_visual_select(), cwd = get_cwd() })
     require("fzf-lua").git_files({ query = get_visual_select() })
   end, { desc = "Search git files" }),
 
