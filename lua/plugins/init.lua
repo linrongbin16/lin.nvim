@@ -153,9 +153,8 @@ local M = {
     "ibhagwan/fzf-lua",
     event = { "CmdlineEnter" },
     dependencies = { "junegunn/fzf" },
-    build = function()
-      vim.fn["fzf#install"]()
-    end,
+    config = lua_config("ibhagwan/fzf-lua"),
+    keys = lua_keys("ibhagwan/fzf-lua"),
   },
 
   -- ---- LSP ----
