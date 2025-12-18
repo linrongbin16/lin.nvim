@@ -46,25 +46,25 @@ local M = {
 
   -- search buffers
   set_lazy_key("n", "<space>bf", function()
-    require("fzf-lua").buffers({ prompt = "Buffers> " })
+    require("fzf-lua").buffers()
   end, { desc = "Search buffers" }),
   set_lazy_key("x", "<space>bf", function()
-    require("fzf-lua").buffers({ query = get_visual_select(), prompt = "Buffers> " })
+    require("fzf-lua").buffers({ query = get_visual_select() })
   end, { desc = "Search buffers" }),
 
   -- live grep
   set_lazy_key("n", "<space>l", function()
-    require("fzf-lua").live_grep({ prompt = "Live Grep> " })
+    require("fzf-lua").live_grep()
   end, { desc = "Live grep" }),
   set_lazy_key("x", "<space>l", function()
     local selection = get_visual_select()
-    require("fzf-lua").live_grep({ query = get_visual_select(), prompt = "Live Grep> " })
+    require("fzf-lua").live_grep({ query = get_visual_select() })
   end, { desc = "Live grep" }),
   set_lazy_key("n", "<space>wl", function()
-    require("fzf-lua").live_grep({ query = get_cword(), prompt = "Live Grep> " })
+    require("fzf-lua").live_grep({ query = get_cword() })
   end, { desc = "Live grep by cword" }),
   set_lazy_key("n", "<space>rl", function()
-    require("fzf-lua").live_grep({ resume = true, prompt = "Live Grep> " })
+    require("fzf-lua").live_grep({ resume = true })
   end, { desc = "Live grep by resume " }),
 
   -- git live grep
