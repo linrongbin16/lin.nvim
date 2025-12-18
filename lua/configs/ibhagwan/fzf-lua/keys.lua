@@ -57,7 +57,6 @@ local M = {
     require("fzf-lua").live_grep()
   end, { desc = "Live grep" }),
   set_lazy_key("x", "<space>l", function()
-    local selection = get_visual_select()
     require("fzf-lua").live_grep({ query = get_visual_select() })
   end, { desc = "Live grep" }),
   set_lazy_key("n", "<space>wl", function()
