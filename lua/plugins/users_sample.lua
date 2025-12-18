@@ -110,6 +110,7 @@
 --     version = "*",
 --     lazy = false,
 --     config = lua_config("olimorris/codecompanion.nvim"),
+--     keys = lua_keys("olimorris/codecompanion.nvim"),
 --   },
 -- }
 
