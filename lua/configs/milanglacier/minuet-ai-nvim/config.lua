@@ -35,7 +35,7 @@ require("minuet").setup({
   },
 })
 
--- # Llama.cpp {{{
+-- Llama.cpp {{{
 -- Install llama.cpp with homebrew:
 -- ```
 -- brew install llama.cpp
@@ -51,4 +51,4 @@ require("minuet").setup({
 -- For full models list, please checkout here: https://huggingface.co/collections/ggml-org/llamavim
 --
 -- It starts an api server on "http://localhost:8012".
--- # Llama.cpp }}}
+-- Llama.cpp }}}

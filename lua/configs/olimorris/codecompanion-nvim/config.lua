@@ -33,3 +33,5 @@ require("codecompanion").setup({
     },
   },
 })
+
+-- Use llama.cpp, see minuet-ai.nvim config: `lua/configs/milanglacier/minuet-ai-nvim/config.lua`
