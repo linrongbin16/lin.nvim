@@ -48,7 +48,7 @@ require("minuet").setup({
 --    --port 8012 -ngl 99 -fa on -ub 2048 -b 2048 \
 --    --ctx-size 0 --cache-reuse 1024
 -- ```
--- For full models list, please checkout here: https://huggingface.co/collections/ggml-org/llamavim.
+-- For full models list, please checkout here: https://huggingface.co/collections/ggml-org/llamavim
 --
 -- It starts an api server on "http://localhost:8012".
 -- # Llama.cpp }}}
