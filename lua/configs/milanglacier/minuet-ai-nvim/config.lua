@@ -51,7 +51,6 @@ require("minuet").setup({
 })
 
 -- # 1. Ollama {{{
---
 -- Install ollama with homebrew:
 -- ```
 -- brew install ollama
@@ -70,12 +69,10 @@ require("minuet").setup({
 -- ```
 --
 -- It starts an api server on "http://127.0.0.1:11434".
---
 -- # 1. Ollama }}}
 --
 --
 -- # 2. Llama.cpp {{{
---
 -- Install llama.cpp with homebrew:
 -- ```
 -- brew install llama.cpp
@@ -91,5 +88,4 @@ require("minuet").setup({
 -- For full models list, please checkout here: https://huggingface.co/collections/ggml-org/llamavim.
 --
 -- It starts an api server on "http://localhost:8012".
---
 -- # 2. Llama.cpp }}}
