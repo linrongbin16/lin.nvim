@@ -62,7 +62,7 @@ require("minuet").setup({
 -- export OLLAMA_MODELS=$HOME/.ollama/models
 -- ```
 --
--- Pull, run a model, then start a background service:
+-- Install model and start service:
 -- ```
 -- ollama pull qwen2.5-coder:14b
 -- ollama run qwen2.5-coder:14b
@@ -80,7 +80,7 @@ require("minuet").setup({
 -- brew install llama.cpp
 -- ```
 --
--- Start llama.cpp service:
+-- Start service:
 -- ```
 -- llama-server \
 --    -hf ggml-org/Qwen2.5-Coder-7B-Q8_0-GGUF \
