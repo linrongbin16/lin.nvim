@@ -98,10 +98,18 @@
 --     "vuki656/package-info.nvim",
 --     opts = {},
 --   },
+--   -- AI code completion
 --   {
 --     "milanglacier/minuet-ai.nvim",
 --     lazy = false,
---     config = lua_config("milanglacier/minuet-ai.nvim")
+--     config = lua_config("milanglacier/minuet-ai.nvim"),
+--   },
+--   -- AI prompt workflow
+--   {
+--     "olimorris/codecompanion.nvim",
+--     version = "*",
+--     lazy = false,
+--     config = lua_config("olimorris/codecompanion.nvim"),
 --   },
 -- }
 
