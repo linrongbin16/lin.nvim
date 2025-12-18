@@ -150,19 +150,11 @@ local M = {
     end,
   },
   {
-    "linrongbin16/fzfx.nvim",
-    event = { CmdlineEnter },
-    cmd = {
-      "FzfxLspDefinitions",
-      "FzfxLspTypeDefinitions",
-      "FzfxLspReferences",
-      "FzfxLspImplementations",
-      "FzfxLspIncomingCalls",
-      "FzfxLspOutgoingCalls",
-    },
+    "ibhagwan/fzf-lua",
+    event = { "CmdlineEnter" },
     dependencies = { "junegunn/fzf" },
-    config = lua_config("linrongbin16/fzfx.nvim"),
-    keys = lua_keys("linrongbin16/fzfx.nvim"),
+    config = lua_config("ibhagwan/fzf-lua"),
+    keys = lua_keys("ibhagwan/fzf-lua"),
   },
 
   -- ---- LSP ----
