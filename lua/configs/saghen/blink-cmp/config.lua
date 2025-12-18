@@ -32,6 +32,8 @@ require("blink.cmp").setup({
     },
   },
   completion = {
+    -- Disable prefetch_on_insert if you use AI plugins: minuet-ai.nvim or codecompanion.nvim
+    -- trigger = { prefetch_on_insert = false },
     documentation = { auto_show = true },
     menu = {
       draw = {
@@ -124,7 +126,7 @@ require("blink.cmp").setup({
   sources = {
     default = { "lsp", "path", "snippets", "buffer" },
 
-    -- For minuet-ai with local llama.cpp model
+    -- For minuet-ai.nvim
     --
     -- default = { "lsp", "path", "snippets", "buffer", "minuet" },
     -- providers = {
@@ -137,6 +139,11 @@ require("blink.cmp").setup({
     --     timeout_ms = 3000,
     --     score_offset = 50, -- Gives minuet higher priority among suggestions
     --   },
+    -- },
+
+    -- for codecompanion.nvim
+    -- per_filetype = {
+    --   codecompanion = { "codecompanion" },
     -- },
   },
 })
