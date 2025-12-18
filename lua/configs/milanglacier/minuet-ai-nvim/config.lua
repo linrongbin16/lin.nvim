@@ -32,25 +32,10 @@ require("minuet").setup({
       },
     },
     -- llama.cpp }}}
-
-    -- -- ollama {{{
-    -- openai_fim_compatible = {
-    --   -- For Windows users, TERM may not be present in environment variables.
-    --   -- Consider using APPDATA instead.
-    --   api_key = "TERM",
-    --   name = "Ollama",
-    --   end_point = "http://localhost:11434/v1/completions",
-    --   model = "qwen2.5-coder:14b",
-    --   optional = {
-    --     max_tokens = 56,
-    --     top_p = 0.9,
-    --   },
-    -- },
-    -- -- ollama }}}
   },
 })
 
--- # 1. Llama.cpp {{{
+-- # Llama.cpp {{{
 -- Install llama.cpp with homebrew:
 -- ```
 -- brew install llama.cpp
@@ -66,25 +51,4 @@ require("minuet").setup({
 -- For full models list, please checkout here: https://huggingface.co/collections/ggml-org/llamavim.
 --
 -- It starts an api server on "http://localhost:8012".
--- # 1. Llama.cpp }}}
---
--- # 2. Ollama {{{
--- Install ollama with homebrew:
--- ```
--- brew install ollama
--- ```
---
--- Configure ollama model directory in .zshrc:
--- ```
--- export OLLAMA_MODELS=$HOME/.ollama/models
--- ```
---
--- Install model and start service:
--- ```
--- ollama pull qwen2.5-coder:14b
--- ollama run qwen2.5-coder:14b
--- ollama serve
--- ```
---
--- It starts an api server on "http://127.0.0.1:11434".
--- # 2. Ollama }}}
+-- # Llama.cpp }}}
