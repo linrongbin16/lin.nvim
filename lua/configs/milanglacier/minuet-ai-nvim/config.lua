@@ -50,7 +50,25 @@ require("minuet").setup({
   },
 })
 
--- # 1. Ollama {{{
+-- # 1. Llama.cpp {{{
+-- Install llama.cpp with homebrew:
+-- ```
+-- brew install llama.cpp
+-- ```
+--
+-- Start service:
+-- ```
+-- llama-server \
+--    -hf ggml-org/Qwen2.5-Coder-7B-Q8_0-GGUF \
+--    --port 8012 -ngl 99 -fa on -ub 2048 -b 2048 \
+--    --ctx-size 0 --cache-reuse 1024
+-- ```
+-- For full models list, please checkout here: https://huggingface.co/collections/ggml-org/llamavim.
+--
+-- It starts an api server on "http://localhost:8012".
+-- # 1. Llama.cpp }}}
+--
+-- # 2. Ollama {{{
 -- Install ollama with homebrew:
 -- ```
 -- brew install ollama
@@ -69,23 +87,4 @@ require("minuet").setup({
 -- ```
 --
 -- It starts an api server on "http://127.0.0.1:11434".
--- # 1. Ollama }}}
---
---
--- # 2. Llama.cpp {{{
--- Install llama.cpp with homebrew:
--- ```
--- brew install llama.cpp
--- ```
---
--- Start service:
--- ```
--- llama-server \
---    -hf ggml-org/Qwen2.5-Coder-7B-Q8_0-GGUF \
---    --port 8012 -ngl 99 -fa on -ub 2048 -b 2048 \
---    --ctx-size 0 --cache-reuse 1024
--- ```
--- For full models list, please checkout here: https://huggingface.co/collections/ggml-org/llamavim.
---
--- It starts an api server on "http://localhost:8012".
--- # 2. Llama.cpp }}}
+-- # 2. Ollama }}}
