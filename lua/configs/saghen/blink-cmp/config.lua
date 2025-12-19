@@ -141,7 +141,8 @@ require("blink.cmp").setup({
     --   },
     -- },
 
-    -- for codecompanion.nvim
+    -- For codecompanion.nvim
+    --
     -- per_filetype = {
     --   codecompanion = { "codecompanion" },
     -- },
