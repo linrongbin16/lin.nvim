@@ -43,6 +43,12 @@ local M = {
   set_lazy_key("x", "<space>gf", function()
     require("fzf-lua").git_files({ query = get_visual_select(), prompt = get_cwd() })
   end, { desc = "Search git files" }),
+  set_lazy_key("x", "<space>wgf", function()
+    require("fzf-lua").git_files({ query = get_cword(), prompt = get_cwd() })
+  end, { desc = "Search git files by cword" }),
+  set_lazy_key("x", "<space>rgf", function()
+    require("fzf-lua").git_files({ resume = true, prompt = get_cwd() })
+  end, { desc = "Search git files by resume" }),
 
   -- search buffers
   set_lazy_key("n", "<space>bf", function()
@@ -91,7 +97,6 @@ local M = {
     require("fzf-lua").live_grep({
       resume = true,
       cmd = "git grep --line-number --column --color=always",
-      query = get_cword(),
       prompt = "Live Grep (Git)> ",
     })
   end, { desc = "Git live grep by resume" }),
