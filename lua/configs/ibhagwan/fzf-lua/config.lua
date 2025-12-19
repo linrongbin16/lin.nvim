@@ -19,12 +19,10 @@ require("fzf-lua").setup({
   files = {
     cwd_prompt = false,
     hidden = true,
-    no_ignore = true,
   },
   grep = {
     prompt = "Live Grep> ",
     hidden = true,
-    no_ignore = true,
   },
   buffers = {
     prompt = "Buffers> ",
