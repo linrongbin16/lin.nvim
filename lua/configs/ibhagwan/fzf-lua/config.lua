@@ -18,9 +18,19 @@ require("fzf-lua").setup({
   },
   files = {
     cwd_prompt = false,
+    actions = {
+      ["ctrl-r"] = { require("fzf-lua").actions.toggle_ignore },
+    },
   },
   grep = {
     prompt = "Live Grep> ",
+    actions = {
+      ["ctrl-r"] = { require("fzf-lua").actions.toggle_ignore },
+    },
+    rg_glob_fn = function(query, opts)
+      local regex, flags = query:match("^(.-)%s%-%-(.*)$")
+      return (regex or query), flags
+    end,
   },
   buffers = {
     prompt = "Buffers> ",

@@ -67,17 +67,16 @@ local M = {
   end, { desc = "Live grep by resume " }),
 
   -- git live grep
-  set_lazy_key("n", "<space>gr", function()
+  set_lazy_key("n", "<space>gl", function()
     require("fzf-lua").live_grep({
       cmd = "git grep --line-number --column --color=always",
       prompt = "Live Grep (Git)> ",
     })
   end, { desc = "Git live grep" }),
-  set_lazy_key("x", "<space>gr", function()
-    local selection = get_visual_select()
+  set_lazy_key("x", "<space>gl", function()
     require("fzf-lua").live_grep({
       cmd = "git grep --line-number --column --color=always",
-      query = selection,
+      query = get_visual_select(),
       prompt = "Live Grep (Git)> ",
     })
   end, { desc = "Git live grep" }),
