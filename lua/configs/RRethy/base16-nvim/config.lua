@@ -3,4 +3,4 @@ local n = #colors
 local s = os.time()
 local r = math.fmod(s, n)
 local color = colors[r]
-vim.cmd([[colorscheme ]] .. color)
+vim.cmd("colorscheme " .. color)
