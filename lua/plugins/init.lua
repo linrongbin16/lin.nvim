@@ -134,7 +134,6 @@ local M = {
       "linrongbin16/lsp-progress.nvim",
       "airblade/vim-gitgutter",
     },
-    dev = true,
     config = lua_config("nvim-lualine/lualine.nvim"),
   },
   {
