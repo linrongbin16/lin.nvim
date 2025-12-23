@@ -34,13 +34,11 @@ local M = {
   },
   -- Colorschemes
   {
-    "linrongbin16/colorbox.nvim",
+    "zenbones-theme/zenbones.nvim",
     priority = 1000,
     lazy = false,
-    config = lua_config("linrongbin16/colorbox.nvim"),
-    build = function()
-      require("colorbox").update()
-    end,
+    init = lua_init("zenbones-theme/zenbones.nvim"),
+    config = lua_config("zenbones-theme/zenbones.nvim"),
   },
 
   -- ---- HIGHLIGHT ----
