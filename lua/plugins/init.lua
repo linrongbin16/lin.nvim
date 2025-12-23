@@ -34,13 +34,10 @@ local M = {
   },
   -- Colorschemes
   {
-    "linrongbin16/colorbox.nvim",
+    "RRethy/base16-nvim",
     priority = 1000,
     lazy = false,
-    config = lua_config("linrongbin16/colorbox.nvim"),
-    build = function()
-      require("colorbox").update()
-    end,
+    config = lua_config("RRethy/base16-nvim"),
   },
 
   -- ---- HIGHLIGHT ----
