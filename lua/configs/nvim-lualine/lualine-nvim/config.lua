@@ -1,4 +1,3 @@
-local str = require("commons.str")
 local tbl = require("commons.tbl")
 
 local constants = require("builtin.constants")
@@ -28,7 +27,7 @@ local function LspClients()
   local names = {}
   if type(clients) == "table" then
     for _, c in ipairs(clients) do
-      if type(c) == "table" and type(c.name) == "string" and str.not_empty(c.name) then
+      if type(c) == "table" and type(c.name) == "string" and string.len(c.name) > 0 then
         table.insert(names, c.name)
       end
     end

@@ -28,8 +28,8 @@ require("bufferline").setup({
       if
         str.not_empty(current_bufpath)
         and str.not_empty(element.path)
-        and path.normalize(current_bufpath, { expand = true, double_backslash = true })
-          == path.normalize(element.path, { expand = true, double_backslash = true })
+        and path.normalize(current_bufpath, { expand = true })
+          == path.normalize(element.path, { expand = true })
       then
         return icon_text, icon_color
       else
