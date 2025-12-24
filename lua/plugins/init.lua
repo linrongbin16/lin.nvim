@@ -344,12 +344,9 @@ local M = {
     event = { BufReadPre, BufNewFile, VeryLazy },
   },
   {
-    "saghen/blink.pairs",
-    version = "*",
-    -- download prebuilt binaries from github releases
-    dependencies = "saghen/blink.download",
-    event = { BufReadPre, BufNewFile, VeryLazy },
-    config = lua_config("saghen/blink.pairs"),
+    "cohama/lexima.vim",
+    event = { VeryLazy, InsertEnter },
+    init = lua_init("cohama/lexima.vim"),
   },
   -- Repeat
   {
