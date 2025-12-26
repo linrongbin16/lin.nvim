@@ -52,7 +52,6 @@ local function get_cursor_winopts()
     local lw = vim.fn.strdisplaywidth(l)
     cursor_row = cursor_row + 1 + math.floor(lw / win_width)
   end
-
   cursor_row = clamp(cursor_row, 2)
 
   -- local cursor_row = clamp(cursor_lineno - win_first_lineno + 2, 2)
