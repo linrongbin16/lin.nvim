@@ -49,6 +49,7 @@ local function get_cursor_winopts()
     border = "none",
     relative = "win",
     win = winnr,
+    style = "minimal",
     preview = {
       default = "bat",
       border = border,
