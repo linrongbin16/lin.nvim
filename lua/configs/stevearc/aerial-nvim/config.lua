@@ -6,4 +6,11 @@ require("aerial").setup({
   },
   update_events = "TextChanged,InsertLeave,WinEnter,BufEnter,BufNewFile,BufReadPost,BufWinEnter,BufWinLeave,TabEnter,BufWritePost,CmdlineLeave,CmdwinLeave,TermLeave,TermClose,DirChanged,DiffUpdated,FocusGained,FocusLost",
   show_guides = true,
+  guides = {
+    mid_item = "├─",
+    last_item = "└─",
+    nested_top = "│ ",
+    -- Raw indentation
+    whitespace = "  ",
+  },
 })
