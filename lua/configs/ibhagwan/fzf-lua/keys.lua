@@ -126,6 +126,24 @@ local M = {
       prompt = "Definitions> ",
     })
   end, { desc = "Go to definitions" }),
+  set_lazy_key("n", "gr", function()
+    require("fzf-lua").lsp_references({
+      winopts = get_cursor_winopts(),
+      prompt = "References> ",
+    })
+  end, { desc = "Go to references" }),
+  set_lazy_key("n", "gt", function()
+    require("fzf-lua").lsp_typedefs({
+      winopts = get_cursor_winopts(),
+      prompt = "Type Definitions> ",
+    })
+  end, { desc = "Go to type definitions" }),
+  set_lazy_key("n", "gi", function()
+    require("fzf-lua").lsp_implementations({
+      winopts = get_cursor_winopts(),
+      prompt = "Implementations> ",
+    })
+  end, { desc = "Go to implementations" }),
 }
 
 return M
