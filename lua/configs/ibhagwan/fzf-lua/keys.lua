@@ -1,5 +1,4 @@
 local constants = require("builtin.constants")
-local num = require("commons.num")
 local set_lazy_key = require("builtin.utils.keymap").set_lazy_key
 
 local function get_visual_select()
@@ -20,6 +19,17 @@ local function get_cword()
   return vim.fn.expand("<cword>")
 end
 
+local function clamp(v, min_val, max_val)
+  local res = v
+  if max_val ~= nil then
+    res = vim.fn.min({ res, max_val })
+  end
+  if min_val ~= nil then
+    res = vim.fn.max({ res, min_val })
+  end
+  return res
+end
+
 local function get_cursor_winopts()
   local winnr = vim.api.nvim_get_current_win()
   local win_first_lineno = vim.fn.line("w0")
@@ -30,7 +40,7 @@ local function get_cursor_winopts()
   local win_x = win_pos[2]
   local border = constants.window.border
 
-  local height = num.clamp(win_height, 3, 18)
+  local height = clamp(win_height, 3, 18)
   local width = win_width
 
   local cursor_pos = vim.api.nvim_win_get_cursor(winnr)
@@ -42,9 +52,9 @@ local function get_cursor_winopts()
     local lw = vim.fn.strdisplaywidth(l)
     cursor_row = cursor_row + 1 + math.floor(lw / win_width)
   end
-  cursor_row = num.clamp(cursor_row, 2)
+  cursor_row = clamp(cursor_row, 2)
 
-  -- local cursor_row = num.clamp(cursor_lineno - win_first_lineno + 2, 2)
+  -- local cursor_row = clamp(cursor_lineno - win_first_lineno + 2, 2)
   -- local cursor_col = cursor_pos[2]
   local cursor_col = win_x
 
