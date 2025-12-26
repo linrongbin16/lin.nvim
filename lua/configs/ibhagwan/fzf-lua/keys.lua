@@ -41,7 +41,7 @@ local function get_cursor_winopts()
   local expected_reversed_cursor_row = cursor_row - 1 - height
   if expected_end_row > win_height and expected_reversed_cursor_row >= 1 then
     -- cursor_row = expected_reversed_cursor_row
-    row = -1 - height
+    row = -height
   end
 
   local result = {
