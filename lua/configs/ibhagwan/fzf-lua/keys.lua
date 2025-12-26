@@ -1,3 +1,4 @@
+local constants = require("builtin.constants")
 local set_lazy_key = require("builtin.utils.keymap").set_lazy_key
 
 local function get_visual_select()
@@ -16,6 +17,25 @@ end
 
 local function get_cword()
   return vim.fn.expand("<cword>")
+end
+
+local function get_cursor_winopts()
+  local height = constants.layout.window.scale
+  local width = constants.layout.window.scale
+  -- row = 0.35, -- window row position (0=top, 1=bottom)
+  -- col = 0.50, -- window col position (0=left, 1=right)
+  local border = constants.window.border
+
+  return {
+    height = height,
+    width = width,
+    border = border,
+    preview = {
+      default = "bat",
+      border = border,
+      horizontal = "left:66%",
+    },
+  }
 end
 
 local M = {
@@ -78,6 +98,14 @@ local M = {
       cmd = "git grep --line-number --column --color=always",
       query = get_visual_select(),
       prompt = "Live Grep (Git)> ",
+    })
+  end, { desc = "Git live grep" }),
+
+  -- lsp symbols
+  set_lazy_key("n", "gd", function()
+    require("fzf-lua").lsp_definitions({
+      winopts = get_cursor_winopts(),
+      prompt = "Definitions> ",
     })
   end, { desc = "Git live grep" }),
 }
