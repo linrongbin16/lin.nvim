@@ -1,4 +1,5 @@
 local constants = require("builtin.constants")
+local layout = require("builtin.utils.layout")
 local set_lazy_key = require("builtin.utils.keymap").set_lazy_key
 
 local function get_visual_select()
@@ -20,16 +21,33 @@ local function get_cword()
 end
 
 local function get_cursor_winopts()
-  local height = constants.layout.window.scale
-  local width = constants.layout.window.scale
-  -- row = 0.35, -- window row position (0=top, 1=bottom)
-  -- col = 0.50, -- window col position (0=left, 1=right)
+  local winnr = vim.api.nvim_get_current_win()
+  local win_first_lineno = vim.fn.line("w0")
+  local win_height = vim.api.nvim_win_get_height(winnr)
+  -- local win_width = vim.api.nvim_win_get_width(winnr)
   local border = constants.window.border
+
+  local height = vim.fn.max({ 5, math.floor(win_height * 0.4) })
+  local width = 1.0
+
+  local cursor_pos = vim.api.nvim_win_get_cursor(winnr)
+  local cursor_row = cursor_pos[1] - win_first_lineno
+  -- local cursor_col = cursor_pos[2]
+  local cursor_col = 0.0
+
+  local expected_end_row = cursor_row + height
+  local expected_reversed_cursor_row = cursor_row - 1 - height
+  if expected_end_row > win_height and expected_reversed_cursor_row >= 1 then
+    cursor_row = expected_reversed_cursor_row
+  end
 
   return {
     height = height,
     width = width,
+    row = cursor_row,
+    col = cursor_col,
     border = border,
+    relative = "win",
     preview = {
       default = "bat",
       border = border,
@@ -107,7 +125,7 @@ local M = {
       winopts = get_cursor_winopts(),
       prompt = "Definitions> ",
     })
-  end, { desc = "Git live grep" }),
+  end, { desc = "Go to definitions" }),
 }
 
 return M
