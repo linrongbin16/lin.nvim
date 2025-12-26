@@ -6,4 +6,5 @@ glance.setup({
   folds = {
     folded = false,
   },
+  border = { enable = true },
 })
