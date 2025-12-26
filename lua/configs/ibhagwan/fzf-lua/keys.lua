@@ -46,7 +46,7 @@ local function get_cursor_winopts()
     width = width,
     row = cursor_row,
     col = cursor_col,
-    border = border,
+    border = "none",
     relative = "win",
     preview = {
       default = "bat",
