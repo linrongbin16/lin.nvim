@@ -33,13 +33,28 @@ local M = {
     { desc = "Live grep by cursor word" }
   ),
   set_lazy_key("n", "<space>pl", "<cmd>FzfxLiveGrep put<cr>", { desc = "Live grep by yank text" }),
-  set_lazy_key("n", "<space>rl", "<cmd>FzfxLiveGrep resume<cr>", { desc = "Live grep by resume last" }),
+  set_lazy_key(
+    "n",
+    "<space>rl",
+    "<cmd>FzfxLiveGrep resume<cr>",
+    { desc = "Live grep by resume last" }
+  ),
   -- git live grep
   set_lazy_key("n", "<space>gr", "<cmd>FzfxGLiveGrep<cr>", { desc = "Git grep" }),
   set_lazy_key("x", "<space>gr", "<cmd>FzfxGLiveGrep visual<cr>", { desc = "Git grep" }),
   -- diagnostics
-  set_lazy_key("n", "<space>dg", "<cmd>FzfxLspDiagnostics<cr>", { desc = "Search lsp diagnostics" }),
-  set_lazy_key("x", "<space>dg", "<cmd>FzfxLspDiagnostics visual<cr>", { desc = "Search lsp diagnostics" }),
+  set_lazy_key(
+    "n",
+    "<space>dg",
+    "<cmd>FzfxLspDiagnostics<cr>",
+    { desc = "Search lsp diagnostics" }
+  ),
+  set_lazy_key(
+    "x",
+    "<space>dg",
+    "<cmd>FzfxLspDiagnostics visual<cr>",
+    { desc = "Search lsp diagnostics" }
+  ),
   -- -- lsp
   -- set_lazy_key("n", "gd", function()
   --   vim.cmd("FzfxLspDefinitions")
