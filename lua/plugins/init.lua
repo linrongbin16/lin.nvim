@@ -356,24 +356,29 @@ local M = {
     dependencies = { "tpope/vim-repeat" },
   },
   -- Structure outlines
-  {
-    "hedyhli/outline.nvim",
-    cmd = {
-      "Outline",
-      "OutlineOpen",
-      "OutlineStatus",
-      "OutlineFollow",
-      "OutlineRefresh",
-    },
-    dependencies = {
-      "neovim/nvim-lspconfig",
-    },
-    keys = lua_keys("hedyhli/outline.nvim"),
-    config = lua_config("hedyhli/outline.nvim"),
-  },
+  -- {
+  --   "hedyhli/outline.nvim",
+  --   cmd = {
+  --     "Outline",
+  --     "OutlineOpen",
+  --     "OutlineStatus",
+  --     "OutlineFollow",
+  --     "OutlineRefresh",
+  --   },
+  --   dependencies = {
+  --     "neovim/nvim-lspconfig",
+  --   },
+  --   keys = lua_keys("hedyhli/outline.nvim"),
+  --   config = lua_config("hedyhli/outline.nvim"),
+  -- },
   {
     "stevearc/aerial.nvim",
     dependencies = { "nvim-treesitter/nvim-treesitter" },
+    cmd = {
+      "AerialToggle",
+      "AerialOpen",
+      "AerialOpenAll",
+    },
     keys = lua_keys("stevearc/aerial.nvim"),
     config = lua_config("stevearc/aerial.nvim"),
   },
