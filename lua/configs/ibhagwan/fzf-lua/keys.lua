@@ -52,6 +52,13 @@ local function get_cursor_winopts()
   local expected_reversed_cursor_row = cursor_row - 1 - height
   if expected_end_row > win_height and expected_reversed_cursor_row >= 1 then
     cursor_row = expected_reversed_cursor_row
+  else
+    -- If "current line" (cursor) text height is > 1, since a line can use multiple rows in window if it is too long.
+    local cursor_row_text_height = vim.api.nvim_win_text_height(winnr, {
+      start_row = cursor_row - 1,
+      end_row = cursor_row - 1,
+    })
+    cursor_row = cursor_row + cursor_row_text_height.all - 1
   end
 
   local result = {
