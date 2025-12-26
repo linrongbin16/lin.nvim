@@ -36,7 +36,7 @@ local function get_cursor_winopts()
   local win_height = vim.api.nvim_win_get_height(winnr)
   local win_width = vim.api.nvim_win_get_width(winnr)
   local win_pos = vim.api.nvim_win_get_position(winnr)
-  local win_y = win_pos[1]
+  -- local win_y = win_pos[1]
   local win_x = win_pos[2]
   local border = constants.window.border
 
