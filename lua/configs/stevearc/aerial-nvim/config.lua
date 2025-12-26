@@ -1,0 +1,1 @@
+require("aerial").setup({})

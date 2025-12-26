@@ -371,6 +371,12 @@ local M = {
     keys = lua_keys("hedyhli/outline.nvim"),
     config = lua_config("hedyhli/outline.nvim"),
   },
+  {
+    "stevearc/aerial.nvim",
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    keys = lua_keys("stevearc/aerial.nvim"),
+    config = lua_config("stevearc/aerial.nvim"),
+  },
   -- Open Url
   {
     "chrishrb/gx.nvim",
