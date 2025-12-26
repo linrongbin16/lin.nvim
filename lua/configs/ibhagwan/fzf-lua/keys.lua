@@ -31,39 +31,26 @@ local function get_cursor_winopts()
 
   local cursor_pos = vim.api.nvim_win_get_cursor(winnr)
   local cursor_row = vim.fn.max({ 2, cursor_pos[1] - win_first_lineno + 1 })
-  -- print(
-  --   string.format(
-  --     "1-1st:%s,pos:%s,row:%s",
-  --     vim.inspect(win_first_lineno),
-  --     vim.inspect(cursor_pos),
-  --     vim.inspect(cursor_row)
-  --   )
-  -- )
   -- local cursor_col = cursor_pos[2]
   local cursor_col = 0.0
+
+  local row = 1
+  local col = 0
 
   local expected_end_row = cursor_row + height
   local expected_reversed_cursor_row = cursor_row - 1 - height
   if expected_end_row > win_height and expected_reversed_cursor_row >= 1 then
-    -- print(
-    --   string.format(
-    --     "2-h:%s,row:%s,end:%s,rev:%s",
-    --     vim.inspect(height),
-    --     vim.inspect(cursor_row),
-    --     vim.inspect(expected_end_row),
-    --     vim.inspect(expected_reversed_cursor_row)
-    --   )
-    -- )
-    cursor_row = expected_reversed_cursor_row
+    -- cursor_row = expected_reversed_cursor_row
+    row = -1 - height
   end
 
   local result = {
     height = height,
     width = width,
-    row = cursor_row,
-    col = cursor_col,
+    row = row,
+    col = col,
     border = "none",
-    relative = "win",
+    relative = "cursor",
     win = winnr,
     style = "minimal",
     preview = {
