@@ -60,7 +60,6 @@ local function get_cursor_winopts()
     row = cursor_row,
     col = cursor_col,
     border = "none",
-    relative = "cursor",
     win = winnr,
     style = "minimal",
     preview = {
