@@ -22,10 +22,10 @@ end
 local function clamp(v, min_val, max_val)
   local res = v
   if max_val ~= nil then
-    res = vim.fn.min({ res, max_val })
+    res = math.min(res, max_val)
   end
   if min_val ~= nil then
-    res = vim.fn.max({ res, min_val })
+    res = math.max(res, min_val)
   end
   return res
 end
