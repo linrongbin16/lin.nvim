@@ -30,7 +30,7 @@ local function get_cursor_winopts()
   local width = 1.0
 
   local cursor_pos = vim.api.nvim_win_get_cursor(winnr)
-  local cursor_row = cursor_pos[1] - win_first_lineno + 1
+  local cursor_row = vim.fn.max({ 2, cursor_pos[1] - win_first_lineno + 1 })
   -- print(
   --   string.format(
   --     "1-1st:%s,pos:%s,row:%s",
@@ -55,10 +55,6 @@ local function get_cursor_winopts()
     --   )
     -- )
     cursor_row = expected_reversed_cursor_row
-  end
-
-  if cursor_row <= 1 then
-    cursor_row = 0.0
   end
 
   local result = {
