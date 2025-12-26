@@ -48,9 +48,11 @@ local function get_cursor_winopts()
   local lines_till_cursor = vim.fn.getline(win_first_lineno, cursor_lineno) --[[@as string[] ]]
 
   local cursor_row = 1
+  local cursor_line_width = 1
   for _, l in ipairs(lines_till_cursor) do
     local lw = vim.fn.strdisplaywidth(l)
     cursor_row = cursor_row + 1 + math.floor(lw / win_width)
+    cursor_line_width = 1 + math.floor(lw / win_width)
   end
   cursor_row = clamp(cursor_row, 2)
 
@@ -59,7 +61,7 @@ local function get_cursor_winopts()
   local cursor_col = win_x
 
   local expected_end_row = cursor_row + height
-  local expected_reversed_cursor_row = cursor_row - 1 - height
+  local expected_reversed_cursor_row = cursor_row - cursor_line_width - height
   if expected_end_row > win_height and expected_reversed_cursor_row >= 1 then
     cursor_row = expected_reversed_cursor_row
   end
