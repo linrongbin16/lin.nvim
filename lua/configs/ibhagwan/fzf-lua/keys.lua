@@ -135,7 +135,7 @@ local M = {
     })
   end, { desc = "Git live grep" }),
 
-  -- lsp symbols
+  -- lsp locations
   set_lazy_key("n", "gd", function()
     require("fzf-lua").lsp_definitions({
       winopts = get_cursor_winopts(),
