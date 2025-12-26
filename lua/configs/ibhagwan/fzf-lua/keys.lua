@@ -19,36 +19,46 @@ local function get_cword()
   return vim.fn.expand("<cword>")
 end
 
+local function clamp(v, min_val, max_val)
+  local res = v
+  if max_val ~= nil then
+    res = vim.fn.min({ res, max_val })
+  end
+  if min_val ~= nil then
+    res = vim.fn.max({ res, min_val })
+  end
+  return res
+end
+
 local function get_cursor_winopts()
   local winnr = vim.api.nvim_get_current_win()
   local win_first_lineno = vim.fn.line("w0")
   local win_height = vim.api.nvim_win_get_height(winnr)
-  -- local win_width = vim.api.nvim_win_get_width(winnr)
+  local win_width = vim.api.nvim_win_get_width(winnr)
+  local win_pos = vim.api.nvim_win_get_position(winnr)
+  local win_y = win_pos[1]
+  local win_x = win_pos[2]
   local border = constants.window.border
 
-  local height = vim.fn.max({ 5, math.floor(win_height * 0.4) })
-  local width = 1.0
+  local height = clamp(win_height, 3, 18)
+  local width = win_width
 
   local cursor_pos = vim.api.nvim_win_get_cursor(winnr)
-  local cursor_row = vim.fn.max({ 2, cursor_pos[1] - win_first_lineno + 1 })
+  local cursor_row = clamp(cursor_pos[1] - win_first_lineno, 1)
   -- local cursor_col = cursor_pos[2]
-  local cursor_col = 0.0
-
-  local row = 1
-  local col = 0
+  local cursor_col = win_x
 
   local expected_end_row = cursor_row + height
   local expected_reversed_cursor_row = cursor_row - 1 - height
   if expected_end_row > win_height and expected_reversed_cursor_row >= 1 then
-    -- cursor_row = expected_reversed_cursor_row
-    row = -height
+    cursor_row = expected_reversed_cursor_row
   end
 
   local result = {
     height = height,
     width = width,
-    row = row,
-    col = col,
+    row = cursor_row,
+    col = cursor_col,
     border = "none",
     relative = "cursor",
     win = winnr,
