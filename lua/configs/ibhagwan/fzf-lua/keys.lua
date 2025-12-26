@@ -44,7 +44,7 @@ local function get_cursor_winopts()
   local width = win_width
 
   local cursor_pos = vim.api.nvim_win_get_cursor(winnr)
-  local cursor_row = clamp(cursor_pos[1] - win_first_lineno, 1)
+  local cursor_row = clamp(cursor_pos[1] - win_first_lineno + 1, 2)
   -- local cursor_col = cursor_pos[2]
   local cursor_col = win_x
 
