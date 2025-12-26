@@ -57,6 +57,10 @@ local function get_cursor_winopts()
     cursor_row = expected_reversed_cursor_row
   end
 
+  if cursor_row <= 1 then
+    cursor_row = 0.0
+  end
+
   local result = {
     height = height,
     width = width,
