@@ -1,5 +1,4 @@
 local constants = require("builtin.constants")
-local layout = require("builtin.utils.layout")
 local set_lazy_key = require("builtin.utils.keymap").set_lazy_key
 
 local function get_visual_select()
