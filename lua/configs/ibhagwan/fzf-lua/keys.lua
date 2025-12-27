@@ -70,7 +70,7 @@ local function get_cursor_winopts()
   local cursor_row = clamp(height_till_cursor + 1, 2)
   local cursor_col = win_x
 
-  local expected_reversed_cursor_row = height_above_cursor - height
+  local expected_reversed_cursor_row = height_above_cursor - height - 1
   if height_below_cursor < height and expected_reversed_cursor_row >= 1 then
     cursor_row = expected_reversed_cursor_row
   end
