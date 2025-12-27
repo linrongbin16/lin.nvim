@@ -32,7 +32,8 @@ end
 
 local function get_cursor_winopts()
   local winnr = vim.api.nvim_get_current_win()
-  local win_first_lineno = vim.fn.line("w0")
+  local win_first_visible_lineno = vim.fn.line("w0")
+  local win_last_visible_lineno = vim.fn.line("w$")
   local win_height = vim.api.nvim_win_get_height(winnr)
   local win_width = vim.api.nvim_win_get_width(winnr)
   local win_pos = vim.api.nvim_win_get_position(winnr)
@@ -45,24 +46,32 @@ local function get_cursor_winopts()
 
   local cursor_pos = vim.api.nvim_win_get_cursor(winnr)
   local cursor_lineno = cursor_pos[1]
-  local lines_till_cursor = vim.fn.getline(win_first_lineno, cursor_lineno) --[[@as string[] ]]
 
-  local cursor_row = 1
-  local cursor_line_width = 1
-  for _, l in ipairs(lines_till_cursor) do
-    local lw = vim.fn.strdisplaywidth(l)
-    cursor_row = cursor_row + 1 + math.floor(lw / win_width)
-    cursor_line_width = 1 + math.floor(lw / win_width)
-  end
-  cursor_row = clamp(cursor_row, 2)
-
-  -- local cursor_row = clamp(cursor_lineno - win_first_lineno + 2, 2)
-  -- local cursor_col = cursor_pos[2]
+  print(
+    string.format(
+      "f:%s,l:%s,c:%s",
+      vim.inspect(win_first_visible_lineno),
+      vim.inspect(win_last_visible_lineno),
+      vim.inspect(cursor_lineno)
+    )
+  )
+  local height_till_cursor = vim.api.nvim_win_text_height(
+    winnr,
+    { start_row = 0, end_row = cursor_lineno - win_first_visible_lineno }
+  ).all
+  local height_above_cursor = vim.api.nvim_win_text_height(
+    winnr,
+    { start_row = 0, end_row = cursor_lineno - win_first_visible_lineno - 1 }
+  ).all
+  local height_below_cursor = vim.api.nvim_win_text_height(winnr, {
+    start_row = cursor_lineno - win_first_visible_lineno,
+    end_row = win_last_visible_lineno - win_first_visible_lineno,
+  }).all
+  local cursor_row = clamp(height_till_cursor + 1, 2)
   local cursor_col = win_x
 
-  local expected_end_row = cursor_row + height
-  local expected_reversed_cursor_row = cursor_row - cursor_line_width - height
-  if expected_end_row > win_height and expected_reversed_cursor_row >= 1 then
+  local expected_reversed_cursor_row = height_above_cursor - height
+  if height_below_cursor < height and expected_reversed_cursor_row >= 1 then
     cursor_row = expected_reversed_cursor_row
   end
 
