@@ -35,7 +35,6 @@ require("fzf-lua").setup({
     files = {
       cwd_prompt = false,
       actions = {
-        ["ctrl-i"] = { require("fzf-lua").actions.toggle_ignore },
         ["enter"] = require("fzf-lua").actions.file_edit,
         ["ctrl-s"] = false,
         ["ctrl-v"] = false,
