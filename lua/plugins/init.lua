@@ -243,16 +243,39 @@ local M = {
     version = "v2.*",
     submodules = false,
   },
+  -- {
+  --   "saghen/blink.cmp",
+  --   event = { VeryLazy, CmdlineEnter, InsertEnter },
+  --   dependencies = {
+  --     "brenoprata10/nvim-highlight-colors",
+  --     "rafamadriz/friendly-snippets",
+  --     "L3MON4D3/LuaSnip",
+  --   },
+  --   version = "*",
+  --   config = lua_config("saghen/blink.cmp"),
+  -- },
   {
-    "saghen/blink.cmp",
+    "hrsh7th/nvim-cmp",
     event = { VeryLazy, CmdlineEnter, InsertEnter },
     dependencies = {
+      "neovim/nvim-lspconfig",
+      "mason-org/mason.nvim",
+      "mason-org/mason-lspconfig.nvim",
       "brenoprata10/nvim-highlight-colors",
       "rafamadriz/friendly-snippets",
       "L3MON4D3/LuaSnip",
+      "saadparwaiz1/cmp_luasnip",
+      "onsails/lspkind.nvim",
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-path",
+      "hrsh7th/cmp-cmdline",
     },
-    version = "*",
-    config = lua_config("saghen/blink.cmp"),
+    config = lua_config("hrsh7th/nvim-cmp"),
+  },
+  {
+    "FelipeLema/cmp-async-path",
+    url = "https://codeberg.org/FelipeLema/cmp-async-path",
   },
 
   -- ---- CODE-FORMATTER ----

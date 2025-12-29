@@ -25,9 +25,9 @@ local setup_opts = {
   },
   sources = cmp.config.sources({
     { name = "nvim_lsp" },
-    { name = "luasnip" },
-  }, {
     { name = "buffer" },
+  }, {
+    { name = "luasnip" },
     { name = "async_path" },
   }),
   formatting = {
@@ -40,12 +40,8 @@ local setup_opts = {
         buffer = "[BUF]",
         nvim_lsp = "[LSP]",
         luasnip = "[SNIP]",
-        tags = "[TAGS]",
-        path = "[PATH]",
         async_path = "[PATH]",
         cmdline = "[CMD]",
-        copilot = "[COPILOT]",
-        codeium = "[CODEIUM]",
       },
     }),
   },
@@ -125,6 +121,6 @@ cmp.setup.cmdline(":", {
   }),
 })
 
--- Work with nvim-autopairs
-local autopairs_cmp = require("nvim-autopairs.completion.cmp")
-cmp.event:on("confirm_done", autopairs_cmp.on_confirm_done())
+-- -- Work with nvim-autopairs
+-- local autopairs_cmp = require("nvim-autopairs.completion.cmp")
+-- cmp.event:on("confirm_done", autopairs_cmp.on_confirm_done())
