@@ -253,7 +253,7 @@ local M = {
     event = { VeryLazy, CmdlineEnter, InsertEnter },
     dependencies = {
       "brenoprata10/nvim-highlight-colors",
-      -- "onsails/lspkind.nvim",
+      "onsails/lspkind.nvim",
       "neovim/nvim-lspconfig",
       "mason-org/mason.nvim",
       "mason-org/mason-lspconfig.nvim",
