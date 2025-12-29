@@ -16,16 +16,41 @@ require("fzf-lua").setup({
       border = constants.window.border,
     },
   },
+  keymap = {
+    fzf = {
+      ["ctrl-t"] = "toggle",
+    },
+  },
   files = {
     cwd_prompt = false,
     actions = {
-      ["ctrl-r"] = { require("fzf-lua").actions.toggle_ignore },
+      ["ctrl-i"] = { require("fzf-lua").actions.toggle_ignore },
+      ["enter"] = require("fzf-lua").actions.file_edit,
+      ["ctrl-s"] = false,
+      ["ctrl-v"] = false,
+      ["ctrl-t"] = false,
+    },
+  },
+  git = {
+    files = {
+      cwd_prompt = false,
+      actions = {
+        ["ctrl-i"] = { require("fzf-lua").actions.toggle_ignore },
+        ["enter"] = require("fzf-lua").actions.file_edit,
+        ["ctrl-s"] = false,
+        ["ctrl-v"] = false,
+        ["ctrl-t"] = false,
+      },
     },
   },
   grep = {
     prompt = "Live Grep> ",
     actions = {
-      ["ctrl-r"] = { require("fzf-lua").actions.toggle_ignore },
+      ["ctrl-i"] = { require("fzf-lua").actions.toggle_ignore },
+      ["enter"] = require("fzf-lua").actions.file_edit,
+      ["ctrl-s"] = false,
+      ["ctrl-v"] = false,
+      ["ctrl-t"] = false,
     },
     rg_glob_fn = function(query, opts)
       local regex, flags = query:match("^(.-)%s%-%-(.*)$")
@@ -34,5 +59,12 @@ require("fzf-lua").setup({
   },
   buffers = {
     prompt = "Buffers> ",
+    actions = {
+      ["ctrl-i"] = { require("fzf-lua").actions.toggle_ignore },
+      ["enter"] = require("fzf-lua").actions.file_edit,
+      ["ctrl-s"] = false,
+      ["ctrl-v"] = false,
+      ["ctrl-t"] = false,
+    },
   },
 })
