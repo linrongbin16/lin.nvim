@@ -5,14 +5,17 @@ local basic_actions = {
   ["ctrl-s"] = false,
   ["ctrl-v"] = false,
   ["ctrl-t"] = false,
-  ["ctrl-g"] = false,
-  ["ctrl-G"] = false,
   ["ctrl-h"] = require("fzf-lua").actions.toggle_hidden,
 }
 
 local toggle_ignore_actions = vim.tbl_deep_extend("force", basic_actions, {
   ["ctrl-i"] = require("fzf-lua").actions.toggle_ignore,
 })
+
+local fzf_keymaps = {
+  ["ctrl-g"] = "toggle",
+  ["ctrl-p"] = "toggle-preview",
+}
 
 require("fzf-lua").setup({
   { "fzf-native" },
@@ -31,9 +34,7 @@ require("fzf-lua").setup({
     },
   },
   keymap = {
-    fzf = {
-      ["ctrl-g"] = "toggle",
-    },
+    fzf = fzf_keymaps,
   },
   actions = {
     files = toggle_ignore_actions,
