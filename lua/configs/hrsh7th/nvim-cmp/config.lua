@@ -7,7 +7,7 @@ lsp_defaults.capabilities = vim.tbl_deep_extend(
   require("cmp_nvim_lsp").default_capabilities()
 )
 
--- LuaSnip
+-- luasnip
 local cmp = require("cmp")
 local luasnip = require("luasnip")
 require("luasnip.loaders.from_vscode").lazy_load()
