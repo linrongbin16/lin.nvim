@@ -31,19 +31,23 @@ local setup_opts = {
     { name = "async_path" },
   }),
   formatting = {
-    format = require("lspkind").cmp_format({
-      mode = "symbol",
-      symbol_map = { Copilot = "", Codeium = "" },
-      maxwidth = 50,
-      ellipsis_char = "…",
-      menu = {
-        buffer = "[BUF]",
-        nvim_lsp = "[LSP]",
-        luasnip = "[SNIP]",
-        async_path = "[PATH]",
-        cmdline = "[CMD]",
-      },
-    }),
+    format = function(entry, item)
+      local color_item = require("nvim-highlight-colors").format(entry, { kind = item.kind })
+      item = require("lspkind").cmp_format({
+        mode = "symbol",
+        maxwidth = {
+          menu = 50,
+          abbr = 50,
+        },
+        ellipsis_char = "…",
+        show_labelDetails = true,
+      })(entry, item)
+      if color_item.abbr_hl_group then
+        item.kind_hl_group = color_item.abbr_hl_group
+        item.kind = color_item.abbr
+      end
+      return item
+    end,
   },
   mapping = cmp.mapping.preset.insert({
     ["<Up>"] = cmp.mapping.select_prev_item(select_opts),
