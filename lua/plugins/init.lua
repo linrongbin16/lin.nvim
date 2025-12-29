@@ -250,6 +250,10 @@ local M = {
   --   config = lua_config("saghen/blink.cmp"),
   -- },
   {
+    "FelipeLema/cmp-async-path",
+    url = "https://codeberg.org/FelipeLema/cmp-async-path",
+  },
+  {
     "hrsh7th/nvim-cmp",
     event = { VeryLazy, CmdlineEnter, InsertEnter },
     dependencies = {
@@ -267,10 +271,6 @@ local M = {
       "hrsh7th/cmp-cmdline",
     },
     config = lua_config("hrsh7th/nvim-cmp"),
-  },
-  {
-    "FelipeLema/cmp-async-path",
-    url = "https://codeberg.org/FelipeLema/cmp-async-path",
   },
 
   -- ---- CODE-FORMATTER ----
