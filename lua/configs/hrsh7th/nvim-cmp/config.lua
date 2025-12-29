@@ -25,11 +25,14 @@ local setup_opts = {
   },
   sources = cmp.config.sources({
     { name = "nvim_lsp" },
-    { name = "luasnip" },
   }, {
     { name = "buffer" },
+    { name = "luasnip" },
     { name = "async_path" },
   }),
+  performance = {
+    max_view_entries = 15,
+  },
   mapping = cmp.mapping.preset.insert({
     ["<Up>"] = cmp.mapping.select_prev_item(select_opts),
     ["<C-p>"] = cmp.mapping.select_prev_item(select_opts),
