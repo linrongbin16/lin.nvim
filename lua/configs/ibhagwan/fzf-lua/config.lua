@@ -5,7 +5,6 @@ local basic_actions = {
   ["ctrl-s"] = false,
   ["ctrl-v"] = false,
   ["ctrl-t"] = false,
-  ["ctrl-h"] = require("fzf-lua").actions.toggle_hidden,
 }
 
 local toggle_ignore_actions = vim.tbl_deep_extend("force", basic_actions, {
