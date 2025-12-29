@@ -25,9 +25,9 @@ local setup_opts = {
   },
   sources = cmp.config.sources({
     { name = "nvim_lsp" },
-    { name = "buffer" },
-  }, {
     { name = "luasnip" },
+  }, {
+    { name = "buffer" },
     { name = "async_path" },
   }),
   formatting = {
