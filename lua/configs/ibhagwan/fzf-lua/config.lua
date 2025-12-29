@@ -46,6 +46,7 @@ require("fzf-lua").setup({
   },
   files = {
     cwd_prompt = false,
+    hidden = true,
   },
   git = {
     files = {
@@ -54,6 +55,7 @@ require("fzf-lua").setup({
   },
   grep = {
     prompt = "Live Grep> ",
+    hidden = true,
     rg_glob_fn = function(query, opts)
       local regex, flags = query:match("^(.-)%s%-%-(.*)$")
       return (regex or query), flags
