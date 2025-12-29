@@ -30,6 +30,9 @@ local setup_opts = {
     { name = "buffer" },
     { name = "async_path" },
   }),
+  formatting = {
+    format = require("nvim-highlight-colors").format,
+  },
   performance = {
     max_view_entries = 15,
   },
