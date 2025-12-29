@@ -1,5 +1,16 @@
 local constants = require("builtin.constants")
 
+local basic_actions = {
+  ["enter"] = require("fzf-lua").actions.file_edit,
+  ["ctrl-s"] = false,
+  ["ctrl-v"] = false,
+  ["ctrl-t"] = false,
+}
+
+local toggle_ignore_actions = vim.tbl_deep_extend("force", basic_actions, {
+  ["ctrl-i"] = require("fzf-lua").actions.toggle_ignore,
+})
+
 require("fzf-lua").setup({
   { "fzf-native" },
   winopts = {
@@ -21,36 +32,24 @@ require("fzf-lua").setup({
       ["ctrl-t"] = "toggle",
     },
   },
+  actions = {
+    files = toggle_ignore_actions,
+    git = {
+      files = basic_actions,
+    },
+    grep = toggle_ignore_actions,
+    buffers = basic_actions,
+  },
   files = {
     cwd_prompt = false,
-    actions = {
-      ["ctrl-i"] = { require("fzf-lua").actions.toggle_ignore },
-      ["enter"] = require("fzf-lua").actions.file_edit,
-      ["ctrl-s"] = false,
-      ["ctrl-v"] = false,
-      ["ctrl-t"] = false,
-    },
   },
   git = {
     files = {
       cwd_prompt = false,
-      actions = {
-        ["enter"] = require("fzf-lua").actions.file_edit,
-        ["ctrl-s"] = false,
-        ["ctrl-v"] = false,
-        ["ctrl-t"] = false,
-      },
     },
   },
   grep = {
     prompt = "Live Grep> ",
-    actions = {
-      ["ctrl-i"] = { require("fzf-lua").actions.toggle_ignore },
-      ["enter"] = require("fzf-lua").actions.file_edit,
-      ["ctrl-s"] = false,
-      ["ctrl-v"] = false,
-      ["ctrl-t"] = false,
-    },
     rg_glob_fn = function(query, opts)
       local regex, flags = query:match("^(.-)%s%-%-(.*)$")
       return (regex or query), flags
@@ -58,11 +57,5 @@ require("fzf-lua").setup({
   },
   buffers = {
     prompt = "Buffers> ",
-    actions = {
-      ["enter"] = require("fzf-lua").actions.file_edit,
-      ["ctrl-s"] = false,
-      ["ctrl-v"] = false,
-      ["ctrl-t"] = false,
-    },
   },
 })
