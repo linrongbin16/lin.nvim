@@ -1,17 +1,17 @@
 -- cmp_nvim_lsp
 local lspconfig = require("lspconfig")
 local lsp_defaults = lspconfig.util.default_config
-
 lsp_defaults.capabilities = vim.tbl_deep_extend(
   "force",
   lsp_defaults.capabilities,
   require("cmp_nvim_lsp").default_capabilities()
 )
 
--- nvim-cmp
+-- LuaSnip
 local cmp = require("cmp")
 local luasnip = require("luasnip")
 require("luasnip.loaders.from_vscode").lazy_load()
+
 local select_opts = { behavior = cmp.SelectBehavior.Select }
 local setup_opts = {
   completion = {
