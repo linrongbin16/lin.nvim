@@ -228,13 +228,8 @@ local M = {
   -- ---- AUTO-COMPLETE ----
 
   {
-    "rafamadriz/friendly-snippets",
-    lazy = true,
-  },
-  {
     "L3MON4D3/LuaSnip",
-    lazy = true,
-    dependencies = { "rafamadriz/friendly-snippets" },
+    dependencies = "rafamadriz/friendly-snippets",
     version = "v2.*",
     submodules = false,
   },
