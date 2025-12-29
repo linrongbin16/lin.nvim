@@ -55,7 +55,7 @@ local setup_opts = {
     end, { "i", "s" }),
     ["<Tab>"] = cmp.mapping(function(fallback)
       local col = vim.fn.col(".") - 1
-      if luasnip.in_snippet() then
+      if luasnip.in_snippet() and luasnip.jumpable(1) then
         luasnip.jump(1)
       elseif cmp.visible() then
         cmp.confirm({ select = true })
@@ -66,7 +66,7 @@ local setup_opts = {
       end
     end, { "i", "s" }),
     ["<S-Tab>"] = cmp.mapping(function(fallback)
-      if luasnip.in_snippet() then
+      if luasnip.in_snippet() and luasnip.jumpable(-1) then
         luasnip.jump(-1)
       else
         fallback()
