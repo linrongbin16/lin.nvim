@@ -60,7 +60,6 @@ require("fzf-lua").setup({
   buffers = {
     prompt = "Buffers> ",
     actions = {
-      ["ctrl-i"] = { require("fzf-lua").actions.toggle_ignore },
       ["enter"] = require("fzf-lua").actions.file_edit,
       ["ctrl-s"] = false,
       ["ctrl-v"] = false,
