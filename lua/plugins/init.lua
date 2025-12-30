@@ -227,13 +227,6 @@ local M = {
 
   -- ---- AUTO-COMPLETE ----
 
-  {
-    "L3MON4D3/LuaSnip",
-    lazy = true,
-    dependencies = "rafamadriz/friendly-snippets",
-    version = "v2.*",
-    submodules = false,
-  },
   -- {
   --   "saghen/blink.cmp",
   --   event = { VeryLazy, CmdlineEnter, InsertEnter },
@@ -245,6 +238,19 @@ local M = {
   --   version = "*",
   --   config = lua_config("saghen/blink.cmp"),
   -- },
+  {
+    "folke/lazydev.nvim",
+    ft = "lua",
+    dependencies = { "Bilal2453/luvit-meta" },
+    config = lua_config("folke/lazydev.nvim"),
+  },
+  {
+    "L3MON4D3/LuaSnip",
+    lazy = true,
+    dependencies = "rafamadriz/friendly-snippets",
+    version = "v2.*",
+    submodules = false,
+  },
   {
     "FelipeLema/cmp-async-path",
     url = "https://codeberg.org/FelipeLema/cmp-async-path",
