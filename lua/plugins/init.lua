@@ -156,7 +156,7 @@ local M = {
 
   {
     "neovim/nvim-lspconfig",
-    event = { VeryLazy, BufReadPre, BufNewFile },
+    lazy = false,
     config = lua_config("neovim/nvim-lspconfig"),
   },
   {
