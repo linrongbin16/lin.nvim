@@ -374,7 +374,7 @@ local M = {
   {
     "tpope/vim-surround",
     event = { BufReadPre, BufNewFile, VeryLazy },
-    dependencies = { "tpope/vim-repeat" },
+    dependencies = "tpope/vim-repeat",
   },
   -- Structure outlines
   {
@@ -386,9 +386,7 @@ local M = {
       "OutlineFollow",
       "OutlineRefresh",
     },
-    dependencies = {
-      "neovim/nvim-lspconfig",
-    },
+    dependencies = "neovim/nvim-lspconfig",
     keys = lua_keys("hedyhli/outline.nvim"),
     config = lua_config("hedyhli/outline.nvim"),
   },
