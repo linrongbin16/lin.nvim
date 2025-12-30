@@ -4,6 +4,7 @@ require("blink.cmp").setup({
   cmdline = {
     enabled = true,
     completion = {
+      trigger = { show_on_keyword = true },
       list = { selection = { preselect = false } },
       menu = { auto_show = true },
       ghost_text = { enabled = false },
