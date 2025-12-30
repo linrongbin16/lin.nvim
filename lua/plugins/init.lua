@@ -76,11 +76,6 @@ local M = {
     "markonm/traces.vim",
     event = { CmdlineEnter },
   },
-  {
-    "saghen/blink.indent",
-    event = { BufReadPre, BufNewFile, VeryLazy },
-    config = lua_config("saghen/blink.indent"),
-  },
 
   -- ---- MARKDOWN PREVIEW ----
 
@@ -233,26 +228,44 @@ local M = {
   -- ---- AUTO-COMPLETE ----
 
   {
-    "rafamadriz/friendly-snippets",
-    lazy = true,
-  },
-  {
     "L3MON4D3/LuaSnip",
-    lazy = true,
-    dependencies = { "rafamadriz/friendly-snippets" },
+    dependencies = "rafamadriz/friendly-snippets",
     version = "v2.*",
     submodules = false,
   },
+  -- {
+  --   "saghen/blink.cmp",
+  --   event = { VeryLazy, CmdlineEnter, InsertEnter },
+  --   dependencies = {
+  --     "brenoprata10/nvim-highlight-colors",
+  --     "rafamadriz/friendly-snippets",
+  --     "L3MON4D3/LuaSnip",
+  --   },
+  --   version = "*",
+  --   config = lua_config("saghen/blink.cmp"),
+  -- },
   {
-    "saghen/blink.cmp",
+    "FelipeLema/cmp-async-path",
+    url = "https://codeberg.org/FelipeLema/cmp-async-path",
+  },
+  {
+    "hrsh7th/nvim-cmp",
     event = { VeryLazy, CmdlineEnter, InsertEnter },
     dependencies = {
       "brenoprata10/nvim-highlight-colors",
+      "onsails/lspkind.nvim",
+      "neovim/nvim-lspconfig",
+      "mason-org/mason.nvim",
+      "mason-org/mason-lspconfig.nvim",
       "rafamadriz/friendly-snippets",
       "L3MON4D3/LuaSnip",
+      "saadparwaiz1/cmp_luasnip",
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-path",
+      "hrsh7th/cmp-cmdline",
     },
-    version = "*",
-    config = lua_config("saghen/blink.cmp"),
+    config = lua_config("hrsh7th/nvim-cmp"),
   },
 
   -- ---- CODE-FORMATTER ----

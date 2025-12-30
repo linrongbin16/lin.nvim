@@ -1,8 +1,8 @@
 local disabled_colors = {
-  ["navarasu/onedark.nvim"] = true,
+  -- ["navarasu/onedark.nvim"] = true,
   ["zenbones-theme/zenbones.nvim"] = true,
   ["rrethy/base16-nvim"] = true,
-  ["ayu-theme/ayu-vim"] = true,
+  -- ["ayu-theme/ayu-vim"] = true,
   ["romainl/apprentice"] = true,
 }
 

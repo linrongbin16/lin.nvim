@@ -1,17 +1,17 @@
 -- cmp_nvim_lsp
 local lspconfig = require("lspconfig")
 local lsp_defaults = lspconfig.util.default_config
-
 lsp_defaults.capabilities = vim.tbl_deep_extend(
   "force",
   lsp_defaults.capabilities,
   require("cmp_nvim_lsp").default_capabilities()
 )
 
--- nvim-cmp
+-- luasnip
 local cmp = require("cmp")
 local luasnip = require("luasnip")
 require("luasnip.loaders.from_vscode").lazy_load()
+
 local select_opts = { behavior = cmp.SelectBehavior.Select }
 local setup_opts = {
   completion = {
@@ -31,23 +31,10 @@ local setup_opts = {
     { name = "async_path" },
   }),
   formatting = {
-    format = require("lspkind").cmp_format({
-      mode = "symbol",
-      symbol_map = { Copilot = "", Codeium = "" },
-      maxwidth = 50,
-      ellipsis_char = "…",
-      menu = {
-        buffer = "[BUF]",
-        nvim_lsp = "[LSP]",
-        luasnip = "[SNIP]",
-        tags = "[TAGS]",
-        path = "[PATH]",
-        async_path = "[PATH]",
-        cmdline = "[CMD]",
-        copilot = "[COPILOT]",
-        codeium = "[CODEIUM]",
-      },
-    }),
+    format = require("nvim-highlight-colors").format,
+  },
+  performance = {
+    max_view_entries = 15,
   },
   mapping = cmp.mapping.preset.insert({
     ["<Up>"] = cmp.mapping.select_prev_item(select_opts),
@@ -68,7 +55,9 @@ local setup_opts = {
     end, { "i", "s" }),
     ["<Tab>"] = cmp.mapping(function(fallback)
       local col = vim.fn.col(".") - 1
-      if cmp.visible() then
+      if luasnip.in_snippet() and luasnip.jumpable(1) then
+        luasnip.jump(1)
+      elseif cmp.visible() then
         cmp.confirm({ select = true })
       elseif col == 0 or vim.fn.getline("."):sub(col, col):match("%s") then
         fallback()
@@ -76,15 +65,8 @@ local setup_opts = {
         cmp.complete()
       end
     end, { "i", "s" }),
-    ["<C-f>"] = cmp.mapping(function(fallback)
-      if luasnip.jumpable(1) then
-        luasnip.jump(1)
-      else
-        fallback()
-      end
-    end, { "i", "s" }),
-    ["<C-b>"] = cmp.mapping(function(fallback)
-      if luasnip.jumpable(-1) then
+    ["<S-Tab>"] = cmp.mapping(function(fallback)
+      if luasnip.in_snippet() and luasnip.jumpable(-1) then
         luasnip.jump(-1)
       else
         fallback()
@@ -125,6 +107,6 @@ cmp.setup.cmdline(":", {
   }),
 })
 
--- Work with nvim-autopairs
-local autopairs_cmp = require("nvim-autopairs.completion.cmp")
-cmp.event:on("confirm_done", autopairs_cmp.on_confirm_done())
+-- -- Work with nvim-autopairs
+-- local autopairs_cmp = require("nvim-autopairs.completion.cmp")
+-- cmp.event:on("confirm_done", autopairs_cmp.on_confirm_done())
