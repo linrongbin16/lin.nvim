@@ -235,6 +235,12 @@ local M = {
     submodules = false,
   },
   {
+    "folke/lazydev.nvim",
+    ft = "lua",
+    dependencies = { "Bilal2453/luvit-meta" },
+    config = lua_config("folke/lazydev.nvim"),
+  },
+  {
     "saghen/blink.cmp",
     event = { VeryLazy, CmdlineEnter, InsertEnter },
     dependencies = {
