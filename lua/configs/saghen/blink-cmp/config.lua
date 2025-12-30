@@ -57,7 +57,7 @@ require("blink.cmp").setup({
               -- default kind icon
               local icon = ctx.kind_icon
               -- if LSP source, check for color derived from documentation
-              if str.find(ctx.item.source_name, "LSP") ~= nil then
+              if ctx.item.source_name == "LSP" then
                 local color_item = require("nvim-highlight-colors").format(
                   ctx.item.documentation,
                   { kind = ctx.kind }
@@ -72,7 +72,7 @@ require("blink.cmp").setup({
               -- default highlight group
               local highlight = "BlinkCmpKind" .. ctx.kind
               -- if LSP source, check for color derived from documentation
-              if str.find(ctx.item.source_name, "LSP") ~= nil then
+              if ctx.item.source_name == "LSP" then
                 local color_item = require("nvim-highlight-colors").format(
                   ctx.item.documentation,
                   { kind = ctx.kind }
