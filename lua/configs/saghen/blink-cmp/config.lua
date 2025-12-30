@@ -32,6 +32,9 @@ require("blink.cmp").setup({
     },
   },
   completion = {
+    trigger = {
+      prefetch_on_insert = false,
+    },
     documentation = { auto_show = true },
     menu = {
       draw = {
