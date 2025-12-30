@@ -240,7 +240,7 @@ local M = {
   -- },
   {
     "folke/lazydev.nvim",
-    ft = "lua", -- only load on lua files
+    ft = "lua",
     dependencies = { "Bilal2453/luvit-meta" },
     opts = {
       library = {
