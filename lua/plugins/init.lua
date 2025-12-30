@@ -229,6 +229,7 @@ local M = {
 
   {
     "L3MON4D3/LuaSnip",
+    lazy = true,
     dependencies = "rafamadriz/friendly-snippets",
     version = "v2.*",
     submodules = false,
@@ -247,6 +248,7 @@ local M = {
   {
     "FelipeLema/cmp-async-path",
     url = "https://codeberg.org/FelipeLema/cmp-async-path",
+    lazy = true,
   },
   {
     "hrsh7th/nvim-cmp",
