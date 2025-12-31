@@ -247,6 +247,8 @@ local M = {
     dependencies = {
       "rafamadriz/friendly-snippets",
       "L3MON4D3/LuaSnip",
+      "nvim-tree/nvim-web-devicons",
+      "onsails/lspkind.nvim",
     },
     version = "*",
     config = lua_config("saghen/blink.cmp"),
