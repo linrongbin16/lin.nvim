@@ -1,3 +1,5 @@
+local str = require("commons.str")
+
 require("blink.cmp").setup({
   cmdline = {
     enabled = true,
@@ -42,13 +44,6 @@ require("blink.cmp").setup({
           { "source_name" },
         },
         components = {
-          source_name = {
-            width = { max = 10 },
-            text = function(ctx)
-              return "[" .. ctx.source_name .. "]"
-            end,
-            highlight = "BlinkCmpSource",
-          },
           kind_icon = {
             text = function(ctx)
               local icon = ctx.kind_icon
