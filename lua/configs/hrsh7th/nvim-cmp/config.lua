@@ -112,6 +112,12 @@ cmp.setup.cmdline(":", {
   }),
 })
 
+-- LSP capabilities
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
+vim.lsp.config("*", {
+  capabilities = capabilities,
+})
+
 -- -- Work with nvim-autopairs
 -- local autopairs_cmp = require("nvim-autopairs.completion.cmp")
 -- cmp.event:on("confirm_done", autopairs_cmp.on_confirm_done())
