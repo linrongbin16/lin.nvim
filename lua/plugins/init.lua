@@ -157,6 +157,7 @@ local M = {
   {
     "neovim/nvim-lspconfig",
     event = { VeryLazy, BufReadPre, BufNewFile },
+    dependencies = "saghen/blink.cmp",
     config = lua_config("neovim/nvim-lspconfig"),
   },
   {
@@ -170,8 +171,8 @@ local M = {
       "MasonUninstallAll",
       "MasonLog",
     },
-    dependencies = { "neovim/nvim-lspconfig" },
     build = ":MasonUpdate",
+    dependencies = "neovim/nvim-lspconfig",
     config = lua_config("mason-org/mason.nvim"),
     keys = lua_keys("mason-org/mason.nvim"),
   },
@@ -182,17 +183,17 @@ local M = {
       "LspInstall",
       "LspUninstall",
     },
-    dependencies = { "neovim/nvim-lspconfig", "mason-org/mason.nvim" },
+    dependencies = {
+      "neovim/nvim-lspconfig",
+      "mason-org/mason.nvim",
+    },
     config = lua_config("mason-org/mason-lspconfig.nvim"),
   },
   {
     "nvimtools/none-ls.nvim",
     event = { VeryLazy, BufReadPre, BufNewFile },
-    cmd = {
-      "NullLsInfo",
-      "NullLsLog",
-    },
-    dependencies = { "neovim/nvim-lspconfig" },
+    cmd = { "NullLsInfo", "NullLsLog" },
+    dependencies = "neovim/nvim-lspconfig",
     config = lua_config("nvimtools/none-ls.nvim"),
   },
   {
@@ -227,23 +228,6 @@ local M = {
 
   -- ---- AUTO-COMPLETE ----
 
-  -- {
-  --   "saghen/blink.cmp",
-  --   event = { VeryLazy, CmdlineEnter, InsertEnter },
-  --   dependencies = {
-  --     "brenoprata10/nvim-highlight-colors",
-  --     "rafamadriz/friendly-snippets",
-  --     "L3MON4D3/LuaSnip",
-  --   },
-  --   version = "*",
-  --   config = lua_config("saghen/blink.cmp"),
-  -- },
-  {
-    "folke/lazydev.nvim",
-    ft = "lua",
-    dependencies = { "Bilal2453/luvit-meta" },
-    config = lua_config("folke/lazydev.nvim"),
-  },
   {
     "L3MON4D3/LuaSnip",
     lazy = true,
@@ -252,29 +236,47 @@ local M = {
     submodules = false,
   },
   {
-    "FelipeLema/cmp-async-path",
-    url = "https://codeberg.org/FelipeLema/cmp-async-path",
-    lazy = true,
+    "folke/lazydev.nvim",
+    ft = "lua",
+    dependencies = { "Bilal2453/luvit-meta" },
+    config = lua_config("folke/lazydev.nvim"),
   },
   {
-    "hrsh7th/nvim-cmp",
+    "saghen/blink.cmp",
     event = { VeryLazy, CmdlineEnter, InsertEnter },
     dependencies = {
-      "brenoprata10/nvim-highlight-colors",
-      "onsails/lspkind.nvim",
-      "neovim/nvim-lspconfig",
-      "mason-org/mason.nvim",
-      "mason-org/mason-lspconfig.nvim",
       "rafamadriz/friendly-snippets",
       "L3MON4D3/LuaSnip",
-      "saadparwaiz1/cmp_luasnip",
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-buffer",
-      "FelipeLema/cmp-async-path",
-      "hrsh7th/cmp-cmdline",
+      "nvim-tree/nvim-web-devicons",
+      "onsails/lspkind.nvim",
     },
-    config = lua_config("hrsh7th/nvim-cmp"),
+    version = "*",
+    config = lua_config("saghen/blink.cmp"),
   },
+  -- {
+  --   "FelipeLema/cmp-async-path",
+  --   url = "https://codeberg.org/FelipeLema/cmp-async-path",
+  --   lazy = true,
+  -- },
+  -- {
+  --   "hrsh7th/nvim-cmp",
+  --   event = { VeryLazy, CmdlineEnter, InsertEnter },
+  --   dependencies = {
+  --     "brenoprata10/nvim-highlight-colors",
+  --     "onsails/lspkind.nvim",
+  --     "neovim/nvim-lspconfig",
+  --     "mason-org/mason.nvim",
+  --     "mason-org/mason-lspconfig.nvim",
+  --     "rafamadriz/friendly-snippets",
+  --     "L3MON4D3/LuaSnip",
+  --     "saadparwaiz1/cmp_luasnip",
+  --     "hrsh7th/cmp-nvim-lsp",
+  --     "hrsh7th/cmp-buffer",
+  --     "FelipeLema/cmp-async-path",
+  --     "hrsh7th/cmp-cmdline",
+  --   },
+  --   config = lua_config("hrsh7th/nvim-cmp"),
+  -- },
 
   -- ---- CODE-FORMATTER ----
 
@@ -386,9 +388,7 @@ local M = {
       "OutlineFollow",
       "OutlineRefresh",
     },
-    dependencies = {
-      "neovim/nvim-lspconfig",
-    },
+    dependencies = "neovim/nvim-lspconfig",
     keys = lua_keys("hedyhli/outline.nvim"),
     config = lua_config("hedyhli/outline.nvim"),
   },
