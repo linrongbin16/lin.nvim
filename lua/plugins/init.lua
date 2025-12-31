@@ -42,10 +42,6 @@ local M = {
       require("colorbox").update()
     end,
   },
-  {
-    "neovim/nvim-lspconfig",
-    lazy = false,
-  },
 
   -- ---- HIGHLIGHT ----
 
@@ -159,6 +155,12 @@ local M = {
   -- ---- LSP ----
 
   {
+    "neovim/nvim-lspconfig",
+    event = { VeryLazy, BufReadPre, BufNewFile },
+    dependencies = "saghen/blink.cmp",
+    config = lua_config("neovim/nvim-lspconfig"),
+  },
+  {
     "mason-org/mason.nvim",
     event = { VeryLazy, BufReadPre, BufNewFile },
     cmd = {
@@ -170,6 +172,7 @@ local M = {
       "MasonLog",
     },
     build = ":MasonUpdate",
+    dependencies = "neovim/nvim-lspconfig",
     config = lua_config("mason-org/mason.nvim"),
     keys = lua_keys("mason-org/mason.nvim"),
   },
@@ -180,16 +183,17 @@ local M = {
       "LspInstall",
       "LspUninstall",
     },
-    dependencies = "mason-org/mason.nvim",
+    dependencies = {
+      "neovim/nvim-lspconfig",
+      "mason-org/mason.nvim",
+    },
     config = lua_config("mason-org/mason-lspconfig.nvim"),
   },
   {
     "nvimtools/none-ls.nvim",
     event = { VeryLazy, BufReadPre, BufNewFile },
-    cmd = {
-      "NullLsInfo",
-      "NullLsLog",
-    },
+    cmd = { "NullLsInfo", "NullLsLog" },
+    dependencies = "neovim/nvim-lspconfig",
     config = lua_config("nvimtools/none-ls.nvim"),
   },
   {
@@ -202,6 +206,7 @@ local M = {
       "NoneLsUninstall",
     },
     dependencies = {
+      "neovim/nvim-lspconfig",
       "mason-org/mason.nvim",
       "mason-org/mason-lspconfig.nvim",
       "nvimtools/none-ls.nvim",
