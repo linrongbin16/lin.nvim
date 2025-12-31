@@ -183,7 +183,7 @@ local M = {
       "LspInstall",
       "LspUninstall",
     },
-    dependencies = "mason-org/mason.nvim",
+    dependencies = { "neovim/nvim-lspconfig", "mason-org/mason.nvim" },
     config = lua_config("mason-org/mason-lspconfig.nvim"),
   },
   {
@@ -206,6 +206,7 @@ local M = {
       "NoneLsUninstall",
     },
     dependencies = {
+      "neovim/nvim-lspconfig",
       "mason-org/mason.nvim",
       "mason-org/mason-lspconfig.nvim",
       "nvimtools/none-ls.nvim",
