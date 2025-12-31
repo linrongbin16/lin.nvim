@@ -21,10 +21,6 @@ local M = {
   -- ---- INFRASTRUCTURE ----
 
   {
-    "neovim/nvim-lspconfig",
-    lazy = false,
-  },
-  {
     "nvim-lua/plenary.nvim",
     lazy = true,
   },
@@ -159,6 +155,12 @@ local M = {
   -- ---- LSP ----
 
   {
+    "neovim/nvim-lspconfig",
+    event = { VeryLazy, BufReadPre, BufNewFile },
+    dependencies = "hrsh7th/nvim-cmp",
+    config = lua_config("neovim/nvim-lspconfig"),
+  },
+  {
     "mason-org/mason.nvim",
     event = { VeryLazy, BufReadPre, BufNewFile },
     cmd = {
@@ -259,8 +261,6 @@ local M = {
     event = { VeryLazy, CmdlineEnter, InsertEnter },
     dependencies = {
       "onsails/lspkind.nvim",
-      "mason-org/mason.nvim",
-      "mason-org/mason-lspconfig.nvim",
       "rafamadriz/friendly-snippets",
       "L3MON4D3/LuaSnip",
       "saadparwaiz1/cmp_luasnip",
