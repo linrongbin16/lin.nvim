@@ -169,7 +169,6 @@ local M = {
       "MasonUninstallAll",
       "MasonLog",
     },
-    dependencies = { "neovim/nvim-lspconfig" },
     build = ":MasonUpdate",
     config = lua_config("mason-org/mason.nvim"),
     keys = lua_keys("mason-org/mason.nvim"),
@@ -181,7 +180,7 @@ local M = {
       "LspInstall",
       "LspUninstall",
     },
-    dependencies = { "neovim/nvim-lspconfig", "mason-org/mason.nvim" },
+    dependencies = "mason-org/mason.nvim",
     config = lua_config("mason-org/mason-lspconfig.nvim"),
   },
   {
@@ -191,7 +190,6 @@ local M = {
       "NullLsInfo",
       "NullLsLog",
     },
-    dependencies = { "neovim/nvim-lspconfig" },
     config = lua_config("nvimtools/none-ls.nvim"),
   },
   {
@@ -204,7 +202,6 @@ local M = {
       "NoneLsUninstall",
     },
     dependencies = {
-      "neovim/nvim-lspconfig",
       "mason-org/mason.nvim",
       "mason-org/mason-lspconfig.nvim",
       "nvimtools/none-ls.nvim",
@@ -281,7 +278,6 @@ local M = {
     event = { BufWritePre, BufWritePost },
     cmd = { "ConformInfo" },
     dependencies = {
-      "neovim/nvim-lspconfig",
       "mason-org/mason.nvim",
       "mason-org/mason-lspconfig.nvim",
     },
@@ -384,7 +380,6 @@ local M = {
       "OutlineFollow",
       "OutlineRefresh",
     },
-    dependencies = "neovim/nvim-lspconfig",
     keys = lua_keys("hedyhli/outline.nvim"),
     config = lua_config("hedyhli/outline.nvim"),
   },
