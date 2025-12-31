@@ -283,6 +283,7 @@ local M = {
     event = { BufWritePre, BufWritePost },
     cmd = { "ConformInfo" },
     dependencies = {
+      "neovim/nvim-lspconfig",
       "mason-org/mason.nvim",
       "mason-org/mason-lspconfig.nvim",
     },
@@ -385,6 +386,7 @@ local M = {
       "OutlineFollow",
       "OutlineRefresh",
     },
+    dependencies = "neovim/nvim-lspconfig",
     keys = lua_keys("hedyhli/outline.nvim"),
     config = lua_config("hedyhli/outline.nvim"),
   },
