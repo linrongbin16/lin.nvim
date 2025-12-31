@@ -93,6 +93,11 @@ require("blink.cmp").setup({
   snippets = { preset = "luasnip" },
   sources = {
     default = { "lsp", "path", "snippets", "buffer" },
+    providers = {
+      lsp = {
+        async = true,
+      },
+    },
 
     -- For minuet-ai with local llama.cpp model
     --
