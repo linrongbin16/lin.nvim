@@ -13,7 +13,7 @@ local toggle_ignore_actions = vim.tbl_deep_extend("force", basic_actions, {
 
 local fzf_keymaps = {
   ["ctrl-g"] = "toggle",
-  ["ctrl-p"] = "toggle-preview",
+  ["ctrl-l"] = "toggle-preview",
 }
 
 require("fzf-lua").setup({
