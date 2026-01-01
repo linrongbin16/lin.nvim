@@ -50,7 +50,7 @@ local setup_opts = {
       compare.exact,
       compare.score,
       compare.recently_used,
-      -- compare.locality,
+      compare.locality,
       -- compare.scopes,
       require("cmp-under-comparator").under,
       compare.kind,
