@@ -1,11 +1,10 @@
--- cmp_nvim_lsp
-local lspconfig = require("lspconfig")
-local lsp_defaults = lspconfig.util.default_config
-lsp_defaults.capabilities = vim.tbl_deep_extend(
-  "force",
-  lsp_defaults.capabilities,
-  require("cmp_nvim_lsp").default_capabilities()
-)
+local compare = require("cmp.config.compare")
+
+-- nvim_lsp
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
+vim.lsp.config("*", {
+  capabilities = capabilities,
+})
 
 -- luasnip
 local cmp = require("cmp")
@@ -31,7 +30,34 @@ local setup_opts = {
     { name = "async_path" },
   }),
   formatting = {
-    format = require("nvim-highlight-colors").format,
+    format = function(entry, vim_item)
+      if vim.tbl_contains({ "async_path" }, entry.source.name) then
+        local icon, hl_group =
+          require("nvim-web-devicons").get_icon(entry:get_completion_item().label)
+        if icon then
+          vim_item.kind = icon
+          vim_item.kind_hl_group = hl_group
+          return vim_item
+        end
+      end
+      return vim_item
+    end,
+  },
+  sorting = {
+    priority_weight = 2,
+    comparators = {
+      compare.offset,
+      compare.exact,
+      compare.score,
+      compare.recently_used,
+      -- compare.locality,
+      -- compare.scopes,
+      require("cmp-under-comparator").under,
+      compare.kind,
+      -- compare.sort_text,
+      -- compare.length,
+      -- compare.order,
+    },
   },
   performance = {
     max_view_entries = 15,
@@ -111,7 +137,3 @@ cmp.setup.cmdline(":", {
     },
   }),
 })
-
--- -- Work with nvim-autopairs
--- local autopairs_cmp = require("nvim-autopairs.completion.cmp")
--- cmp.event:on("confirm_done", autopairs_cmp.on_confirm_done())

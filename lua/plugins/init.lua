@@ -157,7 +157,6 @@ local M = {
   {
     "neovim/nvim-lspconfig",
     event = { VeryLazy, BufReadPre, BufNewFile },
-    dependencies = "saghen/blink.cmp",
     config = lua_config("neovim/nvim-lspconfig"),
   },
   {
@@ -241,42 +240,40 @@ local M = {
     dependencies = { "Bilal2453/luvit-meta" },
     config = lua_config("folke/lazydev.nvim"),
   },
-  {
-    "saghen/blink.cmp",
-    event = { VeryLazy, CmdlineEnter, InsertEnter },
-    dependencies = {
-      "rafamadriz/friendly-snippets",
-      "L3MON4D3/LuaSnip",
-      "nvim-tree/nvim-web-devicons",
-      "onsails/lspkind.nvim",
-    },
-    version = "*",
-    config = lua_config("saghen/blink.cmp"),
-  },
   -- {
-  --   "FelipeLema/cmp-async-path",
-  --   url = "https://codeberg.org/FelipeLema/cmp-async-path",
-  --   lazy = true,
-  -- },
-  -- {
-  --   "hrsh7th/nvim-cmp",
+  --   "saghen/blink.cmp",
   --   event = { VeryLazy, CmdlineEnter, InsertEnter },
   --   dependencies = {
-  --     "brenoprata10/nvim-highlight-colors",
-  --     "onsails/lspkind.nvim",
-  --     "neovim/nvim-lspconfig",
-  --     "mason-org/mason.nvim",
-  --     "mason-org/mason-lspconfig.nvim",
   --     "rafamadriz/friendly-snippets",
   --     "L3MON4D3/LuaSnip",
-  --     "saadparwaiz1/cmp_luasnip",
-  --     "hrsh7th/cmp-nvim-lsp",
-  --     "hrsh7th/cmp-buffer",
-  --     "FelipeLema/cmp-async-path",
-  --     "hrsh7th/cmp-cmdline",
+  --     "nvim-tree/nvim-web-devicons",
+  --     "onsails/lspkind.nvim",
   --   },
-  --   config = lua_config("hrsh7th/nvim-cmp"),
+  --   version = "*",
+  --   config = lua_config("saghen/blink.cmp"),
   -- },
+  {
+    "FelipeLema/cmp-async-path",
+    url = "https://codeberg.org/FelipeLema/cmp-async-path",
+    lazy = true,
+  },
+  {
+    "hrsh7th/nvim-cmp",
+    event = { VeryLazy, CmdlineEnter, InsertEnter },
+    dependencies = {
+      "nvim-tree/nvim-web-devicons",
+      "onsails/lspkind.nvim",
+      "rafamadriz/friendly-snippets",
+      "L3MON4D3/LuaSnip",
+      "saadparwaiz1/cmp_luasnip",
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-buffer",
+      "FelipeLema/cmp-async-path",
+      "hrsh7th/cmp-cmdline",
+      "lukas-reineke/cmp-under-comparator",
+    },
+    config = lua_config("hrsh7th/nvim-cmp"),
+  },
 
   -- ---- CODE-FORMATTER ----
 
