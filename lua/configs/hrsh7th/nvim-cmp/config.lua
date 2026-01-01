@@ -38,7 +38,7 @@ local setup_opts = {
           return vim_item
         end
       end
-      return require("lspkind").cmp_format({ with_text = false })(entry, vim_item)
+      return vim_item
     end,
   },
   performance = {
