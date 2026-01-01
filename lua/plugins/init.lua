@@ -270,6 +270,7 @@ local M = {
       "hrsh7th/cmp-buffer",
       "FelipeLema/cmp-async-path",
       "hrsh7th/cmp-cmdline",
+      "lukas-reineke/cmp-under-comparator",
     },
     config = lua_config("hrsh7th/nvim-cmp"),
   },

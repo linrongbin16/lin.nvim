@@ -1,3 +1,5 @@
+local compare = require("cmp.config.compare")
+
 -- nvim_lsp
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 vim.lsp.config("*", {
@@ -40,6 +42,22 @@ local setup_opts = {
       end
       return vim_item
     end,
+  },
+  sorting = {
+    priority_weight = 2,
+    comparators = {
+      compare.offset,
+      compare.exact,
+      compare.score,
+      compare.recently_used,
+      -- compare.locality,
+      -- compare.scopes,
+      require("cmp-under-comparator").under,
+      compare.kind,
+      -- compare.sort_text,
+      -- compare.length,
+      -- compare.order,
+    },
   },
   performance = {
     max_view_entries = 15,
