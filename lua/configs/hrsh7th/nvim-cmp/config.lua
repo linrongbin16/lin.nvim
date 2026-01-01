@@ -54,9 +54,9 @@ local setup_opts = {
       -- compare.scopes,
       require("cmp-under-comparator").under,
       compare.kind,
-      -- compare.sort_text,
-      -- compare.length,
-      -- compare.order,
+      compare.sort_text,
+      compare.length,
+      compare.order,
     },
   },
   performance = {
