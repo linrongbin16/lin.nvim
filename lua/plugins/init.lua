@@ -157,7 +157,6 @@ local M = {
   {
     "neovim/nvim-lspconfig",
     event = { VeryLazy, BufReadPre, BufNewFile },
-    dependencies = "saghen/blink.cmp",
     config = lua_config("neovim/nvim-lspconfig"),
   },
   {
