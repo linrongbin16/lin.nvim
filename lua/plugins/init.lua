@@ -45,18 +45,18 @@ local M = {
 
   -- ---- HIGHLIGHT ----
 
-  {
-    "nvim-treesitter/nvim-treesitter",
-    branch = "main",
-    init = lua_init("nvim-treesitter/nvim-treesitter"),
-    config = lua_config("nvim-treesitter/nvim-treesitter"),
-  },
-  {
-    "MeanderingProgrammer/treesitter-modules.nvim",
-    event = { UIEnter },
-    dependencies = { "nvim-treesitter/nvim-treesitter" },
-    config = lua_config("MeanderingProgrammer/treesitter-modules.nvim"),
-  },
+  -- {
+  --   "nvim-treesitter/nvim-treesitter",
+  --   branch = "main",
+  --   init = lua_init("nvim-treesitter/nvim-treesitter"),
+  --   config = lua_config("nvim-treesitter/nvim-treesitter"),
+  -- },
+  -- {
+  --   "MeanderingProgrammer/treesitter-modules.nvim",
+  --   event = { UIEnter },
+  --   dependencies = { "nvim-treesitter/nvim-treesitter" },
+  --   config = lua_config("MeanderingProgrammer/treesitter-modules.nvim"),
+  -- },
   {
     "itchyny/vim-cursorword",
     event = { VeryLazy },
