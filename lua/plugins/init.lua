@@ -263,9 +263,6 @@ local M = {
     dependencies = {
       "nvim-tree/nvim-web-devicons",
       "onsails/lspkind.nvim",
-      "neovim/nvim-lspconfig",
-      "mason-org/mason.nvim",
-      "mason-org/mason-lspconfig.nvim",
       "rafamadriz/friendly-snippets",
       "L3MON4D3/LuaSnip",
       "saadparwaiz1/cmp_luasnip",
