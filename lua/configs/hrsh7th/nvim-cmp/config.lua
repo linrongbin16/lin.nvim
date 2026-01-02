@@ -1,4 +1,5 @@
 local compare = require("cmp.config.compare")
+local cmp_buffer = require('cmp_buffer')
 
 -- nvim_lsp
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -46,6 +47,9 @@ local setup_opts = {
   sorting = {
     priority_weight = 2,
     comparators = {
+      function(...)
+        return cmp_buffer:compare_locality(...)
+      end,
       compare.offset,
       compare.exact,
       compare.score,
