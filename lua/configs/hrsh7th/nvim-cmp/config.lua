@@ -1,5 +1,5 @@
 local compare = require("cmp.config.compare")
-local cmp_buffer = require('cmp_buffer')
+local cmp_buffer = require("cmp_buffer")
 
 -- nvim_lsp
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
