@@ -60,7 +60,7 @@ local setup_opts = {
     },
   },
   performance = {
-    max_view_entries = 15,
+    max_view_entries = 10,
   },
   mapping = cmp.mapping.preset.insert({
     ["<Up>"] = cmp.mapping.select_prev_item(select_opts),
