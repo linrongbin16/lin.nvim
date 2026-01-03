@@ -33,7 +33,7 @@ local setup_opts = {
     format = function(entry, vim_item)
       if vim.tbl_contains({ "async_path" }, entry.source.name) then
         local icon, hl_group =
-          require("nvim-web-devicons").get_icon(entry:get_completion_item().label)
+            require("nvim-web-devicons").get_icon(entry:get_completion_item().label)
         if icon then
           vim_item.kind = icon
           vim_item.kind_hl_group = hl_group
@@ -73,31 +73,30 @@ local setup_opts = {
     ["<C-e>"] = cmp.mapping.abort(),
     ["<CR>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
-        cmp.confirm({ select = true })
+        if luasnip.expandable() then
+          luasnip.expand()
+        else
+          cmp.confirm({
+            select = true,
+          })
+        end
       else
-        -- If you use vim-endwise, this fallback will behave the same as vim-endwise.
         fallback()
       end
     end, { "i", "s" }),
     ["<Tab>"] = cmp.mapping(function(fallback)
-      local col = vim.fn.col(".") - 1
       if cmp.visible() then
-        cmp.confirm({ select = true })
-      elseif col == 0 or vim.fn.getline("."):sub(col, col):match("%s") then
-        fallback()
-      else
-        cmp.complete()
-      end
-    end, { "i", "s" }),
-    ["<C-f>"] = cmp.mapping(function(fallback)
-      if luasnip.jumpable(1) then
+        cmp.select_next_item()
+      elseif luasnip.locally_jumpable(1) then
         luasnip.jump(1)
       else
         fallback()
       end
     end, { "i", "s" }),
-    ["<C-b>"] = cmp.mapping(function(fallback)
-      if luasnip.jumpable(-1) then
+    ["<S-Tab>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      elseif luasnip.locally_jumpable(-1) then
         luasnip.jump(-1)
       else
         fallback()
