@@ -92,6 +92,7 @@ install "install_nodejs" "node"
 install "install_go" "go"
 
 # cli tools
+install "sudo apt-get -q -y install fzf" "fzf"
 install "install_lazygit" "lazygit"
 install "sudo apt-get -q -y install ripgrep" "rg"
 install "install_bat" "bat"
