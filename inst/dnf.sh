@@ -7,7 +7,7 @@ sudo dnf check-update
 
 install_lazygit() {
 	sudo dnf copr enable dejan/lazygit
-	sudo dnf install lazygit
+	sudo dnf install -y lazygit
 }
 
 # c++ toolchain
@@ -43,10 +43,11 @@ install "sudo dnf install -y nodejs npm" "node"
 install "sudo dnf install -y golang" "go"
 
 # cli tools
+install "sudo dnf install -y fzf" "fzf"
 install "install_lazygit" "lazygit"
-install "sudo dnf install ripgrep" "rg"
-install "sudo dnf install bat" "bat"
-install "sudo dnf install fd-find" "fd"
+install "sudo dnf install -y ripgrep" "rg"
+install "sudo dnf install -y bat" "bat"
+install "sudo dnf install -y fd-find" "fd"
 
 # neovim
 install "sudo dnf install -y neovim" "nvim"

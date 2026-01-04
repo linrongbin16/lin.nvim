@@ -38,6 +38,7 @@ install "yes | sudo pacman -S nodejs npm" "node"
 install "yes | sudo pacman -S go" "go"
 
 # cli tools
+install "yes | sudo pacman -S fzf" "fzf"
 install "yes | sudo pacman -S lazygit" "lazygit"
 install "yes | sudo pacman -S ripgrep" "rg"
 install "yes | sudo pacman -S bat" "bat"
