@@ -138,16 +138,8 @@ local M = {
 
   -- Fuzzy search
   {
-    "junegunn/fzf",
-    event = { "CmdlineEnter" },
-    build = function()
-      vim.fn["fzf#install"]()
-    end,
-  },
-  {
     "ibhagwan/fzf-lua",
     event = { "CmdlineEnter" },
-    dependencies = { "junegunn/fzf" },
     config = lua_config("ibhagwan/fzf-lua"),
     keys = lua_keys("ibhagwan/fzf-lua"),
   },
