@@ -29,6 +29,10 @@ local M = {
     lazy = true,
   },
   {
+    "MunifTanjim/nui.nvim",
+    lazy = true,
+  },
+  {
     "linrongbin16/commons.nvim",
     lazy = true,
   },
@@ -76,10 +80,6 @@ local M = {
 
   -- ---- UI ----
 
-  {
-    "MunifTanjim/nui.nvim",
-    lazy = true,
-  },
   {
     "nvim-neo-tree/neo-tree.nvim",
     event = { VeryLazy },
