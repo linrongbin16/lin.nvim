@@ -4,8 +4,6 @@
 
 ## Auto-Complete
 
-?> Supported by [nvim-cmp](https://github.com/hrsh7th/nvim-cmp) and some extensions.
-
 <!-- Screenshots are recorded with 150x40 kitty terminal -->
 
 <img width="70%" alt="image" src="https://github.com/linrongbin16/lin.nvim/assets/6496887/fdd9a455-2583-4a77-b9b5-4c27bfa74667">
@@ -16,8 +14,6 @@
 - `<TAB>`/`<S-TAB>` 🄸 - Navigate to next(👉)/previous(👈) snippet placeholder when already in expanded snippets.
 
 ## Symbol Navigation
-
-?> Supported by [glance.nvim](https://github.com/DNLHC/glance.nvim).
 
 <!-- Screenshots are recorded with 150x40 kitty terminal -->
 

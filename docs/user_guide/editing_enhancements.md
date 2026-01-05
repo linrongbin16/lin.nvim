@@ -56,8 +56,6 @@
 
 - `<Leader>gp` 🄽 - Start preview GitHub-style markdown file in default browser.
 
-?> Edit the plugin settings in [lua/configs/iamcco/markdown-preview-nvim](https://github.com/linrongbin16/lin.nvim/tree/main/lua/configs/iamcco/markdown-preview-nvim).
-
 ## Enhanced Repeat (`.`)
 
 ?> Supported by [vim-repeat](https://github.com/tpope/vim-repeat).
