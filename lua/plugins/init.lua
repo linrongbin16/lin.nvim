@@ -254,11 +254,7 @@ local M = {
     "stevearc/conform.nvim",
     event = { BufWritePre, BufWritePost },
     cmd = { "ConformInfo" },
-    dependencies = {
-      "neovim/nvim-lspconfig",
-      "mason-org/mason.nvim",
-      "mason-org/mason-lspconfig.nvim",
-    },
+    dependencies = "neovim/nvim-lspconfig",
     config = lua_config("stevearc/conform.nvim"),
     keys = lua_keys("stevearc/conform.nvim"),
   },
