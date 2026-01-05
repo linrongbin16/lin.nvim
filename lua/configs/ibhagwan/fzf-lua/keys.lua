@@ -172,6 +172,13 @@ local M = {
       prompt = "Implementations> ",
     })
   end, { desc = "Go to implementations" }),
+
+  -- code actions
+  set_lazy_key({ "n", "x" }, "<leader>ca", function()
+    require("fzf-lua").lsp_code_actions({
+      prompt = "Code Actions> ",
+    })
+  end, { desc = "Code Actions" }),
 }
 
 return M
