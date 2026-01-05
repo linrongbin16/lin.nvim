@@ -83,7 +83,7 @@ local M = {
   {
     "nvim-neo-tree/neo-tree.nvim",
     event = { VeryLazy },
-    dependencies = { "MunifTanjim/nui.nvim" },
+    dependencies = "MunifTanjim/nui.nvim",
     version = "*",
     config = lua_config("nvim-neo-tree/neo-tree.nvim"),
     keys = lua_keys("nvim-neo-tree/neo-tree.nvim"),
@@ -91,7 +91,7 @@ local M = {
   {
     "akinsho/bufferline.nvim",
     event = { VeryLazy },
-    dependencies = { "moll/vim-bbye" },
+    dependencies = "moll/vim-bbye",
     config = lua_config("akinsho/bufferline.nvim"),
     keys = lua_keys("akinsho/bufferline.nvim"),
   },
@@ -131,7 +131,6 @@ local M = {
   {
     "neovim/nvim-lspconfig",
     event = { VeryLazy, BufReadPre, BufNewFile },
-    config = lua_config("neovim/nvim-lspconfig"),
   },
   {
     "mason-org/mason.nvim",
