@@ -17,6 +17,19 @@
 -- local UIEnter = "UIEnter"
 --
 -- return {
+--   -- Treesitter highlighting
+--   {
+--     "nvim-treesitter/nvim-treesitter",
+--     branch = "main",
+--     init = lua_init("nvim-treesitter/nvim-treesitter"),
+--     config = lua_config("nvim-treesitter/nvim-treesitter"),
+--   },
+--   {
+--     "MeanderingProgrammer/treesitter-modules.nvim",
+--     event = { UIEnter },
+--     dependencies = { "nvim-treesitter/nvim-treesitter" },
+--     config = lua_config("MeanderingProgrammer/treesitter-modules.nvim"),
+--   },
 --   -- Vim editing behavior
 --   {
 --     "m4xshen/hardtime.nvim",

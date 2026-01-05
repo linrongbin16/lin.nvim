@@ -29,6 +29,10 @@ local M = {
     lazy = true,
   },
   {
+    "MunifTanjim/nui.nvim",
+    lazy = true,
+  },
+  {
     "linrongbin16/commons.nvim",
     lazy = true,
   },
@@ -45,18 +49,6 @@ local M = {
 
   -- ---- HIGHLIGHT ----
 
-  -- {
-  --   "nvim-treesitter/nvim-treesitter",
-  --   branch = "main",
-  --   init = lua_init("nvim-treesitter/nvim-treesitter"),
-  --   config = lua_config("nvim-treesitter/nvim-treesitter"),
-  -- },
-  -- {
-  --   "MeanderingProgrammer/treesitter-modules.nvim",
-  --   event = { UIEnter },
-  --   dependencies = { "nvim-treesitter/nvim-treesitter" },
-  --   config = lua_config("MeanderingProgrammer/treesitter-modules.nvim"),
-  -- },
   {
     "itchyny/vim-cursorword",
     event = { VeryLazy },
@@ -85,23 +77,13 @@ local M = {
     keys = lua_keys("wallpants/github-preview.nvim"),
     config = lua_config("wallpants/github-preview.nvim"),
   },
-  {
-    "toppair/peek.nvim",
-    build = "deno task --quiet build:fast",
-    config = lua_config("toppair/peek.nvim"),
-    keys = lua_keys("toppair/peek.nvim"),
-  },
 
   -- ---- UI ----
 
   {
-    "MunifTanjim/nui.nvim",
-    lazy = true,
-  },
-  {
     "nvim-neo-tree/neo-tree.nvim",
     event = { VeryLazy },
-    dependencies = { "MunifTanjim/nui.nvim" },
+    dependencies = "MunifTanjim/nui.nvim",
     version = "*",
     config = lua_config("nvim-neo-tree/neo-tree.nvim"),
     keys = lua_keys("nvim-neo-tree/neo-tree.nvim"),
@@ -109,7 +91,7 @@ local M = {
   {
     "akinsho/bufferline.nvim",
     event = { VeryLazy },
-    dependencies = { "moll/vim-bbye" },
+    dependencies = "moll/vim-bbye",
     config = lua_config("akinsho/bufferline.nvim"),
     keys = lua_keys("akinsho/bufferline.nvim"),
   },
@@ -149,7 +131,6 @@ local M = {
   {
     "neovim/nvim-lspconfig",
     event = { VeryLazy, BufReadPre, BufNewFile },
-    config = lua_config("neovim/nvim-lspconfig"),
   },
   {
     "mason-org/mason.nvim",
@@ -273,11 +254,7 @@ local M = {
     "stevearc/conform.nvim",
     event = { BufWritePre, BufWritePost },
     cmd = { "ConformInfo" },
-    dependencies = {
-      "neovim/nvim-lspconfig",
-      "mason-org/mason.nvim",
-      "mason-org/mason-lspconfig.nvim",
-    },
+    dependencies = "neovim/nvim-lspconfig",
     config = lua_config("stevearc/conform.nvim"),
     keys = lua_keys("stevearc/conform.nvim"),
   },
@@ -365,7 +342,7 @@ local M = {
   {
     "tpope/vim-surround",
     event = { BufReadPre, BufNewFile, VeryLazy },
-    dependencies = { "tpope/vim-repeat" },
+    dependencies = "tpope/vim-repeat",
   },
   -- Structure outlines
   {
