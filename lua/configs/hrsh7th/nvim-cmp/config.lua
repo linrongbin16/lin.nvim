@@ -53,9 +53,9 @@ local setup_opts = {
   sorting = {
     comparators = {
       compare.recently_used,
+      compare.exact,
       compare.score,
       compare.offset,
-      compare.exact,
       compare.locality,
       -- compare.scopes,
       require("cmp-under-comparator").under,
