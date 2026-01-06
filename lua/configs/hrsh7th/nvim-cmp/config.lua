@@ -28,12 +28,12 @@ local function compare_lsp_kind(entry1, entry2) -- sort by compare kind (Variabl
 end
 
 local function compare_lsp_sort(entry1, entry2) -- score by lsp, if available
-          local t1 = entry1.completion_item.sortText
-          local t2 = entry2.completion_item.sortText
-          if t1 ~= nil and t2 ~= nil and t1 ~= t2 then
-            return t1 < t2
-          end
-        end
+  local t1 = entry1.completion_item.sortText
+  local t2 = entry2.completion_item.sortText
+  if t1 ~= nil and t2 ~= nil and t1 ~= t2 then
+    return t1 < t2
+  end
+end
 
 -- nvim_lsp
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
