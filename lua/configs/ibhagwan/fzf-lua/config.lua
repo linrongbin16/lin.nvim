@@ -45,7 +45,7 @@ require("fzf-lua").setup({
     git = {
       files = basic_actions,
     },
-    grep = toggle_ignore_actions,
+    grep = grep_actions,
     buffers = basic_actions,
   },
   files = {
