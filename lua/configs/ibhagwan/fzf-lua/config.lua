@@ -9,10 +9,11 @@ local basic_actions = {
 
 local toggle_ignore_actions = vim.tbl_deep_extend("force", basic_actions, {
   ["ctrl-i"] = require("fzf-lua").actions.toggle_ignore,
+  ["ctrl-h"] = require("fzf-lua").actions.toggle_hidden,
 })
 
 local fzf_keymaps = {
-  ["ctrl-g"] = "toggle",
+  ["ctrl-o"] = "toggle",
   ["ctrl-l"] = "toggle-preview",
 }
 
@@ -45,7 +46,6 @@ require("fzf-lua").setup({
   },
   files = {
     cwd_prompt = false,
-    hidden = true,
   },
   git = {
     files = {
@@ -54,7 +54,6 @@ require("fzf-lua").setup({
   },
   grep = {
     prompt = "Live Grep> ",
-    hidden = true,
     rg_glob_fn = function(query, opts)
       local regex, flags = query:match("^(.-)%s%-%-(.*)$")
       return (regex or query), flags
