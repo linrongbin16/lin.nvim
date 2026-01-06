@@ -64,4 +64,7 @@ require("fzf-lua").setup({
     prompt = "Buffers> ",
     actions = basic_actions,
   },
+  lsp = {
+    jump1 = false,
+  },
 })
