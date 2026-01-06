@@ -52,8 +52,8 @@ local setup_opts = {
   },
   sorting = {
     comparators = {
-      compare.recently_used,
       compare.exact,
+      compare.recently_used,
       compare.score,
       compare.offset,
       compare.locality,
