@@ -7,14 +7,18 @@ local basic_actions = {
   ["ctrl-t"] = false,
 }
 
-local toggle_ignore_actions = vim.tbl_deep_extend("force", basic_actions, {
+local toggle_actions = vim.tbl_deep_extend("force", basic_actions, {
   ["ctrl-i"] = require("fzf-lua").actions.toggle_ignore,
+  ["ctrl-h"] = require("fzf-lua").actions.toggle_hidden,
 })
 
-local fzf_keymaps = {
-  ["ctrl-g"] = "toggle",
-  ["ctrl-l"] = "toggle-preview",
-}
+local grep_actions = vim.tbl_deep_extend("force", toggle_actions, {
+  ["ctrl-g"] = false,
+})
+
+local git_grep_actions = vim.tbl_deep_extend("force", basic_actions, {
+  ["ctrl-g"] = false,
+})
 
 require("fzf-lua").setup({
   { "fzf-native" },
@@ -33,34 +37,34 @@ require("fzf-lua").setup({
     },
   },
   keymap = {
-    fzf = fzf_keymaps,
-  },
-  actions = {
-    files = toggle_ignore_actions,
-    git = {
-      files = basic_actions,
+    fzf = {
+      ["ctrl-e"] = "toggle",
+      ["ctrl-l"] = "toggle-preview",
     },
-    grep = toggle_ignore_actions,
-    buffers = basic_actions,
   },
   files = {
     cwd_prompt = false,
-    hidden = true,
+    actions = toggle_actions,
   },
   git = {
     files = {
       cwd_prompt = false,
+      actions = basic_actions,
     },
   },
   grep = {
     prompt = "Live Grep> ",
-    hidden = true,
     rg_glob_fn = function(query, opts)
       local regex, flags = query:match("^(.-)%s%-%-(.*)$")
       return (regex or query), flags
     end,
+    actions = grep_actions,
   },
   buffers = {
     prompt = "Buffers> ",
+    actions = basic_actions,
+  },
+  lsp = {
+    jump1 = false,
   },
 })

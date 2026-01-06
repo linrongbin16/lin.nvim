@@ -84,13 +84,28 @@ local function get_cursor_winopts()
   return result
 end
 
+local function git_grep_actions()
+  local basic_actions = {
+    ["enter"] = require("fzf-lua").actions.file_edit,
+    ["ctrl-s"] = false,
+    ["ctrl-v"] = false,
+    ["ctrl-t"] = false,
+  }
+  return vim.tbl_deep_extend("force", basic_actions, {
+    ["ctrl-g"] = false,
+  })
+end
+
 local M = {
   -- find files
   set_lazy_key("n", "<space>f", function()
     require("fzf-lua").files({ prompt = get_cwd() })
   end, { desc = "Find files" }),
   set_lazy_key("x", "<space>f", function()
-    require("fzf-lua").files({ query = get_visual_select(), prompt = get_cwd() })
+    require("fzf-lua").files({
+      query = get_visual_select(),
+      prompt = get_cwd(),
+    })
   end, { desc = "Find files" }),
   set_lazy_key("n", "<space>wf", function()
     require("fzf-lua").files({ query = get_cword(), prompt = get_cwd() })
@@ -107,7 +122,10 @@ local M = {
     require("fzf-lua").git_files({ prompt = get_cwd() })
   end, { desc = "Search git files" }),
   set_lazy_key("x", "<space>gf", function()
-    require("fzf-lua").git_files({ query = get_visual_select(), prompt = get_cwd() })
+    require("fzf-lua").git_files({
+      query = get_visual_select(),
+      prompt = get_cwd(),
+    })
   end, { desc = "Search git files" }),
 
   -- search buffers
@@ -137,6 +155,7 @@ local M = {
     require("fzf-lua").live_grep({
       cmd = "git grep --line-number --column --color=always",
       prompt = "Live Grep (Git)> ",
+      actions = git_grep_actions(),
     })
   end, { desc = "Git live grep" }),
   set_lazy_key("x", "<space>gl", function()
@@ -144,6 +163,7 @@ local M = {
       cmd = "git grep --line-number --column --color=always",
       query = get_visual_select(),
       prompt = "Live Grep (Git)> ",
+      actions = git_grep_actions(),
     })
   end, { desc = "Git live grep" }),
 
