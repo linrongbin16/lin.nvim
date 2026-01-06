@@ -100,12 +100,12 @@ local setup_opts = {
       require("cmp-under-comparator").under,
       compare.kind,
       compare.sort_text,
-      compare.length,
-      compare.order,
+      -- compare.length,
+      -- compare.order,
     },
   },
   performance = {
-    max_view_entries = 15,
+    max_view_entries = 9,
   },
   mapping = cmp.mapping.preset.insert({
     ["<Up>"] = cmp.mapping.select_prev_item(select_opts),
