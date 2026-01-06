@@ -12,8 +12,12 @@ local toggle_ignore_actions = vim.tbl_deep_extend("force", basic_actions, {
   ["ctrl-h"] = require("fzf-lua").actions.toggle_hidden,
 })
 
+local grep_actions = vim.tbl_deep_extend("force", toggle_ignore_actions, {
+  ["ctrl-g"] = false,
+})
+
 local fzf_keymaps = {
-  ["ctrl-o"] = "toggle",
+  ["ctrl-e"] = "toggle",
   ["ctrl-l"] = "toggle-preview",
 }
 
