@@ -84,16 +84,17 @@ local function get_cursor_winopts()
   return result
 end
 
-local basic_actions = {
-  ["enter"] = require("fzf-lua").actions.file_edit,
-  ["ctrl-s"] = false,
-  ["ctrl-v"] = false,
-  ["ctrl-t"] = false,
-}
-
-local git_grep_actions = vim.tbl_deep_extend("force", basic_actions, {
-  ["ctrl-g"] = false,
-})
+local function git_grep_actions()
+  local basic_actions = {
+    ["enter"] = require("fzf-lua").actions.file_edit,
+    ["ctrl-s"] = false,
+    ["ctrl-v"] = false,
+    ["ctrl-t"] = false,
+  }
+  return vim.tbl_deep_extend("force", basic_actions, {
+    ["ctrl-g"] = false,
+  })
+end
 
 local M = {
   -- find files
@@ -154,7 +155,7 @@ local M = {
     require("fzf-lua").live_grep({
       cmd = "git grep --line-number --column --color=always",
       prompt = "Live Grep (Git)> ",
-      actions = git_grep_actions,
+      actions = git_grep_actions(),
     })
   end, { desc = "Git live grep" }),
   set_lazy_key("x", "<space>gl", function()
@@ -162,7 +163,7 @@ local M = {
       cmd = "git grep --line-number --column --color=always",
       query = get_visual_select(),
       prompt = "Live Grep (Git)> ",
-      actions = git_grep_actions,
+      actions = git_grep_actions(),
     })
   end, { desc = "Git live grep" }),
 
