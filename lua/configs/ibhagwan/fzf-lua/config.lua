@@ -1,26 +1,5 @@
 local constants = require("builtin.constants")
 
-local basic_actions = {
-  ["enter"] = require("fzf-lua").actions.file_edit,
-  ["ctrl-s"] = false,
-  ["ctrl-v"] = false,
-  ["ctrl-t"] = false,
-}
-
-local toggle_actions = vim.tbl_deep_extend("force", basic_actions, {
-  ["ctrl-i"] = require("fzf-lua").actions.toggle_ignore,
-  ["ctrl-h"] = require("fzf-lua").actions.toggle_hidden,
-})
-
-local grep_actions = vim.tbl_deep_extend("force", toggle_actions, {
-  ["ctrl-g"] = false,
-})
-
-local fzf_keymaps = {
-  ["ctrl-e"] = "toggle",
-  ["ctrl-l"] = "toggle-preview",
-}
-
 require("fzf-lua").setup({
   { "fzf-native" },
   winopts = {
@@ -38,7 +17,10 @@ require("fzf-lua").setup({
     },
   },
   keymap = {
-    fzf = fzf_keymaps,
+    fzf = {
+      ["ctrl-e"] = "toggle",
+      ["ctrl-l"] = "toggle-preview",
+    },
   },
   files = {
     cwd_prompt = false,

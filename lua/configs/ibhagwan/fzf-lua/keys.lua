@@ -84,52 +84,88 @@ local function get_cursor_winopts()
   return result
 end
 
+local function basic_actions()
+  return {
+    ["enter"] = require("fzf-lua").actions.file_edit,
+    ["ctrl-s"] = false,
+    ["ctrl-v"] = false,
+    ["ctrl-t"] = false,
+  }
+end
+
+local function toggle_actions()
+  return vim.tbl_deep_extend("force", basic_actions(), {
+    ["ctrl-i"] = require("fzf-lua").actions.toggle_ignore,
+    ["ctrl-h"] = require("fzf-lua").actions.toggle_hidden,
+  })
+end
+
+local function grep_actions()
+  return vim.tbl_deep_extend("force", toggle_actions(), {
+    ["ctrl-g"] = false,
+  })
+end
+
+local function git_grep_actions()
+  return vim.tbl_deep_extend("force", basic_actions(), {
+    ["ctrl-g"] = false,
+  })
+end
+
 local M = {
   -- find files
   set_lazy_key("n", "<space>f", function()
-    require("fzf-lua").files({ prompt = get_cwd() })
+    require("fzf-lua").files({ prompt = get_cwd(), actions = toggle_actions() })
   end, { desc = "Find files" }),
   set_lazy_key("x", "<space>f", function()
-    require("fzf-lua").files({ query = get_visual_select(), prompt = get_cwd() })
+    require("fzf-lua").files({
+      query = get_visual_select(),
+      prompt = get_cwd(),
+      actions = toggle_actions(),
+    })
   end, { desc = "Find files" }),
   set_lazy_key("n", "<space>wf", function()
-    require("fzf-lua").files({ query = get_cword(), prompt = get_cwd() })
+    require("fzf-lua").files({ query = get_cword(), prompt = get_cwd(), actions = toggle_actions() })
   end, { desc = "Find files by cword" }),
   set_lazy_key("n", "<space>wf", function()
-    require("fzf-lua").files({ query = get_cword(), prompt = get_cwd() })
+    require("fzf-lua").files({ query = get_cword(), prompt = get_cwd(), actions = toggle_actions() })
   end, { desc = "Find files by cword" }),
   set_lazy_key("n", "<space>rf", function()
-    require("fzf-lua").files({ resume = true, prompt = get_cwd() })
+    require("fzf-lua").files({ resume = true, prompt = get_cwd(), actions = toggle_actions() })
   end, { desc = "Find files by resume" }),
 
   -- find git files
   set_lazy_key("n", "<space>gf", function()
-    require("fzf-lua").git_files({ prompt = get_cwd() })
+    require("fzf-lua").git_files({ prompt = get_cwd(), actions = basic_actions() })
   end, { desc = "Search git files" }),
   set_lazy_key("x", "<space>gf", function()
-    require("fzf-lua").git_files({ query = get_visual_select(), prompt = get_cwd() })
+    require("fzf-lua").git_files({
+      query = get_visual_select(),
+      prompt = get_cwd(),
+      actions = basic_actions(),
+    })
   end, { desc = "Search git files" }),
 
   -- search buffers
   set_lazy_key("n", "<space>bf", function()
     require("fzf-lua").buffers()
-  end, { desc = "Search buffers" }),
+  end, { desc = "Search buffers", actions = basic_actions() }),
   set_lazy_key("x", "<space>bf", function()
-    require("fzf-lua").buffers({ query = get_visual_select() })
+    require("fzf-lua").buffers({ query = get_visual_select(), actions = basic_actions() })
   end, { desc = "Search buffers" }),
 
   -- live grep
   set_lazy_key("n", "<space>l", function()
-    require("fzf-lua").live_grep()
+    require("fzf-lua").live_grep({ actions = grep_actions() })
   end, { desc = "Live grep" }),
   set_lazy_key("x", "<space>l", function()
-    require("fzf-lua").live_grep({ query = get_visual_select() })
+    require("fzf-lua").live_grep({ query = get_visual_select(), actions = grep_actions() })
   end, { desc = "Live grep" }),
   set_lazy_key("n", "<space>wl", function()
-    require("fzf-lua").live_grep({ query = get_cword() })
+    require("fzf-lua").live_grep({ query = get_cword(), actions = grep_actions() })
   end, { desc = "Live grep by cword" }),
   set_lazy_key("n", "<space>rl", function()
-    require("fzf-lua").live_grep({ resume = true })
+    require("fzf-lua").live_grep({ resume = true, actions = grep_actions() })
   end, { desc = "Live grep by resume " }),
 
   -- git live grep
@@ -137,6 +173,7 @@ local M = {
     require("fzf-lua").live_grep({
       cmd = "git grep --line-number --column --color=always",
       prompt = "Live Grep (Git)> ",
+      actions = git_grep_actions(),
     })
   end, { desc = "Git live grep" }),
   set_lazy_key("x", "<space>gl", function()
@@ -144,6 +181,7 @@ local M = {
       cmd = "git grep --line-number --column --color=always",
       query = get_visual_select(),
       prompt = "Live Grep (Git)> ",
+      actions = git_grep_actions(),
     })
   end, { desc = "Git live grep" }),
 
@@ -152,24 +190,28 @@ local M = {
     require("fzf-lua").lsp_definitions({
       winopts = get_cursor_winopts(),
       prompt = "Definitions> ",
+      actions = basic_actions(),
     })
   end, { desc = "Go to definitions" }),
   set_lazy_key("n", "gr", function()
     require("fzf-lua").lsp_references({
       winopts = get_cursor_winopts(),
       prompt = "References> ",
+      actions = basic_actions(),
     })
   end, { desc = "Go to references" }),
   set_lazy_key("n", "gt", function()
     require("fzf-lua").lsp_typedefs({
       winopts = get_cursor_winopts(),
       prompt = "Type Definitions> ",
+      actions = basic_actions(),
     })
   end, { desc = "Go to type definitions" }),
   set_lazy_key("n", "gi", function()
     require("fzf-lua").lsp_implementations({
       winopts = get_cursor_winopts(),
       prompt = "Implementations> ",
+      actions = basic_actions(),
     })
   end, { desc = "Go to implementations" }),
 }
