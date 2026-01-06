@@ -5,15 +5,12 @@ local basic_actions = {
   ["ctrl-s"] = false,
   ["ctrl-v"] = false,
   ["ctrl-t"] = false,
+  ["ctrl-g"] = false,
 }
 
-local toggle_ignore_actions = vim.tbl_deep_extend("force", basic_actions, {
+local toggle_actions = vim.tbl_deep_extend("force", basic_actions, {
   ["ctrl-i"] = require("fzf-lua").actions.toggle_ignore,
   ["ctrl-h"] = require("fzf-lua").actions.toggle_hidden,
-})
-
-local grep_actions = vim.tbl_deep_extend("force", toggle_ignore_actions, {
-  ["ctrl-g"] = false,
 })
 
 local fzf_keymaps = {
@@ -41,11 +38,11 @@ require("fzf-lua").setup({
     fzf = fzf_keymaps,
   },
   actions = {
-    files = toggle_ignore_actions,
+    files = toggle_actions,
     git = {
       files = basic_actions,
     },
-    grep = grep_actions,
+    grep = toggle_actions,
     buffers = basic_actions,
   },
   files = {
