@@ -7,6 +7,26 @@ local has_words_before = function()
     and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
+---@type table<integer, integer>
+  local modified_priority = {
+    [types.lsp.CompletionItemKind.Variable] = types.lsp.CompletionItemKind.Method,
+    [types.lsp.CompletionItemKind.Snippet] = 0, -- top
+    [types.lsp.CompletionItemKind.Keyword] = 0, -- top
+    [types.lsp.CompletionItemKind.Text] = 100, -- bottom
+  }
+  ---@param kind integer: kind of completion entry
+  local function modified_kind(kind)
+    return modified_priority[kind] or kind
+end
+
+local function compare_lsp_kind(entry1, entry2) -- sort by compare kind (Variable, Function etc)
+          local kind1 = modified_kind(entry1:get_kind())
+          local kind2 = modified_kind(entry2:get_kind())
+          if kind1 ~= kind2 then
+            return kind1 - kind2 < 0
+          end
+        end
+
 -- nvim_lsp
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 vim.lsp.config("*", {
@@ -54,6 +74,7 @@ local setup_opts = {
     comparators = {
       compare.recently_used,
       compare.exact,
+      compare_lsp_kind,
       compare.score,
       compare.offset,
       compare.locality,
