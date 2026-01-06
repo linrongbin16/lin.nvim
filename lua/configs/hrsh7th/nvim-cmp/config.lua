@@ -51,12 +51,11 @@ local setup_opts = {
     end,
   },
   sorting = {
-    priority_weight = 2,
     comparators = {
+      compare.recently_used,
+      compare.score,
       compare.offset,
       compare.exact,
-      compare.score,
-      compare.recently_used,
       compare.locality,
       -- compare.scopes,
       require("cmp-under-comparator").under,
