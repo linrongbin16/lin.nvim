@@ -222,6 +222,7 @@ local M = {
       "nvim-tree/nvim-web-devicons",
       "onsails/lspkind.nvim",
     },
+    build = "cargo +nightly build --release",
     config = lua_config("saghen/blink.cmp"),
   },
 
