@@ -5,7 +5,6 @@ local basic_actions = {
   ["ctrl-s"] = false,
   ["ctrl-v"] = false,
   ["ctrl-t"] = false,
-  ["ctrl-g"] = false,
 }
 
 local toggle_actions = vim.tbl_deep_extend("force", basic_actions, {
@@ -59,6 +58,9 @@ require("fzf-lua").setup({
       local regex, flags = query:match("^(.-)%s%-%-(.*)$")
       return (regex or query), flags
     end,
+    actions = {
+      ["ctrl-g"] = false,
+    },
   },
   buffers = {
     prompt = "Buffers> ",
