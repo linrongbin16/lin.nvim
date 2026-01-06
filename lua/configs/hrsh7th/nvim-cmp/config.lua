@@ -35,6 +35,14 @@ local function compare_lsp_sort(entry1, entry2) -- score by lsp, if available
   end
 end
 
+        local function compare_len_ignore(entry1, entry2) -- sort by length ignoring "=~"
+          local len1 = string.len(string.gsub(entry1.completion_item.label, "[=~()_]", ""))
+          local len2 = string.len(string.gsub(entry2.completion_item.label, "[=~()_]", ""))
+          if len1 ~= len2 then
+            return len1 - len2 < 0
+          end
+        end
+
 -- nvim_lsp
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 vim.lsp.config("*", {
@@ -82,6 +90,7 @@ local setup_opts = {
     comparators = {
       compare.recently_used,
       compare.exact,
+      compare_len_ignore,
       compare_lsp_kind,
       compare_lsp_sort,
       compare.score,
