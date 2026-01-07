@@ -12,6 +12,7 @@ end
 local modified_priority = {
   [types.lsp.CompletionItemKind.Variable] = types.lsp.CompletionItemKind.Method,
   [types.lsp.CompletionItemKind.Constant] = types.lsp.CompletionItemKind.Method,
+  [types.lsp.CompletionItemKind.Field] = types.lsp.CompletionItemKind.Method,
   [types.lsp.CompletionItemKind.Snippet] = 0, -- top
   [types.lsp.CompletionItemKind.Keyword] = 0, -- top
   [types.lsp.CompletionItemKind.Text] = 100, -- bottom
@@ -90,13 +91,13 @@ local setup_opts = {
   },
   sorting = {
     comparators = {
+      compare.offset,
       compare.exact,
+      compare.score,
       compare.recently_used,
       compare_len_ignore,
       compare_lsp_kind,
       compare_lsp_sort,
-      compare.score,
-      compare.offset,
       compare.locality,
       -- compare.scopes,
       require("cmp-under-comparator").under,
