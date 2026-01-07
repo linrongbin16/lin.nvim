@@ -1,5 +1,11 @@
 local constants = require("builtin.constants")
 local layout = require("builtin.utils.layout")
+local events = require("neo-tree.events")
+
+-- Snacks filepath rename with LSP integration
+local function on_move(data)
+  require("snacks").rename.on_rename_file(data.source, data.destination)
+end
 
 local function trash_bin()
   local function wrap(trash_exe)
@@ -132,6 +138,10 @@ require("neo-tree").setup({
         ["]c"] = "next_git_modified",
       },
     },
+  },
+  event_handlers = {
+    { event = events.FILE_MOVED, handler = on_move },
+    { event = events.FILE_RENAMED, handler = on_move },
   },
 })
 
