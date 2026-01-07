@@ -1,6 +1,6 @@
 local compare = require("cmp.config.compare")
 local types = require("cmp.types")
-local cmp_buffer = require('cmp_buffer')
+local cmp_buffer = require("cmp_buffer")
 
 local has_words_before = function()
   unpack = unpack or table.unpack
@@ -92,7 +92,9 @@ local setup_opts = {
   },
   sorting = {
     comparators = {
-      function(...) return cmp_buffer:compare_locality(...) end,
+      function(...)
+        return cmp_buffer:compare_locality(...)
+      end,
       compare.offset,
       compare.exact,
       compare.score,
@@ -100,7 +102,7 @@ local setup_opts = {
       compare_len_ignore,
       compare_lsp_kind,
       compare_lsp_sort,
-  
+
       compare.locality,
       -- compare.scopes,
       require("cmp-under-comparator").under,
