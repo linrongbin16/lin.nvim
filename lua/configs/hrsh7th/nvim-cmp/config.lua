@@ -1,4 +1,5 @@
 local compare = require("cmp.config.compare")
+local types = require("cmp.types")
 
 local has_words_before = function()
   unpack = unpack or table.unpack
@@ -10,6 +11,7 @@ end
 ---@type table<integer, integer>
 local modified_priority = {
   [types.lsp.CompletionItemKind.Variable] = types.lsp.CompletionItemKind.Method,
+  [types.lsp.CompletionItemKind.Constant] = types.lsp.CompletionItemKind.Method,
   [types.lsp.CompletionItemKind.Snippet] = 0, -- top
   [types.lsp.CompletionItemKind.Keyword] = 0, -- top
   [types.lsp.CompletionItemKind.Text] = 100, -- bottom
