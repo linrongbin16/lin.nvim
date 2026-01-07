@@ -102,7 +102,6 @@ local setup_opts = {
       compare_len_ignore,
       compare_lsp_kind,
       compare_lsp_sort,
-
       compare.locality,
       -- compare.scopes,
       require("cmp-under-comparator").under,
