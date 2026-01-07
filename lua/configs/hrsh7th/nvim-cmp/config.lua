@@ -103,8 +103,8 @@ local setup_opts = {
       require("cmp-under-comparator").under,
       compare.kind,
       compare.sort_text,
-      -- compare.length,
-      -- compare.order,
+      compare.length,
+      compare.order,
     },
   },
   performance = {
