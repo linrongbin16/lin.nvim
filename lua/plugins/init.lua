@@ -83,7 +83,7 @@ local M = {
   {
     "nvim-neo-tree/neo-tree.nvim",
     event = { VeryLazy },
-    dependencies = { "MunifTanjim/nui.nvim", "folke/snacks.nvim" },
+    dependencies = { "MunifTanjim/nui.nvim", "folke/snacks.nvim", "neovim/nvim-lspconfig" },
     version = "*",
     config = lua_config("nvim-neo-tree/neo-tree.nvim"),
     keys = lua_keys("nvim-neo-tree/neo-tree.nvim"),
