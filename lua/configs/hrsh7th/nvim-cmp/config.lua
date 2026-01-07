@@ -91,13 +91,13 @@ local setup_opts = {
   },
   sorting = {
     comparators = {
-      compare.offset,
       compare.exact,
       compare.score,
       compare.recently_used,
       compare_len_ignore,
       compare_lsp_kind,
       compare_lsp_sort,
+            compare.offset,
       compare.locality,
       -- compare.scopes,
       require("cmp-under-comparator").under,
