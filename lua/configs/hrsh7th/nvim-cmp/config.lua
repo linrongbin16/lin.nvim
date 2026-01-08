@@ -1,10 +1,50 @@
 local compare = require("cmp.config.compare")
+local types = require("cmp.types")
+local cmp_buffer = require("cmp_buffer")
 
 local has_words_before = function()
   unpack = unpack or table.unpack
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
   return col ~= 0
     and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
+
+---@type table<integer, integer>
+local modified_priority = {
+  [types.lsp.CompletionItemKind.Variable] = types.lsp.CompletionItemKind.Method,
+  [types.lsp.CompletionItemKind.Constant] = types.lsp.CompletionItemKind.Method,
+  [types.lsp.CompletionItemKind.Field] = types.lsp.CompletionItemKind.Method,
+  [types.lsp.CompletionItemKind.Snippet] = 0, -- top
+  [types.lsp.CompletionItemKind.Keyword] = 0, -- top
+  [types.lsp.CompletionItemKind.Text] = 100, -- bottom
+}
+---@param kind integer: kind of completion entry
+local function modified_kind(kind)
+  return modified_priority[kind] or kind
+end
+
+local function compare_lsp_kind(entry1, entry2) -- sort by compare kind (Variable, Function etc)
+  local kind1 = modified_kind(entry1:get_kind())
+  local kind2 = modified_kind(entry2:get_kind())
+  if kind1 ~= kind2 then
+    return kind1 - kind2 < 0
+  end
+end
+
+local function compare_lsp_sort(entry1, entry2) -- score by lsp, if available
+  local t1 = entry1.completion_item.sortText
+  local t2 = entry2.completion_item.sortText
+  if t1 ~= nil and t2 ~= nil and t1 ~= t2 then
+    return t1 < t2
+  end
+end
+
+local function compare_len_ignore(entry1, entry2) -- sort by length ignoring "=~"
+  local len1 = string.len(string.gsub(entry1.completion_item.label, "[=~()_]", ""))
+  local len2 = string.len(string.gsub(entry2.completion_item.label, "[=~()_]", ""))
+  if len1 ~= len2 then
+    return len1 - len2 < 0
+  end
 end
 
 -- nvim_lsp
@@ -51,23 +91,28 @@ local setup_opts = {
     end,
   },
   sorting = {
-    priority_weight = 2,
     comparators = {
+      function(...)
+        return cmp_buffer:compare_locality(...)
+      end,
       compare.offset,
       compare.exact,
       compare.score,
       compare.recently_used,
+      compare_lsp_kind,
+      compare_lsp_sort,
+      compare_len_ignore,
       compare.locality,
       -- compare.scopes,
       require("cmp-under-comparator").under,
-      compare.kind,
-      compare.sort_text,
-      compare.length,
-      compare.order,
+      -- compare.kind,
+      -- compare.sort_text,
+      -- compare.length,
+      -- compare.order,
     },
   },
   performance = {
-    max_view_entries = 15,
+    max_view_entries = 9,
   },
   mapping = cmp.mapping.preset.insert({
     ["<Up>"] = cmp.mapping.select_prev_item(select_opts),
