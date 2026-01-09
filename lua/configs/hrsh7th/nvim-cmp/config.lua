@@ -24,27 +24,27 @@ local function modified_kind(kind)
 end
 
 local function compare_lsp_kind(entry1, entry2) -- sort by compare kind (Variable, Function etc)
-  do
-    local msg = string.format("entry1:%s,entry2:%s", vim.inspect(entry1), vim.inspect(entry2))
-    local msg_lines = vim.split(msg, "\n", { plain = true, trimempty = true })
-    local uv = vim.uv
-
-    local fp = io.open("nvim-cmp-sorting.log", "a")
-    if fp then
-      for _, line in ipairs(msg_lines) do
-        local secs, ms = uv.gettimeofday()
-        fp:write(
-          string.format(
-            "%s.%03d: %s\n",
-            os.date("%Y-%m-%d %H:%M:%S", secs),
-            math.floor(ms / 1000),
-            line
-          )
-        )
-      end
-      fp:close()
-    end
-  end
+  -- do
+  --   local msg = string.format("entry1:%s,entry2:%s", vim.inspect(entry1), vim.inspect(entry2))
+  --   local msg_lines = vim.split(msg, "\n", { plain = true, trimempty = true })
+  --   local uv = vim.uv
+  --
+  --   local fp = io.open("nvim-cmp-sorting.log", "a")
+  --   if fp then
+  --     for _, line in ipairs(msg_lines) do
+  --       local secs, ms = uv.gettimeofday()
+  --       fp:write(
+  --         string.format(
+  --           "%s.%03d: %s\n",
+  --           os.date("%Y-%m-%d %H:%M:%S", secs),
+  --           math.floor(ms / 1000),
+  --           line
+  --         )
+  --       )
+  --     end
+  --     fp:close()
+  --   end
+  -- end
 
   local kind1 = modified_kind(entry1:get_kind())
   local kind2 = modified_kind(entry2:get_kind())
