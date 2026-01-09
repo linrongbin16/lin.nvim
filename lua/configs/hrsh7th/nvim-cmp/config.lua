@@ -114,13 +114,13 @@ local setup_opts = {
   },
   sorting = {
     comparators = {
-      function(...)
-        return cmp_buffer:compare_locality(...)
-      end,
       compare.offset,
       compare.exact,
       compare.score,
       compare.recently_used,
+      function(...)
+        return cmp_buffer:compare_locality(...)
+      end,
       compare_lsp_kind,
       compare_lsp_sort,
       compare_len_ignore,
