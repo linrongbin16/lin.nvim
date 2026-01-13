@@ -99,7 +99,7 @@ local setup_opts = {
       function(...)
         return cmp_buffer:compare_locality(...)
       end,
-      compare.locality,
+      -- compare.locality,
       -- compare.scopes,
       compare_lsp_kind,
       compare_lsp_sort,
