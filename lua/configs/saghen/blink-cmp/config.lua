@@ -1,4 +1,5 @@
 local str = require("commons.str")
+local lspkind = require("lspkind")
 
 require("blink.cmp").setup({
   cmdline = {
@@ -53,8 +54,8 @@ require("blink.cmp").setup({
                 if dev_icon then
                   icon = dev_icon
                 end
-              else
-                icon = require("lspkind").symbol_map[ctx.kind]
+              elseif lspkind.symbol_map[ctx.kind] ~= nil then
+                icon = lspkind.symbol_map[ctx.kind]
               end
               return icon .. ctx.icon_gap
             end,
