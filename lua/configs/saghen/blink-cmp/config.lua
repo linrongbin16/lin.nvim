@@ -1,4 +1,3 @@
-local str = require("commons.str")
 local lspkind = require("lspkind")
 
 require("blink.cmp").setup({
