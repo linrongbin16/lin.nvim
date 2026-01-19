@@ -54,8 +54,8 @@ require("blink.cmp").setup({
                 if dev_icon then
                   icon = dev_icon
                 end
-              elseif lspkind.symbol_map[ctx.kind] ~= nil then
-                icon = lspkind.symbol_map[ctx.kind]
+              else
+                icon = lspkind.symbol_map[ctx.kind] or ""
               end
               return icon .. ctx.icon_gap
             end,
