@@ -104,7 +104,7 @@ local M = {
   {
     "nvim-lualine/lualine.nvim",
     event = { VeryLazy },
-    dependencies = { "linrongbin16/lsp-progress.nvim", "airblade/vim-gitgutter" },
+    dependencies = { "linrongbin16/lsp-progress.nvim", "lewis6991/gitsigns.nvim" },
     config = lua_config("nvim-lualine/lualine.nvim"),
   },
   {

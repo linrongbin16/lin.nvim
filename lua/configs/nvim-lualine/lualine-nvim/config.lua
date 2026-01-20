@@ -3,15 +3,15 @@ local tbl = require("commons.tbl")
 local constants = require("builtin.constants")
 
 local function GitDiffCondition()
-  return vim.fn.exists("*GitGutterGetHunkSummary") > 0
+  return vim.fn.exists("b:gitsigns_status_dict") > 0
 end
 
 local function GitDiff()
-  local changes = vim.fn.GitGutterGetHunkSummary() or {}
+  local changes = vim.b.gitsigns_status_dict or {}
   return {
-    added = changes[1] or 0,
-    modified = changes[2] or 0,
-    removed = changes[3] or 0,
+    added = changes.added or 0,
+    modified = changes.changed or 0,
+    removed = changes.removed or 0,
   }
 end
 
@@ -131,7 +131,7 @@ require("lualine").setup(config)
 local lualine_augroup = vim.api.nvim_create_augroup("lualine_augroup", { clear = true })
 vim.api.nvim_create_autocmd("User", {
   group = lualine_augroup,
-  pattern = { "LspProgressStatusUpdated", "LualineGitBranchUpdated", "GitGutter", "GitGutterStage" },
+  pattern = { "LspProgressStatusUpdated", "GitGutter", "GitGutterStage" },
   callback = function()
     require("lualine").refresh({
       place = { "statusline" },
