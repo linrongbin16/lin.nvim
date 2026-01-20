@@ -107,7 +107,7 @@ local M = {
   {
     "nvim-lualine/lualine.nvim",
     event = { VeryLazy },
-    dependencies = { "linrongbin16/lsp-progress.nvim", "airblade/vim-gitgutter" },
+    dependencies = { "linrongbin16/lsp-progress.nvim", "lewis6991/gitsigns.nvim" },
     config = lua_config("nvim-lualine/lualine.nvim"),
   },
   {
@@ -281,17 +281,11 @@ local M = {
 
   -- Diff
   {
-    "airblade/vim-gitgutter",
+    "lewis6991/gitsigns.nvim",
     event = { VeryLazy },
-    init = lua_init("airblade/vim-gitgutter"),
-    keys = lua_keys("airblade/vim-gitgutter"),
-  },
-  -- Blame
-  {
-    "FabijanZulj/blame.nvim",
-    cmd = { "BlameToggle" },
-    config = lua_config("FabijanZulj/blame.nvim"),
-    keys = lua_keys("FabijanZulj/blame.nvim"),
+    cmd = { "Gitsigns" },
+    config = lua_config("lewis6991/gitsigns.nvim"),
+    keys = lua_keys("lewis6991/gitsigns.nvim"),
   },
   -- Permlink
   {
