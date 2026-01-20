@@ -15,6 +15,12 @@ local M = {
       require("gitsigns").nav_hunk("prev")
     end
   end, { desc = "Go to previous git hunk" }),
+  set_lazy_key("n", "<leader>gb", function()
+    require("gitsigns").toggle_current_line_blame()
+  end, { desc = "Go to previous git hunk" }),
+  set_lazy_key("n", "<leader>gB", function()
+    vim.cmd("Gitsigns blame_line")
+  end, { desc = "Go to previous git hunk" }),
 }
 
 return M
