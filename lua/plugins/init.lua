@@ -281,7 +281,7 @@ local M = {
     "lewis6991/gitsigns.nvim",
     event = { VeryLazy },
     cmd = { "Gitsigns" },
-    init = lua_init("lewis6991/gitsigns.nvim"),
+    config = lua_config("lewis6991/gitsigns.nvim"),
     keys = lua_keys("lewis6991/gitsigns.nvim"),
   },
   -- Permlink

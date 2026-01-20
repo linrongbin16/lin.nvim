@@ -19,7 +19,7 @@ local M = {
     require("gitsigns").toggle_current_line_blame()
   end, { desc = "Go to previous git hunk" }),
   set_lazy_key("n", "<leader>gB", function()
-    vim.cmd("Gitsigns blame_line")
+    vim.cmd("Gitsigns blame")
   end, { desc = "Go to previous git hunk" }),
 }
 
