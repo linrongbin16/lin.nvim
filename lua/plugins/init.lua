@@ -278,10 +278,10 @@ local M = {
 
   -- Diff
   {
-    "airblade/vim-gitgutter",
+    "lewis6991/gitsigns.nvim",
     event = { VeryLazy },
-    init = lua_init("airblade/vim-gitgutter"),
-    keys = lua_keys("airblade/vim-gitgutter"),
+    init = lua_init("lewis6991/gitsigns.nvim"),
+    keys = lua_keys("lewis6991/gitsigns.nvim"),
   },
   -- Blame
   {
