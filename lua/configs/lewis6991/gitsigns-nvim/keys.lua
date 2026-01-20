@@ -17,10 +17,10 @@ local M = {
   end, { desc = "Go to previous git hunk" }),
   set_lazy_key("n", "<leader>gb", function()
     require("gitsigns").toggle_current_line_blame()
-  end, { desc = "Go to previous git hunk" }),
+  end, { desc = "Toggle current line blame" }),
   set_lazy_key("n", "<leader>gB", function()
     vim.cmd("Gitsigns blame")
-  end, { desc = "Go to previous git hunk" }),
+  end, { desc = "Toggle buffer lines blame" }),
 }
 
 return M
