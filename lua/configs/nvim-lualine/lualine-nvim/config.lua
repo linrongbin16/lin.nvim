@@ -16,7 +16,7 @@ local function GitDiff()
 end
 
 local function LspProgress()
-  local max_size = math.max(10, (vim.o.columns + 2) / 2)
+  local max_size = math.max(3, (vim.o.columns + 2) / 3)
   local status = require("lsp-progress").progress({ max_size = max_size })
   return type(status) == "string" and string.len(status) > 0 and status or ""
 end
@@ -78,7 +78,23 @@ local config = {
     component_separators = empty_component_separators,
     section_separators = slash_section_separators,
     refresh = {
-      statusline = 5000,
+      statusline = 1000,
+      refresh_time = 24,
+      events = {
+        "WinEnter",
+        "BufEnter",
+        "BufWritePost",
+        "SessionLoadPost",
+        "FileChangedShellPost",
+        "VimResized",
+        "Filetype",
+        "CursorMoved",
+        "CursorMovedI",
+        "ModeChanged",
+        "FocusGained",
+        "TermEnter",
+        "TermLeave",
+      },
     },
   },
   sections = {
@@ -131,7 +147,7 @@ require("lualine").setup(config)
 local lualine_augroup = vim.api.nvim_create_augroup("lualine_augroup", { clear = true })
 vim.api.nvim_create_autocmd("User", {
   group = lualine_augroup,
-  pattern = { "LspProgressStatusUpdated", "GitGutter", "GitGutterStage" },
+  pattern = { "LspProgressStatusUpdated" },
   callback = function()
     require("lualine").refresh({
       place = { "statusline" },
