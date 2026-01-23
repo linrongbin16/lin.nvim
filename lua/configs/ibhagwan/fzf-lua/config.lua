@@ -44,6 +44,9 @@ require("fzf-lua").setup({
       ["ctrl-b"] = "preview-page-up",
     },
   },
+  actions = {
+    files = basic_actions,
+  },
   files = {
     cwd_prompt = false,
     actions = toggle_actions,
