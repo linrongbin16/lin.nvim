@@ -83,7 +83,7 @@ local M = {
   {
     "nvim-neo-tree/neo-tree.nvim",
     event = { VeryLazy },
-    dependencies = "MunifTanjim/nui.nvim",
+    dependencies = { "MunifTanjim/nui.nvim", "folke/snacks.nvim", "neovim/nvim-lspconfig" },
     version = "*",
     config = lua_config("nvim-neo-tree/neo-tree.nvim"),
     keys = lua_keys("nvim-neo-tree/neo-tree.nvim"),
@@ -104,10 +104,7 @@ local M = {
   {
     "nvim-lualine/lualine.nvim",
     event = { VeryLazy },
-    dependencies = {
-      "linrongbin16/lsp-progress.nvim",
-      "airblade/vim-gitgutter",
-    },
+    dependencies = { "linrongbin16/lsp-progress.nvim", "lewis6991/gitsigns.nvim" },
     config = lua_config("nvim-lualine/lualine.nvim"),
   },
   {
@@ -155,10 +152,7 @@ local M = {
       "LspInstall",
       "LspUninstall",
     },
-    dependencies = {
-      "neovim/nvim-lspconfig",
-      "mason-org/mason.nvim",
-    },
+    dependencies = { "neovim/nvim-lspconfig", "mason-org/mason.nvim" },
     config = lua_config("mason-org/mason-lspconfig.nvim"),
   },
   {
@@ -210,7 +204,7 @@ local M = {
   {
     "folke/lazydev.nvim",
     ft = "lua",
-    dependencies = { "Bilal2453/luvit-meta" },
+    dependencies = "Bilal2453/luvit-meta",
     config = lua_config("folke/lazydev.nvim"),
   },
   {
@@ -241,10 +235,7 @@ local M = {
 
   {
     "rachartier/tiny-code-action.nvim",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "folke/snacks.nvim",
-    },
+    dependencies = { "nvim-lua/plenary.nvim", "folke/snacks.nvim" },
     event = "LspAttach",
     config = lua_config("rachartier/tiny-code-action.nvim"),
     keys = lua_keys("rachartier/tiny-code-action.nvim"),
@@ -265,17 +256,11 @@ local M = {
 
   -- Diff
   {
-    "airblade/vim-gitgutter",
+    "lewis6991/gitsigns.nvim",
     event = { VeryLazy },
-    init = lua_init("airblade/vim-gitgutter"),
-    keys = lua_keys("airblade/vim-gitgutter"),
-  },
-  -- Blame
-  {
-    "FabijanZulj/blame.nvim",
-    cmd = { "BlameToggle" },
-    config = lua_config("FabijanZulj/blame.nvim"),
-    keys = lua_keys("FabijanZulj/blame.nvim"),
+    cmd = { "Gitsigns" },
+    config = lua_config("lewis6991/gitsigns.nvim"),
+    keys = lua_keys("lewis6991/gitsigns.nvim"),
   },
   -- Permlink
   {

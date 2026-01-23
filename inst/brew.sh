@@ -46,7 +46,7 @@ install "brew install ripgrep" "rg"
 install "brew install bat" "bat"
 install "brew install fd" "fd"
 install "brew install eza" "eza"
-install "brew install tree-sitter-cli" "tree-sitter"
+# install "brew install tree-sitter-cli" "tree-sitter"
 
 # trash
 install "brew install trash" "/opt/homebrew/opt/trash/bin/trash"
