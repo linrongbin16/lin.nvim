@@ -210,6 +210,7 @@ local M = {
   {
     "saghen/blink.cmp",
     event = { VeryLazy, CmdlineEnter, InsertEnter },
+    version = "v1.7.0",
     dependencies = {
       "rafamadriz/friendly-snippets",
       "L3MON4D3/LuaSnip",
