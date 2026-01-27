@@ -67,6 +67,7 @@ set showcmd
 set display+=lastline,truncate
 set shortmess+=c
 " set cmdheight=2
+set messagesopt=history:100
 
 " scroll
 set scrolloff=1
