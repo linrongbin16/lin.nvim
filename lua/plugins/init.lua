@@ -210,13 +210,13 @@ local M = {
   {
     "saghen/blink.cmp",
     event = { VeryLazy, CmdlineEnter, InsertEnter },
-    version = "v1.7.0",
     dependencies = {
       "rafamadriz/friendly-snippets",
       "L3MON4D3/LuaSnip",
       "nvim-tree/nvim-web-devicons",
       "onsails/lspkind.nvim",
     },
+    build = "cargo +nightly build --release",
     config = lua_config("saghen/blink.cmp"),
   },
 
