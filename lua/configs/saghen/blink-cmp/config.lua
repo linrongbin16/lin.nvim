@@ -1,4 +1,4 @@
-local lspkind = require("lspkind")
+local str = require("commons.str")
 
 require("blink.cmp").setup({
   cmdline = {
@@ -38,7 +38,6 @@ require("blink.cmp").setup({
     documentation = { auto_show = true },
     menu = {
       draw = {
-        treesitter = { "lsp" },
         columns = {
           { "kind_icon" },
           { "label", "label_description", gap = 1 },
@@ -54,7 +53,9 @@ require("blink.cmp").setup({
                   icon = dev_icon
                 end
               else
-                icon = lspkind.symbol_map[ctx.kind] or ""
+                icon = require("lspkind").symbolic(ctx.kind, {
+                  mode = "symbol",
+                })
               end
               return icon .. ctx.icon_gap
             end,
