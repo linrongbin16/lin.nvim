@@ -32,6 +32,9 @@ require("blink.cmp").setup({
     },
   },
   completion = {
+    accept = {
+      dot_repeat = false,
+    },
     trigger = {
       prefetch_on_insert = false,
     },
