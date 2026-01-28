@@ -91,7 +91,7 @@ local M = {
   {
     "akinsho/bufferline.nvim",
     event = { VeryLazy },
-    dependencies = "moll/vim-bbye",
+    dependencies = "folke/snacks.nvim",
     config = lua_config("akinsho/bufferline.nvim"),
     keys = lua_keys("akinsho/bufferline.nvim"),
   },
