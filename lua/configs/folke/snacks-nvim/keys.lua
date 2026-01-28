@@ -5,14 +5,12 @@ local M = {
     local Snacks = require("snacks")
     Snacks.lazygit.open()
   end, { desc = "Toggle lazygit" }),
-  -- set_lazy_key("n", "<leader>bd", function()
-  --   local Snacks = require("snacks")
-  --   Snacks.bufdelete()
-  -- end, { desc = "Close buffer" }),
-  -- set_lazy_key("n", "<leader>bD", function()
-  --   local Snacks = require("snacks")
-  --   Snacks.bufdelete({ force = true })
-  -- end, { desc = "Close buffer forcibly!" }),
+  set_lazy_key("n", "<leader>bd", function()
+    require("snacks.bufdelete").delete(0)
+  end, { desc = "Close buffer" }),
+  set_lazy_key("n", "<leader>bD", function()
+    require("snacks.bufdelete").delete({ buf = 0, force = true })
+  end, { desc = "Close buffer forcibly!" }),
 }
 
 return M
