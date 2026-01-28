@@ -46,6 +46,13 @@ local M = {
       require("colorbox").update()
     end,
   },
+  -- vim.ui.select
+  {
+    "folke/snacks.nvim",
+    lazy = false,
+    config = lua_config("folke/snacks.nvim"),
+    keys = lua_keys("folke/snacks.nvim"),
+  },
 
   -- ---- HIGHLIGHT ----
 
@@ -83,7 +90,7 @@ local M = {
   {
     "nvim-neo-tree/neo-tree.nvim",
     event = { VeryLazy },
-    dependencies = { "MunifTanjim/nui.nvim", "folke/snacks.nvim", "neovim/nvim-lspconfig" },
+    dependencies = { "MunifTanjim/nui.nvim", "neovim/nvim-lspconfig" },
     version = "*",
     config = lua_config("nvim-neo-tree/neo-tree.nvim"),
     keys = lua_keys("nvim-neo-tree/neo-tree.nvim"),
@@ -91,7 +98,6 @@ local M = {
   {
     "akinsho/bufferline.nvim",
     event = { VeryLazy },
-    dependencies = "folke/snacks.nvim",
     config = lua_config("akinsho/bufferline.nvim"),
     keys = lua_keys("akinsho/bufferline.nvim"),
   },
@@ -257,7 +263,7 @@ local M = {
 
   {
     "rachartier/tiny-code-action.nvim",
-    dependencies = { "nvim-lua/plenary.nvim", "folke/snacks.nvim" },
+    dependencies = "nvim-lua/plenary.nvim",
     event = "LspAttach",
     config = lua_config("rachartier/tiny-code-action.nvim"),
     keys = lua_keys("rachartier/tiny-code-action.nvim"),
@@ -351,18 +357,6 @@ local M = {
     config = lua_config("chrishrb/gx.nvim"),
     keys = lua_keys("chrishrb/gx.nvim"),
     submodules = false,
-  },
-  -- vim.ui.select
-  {
-    "folke/snacks.nvim",
-    lazy = false,
-    config = lua_config("folke/snacks.nvim"),
-    keys = lua_keys("folke/snacks.nvim"),
-  },
-  -- Close buffer
-  {
-    "moll/vim-bbye",
-    keys = lua_keys("moll/vim-bbye"),
   },
   -- Split window width
   {
