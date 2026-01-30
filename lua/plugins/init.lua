@@ -93,7 +93,7 @@ local M = {
   {
     "akinsho/bufferline.nvim",
     event = { VeryLazy },
-    dependencies = "moll/vim-bbye",
+    dependencies = "linrongbin16/vim-bbye",
     config = lua_config("akinsho/bufferline.nvim"),
     keys = lua_keys("akinsho/bufferline.nvim"),
   },
@@ -365,8 +365,9 @@ local M = {
   },
   -- Close buffer
   {
-    "moll/vim-bbye",
-    keys = lua_keys("moll/vim-bbye"),
+    "linrongbin16/vim-bbye",
+    dev = true,
+    keys = lua_keys("linrongbin16/vim-bbye"),
   },
   -- Split window width
   {
