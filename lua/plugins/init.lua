@@ -68,6 +68,12 @@ local M = {
     "markonm/traces.vim",
     event = { CmdlineEnter },
   },
+  {
+    "saghen/blink.indent",
+    event = { VeryLazy, BufReadPre, BufNewFile },
+    version = "*",
+    config = lua_config("saghen/blink.indent"),
+  },
 
   -- ---- MARKDOWN PREVIEW ----
 
