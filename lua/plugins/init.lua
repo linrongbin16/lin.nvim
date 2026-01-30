@@ -323,6 +323,8 @@ local M = {
   {
     "saghen/blink.pairs",
     event = { BufReadPre, BufNewFile, VeryLazy },
+    dependencies = 'saghen/blink.download',
+    version = '*',
     config = lua_config("saghen/blink.pairs"),
   },
   -- {
