@@ -16,8 +16,7 @@ local function GitDiff()
 end
 
 local function LspProgress()
-  local max_size = math.max(3, (vim.o.columns + 2) / 3)
-  local status = require("lsp-progress").progress({ max_size = max_size })
+  local status = require("lsp-progress").progress()
   return type(status) == "string" and string.len(status) > 0 and status or ""
 end
 
@@ -154,14 +153,11 @@ vim.api.nvim_create_autocmd("User", {
     })
   end,
 })
-vim.api.nvim_create_autocmd(
-  { "ModeChanged", "BufReadPre", "BufNewFile", "WinEnter", "LspAttach" },
-  {
-    group = lualine_augroup,
-    callback = function()
-      require("lualine").refresh({
-        place = { "statusline" },
-      })
-    end,
-  }
-)
+vim.api.nvim_create_autocmd({ "ModeChanged", "BufReadPre", "BufNewFile", "WinEnter" }, {
+  group = lualine_augroup,
+  callback = function()
+    require("lualine").refresh({
+      place = { "statusline" },
+    })
+  end,
+})

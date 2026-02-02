@@ -101,7 +101,6 @@ local M = {
   {
     "linrongbin16/lsp-progress.nvim",
     dev = true,
-    lazy = true,
     config = lua_config("linrongbin16/lsp-progress.nvim"),
   },
   {
