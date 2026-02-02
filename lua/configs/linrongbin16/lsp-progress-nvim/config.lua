@@ -5,4 +5,5 @@ require("lsp-progress").setup({
     end
     return ""
   end,
+  max_size = math.max(1, math.floor((vim.o.columns + 1) / 2)),
 })
