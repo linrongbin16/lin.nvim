@@ -322,15 +322,10 @@ local M = {
   {
     "saghen/blink.pairs",
     event = { BufReadPre, BufNewFile, VeryLazy },
-    dependencies = 'saghen/blink.download',
-    version = '*',
+    dependencies = "saghen/blink.download",
+    version = "*",
     config = lua_config("saghen/blink.pairs"),
   },
-  -- {
-  --   "cohama/lexima.vim",
-  --   event = { VeryLazy, InsertEnter },
-  --   init = lua_init("cohama/lexima.vim"),
-  -- },
   -- Repeat
   {
     "tpope/vim-repeat",
