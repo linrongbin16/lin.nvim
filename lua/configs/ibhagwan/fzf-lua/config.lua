@@ -40,8 +40,8 @@ require("fzf-lua").setup({
     fzf = {
       ["ctrl-e"] = "toggle",
       ["ctrl-l"] = "toggle-preview",
-      ["ctrl-f"] = "preview-page-down",
-      ["ctrl-b"] = "preview-page-up",
+      ["ctrl-f"] = "preview-half-page-down",
+      ["ctrl-b"] = "preview-half-page-up",
     },
   },
   actions = {
