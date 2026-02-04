@@ -68,6 +68,12 @@ local M = {
     "markonm/traces.vim",
     event = { CmdlineEnter },
   },
+  {
+    "saghen/blink.indent",
+    event = { VeryLazy, BufReadPre, BufNewFile },
+    version = "*",
+    config = lua_config("saghen/blink.indent"),
+  },
 
   -- ---- MARKDOWN PREVIEW ----
 
@@ -178,18 +184,6 @@ local M = {
     },
     config = lua_config("jay-babu/mason-null-ls.nvim"),
   },
-  -- {
-  --   "DNLHC/glance.nvim",
-  --   cmd = { "Glance" },
-  --   dependencies = {
-  --     "neovim/nvim-lspconfig",
-  --     "mason-org/mason.nvim",
-  --     "mason-org/mason-lspconfig.nvim",
-  --     "nvimtools/none-ls.nvim",
-  --   },
-  --   config = lua_config("DNLHC/glance.nvim"),
-  --   keys = lua_keys("DNLHC/glance.nvim"),
-  -- },
 
   -- ---- AUTO-COMPLETE ----
 
@@ -218,28 +212,6 @@ local M = {
     version = "*",
     config = lua_config("saghen/blink.cmp"),
   },
-  -- {
-  --   "FelipeLema/cmp-async-path",
-  --   url = "https://codeberg.org/FelipeLema/cmp-async-path",
-  --   lazy = true,
-  -- },
-  -- {
-  --   "hrsh7th/nvim-cmp",
-  --   event = { VeryLazy, CmdlineEnter, InsertEnter },
-  --   dependencies = {
-  --     "nvim-tree/nvim-web-devicons",
-  --     "onsails/lspkind.nvim",
-  --     "rafamadriz/friendly-snippets",
-  --     "L3MON4D3/LuaSnip",
-  --     "saadparwaiz1/cmp_luasnip",
-  --     "hrsh7th/cmp-nvim-lsp",
-  --     "hrsh7th/cmp-buffer",
-  --     "FelipeLema/cmp-async-path",
-  --     "hrsh7th/cmp-cmdline",
-  --     "lukas-reineke/cmp-under-comparator",
-  --   },
-  --   config = lua_config("hrsh7th/nvim-cmp"),
-  -- },
 
   -- ---- CODE-FORMATTER ----
 
@@ -312,10 +284,13 @@ local M = {
     "tomtom/tcomment_vim",
     event = { BufReadPre, BufNewFile, VeryLazy },
   },
+  -- Pairs
   {
-    "cohama/lexima.vim",
-    event = { VeryLazy, InsertEnter },
-    init = lua_init("cohama/lexima.vim"),
+    "saghen/blink.pairs",
+    event = { BufReadPre, BufNewFile, VeryLazy },
+    dependencies = "saghen/blink.download",
+    version = "*",
+    config = lua_config("saghen/blink.pairs"),
   },
   -- Repeat
   {
