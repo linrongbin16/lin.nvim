@@ -20,8 +20,8 @@ local git_grep_actions = vim.tbl_deep_extend("force", basic_actions, {
   ["ctrl-g"] = false,
 })
 
+-- { "fzf-native" },
 require("fzf-lua").setup({
-  { "fzf-native" },
   winopts = {
     height = constants.layout.window.scale,
     width = constants.layout.window.scale,
