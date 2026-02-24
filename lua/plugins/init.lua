@@ -211,7 +211,7 @@ local M = {
     },
     -- version = "v1.8.0",
     branch = "main",
-    build = "cargo +nightly build --release",
+    build = "cargo build --release",
     config = lua_config("saghen/blink.cmp"),
   },
 
