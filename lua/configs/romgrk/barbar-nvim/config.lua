@@ -6,10 +6,6 @@ require("barbar").setup({
   tabpages = false,
   icons = {
     buffer_index = true,
-    diagnostics = {
-      [vim.diagnostic.severity.ERROR] = { enabled = true, icon = constants.diagnostics.error },
-      [vim.diagnostic.severity.HINT] = { enabled = true, icon = constants.diagnostics.hint },
-    },
     separator = { left = "▎", right = "" },
   },
   maximum_padding = 1,
