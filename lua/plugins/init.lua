@@ -101,17 +101,6 @@ local M = {
     config = lua_config("romgrk/barbar.nvim"),
     keys = lua_keys("romgrk/barbar.nvim"),
   },
-  -- {
-  --   "moll/vim-bbye",
-  --   keys = lua_keys("moll/vim-bbye"),
-  -- },
-  -- {
-  --   "akinsho/bufferline.nvim",
-  --   event = { VeryLazy },
-  --   dependencies = "moll/vim-bbye",
-  --   config = lua_config("akinsho/bufferline.nvim"),
-  --   keys = lua_keys("akinsho/bufferline.nvim"),
-  -- },
   -- Statusline
   {
     "linrongbin16/lsp-progress.nvim",
