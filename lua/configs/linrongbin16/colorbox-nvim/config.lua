@@ -4,6 +4,7 @@ local disabled_colors = {
   ["rrethy/base16-nvim"] = true,
   ["ayu-theme/ayu-vim"] = true,
   ["romainl/apprentice"] = true,
+  ["w0ng/vim-hybrid"] = true,
 }
 
 require("colorbox").setup({
