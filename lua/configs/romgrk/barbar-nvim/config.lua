@@ -1,4 +1,3 @@
-local constants = require("builtin.constants")
 local layout = require("builtin.utils.layout")
 
 require("barbar").setup({
