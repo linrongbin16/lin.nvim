@@ -19,5 +19,6 @@ local parts = {
   "WARN",
 }
 for part in ipairs(parts) do
-  vim.api.nvim_set_hl(0, "BufferInactive" .. part, { link = "Comment" })
+  -- vim.api.nvim_set_hl(0, "BufferInactive" .. part, { link = "Comment" })
+  vim.api.nvim_set_hl(0, "BufferInactive" .. part, { link = "Ignore" })
 end
