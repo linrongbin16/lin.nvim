@@ -35,9 +35,20 @@ local function trash_bin()
     return impl
   end
 
-  local MAC_TRASH = "/opt/homebrew/opt/macos-trash/bin/trash" -- Only for MacOS
-  local GTRASH = "gtrash" -- Only for Linux (FreeDesktop)
-  local TRASHY = "trash" -- For Windows or linux (its executable is still 'trash')
+  -- For macOS only
+  -- Project: https://github.com/sindresorhus/macos-trash
+  -- Install with `brew install macos-trash`
+  local MAC_TRASH = "/opt/homebrew/opt/macos-trash/bin/trash"
+
+  -- For linux only
+  -- Project: https://github.com/umlx5h/gtrash
+  -- Install with `go install github.com/umlx5h/gtrash@latest`
+  local GTRASH = "gtrash"
+
+  -- For both windows and linux
+  -- Project: https://github.com/oberblastmeister/trashy
+  -- install with `scoop install trashy` (windows) or `cargo install trashy` (linux)
+  local TRASHY = "trash"
 
   if constants.os.is_macos and vim.fn.executable(MAC_TRASH) > 0 then
     return wrap({ MAC_TRASH })
