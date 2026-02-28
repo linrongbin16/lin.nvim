@@ -97,11 +97,11 @@ local M = {
     keys = lua_keys("nvim-neo-tree/neo-tree.nvim"),
   },
   {
-    "akinsho/bufferline.nvim",
+    "romgrk/barbar.nvim",
     event = { VeryLazy },
-    dependencies = "moll/vim-bbye",
-    config = lua_config("akinsho/bufferline.nvim"),
-    keys = lua_keys("akinsho/bufferline.nvim"),
+    init = lua_init("romgrk/barbar.nvim"),
+    config = lua_config("romgrk/barbar.nvim"),
+    keys = lua_keys("romgrk/barbar.nvim"),
   },
   -- Statusline
   {
@@ -212,7 +212,7 @@ local M = {
       "nvim-tree/nvim-web-devicons",
       "onsails/lspkind.nvim",
     },
-    version = "*",
+    version = "v1.8.0",
     config = lua_config("saghen/blink.cmp"),
   },
 
@@ -336,11 +336,6 @@ local M = {
     lazy = false,
     config = lua_config("folke/snacks.nvim"),
     keys = lua_keys("folke/snacks.nvim"),
-  },
-  -- Close buffer
-  {
-    "moll/vim-bbye",
-    keys = lua_keys("moll/vim-bbye"),
   },
   -- Split window width
   {

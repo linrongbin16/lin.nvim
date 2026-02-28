@@ -48,8 +48,5 @@ install "brew install fd" "fd"
 install "brew install eza" "eza"
 # install "brew install tree-sitter-cli" "tree-sitter"
 
-# trash
-install "brew install trash" "/opt/homebrew/opt/trash/bin/trash"
-
 # neovim
 install "brew install neovim" "nvim"
