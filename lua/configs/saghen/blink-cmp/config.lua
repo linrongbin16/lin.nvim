@@ -35,10 +35,7 @@ require("blink.cmp").setup({
     accept = {
       dot_repeat = false,
     },
-    trigger = {
-      prefetch_on_insert = false,
-    },
-    documentation = { auto_show = true },
+    documentation = { auto_show = false },
     menu = {
       draw = {
         columns = {
