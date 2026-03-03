@@ -32,13 +32,13 @@ require("blink.cmp").setup({
     },
   },
   completion = {
+    trigger = {
+      prefetch_on_insert = true,
+    },
     accept = {
       dot_repeat = false,
     },
-    trigger = {
-      prefetch_on_insert = false,
-    },
-    documentation = { auto_show = true },
+    documentation = { auto_show = false },
     menu = {
       draw = {
         columns = {
@@ -108,30 +108,10 @@ require("blink.cmp").setup({
     ["<C-d>"] = { "scroll_documentation_down", "fallback" },
   },
   signature = {
-    enabled = true,
+    enabled = false,
   },
   snippets = { preset = "luasnip" },
   sources = {
     default = { "lsp", "path", "snippets", "buffer" },
-    providers = {
-      lsp = {
-        async = true,
-      },
-    },
-
-    -- For minuet-ai with local llama.cpp model
-    --
-    -- default = { "lsp", "path", "snippets", "buffer", "minuet" },
-    -- providers = {
-    --   minuet = {
-    --     name = "minuet",
-    --     module = "minuet.blink",
-    --     async = true,
-    --     -- Should match minuet.config.request_timeout * 1000,
-    --     -- since minuet.config.request_timeout is in seconds
-    --     timeout_ms = 3000,
-    --     score_offset = 50, -- Gives minuet higher priority among suggestions
-    --   },
-    -- },
   },
 })
