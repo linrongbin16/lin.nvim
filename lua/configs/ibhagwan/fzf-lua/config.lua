@@ -21,7 +21,7 @@ local git_grep_actions = vim.tbl_deep_extend("force", basic_actions, {
 })
 
 require("fzf-lua").setup({
-  -- { "fzf-native" },
+  { "fzf-native" },
   winopts = {
     height = constants.layout.window.scale,
     width = constants.layout.window.scale,
@@ -32,7 +32,7 @@ require("fzf-lua").setup({
       enabled = false,
     },
     preview = {
-      -- default = "bat",
+      default = "bat",
       border = constants.window.border,
     },
   },
