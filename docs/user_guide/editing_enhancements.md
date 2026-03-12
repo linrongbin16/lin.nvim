@@ -27,7 +27,7 @@
 - `<Leader>k` 🄽 🅇 - Jump backward(👆) lines.
 - `s` 🄽 🅇 - Jump to specific chars, with two chars `s{char1}{char2}`.
 - `S` 🄽 🅇 - Jump to other windows, with two chars `S{char1}{char2}`.
-- `f`/`F`/`t`/`T` 🄽 🅇 - Improved forward(👉)/backward(👈) motion, with `;` repeat supported.
+<!-- - `f`/`F`/`t`/`T` 🄽 🅇 - Improved forward(👉)/backward(👈) motion, with `;` repeat supported. -->
 
 ## Comments
 
