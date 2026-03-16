@@ -276,10 +276,11 @@ local M = {
     keys = lua_keys("smoka7/hop.nvim"),
   },
   {
-    "folke/flash.nvim",
-    event = { VeryLazy, BufReadPre, BufNewFile },
-    config = lua_config("folke/flash.nvim"),
-    keys = lua_keys("folke/flash.nvim"),
+    "andyg/leap.nvim",
+    url = "https://codeberg.org/andyg/leap.nvim",
+    dependencies = "tpope/vim-repeat",
+    lazy = false,
+    keys = lua_keys("andyg/leap.nvim"),
   },
   -- Comment
   {
@@ -297,7 +298,6 @@ local M = {
   -- Repeat
   {
     "tpope/vim-repeat",
-    event = { BufReadPre, BufNewFile, VeryLazy },
   },
   -- Surround
   {

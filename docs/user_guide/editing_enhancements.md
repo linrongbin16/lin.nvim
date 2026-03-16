@@ -21,12 +21,13 @@
 
 ## Cursor Motion
 
-?> Supported by [flash.nvim](https://github.com/folke/flash.nvim) and [hop.nvim](https://github.com/smoka7/hop.nvim).
+?> Supported by [leap.nvim](https://codeberg.org/andyg/leap.nvim) and [hop.nvim](https://github.com/smoka7/hop.nvim).
 
 - `<Leader>j` 🄽 🅇 - Jump forward(👇) lines.
 - `<Leader>k` 🄽 🅇 - Jump backward(👆) lines.
-- `s` 🄽 🅇 - Jump to specific chars.
-- `f`/`F`/`t`/`T` 🄽 🅇 - Improved forward(👉)/backward(👈) motion, with `;` repeat supported.
+- `s` 🄽 🅇 - Jump to specific chars, with two chars `s{char1}{char2}`.
+- `S` 🄽 🅇 - Jump to other windows, with two chars `S{char1}{char2}`.
+<!-- - `f`/`F`/`t`/`T` 🄽 🅇 - Improved forward(👉)/backward(👈) motion, with `;` repeat supported. -->
 
 ## Comments
 
