@@ -154,6 +154,10 @@ local setup_opts = {
       end
     end, { "i", "s" }),
   }),
+  matching = {
+    disallow_partial_fuzzy_matching = false,
+    disallow_symbol_nonprefix_matching = false,
+  },
 }
 
 cmp.setup(setup_opts)
