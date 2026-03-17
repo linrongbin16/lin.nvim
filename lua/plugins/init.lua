@@ -209,7 +209,7 @@ local M = {
       "nvim-tree/nvim-web-devicons",
       "onsails/lspkind.nvim",
     },
-    version = "v1.8.0",
+    version = "v1.*",
     config = lua_config("saghen/blink.cmp"),
   },
 
@@ -287,11 +287,9 @@ local M = {
   },
   -- Pairs
   {
-    "saghen/blink.pairs",
+    "cohama/lexima.vim",
     event = { BufReadPre, BufNewFile, VeryLazy },
-    dependencies = "saghen/blink.download",
-    version = "*",
-    config = lua_config("saghen/blink.pairs"),
+    init = lua_init("cohama/lexima.vim"),
   },
   -- Repeat
   {
