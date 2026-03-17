@@ -104,7 +104,6 @@ local setup_opts = {
       compare_lsp_kind,
       compare_lsp_sort,
       compare_len_ignore,
-      require("cmp-under-comparator").under,
       -- compare.kind,
       -- compare.sort_text,
       -- compare.length,
