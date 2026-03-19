@@ -8,7 +8,7 @@ require("smart-splits").setup({
   ignored_filetypes = {},
 
   -- the default number of lines/columns to resize by at a time
-  default_amount = 10,
+  default_amount = 5,
 
   -- Desired behavior when your cursor is at an edge and you
   -- are moving towards that same edge:
