@@ -19,6 +19,8 @@ local UIEnter = "UIEnter"
 --
 -- Neovim Colors: <https://www.trackawesomelist.com/rockerBOO/awesome-neovim/readme/>
 -- Vim Colors: <https://github.com/rafi/awesome-vim-colorschemes>
+-- GitHub neovim-colorscheme topic: <https://github.com/topics/neovim-colorscheme>
+-- GitHub vim-colorscheme topic: <https://github.com/topics/vim-colorscheme>
 --
 -- Only github stars >= 800 are picked.
 
