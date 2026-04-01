@@ -133,6 +133,7 @@ local all_colors = {
   {
     "catppuccin/nvim",
     "catppuccin",
+    name = "catppuccin",
   },
   {
     "EdenEast/nightfox.nvim",
@@ -236,6 +237,9 @@ local color_spec = {
 }
 if type(color.url) == "string" then
   color_spec.url = color.url
+end
+if type(color.name) == "string" then
+  color_spec.name = color.name
 end
 if type(color.dependencies) == "string" or type(color.dependencies) == "table" then
   color_spec.dependencies = color.dependencies
