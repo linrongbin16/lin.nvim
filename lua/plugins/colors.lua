@@ -224,8 +224,7 @@ local all_colors = {
 }
 
 local now = uv.clock_gettime("realtime") --[[@as {sec:integer,nsec:integer} ]]
-local now_nsec = now.nsec
-local index = math.floor(math.fmod(now_nsec, #all_colors)) + 1
+local index = math.floor(math.fmod(now.nsec, #all_colors)) + 1
 local color = all_colors[index]
 local color_spec = {
   color[1],
