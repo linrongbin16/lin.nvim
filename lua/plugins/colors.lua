@@ -22,43 +22,61 @@ local UIEnter = "UIEnter"
 --
 -- Only github stars >= 800 are picked.
 
+--- @param colorname string
+--- @return function():nil
+local function cfg(colorname)
+  local function impl()
+    vim.cmd("color " .. colorname)
+  end
+  return impl
+end
+
 local all_colors = {
   -- ---- NEOVIM COLORS ----
   {
     "tomasiser/vim-code-dark",
-    "codedark",
+    lazy = true,
+    config = cfg("codedark"),
   },
   {
     "Mofiqul/vscode.nvim",
-    "vscode",
+    lazy = true,
+    config = cfg("vscode"),
   },
   {
     "marko-cerovac/material.nvim",
-    "material",
+    lazy = true,
+    config = cfg("material"),
   },
   {
     "bluz71/vim-nightfly-colors",
-    "nightly",
+    lazy = true,
+    config = cfg("nightly"),
   },
   {
     "bluz71/vim-moonfly-colors",
-    "moonfly",
+    lazy = true,
+    config = cfg("moonfly"),
   },
   {
     "folke/tokyonight.nvim",
-    "tokyonight",
+    lazy = true,
+    config = cfg("tokyonight"),
   },
   {
     "rebelot/kanagawa.nvim",
-    "kanagawa",
+    lazy = true,
+    config = cfg("kanagawa"),
   },
   {
     "kepano/flexoki",
-    "flexoki",
+    lazy = true,
+    config = cfg("flexoki"),
   },
   {
     "vague-theme/vague.nvim",
-    "vague",
+    lazy = true,
+    config = cfg("vague"),
   },
   -- {
   --   -- replaced by "navarasu/onedark.nvim"
@@ -67,103 +85,128 @@ local all_colors = {
   -- },
   {
     "craftzdog/solarized-osaka.nvim",
-    "solarized-osaka",
+    lazy = true,
+    config = cfg("solarized-osaka"),
   },
   {
     "sainnhe/sonokai",
-    "sonokai",
+    lazy = true,
+    config = cfg("sonokai"),
   },
   {
     "nyoom-engineering/oxocarbon.nvim",
-    "oxocarbon",
+    lazy = true,
+    config = cfg("oxocarbon"),
   },
   {
     "mhartington/oceanic-next",
-    "OceanicNext",
+    lazy = true,
+    config = cfg("OceanicNext"),
   },
   {
     "sainnhe/edge",
-    "edge",
+    lazy = true,
+    config = cfg("edge"),
   },
   {
     "savq/melange-nvim",
-    "melange",
+    lazy = true,
+    config = cfg("melange"),
   },
   {
     "fenetikm/falcon",
-    "falcon",
+    lazy = true,
+    config = cfg("falcon"),
   },
   {
     "AlexvZyl/nordic.nvim",
-    "nordic",
+    lazy = true,
+    config = cfg("nordic"),
   },
   {
     "shaunsingh/nord.nvim",
-    "nord",
+    lazy = true,
+    config = cfg("nord"),
   },
   {
     "navarasu/onedark.nvim",
-    "onedark",
+    lazy = true,
+    config = cfg("onedark"),
   },
   {
     "sainnhe/gruvbox-material",
-    "gruvbox-material",
+    lazy = true,
+    config = cfg("gruvbox-material"),
   },
   {
     "sainnhe/everforest",
-    "everforest",
+    lazy = true,
+    config = cfg("everforest"),
   },
   {
     "dracula/vim",
-    "dracula",
+    name = "dracula",
+    lazy = true,
+    config = cfg("dracula"),
   },
   {
     "projekt0n/github-nvim-theme",
-    "github_dark",
+    lazy = true,
+    config = cfg("github_dark"),
   },
   {
     "rose-pine/neovim",
-    "rose-pine",
+    lazy = true,
+    config = cfg("rose-pine"),
   },
   {
     "zenbones-theme/zenbones.nvim",
-    "zenbones",
     dependencies = "rktjmp/lush.nvim",
+    lazy = true,
+    config = cfg("zenbones"),
   },
   {
     "catppuccin/nvim",
-    "catppuccin",
     name = "catppuccin",
+    lazy = true,
+    config = cfg("catppuccin"),
   },
   {
     "EdenEast/nightfox.nvim",
-    "nightfox",
+    lazy = true,
+    config = cfg("nightfox"),
   },
   {
     "scottmckendry/cyberdream.nvim",
-    "cyberdream",
+    lazy = true,
+    config = cfg("cyberdream"),
   },
   {
     "ellisonleao/gruvbox.nvim",
-    "gruvbox",
+    lazy = true,
+    config = cfg("gruvbox"),
   },
 
   -- ---- VIM COLORS ----
   {
     "ayu-theme/ayu-vim",
-    "ayu",
+    lazy = true,
+    config = cfg("ayu"),
   },
   {
     "romainl/Apprentice",
-    "apprentice",
+    lazy = true,
+    config = cfg("apprentice"),
   },
   {
     "ajmwagar/vim-deus",
-    "deus",
+    lazy = true,
+    config = cfg("deus"),
   },
   {
     "whatyouhide/vim-gotham",
-    "gotham",
+    lazy = true,
+    config = cfg("gotham"),
   },
   -- {
   --   -- gruvbox
@@ -173,15 +216,18 @@ local all_colors = {
   -- },
   {
     "cocopon/iceberg.vim",
-    "iceberg",
+    lazy = true,
+    config = cfg("iceberg"),
   },
   {
     "NLKNguyen/papercolor-theme",
-    "PaperColor",
+    lazy = true,
+    config = cfg("PaperColor"),
   },
   {
     "nanotech/jellybeans.vim",
-    "jellybeans",
+    lazy = true,
+    config = cfg("jellybeans"),
   },
   -- {
   --   -- nord
@@ -197,7 +243,8 @@ local all_colors = {
   -- },
   {
     "rakr/vim-one",
-    "one",
+    lazy = true,
+    config = cfg("one"),
   },
   -- {
   --   -- onedark
@@ -207,42 +254,30 @@ local all_colors = {
   -- },
   {
     "sonph/onehalf",
-    "onehalf",
+    lazy = true,
+    config = cfg("onehalf"),
   },
   {
     "junegunn/seoul256.vim",
-    "seoul256",
+    lazy = true,
+    config = cfg("seoul256"),
   },
   {
     "lifepillar/vim-solarized8",
-    "solarized8",
     url = "https://codeberg.org/lifepillar/vim-solarized8",
+    lazy = true,
+    config = cfg("solarized8"),
   },
   {
     "jacoborus/tender.vim",
-    "tender",
+    lazy = true,
+    config = cfg("tender"),
   },
 }
 
 local now = uv.clock_gettime("realtime") --[[@as {sec:integer,nsec:integer} ]]
 local index = math.floor(math.fmod(now.nsec, #all_colors)) + 1
-local color = all_colors[index]
-local color_spec = {
-  color[1],
-  lazy = false,
-  priority = 1000,
-  config = function()
-    vim.cmd("color " .. color[2])
-  end,
-}
-if type(color.url) == "string" then
-  color_spec.url = color.url
-end
-if type(color.name) == "string" then
-  color_spec.name = color.name
-end
-if type(color.dependencies) == "string" or type(color.dependencies) == "table" then
-  color_spec.dependencies = color.dependencies
-end
+all_colors[index].lazy = false
+all_colors[index].priority = 1000
 
-return color_spec
+return all_colors
