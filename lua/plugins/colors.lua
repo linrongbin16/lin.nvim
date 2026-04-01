@@ -80,11 +80,11 @@ local all_colors = {
     lazy = true,
     config = cfg("vague"),
   },
-  -- {
-  --   -- replaced by "navarasu/onedark.nvim"
-  --   "olimorris/onedarkpro.nvim",
-  --   "onedark",
-  -- },
+  {
+    "olimorris/onedarkpro.nvim",
+    lazy = true,
+    config = cfg("onedark"),
+  },
   {
     "craftzdog/solarized-osaka.nvim",
     lazy = true,
@@ -130,11 +130,12 @@ local all_colors = {
     lazy = true,
     config = cfg("nord"),
   },
-  {
-    "navarasu/onedark.nvim",
-    lazy = true,
-    config = cfg("onedark"),
-  },
+  -- {
+  --   -- replaced by "olimorris/onedarkpro.nvim"
+  --   "navarasu/onedark.nvim",
+  --   lazy = true,
+  --   config = cfg("onedark"),
+  -- },
   {
     "sainnhe/gruvbox-material",
     lazy = true,
@@ -254,11 +255,6 @@ local all_colors = {
   --   "joshdick/onedark.vim",
   --   lazy = true,
   -- },
-  {
-    "sonph/onehalf",
-    lazy = true,
-    config = cfg("onehalf"),
-  },
   {
     "junegunn/seoul256.vim",
     lazy = true,
