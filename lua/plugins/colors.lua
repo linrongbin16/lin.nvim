@@ -25,10 +25,6 @@ return {
   -- ---- NEOVIM COLORS ----
 
   {
-    "rktjmp/lush.nvim",
-    lazy = true,
-  },
-  {
     -- codedark
     "tomasiser/vim-code-dark",
     lazy = true,
@@ -131,6 +127,7 @@ return {
   {
     -- zenbones
     "zenbones-theme/zenbones.nvim",
+    dependencies = "rktjmp/lush.nvim",
     lazy = true,
   },
   {
@@ -162,6 +159,7 @@ return {
     lazy = true,
   },
   {
+    -- apprentice
     "romainl/Apprentice",
     lazy = true,
   },
