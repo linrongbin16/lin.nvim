@@ -1,4 +1,6 @@
-local colors = {
+local num = require("commons.num")
+
+local all_colors = {
   "codedark", -- "tomasiser/vim-code-dark"
   "vscode", -- "Mofiqul/vscode.nvim"
   "material", -- "marko-cerovac/material.nvim"
@@ -37,3 +39,5 @@ local colors = {
   "solarized8", -- "lifepillar/vim-solarized8"
   "tender", -- "jacoborus/tender.vim"
 }
+local index = num.random(#all_colors)
+vim.cmd("color " .. all_colors[index])
