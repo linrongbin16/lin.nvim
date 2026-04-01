@@ -36,16 +36,6 @@ local M = {
     "linrongbin16/commons.nvim",
     lazy = true,
   },
-  -- Colorschemes
-  {
-    "linrongbin16/colorbox.nvim",
-    priority = 1000,
-    lazy = false,
-    config = lua_config("linrongbin16/colorbox.nvim"),
-    build = function()
-      require("colorbox").update()
-    end,
-  },
 
   -- ---- HIGHLIGHT ----
 
