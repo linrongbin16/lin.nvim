@@ -162,6 +162,10 @@ return {
     lazy = true,
   },
   {
+    "romainl/Apprentice",
+    lazy = true,
+  },
+  {
     -- deus
     "ajmwagar/vim-deus",
     lazy = true,
@@ -180,6 +184,60 @@ return {
   {
     -- iceberg
     "cocopon/iceberg.vim",
+    lazy = true,
+  },
+  {
+    -- papercolor
+    "NLKNguyen/papercolor-theme",
+    lazy = true,
+  },
+  {
+    -- jellybeans
+    "nanotech/jellybeans.vim",
+    lazy = true,
+  },
+  -- {
+  --   -- nord
+  --   -- replaced by "shaunsingh/nord.nvim"
+  --   "nordtheme/vim",
+  --   lazy = true,
+  -- },
+  -- {
+  --   -- oceanic-next
+  --   -- replaced by "mhartington/oceanic-next"
+  --   "mhartington/oceanic-next",
+  --   lazy = true,
+  -- },
+  {
+    -- one
+    "rakr/vim-one",
+    lazy = true,
+  },
+  -- {
+  --   -- onedark
+  --   -- replaced by "navarasu/onedark.nvim"
+  --   "joshdick/onedark.vim",
+  --   lazy = true,
+  -- },
+  {
+    -- onehalf
+    "sonph/onehalf",
+    lazy = true,
+  },
+  {
+    -- seoul256
+    "junegunn/seoul256.vim",
+    lazy = true,
+  },
+  {
+    -- solarized8
+    "lifepillar/vim-solarized8",
+    url = "https://codeberg.org/lifepillar/vim-solarized8",
+    lazy = true,
+  },
+  {
+    -- tender
+    "jacoborus/tender.vim",
     lazy = true,
   },
 }
