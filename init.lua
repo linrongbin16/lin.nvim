@@ -33,8 +33,7 @@ require("builtin.diagnostic")
 -- plugins
 require("configs.folke.lazy-nvim.config")
 
--- colors & others
-require("builtin.colors")
+-- others
 require("builtin.others")
 
 -- postinit.vim and postinit.lua
