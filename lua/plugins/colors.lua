@@ -1,19 +1,6 @@
 -- ---- Colorschemes ----
 
-local lua_keys = require("builtin.utils.plugin").lua_keys
-local lua_init = require("builtin.utils.plugin").lua_init
-local lua_config = require("builtin.utils.plugin").lua_config
-local vim_init = require("builtin.utils.plugin").vim_init
-local vim_config = require("builtin.utils.plugin").vim_config
 local uv = vim.uv or vim.loop
-
-local VeryLazy = "VeryLazy"
-local BufReadPre = "BufReadPre"
-local BufNewFile = "BufNewFile"
-local CmdlineEnter = "CmdlineEnter"
-local VimEnter = "VimEnter"
-local InsertEnter = "InsertEnter"
-local UIEnter = "UIEnter"
 
 -- Collect from:
 --
