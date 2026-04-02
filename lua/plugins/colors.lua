@@ -58,11 +58,6 @@ local all_colors = {
     config = cfg("kanagawa"),
   },
   {
-    "kepano/flexoki",
-    lazy = true,
-    config = cfg("flexoki"),
-  },
-  {
     "vague-theme/vague.nvim",
     lazy = true,
     config = cfg("vague"),
