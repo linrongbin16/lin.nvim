@@ -40,7 +40,7 @@ local all_colors = {
   {
     "bluz71/vim-nightfly-colors",
     lazy = true,
-    config = cfg("nightly"),
+    config = cfg("nightfly"),
   },
   {
     "bluz71/vim-moonfly-colors",
