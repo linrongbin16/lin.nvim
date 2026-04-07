@@ -3,7 +3,7 @@ vim.g.cursorword_delay = 100
 
 local cursorword_augroup = vim.api.nvim_create_augroup("cursorword_augroup", { clear = true })
 
-vim.api.nvim_create_autocmd({ "UIEnter", "Colorscheme" }, {
+vim.api.nvim_create_autocmd({ "UIEnter", "ColorScheme" }, {
   group = cursorword_augroup,
   callback = function()
     vim.schedule(function()
