@@ -86,9 +86,23 @@ for _, p in ipairs(bracket_pairs) do
   vim.keymap.del(mode, key2)
 end
 
-local n_suffix_keycodes = { "i", "a" }
-for _, kc in ipairs(n_suffix_keycodes) do
+local n_suffixes = { "i", "a" }
+for _, kc in ipairs(n_suffixes) do
   local key = kc .. "n"
   -- print(string.format("keymap del %s", vim.inspect(key)))
   vim.keymap.del({ "o", "x" }, key)
+end
+
+local gr_prefixes = {
+  { mode = "n", key = "t" },
+  { mode = "n", key = "i" },
+  { mode = "n", key = "r" },
+  { mode = "n", key = "x" },
+  { mode = { "n", "x" }, key = "a" },
+  { mode = "n", key = "n" },
+}
+for _, kc in ipairs(gr_prefixes) do
+  local mode = kc.mode
+  local key = "gr" .. kc.key
+  vim.keymap.del(mode, key)
 end
