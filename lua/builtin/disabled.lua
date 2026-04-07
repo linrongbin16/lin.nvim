@@ -65,13 +65,30 @@ local bracket_pairs = {
     mode = "n",
     key = "<Space>",
   },
+  {
+    mode = "n",
+    key = "<C-T>",
+  },
+  {
+    mode = "n",
+    key = "<C-L>",
+  },
+  {
+    mode = "n",
+    key = "<C-Q>",
+  },
 }
-
-for i, p in ipairs(bracket_pairs) do
+for _, p in ipairs(bracket_pairs) do
   local mode = p.mode --[[@as string]]
   local key1 = "]" .. p.key --[[@as string]]
   local key2 = "[" .. p.key --[[@as string]]
-  -- print(string.format("keymap del %s,%s,%s", vim.inspect(mode), vim.inspect(key1), vim.inspect(key2)))
   vim.keymap.del(mode, key1)
   vim.keymap.del(mode, key2)
+end
+
+local n_suffix_keycodes = { "i", "a" }
+for _, kc in ipairs(n_suffix_keycodes) do
+  local key = kc .. "n"
+  -- print(string.format("keymap del %s", vim.inspect(key)))
+  vim.keymap.del({ "o", "x" }, key)
 end
