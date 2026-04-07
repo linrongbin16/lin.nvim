@@ -70,8 +70,8 @@ local bracket_pairs = {
 for i, p in ipairs(bracket_pairs) do
   local mode = p.mode --[[@as string]]
   local key1 = "]" .. p.key --[[@as string]]
-  local key2 = "]" .. p.key --[[@as string]]
-  print(string.format("keymap del %s,%s,%s", vim.inspect(mode), vim.inspect(key1), vim.inspect(key2)))
+  local key2 = "[" .. p.key --[[@as string]]
+  -- print(string.format("keymap del %s,%s,%s", vim.inspect(mode), vim.inspect(key1), vim.inspect(key2)))
   vim.keymap.del(mode, key1)
   vim.keymap.del(mode, key2)
 end
