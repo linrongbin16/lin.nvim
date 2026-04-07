@@ -106,3 +106,7 @@ for _, kc in ipairs(gr_prefixes) do
   local key = "gr" .. kc.key
   vim.keymap.del(mode, key)
 end
+
+vim.keymap.del("o", "gc")
+vim.keymap.del("n", "<C-W>d")
+vim.keymap.del("s", "<C-S>")
