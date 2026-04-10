@@ -9,5 +9,7 @@ require("colorbox").setup({
       return not disabled_colors[spec.handle]
     end,
   },
-  policy = 'in_order'
+  policy = 'reverse_order',
+  debug = true,
+  file_log = true,
 })
