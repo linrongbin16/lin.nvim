@@ -9,7 +9,7 @@ require("colorbox").setup({
       return not disabled_colors[spec.handle]
     end,
   },
-  policy = 'reverse_order',
+  policy = 'shuffle',
   debug = true,
   file_log = true,
 })
