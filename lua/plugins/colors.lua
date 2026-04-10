@@ -141,6 +141,7 @@ local all_colors = {
   },
   {
     "rose-pine/neovim",
+    name = "rose-pine",
     lazy = true,
     config = cfg("rose-pine"),
   },
