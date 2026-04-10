@@ -40,7 +40,7 @@ local M = {
   {
     "linrongbin16/colorbox.nvim",
     dev = true,
-    lazy = true,
+    lazy = false,
     config = lua_config("linrongbin16/colorbox.nvim"),
     priority = 1000,
     debug = true,
