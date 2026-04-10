@@ -179,11 +179,12 @@ local all_colors = {
     lazy = true,
     config = cfg("ayu"),
   },
-  {
-    "romainl/Apprentice",
-    lazy = true,
-    config = cfg("apprentice"),
-  },
+  -- Disabled because it throws exceptions.
+  -- {
+  --   "romainl/Apprentice",
+  --   lazy = true,
+  --   config = cfg("apprentice"),
+  -- },
   {
     "ajmwagar/vim-deus",
     lazy = true,
