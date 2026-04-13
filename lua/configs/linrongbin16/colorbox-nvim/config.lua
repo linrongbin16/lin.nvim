@@ -1,21 +1,12 @@
 local disabled_colors = {
-  -- ["navarasu/onedark.nvim"] = true,
-  ["zenbones-theme/zenbones.nvim"] = true,
-  ["rrethy/base16-nvim"] = true,
-  ["ayu-theme/ayu-vim"] = true,
   ["romainl/apprentice"] = true,
-  ["w0ng/vim-hybrid"] = true,
 }
 
 require("colorbox").setup({
   background = "dark",
   filter = {
-    "primary",
-    function(color, spec)
-      return spec.github_stars >= 900
-    end,
-    function(color, spec)
-      return type(spec.handle) == "string" and not disabled_colors[spec.handle]
+    function(color_name, spec)
+      return not disabled_colors[spec.handle]
     end,
   },
 })

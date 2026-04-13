@@ -36,6 +36,13 @@ local M = {
     "linrongbin16/commons.nvim",
     lazy = true,
   },
+  {
+    "linrongbin16/colorbox.nvim",
+    lazy = false,
+    priority = 1000,
+    dependencies = "rktjmp/lush.nvim",
+    config = lua_config("linrongbin16/colorbox.nvim"),
+  },
 
   -- ---- HIGHLIGHT ----
 
