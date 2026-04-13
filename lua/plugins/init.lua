@@ -40,7 +40,8 @@ local M = {
     "linrongbin16/colorbox.nvim",
     lazy = false,
     priority = 1000,
-    dependencies = 
+    dependencies = "rktjmp/lush.nvim",
+    config = lua_config("linrongbin16/colorbox.nvim"),
   },
 
   -- ---- HIGHLIGHT ----
