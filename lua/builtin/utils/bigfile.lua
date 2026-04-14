@@ -21,7 +21,7 @@ local function make_file_quick(bufnr)
             ]])
     vim.treesitter.stop(bufnr)
     vim.diagnostic.enable(false, { bufnr = bufnr })
-    for _, client in vim.lsp.get_clients({ bufnr = bufnr }) do
+    for _, client in ipairs(vim.lsp.get_clients({ bufnr = bufnr })) do
       if client then
         client:stop()
       end
