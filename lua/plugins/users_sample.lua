@@ -90,6 +90,7 @@
 --     "mrcjkb/rustaceanvim",
 --     version = "*",
 --     lazy = false,
+--     init = lua_init("mrcjkb/rustaceanvim"),
 --   },
 --   {
 --     "saecki/crates.nvim",
