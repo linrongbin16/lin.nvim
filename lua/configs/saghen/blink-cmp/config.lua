@@ -1,5 +1,3 @@
-local str = require("commons.str")
-
 require("blink.cmp").setup({
   cmdline = {
     enabled = true,
