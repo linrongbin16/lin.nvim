@@ -209,6 +209,9 @@ local M = {
     },
     -- version = "v1.*",
     config = lua_config("saghen/blink.cmp"),
+    build = function()
+      require("blink.cmp").build():wait(60000)
+    end,
   },
   -- {
   --   "FelipeLema/cmp-async-path",
