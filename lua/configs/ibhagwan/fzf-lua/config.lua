@@ -34,6 +34,13 @@ require("fzf-lua").setup({
       border = constants.window.border,
     },
   },
+  previewers = {
+    builtin = {
+      treesitter = {
+        enabled = false,
+      },
+    },
+  },
   keymap = {
     builtin = {
       ["<C-E>"] = "toggle",
