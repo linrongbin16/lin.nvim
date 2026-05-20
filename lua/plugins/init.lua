@@ -120,6 +120,7 @@ local M = {
   -- Fuzzy search
   {
     "ibhagwan/fzf-lua",
+    dependencies = "nvim-tree/nvim-web-devicons",
     event = { "CmdlineEnter" },
     config = lua_config("ibhagwan/fzf-lua"),
     keys = lua_keys("ibhagwan/fzf-lua"),
