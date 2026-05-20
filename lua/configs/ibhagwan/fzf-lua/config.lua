@@ -36,6 +36,11 @@ require("fzf-lua").setup({
       border = constants.window.border,
     },
   },
+  fzf_colors = {
+    true,
+    ["fg+"] = { "fg", "Visual" },
+    ["bg+"] = { "bg", "Visual" },
+  },
   keymap = {
     fzf = {
       ["ctrl-e"] = "toggle",
