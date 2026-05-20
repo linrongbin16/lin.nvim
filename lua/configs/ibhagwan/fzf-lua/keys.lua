@@ -75,6 +75,7 @@ local function get_cursor_winopts()
     win = winnr,
     style = "minimal",
     preview = {
+      default = "bat",
       border = border,
       horizontal = "left:66%",
     },
