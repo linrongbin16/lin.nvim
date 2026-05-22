@@ -10,6 +10,11 @@ vim.g.rustaceanvim = function()
               enable = false,
             },
           },
+          cargo = {
+            buildScripts = {
+              enable = true,
+            },
+          },
         },
       },
     },
