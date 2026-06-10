@@ -31,7 +31,6 @@ require("fzf-lua").setup({
       enabled = false,
     },
     preview = {
-      default = "builtin",
       border = constants.window.border,
     },
   },
