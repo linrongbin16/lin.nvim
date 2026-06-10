@@ -21,18 +21,16 @@ local git_grep_actions = vim.tbl_deep_extend("force", basic_actions, {
 })
 
 require("fzf-lua").setup({
-  { "fzf-native" },
+  -- { "fzf-native" },
+  { "default" },
   winopts = {
     height = constants.layout.window.scale,
     width = constants.layout.window.scale,
-    -- row = 0.35, -- window row position (0=top, 1=bottom)
-    -- col = 0.50, -- window col position (0=left, 1=right)
     border = constants.window.border,
     treesitter = {
       enabled = false,
     },
     preview = {
-      default = "bat",
       border = constants.window.border,
     },
   },
@@ -42,6 +40,12 @@ require("fzf-lua").setup({
     ["bg+"] = { "bg", "Visual" },
   },
   keymap = {
+    builtin = {
+      ["<C-E>"] = "toggle",
+      ["<C-L>"] = "toggle-preview",
+      ["<C-F>"] = "preview-half-page-down",
+      ["<C-B>"] = "preview-half-page-up",
+    },
     fzf = {
       ["ctrl-e"] = "toggle",
       ["ctrl-l"] = "toggle-preview",
