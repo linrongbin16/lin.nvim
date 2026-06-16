@@ -104,6 +104,13 @@ require("blink.cmp").setup({
   },
   snippets = { preset = "luasnip" },
   sources = {
-    default = { "lsp", "path", "snippets", "buffer" },
+    default = { "lazydev", "lsp", "path", "snippets", "buffer" },
+    providers = {
+      lazydev = {
+        name = "LAZYDEV",
+        module = "lazydev.integrations.blink",
+        score_offset = 100,
+      },
+    },
   },
 })

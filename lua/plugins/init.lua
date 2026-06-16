@@ -206,6 +206,7 @@ local M = {
       "L3MON4D3/LuaSnip",
       "nvim-tree/nvim-web-devicons",
       "onsails/lspkind.nvim",
+      "folke/lazydev.nvim",
     },
     config = lua_config("saghen/blink.cmp"),
     build = function()
