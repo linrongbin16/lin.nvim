@@ -207,33 +207,11 @@ local M = {
       "nvim-tree/nvim-web-devicons",
       "onsails/lspkind.nvim",
     },
-    -- version = "v1.*",
     config = lua_config("saghen/blink.cmp"),
     build = function()
       require("blink.cmp").build():pwait()
     end,
   },
-  -- {
-  --   "FelipeLema/cmp-async-path",
-  --   url = "https://codeberg.org/FelipeLema/cmp-async-path",
-  --   lazy = true,
-  -- },
-  -- {
-  --   "hrsh7th/nvim-cmp",
-  --   event = { VeryLazy, CmdlineEnter, InsertEnter },
-  --   dependencies = {
-  --     "nvim-tree/nvim-web-devicons",
-  --     "onsails/lspkind.nvim",
-  --     "rafamadriz/friendly-snippets",
-  --     "L3MON4D3/LuaSnip",
-  --     "saadparwaiz1/cmp_luasnip",
-  --     "hrsh7th/cmp-nvim-lsp",
-  --     "hrsh7th/cmp-buffer",
-  --     "FelipeLema/cmp-async-path",
-  --     "hrsh7th/cmp-cmdline",
-  --   },
-  --   config = lua_config("hrsh7th/nvim-cmp"),
-  -- },
 
   -- ---- CODE-FORMATTER ----
 
