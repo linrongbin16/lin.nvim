@@ -103,7 +103,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: ilammy/msvc-dev-cmd@v1
-      - uses: MinoruSekine/setup-scoop@v4.0.2
+      - uses: MinoruSekine/setup-scoop@v5.0.0
         with:
           buckets: extras
       - name: Get branch
