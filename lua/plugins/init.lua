@@ -277,6 +277,7 @@ local M = {
   {
     "andyg/leap.nvim",
     url = "https://codeberg.org/andyg/leap.nvim",
+    url = "https://codeberg.org/andyg/leap.nvim",
     -- url = "https://git.disroot.org/andyg/leap.nvim",
     dependencies = "tpope/vim-repeat",
     lazy = false,
