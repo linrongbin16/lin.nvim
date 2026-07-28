@@ -37,7 +37,7 @@ local builtin_others_augroup =
 vim.api.nvim_create_autocmd("BufReadPre", {
   group = builtin_others_augroup,
   callback = function(event)
-    local bigfile = require("builtin.utils.bigfile")
+    local bigfile = require("util.bigfile")
     if type(event) == "table" and type(event.buf) == "number" and bigfile.is_too_big(event.buf) then
       bigfile.make_file_quick(event.buf)
     end
