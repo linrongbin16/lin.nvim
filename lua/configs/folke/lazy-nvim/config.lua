@@ -61,9 +61,4 @@ end
 
 require("lazy").setup("plugins", opts)
 
-require("util.keymap").set(
-  "n",
-  "<leader>lz",
-  ":Lazy<CR>",
-  { silent = false, desc = "Open Lazy" }
-)
+require("util.keymap").set("n", "<leader>lz", ":Lazy<CR>", { silent = false, desc = "Open Lazy" })
