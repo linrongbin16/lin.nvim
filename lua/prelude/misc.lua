@@ -1,6 +1,5 @@
 -- ---- Other Options ----
 
-local constants = require("util.constants")
 local keymap = require("util.keymap")
 
 -- biscuits
