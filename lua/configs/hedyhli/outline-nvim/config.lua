@@ -1,4 +1,4 @@
-local constants = require("builtin.constants")
+local constants = require("util.constants")
 
 require("outline").setup({
   outline_window = {

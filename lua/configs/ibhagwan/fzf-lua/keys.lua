@@ -1,4 +1,4 @@
-local constants = require("builtin.constants")
+local constants = require("util.constants")
 local keymap = require("util.keymap")
 
 local function get_visual_select()

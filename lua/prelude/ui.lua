@@ -1,6 +1,6 @@
 -- ---- UI Options ----
 
-local constants = require("builtin.constants")
+local constants = require("util.constants")
 
 -- window border
 if vim.fn.has("nvim-0.11") > 0 then

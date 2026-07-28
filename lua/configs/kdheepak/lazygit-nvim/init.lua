@@ -1,4 +1,4 @@
-local constants = require("builtin.constants")
+local constants = require("util.constants")
 
 vim.g.lazygit_floating_window_border_chars = constants.window.border_chars
 vim.g.lazygit_floating_window_winblend = constants.window.blend
