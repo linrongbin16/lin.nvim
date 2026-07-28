@@ -1,30 +1,30 @@
 -- ---- Other Options ----
 
 local constants = require("builtin.constants")
-local set_key = require("builtin.utils.keymap").set_key
+local keymap = require("util.keymap")
 
 -- biscuits
-set_key("n", "@", "<Noq>", { silent = true, desc = "Disable macro recording" })
-set_key(
+keymap.set("n", "@", "<Noq>", { silent = true, desc = "Disable macro recording" })
+keymap.set(
   { "n", "x" },
   "<leader>ww",
   ":noa w<CR>",
   { silent = false, desc = "Save file without formatting" }
 )
-set_key({ "n", "x" }, "<leader>qq", ":qall!<CR>", { silent = false, desc = ":qall!" })
-set_key(
+keymap.set({ "n", "x" }, "<leader>qq", ":qall!<CR>", { silent = false, desc = ":qall!" })
+keymap.set(
   { "n", "x" },
   "<leader>zz",
   "@=((foldclosed(line('.')) < 0) ? 'zc':'zo')<CR>",
   { silent = false, desc = "Toggle folding" }
 )
-set_key(
+keymap.set(
   "x",
   "<leader>yy",
   ":w! " .. vim.fn.stdpath("config") .. "/.copypaste<CR>",
   { silent = false, desc = "Copy visual selected to cache" }
 )
-set_key(
+keymap.set(
   "n",
   "<leader>pp",
   ":r " .. vim.fn.stdpath("config") .. "/.copypaste<CR>",
