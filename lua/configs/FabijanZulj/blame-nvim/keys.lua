@@ -1,8 +1,7 @@
-local set_lazy_key = require("builtin.utils.keymap").set_lazy_key
+local keymap = require("util.keymap")
 
 local M = {
-  -- toggle git blame
-  set_lazy_key("n", "<leader>gb", "<cmd>BlameToggle<cr>", { desc = "Toggle git blame" }),
+  keymap.set_lazily("n", "<leader>gb", "<cmd>BlameToggle<cr>", { desc = "Toggle git blame" }),
 }
 
 return M

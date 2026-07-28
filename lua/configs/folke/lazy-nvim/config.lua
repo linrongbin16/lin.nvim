@@ -61,7 +61,7 @@ end
 
 require("lazy").setup("plugins", opts)
 
-require("builtin.utils.keymap").set_key(
+require("util.keymap").set(
   "n",
   "<leader>lz",
   ":Lazy<CR>",
