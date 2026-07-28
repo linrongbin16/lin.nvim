@@ -5,10 +5,9 @@ local keymap = require("util.keymap")
 --- @param next boolean
 --- @param severity integer?
 local function goto_diagnostic(next, severity)
-  ---@diagnostic disable-next-line: deprecated
-  local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
+  local count = next and 1 or -1
   return function()
-    go({ severity = severity })
+    vim.diagnostic.jump({ severity = severity, count = count, float = true })
   end
 end
 
