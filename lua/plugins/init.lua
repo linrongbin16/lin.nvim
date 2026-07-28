@@ -1,10 +1,10 @@
 -- ---- Plugins ----
 
-local lua_keys = require("builtin.utils.plugin").lua_keys
-local lua_init = require("builtin.utils.plugin").lua_init
-local lua_config = require("builtin.utils.plugin").lua_config
-local vim_init = require("builtin.utils.plugin").vim_init
-local vim_config = require("builtin.utils.plugin").vim_config
+local lua_keys = require("util.plugin").lua_keys
+local lua_init = require("util.plugin").lua_init
+local lua_config = require("util.plugin").lua_config
+local vim_init = require("util.plugin").vim_init
+local vim_config = require("util.plugin").vim_config
 
 local VeryLazy = "VeryLazy"
 local BufEnter = "BufEnter"
