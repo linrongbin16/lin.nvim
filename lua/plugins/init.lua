@@ -197,38 +197,21 @@ local M = {
     dependencies = "Bilal2453/luvit-meta",
     config = lua_config("folke/lazydev.nvim"),
   },
-  -- {
-  --   "saghen/blink.cmp",
-  --   event = { VeryLazy, CmdlineEnter, InsertEnter },
-  --   dependencies = {
-  --     "rafamadriz/friendly-snippets",
-  --     "L3MON4D3/LuaSnip",
-  --     "nvim-tree/nvim-web-devicons",
-  --     "onsails/lspkind.nvim",
-  --   },
-  --   version = "v1.*",
-  --   config = lua_config("saghen/blink.cmp"),
-  -- },
   {
-    "FelipeLema/cmp-async-path",
-    url = "https://codeberg.org/FelipeLema/cmp-async-path",
-    lazy = true,
-  },
-  {
-    "hrsh7th/nvim-cmp",
+    "saghen/blink.cmp",
     event = { VeryLazy, CmdlineEnter, InsertEnter },
     dependencies = {
-      "nvim-tree/nvim-web-devicons",
-      "onsails/lspkind.nvim",
+      "saghen/blink.lib",
       "rafamadriz/friendly-snippets",
       "L3MON4D3/LuaSnip",
-      "saadparwaiz1/cmp_luasnip",
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-buffer",
-      "FelipeLema/cmp-async-path",
-      "hrsh7th/cmp-cmdline",
+      "nvim-tree/nvim-web-devicons",
+      "onsails/lspkind.nvim",
+      "folke/lazydev.nvim",
     },
-    config = lua_config("hrsh7th/nvim-cmp"),
+    config = lua_config("saghen/blink.cmp"),
+    build = function()
+      require("blink.cmp").build():pwait()
+    end,
   },
 
   -- ---- CODE-FORMATTER ----
@@ -293,8 +276,8 @@ local M = {
   },
   {
     "andyg/leap.nvim",
-    -- url = "https://codeberg.org/andyg/leap.nvim",
-    url = "https://git.disroot.org/andyg/leap.nvim",
+    url = "https://codeberg.org/andyg/leap.nvim",
+    -- url = "https://git.disroot.org/andyg/leap.nvim",
     dependencies = "tpope/vim-repeat",
     lazy = false,
     keys = lua_keys("andyg/leap.nvim"),

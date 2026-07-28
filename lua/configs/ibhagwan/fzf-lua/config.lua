@@ -31,6 +31,7 @@ require("fzf-lua").setup({
       enabled = false,
     },
     preview = {
+      layout = "horizontal", -- horizontal|vertical|flex
       border = constants.window.border,
     },
   },
