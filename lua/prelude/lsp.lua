@@ -1,6 +1,6 @@
 -- ---- LSP ----
 
-local keymap.set = require("util.keymap")
+local keymap = require("util.keymap")
 
 local NVIM_VERSION_0_11_0 = vim.fn.has("nvim-0.11.0") > 0
 
