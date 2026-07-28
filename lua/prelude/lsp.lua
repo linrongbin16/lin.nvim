@@ -2,22 +2,13 @@
 
 local keymap = require("util.keymap")
 
-local NVIM_VERSION_0_11_0 = vim.fn.has("nvim-0.11.0") > 0
-
 --- @param next boolean
 --- @param severity integer?
 local function goto_diagnostic(next, severity)
-  if NVIM_VERSION_0_11_0 then
-    local count = next and 1 or -1
-    return function()
-      vim.diagnostic.jump({ severity = severity, count = count, float = true })
-    end
-  else
-    ---@diagnostic disable-next-line: deprecated
-    local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
-    return function()
-      go({ severity = severity })
-    end
+  ---@diagnostic disable-next-line: deprecated
+  local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
+  return function()
+    go({ severity = severity })
   end
 end
 

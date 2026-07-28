@@ -3,9 +3,7 @@
 local constants = require("util.constants")
 
 -- window border
-if vim.fn.has("nvim-0.11") > 0 then
-  vim.g.winborder = constants.window.border
-end
+vim.g.winborder = constants.window.border
 
 -- transparent
 -- vim.o.winblend = constants.window.blend
