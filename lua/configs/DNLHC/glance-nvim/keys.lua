@@ -9,7 +9,12 @@ local M = {
     "<CMD>Glance type_definitions<CR>",
     { desc = "Go to LSP type definition" }
   ),
-  keymap.set_lazily("n", "gi", "<CMD>Glance implementations<CR>", { desc = "Go to LSP implementation" }),
+  keymap.set_lazily(
+    "n",
+    "gi",
+    "<CMD>Glance implementations<CR>",
+    { desc = "Go to LSP implementation" }
+  ),
 }
 
 return M
