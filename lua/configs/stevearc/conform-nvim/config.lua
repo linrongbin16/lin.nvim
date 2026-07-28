@@ -1,4 +1,4 @@
-local message = require("builtin.utils.message")
+local message = require("util.message")
 
 local formatters_by_ft = nil
 
