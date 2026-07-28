@@ -1,4 +1,4 @@
-local layout = require("builtin.utils.layout")
+local layout = require("util.layout")
 
 require("barbar").setup({
   animation = false,

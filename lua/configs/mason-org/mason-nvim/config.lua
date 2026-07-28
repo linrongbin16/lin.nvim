@@ -1,5 +1,5 @@
 local constants = require("util.constants")
-local layout = require("builtin.utils.layout")
+local layout = require("util.layout")
 local path = require("mason-core.path")
 
 require("mason").setup({

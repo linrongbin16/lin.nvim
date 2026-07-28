@@ -1,5 +1,5 @@
 local constants = require("util.constants")
-local layout = require("builtin.utils.layout")
+local layout = require("util.layout")
 local events = require("neo-tree.events")
 
 -- Snacks filepath rename with LSP integration
