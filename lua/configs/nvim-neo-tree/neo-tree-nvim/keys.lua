@@ -1,13 +1,13 @@
-local set_lazy_key = require("builtin.utils.keymap").set_lazy_key
+local keymap = require("util.keymap")
 
 local M = {
-  set_lazy_key(
+  keymap.set_lazily(
     "n",
     "<leader>nt",
     "<cmd>Neotree toggle reveal<cr>",
     { silent = false, desc = "Toggle neo-tree file explorer" }
   ),
-  set_lazy_key(
+  keymap.set_lazily(
     "n",
     "<leader>nf",
     "<cmd>Neotree reveal<cr>",

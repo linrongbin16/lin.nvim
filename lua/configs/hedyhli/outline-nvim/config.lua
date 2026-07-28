@@ -1,4 +1,4 @@
-local constants = require("builtin.constants")
+local constants = require("util.constants")
 
 require("outline").setup({
   outline_window = {
@@ -52,9 +52,9 @@ vim.api.nvim_create_autocmd("FileType", {
   group = outline_augroup,
   pattern = "Outline",
   callback = function()
-    local set_key = require("builtin.utils.keymap").set_key
+    local keymap = require("util.keymap")
     local opts = { buffer = true }
-    set_key("n", "<leader>.", "<cmd>vertical resize -10<cr>", opts)
-    set_key("n", "<leader>,", "<cmd>vertical resize +10<cr>", opts)
+    keymap.set("n", "<leader>.", "<cmd>vertical resize -10<cr>", opts)
+    keymap.set("n", "<leader>,", "<cmd>vertical resize +10<cr>", opts)
   end,
 })

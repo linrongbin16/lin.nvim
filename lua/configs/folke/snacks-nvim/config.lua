@@ -1,5 +1,5 @@
-local constants = require("builtin.constants")
-local layout = require("builtin.utils.layout")
+local constants = require("util.constants")
+local layout = require("util.layout")
 
 require("snacks").setup({
   styles = {

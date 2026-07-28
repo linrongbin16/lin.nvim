@@ -17,24 +17,24 @@ local function lualoader(handle)
   end
 end
 
--- disable useless builtin plugins
-require("builtin.disabled")
+-- disable useless builtins
+require("prelude.disabled")
 
 -- preinit.vim and preinit.lua
 vimloader("preinit")
 lualoader("preinit")
 
 -- options
-vimloader("lua/builtin/options")
-require("builtin.ui")
-require("builtin.lsp")
-require("builtin.diagnostic")
+vimloader("lua/prelude/option")
+require("prelude.ui")
+require("prelude.lsp")
+require("prelude.diagnostic")
 
 -- plugins
 require("configs.folke.lazy-nvim.config")
 
 -- others
-require("builtin.others")
+require("prelude.misc")
 
 -- postinit.vim and postinit.lua
 vimloader("postinit")

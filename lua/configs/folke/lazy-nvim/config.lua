@@ -1,5 +1,5 @@
-local constants = require("builtin.constants")
-local layout = require("builtin.utils.layout")
+local constants = require("util.constants")
+local layout = require("util.layout")
 local uv = vim.uv or vim.loop
 
 local stdpath_config = vim.fn.stdpath("config")
@@ -61,9 +61,4 @@ end
 
 require("lazy").setup("plugins", opts)
 
-require("builtin.utils.keymap").set_key(
-  "n",
-  "<leader>lz",
-  ":Lazy<CR>",
-  { silent = false, desc = "Open Lazy" }
-)
+require("util.keymap").set("n", "<leader>lz", ":Lazy<CR>", { silent = false, desc = "Open Lazy" })

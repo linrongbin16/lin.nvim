@@ -1,7 +1,7 @@
-local set_lazy_key = require("builtin.utils.keymap").set_lazy_key
+local keymap = require("util.keymap")
 
 local M = {
-  set_lazy_key("n", "<leader>ol", "<cmd>Outline<cr>", { desc = "Toggle outline" }),
+  keymap.set_lazily("n", "<leader>ol", "<cmd>Outline<cr>", { desc = "Toggle outline" }),
 }
 
 return M

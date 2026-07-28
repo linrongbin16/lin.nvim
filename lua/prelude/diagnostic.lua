@@ -1,6 +1,6 @@
 -- ---- Diagnostic ----
 
-local constants = require("builtin.constants")
+local constants = require("util.constants")
 
 local function setup_diagnostic()
   local highlights_def = {

@@ -1,4 +1,4 @@
-local set_lazy_key = require("builtin.utils.keymap").set_lazy_key
+local set_lazy_key = require("util.keymap").set_lazily
 
 local M = {
   set_lazy_key("n", "]c", "<Plug>(GitGutterNextHunk)", { desc = "Go to next git hunk" }),

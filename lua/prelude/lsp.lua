@@ -1,67 +1,57 @@
 -- ---- LSP ----
 
-local set_key = require("builtin.utils.keymap").set_key
-
-local NVIM_VERSION_0_11_0 = vim.fn.has("nvim-0.11.0") > 0
+local keymap = require("util.keymap")
 
 --- @param next boolean
 --- @param severity integer?
 local function goto_diagnostic(next, severity)
-  if NVIM_VERSION_0_11_0 then
-    local count = next and 1 or -1
-    return function()
-      vim.diagnostic.jump({ severity = severity, count = count, float = true })
-    end
-  else
-    ---@diagnostic disable-next-line: deprecated
-    local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
-    return function()
-      go({ severity = severity })
-    end
+  local count = next and 1 or -1
+  return function()
+    vim.diagnostic.jump({ severity = severity, count = count, float = true })
   end
 end
 
-set_key("n", "K", function()
+keymap.set("n", "K", function()
   vim.lsp.buf.hover()
 end, { desc = "Show LSP hover" })
 
-set_key({ "n", "i" }, "<C-k>", function()
+keymap.set({ "n", "i" }, "<C-k>", function()
   vim.lsp.buf.signature_help()
 end, { desc = "Show LSP signature help" })
 
-set_key("n", "<Leader>rn", function()
+keymap.set("n", "<Leader>rn", function()
   vim.lsp.buf.rename()
 end, { desc = "Rename LSP symbol" })
 
--- set_key("n", "<Leader>ca", function()
+-- keymap.set("n", "<Leader>ca", function()
 --   vim.lsp.buf.code_action()
 -- end, { desc = "Run LSP code action" })
 --
--- set_key("x", "<Leader>ca", function()
+-- keymap.set("x", "<Leader>ca", function()
 --   vim.lsp.buf.range_code_action()
 -- end, { desc = "Run LSP code action on visual selection" })
 
-set_key("n", "]d", goto_diagnostic(true), { desc = "Next diagnostic item" })
-set_key("n", "[d", goto_diagnostic(false), { desc = "Previous diagnostic item" })
-set_key(
+keymap.set("n", "]d", goto_diagnostic(true), { desc = "Next diagnostic item" })
+keymap.set("n", "[d", goto_diagnostic(false), { desc = "Previous diagnostic item" })
+keymap.set(
   "n",
   "]e",
   goto_diagnostic(true, vim.diagnostic.severity.ERROR),
   { desc = "Go to next error" }
 )
-set_key(
+keymap.set(
   "n",
   "[e",
   goto_diagnostic(false, vim.diagnostic.severity.ERROR),
   { desc = "Go to previous error" }
 )
-set_key(
+keymap.set(
   "n",
   "]w",
   goto_diagnostic(true, vim.diagnostic.severity.WARN),
   { desc = "Go to next warning" }
 )
-set_key(
+keymap.set(
   "n",
   "[w",
   goto_diagnostic(false, vim.diagnostic.severity.WARN),
