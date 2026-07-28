@@ -1,4 +1,4 @@
-local constants = require("builtin.constants")
+local constants = require("util.constants")
 local layout = require("builtin.utils.layout")
 local uv = vim.uv or vim.loop
 
