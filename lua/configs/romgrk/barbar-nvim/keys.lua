@@ -3,7 +3,12 @@ local keymap = require("util.keymap")
 local M = {
   -- delete buffer
   keymap.set_lazily("n", "<leader>bd", "<cmd>BufferClose<cr>", { desc = "Close buffer" }),
-  keymap.set_lazily("n", "<leader>bD", "<cmd>BufferClose!<cr>", { desc = "Close buffer forcibly!" }),
+  keymap.set_lazily(
+    "n",
+    "<leader>bD",
+    "<cmd>BufferClose!<cr>",
+    { desc = "Close buffer forcibly!" }
+  ),
 
   -- go to next/previous buffer
   keymap.set_lazily("n", "]b", "<cmd>BufferNext<cr>", { desc = "Go to next(right) buffer" }),
