@@ -34,8 +34,6 @@ Code format runs on file save asynchronously by default. To manually trigger cod
 
 - `<Leader>cf` 🄽 🅇 - Synchronously format code on current buffer (normal mode) or on visual selections (visual mode).
 
-?> Edit the plugin settings in [lua/configs/stevearc/conform-nvim](https://github.com/linrongbin16/lin.nvim/tree/main/lua/configs/stevearc/conform-nvim) directory.
-
 ?> Check out [LSP server management - Formatters](/user_guide/lsp_server_management.md#formatters) for how to configure code formatters.
 
 ## Diagnostics
