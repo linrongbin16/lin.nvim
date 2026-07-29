@@ -10,4 +10,5 @@ return {
   get_current_win = vim.api.nvim_get_current_win,
   -- au
   create_augroup = vim.api.nvim_create_augroup,
+  create_autocmd = vim.api.nvim_create_autocmd,
 }

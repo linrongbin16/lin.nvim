@@ -1,6 +1,7 @@
 local constants = require("api.constants")
 local layout = require("api.layout")
 local events = require("neo-tree.events")
+local std = require("api.std")
 
 -- Snacks filepath rename with LSP integration
 local function on_move(data)
@@ -192,8 +193,8 @@ local function resize_sidebar()
   end)
 end
 
-local neo_tree = vim.api.nvim_create_augroup("neo_tree", { clear = true })
-vim.api.nvim_create_autocmd({ "VimResized", "UIEnter" }, {
+local neo_tree = std.create_augroup("neo_tree", { clear = true })
+std.create_autocmd({ "VimResized", "UIEnter" }, {
   group = neo_tree,
   callback = resize_sidebar,
 })

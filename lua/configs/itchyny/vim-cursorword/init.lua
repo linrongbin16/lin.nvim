@@ -1,7 +1,9 @@
 vim.g.cursorword_highlight = 0
 vim.g.cursorword_delay = 100
 
-local cursorword = vim.api.nvim_create_augroup("cursorword", { clear = true })
+local std = require("api.std")
+
+local cursorword = std.create_augroup("cursorword", { clear = true })
 vim.api.nvim_create_autocmd({ "UIEnter", "ColorScheme" }, {
   group = cursorword,
   callback = function()
