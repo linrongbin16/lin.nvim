@@ -19,7 +19,7 @@ local function echo(hl, fmt, ...)
       hl,
     })
   end
-  std.echo(chunks, false, {})
+  vim.api.nvim_echo(chunks, false, {})
 end
 
 --- @param fmt string

@@ -6,8 +6,8 @@ require("ts-install").setup({
   install_dir = stdpath_config .. "/ts-install",
 })
 
-local ts_install = std.create_augroup("ts_install", { clear = true })
-std.create_autocmd("FileType", {
+local ts_install = vim.api.nvim_create_augroup("ts_install", { clear = true })
+vim.api.nvim_create_autocmd("FileType", {
   group = ts_install,
   pattern = { "<filetype>" },
   callback = function()

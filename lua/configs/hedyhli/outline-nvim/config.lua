@@ -48,8 +48,8 @@ require("outline").setup({
   },
 })
 
-local outline = std.create_augroup("outline", { clear = true })
-std.create_autocmd("FileType", {
+local outline = vim.api.nvim_create_augroup("outline", { clear = true })
+vim.api.nvim_create_autocmd("FileType", {
   group = outline,
   pattern = "Outline",
   callback = function()
