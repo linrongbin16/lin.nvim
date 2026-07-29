@@ -36,7 +36,7 @@ vim.api.nvim_create_autocmd("BufReadPre", {
   group = prelude_misc,
   callback = function(event)
     local perf = require("api.perf")
-    if type(event) == "table" and type(event.buf) == "number" and perf.is_too_big(event.buf) then
+    if type(event) == "table" and type(event.buf) == "number" and perf.file_is_too_big(event.buf) then
       perf.make_file_quick(event.buf)
     end
   end,
