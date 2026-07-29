@@ -8,6 +8,7 @@ return {
   buf_get_name = vim.api.nvim_buf_get_name,
   -- win
   get_current_win = vim.api.nvim_get_current_win,
+  win_get_cursor = vim.api.nvim_win_get_cursor,
   -- au
   create_augroup = vim.api.nvim_create_augroup,
   create_autocmd = vim.api.nvim_create_autocmd,
