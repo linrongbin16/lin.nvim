@@ -1,5 +1,5 @@
 ---@diagnostic disable:redundant-return-value
-local uv = vim.uv or vim.loop
+local v = require("api.v")
 local stdpath_config = vim.fn.stdpath("config")
 
 --- @param name string
@@ -10,7 +10,7 @@ local function load_lua_module(name, key)
   local user_path = user_filepath_base .. string.format("/user_%s.lua", key)
   local module_base = "configs." .. name:gsub("%.", "-")
 
-  if uv.fs_stat(user_path) then
+  if v.fs_stat(user_path) then
     local user_module = module_base .. string.format(".user_%s", key)
     return require(user_module)
   else
