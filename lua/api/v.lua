@@ -1,6 +1,5 @@
 local uv = vim.uv or vim.loop
 
-
 local fs_stat = vim.uv.fs_stat
 
 local M = {
