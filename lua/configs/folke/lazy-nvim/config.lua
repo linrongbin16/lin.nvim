@@ -1,6 +1,6 @@
 local constants = require("api.constants")
 local layout = require("api.layout")
-local nvim = require("api.std")
+local std = require("api.std")
 
 local stdpath_config = vim.fn.stdpath("config")
 
@@ -48,7 +48,7 @@ local opts = {
 }
 
 local disabled_plugins_entry = stdpath_config .. "/lua/disabled_plugins.lua"
-if nvim.fs_stat(disabled_plugins_entry) then
+if std.fs_stat(disabled_plugins_entry) then
   local disabled_plugins = require("disabled_plugins")
   assert(type(disabled_plugins) == "table")
   opts.defaults = {

@@ -1,5 +1,5 @@
 local constants = require("api.constants")
-local nvim = require("api.std")
+local std = require("api.std")
 
 require("outline").setup({
   outline_window = {
@@ -48,7 +48,7 @@ require("outline").setup({
   },
 })
 
-local outline = nvim.create_augroup("outline", { clear = true })
+local outline = std.create_augroup("outline", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
   group = outline,
   pattern = "Outline",

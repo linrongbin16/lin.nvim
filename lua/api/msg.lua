@@ -1,4 +1,4 @@
-local nvim = require("api.std")
+local std = require("api.std")
 
 --- @param hl string
 --- @param fmt string
@@ -19,7 +19,7 @@ local function echo(hl, fmt, ...)
       hl,
     })
   end
-  nvim.echo(chunks, false, {})
+  std.echo(chunks, false, {})
 end
 
 --- @param fmt string
