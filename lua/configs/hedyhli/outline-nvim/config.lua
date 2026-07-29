@@ -52,7 +52,7 @@ vim.api.nvim_create_autocmd("FileType", {
   group = outline,
   pattern = "Outline",
   callback = function()
-    local keymap = require("util.keymap")
+    local keymap = require("api.keymap")
     local opts = { buffer = true }
     keymap.set("n", "<leader>.", "<cmd>vertical resize -10<cr>", opts)
     keymap.set("n", "<leader>,", "<cmd>vertical resize +10<cr>", opts)

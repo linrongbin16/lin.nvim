@@ -1,6 +1,6 @@
 -- ---- Other Options ----
 
-local keymap = require("util.keymap")
+local keymap = require("api.keymap")
 
 -- biscuits
 keymap.set("n", "@", "<Noq>", { silent = true, desc = "Disable macro recording" })

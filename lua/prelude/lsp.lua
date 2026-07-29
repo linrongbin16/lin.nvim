@@ -1,6 +1,6 @@
 -- ---- LSP ----
 
-local keymap = require("util.keymap")
+local keymap = require("api.keymap")
 
 --- @param next boolean
 --- @param severity integer?

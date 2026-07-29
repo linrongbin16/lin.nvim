@@ -1,4 +1,4 @@
-local keymap = require("util.keymap")
+local keymap = require("api.keymap")
 
 local M = {
   -- toggle cursor word in normal/visual mode
