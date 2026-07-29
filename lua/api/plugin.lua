@@ -20,27 +20,13 @@ local function load_lua_module(name, key)
 end
 
 --- @param name string
---- @param key string
-local function load_vim_script(name, key)
-  local filepath_base = stdpath_config .. "/lua/configs/" .. name:gsub("%.", "-")
-  local user_path = filepath_base .. string.format("/user_%s.vim", key)
-
-  if uv.fs_stat(user_path) then
-    vim.cmd(string.format([[source %s]], user_path))
-  else
-    local default_path = filepath_base .. string.format("/%s.vim", key)
-    vim.cmd(string.format([[source %s]], default_path))
-  end
-end
-
---- @param name string
 --- @return any
-local function lua_keys(name)
+local function keys(name)
   return load_lua_module(name, "keys")
 end
 
 --- @param name string
-local function lua_init(name)
+local function init(name)
   local function wrap()
     return load_lua_module(name, "init")
   end
@@ -48,35 +34,17 @@ local function lua_init(name)
 end
 
 --- @param name string
-local function vim_init(name)
-  local function wrap()
-    load_vim_script(name, "init")
-  end
-  return wrap
-end
-
---- @param name string
-local function lua_config(name)
+local function config(name)
   local function wrap()
     return load_lua_module(name, "config")
   end
   return wrap
 end
 
---- @param name string
-local function vim_config(name)
-  local function wrap()
-    load_vim_script(name, "config")
-  end
-  return wrap
-end
-
 local M = {
-  lua_keys = lua_keys,
-  lua_init = lua_init,
-  vim_init = vim_init,
-  lua_config = lua_config,
-  vim_config = vim_config,
+  keys = keys,
+  init = init,
+  config = config,
 }
 
 return M

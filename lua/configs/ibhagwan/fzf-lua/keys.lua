@@ -1,4 +1,4 @@
-local constants = require("util.constants")
+local constants = require("api.constants")
 local keymap = require("api.keymap")
 
 local function get_visual_select()

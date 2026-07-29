@@ -2,11 +2,7 @@
 
 -- Please uncomment belows and rename this file to 'users.lua' to enable it.
 
--- local lua_keys = require("util.plugin").lua_keys
--- local lua_init = require("util.plugin").lua_init
--- local lua_config = require("util.plugin").lua_config
--- local vim_init = require("util.plugin").vim_init
--- local vim_config = require("util.plugin").vim_config
+-- local plugin = require("util.plugin")
 --
 -- local VeryLazy = "VeryLazy"
 -- local BufReadPre = "BufReadPre"
@@ -21,20 +17,20 @@
 --   {
 --     "nvim-treesitter/nvim-treesitter",
 --     branch = "main",
---     init = lua_init("nvim-treesitter/nvim-treesitter"),
---     config = lua_config("nvim-treesitter/nvim-treesitter"),
+--     init = plugin.init("nvim-treesitter/nvim-treesitter"),
+--     config = plugin.config("nvim-treesitter/nvim-treesitter"),
 --   },
 --   {
 --     "MeanderingProgrammer/treesitter-modules.nvim",
 --     event = { UIEnter },
 --     dependencies = { "nvim-treesitter/nvim-treesitter" },
---     config = lua_config("MeanderingProgrammer/treesitter-modules.nvim"),
+--     config = plugin.config("MeanderingProgrammer/treesitter-modules.nvim"),
 --   },
 --   -- Vim editing behavior
 --   {
 --     "m4xshen/hardtime.nvim",
 --     dependencies = { "MunifTanjim/nui.nvim" },
---     config = lua_config("m4xshen/hardtime.nvim"),
+--     config = plugin.config("m4xshen/hardtime.nvim"),
 --   },
 --   -- No-highlight
 --   {
@@ -44,8 +40,8 @@
 --   -- Yank
 --   {
 --     "gbprod/yanky.nvim",
---     config = lua_config("gbprod/yanky.nvim"),
---     keys = lua_keys("gbprod/yanky.nvim"),
+--     config = plugin.config("gbprod/yanky.nvim"),
+--     keys = plugin.keys("gbprod/yanky.nvim"),
 --   },
 --   {
 --     "rachartier/tiny-glimmer.nvim",
@@ -60,8 +56,8 @@
 --       vim.fn["mkdp#util#install"]()
 --     end,
 --     ft = { "markdown" },
---     init = lua_init("iamcco/markdown-preview.nvim"),
---     keys = lua_keys("iamcco/markdown-preview.nvim"),
+--     init = plugin.init("iamcco/markdown-preview.nvim"),
+--     keys = plugin.keys("iamcco/markdown-preview.nvim"),
 --   },
 --   -- Vim/Neovim api version helper
 --   {
@@ -72,7 +68,7 @@
 --   {
 --     "folke/todo-comments.nvim",
 --     event = { VeryLazy, BufReadPre, BufNewFile },
---     config = lua_config("folke/todo-comments.nvim"),
+--     config = plugin.config("folke/todo-comments.nvim"),
 --   },
 --   -- Mark word
 --   {
@@ -83,14 +79,14 @@
 --     "inkarkat/vim-mark",
 --     event = { CmdlineEnter },
 --     dependencies = { "inkarkat/vim-ingo-library" },
---     init = lua_init("inkarkat/vim-mark"),
---     keys = lua_keys("inkarkat/vim-mark"),
+--     init = plugin.init("inkarkat/vim-mark"),
+--     keys = plugin.keys("inkarkat/vim-mark"),
 --   },
 --   {
 --     "mrcjkb/rustaceanvim",
 --     version = "*",
 --     lazy = false,
---     init = lua_init("mrcjkb/rustaceanvim"),
+--     init = plugin.init("mrcjkb/rustaceanvim"),
 --   },
 --   {
 --     "saecki/crates.nvim",
@@ -104,7 +100,7 @@
 --   {
 --     "milanglacier/minuet-ai.nvim",
 --     lazy = false,
---     config = lua_config("milanglacier/minuet-ai.nvim")
+--     config = plugin.config("milanglacier/minuet-ai.nvim")
 --   },
 -- }
 
