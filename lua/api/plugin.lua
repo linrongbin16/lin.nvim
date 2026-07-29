@@ -1,5 +1,5 @@
 ---@diagnostic disable:redundant-return-value
-local nvim = require("api.nvim")
+local nvim = require("api.std")
 local stdpath_config = vim.fn.stdpath("config")
 
 --- @param name string

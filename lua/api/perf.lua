@@ -1,4 +1,4 @@
-local nvim = require("api.nvim")
+local nvim = require("api.std")
 
 ---@param bufnr integer?
 ---@return boolean

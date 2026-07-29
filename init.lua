@@ -1,6 +1,6 @@
 -- ======== Init ========
 
-local nvim = require("api.nvim")
+local nvim = require("api.std")
 local stdpath_config = vim.fn.stdpath("config")
 
 local function vimloader(handle)

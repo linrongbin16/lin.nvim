@@ -1,6 +1,6 @@
 local constants = require("api.constants")
 local layout = require("api.layout")
-local nvim = require("api.nvim")
+local nvim = require("api.std")
 
 local stdpath_config = vim.fn.stdpath("config")
 
