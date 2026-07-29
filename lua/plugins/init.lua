@@ -1,6 +1,6 @@
 -- ---- Plugins ----
 
-local plugin = require("util.plugin")
+local plugin = require("api.plugin")
 
 local VeryLazy = "VeryLazy"
 local BufEnter = "BufEnter"

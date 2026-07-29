@@ -2,7 +2,7 @@
 
 -- Please uncomment belows and rename this file to 'users.lua' to enable it.
 
--- local plugin = require("util.plugin")
+-- local plugin = require("api.plugin")
 --
 -- local VeryLazy = "VeryLazy"
 -- local BufReadPre = "BufReadPre"
