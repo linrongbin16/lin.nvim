@@ -1,4 +1,3 @@
-local std = require("api.std")
 local stdpath_config = vim.fn.stdpath("config")
 
 require("ts-install").setup({

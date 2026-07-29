@@ -1,5 +1,4 @@
 local constants = require("api.constants")
-local std = require("api.std")
 
 require("outline").setup({
   outline_window = {

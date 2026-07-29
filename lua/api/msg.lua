@@ -1,5 +1,3 @@
-local std = require("api.std")
-
 --- @param hl string
 --- @param fmt string
 --- @param ... any?

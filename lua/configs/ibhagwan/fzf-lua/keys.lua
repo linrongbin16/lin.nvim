@@ -1,6 +1,5 @@
 local constants = require("api.constants")
 local keymap = require("api.keymap")
-local std = require("api.std")
 
 local function get_visual_select()
   return table.concat(

@@ -1,6 +1,5 @@
 local tbl = require("commons.tbl")
 local constants = require("api.constants")
-local std = require("api.std")
 
 local function GitDiffCondition()
   return vim.fn.exists("b:gitsigns_status_dict") > 0

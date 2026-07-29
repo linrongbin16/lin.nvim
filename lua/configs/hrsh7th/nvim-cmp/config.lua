@@ -1,7 +1,6 @@
 local compare = require("cmp.config.compare")
 local types = require("cmp.types")
 local cmp_buffer = require("cmp_buffer")
-local std = require("api.std")
 
 local has_words_before = function()
   unpack = unpack or table.unpack

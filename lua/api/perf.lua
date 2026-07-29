@@ -1,5 +1,3 @@
-local std = require("api.std")
-
 ---@param bufnr integer?
 ---@return boolean
 local function file_is_too_big(bufnr)

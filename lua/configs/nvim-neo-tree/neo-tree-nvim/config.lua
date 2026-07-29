@@ -1,7 +1,6 @@
 local constants = require("api.constants")
 local layout = require("api.layout")
 local events = require("neo-tree.events")
-local std = require("api.std")
 
 -- Snacks filepath rename with LSP integration
 local function on_move(data)
