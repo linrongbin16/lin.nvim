@@ -1,13 +1,12 @@
 local constants = require("api.constants")
 local keymap = require("api.keymap")
-local std = require("api.std")
 
 local function get_visual_select()
   return table.concat(
     vim.fn.getregion(
       vim.fn.getpos("."),
       vim.fn.getpos("v"),
-      { type = std.get_mode().mode }
+      { type = vim.api.nvim_get_mode().mode }
     )
   )
 end
@@ -44,7 +43,7 @@ local function get_cursor_winopts()
   local height = clamp(win_height, 3, 18)
   local width = win_width
 
-  local cursor_pos = std.win_get_cursor(winnr)
+  local cursor_pos = vim.api.nvim_win_get_cursor(winnr)
   local cursor_lineno = cursor_pos[1]
   local lines_till_cursor = vim.fn.getline(win_first_lineno, cursor_lineno) --[[@as string[] ]]
 

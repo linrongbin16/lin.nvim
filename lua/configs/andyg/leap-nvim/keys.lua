@@ -1,5 +1,4 @@
 local keymap = require("api.keymap")
-local std = require("api.std")
 
 local M = {
   keymap.set_lazily({ "n", "x", "o" }, "s", function()
