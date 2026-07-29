@@ -1,11 +1,11 @@
-local uv = vim.uv or vim.loop
+local v = require("api.v")
 
 ---@param bufnr integer?
 ---@return boolean
 local function file_is_too_big(bufnr)
   if type(bufnr) == "number" and vim.api.nvim_buf_is_valid(bufnr) then
     local constants = require("api.constants")
-    local ok, stats = pcall(uv.fs_stat --[[@as function]], vim.api.nvim_buf_get_name(bufnr))
+    local ok, stats = pcall(v.fs_stat --[[@as function]], vim.api.nvim_buf_get_name(bufnr))
     return ok and stats and stats.size > constants.perf.maxfilesize
   end
   return false
