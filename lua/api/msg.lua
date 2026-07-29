@@ -1,3 +1,5 @@
+local nvim = require("api.nvim")
+
 --- @param hl string
 --- @param fmt string
 --- @param ... any?
@@ -17,7 +19,7 @@ local function echo(hl, fmt, ...)
       hl,
     })
   end
-  vim.api.nvim_echo(chunks, false, {})
+  nvim.echo(chunks, false, {})
 end
 
 --- @param fmt string

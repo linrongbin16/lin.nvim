@@ -1,18 +1,18 @@
 -- ======== Init ========
 
-local v = require("api.v")
+local nvim = require("api.nvim")
 local stdpath_config = vim.fn.stdpath("config")
 
 local function vimloader(handle)
   local vimfile = stdpath_config .. string.format("/%s.vim", handle)
-  if v.fs_stat(vimfile) then
+  if nvim.fs_stat(vimfile) then
     vim.fn.execute(string.format("source %s", vimfile), "silent!")
   end
 end
 
 local function lualoader(handle)
   local luafile = stdpath_config .. string.format("/lua/%s.lua", handle)
-  if v.fs_stat(luafile) then
+  if nvim.fs_stat(luafile) then
     require(handle)
   end
 end
