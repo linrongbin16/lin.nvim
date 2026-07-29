@@ -1,8 +1,7 @@
 local uv = vim.uv or vim.loop
 
-
 local M = {
-    uv = uv,
+  uv = uv,
 }
 
 return M

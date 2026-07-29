@@ -31,8 +31,7 @@ keymap.set(
 )
 
 -- large file performance
-local prelude_misc =
-  vim.api.nvim_create_augroup("prelude_misc", { clear = true })
+local prelude_misc = vim.api.nvim_create_augroup("prelude_misc", { clear = true })
 vim.api.nvim_create_autocmd("BufReadPre", {
   group = prelude_misc,
   callback = function(event)
