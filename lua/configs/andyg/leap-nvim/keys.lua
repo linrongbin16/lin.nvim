@@ -1,11 +1,12 @@
 local keymap = require("api.keymap")
+local nvim = require("api.nvim")
 
 local M = {
   keymap.set_lazily({ "n", "x", "o" }, "s", function()
     local saved = vim.o.ignorecase
     vim.o.ignorecase = true
     require("leap").leap({
-      windows = { vim.api.nvim_get_current_win() },
+      windows = { nvim.get_current_win() },
       inclusive = true,
     })
     vim.o.ignorecase = saved
