@@ -58,9 +58,9 @@ keymap.set(
   { desc = "Go to previous warning" }
 )
 
-local builtin_lsp_augroup = vim.api.nvim_create_augroup("builtin_lsp_augroup", { clear = true })
+local prelude_lsp = vim.api.nvim_create_augroup("prelude_lsp", { clear = true })
 vim.api.nvim_create_autocmd("LspAttach", {
-  group = builtin_lsp_augroup,
+  group = prelude_lsp,
   callback = function(ev)
     vim.bo[ev.buf].formatexpr = nil
     vim.bo[ev.buf].omnifunc = nil

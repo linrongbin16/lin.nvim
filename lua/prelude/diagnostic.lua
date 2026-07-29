@@ -95,13 +95,13 @@ local function setup_diagnostic()
   end
 end
 
-local builtin_diagnostic_augroup =
-  vim.api.nvim_create_augroup("builtin_diagnostic_augroup", { clear = true })
+local prelude_diagnostic =
+  vim.api.nvim_create_augroup("prelude_diagnostic", { clear = true })
 vim.api.nvim_create_autocmd("ColorScheme", {
-  group = builtin_diagnostic_augroup,
+  group = prelude_diagnostic,
   callback = vim.schedule_wrap(setup_diagnostic),
 })
 vim.api.nvim_create_autocmd("VimEnter", {
-  group = builtin_diagnostic_augroup,
+  group = prelude_diagnostic,
   callback = vim.schedule_wrap(setup_diagnostic),
 })

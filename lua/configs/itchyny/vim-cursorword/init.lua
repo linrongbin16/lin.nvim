@@ -1,10 +1,9 @@
 vim.g.cursorword_highlight = 0
 vim.g.cursorword_delay = 100
 
-local cursorword_augroup = vim.api.nvim_create_augroup("cursorword_augroup", { clear = true })
-
+local cursorword = vim.api.nvim_create_augroup("cursorword", { clear = true })
 vim.api.nvim_create_autocmd({ "UIEnter", "ColorScheme" }, {
-  group = cursorword_augroup,
+  group = cursorword,
   callback = function()
     vim.schedule(function()
       local cl = vim.api.nvim_get_hl(0, { name = "CursorLine", link = false }) --[[@as table]]
@@ -22,7 +21,7 @@ vim.api.nvim_create_autocmd({ "UIEnter", "ColorScheme" }, {
 })
 
 vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
-  group = cursorword_augroup,
+  group = cursorword,
   callback = function()
     vim.schedule(function()
       local bufnr = vim.api.nvim_get_current_buf()

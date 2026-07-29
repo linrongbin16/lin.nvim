@@ -31,10 +31,10 @@ keymap.set(
 )
 
 -- large file performance
-local builtin_others_augroup =
-  vim.api.nvim_create_augroup("builtin_others_augroup", { clear = true })
+local prelude_misc =
+  vim.api.nvim_create_augroup("prelude_misc", { clear = true })
 vim.api.nvim_create_autocmd("BufReadPre", {
-  group = builtin_others_augroup,
+  group = prelude_misc,
   callback = function(event)
     local bigfile = require("util.bigfile")
     if type(event) == "table" and type(event.buf) == "number" and bigfile.is_too_big(event.buf) then
