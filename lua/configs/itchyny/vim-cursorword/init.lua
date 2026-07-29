@@ -25,7 +25,7 @@ vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
   callback = function()
     vim.schedule(function()
       local bufnr = vim.api.nvim_get_current_buf()
-      local bigfile = require("util.bigfile")
+      local bigfile = require("api.perf")
       if bigfile.is_too_big(bufnr) then
         vim.b.cursorword = 0
       end
