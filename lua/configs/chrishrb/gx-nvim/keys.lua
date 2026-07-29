@@ -1,4 +1,4 @@
-local keymap = require("util.keymap")
+local keymap = require("api.keymap")
 
 local M = {
   keymap.set_lazily({ "n", "x" }, "gx", "<cmd>Browse<cr>", { desc = "Open url in browser" }),

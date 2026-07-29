@@ -1,3 +1,4 @@
+local std = require("api.std")
 local stdpath_config = vim.fn.stdpath("config")
 
 require("ts-install").setup({
@@ -5,9 +6,9 @@ require("ts-install").setup({
   install_dir = stdpath_config .. "/ts-install",
 })
 
-local ts_install_augroup = vim.api.nvim_create_augroup("ts_install_augroup", { clear = true })
-vim.api.nvim_create_autocmd("FileType", {
-  group = ts_install_augroup,
+local ts_install = std.create_augroup("ts_install", { clear = true })
+std.create_autocmd("FileType", {
+  group = ts_install,
   pattern = { "<filetype>" },
   callback = function()
     vim.treesitter.start()

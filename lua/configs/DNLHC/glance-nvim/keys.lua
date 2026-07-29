@@ -1,4 +1,4 @@
-local keymap = require("util.keymap")
+local keymap = require("api.keymap")
 
 local M = {
   keymap.set_lazily("n", "gd", "<CMD>Glance definitions<CR>", { desc = "Go to LSP definition" }),

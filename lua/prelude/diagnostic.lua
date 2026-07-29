@@ -1,6 +1,7 @@
 -- ---- Diagnostic ----
 
-local constants = require("util.constants")
+local constants = require("api.constants")
+local std = require("api.std")
 
 local function setup_diagnostic()
   local highlights_def = {
@@ -95,13 +96,12 @@ local function setup_diagnostic()
   end
 end
 
-local builtin_diagnostic_augroup =
-  vim.api.nvim_create_augroup("builtin_diagnostic_augroup", { clear = true })
-vim.api.nvim_create_autocmd("ColorScheme", {
-  group = builtin_diagnostic_augroup,
+local prelude_diagnostic = std.create_augroup("prelude_diagnostic", { clear = true })
+std.create_autocmd("ColorScheme", {
+  group = prelude_diagnostic,
   callback = vim.schedule_wrap(setup_diagnostic),
 })
-vim.api.nvim_create_autocmd("VimEnter", {
-  group = builtin_diagnostic_augroup,
+std.create_autocmd("VimEnter", {
+  group = prelude_diagnostic,
   callback = vim.schedule_wrap(setup_diagnostic),
 })

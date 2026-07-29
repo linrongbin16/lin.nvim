@@ -1,4 +1,4 @@
-local constants = require("util.constants")
+local constants = require("api.constants")
 
 local basic_actions = {
   ["enter"] = require("fzf-lua").actions.file_edit,

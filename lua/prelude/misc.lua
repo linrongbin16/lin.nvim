@@ -1,6 +1,7 @@
 -- ---- Other Options ----
 
-local keymap = require("util.keymap")
+local keymap = require("api.keymap")
+local std = require("api.std")
 
 -- biscuits
 keymap.set("n", "@", "<Noq>", { silent = true, desc = "Disable macro recording" })
@@ -31,14 +32,17 @@ keymap.set(
 )
 
 -- large file performance
-local builtin_others_augroup =
-  vim.api.nvim_create_augroup("builtin_others_augroup", { clear = true })
-vim.api.nvim_create_autocmd("BufReadPre", {
-  group = builtin_others_augroup,
+local prelude_misc = std.create_augroup("prelude_misc", { clear = true })
+std.create_autocmd("BufReadPre", {
+  group = prelude_misc,
   callback = function(event)
-    local bigfile = require("util.bigfile")
-    if type(event) == "table" and type(event.buf) == "number" and bigfile.is_too_big(event.buf) then
-      bigfile.make_file_quick(event.buf)
+    local perf = require("api.perf")
+    if
+      type(event) == "table"
+      and type(event.buf) == "number"
+      and perf.file_is_too_big(event.buf)
+    then
+      perf.make_file_quick(event.buf)
     end
   end,
 })

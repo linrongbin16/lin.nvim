@@ -1,5 +1,5 @@
 local glance = require("glance")
-local layout = require("util.layout")
+local layout = require("api.layout")
 
 glance.setup({
   height = layout.editor.height(0.99, 3, 18),

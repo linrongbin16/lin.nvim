@@ -1,11 +1,11 @@
-local uv = vim.uv or vim.loop
+local std = require("api.std")
 
 ---@param bufnr integer?
 ---@return boolean
-local function is_too_big(bufnr)
-  if type(bufnr) == "number" and vim.api.nvim_buf_is_valid(bufnr) then
-    local constants = require("util.constants")
-    local ok, stats = pcall(uv.fs_stat --[[@as function]], vim.api.nvim_buf_get_name(bufnr))
+local function file_is_too_big(bufnr)
+  if type(bufnr) == "number" and std.buf_is_valid(bufnr) then
+    local constants = require("api.constants")
+    local ok, stats = pcall(std.fs_stat --[[@as function]], std.buf_get_name(bufnr))
     return ok and stats and stats.size > constants.perf.maxfilesize
   end
   return false
@@ -13,7 +13,7 @@ end
 
 ---@param bufnr integer?
 local function make_file_quick(bufnr)
-  if is_too_big(bufnr) then
+  if file_is_too_big(bufnr) then
     vim.cmd([[
                 syntax clear
                 setlocal eventignore+=FileType
@@ -30,7 +30,7 @@ local function make_file_quick(bufnr)
 end
 
 local M = {
-  is_too_big = is_too_big,
+  file_is_too_big = file_is_too_big,
   make_file_quick = make_file_quick,
 }
 

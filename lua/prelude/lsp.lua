@@ -1,6 +1,7 @@
 -- ---- LSP ----
 
-local keymap = require("util.keymap")
+local keymap = require("api.keymap")
+local std = require("api.std")
 
 --- @param next boolean
 --- @param severity integer?
@@ -58,9 +59,9 @@ keymap.set(
   { desc = "Go to previous warning" }
 )
 
-local builtin_lsp_augroup = vim.api.nvim_create_augroup("builtin_lsp_augroup", { clear = true })
-vim.api.nvim_create_autocmd("LspAttach", {
-  group = builtin_lsp_augroup,
+local prelude_lsp = std.create_augroup("prelude_lsp", { clear = true })
+std.create_autocmd("LspAttach", {
+  group = prelude_lsp,
   callback = function(ev)
     vim.bo[ev.buf].formatexpr = nil
     vim.bo[ev.buf].omnifunc = nil

@@ -1,6 +1,6 @@
 -- ---- UI Options ----
 
-local constants = require("util.constants")
+local constants = require("api.constants")
 
 -- window border
 vim.g.winborder = constants.window.border

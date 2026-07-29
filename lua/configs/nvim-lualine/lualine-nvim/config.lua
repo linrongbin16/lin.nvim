@@ -1,6 +1,6 @@
 local tbl = require("commons.tbl")
-
-local constants = require("util.constants")
+local constants = require("api.constants")
+local std = require("api.std")
 
 local function GitDiffCondition()
   return vim.fn.exists("b:gitsigns_status_dict") > 0
@@ -143,9 +143,9 @@ local config = {
 require("lualine").setup(config)
 
 -- listen to lsp-progress event and refresh
-local lualine_augroup = vim.api.nvim_create_augroup("lualine_augroup", { clear = true })
-vim.api.nvim_create_autocmd("User", {
-  group = lualine_augroup,
+local lualine = std.create_augroup("lualine", { clear = true })
+std.create_autocmd("User", {
+  group = lualine,
   pattern = { "LspProgressStatusUpdated" },
   callback = function()
     require("lualine").refresh({
@@ -153,8 +153,8 @@ vim.api.nvim_create_autocmd("User", {
     })
   end,
 })
-vim.api.nvim_create_autocmd({ "ModeChanged", "BufReadPre", "BufNewFile", "WinEnter" }, {
-  group = lualine_augroup,
+std.create_autocmd({ "ModeChanged", "BufReadPre", "BufNewFile", "WinEnter" }, {
+  group = lualine,
   callback = function()
     require("lualine").refresh({
       place = { "statusline" },
