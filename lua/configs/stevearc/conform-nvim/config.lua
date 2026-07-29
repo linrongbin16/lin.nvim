@@ -1,4 +1,4 @@
-local message = require("util.message")
+local message = require("api.msg")
 
 local formatters_by_ft = nil
 
