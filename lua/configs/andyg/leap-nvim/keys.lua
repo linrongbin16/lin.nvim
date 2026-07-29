@@ -6,7 +6,7 @@ local M = {
     local saved = vim.o.ignorecase
     vim.o.ignorecase = true
     require("leap").leap({
-      windows = { std.get_current_win() },
+      windows = { vim.api.nvim_get_current_win() },
       inclusive = true,
     })
     vim.o.ignorecase = saved

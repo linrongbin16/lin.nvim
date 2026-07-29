@@ -7,7 +7,7 @@ local function get_visual_select()
     vim.fn.getregion(
       vim.fn.getpos("."),
       vim.fn.getpos("v"),
-      { type = vim.api.nvim_get_mode().mode }
+      { type = std.get_mode().mode }
     )
   )
 end
@@ -32,7 +32,7 @@ local function clamp(v, min_val, max_val)
 end
 
 local function get_cursor_winopts()
-  local winnr = std.get_current_win()
+  local winnr = vim.api.nvim_get_current_win()
   local win_first_lineno = vim.fn.line("w0")
   local win_height = vim.api.nvim_win_get_height(winnr)
   local win_width = vim.api.nvim_win_get_width(winnr)

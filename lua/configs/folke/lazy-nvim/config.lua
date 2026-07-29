@@ -48,7 +48,7 @@ local opts = {
 }
 
 local disabled_plugins_entry = stdpath_config .. "/lua/disabled_plugins.lua"
-if std.fs_stat(disabled_plugins_entry) then
+if vim.uv.fs_stat(disabled_plugins_entry) then
   local disabled_plugins = require("disabled_plugins")
   assert(type(disabled_plugins) == "table")
   opts.defaults = {

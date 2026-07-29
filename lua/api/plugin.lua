@@ -10,7 +10,7 @@ local function load_lua_module(name, key)
   local user_path = user_filepath_base .. string.format("/user_%s.lua", key)
   local module_base = "configs." .. name:gsub("%.", "-")
 
-  if std.fs_stat(user_path) then
+  if vim.uv.fs_stat(user_path) then
     local user_module = module_base .. string.format(".user_%s", key)
     return require(user_module)
   else
