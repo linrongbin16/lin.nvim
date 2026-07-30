@@ -1,19 +1,7 @@
 # Debug
 # Set-PSDebug -Trace 1
 
-$architecture = [System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture
-$isArm = switch ($architecture)
-{
-  "Arm"
-  { True
-  }
-  "Arm64"
-  { True
-  }
-  Default
-  { False
-  }
-}
+$isArm = [System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture -eq [System.Runtime.InteropServices.Architecture]::Arm64
 
 $NVIM_HOME = "$env:USERPROFILE\.nvim"
 
