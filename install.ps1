@@ -1,6 +1,20 @@
 # Debug
 # Set-PSDebug -Trace 1
 
+$architecture = [System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture
+$isArm = switch ($architecture)
+{
+  "Arm"
+  { True
+  }
+  "Arm64"
+  { True
+  }
+  Default
+  { False
+  }
+}
+
 $NVIM_HOME = "$env:USERPROFILE\.nvim"
 
 # utils {
@@ -60,7 +74,10 @@ function CoreDeps()
 
   scoop bucket add extras
   scoop install mingw
+  scoop install microsoft-coreutils
   scoop install coreutils
+  # scoop install uutils-coreutils
+  scoop install extras/vcredist2022
 
   # shell
   Install -command "scoop install which" -target "which"
@@ -68,7 +85,11 @@ function CoreDeps()
   Install -command "scoop install sed" -target "sed"
 
   # c++ toolchain
-  Install -command "scoop install llvm" -target "clang"
+  if ($isArm) {
+    Install -command "scoop install llvm-arm64" -target "clang"
+  } else {
+    Install -command "scoop install llvm" -target "clang"
+  }
   Install -command "scoop install make" -target "make"
   Install -command "scoop install cmake" -target "cmake"
 
