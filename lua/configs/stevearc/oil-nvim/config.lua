@@ -14,4 +14,7 @@ require("oil").setup({
     ["<BS>"] = { "actions.parent", mode = "n" },
     ["."] = { "actions.select", mode = "n" },
   },
+  view_options = {
+    show_hidden = true,
+  },
 })
