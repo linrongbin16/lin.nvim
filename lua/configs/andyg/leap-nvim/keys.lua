@@ -1,7 +1,7 @@
-local set_lazy_key = require("builtin.utils.keymap").set_lazy_key
+local keymap = require("api.keymap")
 
 local M = {
-  set_lazy_key({ "n", "x", "o" }, "s", function()
+  keymap.set_lazily({ "n", "x", "o" }, "s", function()
     local saved = vim.o.ignorecase
     vim.o.ignorecase = true
     require("leap").leap({
@@ -10,7 +10,7 @@ local M = {
     })
     vim.o.ignorecase = saved
   end, { desc = "Jump with s{char1}{char2}" }),
-  set_lazy_key("n", "S", function()
+  keymap.set_lazily("n", "S", function()
     local saved = vim.o.ignorecase
     vim.o.ignorecase = true
     require("leap").leap({

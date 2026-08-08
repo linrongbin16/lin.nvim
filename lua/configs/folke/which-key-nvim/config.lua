@@ -1,4 +1,4 @@
-local constants = require("builtin.constants")
+local constants = require("api.constants")
 
 require("which-key").setup({
   delay = 300,

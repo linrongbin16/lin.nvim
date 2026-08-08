@@ -1,5 +1,3 @@
-local str = require("commons.str")
-
 require("blink.cmp").setup({
   cmdline = {
     enabled = true,
@@ -32,9 +30,6 @@ require("blink.cmp").setup({
     },
   },
   completion = {
-    trigger = {
-      prefetch_on_insert = true,
-    },
     accept = {
       dot_repeat = false,
     },
@@ -75,9 +70,6 @@ require("blink.cmp").setup({
       },
     },
   },
-  fuzzy = {
-    implementation = "prefer_rust_with_warning",
-  },
   keymap = {
     ["<CR>"] = { "accept", "fallback" },
 
@@ -112,6 +104,13 @@ require("blink.cmp").setup({
   },
   snippets = { preset = "luasnip" },
   sources = {
-    default = { "lsp", "path", "snippets", "buffer" },
+    default = { "lazydev", "lsp", "path", "snippets", "buffer" },
+    providers = {
+      lazydev = {
+        name = "LAZYDEV",
+        module = "lazydev.integrations.blink",
+        score_offset = 100,
+      },
+    },
   },
 })

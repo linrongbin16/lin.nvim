@@ -1,7 +1,7 @@
-local set_lazy_key = require("builtin.utils.keymap").set_lazy_key
+local keymap = require("api.keymap")
 
 local M = {
-  set_lazy_key("n", "<leader>ms", ":Mason<CR>", { silent = false, desc = "Open Mason" }),
+  keymap.set_lazily("n", "<leader>ms", ":Mason<CR>", { silent = false, desc = "Open Mason" }),
 }
 
 return M

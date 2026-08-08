@@ -26,7 +26,7 @@ end
 --- @param rhs string|function
 --- @param opts table<any, any>
 --- @return nil
-local function set_key(mode, lhs, rhs, opts)
+local function set(mode, lhs, rhs, opts)
   opts = make_opts(rhs, opts)
   vim.keymap.set(mode, lhs, rhs, opts)
 end
@@ -35,7 +35,7 @@ end
 --- @param lhs string
 --- @param rhs string|function|nil
 --- @param opts table<any, any>
-local function set_lazy_key(mode, lhs, rhs, opts)
+local function set_lazily(mode, lhs, rhs, opts)
   opts = make_opts(rhs, opts)
   local key_spec = { lhs, rhs, mode = mode }
   for k, v in pairs(opts) do
@@ -45,8 +45,8 @@ local function set_lazy_key(mode, lhs, rhs, opts)
 end
 
 local M = {
-  set_key = set_key,
-  set_lazy_key = set_lazy_key,
+  set = set,
+  set_lazily = set_lazily,
 }
 
 return M

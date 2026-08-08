@@ -1,5 +1,5 @@
-local constants = require("builtin.constants")
-local set_lazy_key = require("builtin.utils.keymap").set_lazy_key
+local constants = require("api.constants")
+local keymap = require("api.keymap")
 
 local function get_visual_select()
   return table.concat(
@@ -98,30 +98,30 @@ end
 
 local M = {
   -- find files
-  set_lazy_key("n", "<space>f", function()
+  keymap.set_lazily("n", "<space>f", function()
     require("fzf-lua").files({ prompt = get_cwd() })
   end, { desc = "Find files" }),
-  set_lazy_key("x", "<space>f", function()
+  keymap.set_lazily("x", "<space>f", function()
     require("fzf-lua").files({
       query = get_visual_select(),
       prompt = get_cwd(),
     })
   end, { desc = "Find files" }),
-  set_lazy_key("n", "<space>wf", function()
+  keymap.set_lazily("n", "<space>wf", function()
     require("fzf-lua").files({ query = get_cword(), prompt = get_cwd() })
   end, { desc = "Find files by cword" }),
-  set_lazy_key("n", "<space>wf", function()
+  keymap.set_lazily("n", "<space>wf", function()
     require("fzf-lua").files({ query = get_cword(), prompt = get_cwd() })
   end, { desc = "Find files by cword" }),
-  set_lazy_key("n", "<space>rf", function()
+  keymap.set_lazily("n", "<space>rf", function()
     require("fzf-lua").files({ resume = true, prompt = get_cwd() })
   end, { desc = "Find files by resume" }),
 
   -- find git files
-  set_lazy_key("n", "<space>gf", function()
+  keymap.set_lazily("n", "<space>gf", function()
     require("fzf-lua").git_files({ prompt = get_cwd() })
   end, { desc = "Search git files" }),
-  set_lazy_key("x", "<space>gf", function()
+  keymap.set_lazily("x", "<space>gf", function()
     require("fzf-lua").git_files({
       query = get_visual_select(),
       prompt = get_cwd(),
@@ -129,36 +129,36 @@ local M = {
   end, { desc = "Search git files" }),
 
   -- search buffers
-  set_lazy_key("n", "<space>bf", function()
+  keymap.set_lazily("n", "<space>bf", function()
     require("fzf-lua").buffers()
   end, { desc = "Search buffers" }),
-  set_lazy_key("x", "<space>bf", function()
+  keymap.set_lazily("x", "<space>bf", function()
     require("fzf-lua").buffers({ query = get_visual_select() })
   end, { desc = "Search buffers" }),
 
   -- live grep
-  set_lazy_key("n", "<space>l", function()
+  keymap.set_lazily("n", "<space>l", function()
     require("fzf-lua").live_grep()
   end, { desc = "Live grep" }),
-  set_lazy_key("x", "<space>l", function()
+  keymap.set_lazily("x", "<space>l", function()
     require("fzf-lua").live_grep({ query = get_visual_select() })
   end, { desc = "Live grep" }),
-  set_lazy_key("n", "<space>wl", function()
+  keymap.set_lazily("n", "<space>wl", function()
     require("fzf-lua").live_grep({ query = get_cword() })
   end, { desc = "Live grep by cword" }),
-  set_lazy_key("n", "<space>rl", function()
+  keymap.set_lazily("n", "<space>rl", function()
     require("fzf-lua").live_grep({ resume = true })
   end, { desc = "Live grep by resume " }),
 
   -- git live grep
-  set_lazy_key("n", "<space>gl", function()
+  keymap.set_lazily("n", "<space>gl", function()
     require("fzf-lua").live_grep({
       cmd = "git grep --line-number --column --color=always",
       prompt = "Live Grep (Git)> ",
       actions = git_grep_actions(),
     })
   end, { desc = "Git live grep" }),
-  set_lazy_key("x", "<space>gl", function()
+  keymap.set_lazily("x", "<space>gl", function()
     require("fzf-lua").live_grep({
       cmd = "git grep --line-number --column --color=always",
       query = get_visual_select(),
@@ -168,25 +168,25 @@ local M = {
   end, { desc = "Git live grep" }),
 
   -- lsp locations
-  set_lazy_key("n", "gd", function()
+  keymap.set_lazily("n", "gd", function()
     require("fzf-lua").lsp_definitions({
       winopts = get_cursor_winopts(),
       prompt = "Definitions> ",
     })
   end, { desc = "Go to definitions" }),
-  set_lazy_key("n", "gr", function()
+  keymap.set_lazily("n", "gr", function()
     require("fzf-lua").lsp_references({
       winopts = get_cursor_winopts(),
       prompt = "References> ",
     })
   end, { desc = "Go to references" }),
-  set_lazy_key("n", "gt", function()
+  keymap.set_lazily("n", "gt", function()
     require("fzf-lua").lsp_typedefs({
       winopts = get_cursor_winopts(),
       prompt = "Type Definitions> ",
     })
   end, { desc = "Go to type definitions" }),
-  set_lazy_key("n", "gi", function()
+  keymap.set_lazily("n", "gi", function()
     require("fzf-lua").lsp_implementations({
       winopts = get_cursor_winopts(),
       prompt = "Implementations> ",

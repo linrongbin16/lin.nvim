@@ -1,10 +1,6 @@
 -- ---- Plugins ----
 
-local lua_keys = require("builtin.utils.plugin").lua_keys
-local lua_init = require("builtin.utils.plugin").lua_init
-local lua_config = require("builtin.utils.plugin").lua_config
-local vim_init = require("builtin.utils.plugin").vim_init
-local vim_config = require("builtin.utils.plugin").vim_config
+local plugin = require("api.plugin")
 
 local VeryLazy = "VeryLazy"
 local BufEnter = "BufEnter"
@@ -43,7 +39,7 @@ local M = {
     lazy = false,
     priority = 1000,
     dependencies = "rktjmp/lush.nvim",
-    config = lua_config("linrongbin16/colorbox.nvim"),
+    config = plugin.config("linrongbin16/colorbox.nvim"),
   },
 
   -- ---- HIGHLIGHT ----
@@ -51,17 +47,17 @@ local M = {
   {
     "itchyny/vim-cursorword",
     event = { VeryLazy },
-    init = lua_init("itchyny/vim-cursorword"),
+    init = plugin.init("itchyny/vim-cursorword"),
   },
   {
     "brenoprata10/nvim-highlight-colors",
     event = { VeryLazy },
-    config = lua_config("brenoprata10/nvim-highlight-colors"),
+    config = plugin.config("brenoprata10/nvim-highlight-colors"),
   },
   {
     "andymass/vim-matchup",
     event = { VeryLazy },
-    init = lua_init("andymass/vim-matchup"),
+    init = plugin.init("andymass/vim-matchup"),
   },
   {
     "markonm/traces.vim",
@@ -71,7 +67,7 @@ local M = {
     "saghen/blink.indent",
     event = { VeryLazy, BufReadPre, BufNewFile },
     version = "*",
-    config = lua_config("saghen/blink.indent"),
+    config = plugin.config("saghen/blink.indent"),
   },
 
   -- ---- MARKDOWN PREVIEW ----
@@ -79,43 +75,49 @@ local M = {
   {
     "wallpants/github-preview.nvim",
     cmd = { "GithubPreviewToggle" },
-    keys = lua_keys("wallpants/github-preview.nvim"),
-    config = lua_config("wallpants/github-preview.nvim"),
+    keys = plugin.keys("wallpants/github-preview.nvim"),
+    config = plugin.config("wallpants/github-preview.nvim"),
   },
 
   -- ---- UI ----
 
+  -- {
+  --   "nvim-neo-tree/neo-tree.nvim",
+  --   event = { VeryLazy },
+  --   dependencies = { "MunifTanjim/nui.nvim", "folke/snacks.nvim", "neovim/nvim-lspconfig" },
+  --   version = "*",
+  --   config = plugin.config("nvim-neo-tree/neo-tree.nvim"),
+  --   keys = plugin.keys("nvim-neo-tree/neo-tree.nvim"),
+  -- },
   {
-    "nvim-neo-tree/neo-tree.nvim",
-    event = { VeryLazy },
-    dependencies = { "MunifTanjim/nui.nvim", "folke/snacks.nvim", "neovim/nvim-lspconfig" },
-    version = "*",
-    config = lua_config("nvim-neo-tree/neo-tree.nvim"),
-    keys = lua_keys("nvim-neo-tree/neo-tree.nvim"),
+    "stevearc/oil.nvim",
+    dependencies = "nvim-tree/nvim-web-devicons",
+    config = plugin.config("stevearc/oil.nvim"),
+    keys = plugin.keys("stevearc/oil.nvim"),
   },
   {
     "romgrk/barbar.nvim",
     event = { VeryLazy },
-    init = lua_init("romgrk/barbar.nvim"),
-    config = lua_config("romgrk/barbar.nvim"),
-    keys = lua_keys("romgrk/barbar.nvim"),
+    init = plugin.init("romgrk/barbar.nvim"),
+    config = plugin.config("romgrk/barbar.nvim"),
+    keys = plugin.keys("romgrk/barbar.nvim"),
   },
   -- Statusline
   {
     "linrongbin16/lsp-progress.nvim",
     dev = true,
-    config = lua_config("linrongbin16/lsp-progress.nvim"),
+    config = plugin.config("linrongbin16/lsp-progress.nvim"),
   },
   {
     "nvim-lualine/lualine.nvim",
     event = { VeryLazy },
     dependencies = { "linrongbin16/lsp-progress.nvim", "lewis6991/gitsigns.nvim" },
-    config = lua_config("nvim-lualine/lualine.nvim"),
+    config = plugin.config("nvim-lualine/lualine.nvim"),
   },
   {
     "stevearc/stickybuf.nvim",
     event = { VeryLazy },
-    config = lua_config("stevearc/stickybuf.nvim"),
+    config = plugin.config("stevearc/stickybuf.nvim"),
   },
 
   -- ---- SEARCH ----
@@ -124,8 +126,8 @@ local M = {
   {
     "ibhagwan/fzf-lua",
     event = { "CmdlineEnter" },
-    config = lua_config("ibhagwan/fzf-lua"),
-    keys = lua_keys("ibhagwan/fzf-lua"),
+    config = plugin.config("ibhagwan/fzf-lua"),
+    keys = plugin.keys("ibhagwan/fzf-lua"),
   },
 
   -- ---- LSP ----
@@ -147,8 +149,8 @@ local M = {
     },
     build = ":MasonUpdate",
     dependencies = "neovim/nvim-lspconfig",
-    config = lua_config("mason-org/mason.nvim"),
-    keys = lua_keys("mason-org/mason.nvim"),
+    config = plugin.config("mason-org/mason.nvim"),
+    keys = plugin.keys("mason-org/mason.nvim"),
   },
   {
     "mason-org/mason-lspconfig.nvim",
@@ -158,14 +160,14 @@ local M = {
       "LspUninstall",
     },
     dependencies = { "neovim/nvim-lspconfig", "mason-org/mason.nvim" },
-    config = lua_config("mason-org/mason-lspconfig.nvim"),
+    config = plugin.config("mason-org/mason-lspconfig.nvim"),
   },
   {
     "nvimtools/none-ls.nvim",
     event = { VeryLazy, BufReadPre, BufNewFile },
     cmd = { "NullLsInfo", "NullLsLog" },
     dependencies = "neovim/nvim-lspconfig",
-    config = lua_config("nvimtools/none-ls.nvim"),
+    config = plugin.config("nvimtools/none-ls.nvim"),
   },
   {
     "jay-babu/mason-null-ls.nvim",
@@ -182,7 +184,7 @@ local M = {
       "mason-org/mason-lspconfig.nvim",
       "nvimtools/none-ls.nvim",
     },
-    config = lua_config("jay-babu/mason-null-ls.nvim"),
+    config = plugin.config("jay-babu/mason-null-ls.nvim"),
   },
 
   -- ---- AUTO-COMPLETE ----
@@ -198,40 +200,23 @@ local M = {
     "folke/lazydev.nvim",
     ft = "lua",
     dependencies = "Bilal2453/luvit-meta",
-    config = lua_config("folke/lazydev.nvim"),
-  },
-  -- {
-  --   "saghen/blink.cmp",
-  --   event = { VeryLazy, CmdlineEnter, InsertEnter },
-  --   dependencies = {
-  --     "rafamadriz/friendly-snippets",
-  --     "L3MON4D3/LuaSnip",
-  --     "nvim-tree/nvim-web-devicons",
-  --     "onsails/lspkind.nvim",
-  --   },
-  --   version = "v1.*",
-  --   config = lua_config("saghen/blink.cmp"),
-  -- },
-  {
-    "FelipeLema/cmp-async-path",
-    url = "https://codeberg.org/FelipeLema/cmp-async-path",
-    lazy = true,
+    config = plugin.config("folke/lazydev.nvim"),
   },
   {
-    "hrsh7th/nvim-cmp",
+    "saghen/blink.cmp",
     event = { VeryLazy, CmdlineEnter, InsertEnter },
     dependencies = {
-      "nvim-tree/nvim-web-devicons",
-      "onsails/lspkind.nvim",
+      "saghen/blink.lib",
       "rafamadriz/friendly-snippets",
       "L3MON4D3/LuaSnip",
-      "saadparwaiz1/cmp_luasnip",
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-buffer",
-      "FelipeLema/cmp-async-path",
-      "hrsh7th/cmp-cmdline",
+      "nvim-tree/nvim-web-devicons",
+      "onsails/lspkind.nvim",
+      "folke/lazydev.nvim",
     },
-    config = lua_config("hrsh7th/nvim-cmp"),
+    config = plugin.config("saghen/blink.cmp"),
+    build = function()
+      require("blink.cmp").build():pwait()
+    end,
   },
 
   -- ---- CODE-FORMATTER ----
@@ -241,8 +226,8 @@ local M = {
     event = { BufWritePre, BufWritePost },
     cmd = { "ConformInfo" },
     dependencies = "neovim/nvim-lspconfig",
-    config = lua_config("stevearc/conform.nvim"),
-    keys = lua_keys("stevearc/conform.nvim"),
+    config = plugin.config("stevearc/conform.nvim"),
+    keys = plugin.keys("stevearc/conform.nvim"),
   },
 
   -- ---- CODE-ACTION ----
@@ -251,8 +236,8 @@ local M = {
     "rachartier/tiny-code-action.nvim",
     dependencies = { "nvim-lua/plenary.nvim", "folke/snacks.nvim" },
     event = "LspAttach",
-    config = lua_config("rachartier/tiny-code-action.nvim"),
-    keys = lua_keys("rachartier/tiny-code-action.nvim"),
+    config = plugin.config("rachartier/tiny-code-action.nvim"),
+    keys = plugin.keys("rachartier/tiny-code-action.nvim"),
   },
 
   -- ---- KEY BINDING ----
@@ -262,8 +247,8 @@ local M = {
     "folke/which-key.nvim",
     event = { VeryLazy, CmdlineEnter, InsertEnter },
     cmd = { "WhichKey" },
-    config = lua_config("folke/which-key.nvim"),
-    keys = lua_keys("folke/which-key.nvim"),
+    config = plugin.config("folke/which-key.nvim"),
+    keys = plugin.keys("folke/which-key.nvim"),
   },
 
   -- ---- GIT INTEGRATION ----
@@ -273,16 +258,16 @@ local M = {
     "lewis6991/gitsigns.nvim",
     event = { VeryLazy },
     cmd = { "Gitsigns" },
-    config = lua_config("lewis6991/gitsigns.nvim"),
-    keys = lua_keys("lewis6991/gitsigns.nvim"),
+    config = plugin.config("lewis6991/gitsigns.nvim"),
+    keys = plugin.keys("lewis6991/gitsigns.nvim"),
   },
   -- Permlink
   {
     "linrongbin16/gitlinker.nvim",
     dev = true,
     cmd = { "GitLink" },
-    config = lua_config("linrongbin16/gitlinker.nvim"),
-    keys = lua_keys("linrongbin16/gitlinker.nvim"),
+    config = plugin.config("linrongbin16/gitlinker.nvim"),
+    keys = plugin.keys("linrongbin16/gitlinker.nvim"),
   },
 
   -- ---- ENHANCEMENT ----
@@ -292,15 +277,16 @@ local M = {
     "smoka7/hop.nvim",
     event = { VeryLazy, BufReadPre, BufNewFile },
     version = "*",
-    config = lua_config("smoka7/hop.nvim"),
-    keys = lua_keys("smoka7/hop.nvim"),
+    config = plugin.config("smoka7/hop.nvim"),
+    keys = plugin.keys("smoka7/hop.nvim"),
   },
   {
     "andyg/leap.nvim",
     url = "https://codeberg.org/andyg/leap.nvim",
+    -- url = "https://git.disroot.org/andyg/leap.nvim",
     dependencies = "tpope/vim-repeat",
     lazy = false,
-    keys = lua_keys("andyg/leap.nvim"),
+    keys = plugin.keys("andyg/leap.nvim"),
   },
   -- Comment
   {
@@ -311,7 +297,7 @@ local M = {
   {
     "cohama/lexima.vim",
     event = { BufReadPre, BufNewFile, VeryLazy },
-    init = lua_init("cohama/lexima.vim"),
+    init = plugin.init("cohama/lexima.vim"),
   },
   -- Repeat
   {
@@ -334,31 +320,31 @@ local M = {
       "OutlineRefresh",
     },
     dependencies = "neovim/nvim-lspconfig",
-    keys = lua_keys("hedyhli/outline.nvim"),
-    config = lua_config("hedyhli/outline.nvim"),
+    keys = plugin.keys("hedyhli/outline.nvim"),
+    config = plugin.config("hedyhli/outline.nvim"),
   },
   -- Open Url
   {
     "chrishrb/gx.nvim",
     cmd = { "Browse" },
-    init = lua_init("chrishrb/gx.nvim"),
-    config = lua_config("chrishrb/gx.nvim"),
-    keys = lua_keys("chrishrb/gx.nvim"),
+    init = plugin.init("chrishrb/gx.nvim"),
+    config = plugin.config("chrishrb/gx.nvim"),
+    keys = plugin.keys("chrishrb/gx.nvim"),
     submodules = false,
   },
   -- vim.ui.select
   {
     "folke/snacks.nvim",
     lazy = false,
-    config = lua_config("folke/snacks.nvim"),
-    keys = lua_keys("folke/snacks.nvim"),
+    config = plugin.config("folke/snacks.nvim"),
+    keys = plugin.keys("folke/snacks.nvim"),
   },
   -- Split window width
   {
     "mrjones2014/smart-splits.nvim",
     event = { UIEnter },
-    config = lua_config("mrjones2014/smart-splits.nvim"),
-    keys = lua_keys("mrjones2014/smart-splits.nvim"),
+    config = plugin.config("mrjones2014/smart-splits.nvim"),
+    keys = plugin.keys("mrjones2014/smart-splits.nvim"),
   },
 }
 

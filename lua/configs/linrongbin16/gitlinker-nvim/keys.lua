@@ -1,13 +1,13 @@
-local set_lazy_key = require("builtin.utils.keymap").set_lazy_key
+local keymap = require("api.keymap")
 
 local M = {
-  set_lazy_key(
+  keymap.set_lazily(
     { "n", "x" },
     "<leader>gl",
     "<cmd>GitLink<cr>",
     { desc = "Copy git link to clipboard" }
   ),
-  set_lazy_key(
+  keymap.set_lazily(
     { "n", "x" },
     "<leader>gL",
     "<cmd>GitLink!<cr>",

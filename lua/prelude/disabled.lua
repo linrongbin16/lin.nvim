@@ -1,4 +1,4 @@
--- Disable useless builtin plugins
+-- Disable useless builtins
 
 -- Replace with 'neo-tree.nvim'
 vim.g.loaded_netrwPlugin = 1

@@ -1,6 +1,5 @@
-local constants = require("builtin.constants")
-local layout = require("builtin.utils.layout")
-local uv = vim.uv or vim.loop
+local constants = require("api.constants")
+local layout = require("api.layout")
 
 local stdpath_config = vim.fn.stdpath("config")
 
@@ -49,7 +48,7 @@ local opts = {
 }
 
 local disabled_plugins_entry = stdpath_config .. "/lua/disabled_plugins.lua"
-if uv.fs_stat(disabled_plugins_entry) then
+if vim.uv.fs_stat(disabled_plugins_entry) then
   local disabled_plugins = require("disabled_plugins")
   assert(type(disabled_plugins) == "table")
   opts.defaults = {
@@ -62,9 +61,4 @@ end
 
 require("lazy").setup("plugins", opts)
 
-require("builtin.utils.keymap").set_key(
-  "n",
-  "<leader>lz",
-  ":Lazy<CR>",
-  { silent = false, desc = "Open Lazy" }
-)
+require("api.keymap").set("n", "<leader>lz", ":Lazy<CR>", { silent = false, desc = "Open Lazy" })

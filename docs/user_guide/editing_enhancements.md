@@ -6,8 +6,6 @@
 
 - `<Leader>wk` 🄽 - Open _which-key_ by `:WhichKey`.
 
-?> Edit the plugin settings in [lua/configs/folke/which-key-nvim](https://github.com/linrongbin16/lin.nvim/tree/main/lua/configs/folke/which-key-nvim) directory.
-
 ## Git Integration
 
 ?> Supported by [lazygit.nvim](https://github.com/kdheepak/lazygit.nvim), [vim-gitgutter](https://github.com/airblade/vim-gitgutter), [gitlinker.nvim](https://github.com/linrongbin16/gitlinker.nvim) and [git-blame.nvim](https://github.com/f-person/git-blame.nvim).
@@ -16,8 +14,6 @@
 - `]c`/`[c` 🄽 - Go to next(👇)/previous(👆) git hunk in current buffer.
 - `<Leader>gl`/`<Leader>gL` 🄽 🅇 - Copy git permlink to clipboard, or open in default browser.
 - `<Leader>gb` 🄽 - Toggle git blame info on current line.
-
-?> Edit the plugin settings in [lua/configs/kdheepak/lazygit-nvim](https://github.com/linrongbin16/lin.nvim/tree/main/lua/configs/kdheepak/lazygit-nvim), [lua/configs/airblade/vim-gitgutter](https://github.com/linrongbin16/lin.nvim/tree/main/lua/configs/airblade/vim-gitgutter), [lua/configs/linrongbin16/gitlinker-nvim](https://github.com/linrongbin16/lin.nvim/tree/main/lua/configs/linrongbin16/gitlinker-nvim) and [lua/configs/f-person/git-blame-nvim](https://github.com/linrongbin16/lin.nvim/tree/main/lua/configs/f-person/git-blame-nvim) directory.
 
 ## Cursor Motion
 
@@ -46,8 +42,6 @@
 ?> Supported by [gx.nvim](https://github.com/chrishrb/gx.nvim).
 
 - `gx` 🄽 - Open urls under cursor in default browser.
-
-?> Edit the plugin settings in [lua/configs/chrishrb/gx-nvim](https://github.com/linrongbin16/lin.nvim/tree/main/lua/configs/chrishrb/gx-nvim).
 
 ## Markdown Preview
 

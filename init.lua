@@ -1,40 +1,39 @@
 -- ======== Init ========
 
-local uv = vim.uv or vim.loop
 local stdpath_config = vim.fn.stdpath("config")
 
 local function vimloader(handle)
   local vimfile = stdpath_config .. string.format("/%s.vim", handle)
-  if uv.fs_stat(vimfile) then
+  if vim.uv.fs_stat(vimfile) then
     vim.fn.execute(string.format("source %s", vimfile), "silent!")
   end
 end
 
 local function lualoader(handle)
   local luafile = stdpath_config .. string.format("/lua/%s.lua", handle)
-  if uv.fs_stat(luafile) then
+  if vim.uv.fs_stat(luafile) then
     require(handle)
   end
 end
 
--- disable useless builtin plugins
-require("builtin.disabled")
+-- disable useless builtins
+require("prelude.disabled")
 
 -- preinit.vim and preinit.lua
 vimloader("preinit")
 lualoader("preinit")
 
 -- options
-vimloader("lua/builtin/options")
-require("builtin.ui")
-require("builtin.lsp")
-require("builtin.diagnostic")
+vimloader("lua/prelude/option")
+require("prelude.ui")
+require("prelude.lsp")
+require("prelude.diagnostic")
 
 -- plugins
 require("configs.folke.lazy-nvim.config")
 
 -- others
-require("builtin.others")
+require("prelude.misc")
 
 -- postinit.vim and postinit.lua
 vimloader("postinit")

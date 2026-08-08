@@ -26,6 +26,4 @@ Neo-tree also provide a lot of buffer-local key mappings (which only works insid
 - `<C-f>` 🄽 - Fuzzy finder.
 - `[c`/`]c` 🄽 - Navigate to previous(👆)/next(👇) git changes.
 
-?> Edit the plugin settings in [lua/configs/nvim-neo-tree/neo-tree-nvim](https://github.com/linrongbin16/lin.nvim/tree/main/lua/configs/nvim-neo-tree/neo-tree-nvim) directory.
-
 ?> For full key mappings, please refer to neo-tree's document: [neo-tree-mappings](https://github.com/nvim-neo-tree/neo-tree.nvim/blob/main/doc/neo-tree.txt).
