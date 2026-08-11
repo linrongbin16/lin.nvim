@@ -34,7 +34,7 @@ local editor = {
     return result
   end,
 
-  is_small = function()
+  is_small_screen = function()
     return vim.o.columns <= small_screen_columns_threshold
   end,
 }

@@ -1,5 +1,6 @@
 local tbl = require("commons.tbl")
 local constants = require("api.constants")
+local layout = require("api.layout")
 
 local function GitDiffCondition()
   return vim.fn.exists("b:gitsigns_status_dict") > 0
@@ -20,6 +21,9 @@ local function LspProgress()
 end
 
 local function LspClients()
+  if layout.editor.is_small_screen() then
+    return ""
+  end
   local bufnr = vim.api.nvim_get_current_buf()
   local clients = vim.lsp.get_clients({ bufnr = bufnr })
   local names = {}
@@ -42,6 +46,9 @@ local function Location()
 end
 
 local function Progress()
+  if layout.editor.is_small_screen() then
+    return ""
+  end
   local bar = " "
   local line_fraction = math.floor(vim.fn.line(".") / vim.fn.line("$") * 100)
   local value = ""
@@ -96,7 +103,18 @@ local config = {
     },
   },
   sections = {
-    lualine_a = { "mode" },
+    lualine_a = {
+      {
+        "mode",
+        fmt = function(str)
+          if layout.editor.is_small_screen() and type(str) == "string" and string.len(str) >= 1 then
+            return str:sub(1, 1)
+          else
+            return str
+          end
+        end,
+      },
+    },
     lualine_b = { "filename" },
     lualine_c = {
       "branch",
