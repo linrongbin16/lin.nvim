@@ -1,6 +1,7 @@
 local tbl = require("commons.tbl")
 local constants = require("api.constants")
 local layout = require("api.layout")
+local num = require("commons.num")
 
 local function GitDiffCondition()
   return vim.fn.exists("b:gitsigns_status_dict") > 0
@@ -15,15 +16,23 @@ local function GitDiff()
   }
 end
 
+local lsp_spinner = { "⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷" }
+local last_lsp_spinner_index = 0
+
 local function LspProgress()
   local status = require("lsp-progress").progress()
-  return type(status) == "string" and string.len(status) > 0 and status or ""
+  if type(status) ~= "string" or string.len(status) == 0 then
+    return ""
+  end
+  if layout.editor.is_small_screen() then
+    last_lsp_spinner_index = num.mod(last_lsp_spinner_index + 1, 8) + 1
+    return lsp_spinner[last_lsp_spinner_index]
+  else
+    return status
+  end
 end
 
 local function LspClients()
-  if layout.editor.is_small_screen() then
-    return ""
-  end
   local bufnr = vim.api.nvim_get_current_buf()
   local clients = vim.lsp.get_clients({ bufnr = bufnr })
   local names = {}
@@ -46,9 +55,6 @@ local function Location()
 end
 
 local function Progress()
-  if layout.editor.is_small_screen() then
-    return ""
-  end
   local bar = " "
   local line_fraction = math.floor(vim.fn.line(".") / vim.fn.line("$") * 100)
   local value = ""
@@ -135,8 +141,18 @@ local config = {
           hint = constants.diagnostics.hint .. " ",
         },
       },
-      LspClients,
-      "filetype",
+      {
+        LspClients,
+        cond = function()
+          return not layout.editor.is_small_screen()
+        end,
+      },
+      {
+        "filetype",
+        cond = function()
+          return not layout.editor.is_small_screen()
+        end,
+      },
     },
     lualine_y = {
       "encoding",
@@ -151,8 +167,18 @@ local config = {
     },
     lualine_z = {
       -- CursorHex,
-      Location,
-      Progress,
+      {
+        Location,
+        cond = function()
+          return not layout.editor.is_small_screen()
+        end,
+      },
+      {
+        Progress,
+        cond = function()
+          return not layout.editor.is_small_screen()
+        end,
+      },
     },
   },
 }
