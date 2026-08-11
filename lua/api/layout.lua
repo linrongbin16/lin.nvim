@@ -1,3 +1,6 @@
+-- If columns <= this value, then we consider it is a small screen
+local small_screen_columns_threshold = 120
+
 local editor = {
   --- @param percent number
   --- @param min_width integer?
@@ -29,6 +32,10 @@ local editor = {
       result = vim.fn.max({ min_height, result })
     end
     return result
+  end,
+
+  is_small = function()
+    return vim.o.columns <= small_screen_columns_threshold
   end,
 }
 
