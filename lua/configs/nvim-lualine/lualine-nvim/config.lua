@@ -147,12 +147,7 @@ local config = {
           return not layout.editor.is_small_screen()
         end,
       },
-      {
-        "filetype",
-        cond = function()
-          return not layout.editor.is_small_screen()
-        end,
-      },
+      "filetype",
     },
     lualine_y = {
       "encoding",
@@ -167,12 +162,7 @@ local config = {
     },
     lualine_z = {
       -- CursorHex,
-      {
-        Location,
-        cond = function()
-          return not layout.editor.is_small_screen()
-        end,
-      },
+      Location,
       {
         Progress,
         cond = function()
