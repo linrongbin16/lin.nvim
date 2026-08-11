@@ -1,5 +1,7 @@
 local tbl = require("commons.tbl")
 local constants = require("api.constants")
+local layout = require("api.layout")
+local num = require("commons.num")
 
 local function GitDiffCondition()
   return vim.fn.exists("b:gitsigns_status_dict") > 0
@@ -14,9 +16,20 @@ local function GitDiff()
   }
 end
 
+local lsp_spinner = { "⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷" }
+local last_lsp_spinner_index = 0
+
 local function LspProgress()
   local status = require("lsp-progress").progress()
-  return type(status) == "string" and string.len(status) > 0 and status or ""
+  if type(status) ~= "string" or string.len(status) == 0 then
+    return ""
+  end
+  if layout.editor.is_small_screen() then
+    last_lsp_spinner_index = num.mod(last_lsp_spinner_index + 1, 8) + 1
+    return lsp_spinner[last_lsp_spinner_index]
+  else
+    return status
+  end
 end
 
 local function LspClients()
@@ -96,7 +109,18 @@ local config = {
     },
   },
   sections = {
-    lualine_a = { "mode" },
+    lualine_a = {
+      {
+        "mode",
+        fmt = function(str)
+          if layout.editor.is_small_screen() and type(str) == "string" and string.len(str) >= 1 then
+            return str:sub(1, 1)
+          else
+            return str
+          end
+        end,
+      },
+    },
     lualine_b = { "filename" },
     lualine_c = {
       "branch",
@@ -117,7 +141,12 @@ local config = {
           hint = constants.diagnostics.hint .. " ",
         },
       },
-      LspClients,
+      {
+        LspClients,
+        cond = function()
+          return not layout.editor.is_small_screen()
+        end,
+      },
       "filetype",
     },
     lualine_y = {
@@ -134,7 +163,12 @@ local config = {
     lualine_z = {
       -- CursorHex,
       Location,
-      Progress,
+      {
+        Progress,
+        cond = function()
+          return not layout.editor.is_small_screen()
+        end,
+      },
     },
   },
 }
