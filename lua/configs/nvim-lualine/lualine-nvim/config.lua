@@ -16,19 +16,12 @@ local function GitDiff()
   }
 end
 
-local lsp_spinner = { "⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷" }
-local last_lsp_spinner_index = 0
-
 local function LspProgress()
   local status = require("lsp-progress").progress()
-  if type(status) ~= "string" or string.len(status) == 0 then
-    return ""
-  end
-  if layout.editor.is_small_screen() then
-    last_lsp_spinner_index = num.mod(last_lsp_spinner_index + 1, 8) + 1
-    return lsp_spinner[last_lsp_spinner_index]
-  else
+  if type(status) == "string" and string.len(status) > 0 then
     return status
+  else
+    return ""
   end
 end
 
@@ -147,7 +140,12 @@ local config = {
           return not layout.editor.is_small_screen()
         end,
       },
-      "filetype",
+      {
+        "filetype",
+        cond = function()
+          return not layout.editor.is_small_screen()
+        end,
+      },
     },
     lualine_y = {
       "encoding",
