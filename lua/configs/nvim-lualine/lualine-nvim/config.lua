@@ -153,7 +153,11 @@ local config = {
       "encoding",
       {
         "fileformat",
-        symbols = {
+        symbols = layout.editor.is_small_screen() and {
+          unix = "", -- nf-fa-linux: \uf17c
+          dos = "", -- nf-fa-windows: \uf17a
+          mac = "", -- nf-fa-apple: \uf179
+        } or {
           unix = "unix",
           dos = "dos",
           mac = "mac",
