@@ -16,19 +16,12 @@ local function GitDiff()
   }
 end
 
-local lsp_spinner = { "⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷" }
-local last_lsp_spinner_index = 0
-
 local function LspProgress()
   local status = require("lsp-progress").progress()
-  if type(status) ~= "string" or string.len(status) == 0 then
-    return ""
-  end
-  if layout.editor.is_small_screen() then
-    last_lsp_spinner_index = num.mod(last_lsp_spinner_index + 1, 8) + 1
-    return lsp_spinner[last_lsp_spinner_index]
-  else
+  if type(status) == "string" and string.len(status) > 0 then
     return status
+  else
+    return ""
   end
 end
 
@@ -87,7 +80,7 @@ local config = {
   options = {
     icons_enabled = true,
     component_separators = empty_component_separators,
-    section_separators = slash_section_separators,
+    section_separators = empty_section_separators,
     refresh = {
       statusline = 1000,
       refresh_time = 24,
@@ -147,13 +140,22 @@ local config = {
           return not layout.editor.is_small_screen()
         end,
       },
-      "filetype",
+      {
+        "filetype",
+        cond = function()
+          return not layout.editor.is_small_screen()
+        end,
+      },
     },
     lualine_y = {
       "encoding",
       {
         "fileformat",
-        symbols = {
+        symbols = layout.editor.is_small_screen() and {
+          unix = "", -- nf-fa-linux: \uf17c
+          dos = "", -- nf-fa-windows: \uf17a
+          mac = "", -- nf-fa-apple: \uf179
+        } or {
           unix = "unix",
           dos = "dos",
           mac = "mac",
