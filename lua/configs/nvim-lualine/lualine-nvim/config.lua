@@ -43,6 +43,17 @@ local function LspClients()
   end
 end
 
+local function Encoding()
+  local enc = vim.bo.fileencoding
+  if enc == "" then
+    enc = vim.o.encoding
+  end
+  if layout.editor.is_small_screen() and enc == "utf-8" then
+    return ""
+  end
+  return enc
+end
+
 local function Location()
   return " %2l:%-2v"
 end
@@ -148,7 +159,7 @@ local config = {
       },
     },
     lualine_y = {
-      "encoding",
+      Encoding,
       {
         "fileformat",
         symbols = layout.editor.is_small_screen() and {
