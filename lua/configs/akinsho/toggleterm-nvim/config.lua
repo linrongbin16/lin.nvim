@@ -7,7 +7,9 @@ require("toggleterm").setup({
   float_opts = {
     border = constants.window.border,
     winblend = constants.window.blend,
-    width = layout.editor.width(constants.layout.window.scale, 10),
-    height = layout.editor.height(constants.layout.window.scale, 10),
+    row = 0,
+    col = 0,
+    width = layout.editor.width(constants.layout.window.scale, 10) - 2,
+    height = layout.editor.height(constants.layout.window.scale, 10) - 3,
   },
 })
