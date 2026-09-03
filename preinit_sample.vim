@@ -10,7 +10,7 @@ let g:lin_nvim_builtin_constants = {
             \ },
             \ 'window': {
             \   'border': 'rounded',
-            \   'blend': 15,
+            \   'blend': 0,
             \ },
             \ 'layout': {
             \   'window': { 'scale': 0.85 },

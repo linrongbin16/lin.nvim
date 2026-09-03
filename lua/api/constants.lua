@@ -21,7 +21,7 @@ M.window = {
   -- border_chars = { " ", " ", " ", " ", " ", " ", " ", " " }, -- none
   -- border_chars = { "┏", "━", "┓", "┃", "┛", "━", "┗", "┃" }, -- bold
 
-  blend = 15,
+  blend = 0,
 }
 
 M.layout = {
