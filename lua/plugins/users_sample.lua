@@ -13,6 +13,13 @@
 -- local UIEnter = "UIEnter"
 --
 -- return {
+--   -- Terminal
+--   {
+--     "akinsho/toggleterm.nvim",
+--     version = "*",
+--     config = plugin.config("akinsho/toggleterm.nvim"),
+--     keys = plugin.keys("akinsho/toggleterm.nvim"),
+--   },
 --   -- Treesitter highlighting
 --   {
 --     "nvim-treesitter/nvim-treesitter",
