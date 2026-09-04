@@ -32,8 +32,8 @@ install "brew install python3" "python3"
 
 # nodejs
 install "brew install node" "node"
-install "brew install deno" "deno"
-install "brew install oven-sh/bun/bun" "bun"
+# install "brew install deno" "deno"
+# install "brew install oven-sh/bun/bun" "bun"
 
 # go
 install "brew install go" "go"
