@@ -13,8 +13,8 @@ local function trash_bin()
       local inputs = require("neo-tree.ui.inputs")
       local path = state.tree:get_node().path
       local msg = "Are you sure you want to move '"
-          .. vim.fn.fnamemodify(vim.fn.fnameescape(path), ":~:.")
-          .. "' to trash bin?"
+        .. vim.fn.fnamemodify(vim.fn.fnameescape(path), ":~:.")
+        .. "' to trash bin?"
       local state_name = state.name
       inputs.confirm(msg, function(confirmed)
         if not confirmed then
@@ -147,7 +147,7 @@ require("neo-tree").setup({
     },
   },
   event_handlers = {
-    { event = events.FILE_MOVED,   handler = on_move },
+    { event = events.FILE_MOVED, handler = on_move },
     { event = events.FILE_RENAMED, handler = on_move },
   },
 })
@@ -167,8 +167,8 @@ local function resize_sidebar()
     if vim.api.nvim_buf_is_valid(bufnr) then
       local bufname = vim.fn.bufname(bufnr)
       if
-          string.len(bufname) >= string.len(neo_tree_filesystem)
-          and string.sub(bufname, 1, #neo_tree_filesystem):lower() == neo_tree_filesystem
+        string.len(bufname) >= string.len(neo_tree_filesystem)
+        and string.sub(bufname, 1, #neo_tree_filesystem):lower() == neo_tree_filesystem
       then
         neo_tree_winnr = winnr
         break
