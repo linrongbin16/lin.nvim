@@ -71,10 +71,11 @@ local M = {
   -- ---- MARKDOWN PREVIEW ----
 
   {
-    "wallpants/github-preview.nvim",
-    cmd = { "GithubPreviewToggle" },
-    keys = plugin.keys("wallpants/github-preview.nvim"),
-    config = plugin.config("wallpants/github-preview.nvim"),
+    "iamcco/markdown-preview.nvim",
+    build = "cd app && npm install",
+    ft = { "markdown" },
+    init = plugin.init("iamcco/markdown-preview.nvim"),
+    keys = plugin.keys("iamcco/markdown-preview.nvim"),
   },
 
   -- ---- UI ----

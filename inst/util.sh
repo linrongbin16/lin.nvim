@@ -44,10 +44,10 @@ install_gtrash() {
 	go install github.com/umlx5h/gtrash@latest
 }
 
-install_bun() {
-	curl -fsSL https://bun.com/install | bash
-}
+# install_bun() {
+# 	curl -fsSL https://bun.com/install | bash
+# }
 
-install_deno() {
-	curl -fsSL https://deno.land/install.sh | sh -s -- -y
-}
+# install_deno() {
+# 	curl -fsSL https://deno.land/install.sh | sh -s -- -y
+# }

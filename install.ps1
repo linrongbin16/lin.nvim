@@ -91,8 +91,8 @@ function JsDeps()
 {
   Info 'install javascript runtimes'
   Install -command "scoop install nodejs" -target "node"
-  Install -command "scoop install bun" -target "bun"
-  Install -command "scoop install deno" -target "deno"
+  # Install -command "scoop install bun" -target "bun"
+  # Install -command "scoop install deno" -target "deno"
 }
 
 function GoDeps()
