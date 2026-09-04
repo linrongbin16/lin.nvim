@@ -13,8 +13,8 @@ local function trash_bin()
       local inputs = require("neo-tree.ui.inputs")
       local path = state.tree:get_node().path
       local msg = "Are you sure you want to move '"
-        .. vim.fn.fnamemodify(vim.fn.fnameescape(path), ":~:.")
-        .. "' to trash bin?"
+          .. vim.fn.fnamemodify(vim.fn.fnameescape(path), ":~:.")
+          .. "' to trash bin?"
       local state_name = state.name
       inputs.confirm(msg, function(confirmed)
         if not confirmed then
@@ -151,7 +151,7 @@ require("neo-tree").setup({
     },
   },
   event_handlers = {
-    { event = events.FILE_MOVED, handler = on_move },
+    { event = events.FILE_MOVED,   handler = on_move },
     { event = events.FILE_RENAMED, handler = on_move },
   },
 })
@@ -171,8 +171,8 @@ local function resize_sidebar()
     if vim.api.nvim_buf_is_valid(bufnr) then
       local bufname = vim.fn.bufname(bufnr)
       if
-        string.len(bufname) >= string.len(neo_tree_filesystem)
-        and string.sub(bufname, 1, #neo_tree_filesystem):lower() == neo_tree_filesystem
+          string.len(bufname) >= string.len(neo_tree_filesystem)
+          and string.sub(bufname, 1, #neo_tree_filesystem):lower() == neo_tree_filesystem
       then
         neo_tree_winnr = winnr
         break
@@ -197,22 +197,3 @@ vim.api.nvim_create_autocmd({ "VimResized", "UIEnter" }, {
   group = neo_tree,
   callback = resize_sidebar,
 })
-
-local function bootstrap()
-  local function open_impl()
-    local str = require("commons.str")
-
-    local buftype = vim.bo.buftype
-    local filename = vim.api.nvim_buf_get_name(0)
-    -- print(string.format("buftype:%s, filename:%s", vim.inspect(buftype), vim.inspect(filename)))
-    if str.not_empty(buftype) or str.not_empty(filename) then
-      return
-    end
-
-    vim.cmd("Neotree")
-    resize_sidebar()
-  end
-  vim.defer_fn(open_impl, 1)
-end
-
-bootstrap()
