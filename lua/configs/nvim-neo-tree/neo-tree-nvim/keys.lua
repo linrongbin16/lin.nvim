@@ -10,7 +10,7 @@ local M = {
   keymap.set_lazily(
     "n",
     "<leader>nt",
-    "<cmd>Neotree reveal<cr>",
+    "<cmd>Neotree float reveal<cr>",
     { silent = false, desc = "Open neo-tree file explorer" }
   ),
 }
