@@ -10,7 +10,7 @@
 
 ?> Supported by [lazygit.nvim](https://github.com/kdheepak/lazygit.nvim), [vim-gitgutter](https://github.com/airblade/vim-gitgutter), [gitlinker.nvim](https://github.com/linrongbin16/gitlinker.nvim) and [git-blame.nvim](https://github.com/f-person/git-blame.nvim).
 
-- `<Leader>lg` 🄽 - Open lazygit terminal.
+- `<Leader>lg` 🄽 - Open lazygit.
 - `]c`/`[c` 🄽 - Go to next(👇)/previous(👆) git hunk in current buffer.
 - `<Leader>gl`/`<Leader>gL` 🄽 🅇 - Copy git permlink to clipboard, or open in default browser.
 - `<Leader>gb` 🄽 - Toggle git blame info on current line.
