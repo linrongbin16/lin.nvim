@@ -14,103 +14,103 @@ IS_LINUX=0
 IS_MAC=0
 case "$OS" in
 Linux)
-	IS_LINUX=1
-	;;
+  IS_LINUX=1
+  ;;
 Darwin)
-	IS_MAC=1
-	;;
+  IS_MAC=1
+  ;;
 esac
 
 core_deps() {
-	info "install for $OS"
+  info "install for $OS"
 
-	case "$OS" in
-	Linux)
-		if [ -f "/etc/arch-release" ] || [ -f "/etc/artix-release" ]; then
-			. "$NVIM_HOME/inst/pacman.sh"
-		elif [ -f "/etc/fedora-release" ] || [ -f "/etc/redhat-release" ]; then
-			. "$NVIM_HOME/inst/dnf.sh"
-		else
-			. "$NVIM_HOME/inst/apt.sh"
-		fi
-		;;
-	Darwin)
-		. "$NVIM_HOME/inst/brew.sh"
-		;;
-	*)
-		info "$OS is not supported, exit..."
-		exit 1
-		;;
-	esac
+  case "$OS" in
+  Linux)
+    if [ -f "/etc/arch-release" ] || [ -f "/etc/artix-release" ]; then
+      . "$NVIM_HOME/inst/pacman.sh"
+    elif [ -f "/etc/fedora-release" ] || [ -f "/etc/redhat-release" ]; then
+      . "$NVIM_HOME/inst/dnf.sh"
+    else
+      . "$NVIM_HOME/inst/apt.sh"
+    fi
+    ;;
+  Darwin)
+    . "$NVIM_HOME/inst/brew.sh"
+    ;;
+  *)
+    info "$OS is not supported, exit..."
+    exit 1
+    ;;
+  esac
 }
 
-js_deps() {
-	install "install_bun" "bun"
-	install "install_deno" "deno"
-}
+# js_deps() {
+#   install "install_bun" "bun"
+#   install "install_deno" "deno"
+# }
 
 go_deps() {
-	info "install go modern commands"
-	if [ "$IS_MAC" != "1" ]; then
-		install "install_gtrash" "gtrash"
-	fi
+  info "install go modern commands"
+  if [ "$IS_MAC" != "1" ]; then
+    install "install_gtrash" "gtrash"
+  fi
 }
 
 rust_deps() {
-	info "install rust modern commands"
-	install "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y" "cargo"
-	install "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y" "rustc"
-	if [ -f $HOME/.cargo/env ]; then
-		. "$HOME/.cargo/env"
-	fi
-	install "cargo install fd-find" "fd"
-	install "cargo install ripgrep" "rg"
-	install "cargo install --locked bat" "bat"
-	install "cargo install eza" "eza"
-	# install "cargo install --locked tree-sitter-cli" "tree-sitter"
+  info "install rust modern commands"
+  install "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y" "cargo"
+  install "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y" "rustc"
+  if [ -f $HOME/.cargo/env ]; then
+    . "$HOME/.cargo/env"
+  fi
+  install "cargo install fd-find" "fd"
+  install "cargo install ripgrep" "rg"
+  install "cargo install --locked bat" "bat"
+  install "cargo install eza" "eza"
+  # install "cargo install --locked tree-sitter-cli" "tree-sitter"
 }
 
 neovim_configs() {
-	info "install ~/.config/nvim/init.lua for neovim"
-	mkdir -p $HOME/.config
-	backup $HOME/.config/nvim
-	ln -s $NVIM_HOME $HOME/.config/nvim
+  info "install ~/.config/nvim/init.lua for neovim"
+  mkdir -p $HOME/.config
+  backup $HOME/.config/nvim
+  ln -s $NVIM_HOME $HOME/.config/nvim
 
-	# nvim-lspconfig
-	local nvim_lspconfig_home="$NVIM_HOME/lua/configs/neovim/nvim-lspconfig"
-	local nvim_lspconfig_setup_handlers="$nvim_lspconfig_home/setup_handlers.lua"
-	if [ ! -f $nvim_lspconfig_setup_handlers ]; then
-		cp $nvim_lspconfig_home/setup_handlers_sample.lua $nvim_lspconfig_setup_handlers
-	fi
+  # nvim-lspconfig
+  local nvim_lspconfig_home="$NVIM_HOME/lua/configs/neovim/nvim-lspconfig"
+  local nvim_lspconfig_setup_handlers="$nvim_lspconfig_home/setup_handlers.lua"
+  if [ ! -f $nvim_lspconfig_setup_handlers ]; then
+    cp $nvim_lspconfig_home/setup_handlers_sample.lua $nvim_lspconfig_setup_handlers
+  fi
 
-	# conform.nvim
-	local conform_home="$NVIM_HOME/lua/configs/stevearc/conform-nvim"
-	local conform_formatters_by_ft="$conform_home/formatters_by_ft.lua"
-	if [ ! -f $conform_formatters_by_ft ]; then
-		cp $conform_home/formatters_by_ft_sample.lua $conform_formatters_by_ft
-	fi
+  # conform.nvim
+  local conform_home="$NVIM_HOME/lua/configs/stevearc/conform-nvim"
+  local conform_formatters_by_ft="$conform_home/formatters_by_ft.lua"
+  if [ ! -f $conform_formatters_by_ft ]; then
+    cp $conform_home/formatters_by_ft_sample.lua $conform_formatters_by_ft
+  fi
 
-	# # mason-null-ls.nvim
-	# local mason_null_ls_home="$NVIM_HOME/lua/configs/jay-babu/mason-null-ls-nvim"
-	# local mason_null_ls_setup_handlers="$mason_null_ls_home/setup_handlers.lua"
-	# if [ ! -f $mason_null_ls_setup_handlers ]; then
-	# 	cp $mason_null_ls_home/setup_handlers_sample.lua $mason_null_ls_setup_handlers
-	# fi
+  # # mason-null-ls.nvim
+  # local mason_null_ls_home="$NVIM_HOME/lua/configs/jay-babu/mason-null-ls-nvim"
+  # local mason_null_ls_setup_handlers="$mason_null_ls_home/setup_handlers.lua"
+  # if [ ! -f $mason_null_ls_setup_handlers ]; then
+  # 	cp $mason_null_ls_home/setup_handlers_sample.lua $mason_null_ls_setup_handlers
+  # fi
 
-	# # nvim-lint
-	# local nvim_lint_home="$NVIM_HOME/lua/configs/mfussenegger/nvim-lint"
-	# local nvim_lint_linters_by_ft="$nvim_lint_home/linters_by_ft.lua"
-	# if [ ! -f $nvim_lint_linters_by_ft ]; then
-	#     cp $nvim_lint_home/linters_by_ft_sample.lua $nvim_lint_linters_by_ft
-	# fi
+  # # nvim-lint
+  # local nvim_lint_home="$NVIM_HOME/lua/configs/mfussenegger/nvim-lint"
+  # local nvim_lint_linters_by_ft="$nvim_lint_home/linters_by_ft.lua"
+  # if [ ! -f $nvim_lint_linters_by_ft ]; then
+  #     cp $nvim_lint_home/linters_by_ft_sample.lua $nvim_lint_linters_by_ft
+  # fi
 }
 
 main() {
-	core_deps
-	js_deps
-	go_deps
-	rust_deps
-	neovim_configs
+  core_deps
+  # js_deps
+  go_deps
+  rust_deps
+  neovim_configs
 }
 
 main
