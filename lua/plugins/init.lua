@@ -80,14 +80,14 @@ local M = {
 
   -- ---- UI ----
 
-  -- {
-  --   "nvim-neo-tree/neo-tree.nvim",
-  --   event = { VeryLazy },
-  --   dependencies = { "MunifTanjim/nui.nvim", "folke/snacks.nvim", "neovim/nvim-lspconfig" },
-  --   version = "*",
-  --   config = plugin.config("nvim-neo-tree/neo-tree.nvim"),
-  --   keys = plugin.keys("nvim-neo-tree/neo-tree.nvim"),
-  -- },
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    event = { VeryLazy },
+    dependencies = { "MunifTanjim/nui.nvim", "folke/snacks.nvim", "neovim/nvim-lspconfig" },
+    version = "*",
+    config = plugin.config("nvim-neo-tree/neo-tree.nvim"),
+    keys = plugin.keys("nvim-neo-tree/neo-tree.nvim"),
+  },
   {
     "stevearc/oil.nvim",
     dependencies = "nvim-tree/nvim-web-devicons",

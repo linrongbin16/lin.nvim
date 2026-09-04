@@ -101,11 +101,7 @@ require("neo-tree").setup({
     },
   },
   window = {
-    width = layout.editor.width(
-      constants.layout.sidebar.scale,
-      constants.layout.sidebar.min,
-      constants.layout.sidebar.max
-    ),
+    width = layout.editor.width(constants.layout.window.scale),
     mappings = {
       -- window pick
       ["w"] = "none",
@@ -197,22 +193,3 @@ vim.api.nvim_create_autocmd({ "VimResized", "UIEnter" }, {
   group = neo_tree,
   callback = resize_sidebar,
 })
-
-local function bootstrap()
-  local function open_impl()
-    local str = require("commons.str")
-
-    local buftype = vim.bo.buftype
-    local filename = vim.api.nvim_buf_get_name(0)
-    -- print(string.format("buftype:%s, filename:%s", vim.inspect(buftype), vim.inspect(filename)))
-    if str.not_empty(buftype) or str.not_empty(filename) then
-      return
-    end
-
-    vim.cmd("Neotree")
-    resize_sidebar()
-  end
-  vim.defer_fn(open_impl, 1)
-end
-
-bootstrap()
