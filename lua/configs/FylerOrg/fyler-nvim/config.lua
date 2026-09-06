@@ -54,20 +54,25 @@ require("fyler").setup({
         args = { parent = true },
         desc = "Go to parent directory",
       },
-      ["."] = {
-        action = "visit",
-        args = { cursor = true },
-        desc = "Enter directory under cursor",
+      -- ["."] = {
+      --   action = "visit",
+      --   args = { cursor = true },
+      --   desc = "Enter directory under cursor",
+      -- },
+      ["R"] = {
+        action = "refresh",
+        args = { recursive = true, force = true },
+        desc = "Force refresh tree",
       },
       ["h"] = {
         action = "shrink",
         args = { parent = true },
         desc = "Collapse parent directory",
       },
-      ["r"] = {
-        action = "refresh",
-        args = { recursive = true, force = true },
-        desc = "Force refresh tree",
+      ["l"] = {
+        action = "select",
+        args = { pick = true },
+        desc = "Open with window picker",
       },
       ["<CR>"] = {
         action = "select",
@@ -83,16 +88,16 @@ require("fyler").setup({
         action = "visit",
         desc = "Go to root directory",
       },
-      ["g."] = {
-        action = "toggle_ui",
-        args = { "hidden_items" },
-        desc = "Toggle hidden files",
-      },
-      ["gi"] = {
-        action = "toggle_ui",
-        args = { "indent_guides" },
-        desc = "Toggle indent guides",
-      },
+      -- ["g."] = {
+      --   action = "toggle_ui",
+      --   args = { "hidden_items" },
+      --   desc = "Toggle hidden files",
+      -- },
+      -- ["gi"] = {
+      --   action = "toggle_ui",
+      --   args = { "indent_guides" },
+      --   desc = "Toggle indent guides",
+      -- },
       ["q"] = {
         action = "close",
         desc = "Close finder",
