@@ -101,7 +101,11 @@ require("neo-tree").setup({
     },
   },
   window = {
-    width = layout.editor.width(0.4, 10, 80),
+    width = layout.editor.width(
+      constants.layout.sidebar.scale,
+      constants.layout.sidebar.min,
+      constants.layout.sidebar.max
+    ),
     mappings = {
       -- window pick
       ["w"] = "none",
