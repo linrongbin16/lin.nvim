@@ -17,6 +17,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local opts = {
+  dev = { path = "~/github/linrongbin16" },
   root = stdpath_config .. "/lazy",
   git = {
     timeout = 300,
