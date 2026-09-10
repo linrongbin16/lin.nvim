@@ -3,8 +3,13 @@ local layout = require("api.layout")
 local events = require("neo-tree.events")
 
 -- Snacks filepath rename with LSP integration
-local function on_move(data)
+local function on_file_move(data)
   require("snacks").rename.on_rename_file(data.source, data.destination)
+end
+
+-- Auto close neo-tree sidebar after open a file
+local function on_file_open(data)
+  require("neo-tree.command").execute({ action = "close" })
 end
 
 local function trash_bin()
@@ -151,49 +156,50 @@ require("neo-tree").setup({
     },
   },
   event_handlers = {
-    { event = events.FILE_MOVED, handler = on_move },
-    { event = events.FILE_RENAMED, handler = on_move },
+    { event = events.FILE_MOVED, handler = on_file_move },
+    { event = events.FILE_RENAMED, handler = on_file_move },
+    { event = events.FILE_OPENED, handler = on_file_open },
   },
 })
 
-local sidebar_resizing = false
-local function resize_sidebar()
-  if sidebar_resizing then
-    return
-  end
-
-  sidebar_resizing = true
-  local neo_tree_filesystem = string.lower("neo-tree filesystem")
-  local neo_tree_winnr = nil
-  local tabnr = vim.api.nvim_get_current_tabpage()
-  for _, winnr in ipairs(vim.api.nvim_tabpage_list_wins(tabnr)) do
-    local bufnr = vim.api.nvim_win_get_buf(winnr)
-    if vim.api.nvim_buf_is_valid(bufnr) then
-      local bufname = vim.fn.bufname(bufnr)
-      if
-        string.len(bufname) >= string.len(neo_tree_filesystem)
-        and string.sub(bufname, 1, #neo_tree_filesystem):lower() == neo_tree_filesystem
-      then
-        neo_tree_winnr = winnr
-        break
-      end
-    end
-  end
-  if neo_tree_winnr then
-    local new_width = layout.editor.width(
-      constants.layout.sidebar.scale,
-      constants.layout.sidebar.min,
-      constants.layout.sidebar.max
-    )
-    vim.api.nvim_win_set_width(neo_tree_winnr, new_width)
-  end
-  vim.schedule(function()
-    sidebar_resizing = false
-  end)
-end
-
-local neo_tree = vim.api.nvim_create_augroup("neo_tree", { clear = true })
-vim.api.nvim_create_autocmd({ "VimResized", "UIEnter" }, {
-  group = neo_tree,
-  callback = resize_sidebar,
-})
+-- local sidebar_resizing = false
+-- local function resize_sidebar()
+--   if sidebar_resizing then
+--     return
+--   end
+--
+--   sidebar_resizing = true
+--   local neo_tree_filesystem = string.lower("neo-tree filesystem")
+--   local neo_tree_winnr = nil
+--   local tabnr = vim.api.nvim_get_current_tabpage()
+--   for _, winnr in ipairs(vim.api.nvim_tabpage_list_wins(tabnr)) do
+--     local bufnr = vim.api.nvim_win_get_buf(winnr)
+--     if vim.api.nvim_buf_is_valid(bufnr) then
+--       local bufname = vim.fn.bufname(bufnr)
+--       if
+--         string.len(bufname) >= string.len(neo_tree_filesystem)
+--         and string.sub(bufname, 1, #neo_tree_filesystem):lower() == neo_tree_filesystem
+--       then
+--         neo_tree_winnr = winnr
+--         break
+--       end
+--     end
+--   end
+--   if neo_tree_winnr then
+--     local new_width = layout.editor.width(
+--       constants.layout.sidebar.scale,
+--       constants.layout.sidebar.min,
+--       constants.layout.sidebar.max
+--     )
+--     vim.api.nvim_win_set_width(neo_tree_winnr, new_width)
+--   end
+--   vim.schedule(function()
+--     sidebar_resizing = false
+--   end)
+-- end
+--
+-- local neo_tree = vim.api.nvim_create_augroup("neo_tree", { clear = true })
+-- vim.api.nvim_create_autocmd({ "VimResized", "UIEnter" }, {
+--   group = neo_tree,
+--   callback = resize_sidebar,
+-- })
