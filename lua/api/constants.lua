@@ -26,8 +26,8 @@ M.window = {
 
 M.layout = {
   window = { scale = 0.85 },
-  sidebar = { scale = 0.2, min = 20, max = 60 },
-  input = { scale = 0.3, min = 30, max = 60 },
+  sidebar = { scale = 0.35, min = 20, max = 60 },
+  input = { scale = 0.35, min = 20, max = 60 },
   select = { scale = 0.5, min = 40, max = 100 },
 }
 
