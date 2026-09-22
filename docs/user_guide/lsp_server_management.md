@@ -15,9 +15,9 @@ To bring LSP based IDE features to user, quite a few plugins are assembled:
 
 ## Configuration
 
-### LSP Servers
-
-To customize a LSP server, please enable the [`lua/configs/neovim/nvim-lspconfig/setup_handlers.lua`](https://github.com/linrongbin16/lin.nvim/blob/59fcdd16024006796f0825794f3c2173a8a2a306/lua/configs/neovim/nvim-lspconfig/setup_handlers_sample.lua?plain=1) file, and edit the LSP server configuration.
+<!-- ### LSP Servers -->
+<!--  -->
+<!-- To customize a LSP server, please enable the [`lua/configs/neovim/nvim-lspconfig/setup_handlers.lua`](https://github.com/linrongbin16/lin.nvim/blob/59fcdd16024006796f0825794f3c2173a8a2a306/lua/configs/neovim/nvim-lspconfig/setup_handlers_sample.lua?plain=1) file, and edit the LSP server configuration. -->
 
 ### Code Formatters
 
