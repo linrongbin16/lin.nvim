@@ -39,6 +39,10 @@ local M = {
     dependencies = "rktjmp/lush.nvim",
     config = plugin.config("linrongbin16/colorbox.nvim"),
   },
+  {
+    "neovim/nvim-lspconfig",
+    event = { VeryLazy, BufReadPre, BufNewFile },
+  },
 
   -- ---- HIGHLIGHT ----
 
@@ -130,10 +134,6 @@ local M = {
 
   -- ---- LSP ----
 
-  {
-    "neovim/nvim-lspconfig",
-    event = { VeryLazy, BufReadPre, BufNewFile },
-  },
   {
     "mason-org/mason.nvim",
     event = { VeryLazy, BufReadPre, BufNewFile },

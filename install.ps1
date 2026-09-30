@@ -129,12 +129,12 @@ function NvimConfig()
   cmd /c mklink $env:LOCALAPPDATA\nvim $NVIM_HOME /D
 
   # nvim-lspconfig
-  $NvimLspconfigHome = "$NVIM_HOME\lua\configs\neovim\nvim-lspconfig"
-  $NvimLspconfigSetupHandlers = "$NvimLspconfigHome\setup_handlers.lua"
-  if (-not(TestReparsePoint $NvimLspconfigSetupHandlers) -and -not(Test-Path $NvimLspconfigSetupHandlers))
-  {
-    Copy-Item -Path "$NvimLspconfigHome\setup_handlers_sample.lua" -Destination "$NvimLspconfigSetupHandlers"
-  }
+  # $NvimLspconfigHome = "$NVIM_HOME\lua\configs\neovim\nvim-lspconfig"
+  # $NvimLspconfigSetupHandlers = "$NvimLspconfigHome\setup_handlers.lua"
+  # if (-not(TestReparsePoint $NvimLspconfigSetupHandlers) -and -not(Test-Path $NvimLspconfigSetupHandlers))
+  # {
+  #   Copy-Item -Path "$NvimLspconfigHome\setup_handlers_sample.lua" -Destination "$NvimLspconfigSetupHandlers"
+  # }
 
   # conform.nvim
   $ConformHome = "$NVIM_HOME\lua\configs\stevearc\conform-nvim"
