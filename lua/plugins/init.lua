@@ -75,6 +75,13 @@ local M = {
   -- ---- MARKDOWN PREVIEW ----
 
   {
+    "linrongbin16/mo-markdown-preview.nvim",
+    dev = true,
+    cmd = { "MoPreview" },
+    config = plugin.config("linrongbin16/mo-markdown-preview.nvim"),
+    keys = plugin.keys("linrongbin16/mo-markdown-preview.nvim"),
+  },
+  {
     "iamcco/markdown-preview.nvim",
     build = "cd app && npm install",
     ft = { "markdown" },
