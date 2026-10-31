@@ -56,6 +56,13 @@
 --     priority = 1, -- Needs to be a really low priority, to catch others plugins keybindings.
 --     opts = {},
 --   },
+--   {
+--     "iamcco/markdown-preview.nvim",
+--     build = "cd app && npm install",
+--     ft = { "markdown" },
+--     init = plugin.init("iamcco/markdown-preview.nvim"),
+--     keys = plugin.keys("iamcco/markdown-preview.nvim"),
+--   },
 --   -- Vim/Neovim api version helper
 --   {
 --     "tweekmonster/helpful.vim",
