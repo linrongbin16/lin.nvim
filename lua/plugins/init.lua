@@ -80,13 +80,6 @@ local M = {
     config = plugin.config("linrongbin16/mo-markdown-preview.nvim"),
     keys = plugin.keys("linrongbin16/mo-markdown-preview.nvim"),
   },
-  {
-    "iamcco/markdown-preview.nvim",
-    build = "cd app && npm install",
-    ft = { "markdown" },
-    init = plugin.init("iamcco/markdown-preview.nvim"),
-    keys = plugin.keys("iamcco/markdown-preview.nvim"),
-  },
 
   -- ---- UI ----
 
