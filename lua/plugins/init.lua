@@ -76,7 +76,7 @@ local M = {
 
   {
     "linrongbin16/mo-markdown-preview.nvim",
-    cmd = { "MoOpen", "MoClose" },
+    cmd = { "MoOpen" },
     config = plugin.config("linrongbin16/mo-markdown-preview.nvim"),
     keys = plugin.keys("linrongbin16/mo-markdown-preview.nvim"),
   },
