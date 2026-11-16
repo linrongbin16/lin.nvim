@@ -8,6 +8,12 @@ local M = {
     "<cmd>MoPreview --close<cr>",
     { desc = "Close markdown previewer" }
   ),
+  keymap.set_lazily(
+    "n",
+    "<leader>mC",
+    "<cmd>MoPreview --clear<cr>",
+    { desc = "Clear all opened files in markdown previewer" }
+  ),
 }
 
 return M
