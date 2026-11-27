@@ -22,3 +22,23 @@ if vim.g.neovide then
   vim.g.neovide_scroll_animation_far_lines = 0
   vim.g.neovide_scroll_animation_length = 0
 end
+
+-- ---- Rust Glancer LSP ----
+-- executable: ~/.local/bin/rust-glancer
+-- configuration: https://rust-glancer.github.io/docs/usage/CONFIGURE.html
+-- conflict with: rust-analyzer / rustaceanvim.nvim
+vim.lsp.config("rust_glancer", {
+  cmd = { vim.fn.expand("~/.local/bin/rust-glancer"), "lsp" },
+  init_options = {
+    diagnostics = {
+      onSave = true,
+      -- onStartup = true, -- run `cargo check` on startup
+    },
+    -- cargo metadata enable all features
+    cargo = {
+      allFeatures = true,
+    },
+  },
+})
+-- lsp config enable it
+vim.lsp.enable("rust_glancer")
